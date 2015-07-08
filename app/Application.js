@@ -10,8 +10,8 @@ Ext.define('KRF_DEV.Application', {
     
     //arcServiceUrl:'http://cetech.iptime.org:6080/arcgis',
     arcServiceUrl:'http://fireftp.iptime.org:6080/arcgis',
-    //layer1Url: 'http://fireftp.iptime.org:6080/arcgis/rest/services/reach/MapServer/',
-    layer1Url: 'http://fireftp.iptime.org:6080/arcgis/rest/services/drone/MapServer',
+    layer1Url: 'http://fireftp.iptime.org:6080/arcgis/rest/services/reach/MapServer/',
+    //layer1Url: 'http://fireftp.iptime.org:6080/arcgis/rest/services/drone/MapServer',
     
     stores: [
  		'KRF_DEV.store.dev_test.GridStoreTest',
