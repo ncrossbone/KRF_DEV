@@ -15,6 +15,8 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM_GRID', {
 	listeners: {
 		// beforeload, load, afterload
 		beforeload: function(store) {
+			//console.info(store.constructor);
+			//return;
 			//console.info(store);
 			// Ext.defer(function() { 
 			// defer : 미루다, 연기하다
@@ -25,11 +27,11 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM_GRID', {
 				idColumn = "ADM_CD";
 				
 				//console.info(KRF_DEV.app.layer1Url);
-				store.layerId = "57";
+				store.layerId = "54";
 				
-				if(store.layerId == '56'){ nameColumn = "DO_NM"; whereStr = "1=1" }
-				if(store.layerId == '57'){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD + "%'"}
-				if(store.layerId == '58'){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
+				if(store.layerId == '53'){ nameColumn = "DO_NM"; whereStr = "1=1" }
+				if(store.layerId == '54'){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD + "%'"}
+				if(store.layerId == '55'){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
 				
 				// id, name 셋팅이 안돼있으면 리턴
 				if(idColumn == undefined || nameColumn == undefined || whereStr == undefined)

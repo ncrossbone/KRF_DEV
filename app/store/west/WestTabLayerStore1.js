@@ -4,13 +4,13 @@ Ext.define('KRF_DEV.store.west.WestTabLayerStore1', {
 
 	autoLoad: true,
 
-//	proxy: {
-//		type: 'ajax',
-//		url: 'resources/data/west/WestTabLayerData1.json',
-//		reader: {
-//			type: 'json'
-//		}
-//	},
+	proxy: {
+		type: 'ajax',
+		url: 'resources/data/west/WestTabLayerData1.json',
+		reader: {
+			type: 'json'
+		}
+	},
 	
 	constructor: function(){
 		this.callParent();
@@ -22,7 +22,8 @@ Ext.define('KRF_DEV.store.west.WestTabLayerStore1', {
 			//var storeData = this;
 	
 			//console.info(this);
-			//return;
+			// khLee 추후 동적 레이어 바인딩 고려..
+			return;
 			var queryTask = new esri.tasks.QueryTask('http://fireftp.iptime.org:6080/arcgis/rest/services/reach/MapServer/f=pjson'); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;

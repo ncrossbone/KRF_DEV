@@ -27,9 +27,9 @@ function AddTab(parent, params){
 			xtype: params.xtype,
 			//store: params.store,
 			title: params.title,
-			id: params.id,
+			id: params.id
 			//columns: params.columns,
-			height: params.height
+			//height: params.height
 		});
 		
 		//console.info(parent.items.items);
@@ -133,9 +133,9 @@ function CreateWindow(params){
 				xtype: params.xtype,
 				//store: params.store,
 				title: params.title,
-				id: params.id,
+				id: params.id
 				//columns: params.columns,
-				height: params.height
+				//height: params.height
 			}]
 		}]
 	}).show();

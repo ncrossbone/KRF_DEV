@@ -899,7 +899,6 @@ $include-ext-window-messagebox: true;
 $include-ext-window-toast: true;
 $include-ext-window-window: true;
 $include-kef_dev-view-center-center: true;
-$include-krf_dev-application: true;
 $include-krf_dev-model-dev_test-gridmodeltest: true;
 $include-krf_dev-store-appvariable: true;
 $include-krf_dev-store-dev_test-gridstoretest: true;

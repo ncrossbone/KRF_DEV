@@ -24,9 +24,9 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM', {
 				
 				idColumn = "ADM_CD";
 				
-				if(store.layerId == '56'){ nameColumn = "DO_NM"; whereStr = "1=1" }
-				if(store.layerId == '57'){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD + "%'"}
-				if(store.layerId == '58'){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
+				if(store.layerId == '53'){ nameColumn = "DO_NM"; whereStr = "1=1" }
+				if(store.layerId == '54'){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD + "%'"}
+				if(store.layerId == '55'){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
 				
 				// id, name 셋팅이 안돼있으면 리턴
 				if(idColumn == undefined || nameColumn == undefined || whereStr == undefined)

@@ -40,7 +40,7 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 			},
 			items: [{
 				id: 'cmbArea1',
-				layerId: '56',
+				layerId: '53',
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
@@ -67,7 +67,7 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 			},
 			items: [{
 				id: 'cmbArea2',
-				layerId: '57',
+				layerId: '54',
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
@@ -96,7 +96,7 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 			},
 			items: [{
 				id: 'cmbArea3',
-				layerId: '58',
+				layerId: '55',
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',
