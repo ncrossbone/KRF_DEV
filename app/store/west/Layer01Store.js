@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.store.west.WestTabLayerStore1', {
+Ext.define('KRF_DEV.store.west.Layer01Store', {
 	
 	extend: 'Ext.data.TreeStore',
 
@@ -6,7 +6,7 @@ Ext.define('KRF_DEV.store.west.WestTabLayerStore1', {
 
 	proxy: {
 		type: 'ajax',
-		url: 'resources/data/west/WestTabLayerData1.json',
+		url: 'resources/data/west/Layer01Data.json',
 		reader: {
 			type: 'json'
 		}

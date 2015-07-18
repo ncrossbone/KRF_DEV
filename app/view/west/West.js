@@ -2,7 +2,8 @@
  * This example shows navigation tabs docked to the side.
  */
 Ext.define('KRF_DEV.view.west.West', {
-    extend: 'Ext.tab.Panel',
+    //extend: 'Ext.tab.Panel',
+	extend: 'Ext.panel.Panel',
     
     xtype: 'app-default-west',
     
@@ -12,38 +13,47 @@ Ext.define('KRF_DEV.view.west.West', {
     
     controller: 'west',
 
-    width: 300,
+    width: 400,
 
-    tabPosition: 'left',
-    tabRotation: 0,
+//    tabPosition: 'left',
+//    tabRotation: 0,
+//    
+//    tabBar: {
+//        border: false
+//    },
     
-    tabBar: {
-        border: false
-    },
-    
-    bind: {title: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>{testText}'},
+    //bind: {title: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>{testText}'},
+    title: '화면 제어판',
     collapsible: true,
     split: true,
     header: false,
-    /*
-    placeholder: {
-    	lbar: [{
-    		text: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>주제도'
+    
+    layout: {
+    	type: 'border'
+    },
+    
+    items: [{
+    	xtype: 'west-buttonpanel',
+    	region: 'west'
+    }, {
+    	xtype: 'container',
+    	id: 'westContents',
+    	region: 'center',
+    	layout: {
+    		type: 'card'
+    	},
+    	items: [{
+    		xtype: 'west-Layer01'
     	}, {
-    		text: '<img width="32" height="32" src="/resources/images/temp/1_off.png" /><br>위치검색'
-    	}, {
-    		text: '<img width="32" height="32" src="/resources/images/temp/1_off.png" /><br>일반모드'
-    	}, {
-    		text: '<img width="32" height="32" src="/resources/images/temp/1_off.png" /><br>리치모드'
+    		xtype: 'west-searchArea'
     	}]
-    },
-    */
+    }]
 
-    defaults: {
-        textAlign: 'center',
-        bodyPadding: 5
-    },
-
+//    defaults: {
+//        textAlign: 'center',
+//        bodyPadding: 5
+//    },
+/*
     initComponent: function(){
     	this.items = [{
             title: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>' + KRF_DEV.app.ServiceUrl,
@@ -117,4 +127,5 @@ Ext.define('KRF_DEV.view.west.West', {
     	
     	this.callParent();
     }
+    */
 });

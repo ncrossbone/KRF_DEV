@@ -1,8 +1,8 @@
-Ext.define('KRF_DEV.view.west.WestTabLayerController', {
+Ext.define('KRF_DEV.view.west.Layer01Controller', {
 	
 	extend: 'Ext.app.ViewController',
 
-	alias: 'controller.westTabLayerController',
+	alias: 'controller.layer01Controller',
 
 	control: {
 		'treepanel': {
@@ -12,7 +12,7 @@ Ext.define('KRF_DEV.view.west.WestTabLayerController', {
 	
 	onCheckChanged: function(node, checked, a) {
 		// view.west.WestTabLayer id로 활성화된 탭 id가져옴
-		var tabID = Ext.getCmp('westTabLayer').getActiveTab().id;
+		var tabID = Ext.getCmp('westLayer01').getActiveTab().id;
 
 		if(!node.get('leaf')) {
 			this.checkAllChildren(node, checked, tabID);

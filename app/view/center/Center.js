@@ -1,6 +1,10 @@
 Ext.define('KEF_DEV.view.center.Center', {
 	
-	extend: 'Ext.container.Container',
+	extend: 'Ext.panel.Panel',
+	
+	title: '전체',
+	
+	collapsible: true,
 	
 	xtype: 'app-default-center',
 	

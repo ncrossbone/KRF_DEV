@@ -172,7 +172,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
     },
     
     areaSelectHandler: function(info){
-    	//console.info(info.layerId);
+    	console.info(info);
     	var me = this;
     	me.sourceGraphicLayer.clear();
 		me.targetGraphicLayer.clear();
@@ -181,11 +181,28 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};
-		if(info.layerId!=24){
-			query.where = "ADM_CD = '" + info.admCd + "'";
-		}else{
-			query.where = "ADM_CD = " + info.admCd;
+		
+		var idField = "";
+		var idValue = "";
+		//console.info(info.idField);
+		// 행정구역 검색은 info.admCd로 검색
+		if(info.idField == undefined || info.idField == ""){
+			idField = "ADM_CD";
 		}
+		else{
+			idField = info.idField;
+		}
+		
+		if(info.idValue == undefined || info.idValue == ""){
+			if(info.admCd != undefined && info.admCd != "")
+				idValue = info.admCd;
+		}
+		else{
+			idValue = info.idValue;
+		}
+		
+		query.where = idField + " = '" + idValue + "'";
+		
 		//console.info(KRF_DEV.app.layer1Url + info.layerId);
 		//console.info(query.where);
 		query.outFields = ["*"];

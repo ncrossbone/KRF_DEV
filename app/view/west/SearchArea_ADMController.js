@@ -1,8 +1,8 @@
-Ext.define('KRF_DEV.view.west.WestTabSearch_ADMController', {
+Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 	
 	extend: 'Ext.app.ViewController',
 
-	alias: 'controller.westTabSearch_ADMController',
+	alias: 'controller.searchArea_ADMController',
 	
 	control: {
 		'#cmbArea1': {

@@ -1,19 +1,15 @@
 /*
  * 행정구역(Administrative District) 검색 페이지
  */
-Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
+Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 	
 	extend: 'Ext.panel.Panel',
-	/*
-	requires: [
-		'Sgis.view.west.WestTab2Controller'
-	],
-	*/
-	xtype: 'app-westTabSearch_ADM',
-
-	controller: 'westTabSearch_ADMController',
 	
-	title: '행정구역 검색',
+	xtype: 'west-searchArea_ADM',
+
+	controller: 'searchArea_ADMController',
+	
+	title: '행정구역으로 찾기',
 	
 	autoScroll: true,
 	
@@ -40,7 +36,7 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 			},
 			items: [{
 				id: 'cmbArea1',
-				layerId: '53',
+				layerId: '56',
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
@@ -50,9 +46,12 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 				labelPad: 10,
 				width: 180,
 				//labelSeparator: '', // Defaults to: ':'
-				store: Ext.create('KRF_DEV.store.west.WestTabSearch_ADM'),
+				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id'
+			}, {
+				xtype: 'container',
+				width: 10
 			},{
 				id: 'btnSearch1',
 				xtype: 'button',
@@ -67,7 +66,7 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 			},
 			items: [{
 				id: 'cmbArea2',
-				layerId: '54',
+				layerId: '57',
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
@@ -77,10 +76,13 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 				labelPad: 10,
 				width: 180,
 				//labelSeparator: '', // Defaults to: ':'
-				store: Ext.create('KRF_DEV.store.west.WestTabSearch_ADM'),
+				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id',
 				disabled: true
+			}, {
+				xtype: 'container',
+				width: 10
 			},{
 				id: 'btnSearch2',
 				xtype: 'button',
@@ -96,7 +98,7 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 			},
 			items: [{
 				id: 'cmbArea3',
-				layerId: '55',
+				layerId: '58',
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',
@@ -106,10 +108,13 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 				labelPad: 10,
 				width: 180,
 				//labelSeparator: '', // Defaults to: ':'
-				store: Ext.create('KRF_DEV.store.west.WestTabSearch_ADM'),
+				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
 				valueField: 'id',
 				disabled: true
+			}, {
+				xtype: 'container',
+				width: 10
 			},{
 				id: 'btnSearch3',
 				xtype: 'button',
@@ -117,6 +122,28 @@ Ext.define('KRF_DEV.view.west.WestTabSearch_ADM', {
 				width: 40,
 				text: '검색',
 				disabled: true
+			}]
+		}, {
+			xtype: 'container',
+			height: 10
+		}, {
+			xtype: 'container',
+			layout: {
+				type: 'hbox',
+				align: 'end',
+				pack: 'middle'
+			},
+			items: [{
+				xtype: 'button',
+				id: 'btnADMReset',
+				text: '초기화'
+			}, {
+				xtype: 'container',
+				width: 10
+			}, {
+				xtype: 'button',
+				id: 'btnADMSelect',
+				text: '선택'
 			}]
 		}]
 	}]

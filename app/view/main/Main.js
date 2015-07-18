@@ -3,15 +3,7 @@ Ext.defer(function() {
 	    extend: 'Ext.container.Container',
 	    
 	    requires: [
-			'KRF_DEV.view.main.MainModel',
-			'KRF_DEV.view.north.North',
-			'KRF_DEV.view.west.West',
-			'KRF_DEV.view.west.WestTabLayer',
-			'KEF_DEV.view.center.Center',
-	        'KRF_DEV.view.common.Window',
-	        'KRF_DEV.view.common.Grid',
-	        'KRF_DEV.view.common.MapToolbar',
-	        'KRF_DEV.view.map.CoreMap'
+			
 	    ],
 
 	    xtype: 'app-main',

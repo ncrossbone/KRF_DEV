@@ -1,13 +1,13 @@
-Ext.define('KRF_DEV.view.west.WestTabLayer', {
+Ext.define('KRF_DEV.view.west.Layer01', {
 	
 	extend: 'Ext.tab.Panel',
 	
-	xtype: 'app-westTabLayer',
+	xtype: 'west-Layer01',
 	
-	id: 'westTabLayer', // view.west.WestTabLayerController에서 사용
+	id: 'westLayer01', // view.west.WestTabLayerController에서 사용
 	
 	requires: [
-		'KRF_DEV.view.west.WestTabLayerController'
+		'KRF_DEV.view.west.Layer01Controller'
 	],
 
 	title: 'KRF 레이어',
@@ -34,8 +34,8 @@ Ext.define('KRF_DEV.view.west.WestTabLayer', {
 		viewConfig: {
 			style: { overflow: 'auto', overflowX: 'hidden' }
 		},
-		store : Ext.create('KRF_DEV.store.west.WestTabLayerStore1'),
-		controller: 'westTabLayerController',
+		store : Ext.create('KRF_DEV.store.west.Layer01Store'),
+		controller: 'layer01Controller',
 		id: 'DynamicLayer1', // view.map.DynamicLayerAdmin의 layer.id와 일치시키자..
 		rootVisible: false,
 		useArrows: true,

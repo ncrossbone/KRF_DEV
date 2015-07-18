@@ -258,201 +258,196 @@
 	}]
 }, {
 	"id": "48",
-	"text": "수질영향권역",
-	"checked": false,
-	"expanded": true,
-
-	"children": [{
-		"id": "49",
-		"text": "대권역",
-		"leaf": true,
-		"checked": false
-	}, {
-		"id": "50",
-		"text": "중권역_2013",
-		"leaf": true,
-		"checked": false
-	}, {
-		"id": "51",
-		"text": "소권역",
-		"leaf": true,
-		"checked": false
-	}]
-}, {
-	"id": "52",
-	"text": "행정구역(법정동)",
-	"checked": false,
-	"expanded": true,
-
-	"children": [{
-		"id": "53",
-		"text": "법정동_시도",
-		"leaf": true,
-		"checked": false
-	}, {
-		"id": "54",
-		"text": "법정동_시군구",
-		"leaf": true,
-		"checked": false
-	}, {
-		"id": "55",
-		"text": "법정동_읍면동",
-		"leaf": true,
-		"checked": false
-	}, {
-		"id": "56",
-		"text": "법정동_동리",
-		"leaf": true,
-		"checked": false
-	}]
-}, {
-	"id": "57",
 	"text": "하천",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "58",
+		"id": "49",
 		"text": "국가하천",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "59",
+		"id": "50",
 		"text": "지방하천",
-		"leaf": true,
-		"checked": false
-	}, {
-		"id": "60",
-		"text": "녹조영상",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "61",
+	"id": "51",
+	"text": "수질영향권역",
+	"checked": false,
+	"expanded": true,
+
+	"children": [{
+		"id": "52",
+		"text": "대권역",
+		"leaf": true,
+		"checked": false
+	}, {
+		"id": "53",
+		"text": "중권역_2013",
+		"leaf": true,
+		"checked": false
+	}, {
+		"id": "54",
+		"text": "소권역",
+		"leaf": true,
+		"checked": false
+	}]
+}, {
+	"id": "55",
+	"text": "행정구역(법정동)",
+	"checked": false,
+	"expanded": true,
+
+	"children": [{
+		"id": "56",
+		"text": "법정동_시도",
+		"leaf": true,
+		"checked": false
+	}, {
+		"id": "57",
+		"text": "법정동_시군구",
+		"leaf": true,
+		"checked": false
+	}, {
+		"id": "58",
+		"text": "법정동_읍면동",
+		"leaf": true,
+		"checked": false
+	}, {
+		"id": "59",
+		"text": "법정동_동리",
+		"leaf": true,
+		"checked": false
+	}]
+}, {
+	"id": "60",
 	"text": "식생도(전국)",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "62",
+		"id": "61",
 		"text": "식생도",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "63",
+	"id": "62",
 	"text": "토지피복도(전국)",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "64",
+		"id": "63",
 		"text": "토지피복도",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "65",
+	"id": "64",
 	"text": "용수지도",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "66",
+		"id": "65",
 		"text": "중권역_용수",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "67",
+	"id": "66",
 	"text": "호소",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "68",
+		"id": "67",
 		"text": "호소_",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "69",
+	"id": "68",
 	"text": "수질보호구역",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "70",
+		"id": "69",
 		"text": "특별대책지역",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "71",
+		"id": "70",
 		"text": "오수처리대책지역",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "72",
+		"id": "71",
 		"text": "상수원보호구역",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "73",
+		"id": "72",
 		"text": "배출시설제한지역",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "74",
+		"id": "73",
 		"text": "수변구역",
 		"leaf": true,
 		"checked": false
 	}, {
-		"id": "75",
+		"id": "74",
 		"text": "그린벨트",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "76",
+	"id": "75",
 	"text": "처리구역",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "77",
+		"id": "76",
 		"text": "축산폐수공공처리구역",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "78",
+	"id": "77",
 	"text": "총량관리단위유역",
 	"checked": false,
 	"expanded": true,
 
 	"children": [{
-		"id": "79",
+		"id": "78",
 		"text": "총량관리단위유역_",
 		"leaf": true,
 		"checked": false
 	}]
 }, {
-	"id": "80",
+	"id": "79",
 	"text": "대권역",
 	"checked": false,
 	"leaf": true
 }, {
-	"id": "81",
+	"id": "80",
 	"text": "_Catchment_simple",
 	"checked": false,
 	"leaf": true
 }, {
-	"id": "82",
+	"id": "81",
 	"text": "REACH_ALL_simple",
 	"checked": false,
 	"leaf": true
 }, {
-	"id": "83",
+	"id": "82",
 	"text": "DongRi_chach",
 	"checked": false,
 	"leaf": true
