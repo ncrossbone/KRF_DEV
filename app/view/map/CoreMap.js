@@ -32,16 +32,17 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
     	 		showAttribution: false,
     	 		sliderPosition: "bottom-right",
     	 		sliderStyle: "large",
-    	 		zoom: 5,
+    	 		zoom: 8,
     	 		autoResize: true
     		});
             
         	//me.map.resize();
         	me.baseMapInit();
-        	me.map.setLevel(1+6);
+        	me.map.setLevel(8);
         	window.clearInterval(timerId);
-        	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
         	
+        	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin_Reach', me.map);
+        	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
         	//me.geometryService = new esri.tasks.GeometryService(KRF_DEV.app.arcServiceUrl + "/rest/services/Utilities/Geometry/GeometryServer");
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	

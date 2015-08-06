@@ -14,7 +14,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 	autoScroll: true,
 	
 	//bodyPadding: 10,
-	border: 0,
+	//border: 0,
+	
+	cls: 'khLee-x-searcharea-water',
 	
 	layout: {
 		type: 'vbox',
@@ -23,8 +25,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 	
 	items: [{
 		xtype: 'form',
-		padding: '10 0 10 0', // 'top right bottom left'
-		border: 0,
+		cls: 'khLee-x-form',
 		layout: {
 			type: 'vbox',
 			align: 'stretch'
@@ -40,11 +41,12 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
-				fieldLabel: '시도 ',
-				labelWidth: 50,
+				cls: 'khLee-x-form-item-label-default',
+				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>시　도</b> ',
+				labelWidth: 60,
 				labelAlign: 'right',
 				labelPad: 10,
-				width: 180,
+				width: 200,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
@@ -56,9 +58,13 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				id: 'btnSearch1',
 				xtype: 'button',
 				lnkCmbId: 'cmbArea1',
-				width: 40,
-				text: '검색'
+				//width: 40,
+				//text: '검색'
+				cls: 'khLee-x-button-move'
 			}]
+		}, {
+			xtype: 'container',
+			height: 7
 		}, {
 			xtype: 'container',
 			layout: {
@@ -70,11 +76,12 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
-				fieldLabel: '시군구 ',
-				labelWidth: 50,
+				cls: 'khLee-x-form-item-label-default',
+				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>시군구</b> ',
+				labelWidth: 60,
 				labelAlign: 'right',
 				labelPad: 10,
-				width: 180,
+				width: 200,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
@@ -87,10 +94,14 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				id: 'btnSearch2',
 				xtype: 'button',
 				lnkCmbId: 'cmbArea2',
-				width: 40,
-				text: '검색',
-				disabled: true
+				//width: 40,
+				//text: '검색',
+				disabled: true,
+				cls: 'khLee-x-button-move'
 			}]
+		}, {
+			xtype: 'container',
+			height: 7
 		}, {
 			xtype: 'container',
 			layout: {
@@ -102,11 +113,12 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',
-				fieldLabel: '읍면동 ',
-				labelWidth: 50,
+				cls: 'khLee-x-form-item-label-default',
+				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>읍면동</b> ',
+				labelWidth: 60,
 				labelAlign: 'right',
 				labelPad: 10,
-				width: 180,
+				width: 200,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
@@ -119,13 +131,14 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				id: 'btnSearch3',
 				xtype: 'button',
 				lnkCmbId: 'cmbArea3',
-				width: 40,
-				text: '검색',
-				disabled: true
+				//width: 40,
+				//text: '검색',
+				disabled: true,
+				cls: 'khLee-x-button-move'
 			}]
 		}, {
 			xtype: 'container',
-			height: 10
+			height: 17
 		}, {
 			xtype: 'container',
 			layout: {
@@ -136,14 +149,16 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			items: [{
 				xtype: 'button',
 				id: 'btnADMReset',
-				text: '초기화'
+				//text: '초기화'
+				cls: 'khLee-x-button-reset'
 			}, {
 				xtype: 'container',
 				width: 10
 			}, {
 				xtype: 'button',
 				id: 'btnADMSelect',
-				text: '선택'
+				//text: '선택'
+				cls: 'khLee-x-button-select'
 			}]
 		}]
 	}]

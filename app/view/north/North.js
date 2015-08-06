@@ -2,7 +2,8 @@ Ext.define('KRF_DEV.view.north.North', {
 	
 	xtype: 'app-default-north',
 	
-	extend: 'Ext.panel.Panel',
+	//extend: 'Ext.panel.Panel',
+	extend: 'Ext.toolbar.Toolbar',
 	
 	requires: [
 	    'KRF_DEV.view.north.NorthController'
@@ -12,28 +13,27 @@ Ext.define('KRF_DEV.view.north.North', {
 	
 	padding: 10,
 	
-	height: 50,
+	height: 64,
 	
 	padding: 0,
 	
+	cls: 'x-toolbar-default-north-khLee',
+	
 	layout: {
 		type: 'hbox',
-		align: 'stretch'
+		align: 'middle'
 	},
 	
 	items: [{
-		xtype: 'image',
-		width: 180,
-		padding: '5 10 5 10',
-		bind: {
-			src: '{nier_logo}'
-		}
-	}, {
 		xtype: 'container',
-		width: 350,
-		bind: {
-			html: '<h2 align="center">{app_title}</h2>'
-		}
+		width: 20
+	}, {
+		xtype: 'image',
+		id: 'top-logo-khLee',
+		width: 248,
+		height: 30,
+		//cls: 'khLee-x-box-item',
+		src: './resources/images/button/top_logo.png'
 	}, {
 		xtype: 'container',
 		layout: {
@@ -43,29 +43,38 @@ Ext.define('KRF_DEV.view.north.North', {
 		},
 		flex: 1,
 		items: [{
-			xtype: 'button',
-			text: '지리정보',
-			handler: 'onButtonClick',
-			params: {title: '지리정보', contents: '지리정보 클릭', msgBox: 'alert'}
+			xtype: 'image',
+	    	title: '지리정보',
+	    	listeners: {
+	    		el: {
+	    			click: 'onButtonClick'
+	    		}
+	    	},
+	    	params: {title: '지리정보', contents: '지리정보 클릭', msgBox: 'alert'},
+	    	src: './resources/images/button/top_btn1.png'			
 		}, {
-			xtype: 'label',
-			width: 10
+			xtype: 'image',
+	    	title: '데이터',
+	    	listeners: {
+	    		el: {
+	    			click: 'onButtonClick'
+	    		}
+	    	},
+	    	params: {title: '데이터', contents: '데이터 클릭', msgBox: 'alert'},
+	    	src: './resources/images/button/top_btn2.png'
 		}, {
-			xtype: 'button',
-			text: 'DATA',
-			handler: 'onButtonClick',
-			params: {title: 'DATA', contents: 'DATA 클릭', msgBox: 'alert'}
+			xtype: 'image',
+	    	title: '로그아웃',
+	    	listeners: {
+	    		el: {
+	    			click: 'onButtonClick'
+	    		}
+	    	},
+	    	params: {title: '로그아웃', contents: '로그아웃 클릭', msgBox: 'alert'},
+	    	src: './resources/images/button/top_btn3.png'
 		}, {
-			xtype: 'label',
-			width: 10
-		}, {
-			xtype: 'button',
-			text: 'Logout',
-			handler: 'onButtonClick',
-			params: {title: 'Logout', contents: 'Logout Confirm?', msgBox: 'confirm'}
-		}, {
-			xtype: 'label',
-			width: 10
+			xtype: 'container',
+			width: 50
 		}]
 	}]
   

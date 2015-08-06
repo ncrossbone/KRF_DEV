@@ -3,7 +3,7 @@ Ext.defer(function() {
 	    extend: 'Ext.container.Container',
 	    
 	    requires: [
-			
+			'Ext.chart.*'
 	    ],
 
 	    xtype: 'app-main',
@@ -44,6 +44,15 @@ Ext.defer(function() {
 		    	
 		    	console.info(_serviceUrl);
 		    	
+		    	/*
+		    	Ext.create('Ext.chart.Chart', {
+		    		renderTo: Ext.getBody(),
+		    		x: 300,
+		    		y: 300,
+		    		width: 300,
+		    		height: 300
+		    	});
+		    	*/
 		    	this.callParent();
 	    }
 	});

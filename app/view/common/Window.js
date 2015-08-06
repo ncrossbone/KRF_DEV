@@ -3,6 +3,8 @@ Ext.define('KRF_DEV.view.common.Window', {
 	
 	xtype : 'app-common-window',
 	
+	cls: 'khLee-x-tab-active',
+	
 	initComponent : function() {
 		
 		var tab_panel = Ext.getCmp('datawindow-tabpanel');
@@ -27,7 +29,9 @@ function AddTab(parent, params){
 			xtype: params.xtype,
 			//store: params.store,
 			title: params.title,
-			id: params.id
+			id: params.id,
+			width: '100%',
+			height: '100%'
 			//columns: params.columns,
 			//height: params.height
 		});
@@ -43,100 +47,119 @@ var windowWidth = 0;
 var windowHeight = 0;
 var windowX = 0;
 var windowY = 0;
-var windowCollapsed = false;
+var windowMode = "";
 
 function CreateWindow(params){
-	var north = Ext.getCmp('north_container');
+	
 	var center = Ext.getCmp('center_container');
+	
+	windowWidth = center.getWidth();
+	windowHeight = 300;
+	windowX = 0;
+	windowY = center.getHeight() - center.header.getHeight() - windowHeight;
+	windowMode = "normal";
+	centerX = center.getX();
+	centerY = center.getY();
 
 	center.add({
 		xtype: 'window',
+		region: 'south',
 		id: 'datawindow-container',
 		title: 'Tab Window',
-		height: 300,
-		width: center.getWidth(),
-        frame: false,
-		x: 0,
-		y: Ext.getBody().getViewSize().height - north.height - 300,
+		height: windowHeight,
+		width: windowWidth,
+        frame: true,
+		x: windowX,
+		y: windowY,
 		closable: true,
 		tools: [{
 			type: 'restore',
+			hidden: false,
 			handler: function(evt, toolEl, owner, tool){
-				if(windowWidth != 0){
-					var window = owner.up('window');
-					//console.log(window.collapsed);
-					
-					window.setWidth(windowWidth);
-					window.setHeight(windowHeight);
-					window.setX(windowX);
-					window.setY(windowY);
-					
-					if(windowCollapsed == true)
-						window.expand('', false);
-					
-					window.alignTo('center-panel', 'bl-bl');
+				var window = owner.up('window');
+				
+				if(windowMode == "normal"){
+					windowWidth = window.getWidth();
+					windowHeight = window.getHeight();
+					windowX = window.getX();
+					windowY = window.getY();
 				}
+				
+				if(windowMode == "minimize")
+					window.expand('', false);
+				
+				windowMode = "normal";
+				console.info(windowX);
+				window.setWidth(windowWidth);
+				window.setHeight(windowHeight);
+				window.setX(windowX);
+				window.setY(windowY);
 			}
 		}, {
 			type: 'maximize',
 			handler: function(evt, toolEl, owner, tool){
 				var window = owner.up('window');
 
-				windowWidth = window.getWidth();
-				windowHeight = window.getHeight();
-				windowX = window.getX();
-				windowY = window.getY();
-				centerX = center.getX();
-				centerY = center.getY();
-				windowCollapsed = false;
+				if(windowMode == "normal"){
+					windowWidth = window.getWidth();
+					windowHeight = window.getHeight();
+					windowX = window.getX();
+					windowY = window.getY();
+				}
 				
-				console.log('maximize XY setting -- ' + 'window width : ' + windowWidth + ', window X : ' + windowX + ', window Y : ' + windowY);
-				console.log('maximize XY setting -- ' + 'center width : ' + center.getWidth() + ', center X : ' + center.getX() + ', center Y : ' + center.getY());
+				windowMode = "maximize";
+				
+				console.info(this);
 				
 				window.expand('', false);
-				
-				//window.collapse();
 				window.setWidth(center.getWidth());
 				window.setHeight(center.getHeight());
 				window.setX(centerX);
 				window.setY(centerY);
 				
-				window.alignTo('center-panel', 'bl-bl');
+				//window.alignTo('center-panel', 'tl-br');
 			}
 		}, {
 			type: 'minimize',
 			handler: function(evt, toolEl, owner, tool){
 				
-				if(windowCollapsed == false){
-					var window = owner.up('window');
-					
+				var window = owner.up('window');
+				
+				if(windowMode == "normal"){
 					windowWidth = window.getWidth();
 					windowHeight = window.getHeight();
 					windowX = window.getX();
 					windowY = window.getY();
-					windowCollapsed = true;
-					
-					console.log('minimize XY setting -- ' + 'window width : ' + windowWidth + ', window X : ' + windowX + ', window Y : ' + windowY);
-					
-					window.collapse();
-					window.setWidth(150);
-					window.alignTo('center-panel', 'bl-bl');
 				}
+				
+				windowMode = "minimize";
+				
+				window.collapse();
+				window.setWidth(150);
+				window.alignTo(center, 'bl-bl');
 			}
 		}],
 		items: [{
 			xtype: 'tabpanel',
 			id: 'datawindow-tabpanel',
 			title: params.title,
+			width: '100%',
+			height: '100%',
 			header: false,
 			items: [{
 				xtype: params.xtype,
 				//store: params.store,
 				title: params.title,
-				id: params.id
-				//columns: params.columns,
-				//height: params.height
+				id: params.id,
+				width: '100%',
+				height: '100%'
 			}]
-		}]
-	}).show();
+		}],
+		listeners:{
+	        close:function(){
+	            var currCtl = Ext.getCmp("btnSearchResult");
+	            currCtl.setSrc(currCtl.src.replace("_on.png", ".png"));
+	        }
+	    }
+	});
 }

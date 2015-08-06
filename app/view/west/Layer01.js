@@ -1,6 +1,7 @@
 Ext.define('KRF_DEV.view.west.Layer01', {
 	
-	extend: 'Ext.tab.Panel',
+	//extend: 'Ext.tab.Panel',
+	extend: 'Ext.panel.Panel',
 	
 	xtype: 'west-Layer01',
 	
@@ -28,9 +29,10 @@ Ext.define('KRF_DEV.view.west.Layer01', {
     },
 	
 	items: [{
-		title: 'reach',
+		title: '주제도 선택',
 		xtype: 'treepanel',
 		scroll: false,
+		cls: 'khLee-x-tab-header',
 		viewConfig: {
 			style: { overflow: 'auto', overflowX: 'hidden' }
 		},

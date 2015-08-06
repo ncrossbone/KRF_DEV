@@ -12,7 +12,8 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 	
 	onCheckChanged: function(node, checked, a) {
 		// view.west.WestTabLayer id로 활성화된 탭 id가져옴
-		var tabID = Ext.getCmp('westLayer01').getActiveTab().id;
+		//var tabID = Ext.getCmp('westLayer01').getActiveTab().id;
+		var tabID = "DynamicLayer1";
 
 		if(!node.get('leaf')) {
 			this.checkAllChildren(node, checked, tabID);

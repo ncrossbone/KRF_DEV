@@ -22,7 +22,7 @@ Ext.define('KRF_DEV.view.west.West', {
 //        border: false
 //    },
     
-    //bind: {title: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>{testText}'},
+    //bind: {title: '<img width="32" height="32" src="./resources/images/temp/1_on.png" /><br>{testText}'},
     title: '화면 제어판',
     collapsible: true,
     split: true,
@@ -38,6 +38,7 @@ Ext.define('KRF_DEV.view.west.West', {
     }, {
     	xtype: 'container',
     	id: 'westContents',
+    	activeItem: 1,
     	region: 'center',
     	layout: {
     		type: 'card'
@@ -56,14 +57,14 @@ Ext.define('KRF_DEV.view.west.West', {
 /*
     initComponent: function(){
     	this.items = [{
-            title: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>' + KRF_DEV.app.ServiceUrl,
-            //bind: {title: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>{testText}'},
+            title: '<img width="32" height="32" src="./resources/images/temp/1_on.png" /><br>' + KRF_DEV.app.ServiceUrl,
+            //bind: {title: '<img width="32" height="32" src="./resources/images/temp/1_on.png" /><br>{testText}'},
             collapsible: true,
             items: [{
             	xtype: 'app-westTabLayer'
             }]
         }, {
-            title: '<img width="32" height="32" src="/resources/images/temp/1_off.png" /><br>위치검색',
+            title: '<img width="32" height="32" src="./resources/images/temp/1_off.png" /><br>위치검색',
             items: [{
             	xtype: 'button',
     			text: '그리드 탭',
@@ -90,7 +91,7 @@ Ext.define('KRF_DEV.view.west.West', {
     			handler: 'onClickButton'
             }]
         }, {
-            title: '<img width="32" height="32" src="/resources/images/temp/1_on.png" /><br>일반모드',
+            title: '<img width="32" height="32" src="./resources/images/temp/1_on.png" /><br>일반모드',
             collapsible: true,
             layout: {
             	type: 'accordion',
@@ -122,7 +123,7 @@ Ext.define('KRF_DEV.view.west.West', {
             	collapsed: true
             }]
         }, {
-        	title: '<img width="32" height="32" src="/resources/images/temp/1_off.png" /><br>리치모드',
+        	title: '<img width="32" height="32" src="./resources/images/temp/1_off.png" /><br>리치모드',
         }];
     	
     	this.callParent();
