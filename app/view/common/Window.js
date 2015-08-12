@@ -30,8 +30,8 @@ function AddTab(parent, params){
 			//store: params.store,
 			title: params.title,
 			id: params.id,
-			width: '100%',
-			height: '100%'
+			width: '100%'/*,
+			height: '100%'*/
 			//columns: params.columns,
 			//height: params.height
 		});
@@ -151,14 +151,34 @@ function CreateWindow(params){
 				//store: params.store,
 				title: params.title,
 				id: params.id,
-				width: '100%',
-				height: '100%'
+				width: '100%'/*,
+				height: '100%'*/
 			}]
 		}],
 		listeners:{
 	        close:function(){
 	            var currCtl = Ext.getCmp("btnSearchResult");
 	            currCtl.setSrc(currCtl.src.replace("_on.png", ".png"));
+	        },
+	        resize : function(win,width,height,opt){
+                console.log(width);
+                console.log(height);
+	        	
+	        	var grid = Ext.getCmp("grid-tab-2");
+	        	if(grid != undefined){
+	        		grid.setHeight(height - 85);
+	        		grid.setWidth(width);
+	        		console.log(height - 85);
+	        	}
+	        	/*
+	        	grid = Ext.getCmp("grid-tab-3");
+	        	if(grid != undefined){
+	        		grid.setHeight(height - 85);
+	        		grid.setWidth(width);
+	        	}
+	        	
+	        	console.log(grid);
+	        	*/
 	        }
 	    }
 	});

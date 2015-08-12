@@ -20,40 +20,60 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name', {
 	
 	layout: {
 		type: 'vbox',
-		align: 'stretch'
+		align: 'middle'
 	},
 	
 	items: [{
-		xtype: 'form',
-		cls: 'khLee-x-form',
+		xtype: 'container',
 		layout: {
 			type: 'vbox',
 			align: 'stretch'
 		},
 		items: [{
-			xtype: 'container',
+			xtype: 'form',
+			cls: 'khLee-x-form',
 			layout: {
-				type: 'hbox',
+				type: 'vbox',
+				align: 'stretch'
 			},
 			items: [{
-				xtype: 'label',
-				cls: 'khLee-x-label-default',
-				html: '<img src="./resources/images/button/blit_st_01.png" /> <b>명　칭</b> : ',
-				width: 70
-			}, {
-				id: 'txtSearchText',
-				xtype: 'textfield',
-				width: 130,
-			}, {
 				xtype: 'container',
-				width: 10
-			},{
-				id: 'btnSearchText',
-				xtype: 'button',
-				//text: '이동'
-				cls: 'khLee-x-button-move'
+				layout: {
+					type: 'hbox',
+				},
+				items: [{
+					xtype: 'label',
+					cls: 'khLee-x-label-default',
+					html: '<img src="./resources/images/button/blit_st_01.png" /> <b>명　칭</b> : ',
+					width: 70
+				}, {
+					id: 'txtSearchText',
+					xtype: 'textfield',
+					width: 130,
+				}, {
+					xtype: 'container',
+					width: 10
+				},{
+					id: 'btnSearchText',
+					xtype: 'button',
+					//text: '검색'
+					cls: 'khLee-x-button-search',
+					handler: function(){
+						//console.info(Ext.getCmp("imgContents").hidden);
+						if(Ext.getCmp("imgContents").hidden == true)
+							Ext.getCmp("imgContents").show();
+						else
+							Ext.getCmp("imgContents").hide();
+						//console.info(Ext.getCmp("imgContents").hidden);
+					}
+				}]
 			}]
 		}]
+	}, {
+		xtype: 'image',
+		id: 'imgContents',
+		src: './resources/images/popup/20150812.gif',
+		hidden: true
 	}]
 
 });

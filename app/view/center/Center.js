@@ -2,7 +2,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 	
 	extend: 'Ext.panel.Panel',
 	
-	title: '&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> 수질측정지점 > 하천수 > 남이섬',
+	title: '&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> 전체',
 	
 	collapsible: false,
 	controller: 'buttonpanel',

@@ -41,10 +41,12 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.map.setLevel(8);
         	window.clearInterval(timerId);
         	
+        	//me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin_Reach', me.map);
-        	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
         	//me.geometryService = new esri.tasks.GeometryService(KRF_DEV.app.arcServiceUrl + "/rest/services/Utilities/Geometry/GeometryServer");
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
+        	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
+        	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
         	
         	//dojo.require("esri.dijit.Scalebar");
         	//var scalebar = new esri.dijit.Scalebar({map:me.map, attachTo:"top-right"});

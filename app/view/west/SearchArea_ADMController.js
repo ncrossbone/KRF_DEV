@@ -78,6 +78,22 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 		var searchLayerId = combo.layerId;
 		var searchText = combo.getValue();
 		KRF_DEV.getApplication().fireEvent('areaSelect', {admCd: searchText, layerId: searchLayerId});
+		
+		var centerCtl = Ext.getCmp("center_container");
+		
+		if(combo.id == "cmbArea1"){
+			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
+		}
+		
+		if(combo.id == "cmbArea2"){ 
+			var wsCtl = Ext.getCmp("cmbArea1");
+			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
+		}
+		if(combo.id == "cmbArea3"){ 
+			var wsCtl = Ext.getCmp("cmbArea1");
+			var msCtl = Ext.getCmp("cmbArea2");
+			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + msCtl.rawValue + " > " + combo.rawValue);
+		}
 	}
 	
 });

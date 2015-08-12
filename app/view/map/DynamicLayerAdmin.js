@@ -12,6 +12,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
         me.layer = dynamicLayer1;
 		me.layer.id = "DynamicLayer1"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.layer.visible = true;
+		me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
 		me.map.addLayer(me.layer);
 		
 		/*

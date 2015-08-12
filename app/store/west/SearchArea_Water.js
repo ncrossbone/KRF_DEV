@@ -7,10 +7,6 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 	//autoLoad: true, // controller(onAreaChange)에서 store.load();
 
 	remoteSort: true,
-	
-	parentId: '',
-	
-	layerId: '', // 레이어 아이디
 
 	listeners: {
 		// beforeload, load, afterload
@@ -21,17 +17,19 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 			// Ext.defer(function(){...}, 1000, this); // function 내 코드를 1초(1000ms)후에 실행한다.
 				
 				var idColumn, nameColumn, whereStr;
-				console.info(store);
+				//console.info(store);
 				idColumn = "";
 				
-				if(store.layerId == '52'){ idColumn = "WS_CD"; nameColumn = "대권역"; whereStr = "1=1" }
-				if(store.layerId == '53'){ idColumn = "MBSNCD"; nameColumn = "MBSNNM"; whereStr = idColumn + " = '" + store.parentADMCD + "%'"}
-				//if(store.layerId == '54'){ nameColumn = "DONG_NM"; whereStr = "WS_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
+				//console.info(store.parentId);
+				
+				if(store.layerId == '53'){ idColumn = "WS_CD"; nameColumn = "대권역"; whereStr = "1=1"; }
+				if(store.layerId == '54'){ idColumn = "MW_CODE"; nameColumn = "MW_NAME"; whereStr = "WS_CD = '" + store.parentId + "'"; }
+				if(store.layerId == '55'){ idColumn = "SW_CODE"; nameColumn = "SW_NAME"; whereStr = "MBSNCD = '" + store.parentId + "'"; }
 				//alert(store.layerId);
 				// id, name 셋팅이 안돼있으면 리턴
 				if(idColumn == undefined || nameColumn == undefined || whereStr == undefined)
 					return;
-				
+				//console.info(whereStr);
 				var queryTask = new esri.tasks.QueryTask(KRF_DEV.app.layer1Url + store.layerId); // 레이어 URL
 				var query = new esri.tasks.Query();
 				query.returnGeometry = false;
@@ -63,6 +61,8 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 		   				if(data.length==index+1){ store.setData(receiveData); }
 		   				
 					});
+					
+					//console.info(receiveData);
 				});
 				/*
 				dojo.connect(queryTask, "onError", function(err) {

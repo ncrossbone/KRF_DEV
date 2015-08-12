@@ -45,7 +45,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    this.items = [{
 	    	xtype: 'image',
 	    	id: 'btnMenu01',
-	    	groupId: 'group1',
+	    	groupId: 'groupSmart',
 	    	title: '스마트선택',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -72,7 +72,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu04',
-	    	groupId: 'group1',
+	    	groupId: 'groupStartEnd',
 	    	title: '시작위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -81,15 +81,16 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu05',
-	    	groupId: 'group1',
+	    	groupId: 'groupStartEnd',
 	    	title: '끝위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
+	    	listeners: this.onClickListener,
 	    	src: './resources/images/button/reach_menu05.png'
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu06',
-	    	groupId: 'group1',
+	    	groupId: 'group111',
 	    	title: '드래그선택',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -98,31 +99,34 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu07',
-	    	groupId: 'group1',
+	    	groupId: 'group111',
 	    	title: '반경선택',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
+	    	listeners: this.onClickListener,
 	    	src: './resources/images/button/reach_menu07.png'
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu08',
-	    	groupId: 'group1',
+	    	groupId: 'groupReset',
 	    	title: '초기화',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
+	    	listeners: this.onClickListener,
 	    	src: './resources/images/button/reach_menu08.png'
 	    }, '->', {
 	    	xtype: 'image',
 	    	id: 'btnMenuSave',
-	    	groupId: 'group1',
+	    	groupId: 'groupSave',
 	    	title: '설정저장',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
+	    	listeners: this.onClickListener,
 	    	src: './resources/images/button/reach_menu_save.png'
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenuOpen',
-	    	groupId: 'group1',
+	    	groupId: 'groupOpen',
 	    	title: '설정불러오기',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,

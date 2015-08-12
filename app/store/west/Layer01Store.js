@@ -1,5 +1,5 @@
 Ext.define('KRF_DEV.store.west.Layer01Store', {
-	test: 'ddd',
+	
 	extend: 'Ext.data.TreeStore',
 
 	autoLoad: true,

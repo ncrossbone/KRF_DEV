@@ -172,7 +172,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
     },
     
     areaSelectHandler: function(info){
-    	console.info(info);
+    	//console.info(info);
     	var me = this;
     	me.sourceGraphicLayer.clear();
 		me.targetGraphicLayer.clear();
@@ -213,6 +213,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		me.sourceGraphicLayer.add(obj);
 	    		var extent = esri.geometry.Polygon(obj.geometry).getExtent();
 	    		me.map.setExtent(extent, true);
+	    		//console.info(me.map.getLevel());
 	    		me.geometry = obj.geometry;
 	    		me.spSearch();
 			});

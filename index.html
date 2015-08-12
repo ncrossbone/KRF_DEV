@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <title>KRF_DEV</title>
-    
+    <link rel="stylesheet" href="./resources/css/layer.css">
 	<link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
 	<link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
     
@@ -15,6 +15,10 @@
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
     <style type="text/css">
+#west_container-splitter {
+    background-color: #ede5dc !important;
+}
+
 .x-btn-icon .refreshbutton {
     background-image: url(./resources/images/button/refresh1.jpeg) !important;
     height:32px; width:32px;
@@ -32,6 +36,29 @@
 .x-toolbar-default-north-khLee {
   background-image:url(./resources/images/button/top_bg.png) !important;
   padding: 0px !important;
+}
+
+.khLee-x-north-right {
+	position: absolute !important;
+	top: 11px !important;
+	width: 267px !important;
+	left: 0px !important;
+	margin-left: 85% !important;
+}
+
+.khLee-x-north-right .x-box-inner {
+	width: 267px !important;
+}
+
+.khLee-x-north-right .x-box-target {
+	width: 267px !important;
+}
+
+.khLee-x-north-right img {
+	float: left;
+	left: 0px !important;
+	position: relative !important;
+	text-align: right !important;
 }
 
 .khLee-x-header .x-panel-header .x-box-inner {
@@ -129,6 +156,14 @@
 	height: 25px;
 }
 
+.khLee-x-button-search {
+	cursor:pointer;
+	border:0px !important;
+	background:transparent url(./resources/images/button/icon_seah2.gif) 0 0 no-repeat !important;
+	width: 55px;
+	height: 25px;
+}
+
 .khLee-x-button-select {
 	cursor:pointer;
 	border:0px !important;
@@ -201,6 +236,10 @@
 
 .khLee-x-form-item-label-default .x-form-item-label-default {
 	padding-top: 2px;
+}
+
+.x-tree-icon .x-tree-icon-leaf.abc{
+  background: url(abc) x y no-repat !important;
 }
 
 </style>

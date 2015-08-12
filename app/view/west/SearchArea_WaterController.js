@@ -26,6 +26,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		},
 		'#btnWaterSelect': {
 			click: 'onWaterSelect'
+		},
+		'#btnWaterReset': {
+			click: 'onWaterReset'
 		}
 	},
 	
@@ -79,7 +82,33 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		var combo = Ext.getCmp(button.lnkCmbId);
 		var searchLayerId = combo.layerId;
 		var searchText = combo.getValue();
-		KRF_DEV.getApplication().fireEvent('areaSelect', {idField: 'WS_CD', idValue: searchText, layerId: searchLayerId});
+		
+		//console.info(searchLayerId);
+		
+		var idColumn, nameColumn, whereStr;
+		
+		var centerCtl = Ext.getCmp("center_container");
+		
+		if(searchLayerId == '53'){ 
+			idColumn = "WS_CD";
+			//console.info(combo);
+			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
+		}
+		if(searchLayerId == '54'){ 
+			idColumn = "MW_CODE";
+			
+			var wsCtl = Ext.getCmp("cmbWater1");
+			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
+		}
+		if(searchLayerId == '55'){ 
+			idColumn = "SW_CODE";
+			
+			var wsCtl = Ext.getCmp("cmbWater1");
+			var msCtl = Ext.getCmp("cmbWater2");
+			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + msCtl.rawValue + " > " + combo.rawValue);
+		}
+		//console.info(idColumn);
+		KRF_DEV.getApplication().fireEvent('areaSelect', {idField: idColumn, idValue: searchText, layerId: searchLayerId});
 	},
 	
 	onAreaSearch2: function(a, b){
@@ -88,14 +117,16 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 	
 	onWaterSelect: function(button, eOpts){
 		
-		var combo1 = Ext.getCmp('cmbWater1');
-		var combo2 = Ext.getCmp('cmbWater2');
-		var combo3 = Ext.getCmp('cmbWater3');
+		Ext.ShowSiteListWindow("test");
 		
-		var searchLayerId = "54";
-		var searchText = "1013";
+	},
+	
+	onWaterReset: function(button, eOpts){
 		
-		Ext.ShowInfoWindow("test");
+		Ext.HideSiteListWindow(null);
+		Ext.HideSiteInfoWindow();
+		Ext.HideChartResult();
+		KRF_DEV.getApplication().fireEvent('drawEnd');
 		
 	}
 	

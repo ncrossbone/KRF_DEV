@@ -105,18 +105,34 @@ Ext.application({
  		// 지점 목록 창 띄우기
  		Ext.ShowSiteListWindow = function(searchText){
  			
- 			listWinCtl = Ext.getCmp("siteListWindow");
- 			
-			if(listWinCtl == undefined)
-				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
-			
-			listWinCtl.show();
-			
-			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
-			var listWinY = 98;
-			
-			listWinCtl.setX(listWinX);
-			listWinCtl.setY(listWinY);
+ 			if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
+ 				listWinCtl = Ext.getCmp("siteListWindow");
+ 	 			
+ 				if(listWinCtl == undefined)
+ 					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
+ 				
+ 				listWinCtl.show();
+ 				
+ 				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
+ 				var listWinY = 98;
+ 				
+ 				listWinCtl.setX(listWinX);
+ 				listWinCtl.setY(listWinY);
+			}
+			else{
+				listWinCtl = Ext.getCmp("siteListWindow_reach");
+	 			
+				if(listWinCtl == undefined)
+					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow_Reach');
+				
+				listWinCtl.show();
+				
+				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
+				var listWinY = 98;
+				
+				listWinCtl.setX(listWinX);
+				listWinCtl.setY(listWinY);
+			}
 			
  		}
  		
@@ -124,6 +140,11 @@ Ext.application({
  		Ext.HideSiteListWindow = function(currCtl){
  			
  			listWinCtl = Ext.getCmp("siteListWindow");
+ 			
+ 			if(listWinCtl != undefined)
+ 				listWinCtl.close();
+ 			
+			listWinCtl = Ext.getCmp("siteListWindow_reach");
  			
  			if(listWinCtl != undefined)
  				listWinCtl.close();
@@ -193,7 +214,7 @@ Ext.application({
  		
  		// 검색결과창 띄우기
  		Ext.ShowSearchResult = function(tabId, title){
- 			
+ 			console.info(tabId);
  			var tabCtl = Ext.getCmp(tabId);
  			
  			if(tabCtl == undefined){ 			
@@ -201,8 +222,7 @@ Ext.application({
 	 				params: {
 	 					xtype: 'south-grid-prototype',
 	 					id: tabId,
-	 					title: title,
-	 					height: '100%'
+	 					title: title
 	 				}
 	 			});
  			}
@@ -237,35 +257,15 @@ Ext.application({
 		})
  		
  		Ext.ShowReachToolbar = function(evtArgs, el){
+ 			
 			var cContainer = Ext.getCmp("center_container");
 			cContainer.add(rToolbar);
-			//cContainer.doLayout();
 			
-			/* 리치 레이어 켜기 */
-	    	var me = KRF_DEV.getApplication().coreMap;
-	    	var activeLayer = me.map.getLayer("DynamicLayer_Reach");
-	    	activeLayer.setVisibility(true);
-	    	var activeLayer2 = me.map.getLayer("DynamicLayer1");
-	    	var layers = [45, 46]; // Reach Layer Id
-	    	activeLayer2.setVisibleLayers(layers);
-	    	me.map.setLevel(12);
-	    	/* 리치 레이어 켜기 끝 */
  		}
  		
  		Ext.HideReachToolbar = function(){
  			var cContainer = Ext.getCmp("center_container");
  			cContainer.remove(rToolbar, false);
- 			//cContainer.doLayout();
- 			
- 			/* 전체 레이어 끄기 */
-	    	var me = KRF_DEV.getApplication().coreMap;
-	    	var activeLayer = me.map.getLayer("DynamicLayer_Reach");
-	    	activeLayer.setVisibility(false);
-	    	var activeLayer2 = me.map.getLayer("DynamicLayer1");
-	    	var layers = [];
-	    	activeLayer2.setVisibleLayers(layers);
-	    	me.map.setLevel(8);
-	    	/* 전체 레이어 끄기 끝 */
  		}
  		
  	}

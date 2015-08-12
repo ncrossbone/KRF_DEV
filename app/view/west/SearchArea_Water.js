@@ -46,6 +46,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				editable: false,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_Water'),
 				displayField: 'name',
@@ -82,6 +83,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				editable: false,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_Water'),
 				displayField: 'name',
@@ -119,6 +121,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				editable: false,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_Water'),
 				displayField: 'name',

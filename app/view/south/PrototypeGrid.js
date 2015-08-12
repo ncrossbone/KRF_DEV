@@ -1,114 +1,190 @@
 Ext.define('KRF_DEV.view.south.PrototypeGrid', {
-	extend : 'Ext.grid.Panel',
+	
+	extend: 'Ext.container.Container',
+	//extend : 'Ext.grid.Panel',
 	
 	xtype: 'south-grid-prototype',
 	
-	plugins: 'gridfilters',
+	height: '100%',
+	width: '100%',
 	
-	id: 'grid-tab-1',
+	items: [{
+		xtype: 'container',
+		//title: 'test',
+		layout: {
+			type: 'hbox',
+			align: 'middle',
+			pack: 'end'
+		},
+		height: 30,
+		items: [{
+			xtype: 'image',
+			width: 52,
+			height: 10,
+			src: './resources/images/button/btn01.gif' // 라벨
+		}, {
+			xtype: 'container',
+			width: 10
+		}, {
+			xtype: 'combo',
+			store: ['라벨선택', 'BOD', 'DO'],
+			value: '라벨선택',
+			listeners: {
+				change: function(combo, newVal, oldVal){
+					// 피처 레이어 생성/갱신
+					KRF_DEV.getApplication().fireEvent('Reach_TestOnOff', "DynamicLayer_Reach_Test", newVal, 1);
+				}
+			},
+			width: 100,
+			height: 25
+		}, {
+			xtype: 'container',
+			width: 10
+		}, {
+			xtype: 'image',
+			width: 83,
+			height: 25,
+			src: './resources/images/button/btn_exl.gif' // 엑셀 다운
+		}, {
+			xtype: 'container',
+			width: 10
+		}]
+	}, {
+		xtype: 'container',
+		width: '100%',
+		height: '100%',
+		items: [{
+			xtype: 'grid',
+			plugins: 'gridfilters',
+			
+			//id: 'grid-tab-1',
+			
+			cls: 'khLee-x-column-header-text',
+			
+			height: 215,
+			header: {
+				height: 5
+			},
+			title: '검색결과',
+			store: 'KRF_DEV.store.south.PrototypeGrid',
+			columns: [{
+				text      : '측정소명',
+				dataIndex : 'name',
+				width: 100,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+			}, {
+				text      : '년도',
+				dataIndex : 'year',
+				width: 50,
+				filter: {type: 'numeric'/*, fields: {}*/}
+			}, { 
+				text      : '월',
+				dataIndex : 'month',
+				width: 50,
+				filter: {type: 'numeric'/*, fields: {}*/}
+			}, {
+	      	  text : 'BOD',
+	    	  columns: [{
+	    		  text     : '측정값',
+	    		  dataIndex: 'BOD_value',
+	    		  width: 60,
+	    		  filter: {type: 'numeric'/*, fields: {}*/}
+	    	  }, {
+				    text: '그래프',
+				    width: 80,
+				    dataIndex: 'BOD_chart',
+				    xtype: 'widgetcolumn',
+				    widget: {
+				        xtype: 'sparklineline',
+				        tipTpl: 'Value: {y:number("0.00")}'
+				    }
+	    	  }]
+	      }, {
+			        	  text : 'DO',
+			        	  columns: [{
+			        		  text     : '측정값',
+			        		  dataIndex: 'DO_value',
+			        		  width: 60,
+			        		  filter: {type: 'numeric'/*, fields: {}*/}
+			        	  }, {
+							    text: '그래프',
+							    width: 80,
+							    dataIndex: 'DO_chart',
+							    xtype: 'widgetcolumn',
+							    widget: {
+							        xtype: 'sparklineline',
+							        tipTpl: 'Value: {y:number("0.00")}'
+							    }
+			        	  }]
+			          }, {
+			        	  text : 'COD',
+			        	  columns: [{
+			        		  text     : '측정값',
+			        		  dataIndex: 'COD_value',
+			        		  width: 60,
+			        		  filter: {type: 'numeric'/*, fields: {}*/}
+			        	  }, {
+							    text: '그래프',
+							    width: 80,
+							    dataIndex: 'COD_chart',
+							    xtype: 'widgetcolumn',
+							    widget: {
+							        xtype: 'sparklineline',
+							        tipTpl: 'Value: {y:number("0.00")}'
+							    }
+			        	  }]
+			          }, {
+			        	  text : 'T-N',
+			        	  columns: [{
+			        		  text     : '측정값',
+			        		  dataIndex: 'tn_value',
+			        		  width: 60,
+			        		  filter: 'number'
+			        	  }, {
+							    text: '그래프',
+							    dataIndex: 'tn_chart',
+							    width: 80,
+							    xtype: 'widgetcolumn',
+							    widget: {
+							        xtype: 'sparklineline',
+							        tipTpl: 'Value: {y:number("0.00")}'
+							    }
+			        	  }]
+			          }, {
+			        	  text : 'T-P',
+			        	  columns: [{
+			        		  text     : '측정값',
+			        		  dataIndex: 'tp_value',
+			        		  width: 60,
+			        		  filter: {type: 'numeric'/*, fields: {}*/}
+			        	  }, {
+							    text: '그래프',
+							    width: 80,
+							    dataIndex: 'tp_chart',
+							    xtype: 'widgetcolumn',
+							    widget: {
+							        xtype: 'sparklineline',
+							        tipTpl: 'Value: {y:number("0.00")}'
+							    }
+			        	  }]
+			          }, {
+						  text : '수온',
+						  columns: [{
+							  text     : '측정값',
+						  dataIndex: 'temp_value',
+						  width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+						  }, {
+							    text: '그래프',
+						    width: 80,
+						    dataIndex: 'temp_chart',
+						    xtype: 'widgetcolumn',
+						    widget: {
+						        xtype: 'sparklineline',
+						        tipTpl: 'Value: {y:number("0.00")}'
+							    }
+						  }]
+			          }]
+		}]
+	}]
 	
-	cls: 'khLee-x-column-header-text',
-	
-	title: '검색결과',
-	store: 'KRF_DEV.store.south.PrototypeGrid',
-	columns: [{ text      : '측정소명', dataIndex : 'name', width: 100, filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}} },
-	          { text      : '년도', dataIndex : 'year', width: 50 },
-	          { text      : '월', dataIndex : 'month', width: 50 },
-	          {
-	        	  text : '수위',
-	        	  columns: [
-					{ text     : '측정값', dataIndex: 'depth_value', width: 60 },
-					{
-					    text: '그래프',
-					    dataIndex: 'depth_chart',
-					    width: 80,
-					    xtype: 'widgetcolumn',
-					    widget: {
-					        xtype: 'sparklineline',
-					        tipTpl: 'Value: {y:number("0.00")}'
-					    }
-					}
-	        	  ]
-	          },
-	          {
-	        	  text : '유량',
-	        	  columns: [
-					{ text     : '측정값', dataIndex: 'flux_value', width: 60 },
-					{
-					    text: '그래프',
-					    width: 80,
-					    dataIndex: 'flux_chart',
-					    xtype: 'widgetcolumn',
-					    widget: {
-					        xtype: 'sparklineline',
-					        tipTpl: 'Value: {y:number("0.00")}'
-					    }
-					}
-	        	  ]
-	          },
-	          {
-	        	  text : '수온',
-	        	  columns: [
-					{ text     : '측정값', dataIndex: 'temp_value', width: 60 },
-					{
-					    text: '그래프',
-					    width: 80,
-					    dataIndex: 'temp_chart',
-					    xtype: 'widgetcolumn',
-					    widget: {
-					        xtype: 'sparklineline',
-					        tipTpl: 'Value: {y:number("0.00")}'
-					    }
-					}
-	        	  ]
-	          },
-	          {
-	        	  text : 'DO',
-	        	  columns: [
-					{ text     : '측정값', dataIndex: 'DO_value', width: 60 },
-					{
-					    text: '그래프',
-					    width: 80,
-					    dataIndex: 'DO_chart',
-					    xtype: 'widgetcolumn',
-					    widget: {
-					        xtype: 'sparklineline',
-					        tipTpl: 'Value: {y:number("0.00")}'
-					    }
-					}
-	        	  ]
-	          },
-	          {
-	        	  text : 'BOD',
-	        	  columns: [
-					{ text     : '측정값', dataIndex: 'BOD_value', width: 60 },
-					{
-					    text: '그래프',
-					    width: 80,
-					    dataIndex: 'BOD_chart',
-					    xtype: 'widgetcolumn',
-					    widget: {
-					        xtype: 'sparklineline',
-					        tipTpl: 'Value: {y:number("0.00")}'
-					    }
-					}
-	        	  ]
-	          },
-	          {
-	        	  text : 'COD',
-	        	  columns: [
-					{ text     : '측정값', dataIndex: 'COD_value', width: 60 },
-					{
-					    text: '그래프',
-					    width: 80,
-					    dataIndex: 'COD_chart',
-					    xtype: 'widgetcolumn',
-					    widget: {
-					        xtype: 'sparklineline',
-					        tipTpl: 'Value: {y:number("0.00")}'
-					    }
-					}
-	        	  ]
-	          }],
-	height: '100%'
 });

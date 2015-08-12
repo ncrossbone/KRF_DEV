@@ -37,7 +37,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea1',
-				layerId: '56',
+				layerId: '57',
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
@@ -47,6 +47,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				editable: false,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
@@ -72,7 +73,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea2',
-				layerId: '57',
+				layerId: '58',
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
@@ -82,6 +83,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				editable: false,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
@@ -109,7 +111,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea3',
-				layerId: '58',
+				layerId: '59',
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',
@@ -119,6 +121,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				labelAlign: 'right',
 				labelPad: 10,
 				width: 200,
+				editable: false,
 				//labelSeparator: '', // Defaults to: ':'
 				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
 				displayField: 'name',
@@ -150,7 +153,11 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				xtype: 'button',
 				id: 'btnADMReset',
 				//text: '초기화'
-				cls: 'khLee-x-button-reset'
+				cls: 'khLee-x-button-reset',
+				handler: function(){
+					var comboCtl = Ext.getCmp("cmbArea1");
+					comboCtl.setValue("");
+				}
 			}, {
 				xtype: 'container',
 				width: 10
