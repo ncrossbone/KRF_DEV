@@ -47,6 +47,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			}
 		}
 		
+		// 리치모드 버튼
 		if(el.id == "btnModeReach" || el.id == "btnModeReach_center"){
 			/* 리치 레이어 켜기 */
 	    	var me = KRF_DEV.getApplication().coreMap;
@@ -84,6 +85,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.HideSearchResult();
 		}
 		
+		// 일반모드 버튼
 		if(el.id == "btnModeNomal" || el.id == "btnModeNomal_center"){
 			/* 전체 레이어 끄기 */
 	    	var me = KRF_DEV.getApplication().coreMap;
@@ -110,7 +112,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.HideSearchResult();
 		}
 		
-		console.info("dd");
+		//console.info("dd");
 		// 리치 툴바 스마트검색 버튼
 		if(el.id == "btnMenu01"){
 			//console.info("dd");

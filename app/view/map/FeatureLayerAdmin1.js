@@ -22,10 +22,10 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		    //"xoffset": 10,
 		    //"yoffset": 35,
 		    "type": "esriPMS",
-		    "url": "./resources/images/symbol/symbol_1_1_on.gif",
-		    "contentType": "image/gif",
-		    "width": 22,
-		    "height": 22
+		    "url": "./resources/images/symbol/symbol_1_1_48x48.png",
+		    "contentType": "image/png",
+		    "width": 48,
+		    "height": 48
 		});
 		
 		var renderer = new esri.renderer.SimpleRenderer(selectedSymbol);
