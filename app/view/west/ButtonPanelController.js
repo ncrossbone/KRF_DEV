@@ -51,6 +51,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		if(el.id == "btnModeReach" || el.id == "btnModeReach_center"){
 			/* 리치 레이어 켜기 */
 	    	var me = KRF_DEV.getApplication().coreMap;
+	    	
+	    	/*
 	    	if(me.map.getLevel() < 11){
 	    		alert("리치모드는 11레벨 이상이어야 합니다.");
 	    		var btnNormal = Ext.getCmp("btnModeNomal");
@@ -62,6 +64,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	
 	    	activeLayer = me.map.getLayer("DynamicLayer_Reach_Test");
 	    	activeLayer.setVisibility(true);
+	    	*/
 	    	//console.info(activeLayer.visibleLayers);
 	    	//var visibleLyaer = activeLayer.visibleLayers;
 	    	//activeLayer.setVisibleLayers([12]);
@@ -73,6 +76,9 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	//me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
 	    	//me.map.setLevel(12);
 	    	/* 리치 레이어 켜기 끝 */
+	    	
+	    	me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map);
+	    	KRF_DEV.getApplication().coreMap = me;
 	    	
 	    	var me = KRF_DEV.getApplication().coreMap;
 			me.map.graphics.clear();
