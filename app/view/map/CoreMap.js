@@ -41,12 +41,13 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.map.setLevel(8);
         	window.clearInterval(timerId);
         	
+        	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
-        	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map);
-        	//me.geometryService = new esri.tasks.GeometryService(KRF_DEV.app.arcServiceUrl + "/rest/services/Utilities/Geometry/GeometryServer");
+        	me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map); // 리치노드, 리치라인, 집수구역 레이어
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
+        	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin_ReachTest', me.map); // 시뮬레이션용 레이어 서비스
         	
         	//dojo.require("esri.dijit.Scalebar");
         	//var scalebar = new esri.dijit.Scalebar({map:me.map, attachTo:"top-right"});
@@ -91,20 +92,20 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		      });
 		      
 		      this.fullExtent = new esri.geometry.Extent({
-		    	  xmin: 12728905.446270483,
-		    	  ymin: 3409091.461517964,
+		    	  xmin: 12928905.446270483,
+		    	  ymin: 3309091.461517964,
 		    	  xmax: 15766818.698435722,
-		    	  ymax: 5441704.9176768325,
+		    	  ymax: 5341704.9176768325,
 		          spatialReference: {
 		        	  wkid: 102100
 		          }
 		      });
 		      
 		      me.initialExtent = this.initialExtent = new esri.geometry.Extent({
-		    	  xmin: 12728905.446270483,
-		    	  ymin: 3409091.461517964,
+		    	  xmin: 12928905.446270483,
+		    	  ymin: 3309091.461517964,
 		    	  xmax: 15766818.698435722,
-		    	  ymax: 5441704.9176768325,
+		    	  ymax: 5341704.9176768325,
 		          spatialReference: {
 		        	  wkid: 102100
 		          }

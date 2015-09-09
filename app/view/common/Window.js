@@ -158,17 +158,21 @@ function CreateWindow(params){
 		listeners:{
 	        close:function(){
 	            var currCtl = Ext.getCmp("btnSearchResult");
-	            currCtl.setSrc(currCtl.src.replace("_on.png", ".png"));
+	            if(currCtl.btnOnOff == "on"){
+	            	SetBtnOnOff(currCtl.id);
+	            }
 	        },
 	        resize : function(win,width,height,opt){
                 console.log(width);
                 console.log(height);
 	        	
-	        	var grid = Ext.getCmp("grid-tab-2");
+	        	//var grid = Ext.getCmp("grid-tab-2");grdPrototype
+                var grid = Ext.getCmp("grdPrototype");
+	        	console.info(grid);
 	        	if(grid != undefined){
 	        		grid.setHeight(height - 85);
 	        		grid.setWidth(width);
-	        		console.log(height - 85);
+	        		//console.log(height - 85);
 	        	}
 	        	/*
 	        	grid = Ext.getCmp("grid-tab-3");

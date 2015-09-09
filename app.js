@@ -47,14 +47,17 @@ Ext.application({
     
     autoCreateViewport: 'KRF_DEV.view.main.Main',
     
-    arcServiceUrl:'http://112.217.167.123:6080/arcgis',
+    //arcServiceUrl:'http://112.217.167.123:6080/arcgis',
+    arcServiceUrl: "http://112.218.1.242:20002/arcgis",
     //arcServiceUrl:'http://fireftp.iptime.org:6080/arcgis',
-    layer1Url: 'http://112.217.167.123:6080/arcgis/rest/services/reach/MapServer/',
+    //layer1Url: 'http://112.217.167.123:6080/arcgis/rest/services/reach/MapServer/',
+    layer1Url: "http://112.218.1.242:20002/arcgis/rest/services/reach/MapServer/",
     //layer1Url: 'http://fireftp.iptime.org:6080/arcgis/rest/services/drone/MapServer',
     //requires: ['Ext.chart.Chart'],
     
     stores: [
-        'KRF_DEV.store.south.PrototypeGrid'
+        'KRF_DEV.store.south.PrototypeGrid',
+        'KRF_DEV.store.east.SiteInfoPanel'
  		/*'KRF_DEV.store.dev_test.GridStoreTest',
  		'KRF_DEV.store.dev_test.WestTabLayerStore',
  		'KRF_DEV.store.west.WestTabSearch_ADM_GRID'*/
@@ -234,7 +237,7 @@ Ext.application({
  			}
  			
  			var winContainer = Ext.getCmp("datawindow-container");
- 			winContainer.setTitle(title);
+ 			winContainer.setTitle("검색결과");
  			winContainer.show();
  			//winContainerY = Ext.getBody().getViewSize().height - winContainer.height;
  			//winContainer.setY(winContainerY);
@@ -252,7 +255,7 @@ Ext.application({
  		}
  		
  		var rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar', {
-			region: 'north',
+			//region: 'north',
 			cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
 		})
  		

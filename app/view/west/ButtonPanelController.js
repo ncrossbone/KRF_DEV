@@ -5,8 +5,101 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	alias: 'controller.buttonpanel',
 	
 	endBtnOnOff: 'off',
+	
+	// 정보창 클릭
+	onClickInfo: function(obj, el, evt){
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
+		if(currCtl.btnOnOff == "off"){
+			Ext.HideSiteListWindow(currCtl);
+			HideWindowSiteNChart();
+		}
+		else{
+			Ext.ShowSiteListWindow("test");
+		}
+	},
+	
+	// 검색결과창 클릭
+	onClickResult: function(obj, el, evt){
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
+		if(currCtl.btnOnOff == "off"){
+			Ext.HideSearchResult();
+		}
+		else{
+			Ext.ShowSearchResult("grid-tab-2", "하천수");
+		}
+	},
+	
+	onClickFavorite: function(obj, el, evt){
+		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
+		var popSaveCtl = Ext.getCmp("popSave");
+		if(popSaveCtl != undefined)
+			popSaveCtl.hide();
+		
+		var popOpenCtl = Ext.getCmp("popOpen");
+		if(popOpenCtl != undefined)
+			popOpenCtl.hide();
+		
+		// 팝업 이미지 (임시)
+		var popCtl = Ext.getCmp("Favorite");
+		
+		if(popCtl == undefined){
+			
+			popCtl = Ext.create("Ext.window.Window", {
+				
+						title: '즐겨찾기',
+						header: false,
+						id: 'Favorite',
+						cls: 'khLee-window-panel-header khLee-x-window-default ',
+						layout: {
+							type: 'absolute'
+						},
+						items: [{
+							xtype: 'image',
+							src: './resources/images/popup/popFavorite.gif',
+							width: 286,
+							height: 295
+						}, {
+							xtype: 'image',
+							title: '닫기',
+							src: './resources/images/button/icon_close2.gif',
+							listeners: {
+								el: {
+						            click: function(){
+						            	var popCtl = Ext.getCmp("Favorite");
+										popCtl.hide();
+						            }
+						        }
+							},
+							width: 10,
+							height: 10,
+							x: 264,
+							y: 10
+						}],
+						x: 410,
+						y: Ext.getBody().getViewSize().height - 295
+						
+					});
+			
+		}
+		
+		//console.info(popCtl.hidden);
+		if(popCtl.hidden == true)
+			popCtl.show();
+		else
+			popCtl.hide();
+		
+	},
 
 	onClickButton: function(evtArgs, el) {
+		
+		var me = KRF_DEV.getApplication().coreMap;
 		var currCtl = Ext.getCmp(el.id);
 		
 		//console.info(evtArgs);
@@ -24,47 +117,26 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.WestTabChange(1);
 		}
 		
-		// 정보 창
-		if(currCtl.id == "btnSiteListWindow"){
-			//console.info(currCtl.src.indexOf("_on"));
-			if(currCtl.src.indexOf("_on") == -1){
-				Ext.HideSiteListWindow(currCtl);
-				Ext.HideSiteInfoWindow();
-				Ext.HideChartResult();
-			}
-			else{
-				Ext.ShowSiteListWindow("test");
-			}
-		}
-		
-		// 검색결과 창
-		if(el.id == "btnSearchResult"){
-			if(currCtl.src.indexOf("_on") == -1){
-				Ext.HideSearchResult();
-			}
-			else{
-				Ext.ShowSearchResult("grid-tab-2", "하천수");
-			}
-		}
-		
 		// 리치모드 버튼
 		if(el.id == "btnModeReach" || el.id == "btnModeReach_center"){
 			/* 리치 레이어 켜기 */
-	    	var me = KRF_DEV.getApplication().coreMap;
-	    	
-	    	/*
 	    	if(me.map.getLevel() < 11){
 	    		alert("리치모드는 11레벨 이상이어야 합니다.");
 	    		var btnNormal = Ext.getCmp("btnModeNomal");
 				this.onClickButton(evtArgs, btnNormal.el);
 	    		return;
 	    	}
-	    	var activeLayer = me.map.getLayer("DynamicLayer_Reach");
-	    	activeLayer.setVisibility(true);
 	    	
-	    	activeLayer = me.map.getLayer("DynamicLayer_Reach_Test");
-	    	activeLayer.setVisibility(true);
-	    	*/
+	    	// Dim 처리 서비스 레이어
+	    	var activeLayer = me.map.getLayer("ReachLayerAdminBackground");
+	    	if(activeLayer != undefined)
+	    		activeLayer.setVisibility(true);
+	    	
+	    	// 시뮬레이션용 서비스 레이어
+	    	activeLayer = me.map.getLayer("DynamicLayerAdmin_ReachTest");
+	    	if(activeLayer != undefined)
+	    		activeLayer.setVisibility(true);
+	    	
 	    	//console.info(activeLayer.visibleLayers);
 	    	//var visibleLyaer = activeLayer.visibleLayers;
 	    	//activeLayer.setVisibleLayers([12]);
@@ -77,8 +149,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	//me.map.setLevel(12);
 	    	/* 리치 레이어 켜기 끝 */
 	    	
-	    	me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map);
-	    	KRF_DEV.getApplication().coreMap = me;
+	    	//me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map);
 	    	
 	    	var me = KRF_DEV.getApplication().coreMap;
 			me.map.graphics.clear();
@@ -89,16 +160,20 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.HideSiteInfoWindow();
 			Ext.HideChartResult();
 			Ext.HideSearchResult();
+			ShowReachInfoWindow();
 		}
 		
 		// 일반모드 버튼
 		if(el.id == "btnModeNomal" || el.id == "btnModeNomal_center"){
 			/* 전체 레이어 끄기 */
-	    	var me = KRF_DEV.getApplication().coreMap;
-	    	var activeLayer = me.map.getLayer("DynamicLayer_Reach");
-	    	activeLayer.setVisibility(false);
-	    	//activeLayer = me.map.getLayer("DynamicLayer_Reach_Test");
-	    	//activeLayer.setVisibility(false);
+	    	var activeLayer = me.map.getLayer("DynamicLayerAdmin_ReachTest");
+	    	if(activeLayer != undefined)
+	    		activeLayer.setVisibility(false);
+	    	
+	    	activeLayer = me.map.getLayer("ReachLayerAdminBackground");
+	    	if(activeLayer != undefined)
+	    		activeLayer.setVisibility(false);
+	    	
 	    	/*
 	    	var activeLayer2 = me.map.getLayer("DynamicLayer1");
 	    	var layers = [];
@@ -116,6 +191,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.HideSiteInfoWindow();
 			Ext.HideChartResult();
 			Ext.HideSearchResult();
+			
+			/*
+			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
+			KRF_DEV.getApplication().fireEvent('pointDrawClick', "point", el.id, false);
+			*/
 		}
 		
 		//console.info("dd");
@@ -145,15 +225,21 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			ctl.show();
 		}
 		
+		// 리치 추가 버튼
+		if(el.id == "btnMenu02"){
+			// 리치 선택
+			me.reachLayerAdmin.pointDraw("dd", "btnMenu02");
+		}
+		
 		// 리치 툴바 시작위치 버튼
 		if(el.id == "btnMenu04"){
-			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
+			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
 			KRF_DEV.getApplication().fireEvent('pointDrawClick', "point", el.id, false);
 		}
 		
 		// 리치 툴바 끝위치 버튼
 		if(el.id == "btnMenu05"){
-			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png),auto');
+			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 			KRF_DEV.getApplication().fireEvent('pointDrawClick', "point", el.id, true);
 			
 			console.info(this.endBtnOnOff);
@@ -176,8 +262,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		
 		// 드래그 선택 버튼
 		if(el.id == "btnMenu06"){
-			var me = KRF_DEV.getApplication().coreMap;
-			me.map.graphics.clear();
+			//me.map.graphics.clear();
 			
 			// 끝위치 버튼 셋팅
 			Ext.getCmp("btnMenu05").setSrc(Ext.getCmp("btnMenu05").src.replace("_on.png", ".png"));
@@ -193,35 +278,12 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
         	Ext.HideSiteListWindow(currCtl);
 			Ext.HideSiteInfoWindow();
 			Ext.HideChartResult();
+			
+			me.reachLayerAdmin.extentDraw();
 		}
 		
 		// 반경 선택 버튼
 		if(el.id == "btnMenu07"){
-			var me = KRF_DEV.getApplication().coreMap;
-			me.map.graphics.clear();
-			
-			// 끝위치 버튼 셋팅
-			Ext.getCmp("btnMenu05").setSrc(Ext.getCmp("btnMenu05").src.replace("_on.png", ".png"));
-			Ext.get('_mapDiv__gc').setStyle('cursor','default');
-			KRF_DEV.getApplication().fireEvent('drawEnd');
-			this.endBtnOnOff = "off";
-			// 끝위치 버튼 셋팅 끝
-			
-			// 레이어 On/Off
-        	KRF_DEV.getApplication().fireEvent("Reach_TestOnOff", "DynamicLayer_Reach_Test", "reset", 1);
-        	
-        	// 모든 창닫기
-        	Ext.HideSiteListWindow(currCtl);
-			Ext.HideSiteInfoWindow();
-			Ext.HideChartResult();
-		}
-		
-		// 초기화 버튼
-		if(el.id == "btnMenu08"){
-			// 이미지 셋팅, 이미지 변화 없게 할라구.. 시연 뒤에 삭제할 것..
-			Ext.SetSrc(currCtl);
-			
-			var me = KRF_DEV.getApplication().coreMap;
 			me.map.graphics.clear();
 			
 			// 끝위치 버튼 셋팅

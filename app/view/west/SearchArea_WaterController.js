@@ -117,7 +117,43 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 	
 	onWaterSelect: function(button, eOpts){
 		
-		Ext.ShowSiteListWindow("test");
+		var btnCtl = null;
+		
+		var btn1 = Ext.getCmp("btnWater1");
+		if(btn1.disabled == false){
+			btnCtl = btn1;
+		}
+		
+		var btn2 = Ext.getCmp("btnWater2");
+		if(btn2.disabled == false){
+			btnCtl = btn2;
+		}
+		
+		var btn3 = Ext.getCmp("btnWater3");
+		if(btn3.disabled == false){
+			btnCtl = btn3;
+		}
+		
+		if(btnCtl != null){
+			this.onAreaSearch(btnCtl, null, null);
+			
+			// 버튼 On/Off
+			var currCtl = Ext.getCmp("btnSiteListWindow");
+			if(currCtl.btnOnOff == "off"){
+				SetBtnOnOff("btnSiteListWindow");
+				Ext.ShowSiteListWindow("test");
+			}
+			
+			// 버튼 On/Off
+			currCtl = Ext.getCmp("btnSearchResult");
+			if(currCtl.btnOnOff == "off"){
+				SetBtnOnOff("btnSearchResult");
+				Ext.ShowSearchResult("grid-tab-2", "하천수");
+			}
+		}
+		else{
+			alert("선택된 수계가 없습니다.");
+		}
 		
 	},
 	

@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	},
 	
 	width: 400,
-	height: 290,
+	height: 300,
 
 	items: [{
 		xtype: 'treepanel',
@@ -30,130 +30,130 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 					text: '수질측정지점(16)',
 					cls: 'khLee-x-tree-node-text-bold',
 					"iconCls": "layerNoneImg",
-					checked: false,
+					checked: null,
 					expanded: true,
 					children: [{
 						text: '하천수(10)',
 						"iconCls": "layerIconSize layer1",
-						checked: false,
+						checked: null,
 						expanded: false,
 						children: [{
 							text: '가평천1',
 							siteCode: '1013A70',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '가평천2',
 							siteCode: '1013A80',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '가평천3',
 							siteCode: '1013A90',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '공지천',
 							siteCode: '1013A05',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '공지천1',
 							siteCode: '1013A10',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '공지천2',
 							siteCode: '1013A20',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '남이섬',
 							siteCode: '1013A95',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '의암',
 							siteCode: '1013A50',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '의암댐',
 							siteCode: '1013A40',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '춘성교',
 							siteCode: '1013A60',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}]
 					}, {
 						text: '호소수(3)',
 						"iconCls": "layerIconSize layer2",
-						checked: false,
+						checked: null,
 						expanded: false,
 						children: [{
 							text: '의암댐1',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '의암댐2',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '의암댐3',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}]
 					}, {
 						text: '농업용수(3)',
 						"iconCls": "layerIconSize layer3",
-						checked: false,
+						checked: null,
 						expanded: false,
 						children: [{
 							text: '원창저수지',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '소법저수지',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '탄부저수지',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}]
 					}]
@@ -161,108 +161,108 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 					text: '환경기초시설(13)',
 					cls: 'khLee-x-tree-node-text-bold',
 					"iconCls": "layerNoneImg",
-					checked: false,
-					expanded: false,
+					checked: null,
+					expanded: true,
 					children: [{
 						text: '하수종말처리장(5)',
 						"iconCls": "layerIconSize layer26",
-						checked: false,
+						checked: null,
 						expanded: false,
 						children: [{
 							text: '춘천하수종말처리장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '서면하수종말처리장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '북면하수종말처리장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '강촌하수종말처리장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '가평하수종말처리장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}]
 					}, {
 						text: '분뇨처리시설(1)',
 						"iconCls": "layerIconSize layer28",
-						checked: false,
+						checked: null,
 						expanded: false,
 						children: [{
 							text: '춘천분뇨처리시설',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}]
 					}, {
 						text: '매립장침출수 처리(4)',
 						"iconCls": "layerIconSize layer29",
-						checked: false,
+						checked: null,
 						expanded: false,
 						children: [{
 							text: '혈동리매립장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '춘천온의동매립장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '가평군상색리매립장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '가평군(상색리)쓰레기위생매립장',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}]
 					}, {
 						text: '마을 하수도(3)',
 						"iconCls": "layerIconSize layer30",
-						checked: false,
+						checked: null,
 						expanded: false,
 						children: [{
 							text: '안반지마을하수도',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '이화소규모하수도',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}, {
 							text: '수동와룡마을하수도',
 							cls: 'khLee-x-tree-node-text-small',
 							"iconCls": "layerNoneImg",
-							checked: false,
+							checked: null,
 							leaf: true
 						}]
 					}]
@@ -287,8 +287,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_branch.gif',
             iconCls: ' khLee-x-default-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
-            	Ext.ShowSiteInfoWindow("id");
-                //Ext.Msg.alert('Editing' + (record.get('done') ? ' completed task' : '') , record.get('task'));
+            	ShowWindowSiteNChart(1, "");
             },
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {
@@ -305,7 +304,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             iconCls: ' khLee-x-default-btn',
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
             	var titleText = record.parentNode.data.text + " > " + record.data.text;
-            	Ext.ShowChartResult("test", titleText);
+            	ShowWindowSiteNChart(0, titleText);
+            	//Ext.ShowChartResult("test", titleText);
                 //Ext.Msg.alert('Editing' + (record.get('done') ? ' completed task' : '') , record.get('task'));
             },
             // Only leaf level tasks may be edited
@@ -337,7 +337,9 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	listeners:{
         close:function(){
             var currCtl = Ext.getCmp("btnSiteListWindow");
-            currCtl.setSrc(currCtl.src.replace("_on.png", ".png"));
+            if(currCtl.btnOnOff == "on"){
+            	SetBtnOnOff(currCtl.id);
+            }
         }
     },
     

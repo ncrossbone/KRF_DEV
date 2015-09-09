@@ -8,6 +8,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 
     title: '리치 제어용 툴바',
     
+    id: 'reachToolbar',
+    
     //collapsible: true,
     //split: true,
     //header: false,
@@ -26,7 +28,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
     
     //cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default',
     
-    controller: 'buttonpanel',
+    controller: 'reachToolbar',
     
     onClickListener: {
         el: {
@@ -41,7 +43,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
     },
     
     initComponent: function(){
-    console.info(this.itemWidth);
+    
 	    this.items = [{
 	    	xtype: 'image',
 	    	id: 'btnMenu01',
@@ -49,7 +51,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '스마트선택',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickSmart' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu01_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu01.png',
 	    	src: './resources/images/button/reach_menu01.png'
 	    }, {
 	    	xtype: 'image',
@@ -58,7 +63,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '리치추가',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickAddReach' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu02_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu02.png',
 	    	src: './resources/images/button/reach_menu02.png'
 	    }, {
 	    	xtype: 'image',
@@ -67,7 +75,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '구간제거',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickRemoveReach' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu03_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu03.png',
 	    	src: './resources/images/button/reach_menu03.png'
 	    }, {
 	    	xtype: 'image',
@@ -76,7 +87,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '시작위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickStartReach' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu04_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu04.png',
 	    	src: './resources/images/button/reach_menu04.png'
 	    }, {
 	    	xtype: 'image',
@@ -85,7 +99,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '끝위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickEndReach' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu05_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu05.png',
 	    	src: './resources/images/button/reach_menu05.png'
 	    }, {
 	    	xtype: 'image',
@@ -112,7 +129,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '초기화',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickReset' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu08_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu08.png',
 	    	src: './resources/images/button/reach_menu08.png'
 	    }, '->', {
 	    	xtype: 'image',
@@ -121,7 +141,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '설정저장',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickSave' } },
+	    	btnOnOff: 'off',
 	    	src: './resources/images/button/reach_menu_save.png'
 	    }, {
 	    	xtype: 'image',
@@ -130,6 +151,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	title: '설정불러오기',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
+	    	listeners: { el: { click: 'onClickOpen' } },
+	    	btnOnOff: 'off',
 	    	src: './resources/images/button/reach_menu_fileopen.png'
 	    }];
 	    

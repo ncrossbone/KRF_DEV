@@ -29,8 +29,7 @@ Ext.defer(function() {
 		    	this.items = [{
 	    	    	xtype: 'app-default-north',
 	    	    	region: 'north',
-	    	    	id: 'north_container',
-	    	    	weight: 10
+	    	    	id: 'north_container'
 	    	    }, {
 	    	        xtype: 'app-default-west',
 	    	        region: 'west',

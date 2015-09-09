@@ -67,7 +67,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	//listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickInfo' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/left_menu03_on.png',
+	    	btnOffImg: './resources/images/button/left_menu03.png',
 	    	src: './resources/images/button/left_menu03.png'
 	    }, {
 	    	xtype: 'image',
@@ -77,7 +81,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	//listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickResult' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/left_menu04_on.png',
+	    	btnOffImg: './resources/images/button/left_menu04.png',
 	    	src: './resources/images/button/left_menu04.png'
 	    }, '->', {
 	    	xtype: 'image',
@@ -107,7 +115,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickFavorite' } },
+	    	btnOnOff: 'off',
 	    	src: './resources/images/button/left_menu07.png'
 	    }];
 	    

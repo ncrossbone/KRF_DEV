@@ -19,5 +19,29 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     	if (choice === 'yes') {
             console.log(choice);
         }
-    }
+    },
+    
+    // 리치 버튼 클릭
+	onClickReachLayer: function(obj, el, evt){
+		
+		// 리치레이어 On/Off
+		ReachLayerOnOff(el.id, "46");
+		
+	},
+	
+	// 집수구역 버튼 클릭
+	onClickAreaLayer: function(obj, el, evt){
+		
+		// 리치레이어 On/Off
+		ReachLayerOnOff(el.id, "47");
+		
+	},
+	
+	// 초기화 버튼 클릭
+	onClickReset: function(obj, el, evt){
+		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
+	}
 });

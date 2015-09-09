@@ -11,248 +11,253 @@
 	<link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
     
     <script type="text/javascript" src="http://js.arcgis.com/3.13/"></script>
+    
+    <!-- 공통 스크립트 -->
+    <script type="text/javascript" src="./resources/js/common.js"></script>
 
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
     <style type="text/css">
-#west_container-splitter {
-    background-color: #ede5dc !important;
-}
-
-.x-btn-icon .refreshbutton {
-    background-image: url(./resources/images/button/refresh1.jpeg) !important;
-    height:32px; width:32px;
-}
-  
-.x-toolbar-default-west-khLee {
-  background: #20242f !important;
-  padding: 0px !important;
-}
-
-.x-toolbar-default-west-khLee img {
-  left: 0px !important;
-}
-
-.x-toolbar-default-north-khLee {
-  background-image:url(./resources/images/button/top_bg.png) !important;
-  padding: 0px !important;
-}
-
-.khLee-x-north-right {
-	position: absolute !important;
-	top: 11px !important;
-	width: 267px !important;
-	left: 0px !important;
-	margin-left: 85% !important;
-}
-
-.khLee-x-north-right .x-box-inner {
-	width: 267px !important;
-}
-
-.khLee-x-north-right .x-box-target {
-	width: 267px !important;
-}
-
-.khLee-x-north-right img {
-	float: left;
-	left: 0px !important;
-	position: relative !important;
-	text-align: right !important;
-}
-
-.khLee-x-header .x-panel-header .x-box-inner {
-    height: 25px !important;
-}
-
-.khLee-x-header .x-panel-header-default-horizontal.x-header-noborder {
-	padding: 4px !important;
-	/*box-shadow: 0px 3px 2px #777;*/
-}
-
-.khLee-x-tab-header .x-panel-header-default-horizontal {
-    padding: 7px 4px 4px 4px !important;
-}
-
-.khLee-x-tab-header .x-box-inner {
-	height: 22px !important;
-}
-
-.khLee-x-tab-header .x-panel-default-outer-border-rbl {
-	border: 0px !important;
-}
-
-#top-logo-khLee {
-	top: 12px !important;
-}
-
-.khLee-x-serch-btn {
-  height: 19px !important;
-  width: 34px !important;
-  cursor: pointer !important;
-}
-
-.khLee-x-default-btn {
-  height: 19px !important;
-  width: 24px !important;
-  cursor: pointer !important;
-}
-
-.khLee-x-tree-node-text-bold {
-	font-weight: bold;
-	letter-spacing: -1px;
-}
-
-.khLee-x-tree-node-text-small {
-	font-size: 12px;
-	color: #0066cc;
-	text-decoration: underline;
-	letter-spacing: -1px;
-}
-
-.khLee-x-tree-node-text-small-nounder {
-	font-size: 12px;
-	letter-spacing: -1px;
-}
-
-.khLee-window-panel-header .x-window-header-default-top {
-	background-image: url('./resources/images/button/pop_bg.gif') !important;
-	border-style: none !important;
-	height: 35px;
-	background-repeat: repeat-x;
-	padding: 8px 0px 0px 5px;
-}
-
-.khLee-x-window-default {
-/*
-	border: 0px !important;
-	border-width: 0px !important;
-*/
-	/*border-color: #999 !important;*/
-	border-style: none !important;
-}
-
-/*
- .x-window-body-default {
- background-image: url('./resources/images/button/pop_bg.gif') !important;
- 	border-style: none !important;
- }
-*/
- 
- .khLee-x-reachtoolbar .x-box-inner {
-	border: 0px !important;
-	background: url('./resources/images/button/tool_bar_bg.gif') repeat-x !important;
-}
-
-.khLee-x-reachtollbar-default .x-border-item x-box-item x-toolbar-default x-box-layout-ct {
-	padding: 0px;
-}
-
-.khLee-x-button-move {
-	cursor:pointer;
-	border:0px !important;
-	background:transparent url(./resources/images/button/btn_move.png) 0 0 no-repeat !important;
-	width: 55px;
-	height: 25px;
-}
-
-.khLee-x-button-search {
-	cursor:pointer;
-	border:0px !important;
-	background:transparent url(./resources/images/button/icon_seah2.gif) 0 0 no-repeat !important;
-	width: 55px;
-	height: 25px;
-}
-
-.khLee-x-button-select {
-	cursor:pointer;
-	border:0px !important;
-	background:transparent url(./resources/images/button/btn_select.gif) 0 0 no-repeat !important;
-	width: 122px;
-	height: 35px;
-}
-
-.khLee-x-button-reset {
-	cursor:pointer;
-	border:0px !important;
-	background:transparent url(./resources/images/button/btn_reset.gif) 0 0 no-repeat !important;
-	width: 122px;
-	height: 35px;
-}
-
-/*
-.khLee-x-box-target .x-box-target {
-	position: relative;
-}
-*/
-.khLee-x-box-target .x-box-target img {
-	position: relative;
-	float: left;
-	margin: 0px;
-}
-
-.khLee-x-searcharea-water .x-panel {
-	margin: 10px;
-	padding: 10px;
-	background: #f8f6f9;
-	border: 1px solid #d1d1d1;
-}
-
-.khLee-x-form .x-panel-body {
-	background: #f8f6f9;
-	right: auto;
-	left: 5px;
-	top: 5px;
-	margin: 0px;
-	width: 312px;
-	height: 131px;
-}
-
-.khLee-infowin-title {
-	padding: 4px 5px;
-	font-size: 12px;
-	font-weight: bold;
-}
-
-.khLee-infowin-cont {
-	font-size: 12px;
-	padding: 4px 5px;
-	border-bottom: 1px solid #999;
-}
-
-.khLee-x-column-header-text .x-column-header-text, .x-column-header {
-	color: #000 !important;
-	font-weight: bold !important;
-}
-
-.khLee-x-grid-locked .x-grid-locked .x-grid-inner-locked, .x-column-header {
-	border-right: 1px dotted #c1c1c1 !important;
-}
-
-.khLee-x-label-default {
-	padding-top: 2px;
-	min-height: 24px;
-}
-
-.khLee-x-form-item-label-default .x-form-item-label-default {
-	padding-top: 2px;
-}
-
-.x-tree-icon .x-tree-icon-leaf.abc{
-  background: url(abc) x y no-repat !important;
-}
-
-</style>
+		#west_container-splitter {
+		    background-color: #ede5dc !important;
+		}
+		
+		.x-btn-icon .refreshbutton {
+		    background-image: url(./resources/images/button/refresh1.jpeg) !important;
+		    height:32px; width:32px;
+		}
+		  
+		.x-toolbar-default-west-khLee {
+		  background: #20242f !important;
+		  padding: 0px !important;
+		}
+		
+		.x-toolbar-default-west-khLee img {
+		  left: 0px !important;
+		}
+		
+		.x-toolbar-default-north-khLee {
+		  background-image:url(./resources/images/button/top_bg.png) !important;
+		  padding: 0px !important;
+		}
+		
+		.khLee-x-north-right {
+			position: absolute !important;
+			top: 11px !important;
+			width: 267px !important;
+			left: 0px !important;
+			margin-left: 85% !important;
+		}
+		
+		.khLee-x-north-right .x-box-inner {
+			width: 267px !important;
+		}
+		
+		.khLee-x-north-right .x-box-target {
+			width: 267px !important;
+		}
+		
+		.khLee-x-north-right img {
+			float: left;
+			left: 0px !important;
+			position: relative !important;
+			text-align: right !important;
+		}
+		
+		.khLee-x-header .x-panel-header .x-box-inner {
+		    height: 25px !important;
+		}
+		
+		.khLee-x-header .x-panel-header-default-horizontal.x-header-noborder {
+			padding: 4px !important;
+			/*box-shadow: 0px 3px 2px #777;*/
+		}
+		
+		.khLee-x-tab-header .x-panel-header-default-horizontal {
+		    padding: 7px 4px 4px 4px !important;
+		}
+		
+		.khLee-x-tab-header .x-box-inner {
+			height: 22px !important;
+		}
+		
+		.khLee-x-tab-header .x-panel-default-outer-border-rbl {
+			border: 0px !important;
+		}
+		
+		#top-logo-khLee {
+			top: 12px !important;
+		}
+		
+		.khLee-x-serch-btn {
+		  height: 19px !important;
+		  width: 34px !important;
+		  cursor: pointer !important;
+		}
+		
+		.khLee-x-default-btn {
+		  height: 19px !important;
+		  width: 24px !important;
+		  cursor: pointer !important;
+		}
+		
+		.khLee-x-tree-node-text-bold {
+			font-weight: bold;
+			letter-spacing: -1px;
+		}
+		
+		.khLee-x-tree-node-text-small {
+			font-size: 12px;
+			color: #0066cc;
+			text-decoration: underline;
+			letter-spacing: -1px;
+		}
+		
+		.khLee-x-tree-node-text-small-nounder {
+			font-size: 12px;
+			letter-spacing: -1px;
+		}
+		
+		.khLee-window-panel-header .x-window-header-default-top {
+			background-image: url('./resources/images/button/pop_bg.gif') !important;
+			border-style: none !important;
+			height: 35px;
+			background-repeat: repeat-x;
+			padding: 8px 0px 0px 5px;
+		}
+		
+		.khLee-x-window-default {
+		/*
+			border: 0px !important;
+			border-width: 0px !important;
+		*/
+			/*border-color: #999 !important;*/
+			border-style: none !important;
+		}
+		
+		/*
+		 .x-window-body-default {
+		 background-image: url('./resources/images/button/pop_bg.gif') !important;
+		 	border-style: none !important;
+		 }
+		*/
+		 
+		 .khLee-x-reachtoolbar .x-box-inner {
+			border: 0px !important;
+			background: url('./resources/images/button/tool_bar_bg.gif') repeat-x !important;
+		}
+		
+		.khLee-x-reachtollbar-default .x-border-item x-box-item x-toolbar-default x-box-layout-ct {
+			padding: 0px;
+		}
+		
+		.khLee-x-button-move {
+			cursor:pointer;
+			border:0px !important;
+			background:transparent url(./resources/images/button/btn_move.png) 0 0 no-repeat !important;
+			width: 55px;
+			height: 25px;
+		}
+		
+		.khLee-x-button-search {
+			cursor:pointer;
+			border:0px !important;
+			background:transparent url(./resources/images/button/icon_seah2.gif) 0 0 no-repeat !important;
+			width: 55px;
+			height: 25px;
+		}
+		
+		.khLee-x-button-select {
+			cursor:pointer;
+			border:0px !important;
+			background:transparent url(./resources/images/button/btn_select.gif) 0 0 no-repeat !important;
+			width: 122px;
+			height: 35px;
+		}
+		
+		.khLee-x-button-reset {
+			cursor:pointer;
+			border:0px !important;
+			background:transparent url(./resources/images/button/btn_reset.gif) 0 0 no-repeat !important;
+			width: 122px;
+			height: 35px;
+		}
+		
+		/*
+		.khLee-x-box-target .x-box-target {
+			position: relative;
+		}
+		*/
+		.khLee-x-box-target .x-box-target img {
+			position: relative;
+			float: left;
+			margin: 0px;
+		}
+		
+		.khLee-x-searcharea-water .x-panel {
+			margin: 10px;
+			padding: 10px;
+			background: #f8f6f9;
+			border: 1px solid #d1d1d1;
+		}
+		
+		.khLee-x-form .x-panel-body {
+			background: #f8f6f9;
+			right: auto;
+			left: 5px;
+			top: 5px;
+			margin: 0px;
+			width: 312px;
+			height: 131px;
+		}
+		
+		.khLee-infowin-title {
+			padding: 4px 5px;
+			font-size: 12px;
+			font-weight: bold;
+			height: 24px;
+		}
+		
+		.khLee-infowin-cont {
+			font-size: 12px;
+			padding: 4px 5px;
+			border-bottom: 1px solid #999;
+			height: 25px;
+		}
+		
+		.khLee-x-column-header-text .x-column-header-text, .x-column-header {
+			color: #000 !important;
+			font-weight: bold !important;
+		}
+		
+		.khLee-x-grid-locked .x-grid-locked .x-grid-inner-locked, .x-column-header {
+			border-right: 1px dotted #c1c1c1 !important;
+		}
+		
+		.khLee-x-label-default {
+			padding-top: 2px;
+			min-height: 24px;
+		}
+		
+		.khLee-x-form-item-label-default .x-form-item-label-default {
+			padding-top: 2px;
+		}
+		
+		.x-tree-icon .x-tree-icon-leaf.abc{
+		  background: url(abc) x y no-repat !important;
+		}
+	
+	</style>
     
-    <style>
-      .esriLargeSliderVertical {
-        height: 300px;
-      }
-      .esriLargeSliderTR {
-        right: 10px;
-        top: 30px;
-      }
-    </style>
+	<style>
+		.esriLargeSliderVertical {
+		  height: 300px;
+		}
+		.esriLargeSliderTR {
+		  right: 10px;
+		  top: 30px;
+		}
+	</style>
 
 </head>
 <body class="claro"></body>

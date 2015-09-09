@@ -5,33 +5,29 @@ Ext.define('KEF_DEV.view.center.Center', {
 	title: '&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> 전체',
 	
 	collapsible: false,
-	controller: 'buttonpanel',
+	controller: 'center',
 	
 	cls: 'khLee-x-header',
 	
 	tools: [{ 
 		xtype: 'image',
-		id: 'btnModeNomal_center',
-		groupId: 'group4_center',
+		id: 'btnModeNormal_center',
+		groupId: 'grpMode',
     	title: '일반모드',
-    	listeners: {
-    		el: {
-    			click: 'onClickButton'
-    		}
-    	},
-    	params: {title: '데이터', contents: '데이터 클릭', msgBox: 'alert'},
+    	listeners: { el: { click: 'onClickNormalMode' } },
+    	btnOnOff: 'on',
+    	btnOnImg: './resources/images/button/btn_nor_on.png',
+    	btnOffImg: './resources/images/button/btn_nor_off.png',
     	src: './resources/images/button/btn_nor_on.png'
     }, { 
 		xtype: 'image',
 		id: 'btnModeReach_center',
-		groupId: 'group4_center',
+		groupId: 'grpMode',
     	title: '리치모드',
-    	listeners: {
-    		el: {
-    			click: 'onClickButton'
-    		}
-    	},
-    	params: {title: '데이터', contents: '데이터 클릭', msgBox: 'alert'},
+    	listeners: { el: { click: 'onClickReachMode' } },
+    	btnOnOff: 'off',
+    	btnOnImg: './resources/images/button/btn_reach_on.png',
+    	btnOffImg: './resources/images/button/btn_reach_off.png',
     	src: './resources/images/button/btn_reach_off.png'
     }, {
     	type: 'up',
@@ -53,7 +49,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 	xtype: 'app-default-center',
 	
 	layout: {
-		type: 'border'
+		type: 'absolute'
 	},
 	
 	items: [/*{
@@ -65,9 +61,9 @@ Ext.define('KEF_DEV.view.center.Center', {
 		cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
 	}, */{
 		xtype: 'app-map-coreMap',
-		region: 'center',
-		width: '100%',
-		height: '100%'
+		//region: 'center',
+		width: 2000,
+		height: 1000
 	}]
 	
 });

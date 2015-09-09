@@ -53,8 +53,8 @@ Ext.define('KRF_DEV.view.map.GraphicsLayerAdmin', {
 		            
 		            this.startSymbol = new esri.symbol.PictureMarkerSymbol({
 					    "angle": 0,
-					    "xoffset": 10,
-					    "yoffset": 35,
+					    //"xoffset": 10,
+					    "yoffset": 14,
 					    "type": "esriPMS",
 					    "url": "./resources/images/symbol/btn_start01.png",
 					    "contentType": "image/png",
@@ -64,8 +64,8 @@ Ext.define('KRF_DEV.view.map.GraphicsLayerAdmin', {
 		            
 		            this.endSymbol = new esri.symbol.PictureMarkerSymbol({
 					    "angle": 0,
-					    "xoffset": 10,
-					    "yoffset": 35,
+					    //"xoffset": 10,
+					    "yoffset": 14,
 					    "type": "esriPMS",
 					    "url": "./resources/images/symbol/btn_end01.png",
 					    "contentType": "image/png",
@@ -95,7 +95,6 @@ Ext.define('KRF_DEV.view.map.GraphicsLayerAdmin', {
     	});
     },
     
-    // 레이어 on/off 핸들러 정의
     addGraphic: function(evt){
     	var me = KRF_DEV.getApplication().coreMap;
     	//deactivate the toolbar and clear existing graphics

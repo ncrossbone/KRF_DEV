@@ -8,12 +8,13 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
         var me = this;
         me.map = map;
         
-        dynamicLayer1 = new esri.layers.ArcGISDynamicMapServiceLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer");
-        me.layer = dynamicLayer1;
-		me.layer.id = "DynamicLayer1"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
-		me.layer.visible = true;
-		me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
-		me.map.addLayer(me.layer);
+        me.dynamicLayer1 = new esri.layers.ArcGISDynamicMapServiceLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer");
+        //me.layer = dynamicLayer1;
+		me.dynamicLayer1.id = "DynamicLayer1"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
+		me.dynamicLayer1.visible = true;
+		//me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
+		//me.layer.setVisibleLayers([53]); // 테스트
+		me.map.addLayer(me.dynamicLayer1);
 		
 		/*
 		dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/Layer2/MapServer");
@@ -27,13 +28,9 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     },
     
     // 레이어 on/off 핸들러 정의
-    dynamicLayerOnOffHandler: function(selectInfo, tabID){
-    	//var me = this; // 핸들러 추가 시 보낸 파라메터값으로 사용가능
-    	var me = KRF_DEV.getApplication().coreMap; // CoreMap에서 설정한 값으로 사용 가능
-    	
-    	//console.info(KRF_DEV.getApplication().coreMap.map);
-    	
-    	var activeLayer = me.map.getLayer(tabID);
+    dynamicLayerOnOffHandler: function(selectInfo){
+    	var me = this;
+    	var activeLayer = me.dynamicLayer1;
     	
     	if(selectInfo.length==0){
     		activeLayer.setVisibleLayers([]);

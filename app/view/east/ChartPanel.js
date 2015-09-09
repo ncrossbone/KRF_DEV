@@ -1,9 +1,10 @@
-Ext.define('KRF_DEV.view.east.ChartWindow', {
-    extend: 'Ext.window.Window',
-    xtype: 'east-chartwindow',
-    id: 'chartWindow',
+Ext.define('KRF_DEV.view.east.ChartPanel', {
+    extend: 'Ext.panel.Panel',
+    xtype: 'east-chartpanel',
+    id: 'chartPanel',
     //renderTo: Ext.getBody(),
     title: '차트정보',
+    header: false,
     
     layout: {
 		type: 'fit'

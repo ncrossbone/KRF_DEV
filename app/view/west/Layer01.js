@@ -14,7 +14,7 @@ Ext.define('KRF_DEV.view.west.Layer01', {
 	title: 'KRF 레이어',
 	header: false,
 	
-	autoScroll: true,
+	//autoScroll: true,
 	
 	tabBar: {
         border: false
@@ -38,12 +38,12 @@ Ext.define('KRF_DEV.view.west.Layer01', {
 		},
 		store : Ext.create('KRF_DEV.store.west.Layer01Store'),
 		controller: 'layer01Controller',
-		id: 'DynamicLayer1', // view.map.DynamicLayerAdmin의 layer.id와 일치시키자..
+		id: 'layer01', // view.map.DynamicLayerAdmin의 layer.id와 일치시키자..
 		rootVisible: false,
 		useArrows: true,
 		border: 0,
 		bufferedRenderer: false,
-		height: Ext.getBody().getViewSize().height - 100 // size 조절기능 추가요함.
+		height: Ext.getBody().getViewSize().height - 70 // size 조절기능 추가요함.
 		//rowLines: true
 	}/*, {
 		title: 'Layer2',
@@ -57,4 +57,14 @@ Ext.define('KRF_DEV.view.west.Layer01', {
 		bufferedRenderer: false
 		//rowLines: true
 	}*/]
+});
+
+Ext.on('resize', function(){
+	// 레이어 트리 패널 높이 조절 (스크롤)
+	var treeCtl = Ext.getCmp('westLayer01').items.items[0];
+    //console.info(treeCtl);
+    if(treeCtl == undefined)
+    	return;
+
+    treeCtl.setHeight(Ext.getBody().getViewSize().height - 70);
 });

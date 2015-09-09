@@ -1,11 +1,11 @@
-Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
+Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 	extend : 'Ext.window.Window',
 	
-	xtype : 'east-siteinfoindow',
+	xtype : 'east-reachInfoWindow',
 	
-	id: 'siteInfoWindow',
+	id: 'reachInfoWindow',
 	
-	title: '지점 정보',
+	title: '리치정보',
 	
 	layout: {
 		type: 'fit'
@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 	
 	width: 400,
-	height: 163,
+	height: 160,
 
 	items: [{
 		xtype: 'form',
@@ -41,7 +41,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '10160508',
+				id: 'RCH_ID',
+				//html: '10160508',
+				html: ' ',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -56,7 +58,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '번천',
+				id: 'RIV_NM',
+				//html: '번천',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -78,7 +82,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '경안천하류',
+				id: 'SB_NM',
+				//html: '경안천하류',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -93,7 +99,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '경안천',
+				id: 'LO_RIV_NM',
+				//html: '경안천',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -114,7 +122,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '2',
+				id: 'SN',
+				//html: '2',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -129,7 +139,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '2',
+				id: 'GEO_TRIB',
+				//html: '2',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -150,7 +162,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '7761.7',
+				id: 'RCH_LEN',
+				//html: '7761.7',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -165,7 +179,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '13113.4',
+				id: 'CUM_LEN',
+				//html: '13113.4',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -186,7 +202,9 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '120889.1',
+				id: 'CAT_AREA',
+				//html: '120889.1',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
@@ -201,7 +219,8 @@ Ext.define('KRF_DEV.view.east.SiteInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				html: '345966.0',
+				//html: '345966.0',
+				html: '',
 				//width: 85,
 				flex: 1,
 				cls: 'khLee-infowin-cont',
