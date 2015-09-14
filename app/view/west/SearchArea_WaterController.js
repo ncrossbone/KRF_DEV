@@ -119,6 +119,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		
 		var btnCtl = null;
 		
+		//대역권 선택창 레이어 정보
+		var buttonInfo = Ext.getCmp("cmbWater1");
+		
 		var btn1 = Ext.getCmp("btnWater1");
 		if(btn1.disabled == false){
 			btnCtl = btn1;
@@ -134,26 +137,33 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 			btnCtl = btn3;
 		}
 		
-		if(btnCtl != null){
-			this.onAreaSearch(btnCtl, null, null);
-			
-			// 버튼 On/Off
-			var currCtl = Ext.getCmp("btnSiteListWindow");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSiteListWindow");
-				Ext.ShowSiteListWindow("test");
+		if(buttonInfo.rawValue != ""){
+			if(btnCtl != null){
+				this.onAreaSearch(btnCtl, null, null);
+				console.log("일");
+				// 버튼 On/Off
+				var currCtl = Ext.getCmp("btnSiteListWindow");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSiteListWindow");
+					//Ext.ShowSiteListWindow("test",jsonStr);
+					Ext.ShowSiteListWindow("test");
+				}
+				console.log("이");
+				// 버튼 On/Off
+				currCtl = Ext.getCmp("btnSearchResult");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSearchResult");
+					Ext.ShowSearchResult("grid-tab-2", "하천수");
+				}
 			}
-			
-			// 버튼 On/Off
-			currCtl = Ext.getCmp("btnSearchResult");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSearchResult");
-				Ext.ShowSearchResult("grid-tab-2", "하천수");
+			else{
+				alert("선택된 수계가 없습니다.");
 			}
+			console.log("다");
+			
+			//onAreaSearch copy
 		}
-		else{
-			alert("선택된 수계가 없습니다.");
-		}
+		
 		
 	},
 	
@@ -163,6 +173,19 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		Ext.HideSiteInfoWindow();
 		Ext.HideChartResult();
 		KRF_DEV.getApplication().fireEvent('drawEnd');
+		
+	},
+	
+	jsonFile: function(buttonInfo,btnCtl){
+		 
+		
+	
+			
+			
+			//this.setData(Ext.JSON.decode(jsonStr));
+			//store.setData(JSON.parse(jsonStr));
+
+		
 		
 	}
 	
