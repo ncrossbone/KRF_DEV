@@ -16,7 +16,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			query.returnGeometry = false;
 			query.where = "권역 = '한강권역'";
 			query.outFields = ["*"];
-			
+			console.log("1");
 			queryTask.execute(query, function(result){
 				var jsonStr = "[";
 				
