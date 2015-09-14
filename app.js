@@ -32,7 +32,7 @@ store.load(function(a, b, c){
 			console.info(_serviceUrl);
 		}
 	});
-	console.info(_serviceUrl);
+	//console.info(_serviceUrl);
 });
 
 /*

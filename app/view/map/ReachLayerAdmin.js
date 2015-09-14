@@ -226,8 +226,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 				queryTask.execute(query, me.downLineDraw);
 	    	}
 	    	
+	    	console.info("test");
+	    	
 	    	me.map.graphics.on("click", function(evt){
-	    		console.info(evt);
+	    		//console.info(evt);
 	    		me.map.graphics.remove(evt.graphic);
 	    	});
     	});
