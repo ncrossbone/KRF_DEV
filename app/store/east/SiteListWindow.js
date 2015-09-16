@@ -4,24 +4,22 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	extend: 'Ext.data.TreeStore',
 	proxy: {
 	    type: 'ajax',
-	    url: 'app/data/tree.json',
+	    url: 'resources/data/east/SiteListWindow.json',
 	    reader: {
 	        type: 'json',
 	        root: 'result'
 	    }
 	},
 
-	//fields: ['id', 'text'],
-	//fields: [ name : 'id' , type: 'string'],
-
 	autoLoad: true,
 
-	remoteSort: true,
+	remoteSort: true
+	/*,
 
 	listeners: {
 		beforeload: function(store) {
-//			alert("!");
-			var queryTask = new esri.tasks.QueryTask('http://112.217.167.123:6080/arcgis/rest/services/reach/MapServer'); // 레이어 URL
+			
+			var queryTask = new esri.tasks.QueryTask('http://112.218.1.242:20002/arcgis/rest/services/reach/MapServer'); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			query.where = "권역 = '한강권역'";
@@ -37,11 +35,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "	\"text\": \"" + objLayer.name + "\",\n";
 						jsonStr += "	\"cls\": "+'"'+"khLee-x-tree-node-text-bold"+'"'+",\n";
 						jsonStr += "	\"iconCls\": 'layerNoneImg',\n";
-						jsonStr += "	\"checked\": true,\n";
+						jsonStr += "	\"checked\": false,\n";
 						
 						// children node가 있을때
 						if(objLayer.subLayerIds != null){
-							jsonStr += "	\"expanded\": true,\n"; // 펼치기..
+							jsonStr += "	\"expanded\": false,\n"; // 펼치기..
 							jsonStr += "\n	\"children\": [";
 							for(i = 0; i < objLayer.subLayerIds.length; i++){
 								jsonStr += "{\n";
@@ -50,7 +48,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "		\"cls\": "+'"'+"khLee-x-tree-node-text-small-nounder"+'"'+",\n";
 								jsonStr += "		\"iconCls\": "+'"'+"layerIconSize layer"+objLayers[objLayer.subLayerIds[i]].id+'"'+",\n";
 								jsonStr += "		\"leaf\": true,\n";
-								jsonStr += "		\"checked\": true\n";
+								jsonStr += "		\"checked\": false\n";
 								jsonStr += "	}, ";
 								if(i == objLayer.subLayerIds.length - 1){
 									jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
@@ -73,10 +71,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				console.log("##");
 				console.info(jsonStr);
 				console.log("##");
-				store.setData(jsonStr);
+				//store.setData(jsonStr);
 				//store.setData(JSON.parse(jsonStr));
 				
 	        });
-	    }
-	}
+	  	}
+	}*/
 });

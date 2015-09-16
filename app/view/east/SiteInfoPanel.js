@@ -28,17 +28,16 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 		},
 		title: '검색결과',
 		header: false,
-		store: 'KRF_DEV.store.east.SiteInfoPanel',
+		//store: 'KRF_DEV.store.east.SiteInfoPanel',
+		store: Ext.create('KRF_DEV.store.east.SiteInfoPanel'),
 		columns: [{
 			text      : '구분',
 			dataIndex : 'column',
-			width: 150,
-			filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+			width: 150
 		}, {
 			text      : '내용',
 			dataIndex : 'cont',
-			width: 240,
-			filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+			width: 240
 		}]
 	}]
 });
