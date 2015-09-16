@@ -1,8 +1,18 @@
 Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	
-	extend: 'Ext.data.Store',
+	//extend: 'Ext.data.Store',
+	extend: 'Ext.data.TreeStore',
+	proxy: {
+	    type: 'ajax',
+	    url: 'app/data/tree.json',
+	    reader: {
+	        type: 'json',
+	        root: 'result'
+	    }
+	},
 
-	fields: ['id', 'name'],
+	//fields: ['id', 'text'],
+	//fields: [ name : 'id' , type: 'string'],
 
 	autoLoad: true,
 
@@ -10,13 +20,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 	listeners: {
 		beforeload: function(store) {
-			alert('111');
+//			alert("!");
 			var queryTask = new esri.tasks.QueryTask('http://112.217.167.123:6080/arcgis/rest/services/reach/MapServer'); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			query.where = "권역 = '한강권역'";
 			query.outFields = ["*"];
-			console.log("1");
 			queryTask.execute(query, function(result){
 				var jsonStr = "[";
 				
@@ -60,9 +69,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
 				jsonStr += "]";
-			
-			
+				
+				console.log("##");
+				console.info(jsonStr);
+				console.log("##");
 				store.setData(jsonStr);
+				//store.setData(JSON.parse(jsonStr));
+				
 	        });
 	    }
 	}

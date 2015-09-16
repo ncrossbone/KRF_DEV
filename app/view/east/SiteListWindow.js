@@ -21,8 +21,12 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		y: 8,
-		rootVisible:true,
-		store: 'KRF_DEV.store.east.SiteListWindow',
+		rootVisible:false,
+		//store: aaa
+		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
+		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
+		//store: 'KRF_DEV.store.east.SiteListWindow',
+		
 		columns: [{
             xtype: 'treecolumn', //this is so we know which column will show the tree
             text: '지점',
@@ -98,8 +102,9 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     },
     
 	initComponent: function(){
+		
 		this.callParent();
-		//var stror =  Ext.create('');
+		//console.info(stror);
 		//this.items.items[0].setSrore(stroe);
 		// 트리 노드 클릭 이벤트
 		Ext.defer(function(){

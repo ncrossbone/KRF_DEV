@@ -159,7 +159,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 			else{
 				alert("선택된 수계가 없습니다.");
 			}
-			console.log("다");
 			
 			//onAreaSearch copy
 		}
