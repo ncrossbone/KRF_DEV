@@ -166,5 +166,4 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			}]
 		}]
 	}]
-
 });

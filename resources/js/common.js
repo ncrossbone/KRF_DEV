@@ -325,5 +325,4 @@ HideSearchResult = function(){
 		//searchResultWindow.close();
 		searchResultWindow.hide();
 	}
-	
 }

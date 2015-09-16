@@ -117,12 +117,45 @@ Ext.application({
  		var listWinCtl = null;
  		var infoWinCtl = null;
  		
+ 		// 	지점 목록 창 띄우기 copy
+ 		Ext.ShowSiteListWindowCopy = function(searchText){
+ 			
+ 			if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
+ 				listWinCtl = Ext.getCmp("siteListWindow");
+ 	 			
+ 				if(listWinCtl == undefined)
+ 					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow01',jsonStr);
+ 				
+ 				listWinCtl.show();
+ 				
+ 				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
+ 				var listWinY = 98;
+ 				
+ 				listWinCtl.setX(listWinX);
+ 				listWinCtl.setY(listWinY);
+			}
+			else{
+				listWinCtl = Ext.getCmp("siteListWindow_reach");
+	 			
+				if(listWinCtl == undefined)
+					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow_Reach');
+				
+				listWinCtl.show();
+				
+				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
+				var listWinY = 98;
+				
+				listWinCtl.setX(listWinX);
+				listWinCtl.setY(listWinY);
+			}
+			
+ 		}
+ 		
  		// 지점 목록 창 띄우기
  		Ext.ShowSiteListWindow = function(searchText){
  			
  			if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
  				listWinCtl = Ext.getCmp("siteListWindow");
- 	 			
  				if(listWinCtl == undefined)
  					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
  				
@@ -130,6 +163,7 @@ Ext.application({
  				
  				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
  				var listWinY = 98;
+ 				
  				
  				listWinCtl.setX(listWinX);
  				listWinCtl.setY(listWinY);
