@@ -107,7 +107,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 		}, {
 			xtype: 'container',
 			layout: {
-				type: 'hbox',
+				type: 'hbox'
 			},
 			items: [{
 				id: 'cmbWater3',

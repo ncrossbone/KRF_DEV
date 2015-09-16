@@ -185,6 +185,7 @@ ReachLayerReset = function(){
 	me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map);
 }
 
+// 리치정보 바인딩
 ReachInfoBinding = function(objs){
 	//console.info(objs);
 	if(objs == undefined || objs[0] == undefined)
@@ -282,4 +283,21 @@ ChangeTabIndex = function(tabIdx){
 	
 	var contCtl = Ext.getCmp("infoContents");
 	contCtl.setActiveItem(tabIdx);
+}
+
+//검색결과창 띄우기
+ShowSearchResult = function(){
+		
+	Ext.create('KRF_DEV.view.common.WindowControl');
+	
+}
+
+// 검색결과창 닫기
+HideSearchResult = function(){
+	
+	var winContainer = Ext.getCmp("datawindow-container");
+	
+	if(winContainer != undefined)
+		winContainer.close();
+	
 }

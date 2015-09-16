@@ -6,7 +6,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin_ReachTest', {
         var me = this;
         me.map = map;
 		
-        me.layer = new esri.layers.ArcGISDynamicMapServiceLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/reach_test/MapServer", {
+        me.layer = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_reachtest, {
         	//"opacity": 0.5
         });
 		

@@ -37,7 +37,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea1',
-				layerId: '57',
+				layerId: _admSidoLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea2',
 				lnkBtnId: 'btnSearch1',
@@ -61,6 +61,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				lnkCmbId: 'cmbArea1',
 				//width: 40,
 				//text: '검색'
+				disabled: true,
 				cls: 'khLee-x-button-move'
 			}]
 		}, {
@@ -73,7 +74,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea2',
-				layerId: '58',
+				layerId: _admSigunguLayerId,
 				xtype: 'combo',
 				tarCmbId: 'cmbArea3',
 				lnkBtnId: 'btnSearch2',
@@ -111,7 +112,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 			},
 			items: [{
 				id: 'cmbArea3',
-				layerId: '59',
+				layerId: _admDongLayerId,
 				xtype: 'combo',
 				tarCmbId: '',
 				lnkBtnId: 'btnSearch3',
@@ -153,11 +154,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 				xtype: 'button',
 				id: 'btnADMReset',
 				//text: '초기화'
-				cls: 'khLee-x-button-reset',
-				handler: function(){
-					var comboCtl = Ext.getCmp("cmbArea1");
-					comboCtl.setValue("");
-				}
+				cls: 'khLee-x-button-reset'
 			}, {
 				xtype: 'container',
 				width: 10

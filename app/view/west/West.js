@@ -79,7 +79,7 @@ Ext.define('KRF_DEV.view.west.West', {
     initComponent: function(){
     	this.callParent();
     	Ext.defer(function(){
-    		console.info(Ext.get("west_container-splitter-collapseEl"));
+    		//console.info(Ext.get("west_container-splitter-collapseEl"));
         	Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
     	}, 1, this);
     }

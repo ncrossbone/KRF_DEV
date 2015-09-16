@@ -163,12 +163,12 @@ function CreateWindow(params){
 	            }
 	        },
 	        resize : function(win,width,height,opt){
-                console.log(width);
-                console.log(height);
+                //console.log(width);
+                //console.log(height);
 	        	
 	        	//var grid = Ext.getCmp("grid-tab-2");grdPrototype
                 var grid = Ext.getCmp("grdPrototype");
-	        	console.info(grid);
+	        	//console.info(grid);
 	        	if(grid != undefined){
 	        		grid.setHeight(height - 85);
 	        		grid.setWidth(width);

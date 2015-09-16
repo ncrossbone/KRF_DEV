@@ -185,6 +185,7 @@ ReachLayerReset = function(){
 	me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map);
 }
 
+// 리치정보 바인딩
 ReachInfoBinding = function(objs){
 	//console.info(objs);
 	if(objs == undefined || objs[0] == undefined)
@@ -282,4 +283,47 @@ ChangeTabIndex = function(tabIdx){
 	
 	var contCtl = Ext.getCmp("infoContents");
 	contCtl.setActiveItem(tabIdx);
+}
+
+//검색결과창 띄우기
+ShowSearchResult = function(title){
+	
+	var windowCtlId = "searchResultWindow";
+	//var searchResultWindow = KRF_DEV.getApplication().searchResultWindow;
+	var searchResultWindow = Ext.getCmp(windowCtlId); // close되는경우때문에 전역으로 가져와서 쓰지 말자..
+	// 검색결과 컨테이너 전역으로 담아두기
+	KRF_DEV.getApplication().searchResultWindow = searchResultWindow; // undefined거나 ...
+	
+	if(searchResultWindow == undefined){
+		
+		var centerContainer = KRF_DEV.getApplication().centerContainer; // view.main.Main.js 전역
+		var windowWidth = centerContainer.getWidth();
+		var windowHeight = 300;
+		var windowY = centerContainer.getHeight() - centerContainer.header.getHeight() - windowHeight;
+		
+		searchResultWindow = Ext.create('KRF_DEV.view.common.WindowControl', {
+			id: windowCtlId,
+			title: '검색결과',
+			width: windowWidth,
+			y: windowY
+		});
+		
+		centerContainer.add(searchResultWindow);
+		
+	}
+
+	searchResultWindow.show();
+	
+}
+
+// 검색결과창 닫기
+HideSearchResult = function(){
+	
+	var searchResultWindow = KRF_DEV.getApplication().searchResultWindow;
+	
+	if(searchResultWindow != undefined){
+		//searchResultWindow.close();
+		searchResultWindow.hide();
+	}
+	
 }

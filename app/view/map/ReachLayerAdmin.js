@@ -3,39 +3,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	reachLinelayer: null,
 	reachArealayer: null,
 	selectionToolbar: null,
-	reachIds1: ["10130301",
-	           "10130209",
-	           "10130204",
-	           "10130107",
-	           "10130203",
-	           "10130205",
-	           "10130201",
-	           "10130202",
-	           "10130206",
-	           "10130404",
-	           "10130406",
-	           "10130208",
-	           "10130210",
-	           "10130402",
-	           "10130401",
-	           "10120807",
-	           "10130207"
-	           ],
-	reachIds2: [
-				"10130509",
-				"10130607",
-				"10130608",
-				"10130609",
-				"10130610",
-				"10130611",
-				"10130612",
-				"10130616",
-				"10130701",
-				"10130702",
-				"10130706",
-				"10130708",
-				"10130710"
-	            ],
 	
 	constructor: function(map) {
 		this.reachMapLoad(map);
@@ -80,7 +47,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         	/* 리치라인 피처 레이어 추가 */
         	var lineSelectionSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 255, 255]), 5);
         	
-        	me.reachLinelayer = new FeatureLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/46", {
+        	me.reachLinelayer = new FeatureLayer(_mapServiceUrl + "/" + _reachLineLayerId, {
 	            //mode: FeatureLayer.MODE_ONDEMAND,
         		mode: FeatureLayer.MODE_SELECTION,
 	            outFields: ["*"]
@@ -117,7 +84,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			        				new Color([255, 255, 0, 0.3])
         							);
         	
-        	me.reachArealayer = new FeatureLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/47", {
+        	me.reachArealayer = new FeatureLayer(_mapServiceUrl + "/" + _reachAreaLayerId, {
 	            //mode: FeatureLayer.MODE_ONDEMAND,
         		mode: FeatureLayer.MODE_SELECTION,
 	            outFields: ["*"]
@@ -206,7 +173,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	//console.info(evt);
     	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, QueryTask){
     		
-    		queryTask = new QueryTask(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/46");
+    		queryTask = new QueryTask(_mapServiceUrl + "/" + _reachLineLayerId);
     		query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];
@@ -259,7 +226,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         	
         	// 버튼 On/Off
         	var currCtl = SetBtnOnOff("btnAreaLayer");
-        	ReachLayerOnOff("btnAreaLayer", "47");
+        	ReachLayerOnOff("btnAreaLayer", _reachAreaLayerId);
     	});
     },
     
@@ -287,7 +254,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         	
         	// 버튼 On/Off
         	var currCtl = SetBtnOnOff("btnAreaLayer");
-        	ReachLayerOnOff("btnAreaLayer", "47");
+        	ReachLayerOnOff("btnAreaLayer", _reachAreaLayerId);
     	});
     },
     
@@ -295,7 +262,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	//console.info(evt);
     	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, QueryTask){
     		
-    		queryTask = new QueryTask(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/46");
+    		queryTask = new QueryTask(_mapServiceUrl + "/" + _reachLineLayerId);
     		query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];
@@ -314,7 +281,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     		
     		// 버튼 On/Off
         	var currCtl = SetBtnOnOff("btnAreaLayer");
-        	ReachLayerOnOff("btnAreaLayer", "47");
+        	ReachLayerOnOff("btnAreaLayer", _reachAreaLayerId);
     	}
     },
     
@@ -355,7 +322,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	// 버튼 On/Off
     	var currCtl = SetBtnOnOff("btnAreaLayer");
-    	ReachLayerOnOff("btnAreaLayer", "47");
+    	ReachLayerOnOff("btnAreaLayer", _reachAreaLayerId);
     	
     },
     
@@ -452,7 +419,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     		
     		require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, QueryTask){
     			
-    			queryTask = new QueryTask(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/46");
+    			queryTask = new QueryTask(_mapServiceUrl + "/" + _reachLineLayerId);
 
     			  //initialize query
     			  query = new Query();

@@ -1,5 +1,18 @@
 var _testUrl = null;
 var _serviceUrl = null;
+var _mapServiceUrl = null; // 리치 맵 서비스 
+var _mapServiceUrl_reachtest = null; // 시연용 테스트 맵 서비스
+var _mapServiceUrl_dim = null; // dim처리 맵 서비스
+var _reachNodeLayerId = null; // 리치노드 레이어 아이디
+var _reachLineLayerId = null; // 리치라인 레이어 아이디
+var _reachAreaLayerId = null; // 집수구역 레이어 아이디
+var _admSidoLayerId = null; // 시도 레이어 아이디
+var _admSigunguLayerId = null; // 시군구 레이어 아이디
+var _admDongLayerId = null; // 읍면동 레이어 아이디
+var _admRiLayerId = null; // 리 레이어 아이디
+var _areaWSLayerId = null; // 대권역 레이어 아이디
+var _areaAMLayerId = null; // 중권역 레이어 아이디
+var _areaASLayerId = null; // 소권역 레이어 아이디
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad: true,
@@ -26,13 +39,20 @@ var store = Ext.create('Ext.data.Store', {
 
 store.load(function(a, b, c){
 	this.each(function(record, cnt, totCnt){
-		//console.info(record);
-		if(record.id == "ServiceUrl"){
-			_serviceUrl = record.data;
-			console.info(_serviceUrl);
-		}
+		_mapServiceUrl = record.data.reachServiceUrl;
+		_mapServiceUrl_reachtest = record.data.reachTestServiceUrl;
+		_mapServiceUrl_dim = record.data.dimServiceUrl;
+		_reachNodeLayerId = record.data.reachNodeLayerId;
+		_reachLineLayerId = record.data.reachLineLayerId;
+		_reachAreaLayerId = record.data.reachAreaLayerId;
+		_admSidoLayerId = record.data.admSidoLayerId;
+		_admSigunguLayerId = record.data.admSigunguLayerId;
+		_admDongLayerId = record.data.admDongLayerId;
+		_admRiLayerId = record.data.admRiLayerId;
+		_areaWSLayerId = record.data.areaWSLayerId;
+		_areaAMLayerId = record.data.areaAMLayerId;
+		_areaASLayerId = record.data.areaASLayerId;
 	});
-	//console.info(_serviceUrl);
 });
 
 /*
@@ -46,14 +66,6 @@ Ext.application({
     //extend: 'KRF_DEV.Application',
     
     autoCreateViewport: 'KRF_DEV.view.main.Main',
-    
-    //arcServiceUrl:'http://112.217.167.123:6080/arcgis',
-    arcServiceUrl: "http://112.218.1.242:20002/arcgis",
-    //arcServiceUrl:'http://fireftp.iptime.org:6080/arcgis',
-    //layer1Url: 'http://112.217.167.123:6080/arcgis/rest/services/reach/MapServer/',
-    layer1Url: "http://112.218.1.242:20002/arcgis/rest/services/reach/MapServer/",
-    //layer1Url: 'http://fireftp.iptime.org:6080/arcgis/rest/services/drone/MapServer',
-    //requires: ['Ext.chart.Chart'],
     
     stores: [
         'KRF_DEV.store.south.PrototypeGrid',
@@ -215,9 +227,10 @@ Ext.application({
  			
  		}
  		
+ 		/*
  		// 검색결과창 띄우기
  		Ext.ShowSearchResult = function(tabId, title){
- 			console.info(tabId);
+ 			//console.info(tabId);
  			var tabCtl = Ext.getCmp(tabId);
  			
  			if(tabCtl == undefined){ 			
@@ -253,6 +266,7 @@ Ext.application({
  				winContainer.close();
  			
  		}
+ 		*/
  		
  		var rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar', {
 			//region: 'north',

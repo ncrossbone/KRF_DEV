@@ -12,7 +12,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     setSelectedSiteHandler: function(layerId, siteId){
 		
 		me = this;
-		me.layer = new esri.layers.FeatureLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer" + "/" + layerId);
+		me.layer = new esri.layers.FeatureLayer(_mapServiceUrl + "/" + layerId);
 		me.layer.setDefinitionExpression("측정소코드='" + siteId + "'");
 		me.layer.id = "FeatureLayer" + layerId;
 		
