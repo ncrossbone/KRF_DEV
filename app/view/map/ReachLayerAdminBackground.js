@@ -8,7 +8,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdminBackground', {
         var me = this;
         me.map = map;
         
-        me.layer = new esri.layers.ArcGISDynamicMapServiceLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/Gray/MapServer", {
+        me.layer = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_dim, {
         	"opacity": 0.6
         });
         

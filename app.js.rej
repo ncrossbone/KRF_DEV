@@ -1,0 +1,9 @@
+diff a/app.js b/app.js	(rejected hunks)
+@@ -54,6 +54,7 @@
+ 		_areaASLayerId = record.data.areaASLayerId;
+ 	});
+ =======
++	console.info(_serviceUrl);
+ >>>>>>> KRF_DEV_PDJ/development
+ });
+ 

@@ -25,12 +25,22 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
+		/*
 		if(currCtl.btnOnOff == "off"){
 			Ext.HideSearchResult();
 		}
 		else{
 			Ext.ShowSearchResult("grid-tab-2", "하천수");
 		}
+		*/
+		
+		if(currCtl.btnOnOff == "on"){
+			ShowSearchResult();
+		}
+		else{
+			HideSearchResult();
+		}
+		
 	},
 	
 	onClickFavorite: function(obj, el, evt){

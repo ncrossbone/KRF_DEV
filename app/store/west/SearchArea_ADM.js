@@ -19,22 +19,27 @@ Ext.define('KRF_DEV.store.west.SearchArea_ADM', {
 			// Ext.defer(function() { 
 			// defer : 미루다, 연기하다
 			// Ext.defer(function(){...}, 1000, this); // function 내 코드를 1초(1000ms)후에 실행한다.
+			//console.info(store.layerId);
+			/*
+			if(store.parentADMCD == ""){
+				store.setData([]);
+				return;
+			}
+			*/
 				
 				var idColumn, nameColumn, whereStr;
 				
 				idColumn = "ADM_CD";
 				
-				if(store.layerId == '57'){
-					nameColumn = "DO_NM"; whereStr = "1=1"
-				}
-				if(store.layerId == '58'){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD + "%'"}
-				if(store.layerId == '59'){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
+				if(store.layerId == _admSidoLayerId){ nameColumn = "DO_NM"; whereStr = "1=1" }
+				if(store.layerId == _admSigunguLayerId){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,2) + "%'"}
+				if(store.layerId == _admDongLayerId){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,5) + "%'"}
 				//alert(store.layerId);
 				// id, name 셋팅이 안돼있으면 리턴
 				if(idColumn == undefined || nameColumn == undefined || whereStr == undefined)
 					return;
 				
-				var queryTask = new esri.tasks.QueryTask(KRF_DEV.app.layer1Url + store.layerId); // 레이어 URL
+				var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + store.layerId); // 레이어 URL
 				var query = new esri.tasks.Query();
 				query.returnGeometry = false;
 				query.where = whereStr;
