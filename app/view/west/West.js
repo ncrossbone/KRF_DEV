@@ -7,7 +7,7 @@ Ext.define('KRF_DEV.view.west.West', {
     
     xtype: 'app-default-west',
 
-    width: 400,
+    width: 300,
 
 //    tabPosition: 'left',
 //    tabRotation: 0,
@@ -21,20 +21,16 @@ Ext.define('KRF_DEV.view.west.West', {
     collapsible: true,
     split: true,
     header: false,
-    //collapsed: true,
-    /*
-    split: {
-        //collapsible: true
-    	cls: 'khLee-x-spliter-collapse'
-    },
-    */
+    //collapseMode: 'undefined',
+    //hideCollapseTool: true,
+    //preventHeader: false,
+    //placeholder: false,
+    //placeholderCollapseHideMode: Ext.Element.OFFSETS,
+    placeholder: new Object(undefined), // 패널 닫혔을때 제목 없애기..
     
     listeners: {
     	collapse: function(){
-    		//console.info(Ext.get("west_container-splitter-collapseEl").dom.innerHTML);
     		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_open.png' />";
-    		//console.info(Ext.get("west_container-splitter-collapseEl").html);
-    		//Ext.get("west_container-splitter-collapseEl").el.setStyle({"background-image": "./resources/images/button/btn_arrow_open.png"});
     	},
     	expand: function(){
     		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
@@ -47,10 +43,10 @@ Ext.define('KRF_DEV.view.west.West', {
     	type: 'border'
     },
     
-    items: [{
+    items: [/*{
     	xtype: 'west-buttonpanel',
     	region: 'west'
-    }, {
+    }, */{
     	xtype: 'container',
     	id: 'westContents',
     	activeItem: 1,
@@ -65,15 +61,9 @@ Ext.define('KRF_DEV.view.west.West', {
     	}]
     }],
 
-//    defaults: {
-//        textAlign: 'center',
-//        bodyPadding: 5
-//    },
-
     initComponent: function(){
     	this.callParent();
     	Ext.defer(function(){
-    		//console.info(Ext.get("west_container-splitter-collapseEl"));
         	Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
     	}, 1, this);
     }

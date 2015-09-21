@@ -2,7 +2,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 	
 	extend: 'Ext.panel.Panel',
 	
-	title: '&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> 전체',
+	title: '&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" />',
 	
 	collapsible: false,
 	controller: 'center',
@@ -34,7 +34,7 @@ Ext.define('KEF_DEV.view.center.Center', {
     	//xtype: 'tool',
     	handler: function(t){
     		var panel = this.up('panel');
-    		//console.info(this.type);
+    		
     		if(panel.collapsed == false){
     			panel.collapse();
     			this.setType('down');
@@ -49,21 +49,16 @@ Ext.define('KEF_DEV.view.center.Center', {
 	xtype: 'app-default-center',
 	
 	layout: {
-		type: 'border'
+		type: 'absolute'
 	},
 	
-	items: [/*{
-		xtype: 'center-reachtoolbar',
-		id: 'reachToolbar',
-		region: 'north',
-		width: '100%',
-		hidden: true
-		cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
-	}, */{
+	items: [{
 		xtype: 'app-map-coreMap',
-		region: 'center',
+		//region: 'center',
 		width: 2000,
 		height: 1000
-	}]
+	}],
+	
+	
 	
 });
