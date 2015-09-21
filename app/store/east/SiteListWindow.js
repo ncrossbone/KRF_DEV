@@ -108,7 +108,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				store.setData(jsonData);
 				//store.setData(JSON.parse(jsonStr));
-				console.info("khLee");
+				//console.info("khLee");
 	        });
 	  	}
 	}
