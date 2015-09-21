@@ -71,7 +71,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 						
 						me.winSizeMode = "minimize";
 						
-						var centerContainer = KRF_DEV.getApplication().centerContainer;
+						var centerContainer = KRF_DEV.getApplication().contCenterContainer;
 						
 						window.collapse();
 						window.setWidth(150);
@@ -160,7 +160,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 						
 						me.winSizeMode = "maximize";
 						
-						var centerContainer = KRF_DEV.getApplication().centerContainer;
+						var centerContainer = KRF_DEV.getApplication().contCenterContainer;
 						
 						if(me.winSizeMode == "minimize"){
 							window.expand('', false);

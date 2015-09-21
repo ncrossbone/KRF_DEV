@@ -288,7 +288,7 @@ ChangeTabIndex = function(tabIdx){
 //검색결과창 띄우기
 ShowSearchResult = function(){
 	
-	var centerContainer = KRF_DEV.getApplication().centerContainer; // view.main.Main.js 전역
+	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
 	var windowY = centerContainer.getHeight() - windowHeight;
@@ -310,7 +310,7 @@ ShowSearchResult = function(){
 	options = {
 			id: 'searchResultTab',
 			title: '결과탭1',
-			header: false,
+			header: true,
 			autoResize: true
 	};
 	
@@ -320,7 +320,7 @@ ShowSearchResult = function(){
 	
 	options = {
 			id: 'searchResultGrid',
-			title: '하천수',
+			//title: '하천수',
 			autoResize: true
 	};
 	

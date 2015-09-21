@@ -153,7 +153,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 				currCtl = Ext.getCmp("btnSearchResult");
 				if(currCtl.btnOnOff == "off"){
 					SetBtnOnOff("btnSearchResult");
-					Ext.ShowSearchResult("grid-tab-2", "하천수");
+					ShowSearchResult();
 				}
 			}
 			else{
