@@ -6,12 +6,6 @@ Ext.define('KRF_DEV.view.west.West', {
 	extend: 'Ext.panel.Panel',
     
     xtype: 'app-default-west',
-    
-    requires: [
-		'KRF_DEV.view.west.WestController'
-	],
-    
-    controller: 'west',
 
     width: 400,
 

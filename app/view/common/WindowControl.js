@@ -13,6 +13,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	minimize: true, // 최소화 tool icon 표시
 	width: 300,
 	height: 300,
+	itemxType: 'panel', // window 내부 아이템 타입
 	/* option으로 받아올 부분 끝 */
 	
 	/* window 크기 및 위치 관련 */
@@ -25,16 +26,16 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	
 	//renderTo: Ext.getBody(),
 	
-	items: [{
-		xtype: 'common-tabcontrol',
-		autoReSize: true // window크기 조절시 자동 resize 여부
-	}],
-	
 	initComponent: function(){
 		
 		var me = this;
 		
-		this.callParent();
+		/*
+		me.items = [{
+			xtype: 'common-tabcontrol',
+			autoResize: true // window크기 조절시 자동 resize 여부
+		}];
+		*/
 		
 		var toolCtl = [];
 		
@@ -180,22 +181,26 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 		}
 		
 		this.tools = toolCtl;
+		
+		this.callParent();
 	},
 
 	// 내부 아이템 리사이즈
 	setItemResize: function(items){
-		
+		return;
 		var me = this;
 		
 		if(items != undefined && items.length > 0){
 			
 			for(var i = 0; i < items.length; i++){
 				
-				// autoReSize option이 true일 경우만..
-				if(items[i].autoReSize == true){
+				// autoResize option이 true일 경우만..
+				if(items[i].autoResize == true){
 					
-					items[i].setWidth(me.preWidth);
-					items[i].setHeight(me.preWidth);
+					//items[i].setWidth(me.preWidth);
+					//items[i].setHeight(me.preWidth);
+					items[i].setWidth(me.getWidth());
+					items[i].setHeight(me.getHeight());
 					
 				}
 				

@@ -49,7 +49,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 	xtype: 'app-default-center',
 	
 	layout: {
-		type: 'absolute'
+		type: 'border'
 	},
 	
 	items: [/*{
@@ -61,7 +61,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 		cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
 	}, */{
 		xtype: 'app-map-coreMap',
-		//region: 'center',
+		region: 'center',
 		width: 2000,
 		height: 1000
 	}]

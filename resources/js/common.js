@@ -286,33 +286,46 @@ ChangeTabIndex = function(tabIdx){
 }
 
 //검색결과창 띄우기
-ShowSearchResult = function(title){
+ShowSearchResult = function(){
 	
-	var windowCtlId = "searchResultWindow";
-	//var searchResultWindow = KRF_DEV.getApplication().searchResultWindow;
-	var searchResultWindow = Ext.getCmp(windowCtlId); // close되는경우때문에 전역으로 가져와서 쓰지 말자..
-	// 검색결과 컨테이너 전역으로 담아두기
-	KRF_DEV.getApplication().searchResultWindow = searchResultWindow; // undefined거나 ...
+	var centerContainer = KRF_DEV.getApplication().centerContainer; // view.main.Main.js 전역
+	var windowWidth = centerContainer.getWidth();
+	var windowHeight = 300;
+	var windowY = centerContainer.getHeight() - windowHeight;
 	
-	if(searchResultWindow == undefined){
-		
-		var centerContainer = KRF_DEV.getApplication().centerContainer; // view.main.Main.js 전역
-		var windowWidth = centerContainer.getWidth();
-		var windowHeight = 300;
-		var windowY = centerContainer.getHeight() - centerContainer.header.getHeight() - windowHeight;
-		
-		searchResultWindow = Ext.create('KRF_DEV.view.common.WindowControl', {
-			id: windowCtlId,
+	// window 창 옵션
+	var options = {
+			renderTo: centerContainer.el,
+			id: 'searchResultWindow',
 			title: '검색결과',
 			width: windowWidth,
 			y: windowY
-		});
-		
-		centerContainer.add(searchResultWindow);
-		
-	}
-
-	searchResultWindow.show();
+	};
+	
+	// window 창 생성
+	var searchResultWindow = this.GetWindowControl(options);
+	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
+	searchResultWindow.show(); // window 보이기
+	
+	options = {
+			id: 'searchResultTab',
+			title: '결과탭1',
+			header: false,
+			autoResize: true
+	};
+	
+	// TabControl 생성
+	var searchResultTab = GetTabControl(options);
+	searchResultWindow.add(searchResultTab); // window에 tab추가
+	
+	options = {
+			id: 'searchResultGrid',
+			title: '하천수',
+			autoResize: true
+	};
+	
+	var protoGrid = Ext.create("KRF_DEV.view.south.PrototypeGrid", options);
+	searchResultTab.add(protoGrid);
 	
 }
 
@@ -325,4 +338,34 @@ HideSearchResult = function(){
 		//searchResultWindow.close();
 		searchResultWindow.hide();
 	}
+}
+
+// WindowControl 오브젝트 리턴
+GetWindowControl = function(options){
+	
+	var winCtl = Ext.getCmp(options.id);
+	
+	if(winCtl == undefined){
+		
+		winCtl = Ext.create('KRF_DEV.view.common.WindowControl', options);
+		
+	}
+	
+	return winCtl;
+	
+}
+
+// TabControl 오브젝트 리턴
+GetTabControl = function(options){
+	
+	var tabCtl = Ext.getCmp(options.id);
+	
+	if(tabCtl == undefined){
+		
+		tabCtl = Ext.create('KRF_DEV.view.common.TabControl', options);
+		
+	}
+	
+	return tabCtl;
+	
 }

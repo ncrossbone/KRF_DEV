@@ -11,13 +11,54 @@ Ext.defer(function() {
 	    viewModel: {
 	        type: 'main'
 	    },
+	    
+	    /*
+	    layout: {
+	    	type: 'vbox'
+	    },
+	    
+	    items: [{
+	    	xtype: 'app-default-north',
+	    	id: 'north_container',
+	    	width: '100%'
+	    }, {
+	    	xtype: 'container',
+	    	layout: {
+	    		type: 'hbox'
+	    	},
+	    	items: [{
+	    		xtype: 'west-buttonpanel',
+	    		height: '100%'
+	    	}, {
+	    		xtype: 'container',
+	    		layout: {
+	    			type: 'hbox'
+	    		},
+	    		items: [{
+	    			xtype: 'panel',
+	    	    	id: 'westContents',
+	    	    	activeItem: 1,
+	    			layout: {
+	    	    		type: 'card'
+	    	    	},
+	    	    	items: [{
+	    	    		xtype: 'west-Layer01'
+	    	    	}, {
+	    	    		xtype: 'west-searchArea'
+	    	    	}],
+	    	    	collapsible: true,
+	    	        split: true,
+	    	        header: false,
+	    		}, {
+	    			xtype: 'app-default-center',
+	    	    	id: 'center_container'
+	    		}]
+	    	}]
+	    }]
+	    */
 
 	    layout: {
 	        type: 'border'
-	    },
-	    
-	    load: function(){
-	    	console.info("load");
 	    },
 	    
 	    initComponent: function(){
