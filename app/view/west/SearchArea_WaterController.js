@@ -154,7 +154,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 				if(currCtl.btnOnOff == "off"){
 					SetBtnOnOff("btnSearchResult");
 					ShowSearchResult();
-					console.info("pdj");
 				}
 			}
 			else{
