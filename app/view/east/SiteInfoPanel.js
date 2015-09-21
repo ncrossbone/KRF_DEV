@@ -40,4 +40,5 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 			width: 240
 		}]
 	}]
+	
 });

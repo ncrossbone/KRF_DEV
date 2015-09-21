@@ -24,9 +24,9 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		rootVisible:false,
 		//store: aaa
 		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
-		//store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
+		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 
-		store: new Ext.data.TreeStore({
+		/*store: new Ext.data.TreeStore({
 			root: {
 				text: 'root',
 				expanded: true,
@@ -272,7 +272,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 					}]
 				}]
 			}
-		}),
+		}),*/
 		columns: [{
             xtype: 'treecolumn', //this is so we know which column will show the tree
             text: '지점',
@@ -291,7 +291,11 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_branch.gif',
             iconCls: ' khLee-x-default-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
-            	ShowWindowSiteNChart(1, "");
+            	console.log("@@");
+            	var chktext = record.raw.text;
+            	//console.info(grid+" : "+rowIndex+" : "+colIndex+" : "+actionItem+" : "+event+" : "+record+" : "+row);
+            	console.log("@@");
+            	ShowWindowSiteNChart(1, chktext);
             },
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {

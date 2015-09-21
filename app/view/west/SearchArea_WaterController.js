@@ -85,13 +85,13 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		
 		//console.info(searchLayerId);
 		
+		
 		var idColumn, nameColumn, whereStr;
 		
 		var centerCtl = Ext.getCmp("center_container");
 		
-		if(searchLayerId == '53'){ 
+		if(searchLayerId == '53'){
 			idColumn = "WS_CD";
-			//console.info(combo);
 			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
 		}
 		if(searchLayerId == '54'){ 
@@ -139,8 +139,8 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		
 		if(buttonInfo.rawValue != ""){
 			if(btnCtl != null){
+				console.info(btnCtl);
 				this.onAreaSearch(btnCtl, null, null);
-				console.log("일");
 				// 버튼 On/Off
 				var currCtl = Ext.getCmp("btnSiteListWindow");
 				if(currCtl.btnOnOff == "off"){
@@ -148,7 +148,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 					//Ext.ShowSiteListWindow("test",jsonStr);
 					Ext.ShowSiteListWindow("test");
 				}
-				console.log("이");
+				
 				// 버튼 On/Off
 				currCtl = Ext.getCmp("btnSearchResult");
 				if(currCtl.btnOnOff == "off"){
@@ -172,19 +172,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		Ext.HideSiteInfoWindow();
 		Ext.HideChartResult();
 		KRF_DEV.getApplication().fireEvent('drawEnd');
-		
-	},
-	
-	jsonFile: function(buttonInfo,btnCtl){
-		 
-		
-	
-			
-			
-			//this.setData(Ext.JSON.decode(jsonStr));
-			//store.setData(JSON.parse(jsonStr));
-
-		
 		
 	}
 	
