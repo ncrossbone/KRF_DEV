@@ -3,6 +3,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
     xtype: 'east-windowsitenchart',
     id: 'windowSiteNChart',
     //renderTo: Ext.getBody(),
+    //title: 'window',
     
     //title: '지점및차트정보',
     //header: false,
@@ -66,6 +67,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 			xtype: 'east-chartpanel'
 		}, {
 			xtype: 'east-siteinfopanel',
+			params: this.params
 		}]
 	}]
 });

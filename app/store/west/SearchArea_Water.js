@@ -16,7 +16,7 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 			// defer : 미루다, 연기하다
 			// Ext.defer(function(){...}, 1000, this); // function 내 코드를 1초(1000ms)후에 실행한다.
 				
-				var idColumn, nameColumn, whereStr;
+				var idColumn, nameColumn, whereStr, pId;
 				//console.info(store);
 				idColumn = "";
 				
@@ -25,6 +25,9 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 				if(store.layerId == '53'){ idColumn = "WS_CD"; nameColumn = "대권역"; whereStr = "1=1"; }
 				if(store.layerId == '54'){ idColumn = "MW_CODE"; nameColumn = "MW_NAME"; whereStr = "WS_CD = '" + store.parentId + "'"; }
 				if(store.layerId == '55'){ idColumn = "SW_CODE"; nameColumn = "SW_NAME"; whereStr = "MBSNCD = '" + store.parentId + "'"; }
+				
+				//if(store.layerId == '54' || store.layerId == '55'){ pId = store.parentId; }
+				
 				//alert(store.layerId);
 				// id, name 셋팅이 안돼있으면 리턴
 				if(idColumn == undefined || nameColumn == undefined || whereStr == undefined)
@@ -55,9 +58,15 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 						
 						var idVal = eval('media.attributes.' + idColumn);
 						var nameVal = eval('media.attributes.' + nameColumn);
-						
+						/*if(store.layerId == '54' || store.layerId == '55'){
+						var middleVal = eval('media.attributes.' + pId);
+						console.info(pId);
+						console.info(middleVal);
+						}
+						receiveData.push({id: idVal, name: nameVal, mval: middleVal});*/
 						receiveData.push({id: idVal, name: nameVal});
 						
+						//console.info(receiveData);
 		   				if(data.length==index+1){ store.setData(receiveData); }
 		   				
 					});
