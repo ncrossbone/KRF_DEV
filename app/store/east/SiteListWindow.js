@@ -21,7 +21,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			var queryTask = new esri.tasks.QueryTask('http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
-			query.where = "BASIN_CODE like '1001%'";
+			query.where = "CAT_ID like '1001%'";
 			query.outFields = ["*"];
 			queryTask.execute(query, function(result){
 				console.info(result);
@@ -44,10 +44,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							jsonStr += "\n	\"children\": [";
 							for(i = 0; i < result.features.length; i++){
 								jsonStr += "{\n";
-								jsonStr += "		\"id\": \"" + result.features[i].attributes.BASIN_CODE + "\",\n";
+								jsonStr += "		\"id\": \"" + result.features[i].attributes.CAT_ID + "\",\n";
 								jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
 								jsonStr += "		\"cls\": "+'"'+"khLee-x-tree-node-text-small-nounder"+'"'+",\n";
-								jsonStr += "		\"iconCls\": "+'"'+"layerIconSize layer"+result.features[i].attributes.BASIN_CODE+'"'+",\n";
+								jsonStr += "		\"iconCls\": "+'"'+"layerIconSize layer"+result.features[i].attributes.CAT_ID+'"'+",\n";
 								jsonStr += "		\"leaf\": true,\n";
 								jsonStr += "		\"checked\": false\n";
 								jsonStr += "	}, ";
