@@ -70,7 +70,8 @@ Ext.application({
     
     stores: [
         'KRF_DEV.store.south.PrototypeGrid',
-        'KRF_DEV.store.east.SiteInfoPanel'
+        'KRF_DEV.store.east.SiteInfoPanel',
+        'KRF_DEV.store.south.SearchResultGrid'
  		/*'KRF_DEV.store.dev_test.GridStoreTest',
  		'KRF_DEV.store.dev_test.WestTabLayerStore',
  		'KRF_DEV.store.west.WestTabSearch_ADM_GRID'*/

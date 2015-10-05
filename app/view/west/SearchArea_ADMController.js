@@ -138,33 +138,33 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 	// 선택 버튼
 	onADMSelect: function(button, eOpts){
 		
-		var amdBtn1 = Ext.getCmp("cmbArea1");
-		var amdBtn2 = Ext.getCmp("cmbArea2");
-		var amdBtn3 = Ext.getCmp("cmbArea3");
-		
-		var btnCtl = null;
-		
-		var btn1 = Ext.getCmp("btnSearch1");
-		if(btn1.disabled == false){
-			btnCtl = btn1;
-		}
-		
-		var btn2 = Ext.getCmp("btnSearch2");
-		if(btn2.disabled == false){
-			btnCtl = btn2;
-		}
-		
-		var btn3 = Ext.getCmp("btnSearch3");
-		if(btn3.disabled == false){
-			btnCtl = btn3;
-		}
-		
-		if(btnCtl != null){
-			this.onAreaSearch(btnCtl, null, null);
-			 
+		if(ChkSearchCondition("행정구역찾기")){
 			
+			var btnCtl = null;
 			
-			var treeResach = Ext.getCmp("siteListTree");
+			var btn1 = Ext.getCmp("btnSearch1");
+			if(btn1.disabled == false){
+				btnCtl = btn1;
+			}
+			
+			var btn2 = Ext.getCmp("btnSearch2");
+			if(btn2.disabled == false){
+				btnCtl = btn2;
+			}
+			
+			var btn3 = Ext.getCmp("btnSearch3");
+			if(btn3.disabled == false){
+				btnCtl = btn3;
+			}
+
+			var amdBtn1 = Ext.getCmp("cmbArea1");
+			var amdBtn2 = Ext.getCmp("cmbArea2");
+			var amdBtn3 = Ext.getCmp("cmbArea3");
+			
+			if(btnCtl != null){
+				this.onAreaSearch(btnCtl, null, null);
+				
+				var treeResach = Ext.getCmp("siteListTree");
 				if(treeResach != undefined){
 					var store = treeResach.getStore();
 					store.amdBtn1 = amdBtn1.lastValue;
@@ -172,24 +172,25 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 					store.amdBtn3 = amdBtn3.lastValue;
 					store.load();
 					treeResach.getView().refresh();
-					return;
-			}else{	
-			
-			// 좌측 정보창 버튼 On/Off
-			var currCtl = Ext.getCmp("btnSiteListWindow");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSiteListWindow");
+					//return;
+				}
+					
+				// 좌측 정보창 버튼 On/Off
+				var currCtl = Ext.getCmp("btnSiteListWindow");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSiteListWindow");
+				}
+				
 				Ext.ShowSiteListWindow("test"); // 지점목록 창 띄우기
+				
+				// 좌측 검색결과 버튼 On/Off
+				currCtl = Ext.getCmp("btnSearchResult");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSearchResult");
+				}
+				
+				ShowSearchResult(); // 검색결과 창 띄우기
 			}
-			
-			// 좌측 검색결과 버튼 On/Off
-			currCtl = Ext.getCmp("btnSearchResult");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSearchResult");
-				Ext.ShowSearchResult("grid-tab-2", "하천수"); // 검색결과 창 띄우기
-			}
-			
-		}
 			
 			// 검색결과 조회 (ADM_CD 셋팅)
 			var cmbCtl = Ext.getCmp("cmbArea3");

@@ -6,11 +6,14 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 	
 	id: 'tabControl',
 	
-	title: '결과탭1',
+	title: 'tab1',
+	
+	//cls: 'khLee-x-tab-active',
 	
 	//width: '100%',
 	//height: '100%',
 	
+	/*
 	beforeRender: function(){
 		var me = this;
 		var parentCtl = this.findParentByType("container");
@@ -18,6 +21,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			me.setWidth(parentCtl.getWidth());
 			me.setHeight(parentCtl.getHeight());
 		});
+		this.callParent();
 	}
+	*/
 		
 });

@@ -1,6 +1,7 @@
 Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	//extend: 'Ext.data.Store',
-	extend: 'Ext.data.TreeStore',/*
+	extend: 'Ext.data.TreeStore',
+	/*
 	proxy: {
 	    type: 'ajax',
 	    url: 'resources/data/east/SiteListWindow.json',
@@ -129,9 +130,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				//console.info(jsonStr);
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
+				console.info("before");
 				store.setData(jsonData);
 				//store.setData(JSON.parse(jsonStr));
-				
+
 	        });
 	  	}
 	}

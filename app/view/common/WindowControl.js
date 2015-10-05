@@ -2,7 +2,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	
 	extend : 'Ext.window.Window',
 	xtype : 'common-windowcontrol',
-	cls: 'khLee-x-tab-active',
+	//cls: 'khLee-x-tab-active',
 	
 	/* option으로 받아올 부분
 	 * 없으면 아래 기본값 */
@@ -117,7 +117,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 						window.setHeight(me.preHeight);
 						window.setX(me.preX);
 						window.setY(me.preY);
-						
+						return;
 						// 아이템 리사이즈
 						me.setItemResize(me.items.items);
 						
@@ -170,7 +170,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 						window.setHeight(centerContainer.getHeight() - centerContainer.header.getHeight());
 						window.setX(centerContainer.getX());
 						window.setY(centerContainer.getY() + centerContainer.header.getHeight());
-						
+						return;
 						// 아이템 리사이즈
 						me.setItemResize(me.items.items);
 						

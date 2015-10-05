@@ -35,7 +35,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		*/
 		
 		if(currCtl.btnOnOff == "on"){
-			ShowSearchResult();
+			ShowSearchResult(_searchType);
 		}
 		else{
 			HideSearchResult();
