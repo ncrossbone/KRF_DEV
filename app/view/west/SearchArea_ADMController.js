@@ -138,6 +138,10 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 	// 선택 버튼
 	onADMSelect: function(button, eOpts){
 		
+		var amdBtn1 = Ext.getCmp("cmbArea1");
+		var amdBtn2 = Ext.getCmp("cmbArea2");
+		var amdBtn3 = Ext.getCmp("cmbArea3");
+		
 		var btnCtl = null;
 		
 		var btn1 = Ext.getCmp("btnSearch1");
@@ -157,6 +161,19 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 		
 		if(btnCtl != null){
 			this.onAreaSearch(btnCtl, null, null);
+			 
+			
+			
+			var treeResach = Ext.getCmp("siteListTree");
+				if(treeResach != undefined){
+					var store = treeResach.getStore();
+					store.amdBtn1 = amdBtn1.lastValue;
+					store.amdBtn2 = amdBtn2.lastValue;
+					store.amdBtn3 = amdBtn3.lastValue;
+					store.load();
+					treeResach.getView().refresh();
+					return;
+			}else{	
 			
 			// 좌측 정보창 버튼 On/Off
 			var currCtl = Ext.getCmp("btnSiteListWindow");
@@ -171,6 +188,8 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 				SetBtnOnOff("btnSearchResult");
 				Ext.ShowSearchResult("grid-tab-2", "하천수"); // 검색결과 창 띄우기
 			}
+			
+		}
 			
 			// 검색결과 조회 (ADM_CD 셋팅)
 			var cmbCtl = Ext.getCmp("cmbArea3");

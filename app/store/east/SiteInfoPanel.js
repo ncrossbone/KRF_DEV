@@ -6,20 +6,33 @@ Ext.define('KRF_DEV.store.east.SiteInfoPanel', {
         'cont'
     ],
     
-    autoLoad: true,
 
+    autoLoad: true,
 	remoteSort: true,
 	
+	siteCD: '',
 	
 	//constructor: function() {
 	listeners: {
 		load: function(store) {
+			//console.info("3");
+			var siteCd= Ext.getCmp("siteCd");
+			//var recordId = siteCd.params;
+			var recordId = "";
+			if(store.siteCD == "")
+				recordId = siteCd.params;
+			else
+				recordId = store.siteCD;
+			
+			//console.info(store.siteCD);
+			console.info(recordId);
 			
 			var jsonData = "";
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
         		//params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
+        		params: {recordId: recordId},
         		async: false, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			

@@ -42,13 +42,16 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name', {
 					type: 'hbox',
 				},
 				items: [{
+					id: 'nameSearch',
 					xtype: 'label',
 					cls: 'khLee-x-label-default',
 					html: '<img src="./resources/images/button/blit_st_01.png" /> <b>명　칭</b> : ',
 					width: 70
 				}, {
-					id: 'txtSearchText',
+					id: 'textSearchText',
 					xtype: 'textfield',
+					displayField: 'name',
+					valueField: 'id',
 					width: 130,
 				}, {
 					xtype: 'container',
@@ -56,24 +59,27 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name', {
 				},{
 					id: 'btnSearchText',
 					xtype: 'button',
+					lnkCmbId: 'nameSearch',
 					//text: '검색'
 					cls: 'khLee-x-button-search',
-					handler: function(){
+					/*handler: function(){
 						//console.info(Ext.getCmp("imgContents").hidden);
 						if(Ext.getCmp("imgContents").hidden == true)
 							Ext.getCmp("imgContents").show();
 						else
 							Ext.getCmp("imgContents").hide();
 						//console.info(Ext.getCmp("imgContents").hidden);
-					}
+					}*/
 				}]
 			}]
 		}]
-	}, {
+	}
+	/*, {
 		xtype: 'image',
 		id: 'imgContents',
 		src: './resources/images/popup/20150812.gif',
 		hidden: true
-	}]
+	}*/
+	]
 
 });

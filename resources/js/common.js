@@ -1,5 +1,5 @@
 //  버튼 on/off
-SetBtnOnOff = function(btnId){
+SetBtnOnOff = function(btnId, middle){
 	
 	var currCtl = Ext.getCmp(btnId);
 	var parentCtl = currCtl.findParentByType('container');
@@ -225,18 +225,46 @@ ReachInfoBinding = function(objs){
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function(tabIdx, title){
 	
+	//console.info(title);
+	var siteinfoCtl = Ext.getCmp("siteinfotest");  //
+	var siteChartCtl = Ext.getCmp("siteCharttest");
+	var seriesId = Ext.getCmp("seriesId");
+	
+	
+	if(siteinfoCtl != undefined){
+		var store = siteinfoCtl.getStore();
+		var chartStore = siteChartCtl.getStore();
+		
+		store.siteCD = title;
+		chartStore.siteCD = title;
+		
+		store.load();
+		chartStore.load();
+		chartStore.redraw();
+		siteinfoCtl.getView().refresh();
+		
+		return;
+	}
+	
 	var winCtl = Ext.getCmp("windowSiteNChart");
 	
-	if(winCtl == undefined)
-		winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart');
-
+	if(winCtl == undefined){
+		winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart',{
+			name: 'title',
+			params: title
+		});
+	}
+	
 	winCtl.show();
 
 	var winX = Ext.getBody().getViewSize().width - winCtl.width;
 	var winY = 98;
 	
 	var listCtl = Ext.getCmp("siteListWindow");
+	//console.info(listCtl);
 	if(listCtl != undefined){
+		//var store = listCtl.getStore();
+		//console.info(store);
 		winY = listCtl.height + winY;
 	}
 	else{

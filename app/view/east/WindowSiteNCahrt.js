@@ -52,9 +52,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 	
 	width: 400,
 	height: 350,
-	
 	draggable: true,
-	
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 
 	items: [{
@@ -67,7 +65,16 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 			xtype: 'east-chartpanel'
 		}, {
 			xtype: 'east-siteinfopanel',
-			params: this.params
+			name: 'title2',
+			params: this
 		}]
-	}]
+	}],
+	initComponent: function(){
+		Ext.apply(this,{
+			id: 'siteCd',
+			params: this.params
+		});
+		this.callParent();
+		
+	}
 });
