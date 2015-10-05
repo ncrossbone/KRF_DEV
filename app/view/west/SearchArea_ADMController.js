@@ -156,26 +156,76 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 			if(btn3.disabled == false){
 				btnCtl = btn3;
 			}
+
+			var amdBtn1 = Ext.getCmp("cmbArea1");
+			var amdBtn2 = Ext.getCmp("cmbArea2");
+			var amdBtn3 = Ext.getCmp("cmbArea3");
 			
 			if(btnCtl != null){
 				this.onAreaSearch(btnCtl, null, null);
-			}
 				
-			// 좌측 정보창 버튼 On/Off
-			var currCtl = Ext.getCmp("btnSiteListWindow");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSiteListWindow");
+				var treeResach = Ext.getCmp("siteListTree");
+				if(treeResach != undefined){
+					var store = treeResach.getStore();
+					store.amdBtn1 = amdBtn1.lastValue;
+					store.amdBtn2 = amdBtn2.lastValue;
+					store.amdBtn3 = amdBtn3.lastValue;
+					store.load();
+					treeResach.getView().refresh();
+					//return;
+				}
+					
+				// 좌측 정보창 버튼 On/Off
+				var currCtl = Ext.getCmp("btnSiteListWindow");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSiteListWindow");
+				}
+				
+				Ext.ShowSiteListWindow("test"); // 지점목록 창 띄우기
+				
+				// 좌측 검색결과 버튼 On/Off
+				currCtl = Ext.getCmp("btnSearchResult");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSearchResult");
+				}
+				
+				ShowSearchResult(); // 검색결과 창 띄우기
 			}
 			
-			Ext.ShowSiteListWindow("test"); // 지점목록 창 띄우기
+			// 검색결과 조회 (ADM_CD 셋팅)
+			var cmbCtl = Ext.getCmp("cmbArea3");
+			var admCd = "";
 			
-			// 좌측 검색결과 버튼 On/Off
-			currCtl = Ext.getCmp("btnSearchResult");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSearchResult");
+			if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
+				
+				cmbCtl = Ext.getCmp("cmbArea2");
+				
+				if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
+					
+					cmbCtl = Ext.getCmp("cmbArea1");
+					
+					if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
+					
+					}
+					else{
+						admCd = cmbCtl.getValue().substring(0, 2);
+					}
+					
+				}
+				else{
+					admCd = cmbCtl.getValue().substring(0, 5);
+				}
+				
+			}
+			else{
+				admCd = cmbCtl.getValue().substring(0, 8);
 			}
 			
-			ShowSearchResult(); // 검색결과 창 띄우기
+			//console.info(admCd);
+			
+		}
+		else{
+			alert("행정구역을 선택하세요.");
 		}
 		
 	},

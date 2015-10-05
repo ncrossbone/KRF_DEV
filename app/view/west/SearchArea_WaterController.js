@@ -138,25 +138,54 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 			
 			if(btnCtl != null){	
 				this.onAreaSearch(btnCtl, null, null);
+		
+				//대역권 선택창 레이어 정보
+				var buttonInfo = Ext.getCmp("cmbWater1");
+				
+				//중역권
+				var buttonInfo2 = Ext.getCmp("cmbWater2");
+				
+				//소역권
+				var buttonInfo3 = Ext.getCmp("cmbWater3");
+				
+				if(btnCtl.lnkCmbId == "cmbWater1"){
+					alert("중권역을 선택하여 주세요");
+					return;
+				}
+				
+				if(buttonInfo.rawValue != ""){
+					
+					var treeResach = Ext.getCmp("siteListTree");
+	 				if(treeResach != undefined){
+	 					var store = treeResach.getStore();
+	 					store.buttonInfo = buttonInfo.lastValue;
+	 					store.buttonInfo2 = buttonInfo2.lastValue;
+	 					store.buttonInfo3 = buttonInfo3.lastValue;
+	 					console.info(store);
+	 					store.load();
+	 					treeResach.getView().refresh();
+	 					//return;
+	 				}
+				}
+				
+				// 버튼 On/Off
+				var currCtl = Ext.getCmp("btnSiteListWindow");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSiteListWindow");
+				}
+				
+				// 지점목록 창 띄우기
+				Ext.ShowSiteListWindow("test");
+				
+				// 버튼 On/Off
+				currCtl = Ext.getCmp("btnSearchResult");
+				if(currCtl.btnOnOff == "off"){
+					SetBtnOnOff("btnSearchResult");
+				}
+				
+				// 검색결과창 띄우기
+				ShowSearchResult();
 			}
-			
-			// 버튼 On/Off
-			var currCtl = Ext.getCmp("btnSiteListWindow");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSiteListWindow");
-			}
-			
-			// 지점목록 창 띄우기
-			Ext.ShowSiteListWindow("test");
-			
-			// 버튼 On/Off
-			currCtl = Ext.getCmp("btnSearchResult");
-			if(currCtl.btnOnOff == "off"){
-				SetBtnOnOff("btnSearchResult");
-			}
-			
-			// 검색결과창 띄우기
-			ShowSearchResult();
 		}
 		
 	},

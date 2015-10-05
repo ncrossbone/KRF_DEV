@@ -11,7 +11,7 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 	layout: {
 		type: 'fit'
 	},
-	
+		
 	//bodyStyle: 'background-color: white;',
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 	
@@ -20,6 +20,7 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 
 	items: [{
 		xtype: 'grid',
+		id: 'siteinfotest',
 		plugins: 'gridfilters',
 		cls: 'khLee-x-column-header-text',
 		height: 215,
@@ -39,6 +40,10 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 			dataIndex : 'cont',
 			width: 240
 		}]
-	}]
+	}],
+	initComponent: function(){
+		this.callParent();
+		
+	}
 	
 });

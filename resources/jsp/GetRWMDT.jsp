@@ -11,12 +11,16 @@
 try{
 	//String siteCodes = request.getParameter("siteCodes");
 	//String measureDate = request.getParameter("measureDate");
-	//String layerDate = request.getParameter("layerDate");
+	//String layerDate = request.getParameter("layerDate");   recordId
 	
+	String recordId = request.getParameter("recordId");
+
+	
+	//out.print(recordId);
 	
 	//out.print(withSql);
 	
-	sql = "SELECT * FROM KRF_SITEINFO WHERE site_cd ='2015B10' ";
+	sql = "SELECT * FROM KRF_SITEINFO WHERE site_cd ='"+recordId+"' ";
 		
 		
    //out.print(sql);
@@ -25,14 +29,12 @@ try{
 	JSONObject jsonObj  = new JSONObject();
 	JSONArray jsonArr = new JSONArray();
 	JSONObject jsonRecord = null;
-	String a = "column";
-	String b = "cont";
 	
 	while(rs.next()) {
 		jsonRecord = new JSONObject();
 
-		jsonRecord.put(a	, rs.getString("COL_KOR"));
-  		jsonRecord.put(b 	, rs.getString("CONT"));
+		jsonRecord.put("column"	, rs.getString("COL_KOR"));
+  		jsonRecord.put("cont" 	, rs.getString("CONT"));
   	
   		jsonArr.add(jsonRecord);
 	}

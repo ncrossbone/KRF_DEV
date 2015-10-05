@@ -13,6 +13,7 @@ var _admRiLayerId = null; // 리 레이어 아이디
 var _areaWSLayerId = null; // 대권역 레이어 아이디
 var _areaAMLayerId = null; // 중권역 레이어 아이디
 var _areaASLayerId = null; // 소권역 레이어 아이디
+var _nameLayerId = null; // 시도 레이어 아이디
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad: true,
@@ -121,11 +122,12 @@ Ext.application({
  		
  		// 지점 목록 창 띄우기
  		Ext.ShowSiteListWindow = function(searchText){
- 			
  			if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
+ 				
  				listWinCtl = Ext.getCmp("siteListWindow");
  				if(listWinCtl == undefined)
  					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
+ 				
  				
  				listWinCtl.show();
  				
