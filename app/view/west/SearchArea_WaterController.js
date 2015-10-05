@@ -117,52 +117,47 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 	
 	onWaterSelect: function(button, eOpts){
 		
-		var btnCtl = null;
-		
-		//대역권 선택창 레이어 정보
-		var buttonInfo = Ext.getCmp("cmbWater1");
-		
-		var btn1 = Ext.getCmp("btnWater1");
-		if(btn1.disabled == false){
-			btnCtl = btn1;
-		}
-		
-		var btn2 = Ext.getCmp("btnWater2");
-		if(btn2.disabled == false){
-			btnCtl = btn2;
-		}
-		
-		var btn3 = Ext.getCmp("btnWater3");
-		if(btn3.disabled == false){
-			btnCtl = btn3;
-		}
-		
-		if(buttonInfo.rawValue != ""){
-			if(btnCtl != null){
-				console.info(btnCtl);
-				this.onAreaSearch(btnCtl, null, null);
-				// 버튼 On/Off
-				var currCtl = Ext.getCmp("btnSiteListWindow");
-				if(currCtl.btnOnOff == "off"){
-					SetBtnOnOff("btnSiteListWindow");
-					//Ext.ShowSiteListWindow("test",jsonStr);
-					Ext.ShowSiteListWindow("test");
-				}
-				
-				// 버튼 On/Off
-				currCtl = Ext.getCmp("btnSearchResult");
-				if(currCtl.btnOnOff == "off"){
-					SetBtnOnOff("btnSearchResult");
-					ShowSearchResult();
-				}
-			}
-			else{
-				alert("선택된 수계가 없습니다.");
+		if(ChkSearchCondition("수계찾기")){
+			
+			var btnCtl = null;
+			
+			var btn1 = Ext.getCmp("btnWater1");
+			if(btn1.disabled == false){
+				btnCtl = btn1;
 			}
 			
-			//onAreaSearch copy
+			var btn2 = Ext.getCmp("btnWater2");
+			if(btn2.disabled == false){
+				btnCtl = btn2;
+			}
+			
+			var btn3 = Ext.getCmp("btnWater3");
+			if(btn3.disabled == false){
+				btnCtl = btn3;
+			}
+			
+			if(btnCtl != null){	
+				this.onAreaSearch(btnCtl, null, null);
+			}
+			
+			// 버튼 On/Off
+			var currCtl = Ext.getCmp("btnSiteListWindow");
+			if(currCtl.btnOnOff == "off"){
+				SetBtnOnOff("btnSiteListWindow");
+			}
+			
+			// 지점목록 창 띄우기
+			Ext.ShowSiteListWindow("test");
+			
+			// 버튼 On/Off
+			currCtl = Ext.getCmp("btnSearchResult");
+			if(currCtl.btnOnOff == "off"){
+				SetBtnOnOff("btnSearchResult");
+			}
+			
+			// 검색결과창 띄우기
+			ShowSearchResult();
 		}
-		
 		
 	},
 	

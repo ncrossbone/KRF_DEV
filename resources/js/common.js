@@ -285,14 +285,13 @@ ChangeTabIndex = function(tabIdx){
 	contCtl.setActiveItem(tabIdx);
 }
 
-//검색결과창 띄우기
+// 검색결과창 띄우기
 ShowSearchResult = function(){
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
 	var windowY = centerContainer.getHeight() - windowHeight;
-	
 	// window 창 옵션
 	var options = {
 			renderTo: centerContainer.el,
@@ -310,22 +309,40 @@ ShowSearchResult = function(){
 	options = {
 			id: 'searchResultTab',
 			title: '결과탭1',
-			header: true,
-			autoResize: true
+			header: false
 	};
+	
+	var tabCtl = Ext.getCmp("searchResultTab");
 	
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	searchResultWindow.add(searchResultTab); // window에 tab추가
+	
+	if(tabCtl == undefined)
+		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
 	options = {
-			id: 'searchResultGrid',
-			//title: '하천수',
+			id: "searchResultContainer",
+			title: _searchType,
 			autoResize: true
 	};
 	
-	var protoGrid = Ext.create("KRF_DEV.view.south.PrototypeGrid", options);
-	searchResultTab.add(protoGrid);
+	var grdContainer = Ext.getCmp("searchResultContainer"); // 그리드 컨테이너 조회조건 포함
+	if(grdContainer == null || grdContainer == undefined){
+		grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
+		searchResultTab.add(grdContainer);
+	}
+	
+	var grdCtl = grdContainer.items.items[1]; // 그리드 컨테이너
+	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+	
+	console.info(grdCtl);
+	
+	var store = grdCtl.getStore();
+	//var store = Ext.create('KRF_DEV.store.south.SearchResultGrid');
+	store.load();
+	//grdCtl.setStore(store);
+	//alert("ss");
+	//console.info(store.data);
 	
 }
 
@@ -367,5 +384,81 @@ GetTabControl = function(options){
 	}
 	
 	return tabCtl;
+	
+}
+
+var _searchType = "";
+var WS_CD = AM_CD = AS_CD = "";
+var ADM_CD = "";
+var PT_NM = "";
+
+// 좌측 위치검색 조회 조건 체크 및 셋팅 (구분이 동일할 경우 _searchType을 파라메터로..)
+ChkSearchCondition = function(sType){
+	
+	// 찾기 구분 셋팅 ("수계찾기", "행정구역찾기", "명칭찾기")
+	if(_searchType == "" || _searchType != sType){
+		_searchType = sType;
+	}
+	
+	WS_CD = AM_CD = AS_CD = "";
+	ADM_CD = "";
+	PT_NM = "";
+	
+	if(_searchType == "수계찾기"){
+		WS_CD = Ext.getCmp("cmbWater1").value;
+		if(WS_CD == null){
+			WS_CD = "";
+		}
+		AM_CD = Ext.getCmp("cmbWater2").value;
+		if(AM_CD == null){
+			AM_CD = "";
+		}
+		AS_CD = Ext.getCmp("cmbWater3").value;
+		if(AS_CD == null){
+			AS_CD = "";
+		}
+		
+		if(WS_CD == ""){
+			alert("대권역을 선택해주세요.");
+			return false;
+		}
+		
+		if(AM_CD == ""){
+			alert("중권역을 선택해주세요.");
+			return false;
+		}
+	}
+	
+	if(_searchType == "행정구역찾기"){
+		
+		ADM_CD = Ext.getCmp("cmbArea3").value;
+		
+		if(ADM_CD == null || ADM_CD == ""){
+			
+			ADM_CD = Ext.getCmp("cmbArea2").value;
+			
+			if(ADM_CD == null || ADM_CD == ""){
+				
+				ADM_CD = Ext.getCmp("cmbArea1").value;
+				
+				if(ADM_CD == null || ADM_CD == ""){
+					alert("시/도를 선택해주세요.")
+				}
+				else{
+					alert("시/군/구를 선택해주세요.");
+				}
+				
+				return false;
+			}
+			else{
+				ADM_CD = ADM_CD.substring(0, 5)
+			}
+		}
+		else{
+			ADM_CD = ADM_CD.substring(0, 8)
+		}
+	}
+	
+	return true;
 	
 }

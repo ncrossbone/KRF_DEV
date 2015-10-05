@@ -138,74 +138,44 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 	// 선택 버튼
 	onADMSelect: function(button, eOpts){
 		
-		var btnCtl = null;
-		
-		var btn1 = Ext.getCmp("btnSearch1");
-		if(btn1.disabled == false){
-			btnCtl = btn1;
-		}
-		
-		var btn2 = Ext.getCmp("btnSearch2");
-		if(btn2.disabled == false){
-			btnCtl = btn2;
-		}
-		
-		var btn3 = Ext.getCmp("btnSearch3");
-		if(btn3.disabled == false){
-			btnCtl = btn3;
-		}
-		
-		if(btnCtl != null){
-			this.onAreaSearch(btnCtl, null, null);
+		if(ChkSearchCondition("행정구역찾기")){
 			
+			var btnCtl = null;
+			
+			var btn1 = Ext.getCmp("btnSearch1");
+			if(btn1.disabled == false){
+				btnCtl = btn1;
+			}
+			
+			var btn2 = Ext.getCmp("btnSearch2");
+			if(btn2.disabled == false){
+				btnCtl = btn2;
+			}
+			
+			var btn3 = Ext.getCmp("btnSearch3");
+			if(btn3.disabled == false){
+				btnCtl = btn3;
+			}
+			
+			if(btnCtl != null){
+				this.onAreaSearch(btnCtl, null, null);
+			}
+				
 			// 좌측 정보창 버튼 On/Off
 			var currCtl = Ext.getCmp("btnSiteListWindow");
 			if(currCtl.btnOnOff == "off"){
 				SetBtnOnOff("btnSiteListWindow");
-				Ext.ShowSiteListWindow("test"); // 지점목록 창 띄우기
 			}
+			
+			Ext.ShowSiteListWindow("test"); // 지점목록 창 띄우기
 			
 			// 좌측 검색결과 버튼 On/Off
 			currCtl = Ext.getCmp("btnSearchResult");
 			if(currCtl.btnOnOff == "off"){
 				SetBtnOnOff("btnSearchResult");
-				Ext.ShowSearchResult("grid-tab-2", "하천수"); // 검색결과 창 띄우기
 			}
 			
-			// 검색결과 조회 (ADM_CD 셋팅)
-			var cmbCtl = Ext.getCmp("cmbArea3");
-			var admCd = "";
-			
-			if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
-				
-				cmbCtl = Ext.getCmp("cmbArea2");
-				
-				if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
-					
-					cmbCtl = Ext.getCmp("cmbArea1");
-					
-					if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
-					
-					}
-					else{
-						admCd = cmbCtl.getValue().substring(0, 2);
-					}
-					
-				}
-				else{
-					admCd = cmbCtl.getValue().substring(0, 5);
-				}
-				
-			}
-			else{
-				admCd = cmbCtl.getValue().substring(0, 8);
-			}
-			
-			//console.info(admCd);
-			
-		}
-		else{
-			alert("행정구역을 선택하세요.");
+			ShowSearchResult(); // 검색결과 창 띄우기
 		}
 		
 	},

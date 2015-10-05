@@ -5,6 +5,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 	
 	xtype: 'south-grid-searchresult',
 	
+	id: 'searchResultContainer',
+	
 	height: '100%',
 	width: '100%',
 	
@@ -37,8 +39,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				width: 10
 			}, {
 				xtype: 'combo',
+				id: 'cmbStartYear',
 				store: ['', '2015', '2014', '2013', '2012', '2011', '2010'],
-				value: '2015',
+				value: '2014',
 				width: 80,
 				height: 25
 			}, {
@@ -49,6 +52,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				width: 10
 			}, {
 				xtype: 'combo',
+				id: 'cmbStartMonth',
 				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 				value: '09',
 				width: 50,
@@ -67,6 +71,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				width: 10
 			}, {
 				xtype: 'combo',
+				id: 'cmbEndYear',
 				store: ['', '2015', '2014', '2013', '2012', '2011', '2010'],
 				value: '2015',
 				width: 80,
@@ -79,6 +84,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				width: 10
 			}, {
 				xtype: 'combo',
+				id: 'cmbEndMonth',
 				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 				value: '09',
 				width: 50,
@@ -93,7 +99,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				xtype: 'image',
 				src: './resources/images/button/icon_seah.gif', //검색
 				width: 34,
-				height: 19
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function(){
+							ShowSearchResult(_searchType);
+						}
+					}
+				}
 			}]
 		}, {
 			xtype: 'image',
@@ -133,7 +147,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
-			id: 'grdSearchResult',
+			//id: 'grdSearchResult',
+			//id: this.up('container').up('container'),
 			plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
 			height: 215,
@@ -142,33 +157,39 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				height: 5
 			},
 			title: '검색결과',
-			store: 'KRF_DEV.store.south.PrototypeGrid',
+			//store: 'KRF_DEV.store.south.SearchResultGrid',
+			store: Ext.create('KRF_DEV.store.south.SearchResultGrid'),
 			columns: [{
 				text      : '측정소명',
-				dataIndex : 'name',
+				dataIndex : 'PT_NM',
 				width: 100,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, {
 				text      : '년도',
-				dataIndex : 'year',
+				dataIndex : 'WMYR',
 				width: 50,
 				filter: {type: 'numeric'/*, fields: {}*/}
 			}, { 
 				text      : '월',
-				dataIndex : 'month',
+				dataIndex : 'WMOD',
 				width: 50,
 				filter: {type: 'numeric'/*, fields: {}*/}
+			}, { 
+				text      : '회차',
+				dataIndex : 'WMWK',
+				width: 50,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, {
 				text : 'BOD',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'BOD_value',
+					dataIndex: 'CURR_BOD',
 					width: 60,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'BOD_chart',
+					dataIndex: 'CHART_BOD',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -179,13 +200,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : 'DO',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'DO_value',
+					dataIndex: 'CURR_DO',
 					width: 60,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'DO_chart',
+					dataIndex: 'CHART_DO',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -196,13 +217,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : 'COD',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'COD_value',
+					dataIndex: 'CURR_COD',
 					width: 60,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'COD_chart',
+					dataIndex: 'CHART_COD',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -213,12 +234,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : 'T-N',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'tn_value',
+					dataIndex: 'CURR_TN',
 					width: 60,
 					filter: 'number'
 				}, {
 					text: '추이변화',
-					dataIndex: 'tn_chart',
+					dataIndex: 'CHART_TN',
 					width: 80,
 					xtype: 'widgetcolumn',
 					widget: {
@@ -230,13 +251,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : 'T-P',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'tp_value',
+					dataIndex: 'CURR_TP',
 					width: 60,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'tp_chart',
+					dataIndex: 'CHART_TP',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -247,12 +268,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : '수온',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'temp_value',
+					dataIndex: 'CURR_TEMP',
 					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'temp_chart',
+					dataIndex: 'CHART_TEMP',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -263,12 +284,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : 'pH',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'pH_value',
+					dataIndex: 'CURR_PH',
 					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'pH_chart',
+					dataIndex: 'CHART_PH',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -279,12 +300,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : 'SS',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'ss_value',
+					dataIndex: 'CURR_SS',
 					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'ss_chart',
+					dataIndex: 'CHART_SS',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -295,12 +316,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text : '클로로필a',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'chl_value',
+					dataIndex: 'CURR_CLOA',
 					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'chl_chart',
+					dataIndex: 'CHART_CLOA',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
