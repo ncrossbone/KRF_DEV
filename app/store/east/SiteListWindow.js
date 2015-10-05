@@ -50,13 +50,18 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			
+			//console.info(button1.lastValue);
+			console.info(nameInfo.rawValue);
+			
 			if(buttonInfo1.lastValue != null ){
+				console.log("1");
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == ""){
 					query.where = "CAT_ID like '"+buttonInfo2.lastValue+"%'";
 				}else{
 					query.where = "CAT_ID like '"+buttonInfo3.lastValue+"%'";
 				}
 			}else if(buttonInfo1.lastValue == null && nameInfo.rawValue == ""){
+				console.log("2");
 				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
@@ -66,6 +71,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 				
 			}else{
+				console.log("3");
 				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
 			}
 			
@@ -77,7 +83,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//query.where = "CAT_ID like '1001%'";
 			query.outFields = ["*"];
 			queryTask.execute(query, function(result){
-				//console.info(result);
+				console.info(result);
 				var jsonStr = "[";
 				Ext.each(result, function(objLayer, idx, objLayers){
 					// 상위 node일때					
@@ -125,7 +131,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				store.setData(jsonData);
 				//store.setData(JSON.parse(jsonStr));
-				//console.info("khLee");
+				
 	        });
 	  	}
 	}
