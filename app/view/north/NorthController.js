@@ -25,7 +25,16 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	onClickReachLayer: function(obj, el, evt){
 		
 		// 리치레이어 On/Off
-		ReachLayerOnOff(el.id, "46");
+		//ReachLayerOnOff(el.id, "46");
+		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		var me = GetCoreMap();
+		
+		if(currCtl.btnOnOff == "on")
+			me.reachLayerAdmin.reachLineGraphics.setVisibility(true);
+		else
+			me.reachLayerAdmin.reachLineGraphics.setVisibility(false);
 		
 	},
 	
