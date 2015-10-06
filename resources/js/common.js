@@ -240,7 +240,6 @@ ShowWindowSiteNChart = function(tabIdx, title){
 		
 		store.load();
 		chartStore.load();
-		chartStore.redraw();
 		siteinfoCtl.getView().refresh();
 		
 		return;

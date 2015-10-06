@@ -175,7 +175,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 				}
 				
 				// 지점목록 창 띄우기
-				Ext.ShowSiteListWindow("test");
+				Ext.ShowSiteListWindow("waterSearch");
 				
 				// 버튼 On/Off
 				currCtl = Ext.getCmp("btnSearchResult");

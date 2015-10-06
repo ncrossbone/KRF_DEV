@@ -46,6 +46,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_branch.gif',
             iconCls: ' khLee-x-default-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+            	var text = record.data.text;
+            	//console.info(record.data.text);
             	var chkText = record.id;
             	//console.info(record);
             	//console.info(grid+" : "+rowIndex+" : "+colIndex+" : "+actionItem+" : "+event+" : "+record+" : "+row);

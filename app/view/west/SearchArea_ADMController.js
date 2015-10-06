@@ -181,7 +181,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 					SetBtnOnOff("btnSiteListWindow");
 				}
 				
-				Ext.ShowSiteListWindow("test"); // 지점목록 창 띄우기
+				Ext.ShowSiteListWindow("admSearch"); // 지점목록 창 띄우기
 				
 				// 좌측 검색결과 버튼 On/Off
 				currCtl = Ext.getCmp("btnSearchResult");
