@@ -68,7 +68,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 			name: 'title2',
 			params: this
 		}]
-	}],
+	}]/*,
 	initComponent: function(){
 		Ext.apply(this,{
 			id: 'siteCd',
@@ -77,4 +77,5 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 		this.callParent();
 		
 	}
+	*/
 });

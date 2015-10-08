@@ -6,7 +6,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         'PT_NM',
         'WMYR',
         'WMOD',
-        'WMWK',
+        'WMCYMD',
         {name: 'CURR_BOD', type: 'number'},
         'CHART_BOD',
         {name: 'CURR_DO', type: 'number'},
@@ -50,12 +50,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			//console.info(ADM_CD);
 			//console.info(AM_CD);
+			console.info(_siteIds);
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD},
+        			, ADM_CD: ADM_CD, siteIds: _siteIds},
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {

@@ -31,10 +31,12 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var currCtl = SetBtnOnOff(el.id);
 		var me = GetCoreMap();
 		
-		if(currCtl.btnOnOff == "on")
-			me.reachLayerAdmin.reachLineGraphics.setVisibility(true);
-		else
-			me.reachLayerAdmin.reachLineGraphics.setVisibility(false);
+		if(me.reachLayerAdmin.reachLineGraphics != null && me.reachLayerAdmin.reachLineGraphics != undefined){
+			if(currCtl.btnOnOff == "on")
+				me.reachLayerAdmin.reachLineGraphics.setVisibility(true);
+			else
+				me.reachLayerAdmin.reachLineGraphics.setVisibility(false);
+		}
 		
 	},
 	
@@ -42,7 +44,18 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	onClickAreaLayer: function(obj, el, evt){
 		
 		// 리치레이어 On/Off
-		ReachLayerOnOff(el.id, "47");
+		//ReachLayerOnOff(el.id, "47");
+		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		var me = GetCoreMap();
+		
+		if(me.reachLayerAdmin.reachAreaGraphics != null && me.reachLayerAdmin.reachAreaGraphics != undefined){
+			if(currCtl.btnOnOff == "on")
+				me.reachLayerAdmin.reachAreaGraphics.setVisibility(true);
+			else
+				me.reachLayerAdmin.reachAreaGraphics.setVisibility(false);
+		}
 		
 	},
 	

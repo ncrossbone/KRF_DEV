@@ -15,17 +15,13 @@ Ext.define('KRF_DEV.store.east.SiteInfoPanel', {
 	//constructor: function() {
 	listeners: {
 		load: function(store) {
-			//console.info("3");
-			var siteCd= Ext.getCmp("siteCd");
-			//var recordId = siteCd.params;
+			
 			var recordId = "";
-			if(store.siteCD == "")
-				recordId = siteCd.params;
-			else
+			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
 			//console.info(store.siteCD);
-			console.info(recordId);
+			//console.info(recordId);
 			
 			var jsonData = "";
 			

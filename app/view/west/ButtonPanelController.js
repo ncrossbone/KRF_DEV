@@ -166,11 +166,12 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	KRF_DEV.getApplication().fireEvent('drawEnd');
 	    	
 			Ext.ShowReachToolbar(evtArgs, el);
-			Ext.HideSiteListWindow();
-			Ext.HideSiteInfoWindow();
-			Ext.HideChartResult();
-			Ext.HideSearchResult();
-			ShowReachInfoWindow();
+			//Ext.HideSiteListWindow();
+			//HideWindowSiteNChart();
+			//Ext.HideSiteInfoWindow();
+			//Ext.HideChartResult();
+			//HideSearchResult();
+			//ShowReachInfoWindow();
 		}
 		
 		// 일반모드 버튼
@@ -197,10 +198,10 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	KRF_DEV.getApplication().fireEvent('drawEnd');
 	    	
 			Ext.HideReachToolbar(evtArgs, el);
-			Ext.HideSiteListWindow();
-			Ext.HideSiteInfoWindow();
-			Ext.HideChartResult();
-			Ext.HideSearchResult();
+			//Ext.HideSiteListWindow();
+			//Ext.HideSiteInfoWindow();
+			//Ext.HideChartResult();
+			//Ext.HideSearchResult();
 			
 			/*
 			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');

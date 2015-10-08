@@ -14,6 +14,7 @@ var _areaWSLayerId = null; // 대권역 레이어 아이디
 var _areaAMLayerId = null; // 중권역 레이어 아이디
 var _areaASLayerId = null; // 소권역 레이어 아이디
 var _nameLayerId = null; // 시도 레이어 아이디
+var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad: true,
@@ -53,6 +54,7 @@ store.load(function(a, b, c){
 		_areaWSLayerId = record.data.areaWSLayerId;
 		_areaAMLayerId = record.data.areaAMLayerId;
 		_areaASLayerId = record.data.areaASLayerId;
+		_siteInfoLayerId = record.data.siteInfoLayerId;
 	});
 });
 
@@ -122,62 +124,76 @@ Ext.application({
  		
  		// 지점 목록 창 띄우기
  		Ext.ShowSiteListWindow = function(searchText){
- 			if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
+ 			//if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
  				
- 				//검샋시 다른 더튼값 초기화
- 					var cmbArea1 = Ext.getCmp("cmbArea1");
-					var cmbArea2 = Ext.getCmp("cmbArea2");
-					var cmbArea3 = Ext.getCmp("cmbArea3");
- 					var cmbWater1 = Ext.getCmp("cmbWater1");
- 					var cmbWater2 = Ext.getCmp("cmbWater2");
- 					var cmbWater3 = Ext.getCmp("cmbWater3");
- 				if(searchText == 'waterSearch'){//수계검색시 행정구역 초기화
- 					cmbArea1.setValue("");
- 					cmbArea2.setValue("");
- 					cmbArea3.setValue("");
- 				}else if(searchText == 'admSearch'){//행정구역검색시 수계 초기화
- 					cmbWater1.setValue("");
- 					cmbWater2.setValue("");
- 					cmbWater3.setValue("");
- 				}else{//명칭찾기시 수계 행정구역 초기화
- 					cmbArea1.setValue("");
- 					cmbArea2.setValue("");
- 					cmbArea3.setValue("");
- 					cmbWater1.setValue("");
- 					cmbWater2.setValue("");
- 					cmbWater3.setValue(""); 					
- 				}
- 				
- 				
- 				
- 				listWinCtl = Ext.getCmp("siteListWindow");
- 				if(listWinCtl == undefined)
- 					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
- 				
- 				
- 				listWinCtl.show();
- 				
- 				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
- 				var listWinY = 98;
- 				
- 				
- 				listWinCtl.setX(listWinX);
- 				listWinCtl.setY(listWinY);
+ 			var me = GetCoreMap();
+ 			
+			//검샋시 다른 더튼값 초기화
+			var cmbArea1 = Ext.getCmp("cmbArea1");
+			var cmbArea2 = Ext.getCmp("cmbArea2");
+			var cmbArea3 = Ext.getCmp("cmbArea3");
+			var cmbWater1 = Ext.getCmp("cmbWater1");
+			var cmbWater2 = Ext.getCmp("cmbWater2");
+			var cmbWater3 = Ext.getCmp("cmbWater3");
+			var txtSearch = Ext.getCmp("textSearchText");
+			
+			if(searchText == 'waterSearch'){//수계검색시 행정구역 초기화
+				cmbArea1.setValue("");
+				cmbArea2.setValue("");
+				cmbArea3.setValue("");
+				txtSearch.setValue("");
+				me.reachLayerAdmin.amCD_temp = "";
+			}else if(searchText == 'admSearch'){//행정구역검색시 수계 초기화
+				cmbWater1.setValue("");
+				cmbWater2.setValue("");
+				cmbWater3.setValue("");
+				txtSearch.setValue("");
+				me.reachLayerAdmin.amCD_temp = "";
+			}else if(searchText == "nameSearch"){//명칭찾기시 수계 행정구역 초기화
+				cmbArea1.setValue("");
+				cmbArea2.setValue("");
+				cmbArea3.setValue("");
+				cmbWater1.setValue("");
+				cmbWater2.setValue("");
+				cmbWater3.setValue("");
+				me.reachLayerAdmin.amCD_temp = "";
 			}
 			else{
-				listWinCtl = Ext.getCmp("siteListWindow_reach");
-	 			
-				if(listWinCtl == undefined)
-					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow_Reach');
-				
-				listWinCtl.show();
-				
-				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
-				var listWinY = 98;
-				
-				listWinCtl.setX(listWinX);
-				listWinCtl.setY(listWinY);
+				me.reachLayerAdmin.amCD_temp = searchText;
 			}
+			
+			//console.info(searchText);
+			listWinCtl = Ext.getCmp("siteListWindow");
+			if(listWinCtl == undefined)
+				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
+			
+			listWinCtl.show();
+			
+			var treeCtl = Ext.getCmp("siteListTree");
+			var store = treeCtl.getStore();
+			store.load();
+			
+			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
+			var listWinY = 98;
+			
+			
+			listWinCtl.setX(listWinX);
+			listWinCtl.setY(listWinY);
+//			}
+//			else{
+//				listWinCtl = Ext.getCmp("siteListWindow_reach");
+//	 			
+//				if(listWinCtl == undefined)
+//					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow_Reach');
+//				
+//				listWinCtl.show();
+//				
+//				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
+//				var listWinY = 98;
+//				
+//				listWinCtl.setX(listWinX);
+//				listWinCtl.setY(listWinY);
+//			}
 			
  		}
  		

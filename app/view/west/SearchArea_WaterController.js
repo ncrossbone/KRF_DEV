@@ -117,7 +117,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 	
 	onWaterSelect: function(button, eOpts){
 		
-		if(ChkSearchCondition("수계찾기")){
+		//if(ChkSearchCondition("수계찾기")){
 			
 			var btnCtl = null;
 			
@@ -184,9 +184,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 				}
 				
 				// 검색결과창 띄우기
-				ShowSearchResult();
+				// ShowSearchResult(); // 선택버튼 클릭 시 검색결과창 안띄우는걸로.. 20151008
 			}
-		}
+		//}
 		
 	},
 	

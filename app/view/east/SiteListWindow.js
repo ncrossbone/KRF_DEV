@@ -84,7 +84,43 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_seah.gif',
             iconCls: ' khLee-x-serch-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
-            	Ext.ShowSearchResult("grid-tab-2", "하천수");
+            	//Ext.ShowSearchResult("grid-tab-2", "하천수");
+            	
+            	var treeCtl = Ext.getCmp("siteListTree");
+            	//console.info(treeCtl.getStore().data.items[0].data.children);
+            	//console.info(record.data.children);
+            	var siteIds = "";
+            	
+            	if(record.data.children != null && record.data.children != undefined){
+            		
+            		for(var i = 0; i < record.data.children.length; i++){
+            			
+            			siteIds += "'" + record.data.children[i].id + "', ";
+            			
+            		}
+            		
+            		siteIds = siteIds.substring(0, siteIds.length - 2);
+            		
+            	}
+            	else{
+            		
+            		siteIds = "'" + record.data.id + "'";
+            		ShowWindowSiteNChart(1, record.data.id);
+            		
+            	}
+            	
+            	if(ChkSearchCondition("지점코드찾기", siteIds)){
+            		
+            		// 버튼 On/Off
+    				currCtl = Ext.getCmp("btnSearchResult");
+    				if(currCtl.btnOnOff == "off"){
+    					SetBtnOnOff("btnSearchResult");
+    				}
+    				
+    				// 검색결과창 띄우기
+    				ShowSearchResult();
+            		
+            	}
             },
         }]
 	}],

@@ -168,23 +168,6 @@ AreaLayerDraw = function(featureSet){
 	});
 }
 
-// 리치 레이어 초기화
-ReachLayerReset = function(){
-	var me = GetCoreMap();
-	
-	// 리치 선택 종료
-	me.reachLayerAdmin.drawEnd();
-	// 그래픽 초기화
-	me.map.graphics.clear();
-	
-	// 레이어 제거
-	me.map.removeLayer(me.reachLayerAdmin.reachLinelayer);
-	me.map.removeLayer(me.reachLayerAdmin.reachArealayer);
-	
-	// 리치 레이어 클래스 생성
-	me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map);
-}
-
 // 리치정보 바인딩
 ReachInfoBinding = function(objs){
 	//console.info(objs);
@@ -225,32 +208,12 @@ ReachInfoBinding = function(objs){
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function(tabIdx, title){
 	
-	//console.info(title);
-	var siteinfoCtl = Ext.getCmp("siteinfotest");  //
-	var siteChartCtl = Ext.getCmp("siteCharttest");
-	var seriesId = Ext.getCmp("seriesId");
-	
-	
-	if(siteinfoCtl != undefined){
-		var store = siteinfoCtl.getStore();
-		var chartStore = siteChartCtl.getStore();
-		
-		store.siteCD = title;
-		chartStore.siteCD = title;
-		
-		store.load();
-		chartStore.load();
-		siteinfoCtl.getView().refresh();
-		
-		return;
-	}
-	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	
+	console.info(winCtl);
 	if(winCtl == undefined){
 		winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart',{
-			name: 'title',
-			params: title
+			//name: 'title',
+			//params: title
 		});
 	}
 	
@@ -266,15 +229,31 @@ ShowWindowSiteNChart = function(tabIdx, title){
 		//console.info(store);
 		winY = listCtl.height + winY;
 	}
-	else{
-		var listCtl = Ext.getCmp("siteListWindow_reach");
-		if(listCtl != undefined){
-			winY = listCtl.height + winY;
-		}
-	}
 	
 	winCtl.setX(winX);
 	winCtl.setY(winY);
+	
+	//console.info(title);
+	var siteinfoCtl = Ext.getCmp("siteinfotest");  //
+	var siteChartCtl = Ext.getCmp("siteCharttest");
+	
+	
+	if(siteinfoCtl != undefined){
+		var store = siteinfoCtl.getStore();
+		var chartStore = siteChartCtl.getStore();
+		
+		store.siteCD = title;
+		chartStore.siteCD = title;
+		
+		store.load();
+		chartStore.load();
+		siteinfoCtl.getView().refresh();
+		siteChartCtl.refresh();
+		
+		//ChangeTabIndex(tabIdx);
+		
+		//return;
+	}
 	
 	ChangeTabIndex(tabIdx);
 
@@ -286,7 +265,7 @@ HideWindowSiteNChart = function(){
 	var winCtl = Ext.getCmp("windowSiteNChart");
 	//console.info(winCtl);
 	if(winCtl != undefined)
-		winCtl.hide();
+		winCtl.close();
 
 }
 
@@ -335,7 +314,7 @@ ShowSearchResult = function(){
 	
 	options = {
 			id: 'searchResultTab',
-			title: '결과탭1',
+			//title: '결과탭1',
 			header: false
 	};
 	
@@ -349,7 +328,7 @@ ShowSearchResult = function(){
 	
 	options = {
 			id: "searchResultContainer",
-			title: _searchType,
+			title: '테스트', //_searchType,
 			autoResize: true
 	};
 	
@@ -418,9 +397,10 @@ var _searchType = "";
 var WS_CD = AM_CD = AS_CD = "";
 var ADM_CD = "";
 var PT_NM = "";
+var _siteIds = "";
 
 // 좌측 위치검색 조회 조건 체크 및 셋팅 (구분이 동일할 경우 _searchType을 파라메터로..)
-ChkSearchCondition = function(sType){
+ChkSearchCondition = function(sType, siteIds){
 	
 	// 찾기 구분 셋팅 ("수계찾기", "행정구역찾기", "명칭찾기")
 	if(_searchType == "" || _searchType != sType){
@@ -430,6 +410,7 @@ ChkSearchCondition = function(sType){
 	WS_CD = AM_CD = AS_CD = "";
 	ADM_CD = "";
 	PT_NM = "";
+	_siteIds = ""; // 지점코드
 	
 	if(_searchType == "수계찾기"){
 		WS_CD = Ext.getCmp("cmbWater1").value;
@@ -484,6 +465,12 @@ ChkSearchCondition = function(sType){
 		else{
 			ADM_CD = ADM_CD.substring(0, 8)
 		}
+	}
+	
+	if(_searchType == "지점코드찾기"){
+		
+		_siteIds = siteIds;
+		
 	}
 	
 	return true;

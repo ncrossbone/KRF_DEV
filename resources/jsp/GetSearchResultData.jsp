@@ -15,6 +15,8 @@ try{
 	
 	String ADM_CD = request.getParameter("ADM_CD");
 	
+	String siteIds = request.getParameter("siteIds");
+	
 	String startYear = request.getParameter("startYear");
 	String startMonth = request.getParameter("startMonth");
 	String endYear = request.getParameter("endYear");
@@ -26,7 +28,7 @@ try{
 	//out.print(withSql);
 	
 	sql = " WITH TMP AS ( " +
-			"SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */ " +
+			"SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */ " +
 		     ", A.PT_NO /* 지점코드 */, A.PT_NM /* 지점명 */, C.WMCYMD /* 측정일자 */ " +
 			 ", B.WMYR /* 년 */, B.WMOD /* 월 */ " +
 		     ", C.WMWK /* 회차 */ " +
@@ -66,7 +68,7 @@ try{
 		     ", KESTI_WATER_ALL_MAP C " +
 		 "WHERE A.PT_NO = B.PT_NO " +
 		   "AND A.ADMCODE = B.ADMCODE " +
-		   "AND B.RN BETWEEN A.RN + 1 AND A.RN + 5 " +
+		   "AND B.RN BETWEEN A.RN AND A.RN + 4 " +
 		   "AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+) ";
 		   
 	if(startYYYYMM != ""){
@@ -86,6 +88,10 @@ try{
 	}
 	if(ADM_CD != ""){
 		sql += "AND C.ADM_CD LIKE '" + ADM_CD + "%' ";
+	}
+	
+	if(siteIds != ""){
+		sql += "AND A.PT_NO IN (" + siteIds + ") ";
 	}
 		//sql += "AND C.ADM_CD LIKE '42%' /* 강원도 */ " +
 		   //"AND C.ADM_CD LIKE '42110%' /* 춘천시 */ " +
@@ -172,7 +178,7 @@ try{
 	  		CHART_SS = new JSONArray();
 	  		CHART_CLOA = new JSONArray();
 		}
-		else{
+		//else{
 			PT_NO = rs.getString("PT_NO");
 			PT_NM = rs.getString("PT_NM");
 			WMCYMD = rs.getString("WMCYMD");
@@ -199,7 +205,7 @@ try{
 	  		CHART_CLOA.add(rs.getString("CHART_CLOA"));
 			
 			//System.out.println(String.format("%04.2f", 0.40));
-		}
+		//}
 		
 		if(!preSeq.equals(rs.getString("RN")))
 			preSeq = rs.getString("RN");

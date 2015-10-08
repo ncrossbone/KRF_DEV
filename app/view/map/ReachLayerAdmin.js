@@ -39,6 +39,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     upLineSymbol: null,
     downLineSymbol: null,
     areaSymbol: null,
+    amCD_temp: null,
     
     reachMapLoad: function(map){
     	
@@ -354,7 +355,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     
     startLineDraw: function(evt){
     	
-    	if(ChkSearchCondition(_searchType)){
+    	//if(ChkSearchCondition(_searchType)){
     		
 	    	var me = GetCoreMap(); // this 사용하지 말자.
 	    	
@@ -362,7 +363,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	    	me.reachLayerAdmin.executeQuery(evt[0], "up");
 	    	me.reachLayerAdmin.executeQuery(evt[0], "down");
 	    	
-    	}
+    	//}
     	
     },
     
@@ -438,11 +439,26 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			}
 			
 			if(type == "start"){
+				// 시작위치로 설정된 집수구역 중권역 설정
+				AM_CD = catId.substring(0, 4);
+				//console.info(AM_CD);
+				AS_CD = ""; // 소권역은 공백
+				
+				//me.amCD_temp = AM_CD;
+				//console.info(me.amCD_temp);
+				// 지점목록 창 띄우기
+				Ext.ShowSiteListWindow(AM_CD);
+				
+				queryWhere = "RCH_ID LIKE '" + AM_CD + "%' AND ";
 				query.where = queryWhere + "RCH_ID = '" + rchId + "'";
 				queryTask.execute(query, me.currLineDraw);
 			}
 			
 			if(type == "add"){
+				// 추가위치로 설정된 집수구역 중권역 설정
+				//AM_CD = catId.substring(0, 4);
+				//AS_CD = ""; // 소권역은 공백
+				
 				query.where = "RCH_ID = '" + rchId + "'";
 				queryTask.execute(query, me.currLineDraw);
 			}
@@ -520,6 +536,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         		
         		var graphic = featureSet.features[i];
         		var rchId = graphic.attributes.RCH_ID;
+        		
             	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, this.upRchGraphics);
             	
             	if(arrIdx == -1){
@@ -532,6 +549,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	    			
             	}
         	}
+        	
+        	// 리치 정보 보여주기
+        	me.reachLayerAdmin.reachSelected(featureSet.features);
+        	
     	});
     	
     },
@@ -693,7 +714,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	 		});
 	 		
 	 		//console.info(geom);
-	 		me.map.graphics.add(new Graphic(geom, startSymbol));
+	 		//me.map.graphics.add(new Graphic(geom, startSymbol));
+	 		me.reachLayerAdmin.addLineGraphic(new Graphic(geom, startSymbol));
 	 	});
     	
     	// 버튼 On/Off
@@ -817,7 +839,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			});
 	 		
 	 		//console.info(geom);
-	 		me.map.graphics.add(new Graphic(geom, endSymbol));
+	 		//me.map.graphics.add(new Graphic(geom, endSymbol));
+    		me.reachLayerAdmin.addLineGraphic(new Graphic(geom, endSymbol));
 	 	});
     	
     	// 버튼 On/Off
@@ -866,5 +889,68 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	    	
 	    	Ext.get('_mapDiv__gc').setStyle('cursor','default');
     	}
+    },
+    
+    setCatIds: function(){
+    	
+
+    	
+    	if(_searchType == "리치검색"){
+    		
+    		var me = GetCoreMap();
+    		
+    		if(me.reachLayerAdmin.reachAreaGraphics == null || me.reachLayerAdmin.reachAreaGraphics == undefined){
+    			
+    			//alert("선택된 집수구역이 없습니다.");
+    			return false; // 리치검색일때는 일단 false를 리턴하지 말자..
+    			
+    		}
+    		else{
+    			
+    			var graphics = me.reachLayerAdmin.reachAreaGraphics.graphics;
+    			
+    			if(graphics == null || graphics == undefined){
+    				
+    				//alert("선택된 집수구역이 없습니다.");
+    				//return false; // 리치검색일때는 일단 false를 리턴하지 말자..
+    				
+    			}
+    			else{
+    				
+    				for(var i = 0; i < graphics.length; i++){
+    					
+    					var catId = graphics[i].attributes.CAT_ID;
+    					_catIds += "'" + catId + "', ";
+    					
+    				}
+    				
+    				_catIds = _catIds.substring(0, _catIds.length - 2);
+    				console.info(_catIds);
+    				
+    			}
+    			
+    		}
+    		
+    	}
+    	
+    },
+    
+    // 리치라인, 집수구역 그래픽 레이어 초기화
+    clearGraphicsLayer: function(){
+    	
+    	var me = GetCoreMap();
+    	
+    	if(me.reachLayerAdmin.reachLineGraphics != null && me.reachLayerAdmin.reachLineGraphics != undefined){
+    		me.reachLayerAdmin.reachLineGraphics.clear(); // 리치라인 초기화
+    	}
+    	if(me.reachLayerAdmin.reachAreaGraphics != null && me.reachLayerAdmin.reachAreaGraphics != undefined){
+    		me.reachLayerAdmin.reachAreaGraphics.clear(); // 집수구역 초기화
+    	}
+    	
+    	me.reachLayerAdmin.upRchGraphics = [];
+    	me.reachLayerAdmin.downRchGraphics = [];
+    	me.reachLayerAdmin.selRchGraphics = [];
+    	me.reachLayerAdmin.selAreaGraphics = [];
+    	
     }
 });

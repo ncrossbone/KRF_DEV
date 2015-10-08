@@ -112,6 +112,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: this.onClickListener,
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu06_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu06.png',
 	    	src: './resources/images/button/reach_menu06.png'
 	    }, {
 	    	xtype: 'image',
@@ -121,6 +124,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: this.onClickListener,
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu07_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu07.png',
 	    	src: './resources/images/button/reach_menu07.png'
 	    }, {
 	    	xtype: 'image',

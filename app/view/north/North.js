@@ -52,10 +52,10 @@ Ext.define('KRF_DEV.view.north.North', {
 		groupId: 'grpArea',
     	title: '집수구역',
     	listeners: { el: { click: 'onClickAreaLayer' } },
-    	btnOnOff: 'off',
+    	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	src: './resources/images/button/btn_top_02_off.png'
+    	src: './resources/images/button/btn_top_02_on.png'
     }, { 
 		xtype: 'image',
 		id: 'btnLayerReset',

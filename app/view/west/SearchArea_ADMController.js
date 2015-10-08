@@ -138,7 +138,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 	// 선택 버튼
 	onADMSelect: function(button, eOpts){
 		
-		if(ChkSearchCondition("행정구역찾기")){
+		//if(ChkSearchCondition("행정구역찾기")){
 			
 			var btnCtl = null;
 			
@@ -189,44 +189,11 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 					SetBtnOnOff("btnSearchResult");
 				}
 				
-				ShowSearchResult(); // 검색결과 창 띄우기
+				// 검색결과 창 띄우기
+				// ShowSearchResult(); // 선택버튼 클릭 시 검색결과창 안띄우는걸로.. 20151008
 			}
 			
-			// 검색결과 조회 (ADM_CD 셋팅)
-			var cmbCtl = Ext.getCmp("cmbArea3");
-			var admCd = "";
-			
-			if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
-				
-				cmbCtl = Ext.getCmp("cmbArea2");
-				
-				if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
-					
-					cmbCtl = Ext.getCmp("cmbArea1");
-					
-					if(cmbCtl == undefined || cmbCtl.getValue() == null || cmbCtl.getValue() == ""){
-					
-					}
-					else{
-						admCd = cmbCtl.getValue().substring(0, 2);
-					}
-					
-				}
-				else{
-					admCd = cmbCtl.getValue().substring(0, 5);
-				}
-				
-			}
-			else{
-				admCd = cmbCtl.getValue().substring(0, 8);
-			}
-			
-			//console.info(admCd);
-			
-		}
-		else{
-			alert("행정구역을 선택하세요.");
-		}
+		//}
 		
 	},
 	

@@ -27,7 +27,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	//constructor: function() {
 	listeners: {
 		load: function(store) { 
-			var siteCd= Ext.getCmp("siteCd");
+			//var siteCd= Ext.getCmp("siteCd");
 			
 			//
 			
@@ -42,9 +42,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 				recordYear = selectYear.lastMutatedValue;
 			}
 			var recordId = "";
-			if(store.siteCD == "")
-				recordId = siteCd.params;
-			else
+			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
 			//console.info(recordId);

@@ -175,12 +175,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				width: 50,
 				filter: {type: 'numeric'/*, fields: {}*/}
 			}, { 
-				text      : '회차',
-				dataIndex : 'WMWK',
-				width: 50,
+				text      : '측정일자',
+				dataIndex : 'WMCYMD',
+				width: 90,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, {
-				text : 'BOD',
+				text : 'BOD (㎎/L)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BOD',
@@ -197,7 +197,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					}
 				}]
 			}, {
-				text : 'DO',
+				text : 'DO (㎎/L)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DO',
@@ -214,7 +214,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					}
 				}]
 			}, {
-				text : 'COD',
+				text : 'COD (㎎/L)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_COD',
@@ -231,7 +231,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					}
 				}]
 			}, {
-				text : 'T-N',
+				text : 'T-N (㎎/L)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TN',
@@ -248,7 +248,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					}
 				}]
 			}, {
-				text : 'T-P',
+				text : 'T-P (㎎/L)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TP',
@@ -265,7 +265,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					}
 				}]
 			}, {
-				text : '수온',
+				text : '수온 (℃)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TEMP',
@@ -297,7 +297,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					}
 				}]
 			}, {
-				text : 'SS',
+				text : 'SS (㎎/L)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_SS',
@@ -313,7 +313,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					}
 				}]
 			}, {
-				text : '클로로필a',
+				text : '클로로필a (㎎/㎥)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CLOA',
