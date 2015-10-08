@@ -124,6 +124,32 @@ Ext.application({
  		Ext.ShowSiteListWindow = function(searchText){
  			if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
  				
+ 				//검샋시 다른 더튼값 초기화
+ 					var cmbArea1 = Ext.getCmp("cmbArea1");
+					var cmbArea2 = Ext.getCmp("cmbArea2");
+					var cmbArea3 = Ext.getCmp("cmbArea3");
+ 					var cmbWater1 = Ext.getCmp("cmbWater1");
+ 					var cmbWater2 = Ext.getCmp("cmbWater2");
+ 					var cmbWater3 = Ext.getCmp("cmbWater3");
+ 				if(searchText == 'waterSearch'){//수계검색시 행정구역 초기화
+ 					cmbArea1.setValue("");
+ 					cmbArea2.setValue("");
+ 					cmbArea3.setValue("");
+ 				}else if(searchText == 'admSearch'){//행정구역검색시 수계 초기화
+ 					cmbWater1.setValue("");
+ 					cmbWater2.setValue("");
+ 					cmbWater3.setValue("");
+ 				}else{//명칭찾기시 수계 행정구역 초기화
+ 					cmbArea1.setValue("");
+ 					cmbArea2.setValue("");
+ 					cmbArea3.setValue("");
+ 					cmbWater1.setValue("");
+ 					cmbWater2.setValue("");
+ 					cmbWater3.setValue(""); 					
+ 				}
+ 				
+ 				
+ 				
  				listWinCtl = Ext.getCmp("siteListWindow");
  				if(listWinCtl == undefined)
  					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');

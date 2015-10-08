@@ -19,7 +19,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController', {
 			if(treeResach != undefined){
 				var store = treeResach.getStore();
 				store.nameInfo = btn.rawValue;
-				console.info(store);
 				store.load();
 				treeResach.getView().refresh();
 				return;
@@ -32,7 +31,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController', {
 				var currCtl = Ext.getCmp("btnSiteListWindow");
 				if(currCtl.btnOnOff == "off"){
 					SetBtnOnOff("btnSiteListWindow");
-					Ext.ShowSiteListWindow("test"); // 지점목록 창 띄우기
+					Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
 				}
 		
 			}

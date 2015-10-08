@@ -22,9 +22,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	bbb : '',
 	listeners: {
 		load: function(store) {
+			var a = Ext.getCmp("btnADMSelect");
+			console.info(a);
+					
 			
-			
-			//console.info(store.bbb);
+			console.info(store);
 			
 			var nameInfo = Ext.getCmp("textSearchText");
 			
@@ -52,7 +54,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			query.returnGeometry = false;
 			
 			//console.info(button1.lastValue);
-			console.info(nameInfo.rawValue);
+			console.info(buttonInfo2.lastValue);
 			
 			if(buttonInfo1.lastValue != null ){
 				console.log("1");
@@ -84,22 +86,40 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//query.where = "CAT_ID like '1001%'";
 			query.outFields = ["*"];
 			queryTask.execute(query, function(result){
-				console.info(result);
+				//console.info(result);
 				var jsonStr = "[";
 				Ext.each(result, function(objLayer, idx, objLayers){
 					// 상위 node일때					
-						jsonStr += "{\n";
-						jsonStr += "	\"id\": \"하천수\",\n";
-						jsonStr += "	\"text\": \"하천수\",\n";
-						jsonStr += "	\"cls\": "+'"'+"khLee-x-tree-node-text-bold"+'"'+",\n";
-						jsonStr += "	\"iconCls\": 'layerNoneImg',\n";
-						jsonStr += "	\"checked\": false,\n";
+						//jsonStr += "{\n";
+						//jsonStr += "	\"id\": \"하천수\",\n";
+						//jsonStr += "	\"text\": \"하천수\",\n";
+						//jsonStr += "	\"cls\": "+'"'+"khLee-x-tree-node-text-bold"+'"'+",\n";
+						//jsonStr += "	\"iconCls\": 'layerNoneImg',\n";
+						//jsonStr += "	\"checked\": false,\n";
 						
 						// children node가 있을때
 						if(objLayer != null){
-							jsonStr += "	\"expanded\": false,\n"; // 펼치기..
-							jsonStr += "\n	\"children\": [";
+							var preGubun = "";
+							var cnt = 0;
+							//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
+							//jsonStr += "\n	\"children\": [";
 							for(i = 0; i < result.features.length; i++){
+								if(result.features[i].attributes.GUBUN_CODE != preGubun){
+									if(i > 0){
+										jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
+										jsonStr += "]\n}, ";
+									}
+									jsonStr += "{\n";
+									jsonStr += "	\"id\": \"" + result.features[i].attributes.GUBUN_CODE + "\",\n";
+									jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "\",\n";
+									jsonStr += "	\"cls\": "+'"'+"khLee-x-tree-node-text-bold"+'"'+",\n";
+									jsonStr += "	\"checked\": false,\n";
+									jsonStr += "	\"expanded\": false,\n"; // 펼치기..
+									jsonStr += "\n	\"children\": [";
+									preGubun = result.features[i].attributes.GUBUN_CODE;
+								}
+								
+								//if(result.features[i].attributes.GUBUN_CODE == 'A001'){
 								jsonStr += "{\n";
 								jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
 								jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
@@ -108,14 +128,17 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "		\"leaf\": true,\n";
 								jsonStr += "		\"checked\": false\n";
 								jsonStr += "	}, ";
+								
+								}
+								
 								if(i == result.features.length - 1){
 									jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
 									jsonStr += "]\n}, ";
 								}
-							}
 						}
 						// children node가 없을때
 						else{
+							//console.info("fadsfasdf");
 							jsonStr += "	\"leaf\": true"; 
 							jsonStr += "\n}, "
 						}
@@ -125,10 +148,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				//console.info(jsonStr);
 				jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-				jsonStr += "]";
+				jsonStr += "]}]";
 				
 				//console.info(jsonStr);
 				var jsonData = "";
+				//console.info(jsonStr);
+				//return;
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				console.info("before");
 				store.setData(jsonData);
