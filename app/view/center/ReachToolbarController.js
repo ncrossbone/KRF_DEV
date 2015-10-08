@@ -66,6 +66,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 리치추가 버튼 클릭
 	onClickAddReach: function(obj, el, evt){
 		
+		// 리치 선택 종료
+		GetCoreMap().reachLayerAdmin.drawEnd();
+		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
@@ -82,6 +85,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	
 	// 구간제거 버튼 클릭
 	onClickRemoveReach: function(obj, el, evt){
+		
+		// 리치 선택 종료
+		GetCoreMap().reachLayerAdmin.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
@@ -100,6 +106,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
 		
+		// 리치 선택 종료
+		GetCoreMap().reachLayerAdmin.drawEnd();
+		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
@@ -115,6 +124,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	
 	// 끝위치 버튼 클릭
 	onClickEndReach: function(obj, el, evt){
+		
+		// 리치 선택 종료
+		GetCoreMap().reachLayerAdmin.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);

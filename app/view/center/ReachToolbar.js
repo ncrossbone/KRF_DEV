@@ -83,7 +83,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu04',
-	    	groupId: 'groupStartEnd',
+	    	groupId: 'group1',
 	    	title: '시작위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -95,7 +95,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu05',
-	    	groupId: 'groupStartEnd',
+	    	groupId: 'group1',
 	    	title: '끝위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -107,7 +107,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu06',
-	    	groupId: 'group111',
+	    	groupId: 'group1',
 	    	title: '드래그선택',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -116,7 +116,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu07',
-	    	groupId: 'group111',
+	    	groupId: 'group1',
 	    	title: '반경선택',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -125,7 +125,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu08',
-	    	groupId: 'groupReset',
+	    	groupId: 'group1',
 	    	title: '초기화',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
