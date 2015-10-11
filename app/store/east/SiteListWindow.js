@@ -88,6 +88,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			queryTask.execute(query, function(result){
 				//console.info(result);
 				var jsonStr = "[{\n";
+				jsonStr += "	\"id\": 'root01',\n";
 				jsonStr += "	\"text\": '수질측정망',\n";
 				jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
 				jsonStr += "	\"expanded\": true,\n";

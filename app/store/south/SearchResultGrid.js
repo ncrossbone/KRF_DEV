@@ -9,7 +9,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         'WMCYMD',
         {name: 'CURR_BOD', type: 'number'},
         'CHART_BOD',
-        'CHART_BOD_DATE',
         {name: 'CURR_DO', type: 'number'},
         'CHART_DO',
         {name: 'CURR_COD', type: 'number'},
@@ -57,7 +56,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         		url: './resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: _siteIds},
+        			, ADM_CD: ADM_CD, siteIds: _siteIds, parentId: _parentId},
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {

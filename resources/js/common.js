@@ -332,12 +332,14 @@ ShowSearchResult = function(){
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
 	options = {
-			id: "searchResultContainer",
-			title: '테스트', //_searchType,
+			//id: "searchResultContainer",
+			id: _titleText,
+			title: _titleText, //_searchType,
 			autoResize: true
 	};
 	
-	var grdContainer = Ext.getCmp("searchResultContainer"); // 그리드 컨테이너 조회조건 포함
+	//var grdContainer = Ext.getCmp("searchResultContainer");
+	var grdContainer = Ext.getCmp(_titleText);
 	if(grdContainer == null || grdContainer == undefined){
 		grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
 		searchResultTab.add(grdContainer);
@@ -403,9 +405,11 @@ var WS_CD = AM_CD = AS_CD = "";
 var ADM_CD = "";
 var PT_NM = "";
 var _siteIds = "";
+var _parentId = "";
+var _titleText = "";
 
 // 좌측 위치검색 조회 조건 체크 및 셋팅 (구분이 동일할 경우 _searchType을 파라메터로..)
-ChkSearchCondition = function(sType, siteIds){
+ChkSearchCondition = function(sType, siteIds, parentId, titleText){
 	
 	// 찾기 구분 셋팅 ("수계찾기", "행정구역찾기", "명칭찾기")
 	if(_searchType == "" || _searchType != sType){
@@ -416,6 +420,8 @@ ChkSearchCondition = function(sType, siteIds){
 	ADM_CD = "";
 	PT_NM = "";
 	_siteIds = ""; // 지점코드
+	_parentId = ""; // 부모코드(레이어구분코드)
+	_titleText = titleText;
 	
 	if(_searchType == "수계찾기"){
 		WS_CD = Ext.getCmp("cmbWater1").value;
@@ -475,6 +481,7 @@ ChkSearchCondition = function(sType, siteIds){
 	if(_searchType == "지점코드찾기"){
 		
 		_siteIds = siteIds;
+		_parentId = parentId;
 		
 	}
 	
