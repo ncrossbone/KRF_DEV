@@ -310,7 +310,7 @@ ShowSearchResult = function(){
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
-	searchResultWindow.show(); // window 보이기
+	centerContainer.add(searchResultWindow.show()); // window 보이기
 	
 	options = {
 			id: 'searchResultTab',

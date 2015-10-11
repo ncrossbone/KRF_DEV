@@ -29,14 +29,6 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	initComponent: function(){
 		
 		var me = this;
-		
-		/*
-		me.items = [{
-			xtype: 'common-tabcontrol',
-			autoResize: true // window크기 조절시 자동 resize 여부
-		}];
-		*/
-		
 		var toolCtl = [];
 		
 		// 최소화 툴 추가
@@ -117,9 +109,6 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 						window.setHeight(me.preHeight);
 						window.setX(me.preX);
 						window.setY(me.preY);
-						return;
-						// 아이템 리사이즈
-						me.setItemResize(me.items.items);
 						
 					}
 					
@@ -170,9 +159,6 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 						window.setHeight(centerContainer.getHeight() - centerContainer.header.getHeight());
 						window.setX(centerContainer.getX());
 						window.setY(centerContainer.getY() + centerContainer.header.getHeight());
-						return;
-						// 아이템 리사이즈
-						me.setItemResize(me.items.items);
 						
 					}
 				}
@@ -183,30 +169,14 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 		this.tools = toolCtl;
 		
 		this.callParent();
-	},
-
-	// 내부 아이템 리사이즈
-	setItemResize: function(items){
-		return;
-		var me = this;
 		
-		if(items != undefined && items.length > 0){
-			
-			for(var i = 0; i < items.length; i++){
-				
-				// autoResize option이 true일 경우만..
-				if(items[i].autoResize == true){
-					
-					//items[i].setWidth(me.preWidth);
-					//items[i].setHeight(me.preWidth);
-					items[i].setWidth(me.getWidth());
-					items[i].setHeight(me.getHeight());
-					
-				}
-				
-			}
-			
-		}
+	},
+	
+	windowResize: function(){
+		
+		var parentCtl = Ext.getCmp("center_container");
+		//console.info(parentCtl);
+		this.setWidth(parentCtl.getWidth());
 		
 	}
 		

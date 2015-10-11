@@ -203,18 +203,32 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		
 		query.where = idField + " = '" + idValue + "'";
 		
-		//console.info(KRF_DEV.app.layer1Url + info.layerId);
+		//console.info(_mapServiceUrl + "/" + info.layerId);
 		//console.info(query.where);
+		
 		query.outFields = ["*"];
 		queryTask.execute(query,  function(results){
 			//console.info(results.features);
 			Ext.each(results.features, function(obj, index) {
 				obj.setSymbol(me.simpleFillSymbol);
+				//console.info(obj);
 	    		me.sourceGraphicLayer.add(obj);
 	    		var extent = esri.geometry.Polygon(obj.geometry).getExtent();
+	    		//console.info(extent.xmax - extent.xmin);
+	    		//console.info(extent.xmax/2 - extent.xmin/2);
+	    		//console.info(extent.ymax - extent.ymin);
+	    		//extent.xmin = extent.xmin + (extent.xmax/2 - extent.xmin/2);
+	    		//extent.xmax = extent.xmax + (extent.xmax/2 - extent.xmin/2);
+	    		//extent.ymin = extent.ymin - 6000/4;
+	    		//extent.ymax = extent.ymax - 6000/4;
+	    		//extent.centerAt(me.map.extent.getCenter());
+	    		//me.map.centerAndZoom(extent.getCenter(), 11);
 	    		me.map.setExtent(extent, true);
-	    		//console.info(me.map.getLevel());
+	    		console.info(me.map.getLevel());
+	    		//console.info(extent.getCenter());
+	    		//console.info(me.map.extent.getCenter());
 	    		me.geometry = obj.geometry;
+	    		//alert("dd");
 	    		me.spSearch();
 			});
 		});
@@ -345,6 +359,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	},
     
     spSearch:function(filterObject){
+    	
 		var me = this;
 		//SGIS.loading.execute();
 		me.targetGraphicLayer.clear();
