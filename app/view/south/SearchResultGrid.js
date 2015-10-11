@@ -159,6 +159,18 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			title: '검색결과',
 			//store: 'KRF_DEV.store.south.SearchResultGrid',
 			store: Ext.create('KRF_DEV.store.south.SearchResultGrid'),
+			beforeRender: function(){
+				
+				var me = this;
+				var parentCtl = this.findParentByType("window");
+				
+				parentCtl.on("resize", function(){
+					//console.info(parentCtl);
+					me.setWidth(parentCtl.getWidth());
+					me.setHeight(parentCtl.getHeight() - 90);
+				});
+				
+			},
 			columns: [{
 				text      : '측정소명',
 				dataIndex : 'PT_NM',
@@ -190,10 +202,20 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					text: '추이변화',
 					width: 80,
 					dataIndex: 'CHART_BOD',
+					//data: [4, 3, 4, 6, 2],
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						//values: [[2, 4], [3, 3], [4, 5], [5, 2], [6, 3]],
+						//xvalues: [2, 3, 4, 5, 6],
+						/*tooltipFormatter: function (sparkline, options, fields) {
+							console.info(fields.x.substring(1, 9));
+							//console.info(options);
+							//console.info(sparkline);
+							return fields.x.substring(1, 8);
+						},*/
+						tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -210,7 +232,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -227,7 +250,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -244,7 +268,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -261,7 +286,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -277,7 +303,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -293,7 +320,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -309,7 +337,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -325,7 +354,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}'
+						tipTpl: 'Value: {y:number("0.00")}',
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}]

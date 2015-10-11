@@ -9,6 +9,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         'WMCYMD',
         {name: 'CURR_BOD', type: 'number'},
         'CHART_BOD',
+        'CHART_BOD_DATE',
         {name: 'CURR_DO', type: 'number'},
         'CHART_DO',
         {name: 'CURR_COD', type: 'number'},

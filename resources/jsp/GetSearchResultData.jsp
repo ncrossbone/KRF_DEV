@@ -53,7 +53,7 @@ try{
 		   "AND C.WMCYMD IS NOT NULL " +
 		") " +
 
-		"SELECT A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, A.WMYR, A.WMOD, A.WMWK " +
+		"SELECT A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ " +
 		     ", A.ITEM_BOD AS CURR_BOD, B.ITEM_BOD AS CHART_BOD " +
 		     ", A.ITEM_DOC AS CURR_DO, B.ITEM_DOC AS CHART_DO " +
 		     ", A.ITEM_COD AS CURR_COD, B.ITEM_COD AS CHART_COD " +
@@ -117,6 +117,7 @@ try{
 	String WMWK = "";
 	String CURR_BOD = "";
 	JSONArray CHART_BOD = new JSONArray();
+	JSONArray CHART_BOD_TEMP = new JSONArray();
 	String CURR_DO = "";
 	JSONArray CHART_DO = new JSONArray();
 	String CURR_COD = "";
@@ -134,9 +135,15 @@ try{
 	String CURR_CLOA = "";
 	JSONArray CHART_CLOA = new JSONArray();
 	
+	int cnt = 0;
+	
 	while(rs.next()) {
 		
+		cnt++;
+		
 		if(!preSeq.equals("") && !preSeq.equals(rs.getString("RN"))){
+			
+			cnt = 1;
 			
 			//System.out.println(preSite + preDate);
 			jsonRecord = new JSONObject();
@@ -149,6 +156,7 @@ try{
 	  		jsonRecord.put("WMWK", WMWK);
 	  		jsonRecord.put("CURR_BOD", CURR_BOD);
 	  		jsonRecord.put("CHART_BOD", CHART_BOD);
+	  		jsonRecord.put("CHART_BOD_TEMP", CHART_BOD_TEMP);
 	  		jsonRecord.put("CURR_DO", CURR_DO);
 	  		jsonRecord.put("CHART_DO", CHART_DO);
 	  		jsonRecord.put("CURR_COD", CURR_COD);
@@ -186,7 +194,11 @@ try{
 			WMOD = rs.getString("WMOD");
 			WMWK = rs.getString("WMWK");
 			CURR_BOD = rs.getString("CURR_BOD");
-			CHART_BOD.add(rs.getString("CHART_BOD"));
+			CHART_BOD_TEMP = new JSONArray();
+			CHART_BOD_TEMP.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			CHART_BOD_TEMP.add(rs.getString("CHART_BOD"));
+			//CHART_BOD.add(rs.getString("CHART_BOD"));
+			CHART_BOD.add(CHART_BOD_TEMP);
 			CURR_DO = rs.getString("CURR_DO");
 	  		CHART_DO.add(rs.getString("CHART_DO"));
 	  		CURR_COD = rs.getString("CURR_COD");
