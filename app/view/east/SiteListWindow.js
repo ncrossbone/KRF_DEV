@@ -110,11 +110,17 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	else{
             		
             		siteIds = "'" + record.data.id + "'";
-            		ShowWindowSiteNChart(1, record.data.id);
+            		ShowWindowSiteNChart(1, record.data.id, record.data.text);
             		
             	}
             	
-            	if(ChkSearchCondition("지점코드찾기", siteIds)){
+            	//console.info(record.parentNode);
+            	var parentId = "";
+            	if(record.parentNode != null && record.parentNode != undefined){
+            		parentId = record.parentNode.id;
+            	}
+            	
+            	if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text)){
             		
             		// 버튼 On/Off
     				currCtl = Ext.getCmp("btnSearchResult");

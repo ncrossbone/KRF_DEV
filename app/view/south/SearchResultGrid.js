@@ -175,7 +175,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text      : '측정소명',
 				dataIndex : 'PT_NM',
 				width: 100,
-				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
+				listeners: {
+					dblClick: function(tblView, el, rowCnt, colCnt, row){
+						console.info(row.record.data.parentId);
+						console.info(row.record.data.PT_NO);
+					}
+				}
 			}, {
 				text      : '년도',
 				dataIndex : 'WMYR',
@@ -191,6 +197,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				dataIndex : 'WMCYMD',
 				width: 90,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+			}, {
+				text: '레이어코드',
+				dataIndex: 'parentId',
+				width: 0
 			}, {
 				text : 'BOD (㎎/L)',
 				columns: [{
@@ -212,9 +222,26 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							console.info(fields.x.substring(1, 9));
 							//console.info(options);
 							//console.info(sparkline);
-							return fields.x.substring(1, 8);
+							return "test";
 						},*/
-						tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -232,7 +259,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -250,7 +294,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -268,7 +329,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -286,7 +364,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -303,7 +398,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ℃</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -320,7 +432,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -337,7 +466,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -354,7 +500,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						tipTpl: 'Value: {y:number("0.00")}',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/㎥</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
