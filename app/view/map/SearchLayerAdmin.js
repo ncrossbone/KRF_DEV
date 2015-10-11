@@ -209,9 +209,11 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		queryTask.execute(query,  function(results){
 			//console.info(results.features);
 			Ext.each(results.features, function(obj, index) {
+				console.info(obj)
 				obj.setSymbol(me.simpleFillSymbol);
 	    		me.sourceGraphicLayer.add(obj);
 	    		var extent = esri.geometry.Polygon(obj.geometry).getExtent();
+	    		console.info(extent);
 	    		me.map.setExtent(extent, true);
 	    		//console.info(me.map.getLevel());
 	    		me.geometry = obj.geometry;

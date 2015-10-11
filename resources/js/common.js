@@ -481,3 +481,51 @@ ChkSearchCondition = function(sType, siteIds){
 	return true;
 	
 }
+
+
+siteMovePoint = function(node, el){
+	
+	var parentNodeId = node.record.data.parentId;
+	console.info(parentNodeId);
+	var lalyerId = "";
+	if(parentNodeId == "A001"){
+		layerId = "1"
+	}else if(parentNodeId == "A002"){
+		layerId = "2"
+	}else if(parentNodeId == "A003"){
+		layerId = "3"  //
+	}else if(parentNodeId == "F001"){
+		layerId = "31"  //F002
+	}else if(parentNodeId == "F002"){
+		layerId = "32"  
+	}else if(parentNodeId == "F003"){
+		layerId = "28"  
+	}else if(parentNodeId == "F004"){
+		layerId = "27"  
+	}else if(parentNodeId == "F006"){
+		layerId = "25"  
+	}else if(parentNodeId == "F007"){
+		layerId = "30"  
+	}else if(parentNodeId == "F008"){
+		layerId = "26"  
+	}else if(parentNodeId == "F008"){
+		layerId = "26"  
+	}
+	
+	
+	
+	
+	if(node.record.data.leaf == true){
+		console.info(node.record.data)
+		console.info(node.record.data.id);
+		//if(node.record.data.siteCode != undefined){
+		if(node.record.data.id != undefined){
+			// 피처 레이어 생성/갱신
+			//KRF_DEV.getApplication().fireEvent('setSelectedSite', 1, node.record.data.siteCode);
+			KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, node.record.data.id);
+		}
+	}
+	
+
+	
+}

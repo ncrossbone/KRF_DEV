@@ -18,10 +18,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	listeners: {
 		load: function(store) {
 			var a = Ext.getCmp("btnADMSelect");
-			console.info(a);
-					
-			
-			console.info(store);
 			
 			var nameInfo = Ext.getCmp("textSearchText");
 			
