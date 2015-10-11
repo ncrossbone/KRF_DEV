@@ -64,9 +64,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 		items: [{
 			xtype: 'east-chartpanel'
 		}, {
-			xtype: 'east-siteinfopanel',
-			name: 'title2',
-			params: this
+			xtype: 'east-siteinfopanel'
 		}]
 	}]/*,
 	initComponent: function(){

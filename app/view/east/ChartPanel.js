@@ -11,7 +11,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	},
 	
 	width: 400,
-	height: 300,
+	height: 600,
 	
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 	
@@ -26,24 +26,75 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				type: 'hbox'
 			},
 			items: [{
+				xtype: 'label',
+				id : 'selectName',
+				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
+				store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
+				displayField: 'ptNm',
+				width: 65,
+				height: 25
+			}, {
 				xtype: 'combo',
 				id : 'selectYear',
-				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
+				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
 				value: '2015',
-				labelWidth: 60,
-				labelAlign: 'right',
-				width: 150,
+				/*labelWidth: 30,
+				labelAlign: 'right',*/
+				width: 65,
+				height: 25
+			},{
+				xtype: 'combo',
+				id : 'selectMonth',
+				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>월</b> ',
+				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+				value: '',
+				/*labelWidth: 30,
+				labelAlign: 'right',*/
+				width: 55,
+				height: 25
+			},{
+				xtype: 'combo',
+				id : 'selectYear2',
+				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
+				store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
+				value: '2015',
+				/*labelWidth: 30,
+				labelAlign: 'right',*/
+				width: 65,
+				height: 25
+			},{
+				xtype: 'combo',
+				id : 'selectMonth2',
+				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>월</b> ',
+				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+				value: '',
+				/*labelWidth: 30,
+				labelAlign: 'right',*/
+				width: 55,
 				height: 25
 			},{
 				xtype: 'combo',
 				id : 'selectItem',
-				fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
-				store: ['ITEM_BOD', 'ITEM_DOC', 'ITEM_COD', 'ITEM_TN', 'ITEM_TP', 'ITEM_TEMP', 'ITEM_PH', 'ITEM_SS', 'ITEM_CLOA'],
+				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
+				valueField: 'id',
+				displayField: 'name',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: 'ITEM_BOD', name: 'BOD'}
+						,{id: 'ITEM_DOC', name: 'DO'}
+						,{id: 'ITEM_COD', name: 'COD'}
+						,{id: 'ITEM_TN', name: 'T.N'}
+						,{id: 'ITEM_TP', name: 'T.P'}
+						,{id: 'ITEM_TEMP', name: '수온'}
+						,{id: 'ITEM_PH', name: 'pH'}
+						,{id: 'ITEM_SS', name: 'S.S'}
+						,{id: 'ITEM_CLOA', name: '클로로필a'}]
+				}),
 				value: 'ITEM_BOD',
-				labelWidth: 60,
-				labelAlign: 'right',
-				width: 170,
+				/*labelWidth: 60,
+				labelAlign: 'right',*/
+				width: 70,
 				height: 25
 			}, {
 				xtype: 'container',
@@ -57,24 +108,24 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						click: function(){
 							//alert("dd");
 							var chartCtl = Ext.getCmp("siteCharttest");
-							console.info(chartCtl.axes);
+							
 							var axes   = chartCtl.axes.items[0];
 							var series = chartCtl.series.items[0];
 							
 							//item 선택
 							var selectItem = Ext.getCmp("selectItem");
-							
+							//console.info(selectItem.lastValue);
 							//년도
 							var selectYear = Ext.getCmp("selectYear");
 							
-							series.yField = selectItem.lastMutatedValue;
-							axes.fields = selectItem.lastMutatedValue;
+							series.yField = selectItem.lastValue;
+							axes.fields = selectItem.lastValue;
 							
 							//axes.prevMax = '100';
 							//console.info(chartCtl.axes.items[0].fields);
 							var store = chartCtl.getStore();
-							console.info(selectItem.lastMutatedValue);
-							var s = selectItem.lastMutatedValue;
+							//console.info(selectItem.lastMutatedValue);
+							var s = selectItem.lastValue;
 							
 							var ITEM_BOD = parseFloat(store.arrMax[0].ITEM_BOD);
 							var ITEM_DOC = parseFloat(store.arrMax[0].ITEM_DOC);
@@ -105,8 +156,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							}else {
 								axes.prevMax = ITEM_CLOA;
 							}
-							console.info(axes.prevMax);
-							
+							//console.info(axes.prevMax);
 							store.load();
 							//console.info(store.arrMax);
 						}
@@ -119,7 +169,12 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				//iconCls: ' khLee-x-serch-btn',
 				src: './resources/images/button/icon_seah.gif'
 			}]
-		}, {
+		},{
+			xtype: 'label',
+			id :  'chartName',
+			labelWidth: 60,
+			labelAlign: 'right'
+		},  {
 	        xtype: 'chart',
 	        id: 'siteCharttest',
 	        width: '95%',
@@ -132,18 +187,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        shadow: false,
 	        store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
 	        insetPadding: 10,
-	        items: [{
-	            type  : 'text',
-	            id: 'chartDescText',
-	            //fields: 'ptNm',
-	            //text  : 'text',
-	            font  : '12px Helvetica',
-	            width : 100,
-	            height: 30,
-	            x : 40, //the sprite x position
-	            y : 12  //the sprite y position,
-	            
-	        }],
+	       
 	        axes: [{
 	            type: 'Numeric',
 	            fields: 'ITEM_BOD',
@@ -170,16 +214,22 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            axis: 'left',
 	            xField: 'month',
 	            yField: 'ITEM_BOD',
+	            markerConfig: {
+	                type: "circle",
+	                size: 4,
+	                radius: 4,
+	                "stroke-width": 0
+	            },
 	            tips: {
 	                trackMouse: true,
 	                style: 'background: #FFF',
-	                height: 20,
+	                height: 40,
 	                showDelay: 0,
 	                dismissDelay: 0,
 	                hideDelay: 0,
 	                renderer: function(storeItem, item) {
 	                    //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('ITEM_BOD') + '%');
-	                	this.setTitle(storeItem.get('year') +'/' +storeItem.get('month') + ': ' + storeItem.get('ITEM_BOD'));
+	                	this.setTitle('측정일 : '+storeItem.get('yearMonth')+ '<br>' + '측정량 : ' + storeItem.get('ITEM_BOD'));
 	                }
 	            }
 	        }]
@@ -187,7 +237,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	}],
 	
     initComponent: function() {
-
         this.callParent();
         
     }

@@ -5,13 +5,13 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 	fields: ['id', 'name'],
 
 	//autoLoad: true, // controller(onAreaChange)에서 store.load();
+	//data: [{id: 'ss', name: 'dd'}],
 
 	remoteSort: true,
 
 	listeners: {
 		// beforeload, load, afterload
 		beforeload: function(store) {
-			
 			// Ext.defer(function() { 
 			// defer : 미루다, 연기하다
 			// Ext.defer(function(){...}, 1000, this); // function 내 코드를 1초(1000ms)후에 실행한다.
@@ -68,6 +68,8 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 						
 						//console.info(receiveData);
 		   				if(data.length==index+1){ store.setData(receiveData); }
+		   				
+		   				//console.info(store.data);
 		   				
 					});
 					

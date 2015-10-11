@@ -46,12 +46,14 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_branch.gif',
             iconCls: ' khLee-x-default-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
-            	var text = record.data.text;
+            	console.info(record.parentNode.data.text);
+            	console.info(record.data.text);
+            	var test = record.data.text;
             	//console.info(record.data.text);
             	var chkText = record.id;
             	//console.info(record);
             	//console.info(grid+" : "+rowIndex+" : "+colIndex+" : "+actionItem+" : "+event+" : "+record+" : "+row);
-            	ShowWindowSiteNChart(1, chkText);
+            	ShowWindowSiteNChart(1, chkText, test);
             },
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {
@@ -67,10 +69,13 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_chart.gif',
             iconCls: ' khLee-x-default-btn',
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+            	console.info(record.parentNode.data.text);
+            	console.info(record.data.text);
+            	var test = record.data.text;
             	/*var titleText = record.parentNode.data.text + " > " + record.data.text;
             	ShowWindowSiteNChart(0, titleText);*/
             	var chkText = record.id;
-            	ShowWindowSiteNChart(0, chkText);
+            	ShowWindowSiteNChart(0, chkText, test);
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
                 return !record.data.leaf;
@@ -140,7 +145,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		// 트리 노드 클릭 이벤트
 		Ext.defer(function(){
 			Ext.getCmp("siteListTree").el.on("click", function(node, el){
-				//console.info(node.record.data.leaf);
+				console.info(node.record.data.leaf);
 				if(node.record.data.leaf == true){
 					//console.info(node.record.data.siteCode);
 					if(node.record.data.siteCode != undefined){
