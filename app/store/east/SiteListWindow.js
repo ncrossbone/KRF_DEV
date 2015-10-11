@@ -15,7 +15,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 	remoteSort: true,
 	
-	bbb : '',
 	listeners: {
 		load: function(store) {
 			var a = Ext.getCmp("btnADMSelect");
@@ -93,9 +92,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			queryTask.execute(query, function(result){
 				//console.info(result);
 				var jsonStr = "[{\n";
-				jsonStr += "	text: '수질측정망',\n";
-				jsonStr += "	expanded: false,\n";
-				jsonStr += "	children: [\n";
+				jsonStr += "	\"text\": '수질측정망',\n";
+				jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
+				jsonStr += "	\"expanded\": true,\n";
+				jsonStr += "	\"leaf\": false,\n";
+				jsonStr += "	\"children\": [ \n";
 				Ext.each(result, function(objLayer, idx, objLayers){
 					// 상위 node일때					
 						//jsonStr += "{\n";
@@ -125,9 +126,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "{\n";
 									jsonStr += "	\"id\": \"" + result.features[i].attributes.GUBUN_CODE + "\",\n";
 									jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "\",\n";
-									jsonStr += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-									jsonStr += "	\"iconCls\": \"layerNoneImg\",\n";
-									jsonStr += "	\"checked\": null,\n";
+									//jsonStr += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+									//jsonStr += "	\"iconCls\": \"layerNoneImg\",\n";
+									//jsonStr += "	\"checked\": false,\n";
 									jsonStr += "	\"expanded\": true,\n"; // 펼치기..
 									jsonStr += "	\"children\": [";
 									preGubun = result.features[i].attributes.GUBUN_CODE;
@@ -137,7 +138,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "{\n";
 								jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
 								jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
-								jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small-nounder\",\n";
+								jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
 								jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
 								jsonStr += "		\"leaf\": true,\n";
 								jsonStr += "		\"checked\": null\n";

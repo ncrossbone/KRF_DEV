@@ -206,14 +206,13 @@ ReachInfoBinding = function(objs){
 }
 
 //지점/차트 정보 창 띄우기
-ShowWindowSiteNChart = function(tabIdx, title){
+ShowWindowSiteNChart = function(tabIdx, title, test){
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	console.info(winCtl);
+	//console.info(winCtl);
 	if(winCtl == undefined){
 		winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart',{
-			//name: 'title',
-			//params: title
+			
 		});
 	}
 	
@@ -234,9 +233,15 @@ ShowWindowSiteNChart = function(tabIdx, title){
 	winCtl.setY(winY);
 	
 	//console.info(title);
+	var chartCtl = Ext.getCmp("siteCharttest");
+	console.info(chartCtl.axes);
+	chartCtl.setSteps = 3;
+	console.info(chartCtl.axes.items[0].axisBBox.y);
+	
 	var siteinfoCtl = Ext.getCmp("siteinfotest");  //
 	var siteChartCtl = Ext.getCmp("siteCharttest");
-	
+	var siteText = Ext.getCmp("selectName");
+	siteText.setText(test);
 	
 	if(siteinfoCtl != undefined){
 		var store = siteinfoCtl.getStore();

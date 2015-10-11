@@ -32,26 +32,69 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			//
 			
 			var selectYear = Ext.getCmp("selectYear");
+			var selectMonth = Ext.getCmp("selectMonth");
 			
-			//selectYear.lastMutatedValue
-			console.info(Ext.getCmp("selectYear"));
+			var selectYear2 = Ext.getCmp("selectYear2");
+			var selectMonth2 = Ext.getCmp("selectMonth2");
+			
 			var recordYear = "";
-			if(selectYear.lastMutatedValue == ""){
+			if(selectYear.lastValue == ""){
 				recordYear = '2015'
 			}else{
-				recordYear = selectYear.lastMutatedValue;
+				recordYear = selectYear.lastValue;
 			}
+			
+			var recordYear2 = "";
+			if(selectYear2.lastValue == ""){
+				recordYear2 = '2015'
+			}else{
+				recordYear2 = selectYear2.lastValue;
+			}
+			
+			var recordMonth = "";
+			//console.info(selectMonth.value);
+			if(selectMonth.value == ""){
+				recordMonth = '01'
+			}else{
+				recordMonth = selectMonth.value;
+			}
+			
+			var recordMonth2 = "";
+			if(selectMonth2.value == ""){
+				recordMonth2 = '12'
+			}else{
+				recordMonth2 = selectMonth2.value;
+			}
+			
+			//alert(recordYear +":::"+recordYear2);
+			if(recordYear > recordYear2){
+				alert("년도선택이 잘못되었습니다");
+				return;
+			}
+			if(recordYear = recordYear2){
+				if(recordMonth > recordMonth2){
+					alert("월선택이 잘못되었습니다.");
+					return;
+					
+				}
+			}
+			
 			var recordId = "";
 			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
-			//console.info(recordId);
+			console.info(recordId);
 			
 			var jsonData = "";
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetRWMDT1.jsp',    // To Which url you wanna POST.
-        		params: {recordId: recordId, recordYear: recordYear},
+        		params: {recordId: recordId
+        			, recordYear: recordYear
+        			, recordYear2: recordYear2
+        			, recordMonth: recordMonth
+        			, recordMonth2: recordMonth2
+        			},
         		async: false, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			

@@ -14,59 +14,51 @@ try{
 	//String layerDate = request.getParameter("layerDate");   recordId
 	//recordYear
 	String recordId = request.getParameter("recordId");
-	String recordYear = request.getParameter("recordYear");
+	
+	String a = request.getParameter("recordYear");
+	String b = request.getParameter("recordYear2");
+	
+	String c = request.getParameter("recordMonth");
+	String d = request.getParameter("recordMonth2");
+	
 	//out.print(withSql);
 	
-	                                 
+sql = " WITH TMP_TBL AS																																																							";
+sql += "(SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY C.WMCYMD DESC) RN                                                           ";
+sql += "     , A.PT_NO, A.PT_NM                                                                                                       ";
+sql += "     , C.WMCYMD                                                                                                               ";
+sql += "     , B.WMYR , B.WMOD                                                                                                        ";
+sql += "     , B.ITEM_BOD                                                                                                             ";
+sql += "     , B.ITEM_DOC                                                                                                             ";
+sql += "     , B.ITEM_COD                                                                                                             ";
+sql += "     , B.ITEM_TN                                                                                                              ";
+sql += "     , B.ITEM_TP                                                                                                              ";
+sql += "     , B.ITEM_TEMP                                                                                                            ";
+sql += "     , B.ITEM_PH                                                                                                              ";
+sql += "     , B.ITEM_SS                                                                                                              ";
+sql += "     , B.ITEM_CLOA                                                                                                            ";
+sql += "     , A.ADMCODE                                                                                                              ";
+sql += "  FROM RWMPT A                                                                                                                ";
+sql += "     , RWMDTI B                                                                                                               ";
+sql += "     , RWMDTD C                                                                                                               ";
+sql += " WHERE A.PT_NO = B.PT_NO                                                                                                      ";
+sql += "   AND A.PT_NO = C.PT_NO                                                                                                      ";
+sql += "   AND B.WMYR  = C.WMYR                                                                                                       ";
+sql += "   AND B.WMOD  = C.WMOD                                                                                                       ";
+sql += "   AND B.WMWK  = C.WMWK                                                                                                       ";
+sql += "   AND C.WMCYMD IS NOT NULL                                                                                                   ";
+sql += "   and A.pt_no ='"+recordId+"'                                                                                                     ";
+sql += "   and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('"+a+"."+c+"', 'YYYY.MM') and to_date('"+b+"."+d+"', 'YYYY.MM')    ";
+sql += "   order by wmod asc )                                                                                                        ";
+sql += "   SELECT *                                                                                                                   ";
+sql += "  FROM TMP_TBL                                                                                                                ";
+sql += "UNION ALL                                                                                                                     ";
+sql += "SELECT 999 as RN, '', '','', '', '', MAX(ITEM_BOD), MAX(ITEM_DOC), MAX(ITEM_COD),                                             ";
+sql += "MAX(ITEM_TN), MAX(ITEM_TP), MAX(ITEM_TEMP), MAX(ITEM_PH),                                                                     ";
+sql += "MAX(ITEM_SS), MAX(ITEM_CLOA), ''                                                                                              ";
+sql += "  FROM TMP_TBL                                                                                                                ";	                                 
 
 
-sql = " WITH TMP_TBL AS (																																";
-sql += "  SELECT RANK() OVER(PARTITION BY PT_NO ORDER BY WMYR, WMOD DESC) RN              ";   
-sql += "        , PT_NO                                                                   ";
-sql += "        , PT_NM                                                                   ";
-sql += "        , WMYR                                                                    ";
-sql += "        , WMOD                                                                    ";
-sql += "        , (WMYR||' / '|| WMOD) AS WMYMOD                                          ";       
-sql += "        , MAX(ITEM_BOD)  AS ITEM_BOD                                              ";
-sql += "        , MAX(ITEM_DOC)  AS ITEM_DOC                                              ";
-sql += "        , MAX(ITEM_COD)  AS ITEM_COD                                              ";
-sql += "        , MAX(ITEM_TN)   AS ITEM_TN                                               ";
-sql += "        , MAX(ITEM_TP)   AS ITEM_TP                                               ";
-sql += "        , MAX(ITEM_TEMP) AS ITEM_TEMP                                             ";
-sql += "        , MAX(ITEM_PH)   AS ITEM_PH                                               ";
-sql += "        , MAX(ITEM_SS)   AS ITEM_SS                                               ";
-sql += "        , MAX(ITEM_CLOA) AS ITEM_CLOA                                             ";
-sql += "        , MAX(ADMCODE)   AS ADMCODE                                               ";
-sql += "     FROM (                                                                       ";
-sql += "           SELECT A.PT_NO, A.PT_NM                                                ";
-sql += "                , B.WMYR                                                          ";
-sql += "                , B.WMOD                                                          ";
-sql += "                , CASE WHEN ITCD = '1052' THEN WMVL ELSE NULL END ITEM_BOD        ";
-sql += "                , CASE WHEN ITCD = '1054' THEN WMVL ELSE NULL END ITEM_DOC        ";
-sql += "                , CASE WHEN ITCD = '1049' THEN WMVL ELSE NULL END ITEM_COD        ";
-sql += "                , CASE WHEN ITCD = '1055' THEN WMVL ELSE NULL END ITEM_TN         ";
-sql += "                , CASE WHEN ITCD = '1056' THEN WMVL ELSE NULL END ITEM_TP         ";
-sql += "                , CASE WHEN ITCD = '1060' THEN WMVL ELSE NULL END ITEM_TEMP       ";
-sql += "                , CASE WHEN ITCD = '1039' THEN WMVL ELSE NULL END ITEM_PH         ";
-sql += "                , CASE WHEN ITCD = '1053' THEN WMVL ELSE NULL END ITEM_SS         ";
-sql += "                , CASE WHEN ITCD = '1063' THEN WMVL ELSE NULL END ITEM_CLOA       ";
-sql += "                , A.ADMCODE                                                       ";
-sql += "             FROM RWMPT A                                                         ";
-sql += "                , TM_RWMDT B                                                      ";
-sql += "            WHERE A.PT_NO = B.PT_NO                                               ";
-sql += "              AND A.PT_NO ='"+recordId+"'                                         ";
-sql += "              AND B.WMYR ='"+recordYear+"'                                                  ";
-sql += "          )                                                                       ";
-sql += "    GROUP BY PT_NO, PT_NM, WMYR, WMOD                                             ";
-sql += "    ORDER BY WMYR ASC, WMOD ASC                                                   ";
-sql += "    )                                                                             ";
-sql += "    SELECT *                                                                      ";
-sql += "      FROM TMP_TBL                                                                ";
-sql += "    UNION ALL                                                                     ";
-sql += "    SELECT 999 as RN, '', '', '', '', '', MAX(ITEM_BOD), MAX(ITEM_DOC), MAX(ITEM_COD),  ";
-sql += "    MAX(ITEM_TN), MAX(ITEM_TP), MAX(ITEM_TEMP), MAX(ITEM_PH),                     ";
-sql += "    MAX(ITEM_SS), MAX(ITEM_CLOA), ''                                              ";
-sql += "      FROM TMP_TBL                                                                ";
 		
    //out.print(sql);
    stmt = con.createStatement();   
@@ -84,7 +76,7 @@ sql += "      FROM TMP_TBL                                                      
 
   		jsonRecord.put("month"	, rs.getString("WMOD"));
   		jsonRecord.put("year"	, rs.getString("WMYR"));
-  		jsonRecord.put("yearMonth"	, rs.getString("WMYMOD"));
+  		jsonRecord.put("yearMonth"	, rs.getString("WMCYMD"));
   		jsonRecord.put("ptNm"	, rs.getString("PT_NM"));
   		jsonRecord.put("ITEM_BOD" 	, rs.getString("ITEM_BOD"));
   		jsonRecord.put("ITEM_DOC" 	, rs.getString("ITEM_DOC"));
