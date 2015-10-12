@@ -25,8 +25,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		y: 8,
-		rootVisible:true,
-		rootExpanded: true,
+		rootVisible:false,
 		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
 		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 		columns: [{

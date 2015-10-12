@@ -27,6 +27,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         'CHART_CLOA'
     ],
     
+    siteId: '',
+    
     autoLoad: true,
 
 	remoteSort: true,

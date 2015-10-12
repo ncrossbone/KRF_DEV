@@ -28,6 +28,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				height: 5
 			},
 			title: '검색결과',
+			siteId: '',
 			//store: 'KRF_DEV.store.south.SearchResultGrid',
 			//store: Ext.create('KRF_DEV.store.south.SearchResultGrid'),
 			beforeRender: function(){
