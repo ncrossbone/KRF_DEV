@@ -31,12 +31,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 
 	remoteSort: true,
 	
+	siteIds: "",
+	parentId: "",
+	
 	listeners: {
 		load: function(store) {
-			
-			if(_searchType == ""){
-				return;
-			}
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -49,15 +48,15 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			var arrData = [];
 			
 			//console.info(ADM_CD);
-			//console.info(AM_CD);
-			console.info(_siteIds);
+			console.info(store.siteIds);
+			console.info(store.parentId);
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: _siteIds, parentId: _parentId},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        			, ADM_CD: ADM_CD, siteIds: store.siteIds, parentId: store.parentId},
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			

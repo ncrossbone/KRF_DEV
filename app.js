@@ -314,12 +314,17 @@ Ext.application({
  		}
  		*/
  		
- 		var rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar', {
-			//region: 'north',
-			cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
-		})
- 		
  		Ext.ShowReachToolbar = function(evtArgs, el){
+ 			
+ 			var rToolbar = Ext.getCmp("reachToolbar");
+ 			//console.info(rToolbar);
+ 			if(rToolbar == undefined){
+	 			rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar', {
+	 				//region: 'north',
+	 				id: 'reachToolbar',
+	 				cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
+	 			});
+ 			}
  			
 			var cContainer = Ext.getCmp("center_container");
 			cContainer.add(rToolbar);
@@ -328,6 +333,7 @@ Ext.application({
  		
  		Ext.HideReachToolbar = function(){
  			var cContainer = Ext.getCmp("center_container");
+ 			var rToolbar = Ext.getCmp("reachToolbar");
  			cContainer.remove(rToolbar, false);
  		}
  		

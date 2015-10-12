@@ -297,7 +297,7 @@ ChangeTabIndex = function(tabIdx){
 }
 
 // 검색결과창 띄우기
-ShowSearchResult = function(){
+ShowSearchResult = function(siteIds, parentId, titleText, gridId){
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -335,26 +335,39 @@ ShowSearchResult = function(){
 	
 	options = {
 			//id: "searchResultContainer",
-			id: _gridId,
-			title: _titleText, //_searchType,
+			id: gridId + "_container",
+			title: titleText, //_searchType,
 			autoResize: true
 	};
 	
-	//var grdContainer = Ext.getCmp("searchResultContainer");
+	var tab = searchResultTab.items.items[1];
+	
 	var gridStore = null;
-	var grdContainer = Ext.getCmp(_gridId);
+	var grdContainer = Ext.getCmp(gridId + "_container");
 	if(grdContainer == null || grdContainer == undefined){
 		grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
 		//searchResultTab.add(grdContainer);
-		var tab = searchResultTab.items.items[1];
 		tab.add(grdContainer);
-		tab.setActiveTab(_gridId);
-		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid");
 	}
+	
+	tab.setActiveTab(gridId + "_container");
 	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-	console.info(gridStore);
+	grdCtl.id = gridId;
+	
+	if(siteIds != ""){
+		grdCtl.siteIds = siteIds;
+	}
+	if(parentId != ""){
+		grdCtl.parentId = parentId;
+	}
+console.info(grdCtl.siteIds);
+	gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
+		siteIds: grdCtl.siteIds,
+		parentId: grdCtl.parentId
+	});
+	
 	grdCtl.getView().bindStore(gridStore);
 	
 	console.info(grdCtl);

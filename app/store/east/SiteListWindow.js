@@ -49,14 +49,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//console.info(buttonInfo2.lastValue);
 			
 			if(buttonInfo1.lastValue != null ){
-				console.log("수계찾기로검색");
+				//console.log("수계찾기로검색");
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == ""){
 					query.where = "CAT_ID like '"+buttonInfo2.lastValue+"%'";
 				}else{
 					query.where = "CAT_ID like '"+buttonInfo3.lastValue+"%'";
 				}
 			}else if(buttonInfo1.lastValue == null && nameInfo.rawValue == ""){
-				console.log("행정구역찾기로검색");
+				//console.log("행정구역찾기로검색");
 				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
@@ -66,17 +66,31 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 				
 			}else{
-				console.log("명칭찾기로검색");
+				//console.log("명칭찾기로검색");
 				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
 			}
 			
+			/* 리치모드 지점목록 조건 설정 */
 			var me = GetCoreMap();
-			//console.info("tmp:" + me.reachLayerAdmin.amCD_temp);
-			if( me.reachLayerAdmin.amCD_temp != null &&  me.reachLayerAdmin.amCD_temp != ""){
-				query.where = "CAT_ID like '" + me.reachLayerAdmin.amCD_temp + "%'";
+			
+			var reachBtn = Ext.getCmp("btnModeReach");
+			console.info(reachBtn.src.indexOf("_on"));
+			
+			if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
+				
+				query.where = "CAT_ID IN (";
+				
+				for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
+					//console.info(me.reachLayerAdmin.selAreaGraphics[i]);
+					query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
+				}
+				
+				query.where = query.where.substring(0, query.where.length - 2);
+				query.where += ")";
 			}
 			
-			console.info(query.where);
+			//console.info(query.where);
+			/* 리치모드 지점목록 조건 설정 끝 */
 			
 			/*if(buttonInfo2.lastValue != null){
 				
@@ -86,86 +100,95 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//query.where = "CAT_ID like '1001%'";
 			query.outFields = ["*"];
 			queryTask.execute(query, function(result){
-				//console.info(result);
-				var jsonStr = "[{\n";
-				jsonStr += "	\"id\": 'root01',\n";
-				jsonStr += "	\"text\": '수질측정망',\n";
-				jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
-				jsonStr += "	\"expanded\": false,\n";
-				jsonStr += "	\"checked\": null,\n";
-				jsonStr += "	\"children\": [ \n";
-				Ext.each(result, function(objLayer, idx, objLayers){
-					// 상위 node일때					
-						//jsonStr += "{\n";
-						//jsonStr += "	\"id\": \"하천수\",\n";
-						//jsonStr += "	\"text\": \"하천수\",\n";
-						//jsonStr += "	\"cls\": "+'"'+"khLee-x-tree-node-text-bold"+'"'+",\n";
-						//jsonStr += "	\"iconCls\": 'layerNoneImg',\n";
-						//jsonStr += "	\"checked\": false,\n";
-						//console.info(objLayer);
-						// children node가 있을때
-						//if(objLayer != null){
-							var preGubun = "";
-							var cnt = 0;
-							//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
-							//jsonStr += "\n	\"children\": [";
-							for(i = 0; i < result.features.length; i++){
-								
-								if(result.features[i].attributes.GUBUN_CODE != preGubun){
+				console.info(result);
+				var jsonStr = "";
+				
+				if(result.features.length > 0){
+					jsonStr += "[{\n";
+					jsonStr += "	\"id\": 'root01',\n";
+					jsonStr += "	\"text\": '수질측정망',\n";
+					jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
+					jsonStr += "	\"expanded\": false,\n";
+					jsonStr += "	\"checked\": null,\n";
+					jsonStr += "	\"children\": [ \n";
+					Ext.each(result, function(objLayer, idx, objLayers){
+						// 상위 node일때					
+							//jsonStr += "{\n";
+							//jsonStr += "	\"id\": \"하천수\",\n";
+							//jsonStr += "	\"text\": \"하천수\",\n";
+							//jsonStr += "	\"cls\": "+'"'+"khLee-x-tree-node-text-bold"+'"'+",\n";
+							//jsonStr += "	\"iconCls\": 'layerNoneImg',\n";
+							//jsonStr += "	\"checked\": false,\n";
+							//console.info(objLayer);
+							// children node가 있을때
+							//if(objLayer != null){
+								var preGubun = "";
+								var cnt = 0;
+								//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
+								//jsonStr += "\n	\"children\": [";
+								for(i = 0; i < result.features.length; i++){
 									
-									if(i > 0){
-										jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-										jsonStr += "\n]}, ";
-										cnt = i;
-										//console.info(jsonStr);
+									if(result.features[i].attributes.GUBUN_CODE != preGubun){
+										
+										if(i > 0){
+											jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
+											jsonStr += "\n]}, ";
+											cnt = i;
+											//console.info(jsonStr);
+										}
+										
+										jsonStr += "{\n";
+										jsonStr += "	\"id\": \"" + result.features[i].attributes.GUBUN_CODE + "\",\n";
+										jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "\",\n";
+										//jsonStr += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+										//jsonStr += "	\"iconCls\": \"layerNoneImg\",\n";
+										//jsonStr += "	\"checked\": false,\n";
+										jsonStr += "	\"expanded\": true,\n"; // 펼치기..
+										jsonStr += "	\"children\": [";
+										preGubun = result.features[i].attributes.GUBUN_CODE;
 									}
 									
+									//if(result.features[i].attributes.GUBUN_CODE == 'A001'){
 									jsonStr += "{\n";
-									jsonStr += "	\"id\": \"" + result.features[i].attributes.GUBUN_CODE + "\",\n";
-									jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "\",\n";
-									//jsonStr += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-									//jsonStr += "	\"iconCls\": \"layerNoneImg\",\n";
-									//jsonStr += "	\"checked\": false,\n";
-									jsonStr += "	\"expanded\": true,\n"; // 펼치기..
-									jsonStr += "	\"children\": [";
-									preGubun = result.features[i].attributes.GUBUN_CODE;
+									jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
+									jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
+									jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
+									jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
+									jsonStr += "		\"leaf\": true,\n";
+									jsonStr += "		\"checked\": null\n";
+									jsonStr += "	}, ";
+									
+									if(i == cnt){
+										//jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
+										//jsonStr += "\n], ";
+									}
+									
 								}
-								
-								//if(result.features[i].attributes.GUBUN_CODE == 'A001'){
-								jsonStr += "{\n";
-								jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
-								jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
-								jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
-								jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
-								jsonStr += "		\"leaf\": true,\n";
-								jsonStr += "		\"checked\": null\n";
-								jsonStr += "	}, ";
-								
-								if(i == cnt){
-									//jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-									//jsonStr += "\n], ";
-								}
-								
-							}
-						//}
-						// children node가 없을때
-						//else{
-							//jsonStr += "	\"leaf\": true"; 
-							//jsonStr += "\n}, "
-						//}
-					
+							//}
+							// children node가 없을때
+							//else{
+								//jsonStr += "	\"leaf\": true"; 
+								//jsonStr += "\n}, "
+							//}
 						
-				});
+							
+					});
+					
+					jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
+					jsonStr += "]}]}]";
+				}
 				
-				jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-				jsonStr += "]}]}]";
-				
-				var jsonData = "";
-				//console.info(jsonStr);
-				jsonData = Ext.util.JSON.decode(jsonStr);
-				//console.info(jsonData);
-				store.setData(jsonData);
-				//store.setData(JSON.parse(jsonStr));
+				if(jsonStr != ""){
+					var jsonData = "";
+					//console.info(jsonStr);
+					jsonData = Ext.util.JSON.decode(jsonStr);
+					//console.info(jsonData);
+					store.setData(jsonData);
+					//store.setData(JSON.parse(jsonStr));
+				}
+				else{
+					store.setData([]);
+				}
 
 	        });
 	  	}

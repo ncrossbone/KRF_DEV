@@ -97,7 +97,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	//console.info(record.data.children);
             	var siteIds = "";
             	var parentId = "";
-            	var gridId = record.data.id;;
+            	var gridId = "grid_" + record.data.id;;
             	
             	if(record.data.children != null && record.data.children != undefined){
             		
@@ -123,7 +123,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             		
             	}
             	
-            	if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
+            	//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
             		
             		// 버튼 On/Off
     				currCtl = Ext.getCmp("btnSearchResult");
@@ -132,9 +132,9 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     				}
     				
     				// 검색결과창 띄우기
-    				ShowSearchResult();
+    				ShowSearchResult(siteIds, parentId, record.data.text, gridId);
             		
-            	}
+            	//}
             },
         }]
 	}],

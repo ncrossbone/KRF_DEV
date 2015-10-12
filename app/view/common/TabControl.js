@@ -104,7 +104,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				listeners: {
 					el: {
 						click: function(){
-							ShowSearchResult();
+							var tabCtl = Ext.getCmp("searchResultTab");
+							console.info(tabCtl);
+							tabCtl = tabCtl.items.items[1];
+							var activeTab = tabCtl.getActiveTab();
+							console.info(activeTab);
+							var gridContainer = activeTab.items.items[0];
+							var gridCtl = gridContainer.items.items[0];
+							console.info(gridCtl.siteIds);
+							ShowSearchResult(gridCtl.siteIds, gridCtl.parentId, "기간검색이상해요..", gridCtl.id);
 						}
 					}
 				}

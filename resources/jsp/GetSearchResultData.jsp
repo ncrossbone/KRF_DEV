@@ -100,7 +100,7 @@ try{
 		   //"AND A.PT_NM LIKE '°øÁö%' " +
 		 sql += " ORDER BY A.PT_NO, A.RN, B.RN DESC ";
 		
-   //out.print(sql);
+   out.print(sql);
    
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);

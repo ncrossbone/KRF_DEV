@@ -21,6 +21,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
 			height: 215,
+			siteIds: "",
+			parentId: "",
 			//height: '100%',
 			header: {
 				height: 5

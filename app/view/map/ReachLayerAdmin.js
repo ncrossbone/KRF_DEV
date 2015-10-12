@@ -40,6 +40,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     downLineSymbol: null,
     areaSymbol: null,
     amCD_temp: null,
+    featureSelectQuery: null,
     
     reachMapLoad: function(map){
     	
@@ -169,25 +170,34 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	            	var mapWidth = me.map.extent.getWidth();
 	            	var pixelWidth = mapWidth/me.map.width;
 	            	var tolerance = 10 * pixelWidth;
+	            	//console.info(pixelWidth)
 	            	queryExtent = new Extent(1, 1, tolerance, tolerance, evt.spatialReference);
+	            	//queryExtent = new Extent(1, 1, 1.5, 1.5, evt.spatialReference);
 	            	selectQuery.geometry = queryExtent.centerAt(centerPoint);
             	}
+            	
+            	// 전역변수 저장
+            	me.featureSelectQuery = selectQuery;
+            	console.info(selectQuery);
             	
             	// FeatureLayer.SELECTION_NEW : 새로선택, FeatureLayer.SELECTION_ADD : 추가선택, FeatureLayer.SELECTION_SUBTRACT : 선택취소
             	// FeatureLayer 선택기능은 필요없으므로 SELECTION_SUBTRACT로 처리 (각 콜백함수에서 그래픽레이어 생성)
             	if(option == "NEW"){
-            		me.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_NEW, me.reachSelected); // 리치라인 셀렉트
+            		//me.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_NEW, me.addLineDraw); // 리치라인 셀렉트
             		//me.reachArealayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_NEW); // 집수구역 셀렉트
             	}
             	else if(option == "ADD"){
             		me.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_SUBTRACT, me.addLineDraw); // 리치라인 셀렉트
+            		//me.reachArealayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_SUBTRACT, me.addAreaDraw);
             	}
             	else if(option == "REMOVE"){
             		me.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_SUBTRACT, me.removeLine); // 리치라인 삭제
+            		//me.reachArealayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_SUBTRACT, me.removeArea);
             	}
             	else if(option == "STARTPOINT"){
             		me.setStartSymbol(evt, btnId); // 시작위치 심볼 설정
             		me.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_SUBTRACT, me.startLineDraw); // 리치라인 셀렉트
+            		//me.reachArealayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_SUBTRACT, me.startAreaDraw);
             	}
             	else if(option == "ENDPOINT"){
             		me.setEndSymbol(evt, btnId); // 끝위치 심볼 설정
@@ -324,6 +334,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         			me.reachLayerAdmin.reachAreaGraphics.add(graphic);
         			// 전역 변수 배열에 담아두기
             		me.reachLayerAdmin.selAreaGraphics.push(graphic);
+            		
+            		// 지점 목록 창 띄우기
+            		Ext.ShowSiteListWindow("");
     	    	}
     		}
     	});
@@ -349,28 +362,105 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			
 			// 배열에서 제거
 			me.reachLayerAdmin.selAreaGraphics.splice(arrIdx, 1);
+			
+			// 지점 목록 창 띄우기
+			Ext.ShowSiteListWindow("");
 
     	}
     },
     
     startLineDraw: function(evt){
+
+    	var me = GetCoreMap(); // this 사용하지 말자.
     	
-    	//if(ChkSearchCondition(_searchType)){
+    	if(evt.length == 0){
+    		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
+    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.startAreaDraw);
+    		});
+    	}
+    	else{
     		
-	    	var me = GetCoreMap(); // this 사용하지 말자.
-	    	
-	    	me.reachLayerAdmin.executeQuery(evt[0], "start");
-	    	me.reachLayerAdmin.executeQuery(evt[0], "up");
-	    	me.reachLayerAdmin.executeQuery(evt[0], "down");
-	    	
-    	//}
+    		if(evt.length > 1){
+    			alert("여러개의 리치가 선택되었습니다. 한개의 리치만 선택하세요.");
+    			return;
+    		}
+    		
+	    	for(var i = 0; i < evt.length; i++){
+		    	me.reachLayerAdmin.executeQuery(evt[i], "start");
+		    	me.reachLayerAdmin.executeQuery(evt[i], "up");
+		    	me.reachLayerAdmin.executeQuery(evt[i], "down");
+	    	}
+    	}
     	
     },
     
     addLineDraw: function(evt){
-    	console.info("add");
-    	var me = GetCoreMap();
-    	me.reachLayerAdmin.executeQuery(evt[0], "add");
+    	var me = GetCoreMap(); // this 사용하지 말자.
+    	//console.info(evt);
+    	if(evt.length == 0){
+    		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
+    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.addAreaDraw);
+    		});
+    	}
+    	else{
+	    	var me = GetCoreMap();
+	    	
+	    	for(var i = 0; i < evt.length; i++){
+	    		me.reachLayerAdmin.executeQuery(evt[i], "add");
+	    	}
+    	}
+    	
+    },
+    
+    addAreaDraw: function(features){
+    	//console.info(evt);
+    	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer"], function(SimpleLineSymbol, Color, Query, QueryTask, FeatureLayer){
+    		
+    		query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			
+			var catId = features[0].attributes.CAT_ID;
+			
+			query.where = "CAT_ID = '" + catId + "'";
+			me.reachLinelayer.selectFeatures(query, FeatureLayer.SELECTION_SUBTRACT, me.addLineDraw);
+			
+		});
+    },
+    
+    removeArea: function(features){
+    	
+    	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer"], function(SimpleLineSymbol, Color, Query, QueryTask, FeatureLayer){
+    		
+    		query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			
+			var catId = features[0].attributes.CAT_ID;
+			
+			query.where = "CAT_ID = '" + catId + "'";
+			me.reachLinelayer.selectFeatures(query, FeatureLayer.SELECTION_SUBTRACT, me.removeLine);
+			
+		});
+    	
+    },
+    
+    startAreaDraw: function(features){
+    	
+    	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer"], function(SimpleLineSymbol, Color, Query, QueryTask, FeatureLayer){
+    		
+    		query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			
+			var catId = features[0].attributes.CAT_ID;
+			
+			query.where = "CAT_ID = '" + catId + "'";
+			me.reachLinelayer.selectFeatures(query, FeatureLayer.SELECTION_SUBTRACT, me.startLineDraw);
+			
+		});
     	
     },
     
@@ -440,14 +530,14 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			
 			if(type == "start"){
 				// 시작위치로 설정된 집수구역 중권역 설정
-				AM_CD = catId.substring(0, 4);
+				//AM_CD = catId.substring(0, 4);
 				//console.info(AM_CD);
-				AS_CD = ""; // 소권역은 공백
+				//AS_CD = ""; // 소권역은 공백
 				
 				//me.amCD_temp = AM_CD;
 				//console.info(me.amCD_temp);
 				// 지점목록 창 띄우기
-				Ext.ShowSiteListWindow(AM_CD);
+				//Ext.ShowSiteListWindow(AM_CD);
 				
 				queryWhere = "RCH_ID LIKE '" + AM_CD + "%' AND ";
 				query.where = queryWhere + "RCH_ID = '" + rchId + "'";
@@ -551,7 +641,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         	}
         	
         	// 리치 정보 보여주기
-        	me.reachLayerAdmin.reachSelected(featureSet.features);
+        	//me.reachLayerAdmin.reachSelected(featureSet.features);
         	
     	});
     	
@@ -606,16 +696,61 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     },
     
     endLineDraw: function(evt){
+    	
     	var me = GetCoreMap(); // this 사용하지 말자.
-    	var rchId = evt[0].attributes.RCH_ID;
-		me.reachLayerAdmin.removeLineGraphics(rchId, true);
+    	
+    	if(evt.length == 0){
+    		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
+    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.endAreaDraw);
+    		});
+    	}
+    	else{
+    		
+    		if(evt.length > 1){
+    			alert("여러개의 리치가 선택되었습니다. 한개의 리치만 선택하세요.");
+    			return;
+    		}
+    		
+    		var rchId = evt[0].attributes.RCH_ID;
+    		me.reachLayerAdmin.removeLineGraphics(rchId, true);
+    	}
+    },
+    
+    endAreaDraw: function(features){
+    	
+    	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer"], function(SimpleLineSymbol, Color, Query, QueryTask, FeatureLayer){
+    		
+    		query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			
+			var catId = features[0].attributes.CAT_ID;
+			
+			query.where = "CAT_ID = '" + catId + "'";
+			me.reachLinelayer.selectFeatures(query, FeatureLayer.SELECTION_SUBTRACT, me.endLineDraw);
+			
+		});
+    	
     },
     
     removeLine: function(evt){
-    	console.info("remove");
+    	//console.info("remove");
+    	
     	var me = GetCoreMap(); // this 사용하지 말자.
-    	var rchId = evt[0].attributes.RCH_ID;
-		me.reachLayerAdmin.removeLineGraphics(rchId, false);
+    	//console.info(evt);
+    	if(evt.length == 0){
+    		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
+    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.removeArea);
+    		});
+    	}
+    	else{
+	    	for(var i = 0; i < evt.length; i++){
+		    	var rchId = evt[i].attributes.RCH_ID;
+				me.reachLayerAdmin.removeLineGraphics(rchId, false);
+	    	}
+    	}
     },
     
     reachSelected: function(objs){
@@ -723,88 +858,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 		me.reachLayerAdmin.drawEnd();
     },
     
-    // selectFeatures 콜백 매서드
-    startFeatureSelect: function(objs){
-    	var me = GetCoreMap(); // this 사용하지 말자.
-    	me.reachLayerAdmin.reachSelected(objs);
-    	
-    	// 상류 10개, 하류 10개 리치선택 로직 들어갈 곳.
-    	console.info(objs[0].attributes.RCH_ID);
-    	// 하류(255, 170, 0), 상류(237, 20, 91), 선택(0, 255, 255)
-    	console.info(me.reachLayerAdmin.reachIds1.indexOf(objs[0].attributes.RCH_ID));
-    	var reachIds1Idx = me.reachLayerAdmin.reachIds1.indexOf(objs[0].attributes.RCH_ID);
-    	var reachIds2Idx = me.reachLayerAdmin.reachIds2.indexOf(objs[0].attributes.RCH_ID);
-    	
-    	if(reachIds1Idx > -1){
-    		console.info("1");
-    		var reachIdsUp = "";
-    		var reachIdsDown = "";
-    		for(var i = 0; i < me.reachLayerAdmin.reachIds1.length; i ++){
-    			if(me.reachLayerAdmin.reachIds1[i] < objs[0].attributes.RCH_ID)
-    				reachIdsUp += "'" + me.reachLayerAdmin.reachIds1[i] + "', ";
-    			if(me.reachLayerAdmin.reachIds1[i] > objs[0].attributes.RCH_ID)
-    				reachIdsDown += "'" + me.reachLayerAdmin.reachIds1[i] + "', ";
-    		}
-    		reachIdsUp = reachIdsUp.substring(0, reachIdsUp.length - 2);
-    		reachIdsDown = reachIdsDown.substring(0, reachIdsDown.length - 2);
-    		
-    		//console.info(reachIdsUp);
-    		//console.info(reachIdsDown);
-    		
-    		require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, QueryTask){
-    			
-    			queryTask = new QueryTask(_mapServiceUrl + "/" + _reachLineLayerId);
-
-    			  //initialize query
-    			  query = new Query();
-    			  query.returnGeometry = true;
-    			  query.outFields = ["*"];
-    			  query.where = "RCH_ID IN (" + reachIdsUp + ")";
-    			  //query.where = "1=1";
-    			  queryTask.execute(query, me.reachLayerAdmin.showResults);
-    			  
-    			 /*
-    			me.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_ADD, me.startFeatureSelect);
-    			
-    			me.reachLayerAdmin.reachLinelayer.setDefinitionExpression("RCH_ID IN ('10130301')");
-        		var lineSelectionSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 255, 255]), 5);
-            	var renderer = new esri.renderer.SimpleRenderer(lineSelectionSymbol);
-        		me.reachLayerAdmin.reachLinelayer.setRenderer(renderer);
-        		*/
-    		});
-    	}
-    	
-    	if(reachIds2Idx > -1){
-    		console.info("2");
-    	}
-    	
-    	me.reachLayerAdmin.drawEnd();
-    },
-    
-    showResults: function(featureSet){
-    	var me = GetCoreMap(); // this 사용하지 말자.
-    	//me.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_ADD, me.startFeatureSelect);
-    	console.info(me.reachLayerAdmin.reachLinelayer);
-    	console.info(featureSet.features[0]);
-    	
-    	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/layers/FeatureLayer"], function(SimpleLineSymbol, Color, Query, FeatureLayer){
-    		var lineSelectionSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 5);
-        	var graphic = featureSet.features[0];
-        	graphic.setSymbol(lineSelectionSymbol);
-        	//me.map.graphics.add(graphic);
-        	
-        	
-        	me.reachLayerAdmin.reachLinelayer.setSelectionSymbol(lineSelectionSymbol);
-        	var selectQuery = new Query();
-        	
-        	for(var i = 0; i < featureSet.features.length; i++){
-	        	selectQuery.geometry = featureSet.features[i].geometry;
-	        	selectQuery.where = "RCH_ID IN ('" + featureSet.features[i].attributes.RCH_ID + "')";
-	        	me.reachLayerAdmin.reachLinelayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_ADD);
-        	}
-    	});
-    },
-    
     pointEndDraw: function(option, btnId){
     	// 커서 이미지 설정
     	Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
@@ -851,7 +904,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     // selectFeatures 콜백 매서드
     endFeatureSelect: function(objs){
     	var me = GetCoreMap(); // this 사용하지 말자.
-    	me.reachLayerAdmin.reachSelected(objs);
+    	//me.reachLayerAdmin.reachSelected(objs);
     	
     	// 상류 10개, 하류 10개 리치선택 로직 들어갈 곳.
     	
