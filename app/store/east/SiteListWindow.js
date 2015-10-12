@@ -11,7 +11,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	    }
 	},*/
 
-	autoLoad: true,
+	//autoLoad: true,
 
 	remoteSort: true,
 	
@@ -91,8 +91,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				jsonStr += "	\"id\": 'root01',\n";
 				jsonStr += "	\"text\": '수질측정망',\n";
 				jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
-				jsonStr += "	\"expanded\": true,\n";
-				jsonStr += "	\"leaf\": false,\n";
+				jsonStr += "	\"expanded\": false,\n";
+				jsonStr += "	\"checked\": null,\n";
 				jsonStr += "	\"children\": [ \n";
 				Ext.each(result, function(objLayer, idx, objLayers){
 					// 상위 node일때					
@@ -160,12 +160,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
 				jsonStr += "]}]}]";
 				
-				//console.info(jsonStr);
-				
-				//console.info(jsonStr);
 				var jsonData = "";
 				//console.info(jsonStr);
-				//return;
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				//console.info(jsonData);
 				store.setData(jsonData);

@@ -33,13 +33,15 @@ Ext.define('KRF_DEV.view.west.West', {
     		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_open.png' />";
     		
     		var windowCtl = Ext.getCmp("searchResultWindow");
-    		windowCtl.windowResize();
+    		if(windowCtl != undefined)
+    			windowCtl.windowResize();
     	},
     	expand: function(){
     		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
     		
     		var windowCtl = Ext.getCmp("searchResultWindow");
-    		windowCtl.windowResize();
+    		if(windowCtl != undefined)
+    			windowCtl.windowResize();
     	}
     },
     
