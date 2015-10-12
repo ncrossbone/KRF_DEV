@@ -112,6 +112,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							var axes   = chartCtl.axes.items[0];
 							var series = chartCtl.series.items[0];
 							
+							
+							
 							//item 선택
 							var selectItem = Ext.getCmp("selectItem");
 							//console.info(selectItem.lastValue);
@@ -156,9 +158,20 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							}else {
 								axes.prevMax = ITEM_CLOA;
 							}
-							//console.info(axes.prevMax);
+							
+							var aa = "";
+							console.info(chartCtl.axes.map.left)
+							//console.info(chartCtl.axes.map.left.labels[4]);
+							
+							for(i=0 ; i < chartCtl.axes.map.left.labels.length ; i+2){
+								aa = chartCtl.axes.map.left.labels[i]
+							}
+							
+							console.info(aa)
+							
 							store.load();
-							//console.info(store.arrMax);
+							
+							
 						}
 					}
 				},
