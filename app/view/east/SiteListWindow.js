@@ -154,24 +154,13 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		Ext.defer(function(){
 			Ext.getCmp("siteListTree").el.on("click", function(node, el){
 				
-				//var parentNodeId = node.record.data.parentId;
-				
-				//console.info(node.record.data.parentId)
-				
-				siteMovePoint(node, el);
-				
-				//console.info(node.record.data.leaf);
-				/*if(node.record.data.leaf == true){
-					console.info(node.record.data)
-					console.info(node.record.data.id);
-					//if(node.record.data.siteCode != undefined){
+				if(node.record.data.leaf == true){
 					if(node.record.data.id != undefined){
-						// 피처 레이어 생성/갱신
-						//KRF_DEV.getApplication().fireEvent('setSelectedSite', 1, node.record.data.siteCode);
-						KRF_DEV.getApplication().fireEvent('setSelectedSite', 1, node.record.data.id);
+						var nodeId = node.record.data.id;
+						var parentNodeId = node.record.data.parentId;
+						siteMovePoint(parentNodeId, nodeId);
 					}
-				}*/
-				
+				}
 				
 			});
 		}, 1, this);

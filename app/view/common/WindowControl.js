@@ -11,6 +11,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	restore: true, // 이전크기 tool icon 표시
 	maximize: true, // 최대화 tool icon 표시
 	minimize: true, // 최소화 tool icon 표시
+	//close: false,
 	width: 300,
 	height: 300,
 	itemxType: 'panel', // window 내부 아이템 타입

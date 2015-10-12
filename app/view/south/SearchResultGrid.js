@@ -49,9 +49,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				width: 100,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
-					dblClick: function(tblView, el, rowCnt, colCnt, row){
-						console.info(row.record.data.parentId);
-						console.info(row.record.data.PT_NO);
+					click: function(tblView, el, rowCnt, colCnt, row){
+						//console.info(row.record.data.parentId);
+						//console.info(row.record.data.PT_NO);
+						siteMovePoint(row.record.data.parentId, row.record.data.PT_NO);
 					}
 				}
 			}, {

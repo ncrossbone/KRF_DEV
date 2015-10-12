@@ -55,8 +55,8 @@ try{
 		") " +
 
 		"SELECT '" + parentId + "' AS parentId, A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ " +
-		     ", A.ITEM_BOD AS CURR_BOD, B.ITEM_BOD AS CHART_BOD " +
-		     ", A.ITEM_DOC AS CURR_DO, B.ITEM_DOC AS CHART_DO " +
+		     ", NVL(TO_CHAR(A.ITEM_BOD), ' ') AS CURR_BOD, B.ITEM_BOD AS CHART_BOD " +
+		     ", NVL(TO_CHAR(A.ITEM_DOC), ' ') AS CURR_DO, B.ITEM_DOC AS CHART_DO " +
 		     ", A.ITEM_COD AS CURR_COD, B.ITEM_COD AS CHART_COD " +
 		     ", A.ITEM_TN AS CURR_TN, B.ITEM_TN AS CHART_TN " +
 		     ", A.ITEM_TP AS CURR_TP, B.ITEM_TP AS CHART_TP " +
@@ -100,7 +100,7 @@ try{
 		   //"AND A.PT_NM LIKE '°øÁö%' " +
 		 sql += " ORDER BY A.PT_NO, A.RN, B.RN DESC ";
 		
-   out.print(sql);
+   //out.print(sql);
    
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
@@ -264,6 +264,36 @@ try{
 			preSeq = rs.getString("RN");
   		
 	}
+	
+	jsonRecord = new JSONObject();
+	
+	jsonRecord.put("parentId", parentId);
+	jsonRecord.put("PT_NO", PT_NO);
+	jsonRecord.put("PT_NM", PT_NM);
+	jsonRecord.put("WMCYMD", WMCYMD);
+	jsonRecord.put("WMYR", WMYR);
+	jsonRecord.put("WMOD", WMOD);
+	jsonRecord.put("WMWK", WMWK);
+	jsonRecord.put("CURR_BOD", CURR_BOD);
+	jsonRecord.put("CHART_BOD", CHART_BOD);
+	jsonRecord.put("CURR_DO", CURR_DO);
+	jsonRecord.put("CHART_DO", CHART_DO);
+	jsonRecord.put("CURR_COD", CURR_COD);
+	jsonRecord.put("CHART_COD", CHART_COD);
+	jsonRecord.put("CURR_TN", CURR_TN);
+	jsonRecord.put("CHART_TN", CHART_TN);
+	jsonRecord.put("CURR_TP", CURR_TP);
+	jsonRecord.put("CHART_TP", CHART_TP);
+	jsonRecord.put("CURR_TEMP", CURR_TEMP);
+	jsonRecord.put("CHART_TEMP", CHART_TEMP);
+	jsonRecord.put("CURR_PH", CURR_PH);
+	jsonRecord.put("CHART_PH", CHART_PH); 
+	jsonRecord.put("CURR_SS", CURR_SS);
+	jsonRecord.put("CHART_SS", CHART_SS);
+	jsonRecord.put("CURR_CLOA", CURR_CLOA);
+	jsonRecord.put("CHART_CLOA", CHART_CLOA);
+
+	jsonArr.add(jsonRecord);
 	
 	jsonObj.put("data", jsonArr);
    

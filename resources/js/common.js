@@ -514,11 +514,10 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 }
 
 
-siteMovePoint = function(node, el){
+siteMovePoint = function(parentNodeId, nodeId){
 	
-	var parentNodeId = node.record.data.parentId;
-	console.info(parentNodeId);
-	var lalyerId = "";
+	//console.info(parentNodeId);
+	var layerId = "";
 	if(parentNodeId == "A001"){
 		layerId = "1"
 	}else if(parentNodeId == "A002"){
@@ -541,20 +540,6 @@ siteMovePoint = function(node, el){
 		layerId = "26"  
 	}
 	
-	
-	
-	
-	if(node.record.data.leaf == true){
-		console.info(node.record.data)
-		console.info(node.record.data.id);
-		//if(node.record.data.siteCode != undefined){
-		if(node.record.data.id != undefined){
-			// 피처 레이어 생성/갱신
-			//KRF_DEV.getApplication().fireEvent('setSelectedSite', 1, node.record.data.siteCode);
-			KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, node.record.data.id);
-		}
-	}
-	
-
-	
+	// 피처 레이어 생성/갱신
+	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId);	
 }
