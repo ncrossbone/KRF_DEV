@@ -31,8 +31,8 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		    //"xoffset": 10,
 		    //"yoffset": 35,
 		    "type": "esriPMS",
-		    "url": "./resources/images/symbol/symbol_1_1_48x48.png",
-		    "contentType": "image/png",
+		    "url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+		    "contentType": "image/gif",
 		    "width": 48,
 		    "height": 48
 		});
@@ -45,18 +45,16 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		
 		/* 심볼 설정 끝 */
 		
+		for(var i = 0; i < 100; i++){
+			var tmpLayer =  me.map.getLayer("FeatureLayer" + i);
+			if(tmpLayer != undefined){
+				me.map.removeLayer(tmpLayer);
+			}
+		}
+		
 		var layer = me.map.getLayer(me.layer.id);
+		me.map.addLayer(me.layer);
 		
-		//console.info(me.layer);
-		//console.info(layer);
-		
-		if(layer == undefined){
-			me.map.addLayer(me.layer);
-		}
-		else{
-			me.map.removeLayer(layer);
-			me.map.addLayer(me.layer);
-		}
 		Ext.defer(function(){
 			var x = me.layer.graphics[0].geometry.x;
 			var y = me.layer.graphics[0].geometry.y;

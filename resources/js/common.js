@@ -327,6 +327,7 @@ ShowSearchResult = function(){
 	
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
+	console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -357,7 +358,6 @@ ShowSearchResult = function(){
 	console.info(gridStore);
 	grdCtl.getView().bindStore(gridStore);
 	
-	console.info(grdCtl);
 	
 	//var store = grdCtl.getStore();
 	//var store = Ext.create('KRF_DEV.store.south.SearchResultGrid');
@@ -524,8 +524,6 @@ siteMovePoint = function(node, el){
 		layerId = "25"  
 	}else if(parentNodeId == "F007"){
 		layerId = "30"  
-	}else if(parentNodeId == "F008"){
-		layerId = "26"  
 	}else if(parentNodeId == "F008"){
 		layerId = "26"  
 	}

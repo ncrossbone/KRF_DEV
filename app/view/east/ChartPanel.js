@@ -21,24 +21,24 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 			type: 'vbox'
 		},
 		items: [{
+			xtype: 'label',
+			id : 'selectName',
+			//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
+			store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
+			displayField: 'ptNm',
+			width: 65,
+			height: 25
+		}, {
 			xtype: 'container',
 			layout: {
 				type: 'hbox'
 			},
 			items: [{
-				xtype: 'label',
-				id : 'selectName',
-				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
-				store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
-				displayField: 'ptNm',
-				width: 65,
-				height: 25
-			}, {
 				xtype: 'combo',
 				id : 'selectYear',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
-				value: '2015',
+				value: '2014',
 				/*labelWidth: 30,
 				labelAlign: 'right',*/
 				width: 65,
@@ -48,10 +48,10 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				id : 'selectMonth',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>월</b> ',
 				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				value: '',
+				value: '10',
 				/*labelWidth: 30,
 				labelAlign: 'right',*/
-				width: 55,
+				width: 50,
 				height: 25
 			},{
 				xtype: 'combo',
@@ -68,10 +68,10 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				id : 'selectMonth2',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>월</b> ',
 				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				value: '',
+				value: '10',
 				/*labelWidth: 30,
 				labelAlign: 'right',*/
-				width: 55,
+				width: 50,
 				height: 25
 			},{
 				xtype: 'combo',
@@ -98,7 +98,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				height: 25
 			}, {
 				xtype: 'container',
-				width: 15
+				width: 30
 			}, {
 				xtype: 'image',
 				//xtype: 'button',
