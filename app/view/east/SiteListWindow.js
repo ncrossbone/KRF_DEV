@@ -25,7 +25,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		y: 8,
-		rootVisible:false,
+		rootVisible:true,
+		rootExpanded: true,
 		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
 		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 		columns: [{
@@ -95,6 +96,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	//console.info(treeCtl.getStore().data.items[0].data.children);
             	//console.info(record.data.children);
             	var siteIds = "";
+            	var parentId = "";
+            	var gridId = record.data.id;;
             	
             	if(record.data.children != null && record.data.children != undefined){
             		
@@ -105,22 +108,22 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             		}
             		
             		siteIds = siteIds.substring(0, siteIds.length - 2);
+            		parentId = record.data.id;
             		
             	}
             	else{
             		
             		siteIds = "'" + record.data.id + "'";
+            		
+            		if(record.parentNode != null && record.parentNode != undefined){
+                		parentId = record.parentNode.id;
+                	}
+            		
             		ShowWindowSiteNChart(1, record.data.id, record.data.text);
             		
             	}
             	
-            	//console.info(record.parentNode);
-            	var parentId = "";
-            	if(record.parentNode != null && record.parentNode != undefined){
-            		parentId = record.parentNode.id;
-            	}
-            	
-            	if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text)){
+            	if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
             		
             		// 버튼 On/Off
     				currCtl = Ext.getCmp("btnSearchResult");

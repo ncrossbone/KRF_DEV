@@ -331,28 +331,37 @@ ShowSearchResult = function(){
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
+	//console.info(searchResultTab.items.items[1]);
+	
 	options = {
 			//id: "searchResultContainer",
-			id: _titleText,
+			id: _gridId,
 			title: _titleText, //_searchType,
 			autoResize: true
 	};
 	
 	//var grdContainer = Ext.getCmp("searchResultContainer");
-	var grdContainer = Ext.getCmp(_titleText);
+	var gridStore = null;
+	var grdContainer = Ext.getCmp(_gridId);
 	if(grdContainer == null || grdContainer == undefined){
 		grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
-		searchResultTab.add(grdContainer);
+		//searchResultTab.add(grdContainer);
+		var tab = searchResultTab.items.items[1];
+		tab.add(grdContainer);
+		tab.setActiveTab(_gridId);
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid");
 	}
 	
-	var grdCtl = grdContainer.items.items[1]; // 그리드 컨테이너
+	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+	console.info(gridStore);
+	grdCtl.getView().bindStore(gridStore);
 	
 	console.info(grdCtl);
 	
-	var store = grdCtl.getStore();
+	//var store = grdCtl.getStore();
 	//var store = Ext.create('KRF_DEV.store.south.SearchResultGrid');
-	store.load();
+	//store.load();
 	//grdCtl.setStore(store);
 	//alert("ss");
 	//console.info(store.data);
@@ -407,9 +416,10 @@ var PT_NM = "";
 var _siteIds = "";
 var _parentId = "";
 var _titleText = "";
+var _gridId = "";
 
 // 좌측 위치검색 조회 조건 체크 및 셋팅 (구분이 동일할 경우 _searchType을 파라메터로..)
-ChkSearchCondition = function(sType, siteIds, parentId, titleText){
+ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 	
 	// 찾기 구분 셋팅 ("수계찾기", "행정구역찾기", "명칭찾기")
 	if(_searchType == "" || _searchType != sType){
@@ -422,6 +432,7 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText){
 	_siteIds = ""; // 지점코드
 	_parentId = ""; // 부모코드(레이어구분코드)
 	_titleText = titleText;
+	_gridId = "searchGrid_" + gridId;
 	
 	if(_searchType == "수계찾기"){
 		WS_CD = Ext.getCmp("cmbWater1").value;
