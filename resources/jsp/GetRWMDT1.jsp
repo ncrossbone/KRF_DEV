@@ -49,7 +49,8 @@ sql += "   AND B.WMWK  = C.WMWK                                                 
 sql += "   AND C.WMCYMD IS NOT NULL                                                                                                   ";
 sql += "   and A.pt_no ='"+recordId+"'                                                                                                     ";
 sql += "   and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('"+a+"."+c+"', 'YYYY.MM') and to_date('"+b+"."+d+"', 'YYYY.MM')    ";
-sql += "   order by wmod asc )                                                                                                        ";
+//sql += "   order by wmod asc )                                                                                                        ";
+sql += "   ORDER BY WMYR ASC, WMOD ASC  ) 																							";
 sql += "   SELECT *                                                                                                                   ";
 sql += "  FROM TMP_TBL                                                                                                                ";
 sql += "UNION ALL                                                                                                                     ";
