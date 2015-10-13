@@ -35,7 +35,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 							xtype: 'image',
 							src: './resources/images/popup/20150812_smart.gif',
 							width: 307,
-							height: 475
+							height: 257
 						}, {
 							xtype: 'image',
 							title: '닫기',
@@ -45,15 +45,16 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 						            click: function(){
 						            	var popCtl = Ext.getCmp("popSmart");
 										popCtl.hide();
+										SetBtnOnOff(el.id);
 						            }
 						        }
 							},
 							width: 10,
 							height: 10,
-							x: 287,
+							x: 277,
 							y: 10
 						}],
-						x: 410,
+						x: 390,
 						y: 170
 						
 					});
@@ -295,8 +296,14 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 
 	onClickButton: function(btn, el, evt) {
 		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
 		var me = KRF_DEV.getApplication().coreMap;
 		var currCtl = Ext.getCmp(el.id);
+		
+		alert("준비중입니다.");
+		return;
 		
 		// 이미지 셋팅
 		Ext.SetSrc(currCtl);

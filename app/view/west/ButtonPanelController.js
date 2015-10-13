@@ -46,7 +46,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	onClickFavorite: function(obj, el, evt){
 		
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
+		//var currCtl = SetBtnOnOff(el.id);
 		
 		var popSaveCtl = Ext.getCmp("popSave");
 		if(popSaveCtl != undefined)
@@ -92,7 +92,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 							x: 264,
 							y: 10
 						}],
-						x: 410,
+						x: 390,
 						y: Ext.getBody().getViewSize().height - 295
 						
 					});

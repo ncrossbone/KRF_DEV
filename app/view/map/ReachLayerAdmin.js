@@ -178,7 +178,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
             	
             	// 전역변수 저장
             	me.featureSelectQuery = selectQuery;
-            	console.info(selectQuery);
+            	//console.info(selectQuery);
             	
             	// FeatureLayer.SELECTION_NEW : 새로선택, FeatureLayer.SELECTION_ADD : 추가선택, FeatureLayer.SELECTION_SUBTRACT : 선택취소
             	// FeatureLayer 선택기능은 필요없으므로 SELECTION_SUBTRACT로 처리 (각 콜백함수에서 그래픽레이어 생성)
@@ -386,18 +386,18 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			return;
     		}
     		
-	    	for(var i = 0; i < evt.length; i++){
-		    	me.reachLayerAdmin.executeQuery(evt[i], "start");
-		    	me.reachLayerAdmin.executeQuery(evt[i], "up");
-		    	me.reachLayerAdmin.executeQuery(evt[i], "down");
-	    	}
+	    	me.reachLayerAdmin.executeQuery(evt[0], "start");
+	    	me.reachLayerAdmin.executeQuery(evt[0], "up");
+	    	
+	    	return;
+	    	me.reachLayerAdmin.executeQuery(evt[0], "down");
     	}
     	
     },
     
     addLineDraw: function(evt){
     	var me = GetCoreMap(); // this 사용하지 말자.
-    	//console.info(evt);
+    	console.info(evt);
     	if(evt.length == 0){
     		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
     			//console.info(me.reachLayerAdmin.featureSelectQuery);
@@ -407,6 +407,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	else{
 	    	var me = GetCoreMap();
 	    	
+	    	console.info(evt);
 	    	for(var i = 0; i < evt.length; i++){
 	    		me.reachLayerAdmin.executeQuery(evt[i], "add");
 	    	}

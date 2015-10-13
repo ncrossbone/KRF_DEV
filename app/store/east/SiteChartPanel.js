@@ -83,7 +83,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
-			console.info(recordId);
+			//console.info(recordId);
 			
 			var jsonData = "";
 			
@@ -101,7 +101,12 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			//console.info(response.responseText);
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
+        			//console.info(jsonData.data);
         			store.setData(jsonData.data);
+        			var chart = Ext.getCmp("siteCharttest");
+        			console.info(chart);
+        			//chart.setupGrid();
+        			//chart.draw();
         			store.arrMax = jsonData.maxdata;
         			//console.info(store.data);
         			//store.data = jsonData.data;

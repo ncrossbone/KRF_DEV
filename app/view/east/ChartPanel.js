@@ -206,15 +206,17 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            fields: 'ITEM_BOD',
 	            position: 'left',
 	            grid: true,
+	            majorTickSteps: 1,
 	            minimum: 0/*,
 	            label: {
-	                renderer: function(v) { return v + '%'; }
+	                renderer: function(v) { alert(v);return v + '%'; }
 	            }*/
 	        }, {
 	            type: 'Category',
 	            fields: 'yearMonth',
 	            position: 'bottom',
 	            grid: true,
+	            majorTickSteps: 1,
 	            label: {
 	                rotate: {
 	                    degrees: -45
