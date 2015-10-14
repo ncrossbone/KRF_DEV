@@ -74,7 +74,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
 				
-				query.where = "CAT_ID IN (";
+				query.where = "CAT_ID IN ("; 
 				
 				for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
 					query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
@@ -108,6 +108,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					var aa = "";
 					//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
 					//jsonStr += "\n	\"children\": [";
+					
 					
 					for(i = 0; i < result.features.length; i++){
 						
