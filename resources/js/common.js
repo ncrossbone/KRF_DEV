@@ -297,7 +297,7 @@ ChangeTabIndex = function(tabIdx){
 }
 
 // 검색결과창 띄우기
-ShowSearchResult = function(siteIds, parentId, titleText, gridId){
+ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -360,13 +360,13 @@ ShowSearchResult = function(siteIds, parentId, titleText, gridId){
 	if(siteIds != ""){
 		grdCtl.siteIds = siteIds;
 	}
-	if(parentId != ""){
-		grdCtl.parentId = parentId;
+	if(parentIds != ""){
+		grdCtl.parentIds = parentIds;
 	}
-console.info(grdCtl.siteIds);
+
 	gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
 		siteIds: grdCtl.siteIds,
-		parentId: grdCtl.parentId
+		parentIds: grdCtl.parentIds
 	});
 	
 	grdCtl.getView().bindStore(gridStore);

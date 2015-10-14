@@ -22,7 +22,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			cls: 'khLee-x-column-header-text',
 			height: 215,
 			siteIds: "",
-			parentId: "",
+			parentIds: [],
 			//height: '100%',
 			header: {
 				height: 5
@@ -44,15 +44,31 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				
 			},
 			columns: [{
+				text      : '측정소코드',
+				dataIndex : 'PT_NO',
+				hidden: true,
+				hideable: false, // filter Columns영역에 보이지 않기
+				width: 0
+			}, {
 				text      : '측정소명',
 				dataIndex : 'PT_NM',
 				width: 100,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
-						//console.info(row.record.data.parentId);
-						//console.info(row.record.data.PT_NO);
-						siteMovePoint(row.record.data.parentId, row.record.data.PT_NO);
+						//console.info(this.findParentByType("grid").parentIds);
+						var gridCtl = this.findParentByType("grid")
+						var parentIds = gridCtl.parentIds;
+						var siteId = row.record.data.PT_NO;
+						var parentId = "";
+						
+						for(var i = 0; i < parentIds.length; i++){
+							if(siteId == parentIds[i].siteId){
+								parentId = parentIds[i].parentId;
+							}
+						}
+						
+						siteMovePoint(parentId, siteId);
 					}
 				}
 			}, {
@@ -73,6 +89,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			}, {
 				text: '레이어코드',
 				dataIndex: 'parentId',
+				hidden: true,
+				hideable: false, // filter Columns영역에 보이지 않기
 				width: 0
 			}, {
 				text : 'BOD (㎎/L)',

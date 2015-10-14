@@ -46,13 +46,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_branch.gif',
             iconCls: ' khLee-x-default-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
-            	console.info(record.parentNode.data.text);
-            	console.info(record.data.text);
             	var test = record.data.text;
-            	//console.info(record.data.text);
             	var chkText = record.id;
-            	//console.info(record);
-            	//console.info(grid+" : "+rowIndex+" : "+colIndex+" : "+actionItem+" : "+event+" : "+record+" : "+row);
             	ShowWindowSiteNChart(1, chkText, test);
             },
             // Only leaf level tasks may be edited
@@ -69,11 +64,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_chart.gif',
             iconCls: ' khLee-x-default-btn',
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
-            	console.info(record.parentNode.data.text);
-            	console.info(record.data.text);
             	var test = record.data.text;
-            	/*var titleText = record.parentNode.data.text + " > " + record.data.text;
-            	ShowWindowSiteNChart(0, titleText);*/
             	var chkText = record.id;
             	ShowWindowSiteNChart(0, chkText, test);
             },
@@ -92,12 +83,11 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	//Ext.ShowSearchResult("grid-tab-2", "하천수");
             	
             	var treeCtl = Ext.getCmp("siteListTree");
-            	//console.info(treeCtl.getStore().data.items[0].data.children);
-            	//console.info(record.data.children);
             	var siteIds = "";
             	var parentId = "";
             	var gridId = "grid_" + record.data.id;;
             	
+            	/*
             	if(record.data.children != null && record.data.children != undefined){
             		
             		for(var i = 0; i < record.data.children.length; i++){
@@ -121,7 +111,12 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             		ShowWindowSiteNChart(1, record.data.id, record.data.text);
             		
             	}
+            	*/
             	
+            	var me = this.findParentByType("window");
+            	me.setSiteIds(record, true);
+            	//console.info(me.parentIds);
+
             	//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
             		
             		// 버튼 On/Off
@@ -131,12 +126,42 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     				}
     				
     				// 검색결과창 띄우기
-    				ShowSearchResult(siteIds, parentId, record.data.text, gridId);
+    				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId);
             		
             	//}
             },
         }]
 	}],
+	
+	siteIds: '',
+	parentIds: [],
+	
+	// 사이트 아이디 셋팅 (record : tree node, isInit : siteIds 변수 초기화 여부)
+	setSiteIds: function(record, isInit){
+    	
+		var me = this;
+		if(isInit == true){
+			me.parentIds = [];
+			me.siteIds = "";
+		}
+		
+		var childRecords = record.childNodes;
+		
+		if(childRecords != undefined && childRecords.length > 0){
+			for(var i = 0; i < childRecords.length; i++){
+				me.setSiteIds(childRecords[i], false);
+			}
+		}
+		else{
+			if(me.siteIds != ""){
+				me.siteIds += ", ";
+			}
+
+			me.parentIds.push({parentId: record.parentNode.data.id, siteId: record.data.id}); 
+			me.siteIds += "'" + record.data.id + "'";
+		}
+    	
+    },
 	
 	listeners:{
         close:function(){
@@ -146,7 +171,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             }
         }
     },
-    
     
 	initComponent: function(){
 		this.callParent();

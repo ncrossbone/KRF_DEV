@@ -3,6 +3,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
     //extend : 'Ext.data.BufferedStore', 
     
     fields: [
+        'PT_NO',
         'PT_NM',
         'WMYR',
         'WMOD',
@@ -34,7 +35,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 	remoteSort: true,
 	
 	siteIds: "",
-	parentId: "",
+	parentIds: [],
 	
 	listeners: {
 		load: function(store) {
@@ -48,16 +49,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			var jsonData = "";
 			var arrData = [];
-			
-			//console.info(ADM_CD);
-			console.info(store.siteIds);
-			console.info(store.parentId);
-			
+			//console.info(store.parentIds);
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: store.siteIds, parentId: store.parentId},
+        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {

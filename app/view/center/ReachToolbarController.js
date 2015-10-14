@@ -18,10 +18,16 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		var currCtl = SetBtnOnOff(el.id);
 		
 		// 팝업 이미지 (임시)
-		var popCtl = Ext.getCmp("popSmart");
+		var popCtl = Ext.getCmp("searchConfig");
 		
 		if(popCtl == undefined){
 			
+			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig", {
+				x: 390,
+				y: 170
+			});
+			
+			/*
 			popCtl = Ext.create("Ext.window.Window", {
 				
 						title: '스마트검색',
@@ -58,6 +64,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 						y: 170
 						
 					});
+					*/
 			
 		}
 		

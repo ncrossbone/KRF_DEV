@@ -16,7 +16,7 @@ try{
 	String ADM_CD = request.getParameter("ADM_CD");
 	
 	String siteIds = request.getParameter("siteIds");
-	String parentId = request.getParameter("parentId");
+	//JSONObject parentIds = request.getParameter("parentIds");
 	
 	String startYear = request.getParameter("startYear");
 	String startMonth = request.getParameter("startMonth");
@@ -25,9 +25,7 @@ try{
 	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
-	
-	//out.print(withSql);
-	
+	//out.print(parentIds);
 	sql = " WITH TMP AS ( " +
 			"SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */ " +
 		     ", A.PT_NO /* 지점코드 */, A.PT_NM /* 지점명 */, C.WMCYMD /* 측정일자 */ " +
@@ -54,7 +52,7 @@ try{
 		   "AND C.WMCYMD IS NOT NULL " +
 		") " +
 
-		"SELECT '" + parentId + "' AS parentId, A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ " +
+		"SELECT A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ " +
 		     ", A.ITEM_BOD AS CURR_BOD, B.ITEM_BOD AS CHART_BOD " +
 		     ", A.ITEM_DOC AS CURR_DO, B.ITEM_DOC AS CHART_DO " +
 		     ", A.ITEM_COD AS CURR_COD, B.ITEM_COD AS CHART_COD " +
@@ -149,7 +147,7 @@ try{
 			//System.out.println(preSite + preDate);
 			jsonRecord = new JSONObject();
 	
-			jsonRecord.put("parentId", parentId);
+			//jsonRecord.put("parentId", parentId);
 			jsonRecord.put("PT_NO", PT_NO);
 	  		jsonRecord.put("PT_NM", PT_NM);
 	  		jsonRecord.put("WMCYMD", WMCYMD);
@@ -188,7 +186,7 @@ try{
 	  		CHART_CLOA = new JSONArray();
 		}
 		//else{
-			parentId = rs.getString("parentId");
+			//parentId = rs.getString("parentId");
 			PT_NO = rs.getString("PT_NO");
 			PT_NM = rs.getString("PT_NM");
 			WMCYMD = rs.getString("WMCYMD");
@@ -267,7 +265,7 @@ try{
 	
 	jsonRecord = new JSONObject();
 	
-	jsonRecord.put("parentId", parentId);
+	//jsonRecord.put("parentId", parentId);
 	jsonRecord.put("PT_NO", PT_NO);
 	jsonRecord.put("PT_NM", PT_NM);
 	jsonRecord.put("WMCYMD", WMCYMD);

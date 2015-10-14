@@ -172,7 +172,6 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
     },
     
     areaSelectHandler: function(info){
-    	//console.info(info);
     	var me = this;
     	me.sourceGraphicLayer.clear();
 		me.targetGraphicLayer.clear();
@@ -184,7 +183,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		
 		var idField = "";
 		var idValue = "";
-		//console.info(info.idField);
+		
 		// 행정구역 검색은 info.admCd로 검색
 		if(info.idField == undefined || info.idField == ""){
 			idField = "ADM_CD";
@@ -203,16 +202,10 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		
 		query.where = idField + " = '" + idValue + "'";
 		
-		//console.info(_mapServiceUrl + "/" + info.layerId);
-		//console.info(query.where);
-		
 		query.outFields = ["*"];
 		queryTask.execute(query,  function(results){
-			//console.info(results.features);
 			Ext.each(results.features, function(obj, index) {
-				console.info(obj)
 				obj.setSymbol(me.simpleFillSymbol);
-				//console.info(obj);
 	    		me.sourceGraphicLayer.add(obj);
 	    		var extent = esri.geometry.Polygon(obj.geometry).getExtent();
 	    		//console.info(extent.xmax - extent.xmin);
@@ -232,10 +225,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		//me.map.centerAndZoom(extent.getCenter(), 11);
 	    		me.map.setExtent(extent, true);
 	    		console.info(me.map.getLevel());
-	    		//console.info(extent.getCenter());
-	    		//console.info(me.map.extent.getCenter());
 	    		me.geometry = obj.geometry;
-	    		//alert("dd");
 	    		me.spSearch();
 			});
 		});
