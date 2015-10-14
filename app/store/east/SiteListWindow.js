@@ -137,11 +137,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									if(i != "0"){
 										
 										aa = i;
-										
-										console.log("!!");
-										console.info(aa);
-										console.info(i);
-										console.log("!!");
 											jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
 											jsonStr += "\n]}]}, ";
 									}
