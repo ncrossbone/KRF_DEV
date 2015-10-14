@@ -205,6 +205,8 @@ ReachInfoBinding = function(objs){
 	if(Ext.getCmp("CAT_AREA") != undefined) { Ext.getCmp("CAT_AREA").setHtml(CAT_AREA) };
 }
 
+
+
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function(tabIdx, title, test){
 	
@@ -234,9 +236,33 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	
 	//console.info(title);
 	var chartCtl = Ext.getCmp("siteCharttest");
-	console.info(chartCtl.axes);
-	chartCtl.setSteps = 3;
-	console.info(chartCtl.axes.items[0].axisBBox.y);
+	//console.info(chartCtl);
+	//console.info(chartCtl.axes);
+	//console.info(chartCtl.axes.items[0].axisBBox.y);
+	console.info(chartCtl.axes.items[0].labels);
+	console.info(chartCtl.axes.items[0].labels[2]);
+	console.info(chartCtl.axes.items[0].labels.length);
+	//   "+ i + ","+chartCtl.axes.items[0].labels[i]+"," +"
+	var length = "[";
+	for(var i = 1 ; i < chartCtl.axes.items[0].labels.length ;i += 2){
+		//console.info(chartCtl.axes.items[0].labels[i])
+		if(i => chartCtl.axes.items[0].labels.length){
+			length +=  chartCtl.axes.items[0].labels[i];
+		}else{
+			length +=  chartCtl.axes.items[0].labels[i] +"\,";
+		}
+		
+	}
+	length += "]";
+	
+	var aaa = chartCtl.axes.items[0];
+	//console.info(chartCtl.axes.items[0].labels);
+	//console.info(length);
+	//aaa.labels(length);
+	//console.info(chartCtl.axes.items[0].labels);
+	
+	
+	
 	
 	var siteinfoCtl = Ext.getCmp("siteinfotest");  //
 	var siteChartCtl = Ext.getCmp("siteCharttest");

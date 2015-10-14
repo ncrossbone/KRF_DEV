@@ -108,6 +108,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					var aa = "";
 					//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
 					//jsonStr += "\n	\"children\": [";
+					
 					for(i = 0; i < result.features.length; i++){
 						
 						if(result.features[i].attributes.GROUP_CODE != groupGubun){

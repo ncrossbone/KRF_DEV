@@ -37,15 +37,20 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			var selectYear2 = Ext.getCmp("selectYear2");
 			var selectMonth2 = Ext.getCmp("selectMonth2");
 			
+			var defaultChart = "";
+			
+			console.info(selectYear);
 			var recordYear = "";
-			if(selectYear.lastValue == ""){
-				recordYear = '2015'
+			if( selectYear == undefined){
+				defaultChart = '1';
+				recordYear = '2014'
 			}else{
 				recordYear = selectYear.lastValue;
 			}
 			
 			var recordYear2 = "";
-			if(selectYear2.lastValue == ""){
+			if(selectYear2 == undefined){
+				defaultChart = '0';
 				recordYear2 = '2015'
 			}else{
 				recordYear2 = selectYear2.lastValue;
@@ -53,15 +58,15 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			
 			var recordMonth = "";
 			//console.info(selectMonth.value);
-			if(selectMonth.value == ""){
-				recordMonth = '01'
+			if( selectMonth == undefined){
+				recordMonth = '10'
 			}else{
 				recordMonth = selectMonth.value;
 			}
 			
 			var recordMonth2 = "";
-			if(selectMonth2.value == ""){
-				recordMonth2 = '12'
+			if( selectMonth2 == undefined){
+				recordMonth2 = '10'
 			}else{
 				recordMonth2 = selectMonth2.value;
 			}
