@@ -162,6 +162,11 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	src: './resources/images/button/reach_menu_fileopen.png'
 	    }];
 	    
+	    var popCtl = Ext.create("KRF_DEV.view.center.SearchConfig", {
+			x: 390,
+			y: 170
+		});
+	    
 	    this.callParent();
 	}
 });

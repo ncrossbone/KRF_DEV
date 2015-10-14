@@ -6,6 +6,26 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	reachAreaGraphics: null,
 	selectionToolbar: null,
 	
+	upRchGraphics: [], // 시작위치 클릭 시 선택된 상류 그래픽 배열
+    downRchGraphics: [], // 시작위치 클릭 시 선택된 하류 그래픽 배열
+    selRchGraphics: [], // 시작위치 및 리치추가로 지정된 그래픽 배열
+    startRchGraphics: [], // 시작위치로 지정된 그래픽 배열
+    selAreaGraphics: [], // 선택된 집수구역 그래픽 배열
+    
+    isUpDraw: true, // 검색설정 상류 체크여부
+    isDownDraw: false, // 검색설정 하류 체크여부
+    isBonDraw: true, // 검색설정 본류 체크여부
+    isJiDraw: true, // 검색설정 지류 체크여부
+    isAMDraw: true, // 검색설정 해당중권역 체크여부
+    isDemDraw: false, // 검색설정 댐 체크여부
+    
+    selLineSymbol: null,
+    upLineSymbol: null,
+    downLineSymbol: null,
+    areaSymbol: null,
+    amCD_temp: null,
+    featureSelectQuery: null,
+	
 	constructor: function(map) {
 		
 		var me = this;
@@ -29,18 +49,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			me.reachMapLoad(map);
 		});
     },
-    
-    upRchGraphics: [],
-    downRchGraphics: [],
-    selRchGraphics: [],
-    selAreaGraphics: [],
-    
-    selLineSymbol: null,
-    upLineSymbol: null,
-    downLineSymbol: null,
-    areaSymbol: null,
-    amCD_temp: null,
-    featureSelectQuery: null,
     
     reachMapLoad: function(map){
     	
@@ -213,6 +221,60 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     },
     
+    // 검색설정 변수 셋팅
+    setSearchConfig: function(){
+    	
+    	var me = this;
+    	
+    	me.isUpDraw = false; // 검색설정 상류 체크여부
+    	me.isDownDraw = false; // 검색설정 하류 체크여부
+    	me.isBonDraw = false; // 검색설정 본류 체크여부
+    	me.isJiDraw = false; // 검색설정 지류 체크여부
+    	me.isAMDraw = false; // 검색설정 해당중권역 체크여부
+    	me.isDemDraw = false; // 검색설정 댐 체크여부
+    	
+    	var chkGroup1Value = "";
+		var chkGroup1 = Ext.getCmp("chkGroup1");
+		var chkGroup1Items = chkGroup1.items.items;
+		
+		for(var i = 0; i < chkGroup1Items.length; i++){
+			if(chkGroup1Items[i].checked == true){
+				if(chkGroup1Items[i].inputValue == "isUpDraw"){
+					me.isUpDraw = true;
+				}
+				if(chkGroup1Items[i].inputValue == "isDownDraw"){
+					me.isDownDraw = true;
+				}
+				if(chkGroup1Items[i].inputValue == "isBonDraw"){
+					me.isBonDraw = true;
+				}
+				if(chkGroup1Items[i].inputValue == "isJiDraw"){
+					me.isJiDraw = true;
+				}
+			}
+		}
+		
+		var chkGroup2Value = ""
+		var chkGroup2 = Ext.getCmp("chkGroup2");
+		var chkGroup2Items = chkGroup2.items.items;
+		
+		for(var i = 0; i < chkGroup2Items.length; i++){
+			if(chkGroup2Items[i].checked == true){
+				if(chkGroup2Items[i].inputValue == "isAMDraw"){
+					me.isAMDraw = true;
+				}
+				if(chkGroup2Items[i].inputValue == "isDemDraw"){
+					me.isDemDraw = true;
+				}
+			}
+		}
+
+		console.info("me.isUpDraw : " + me.isUpDraw + ", me.isDownDraw : " 
+				+ me.isDownDraw + ", me.isBonDraw : " + me.isBonDraw + ", me.isJiDraw : " 
+				+ me.isJiDraw + ", me.isAMDraw : " + me.isAMDraw + ", me.isDemDraw : " + me.isDemDraw);
+    	
+    },
+    
     // 리치라인 그래픽 레이어 그래픽 추가
     addLineGraphic: function(graphic){
     	
@@ -369,9 +431,35 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	}
     },
     
+    // 시작위치부터 다시그리기
+    startLineReDraw: function(){
+    	
+		var me = GetCoreMap();
+		me.reachLayerAdmin.setSearchConfig(); // 검색설정 셋팅
+		me.reachLayerAdmin.drawEnd(); // 리치 선택 종료
+		me.reachLayerAdmin.clearGraphicsLayer("redraw"); // 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
+		
+		console.info(me.reachLayerAdmin.isDownDraw);
+
+		if(me.reachLayerAdmin.startRchGraphics.length > 0){
+			for(var i = 0; i < me.reachLayerAdmin.startRchGraphics.length; i++){
+				me.reachLayerAdmin.executeQuery(me.reachLayerAdmin.startRchGraphics[i], "start");
+				if(me.reachLayerAdmin.isUpDraw == true){
+					me.reachLayerAdmin.executeQuery(me.reachLayerAdmin.startRchGraphics[i], "up");
+				}
+				if(me.reachLayerAdmin.isDownDraw == true){
+					me.reachLayerAdmin.executeQuery(me.reachLayerAdmin.startRchGraphics[i], "down");
+				}
+			}
+		}
+    	
+    },
+    
+    // 시작위치 그리기
     startLineDraw: function(evt){
 
     	var me = GetCoreMap(); // this 사용하지 말자.
+    	me.reachLayerAdmin.setSearchConfig(); // 검색설정 셋팅
     	
     	if(evt.length == 0){
     		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
@@ -386,11 +474,15 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			return;
     		}
     		
+    		console.info(me.reachLayerAdmin.isDownDraw);
+    		
 	    	me.reachLayerAdmin.executeQuery(evt[0], "start");
-	    	me.reachLayerAdmin.executeQuery(evt[0], "up");
-	    	
-	    	return;
-	    	me.reachLayerAdmin.executeQuery(evt[0], "down");
+	    	if(me.reachLayerAdmin.isUpDraw == true){
+	    		me.reachLayerAdmin.executeQuery(evt[0], "up");
+	    	}
+	    	if(me.reachLayerAdmin.isDownDraw == true){
+	    		me.reachLayerAdmin.executeQuery(evt[0], "down");
+	    	}
     	}
     	
     },
@@ -542,7 +634,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 				
 				queryWhere = "RCH_ID LIKE '" + AM_CD + "%' AND ";
 				query.where = queryWhere + "RCH_ID = '" + rchId + "'";
-				queryTask.execute(query, me.currLineDraw);
+				queryTask.execute(query, me.startLineDrawGraphic);
 			}
 			
 			if(type == "add"){
@@ -570,7 +662,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         		
         		var graphic = featureSet.features[i];
         		var rchId = graphic.attributes.RCH_ID;
-            	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, this.upRchGraphics);
+            	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, me.reachLayerAdmin.upRchGraphics);
             	
             	if(arrIdx == -1){
             		
@@ -598,7 +690,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         		
         		var graphic = featureSet.features[i];
         		var rchId = graphic.attributes.RCH_ID;
-            	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, this.downRchGraphics);
+            	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, me.reachLayerAdmin.downRchGraphics);
             	
             	if(arrIdx == -1){
             		
@@ -615,6 +707,40 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	});
     },
     
+    // 시작위치 라인 그래픽 그리기
+    startLineDrawGraphic: function(featureSet){
+    	
+    	var me = GetCoreMap(); // this 사용하지 말자.
+    	
+    	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/layers/FeatureLayer"], function(SimpleLineSymbol, Color, Query, FeatureLayer){
+    		
+        	var selectQuery = new Query();
+        	
+        	for(var i = 0; i < featureSet.features.length; i++){
+        		
+        		var graphic = featureSet.features[i];
+        		var rchId = graphic.attributes.RCH_ID;
+        		
+            	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, me.reachLayerAdmin.startRchGraphics);
+            	
+            	if(arrIdx == -1){
+            	
+	        		graphic.setSymbol(me.reachLayerAdmin.selLineSymbol); // 심볼설정
+	        		me.reachLayerAdmin.addLineGraphic(graphic);
+	        		
+	        		// 전역 변수 배열에 담아두기
+	    			me.reachLayerAdmin.startRchGraphics.push(graphic);
+	    			
+            	}
+        	}
+        	
+        	// 리치 정보 보여주기
+        	//me.reachLayerAdmin.reachSelected(featureSet.features);
+        	
+    	});
+    	
+    },
+    
     currLineDraw: function(featureSet){
     	
     	var me = GetCoreMap(); // this 사용하지 말자.
@@ -628,7 +754,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         		var graphic = featureSet.features[i];
         		var rchId = graphic.attributes.RCH_ID;
         		
-            	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, this.upRchGraphics);
+            	arrIdx = me.reachLayerAdmin.getRchGraphicIndex(rchId, me.reachLayerAdmin.selRchGraphics);
             	
             	if(arrIdx == -1){
             	
@@ -989,8 +1115,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     },
     
-    // 리치라인, 집수구역 그래픽 레이어 초기화
-    clearGraphicsLayer: function(){
+    // 리치라인, 집수구역 그래픽 레이어 초기화 (mode : 초기화인지 적용인지)
+    clearGraphicsLayer: function(mode){
     	
     	var me = GetCoreMap();
     	
@@ -1004,6 +1130,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	me.reachLayerAdmin.upRchGraphics = [];
     	me.reachLayerAdmin.downRchGraphics = [];
     	me.reachLayerAdmin.selRchGraphics = [];
+    	// 초기화일 경우 시작라인 배열 삭제
+    	if(mode == "reset")
+    		me.reachLayerAdmin.startRchGraphics = [];
     	me.reachLayerAdmin.selAreaGraphics = [];
     	
     }

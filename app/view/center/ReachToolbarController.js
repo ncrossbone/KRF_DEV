@@ -163,7 +163,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 리치 선택 종료
 		me.reachLayerAdmin.drawEnd();
 		// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
-		me.reachLayerAdmin.clearGraphicsLayer();
+		me.reachLayerAdmin.clearGraphicsLayer("reset");
 		
 		//Ext.HideSiteListWindow();
 		//HideWindowSiteNChart();
