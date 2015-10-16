@@ -87,32 +87,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	var parentId = "";
             	var gridId = "grid_" + record.data.id;;
             	
-            	/*
-            	if(record.data.children != null && record.data.children != undefined){
-            		
-            		for(var i = 0; i < record.data.children.length; i++){
-            			
-            			siteIds += "'" + record.data.children[i].id + "', ";
-            			
-            		}
-            		
-            		siteIds = siteIds.substring(0, siteIds.length - 2);
-            		parentId = record.data.id;
-            		
-            	}
-            	else{
-            		
-            		siteIds = "'" + record.data.id + "'";
-            		
-            		if(record.parentNode != null && record.parentNode != undefined){
-                		parentId = record.parentNode.id;
-                	}
-            		
-            		ShowWindowSiteNChart(1, record.data.id, record.data.text);
-            		
-            	}
-            	*/
-            	
             	var me = this.findParentByType("window");
             	me.setSiteIds(record, true);
             	//console.info(me.parentIds);
@@ -125,8 +99,14 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     					SetBtnOnOff("btnSearchResult");
     				}
     				
+    				var pNm = me.parentIds[0].parentId;
+    				
+    				pNm = pNm.substring(0,1);
+    				console.info(pNm);
+    				
+    				
     				// 검색결과창 띄우기
-    				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId);
+    				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
             		
             	//}
             },

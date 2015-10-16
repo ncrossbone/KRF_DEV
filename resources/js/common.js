@@ -323,7 +323,7 @@ ChangeTabIndex = function(tabIdx){
 }
 
 // 검색결과창 띄우기
-ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
+ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -354,7 +354,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
 	console.info(searchResultTab);
-	
+
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
@@ -371,32 +371,90 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
-	if(grdContainer == null || grdContainer == undefined){
-		grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
-		//searchResultTab.add(grdContainer);
-		tab.add(grdContainer);
+	
+	
+	
+	console.info(parentIds);
+	if(parentIds != undefined){
+	var parentCheck = parentIds[0].parentId;
+	parentCheck = parentCheck.substring(0,1);
+	console.info(parentCheck);
 	}
 	
-	tab.setActiveTab(gridId + "_container");
 	
-	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
-	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-	grdCtl.id = gridId;
+	if(parentCheck == "A"){	
 	
-	if(siteIds != ""){
-		grdCtl.siteIds = siteIds;
+		if(grdContainer == null || grdContainer == undefined){
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
+			//searchResultTab.add(grdContainer);
+			tab.add(grdContainer);
+		}
+		
+		tab.setActiveTab(gridId + "_container");
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		grdCtl.id = gridId;
+		
+		if(siteIds != ""){
+			grdCtl.siteIds = siteIds;
+		}
+		if(parentIds != ""){
+			grdCtl.parentIds = parentIds;
+		}
+		console.info(grdCtl.parentIds)
+		console.info(grdCtl.siteIds);
+		
+		
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds
+		});
+		
+		grdCtl.getView().bindStore(gridStore);
+	
+	}else {
+		
+		console.info(test);
+		
+		if(grdContainer == null || grdContainer == undefined){
+			
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
+			
+			
+			tab.add(grdContainer);
+		}
+		
+		tab.setActiveTab(gridId + "_container");
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		grdCtl.id = gridId;
+		
+		if(siteIds != ""){
+			grdCtl.siteIds = siteIds;
+		}
+		if(parentIds != ""){
+			grdCtl.parentIds = parentIds;
+		}
+		
+		console.info(grdCtl.parentIds)
+		console.info(grdCtl.siteIds);
+		
+		console.info(test);
+		if(test == "1"){
+			test = "";
+		}
+		
+		
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds
+		});
+		
+		grdCtl.getView().bindStore(gridStore);
+		
 	}
-	if(parentIds != ""){
-		grdCtl.parentIds = parentIds;
-	}
-
-	gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
-		siteIds: grdCtl.siteIds,
-		parentIds: grdCtl.parentIds
-	});
-	
-	grdCtl.getView().bindStore(gridStore);
-	
 	
 	//var store = grdCtl.getStore();
 	//var store = Ext.create('KRF_DEV.store.south.SearchResultGrid');

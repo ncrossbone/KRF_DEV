@@ -26,49 +26,93 @@ try{
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
-	sql = " WITH TMP AS ( " +
-			"SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */ " +
-		     ", A.PT_NO /* 지점코드 */, A.PT_NM /* 지점명 */, C.WMCYMD /* 측정일자 */ " +
-			 ", B.WMYR /* 년 */, B.WMOD /* 월 */ " +
-		     ", C.WMWK /* 회차 */ " +
-		     ", B.ITEM_BOD /* BOD */ " +
-		     ", B.ITEM_DOC /* DO */ " +
-		     ", B.ITEM_COD /* COD */ " +
-		     ", B.ITEM_TN /* T-N */ " +
-		     ", B.ITEM_TP /* T-P */ " +
-		     ", B.ITEM_TEMP /* 수온 */ " +
-		     ", B.ITEM_PH /* pH */ " +
-		     ", B.ITEM_SS /* SS */ " +
-		     ", B.ITEM_CLOA /* 클로로필a */ " +
-		     ", A.ADMCODE /* 법정동코드 */ " +
-		  "FROM RWMPT A " +
-		     ", RWMDTI B " +
-		     ", RWMDTD C " +
-		 "WHERE A.PT_NO = B.PT_NO " +
-		   "AND A.PT_NO = C.PT_NO " +
-		   "AND B.WMYR  = C.WMYR " +
-		   "AND B.WMOD  = C.WMOD " +
-		   "AND B.WMWK  = C.WMWK " +
-		   "AND C.WMCYMD IS NOT NULL " +
-		") " +
-
-		"SELECT A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ " +
-		     ", A.ITEM_BOD AS CURR_BOD, B.ITEM_BOD AS CHART_BOD " +
-		     ", A.ITEM_DOC AS CURR_DO, B.ITEM_DOC AS CHART_DO " +
-		     ", A.ITEM_COD AS CURR_COD, B.ITEM_COD AS CHART_COD " +
-		     ", A.ITEM_TN AS CURR_TN, B.ITEM_TN AS CHART_TN " +
-		     ", A.ITEM_TP AS CURR_TP, B.ITEM_TP AS CHART_TP " +
-		     ", A.ITEM_TEMP AS CURR_TEMP, B.ITEM_TEMP AS CHART_TEMP " +
-		     ", A.ITEM_PH AS CURR_PH, B.ITEM_PH AS CHART_PH " +
-		     ", A.ITEM_SS AS CURR_SS, B.ITEM_SS AS CHART_SS " +
-		     ", A.ITEM_CLOA AS CURR_CLOA, B.ITEM_CLOA AS CHART_CLOA " +
-		  "FROM TMP A " +
-		     ", TMP B " +
-		     ", KESTI_WATER_ALL_MAP C " +
-		 "WHERE A.PT_NO = B.PT_NO " +
-		   "AND A.ADMCODE = B.ADMCODE " +
-		   "AND B.RN BETWEEN A.RN AND A.RN + 4 " +
-		   "AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+) ";
+	sql = "  WITH TMP AS (  				" +	
+		"	SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */     "+
+		"     , A.PT_NO /* 지점코드 */, A.PT_NM /* 지점명 */, C.WMCYMD /* 측정일자 */                             "+
+		"	 , B.WMYR /* 년 */, B.WMOD /* 월 */                                                                     "+
+		"     , C.WMWK /* 회차 */                                                                                 "+
+    "         , C.WMDEP /*수심 -추가-*/                                                                       "+
+    "         , B.ITEM_AMNT  /* 유량  */                                                                      "+
+		"     , B.ITEM_BOD /* BOD */                                                                              "+
+		"     , B.ITEM_DOC /* DO */                                                                               "+
+		"     , B.ITEM_COD /* COD */                                                                              "+
+    "         , B.ITEM_EC /* EC */                                                                            "+
+		"     , B.ITEM_TN /* T-N */                                                                               "+
+    "         , B.ITEM_DTN /* DTN */                                                                          "+
+    "         , B.ITEM_NO3N /* NO3N */                                                                        "+
+    "         , B.ITEM_NH3N /* NH3N */                                                                        "+
+		"     , B.ITEM_TP /* T-P */                                                                               "+
+		"     , B.ITEM_TEMP /* 수온 */                                                                            "+
+		"     , B.ITEM_PH /* pH */                                                                                "+
+		"     , B.ITEM_SS /* SS */                                                                                "+
+    "         , B.ITEM_DTP /* DTP */                                                                          "+
+    "         , B.ITEM_POP /* POP */                                                                          "+
+    "         , B.ITEM_CLOA /* 클로로필a */                                                                   "+
+    "         , B.ITEM_TOC /* TOC - 추가 - */                                                                 "+
+    "         , B.ITEM_TRANS /* 투명도 */                                                                     "+
+    "         , B.ITEM_ALGOL /* 조류 */                                                                       "+
+    "         , B.ITEM_TCOLI /* 총대장균군수 */                                                               "+
+    "         , B.ITEM_ECOLI /* 분원성대장균군수 */                                                           "+
+    "         , B.ITEM_ANTIMON /* 안티몬 */                                                                   "+
+    "         , B.ITEM_PHENOL /* PHENOL */                                                                    "+
+    "         , B.ITEM_COL /* 색도 */                                                                         "+
+    "         , B.ITEM_NHEX /* N.H */		                                                                      "+
+    "         , B.ITEM_MN /* Mn */                                                                            "+
+    "         , B.ITEM_FE /* Fe */                                                                            "+
+    "         , B.ITEM_CD /* Cd */                                                                            "+
+    "         , B.ITEM_CN /* Cn */                                                                            "+
+    "         , B.ITEM_PB /* Pb */                                                                            "+
+    "         , B.ITEM_CR6 /* Cr6 */                                                                          "+
+    "         , B.ITEM_CR /* Cr */                                                                            "+
+    "         , B.ITEM_AS /* As */                                                                            "+
+    "         , B.ITEM_HG /* Hg */                                                                            "+
+    "         , B.ITEM_CU /* Cu */                                                                            "+
+    "         , B.ITEM_ZN /* Zn */                                                                            "+
+    "         , B.ITEM_FL /* F */                                                                             "+
+    "         , B.ITEM_ABS /* ABS */                                                                          "+
+    "         , B.ITEM_CL /* CL */                                                                            "+
+    "         , B.ITEM_TCE /* TCE */                                                                          "+
+    "         , B.ITEM_PCE /* PCE */                                                                          "+
+    "         , B.ITEM_CCL4 /* 사염화탄소 */                                                                  "+
+    "         , B.ITEM_DCETH /* 1.2디클로로에탄 */                                                            "+
+    "         , B.ITEM_DCM /* 디클로로메탄 */                                                                 "+
+    "         , B.ITEM_BENZENE /* 벤젠 */                                                                     "+
+    "         , B.ITEM_CHCL3 /* 클로로포름 */                                                                 "+
+    "         , B.ITEM_OP /* 유기인 */                                                                        "+
+    "         , B.ITEM_PCB /* PCB */                                                                          "+
+    "         , B.ITEM_DEHP /* DEHP */                                                                        "+
+    "         , B.ITEM_HCHO /* 포름알데히드 */                                                                "+
+    "         , B.ITEM_HCB /* HCB */                                                                          "+
+		"     , A.ADMCODE /* 법정동코드 */                                                                        "+
+		"  FROM RWMPT A                                                                                           "+
+		"     , RWMDTI B                                                                                          "+
+		"     , RWMDTD C                                                                                          "+
+		" WHERE A.PT_NO = B.PT_NO                                                                                 "+
+	  "     AND A.PT_NO = C.PT_NO                                                                               "+
+    "       AND B.WMYR  = C.WMYR                                                                              "+
+    "       AND B.WMOD  = C.WMOD                                                                              "+
+    "       AND B.WMWK  = C.WMWK                                                                              "+
+    "       AND C.WMCYMD IS NOT NULL                                                                          "+
+    "    )                                                                                                    "+
+    
+    "SELECT A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ , A.WMDEP" +
+    ", A.ITEM_BOD AS CURR_BOD, B.ITEM_BOD AS CHART_BOD " +
+    ", A.ITEM_DOC AS CURR_DO, B.ITEM_DOC AS CHART_DO " +
+    ", A.ITEM_COD AS CURR_COD, B.ITEM_COD AS CHART_COD " +
+    ", A.ITEM_TN AS CURR_TN, B.ITEM_TN AS CHART_TN " +
+    ", A.ITEM_TP AS CURR_TP, B.ITEM_TP AS CHART_TP " +
+    ", A.ITEM_TEMP AS CURR_TEMP, B.ITEM_TEMP AS CHART_TEMP " +
+    ", A.ITEM_PH AS CURR_PH, B.ITEM_PH AS CHART_PH " +
+    ", A.ITEM_SS AS CURR_SS, B.ITEM_SS AS CHART_SS " +
+    ", A.ITEM_CLOA AS CURR_CLOA, B.ITEM_CLOA AS CHART_CLOA " +
+    ", A.ITEM_TOC AS CURR_TOC, B.ITEM_TOC AS CHART_TOC " +
+ "FROM TMP A " +
+    ", TMP B " +
+    ", KESTI_WATER_ALL_MAP C " +
+"WHERE A.PT_NO = B.PT_NO " +
+  "AND A.ADMCODE = B.ADMCODE " +
+  "AND B.RN BETWEEN A.RN AND A.RN + 4 " +
+  "AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+) ";
 		   
 	if(startYYYYMM != ""){
 		sql += "AND A.WMYR || A.WMOD >= '" + startYYYYMM + "' ";
@@ -114,6 +158,7 @@ try{
 	String WMYR = "";
 	String WMOD = "";
 	String WMWK = "";
+	String WMDEP = "";
 	String CURR_BOD = "";
 	JSONArray CHART_BOD = new JSONArray();
 	JSONArray Chart_Data_tmp = new JSONArray();
@@ -133,6 +178,8 @@ try{
 	JSONArray CHART_SS = new JSONArray();
 	String CURR_CLOA = "";
 	JSONArray CHART_CLOA = new JSONArray();
+	String CURR_TOC = "";
+	JSONArray CHART_TOC = new JSONArray();
 	
 	int cnt = 0;
 	
@@ -154,6 +201,7 @@ try{
 	  		jsonRecord.put("WMYR", WMYR);
 	  		jsonRecord.put("WMOD", WMOD);
 	  		jsonRecord.put("WMWK", WMWK);
+	  		jsonRecord.put("WMDEP", WMDEP);
 	  		jsonRecord.put("CURR_BOD", CURR_BOD);
 	  		jsonRecord.put("CHART_BOD", CHART_BOD);
 	  		jsonRecord.put("CURR_DO", CURR_DO);
@@ -172,6 +220,8 @@ try{
 	  		jsonRecord.put("CHART_SS", CHART_SS);
 	  		jsonRecord.put("CURR_CLOA", CURR_CLOA);
 	  		jsonRecord.put("CHART_CLOA", CHART_CLOA);
+	  		jsonRecord.put("CURR_TOC", CURR_TOC);
+	  		jsonRecord.put("CHART_TOC", CHART_TOC);
 	  	
 	  		jsonArr.add(jsonRecord);
 	  		
@@ -184,6 +234,7 @@ try{
 	  		CHART_PH = new JSONArray();
 	  		CHART_SS = new JSONArray();
 	  		CHART_CLOA = new JSONArray();
+	  		CHART_TOC = new JSONArray();
 		}
 		//else{
 			//parentId = rs.getString("parentId");
@@ -193,6 +244,7 @@ try{
 			WMYR = rs.getString("WMYR");
 			WMOD = rs.getString("WMOD");
 			WMWK = rs.getString("WMWK");
+			WMDEP = rs.getString("WMDEP");
 			CURR_BOD = rs.getString("CURR_BOD");
 			Chart_Data_tmp = new JSONArray();
 			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
@@ -253,6 +305,12 @@ try{
 			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 			Chart_Data_tmp.add(rs.getString("CHART_CLOA"));
 	  		CHART_CLOA.add(Chart_Data_tmp);
+	  		
+	  		CURR_TOC = rs.getString("CURR_TOC");
+	  		Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("CHART_TOC"));
+	  		CHART_TOC.add(Chart_Data_tmp);
 	  		//CHART_CLOA.add(rs.getString("CHART_CLOA"));
 			
 			//System.out.println(String.format("%04.2f", 0.40));
@@ -272,6 +330,7 @@ try{
 	jsonRecord.put("WMYR", WMYR);
 	jsonRecord.put("WMOD", WMOD);
 	jsonRecord.put("WMWK", WMWK);
+	jsonRecord.put("WMDEP", WMDEP);
 	jsonRecord.put("CURR_BOD", CURR_BOD);
 	jsonRecord.put("CHART_BOD", CHART_BOD);
 	jsonRecord.put("CURR_DO", CURR_DO);
@@ -290,6 +349,8 @@ try{
 	jsonRecord.put("CHART_SS", CHART_SS);
 	jsonRecord.put("CURR_CLOA", CURR_CLOA);
 	jsonRecord.put("CHART_CLOA", CHART_CLOA);
+	jsonRecord.put("CURR_TOC", CURR_TOC);
+	jsonRecord.put("CHART_TOC", CHART_TOC);
 
 	jsonArr.add(jsonRecord);
 	
