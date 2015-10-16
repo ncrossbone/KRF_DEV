@@ -129,6 +129,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		
 		// 리치모드 버튼
 		if(el.id == "btnModeReach" || el.id == "btnModeReach_center"){
+			
+			var btn = SetBtnOnOff("btnModeReach_center");
+			if(btn.btnOnOff == "off")
+				SetBtnOnOff("btnModeReach_center");
+			
 			/* 리치 레이어 켜기 */
 	    	if(me.map.getLevel() < 11){
 	    		alert("리치모드는 11레벨 이상이어야 합니다.");
@@ -176,6 +181,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		
 		// 일반모드 버튼
 		if(el.id == "btnModeNomal" || el.id == "btnModeNomal_center"){
+			
+			var btn = SetBtnOnOff("btnModeNormal_center");
+			if(btn.btnOnOff == "off")
+				SetBtnOnOff("btnModeNormal_center");
+			
 			/* 전체 레이어 끄기 */
 	    	var activeLayer = me.map.getLayer("DynamicLayerAdmin_ReachTest");
 	    	if(activeLayer != undefined)
