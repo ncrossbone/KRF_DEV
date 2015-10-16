@@ -158,7 +158,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "23",
-		"text": "수생태계전국단위",
+		"text": "수생태계조사지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer23",
 		"leaf": true,
@@ -306,7 +306,7 @@
 		"checked": true
 	}, {
 		"id": "54",
-		"text": "중권역_2013",
+		"text": "중권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"leaf": true,
 		"checked": false
@@ -430,7 +430,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "79",
-		"text": "총량관리단위유역_",
+		"text": "총량관리단위유역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"leaf": true,
 		"checked": false

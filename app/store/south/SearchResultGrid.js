@@ -8,6 +8,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         'WMYR',
         'WMOD',
         'WMCYMD',
+        'WMDEP',
         {name: 'CURR_BOD', type: 'number'},
         'CHART_BOD',
         {name: 'CURR_DO', type: 'number'},
@@ -25,7 +26,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         {name: 'CURR_SS', type: 'number'},
         'CHART_SS',
         {name: 'CURR_CLOA', type: 'number'},
-        'CHART_CLOA'
+        'CHART_CLOA',
+        {name: 'CURR_TOC', type: 'number'},
+        'CHART_TOC'
     ],
     
     siteId: '',
