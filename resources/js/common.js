@@ -1,6 +1,5 @@
 //  버튼 on/off
-SetBtnOnOff = function(btnId, middle){
-	
+SetBtnOnOff = function(btnId){
 	var currCtl = Ext.getCmp(btnId);
 	var parentCtl = currCtl.findParentByType('container');
 	var items = parentCtl.items.items;
@@ -323,7 +322,7 @@ ChangeTabIndex = function(tabIdx){
 }
 
 // 검색결과창 띄우기
-ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
+ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -350,7 +349,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	};
 	
 	var tabCtl = Ext.getCmp("searchResultTab");
-	
+	console.info(KRF_DEV.getApplication().btnFlag);
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
 	console.info(searchResultTab);
@@ -371,38 +370,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
-	if(grdContainer == null || grdContainer == undefined){
-		grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
-		//searchResultTab.add(grdContainer);
-		tab.add(grdContainer);
-	}
 	
-	tab.setActiveTab(gridId + "_container");
-	
-	console.info(parentIds);
-	console.info(parentIds[0].parentId);
 	if(parentIds[0].parentId == undefined){
 		var parentCheck = parentIds.substring(0,1);
 	}else{
 		var parentCheck = parentIds[0].parentId.substring(0,1);
-		
-	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
-	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-	grdCtl.id = gridId;
+	}	
 	
-	if(siteIds != ""){
-		grdCtl.siteIds = siteIds;
-	}
-	if(parentIds != ""){
-		grdCtl.parentIds = parentIds;
-	}
-
-	gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
-		siteIds: grdCtl.siteIds,
-		parentIds: grdCtl.parentIds
-	});
-	
-	grdCtl.getView().bindStore(gridStore);
 	
 	var hiddenGrid = Ext.getCmp("F_CHANGE");	
 		//var parentCheck = parentIds.substring(0.1);  
@@ -457,11 +431,17 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 			
 			tab.add(grdContainer);
 		}
+		console.info(grdContainer);
 		
 		
 		//console.info(test);
-		var ResultGrid_F = Ext.getCmp("ResultGrid_F");
-		//console.info(ResultGrid_F);
+		var ResultGrid_F = Ext.getCmp(gridId + "_container");
+		
+		//var ResultGrid_F = Ext.getCmp("ResultGrid_F")
+		
+		//tab.setActiveTab(gridId + "_container");
+		
+		console.info(ResultGrid_F);
 		
 		//ResultGrid_F.columns[1].setHidden(true);
 		
@@ -482,33 +462,34 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 		console.info(grdCtl.parentIds)
 		console.info(grdCtl.siteIds);
 		console.info(test);
+		console.info(grdCtl);
 		if(test == "" ||test == "1" || test == "관거이송량"){
 			test = "";
-			ResultGrid_F.columns[3].setHidden(false);
-			ResultGrid_F.columns[4].setHidden(false);
-			ResultGrid_F.columns[13].setHidden(false);
-			ResultGrid_F.columns[14].setHidden(false);
-			ResultGrid_F.columns[27].setHidden(false);
-			ResultGrid_F.columns[28].setHidden(false);
-			ResultGrid_F.columns[29].setHidden(false);
+			grdCtl.columns[3].setHidden(false);
+			grdCtl.columns[4].setHidden(false);
+			grdCtl.columns[13].setHidden(false);
+			grdCtl.columns[14].setHidden(false);
+			grdCtl.columns[27].setHidden(false);
+			grdCtl.columns[28].setHidden(false);
+			grdCtl.columns[29].setHidden(false);
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
-			ResultGrid_F.columns[6].setHidden(false);
-			ResultGrid_F.columns[7].setHidden(false);
-			ResultGrid_F.columns[8].setHidden(false);
-			ResultGrid_F.columns[9].setHidden(false);
-			ResultGrid_F.columns[10].setHidden(false);
-			ResultGrid_F.columns[11].setHidden(false);
-			ResultGrid_F.columns[12].setHidden(false);
-			ResultGrid_F.columns[30].setHidden(false);
-			ResultGrid_F.columns[31].setHidden(false);
+			grdCtl.columns[6].setHidden(false);
+			grdCtl.columns[7].setHidden(false);
+			grdCtl.columns[8].setHidden(false);
+			grdCtl.columns[9].setHidden(false);
+			grdCtl.columns[10].setHidden(false);
+			grdCtl.columns[11].setHidden(false);
+			grdCtl.columns[12].setHidden(false);
+			grdCtl.columns[30].setHidden(false);
+			grdCtl.columns[31].setHidden(false);
 		}else if(test == "3"){
-			ResultGrid_F.columns[5].setHidden(false);
-			ResultGrid_F.columns[13].setHidden(false);
-			ResultGrid_F.columns[14].setHidden(false);
+			grdCtl.columns[5].setHidden(false);
+			grdCtl.columns[13].setHidden(false);
+			grdCtl.columns[14].setHidden(false);
 		}else{
-			ResultGrid_F.columns[3].setHidden(false);
-			ResultGrid_F.columns[13].setHidden(false);
-			ResultGrid_F.columns[14].setHidden(false);
+			grdCtl.columns[3].setHidden(false);
+			grdCtl.columns[13].setHidden(false);
+			grdCtl.columns[14].setHidden(false);
 		}
 		console.info(test);
 		

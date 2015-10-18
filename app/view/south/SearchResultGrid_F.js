@@ -20,7 +20,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 			//id: this.up('container').up('container'),
 			plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
-			id : 'ResultGrid_F',
+			//id : 'ResultGrid_F',
 			height: 215,
 			siteIds: "",
 			parentIds: [],

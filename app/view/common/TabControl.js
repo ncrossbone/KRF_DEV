@@ -120,6 +120,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							}
 							console.info(gridCtl.parentIds[0].parentId);
 							console.info(gridCtl.siteIds);
+							KRF_DEV.getApplication().btnFlag = "date";
 							ShowSearchResult(gridCtl.siteIds, parentId, "기간검색이상해요..", gridCtl.id, fName.value);
 						}
 					}
