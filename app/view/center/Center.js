@@ -9,6 +9,31 @@ Ext.define('KEF_DEV.view.center.Center', {
 	
 	cls: 'khLee-x-header',
 	
+	header: {
+		items: [{ 
+			xtype: 'image',
+			id: 'btnModeNormal_center',
+			groupId: 'grpMode',
+	    	title: '일반모드',
+	    	listeners: { el: { click: 'onClickNormalMode' } },
+	    	btnOnOff: 'on',
+	    	btnOnImg: './resources/images/button/btn_nor_on.png',
+	    	btnOffImg: './resources/images/button/btn_nor_off.png',
+	    	src: './resources/images/button/btn_nor_on.png'
+	    }, { 
+			xtype: 'image',
+			id: 'btnModeReach_center',
+			groupId: 'grpMode',
+	    	title: '리치모드',
+	    	listeners: { el: { click: 'onClickReachMode' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/btn_reach_on.png',
+	    	btnOffImg: './resources/images/button/btn_reach_off.png',
+	    	src: './resources/images/button/btn_reach_off.png'
+	    }]
+	},
+	
+	/*
 	tools: [{ 
 		xtype: 'image',
 		id: 'btnModeNormal_center',
@@ -44,7 +69,7 @@ Ext.define('KEF_DEV.view.center.Center', {
     			this.setType('up');
     		}
     	}
-    }],
+    }],*/
 	
 	xtype: 'app-default-center',
 	
@@ -54,9 +79,12 @@ Ext.define('KEF_DEV.view.center.Center', {
 	
 	items: [{
 		xtype: 'app-map-coreMap',
+		//id: 'map_container',
 		//region: 'center',
-		width: 2000,
-		height: 1000
+		width: 2200,
+		height: 1000,
+		x: -378,
+		y: -80
 	}],
 	
 	

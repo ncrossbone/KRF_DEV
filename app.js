@@ -3,6 +3,7 @@ var _serviceUrl = null;
 var _mapServiceUrl = null; // 리치 맵 서비스 
 var _mapServiceUrl_reachtest = null; // 시연용 테스트 맵 서비스
 var _mapServiceUrl_dim = null; // dim처리 맵 서비스
+var _reachFlowLayerId = null; // 리치흐름 레이어 아이디
 var _reachNodeLayerId = null; // 리치노드 레이어 아이디
 var _reachLineLayerId = null; // 리치라인 레이어 아이디
 var _reachAreaLayerId = null; // 집수구역 레이어 아이디
@@ -44,6 +45,7 @@ store.load(function(a, b, c){
 		_mapServiceUrl = record.data.reachServiceUrl;
 		_mapServiceUrl_reachtest = record.data.reachTestServiceUrl;
 		_mapServiceUrl_dim = record.data.dimServiceUrl;
+		_reachFlowLayerId = record.data.reachFlowLayerId;
 		_reachNodeLayerId = record.data.reachNodeLayerId;
 		_reachLineLayerId = record.data.reachLineLayerId;
 		_reachAreaLayerId = record.data.reachAreaLayerId;

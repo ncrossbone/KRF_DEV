@@ -31,10 +31,12 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		    //"xoffset": 10,
 		    //"yoffset": 35,
 		    "type": "esriPMS",
-		    "url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+		    "url": "./resources/images/symbol/spot_01.png",
 		    "contentType": "image/gif",
-		    "width": 48,
-		    "height": 48
+		    "width": 20,
+		    "height": 19,
+		    "yoffset": 19
 		});
 		
 		var renderer = new esri.renderer.SimpleRenderer(selectedSymbol);
@@ -59,7 +61,8 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			var x = me.layer.graphics[0].geometry.x;
 			var y = me.layer.graphics[0].geometry.y;
 			var point = new esri.geometry.Point(x, y, me.layer.graphics[0].geometry.spatialReference)
-			me.map.centerAndZoom(point, 12);
+			//me.map.centerAndZoom(point, 12);
+			me.map.centerAt(point);
 		}, 1000, this);
 		
 		

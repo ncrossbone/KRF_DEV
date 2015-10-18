@@ -214,8 +214,8 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		
 	    		//extent.xmin = extent.xmin + 20000;
 	    		//extent.xmax = extent.xmax + 20000;
-	    		extent.xmin = extent.xmin + (extent.xmax/2 - extent.xmin/2);
-	    		extent.xmax = extent.xmax + (extent.xmax/2 - extent.xmin/2);
+	    		//extent.xmin = extent.xmin + (extent.xmax/2 - extent.xmin/2);
+	    		//extent.xmax = extent.xmax + (extent.xmax/2 - extent.xmin/2);
 	    		//extent.ymin = extent.ymin - 6000;
 	    		//extent.ymax = extent.ymax - 6000;
 	    		//extent.ymin = extent.ymin - (extent.ymax/2 - extent.ymin/2);

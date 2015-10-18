@@ -19,15 +19,15 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	},
 	
 	width: 400,
-	height: 300,
+	height: 305,
 
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',
-		y: 8,
 		rootVisible:false,
 		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
 		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
+		cls: 'khLee-x-grid-cell',
 		columns: [{
             xtype: 'treecolumn', //this is so we know which column will show the tree
             text: '지점',

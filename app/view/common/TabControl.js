@@ -202,7 +202,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		xtype: 'tabpanel',
 		//id: 'tabControl',
 		//title: 'tab1',
-		header: false
+		style: 'background-color: #157fcb;',
+		//header: false
+		cls: 'khLee-tab-active khLee-tab-unselectable'
 	}]
 		
 });
