@@ -100,15 +100,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "\"expanded\": true, \n";
 					jsonStr += "\"children\":  \n";
 				jsonStr += "[\n";
-				
-<<<<<<< HEAD
-				Ext.each(result, function(objLayer, idx, objLayers){
-=======
+
 				var groupCnt = 0;
 				var layerCnt = 0;
 				
 				Ext.each(result, function(objLayer, idx, objLayers){
->>>>>>> 3250973b89a79b9b3672de32f991beab7fe07647
+
 					var preGubun = "";
 					var groupGubun ="";
 					var cnt = 0;
@@ -157,12 +154,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "\n]}, ";
 									cnt = i;
 								}
-<<<<<<< HEAD
-=======
-								
+
 								jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
 								layerCnt = 0; // 레이어 카운트 초기화
->>>>>>> 3250973b89a79b9b3672de32f991beab7fe07647
 							}
 							
 							jsonStr += "{\n";

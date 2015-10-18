@@ -245,12 +245,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				labelAlign: 'right'
 			}]
 		},  {
-<<<<<<< HEAD
-	        xtype: 'cartesian', //cartesian
-=======
 	        //xtype: 'chart',
 			xtype: 'cartesian',
->>>>>>> 3250973b89a79b9b3672de32f991beab7fe07647
 	        id: 'siteCharttest',
 	        width: '95%',
 	        height: 250,
@@ -299,14 +295,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            axis: 'left',
 	            xField: 'yearMonth',
 	            yField: 'ITEM_BOD',
-<<<<<<< HEAD
-//	            markerConfig: {
-//	                type: "circle",
-//	                size: 4,
-//	                radius: 4,
-//	                "stroke-width": 0
-//	            },
-=======
 	            /*
 	            markerConfig: {
 	                type: "circle",
@@ -314,7 +302,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                radius: 4,
 	                "stroke-width": 0
 	            },*/
->>>>>>> 3250973b89a79b9b3672de32f991beab7fe07647
 	            marker: true,
 	            tips: {
 	                trackMouse: true,

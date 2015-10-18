@@ -23,6 +23,7 @@ try{
 	String d = request.getParameter("recordMonth2");
 	
 	String defaultChart = request.getParameter("defaultChart");
+	//out.print(defaultChart);
 	
 sql = "   WITH TMP_TBL AS                                                               																												";	                                                                                                                                                             
 sql += " (SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY C.WMCYMD DESC) RN                                                                    ";
@@ -40,8 +41,29 @@ sql += "      , B.ITEM_SS                                                       
 sql += "      , B.ITEM_CLOA                                                                                                                     ";
 sql += "      , A.ADMCODE                                                                                                                       ";
 sql += "   FROM RWMPT A                                                                                                                         ";
-sql += "      , RWMDTI B                                                                                                                        ";
-sql += "      , RWMDTD C                                                                                                                        ";
+sql += " , (SELECT PT_NO																								" ;	 	
+sql += "             , WMYR                                           " ;   
+sql += "             , WMOD                                           " ;   
+sql += "             , WMCD||'회차' AS WMWK                           " ;   
+sql += "             , MAX(DECODE(ITCD,'1052',WMVL)) AS ITEM_BOD      " ;   
+sql += "             , MAX(DECODE(ITCD,'1054',WMVL)) AS ITEM_DOC      " ;   
+sql += "             , MAX(DECODE(ITCD,'1049',WMVL)) AS ITEM_COD      " ;   
+sql += "             , MAX(DECODE(ITCD,'1055',WMVL)) AS ITEM_TN       " ;   
+sql += "             , MAX(DECODE(ITCD,'1056',WMVL)) AS ITEM_TP       " ;   
+sql += "             , MAX(DECODE(ITCD,'1060',WMVL)) AS ITEM_TEMP     " ;   
+sql += "             , MAX(DECODE(ITCD,'1039',WMVL)) AS ITEM_PH       " ;   
+sql += "             , MAX(DECODE(ITCD,'1053',WMVL)) AS ITEM_SS       " ;   
+sql += "             , MAX(DECODE(ITCD,'1063',WMVL)) AS ITEM_CLOA     " ;   
+sql += "          FROM TW_RWMDT                                       " ;   
+sql += "         GROUP BY PT_NO, WMYR, WMOD, WMCD                     " ;   
+sql += "       ) B                                                    " ;                                                           
+sql += "     , (SELECT DISTINCT PT_NO                                 " ;   
+sql += "             , WMYR                                           " ;   
+sql += "             , WMOD                                           " ;   
+sql += "             , SUBSTR(WMWK,1,1)||'회차' AS WMWK               " ;   
+sql += "             , WMCYMD                                         " ;   
+sql += "          FROM RWMDTD                                         " ;   
+sql += "       ) C                                                    " ;   
 sql += "  WHERE A.PT_NO = B.PT_NO                                                                                                               ";
 sql += "    AND A.PT_NO = C.PT_NO                                                                                                               ";
 sql += "    AND B.WMYR  = C.WMYR                                                                                                                ";
@@ -50,7 +72,7 @@ sql += "    AND B.WMWK  = C.WMWK                                                
 sql += "    AND C.WMCYMD IS NOT NULL                                                                                                            ";
 sql += "    and A.pt_no ='"+recordId+"'                                                                                                         ";
 sql += "    and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('"+a+"."+c+"', 'YYYY.MM') and to_date('"+b+"."+d+"', 'YYYY.MM')     ";
-if(defaultChart == "1"){
+if(defaultChart.equals("1")){
 	sql += "    ORDER BY WMYR asc , wmod asc                                                                                                      ";	
 }else{
 	sql += "    ORDER BY WMYR desc , wmod desc                                                                                                      ";
@@ -58,7 +80,7 @@ if(defaultChart == "1"){
 sql += "     )                                                                                                                                  ";
 sql += "    SELECT *                                                                                                                            ";
 
-if(defaultChart == "1"){
+if(defaultChart.equals("1")){
 	sql += "   FROM (SELECT *                                                                                                                       ";
 	sql += "           FROM TMP_TBL                                                                                                                 ";
 	sql += "          WHERE ROWNUM <= 10                                                                                                            ";
