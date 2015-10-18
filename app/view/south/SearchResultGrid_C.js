@@ -14,11 +14,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 		xtype: 'container',
 		width: '100%',
 		height: '100%',
-		listeners: {
-			function(){
-				console.info(this);
-			}
-		},
 		items: [{
 			xtype: 'grid',
 			//id: 'grdSearchResult',
