@@ -1,6 +1,7 @@
 Ext.define('KRF_DEV.view.east.ChartPanel', {
     extend: 'Ext.panel.Panel',
     xtype: 'east-chartpanel',
+    
     id: 'chartPanel',
     //renderTo: Ext.getBody(),
     title: '차트정보',
@@ -193,7 +194,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 			labelWidth: 60,
 			labelAlign: 'right'
 		},  {
-	        xtype: 'chart',
+	        xtype: 'cartesian', //cartesian
 	        id: 'siteCharttest',
 	        width: '95%',
 	        height: 230,
@@ -207,8 +208,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        insetPadding: 10,
 	       
 	        axes: [{
-	            type: 'Numeric',
-	            fields: 'ITEM_BOD',
+	            type: 'numeric',
+	            //fields: 'ITEM_BOD',
 	            position: 'left',
 	            grid: true,
 	            majorTickSteps: 1,
@@ -218,8 +219,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            }*/
 	            
 	        }, {
-	            type: 'Category',
-	            fields: 'yearMonth',
+	            type: 'category',
+	            //fields: 'yearMonth',
 	            position: 'bottom',
 	            grid: true,
 	            majorTickSteps: 1,
@@ -229,18 +230,26 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                }
 	            }
 	        }],
+	        
+//	        type: 'line',
+//	        xField: 'OBJECTID',
+//	        yField: info[member]['index'],
+//	        title:info[member]['text'],
+//	        marker: true
+	        
 	        series: [{
 	        	text: 'month',
 	            type: 'line',
 	            axis: 'left',
-	            xField: 'month',
+	            xField: 'yearMonth',
 	            yField: 'ITEM_BOD',
-	            markerConfig: {
-	                type: "circle",
-	                size: 4,
-	                radius: 4,
-	                "stroke-width": 0
-	            },
+//	            markerConfig: {
+//	                type: "circle",
+//	                size: 4,
+//	                radius: 4,
+//	                "stroke-width": 0
+//	            },
+	            marker: true,
 	            tips: {
 	                trackMouse: true,
 	                style: 'background: #FFF',

@@ -107,7 +107,8 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
         			//console.info(jsonData.data);
-        			store.setData(jsonData.data);
+        			//store.setData(jsonData.data);
+        			store.loadData(jsonData.data);
         			var chart = Ext.getCmp("siteCharttest");
         			console.info(chart);
         			//chart.setupGrid();

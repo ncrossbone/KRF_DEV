@@ -1,6 +1,12 @@
 Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
     extend: 'Ext.window.Window',
     xtype: 'east-windowsitenchart',
+    
+ requires : [
+	            
+	    		'Ext.chart.*'
+	    		],
+	    		
     id: 'windowSiteNChart',
     //renderTo: Ext.getBody(),
     //title: 'window',
