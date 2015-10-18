@@ -31,10 +31,12 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		    //"xoffset": 10,
 		    //"yoffset": 35,
 		    "type": "esriPMS",
-		    "url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+		    "url": "./resources/images/symbol/spot_01.png",
 		    "contentType": "image/gif",
-		    "width": 48,
-		    "height": 48
+		    "width": 20,
+		    "height": 19,
+		    "yoffset": 19
 		});
 		
 		var renderer = new esri.renderer.SimpleRenderer(selectedSymbol);

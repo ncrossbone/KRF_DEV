@@ -45,7 +45,8 @@
      *      ]
      */
     "requires": [
-    	"ext-charts"
+    	//"ext-charts"
+    	"sencha-charts"
     ],
 
     /**

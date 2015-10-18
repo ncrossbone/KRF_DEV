@@ -22,9 +22,9 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 				
 				//console.info(store.parentId);
 				
-				if(store.layerId == '53'){ idColumn = "WS_CD"; nameColumn = "대권역"; whereStr = "1=1"; }
-				if(store.layerId == '54'){ idColumn = "MW_CODE"; nameColumn = "MW_NAME"; whereStr = "WS_CD = '" + store.parentId + "'"; }
-				if(store.layerId == '55'){ idColumn = "SW_CODE"; nameColumn = "SW_NAME"; whereStr = "MBSNCD = '" + store.parentId + "'"; }
+				if(store.layerId == '54'){ idColumn = "WS_CD"; nameColumn = "대권역"; whereStr = "1=1"; }
+				if(store.layerId == '55'){ idColumn = "MW_CODE"; nameColumn = "MW_NAME"; whereStr = "WS_CD = '" + store.parentId + "'"; }
+				if(store.layerId == '56'){ idColumn = "SW_CODE"; nameColumn = "SW_NAME"; whereStr = "MBSNCD = '" + store.parentId + "'"; }
 				
 				//if(store.layerId == '54' || store.layerId == '55'){ pId = store.parentId; }
 				

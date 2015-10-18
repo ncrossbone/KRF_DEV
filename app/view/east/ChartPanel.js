@@ -152,9 +152,9 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 												el: {
 													click: function(){
 														var chartCtl = Ext.getCmp("siteCharttest");
-														
-														var axes   = chartCtl.axes.items[0];
-														var series = chartCtl.series.items[0];
+														console.info(chartCtl);
+														var axes   = chartCtl.axes[0];
+														var series = chartCtl.series[0];
 														
 														//item 선택
 														var selectItem = Ext.getCmp("selectItem");
@@ -243,10 +243,11 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				labelAlign: 'right'
 			}]
 		},  {
-	        xtype: 'chart',
+	        //xtype: 'chart',
+			xtype: 'cartesian',
 	        id: 'siteCharttest',
 	        width: '95%',
-	        height: 270,
+	        height: 250,
 	        padding: '10 0 0 0',
 	        style: {
 	            'background' : '#fff'
@@ -257,8 +258,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        insetPadding: 10,
 	       
 	        axes: [{
-	            type: 'Numeric',
-	            fields: 'ITEM_BOD',
+	            type: 'numeric',
+	            //fields: 'ITEM_BOD',
 	            position: 'left',
 	            grid: true,
 	            majorTickSteps: 1,
@@ -268,8 +269,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            }*/
 	            
 	        }, {
-	            type: 'Category',
-	            fields: 'yearMonth',
+	            type: 'category',
+	            //fields: 'yearMonth',
 	            position: 'bottom',
 	            grid: true,
 	            majorTickSteps: 1,
@@ -285,12 +286,14 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            axis: 'left',
 	            xField: 'month',
 	            yField: 'ITEM_BOD',
+	            /*
 	            markerConfig: {
 	                type: "circle",
 	                size: 4,
 	                radius: 4,
 	                "stroke-width": 0
-	            },
+	            },*/
+	            marker: true,
 	            tips: {
 	                trackMouse: true,
 	                style: 'background: #FFF',
