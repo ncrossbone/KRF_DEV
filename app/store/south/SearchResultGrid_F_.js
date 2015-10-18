@@ -5,7 +5,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
     fields: [
         'FACI_CD',
         'FACI_NM',
-        //{name: 'WORK_DT_VAL', type: 'number'},
         'WORK_DT_VAL',
         'WORK_DT_GRAPH',
         {name: 'PIPE_NUM', type: 'number'},

@@ -104,6 +104,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				listeners: {
 					el: {
 						click: function(){
+							var fName = Ext.getCmp("F_CHANGE");
 							var tabCtl = Ext.getCmp("searchResultTab");
 							console.info(tabCtl);
 							tabCtl = tabCtl.items.items[1];
@@ -111,8 +112,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							console.info(activeTab);
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
+							console.info(gridCtl);
+							if(gridCtl.parentIds[0].parentId == undefined){
+								var parentId =  gridCtl.parentIds
+							}else{
+								var parentId = gridCtl.parentIds[0].parentId
+							}
+							console.info(gridCtl.parentIds[0].parentId);
 							console.info(gridCtl.siteIds);
-							ShowSearchResult(gridCtl.siteIds, gridCtl.parentId, "기간검색이상해요..", gridCtl.id,"");
+							ShowSearchResult(gridCtl.siteIds, parentId, "기간검색이상해요..", gridCtl.id, fName.value);
 						}
 					}
 				}
@@ -132,6 +140,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				value: '관거이송량',
 				width: 85,
 				height: 19,
+				hidden: true,
 				style: 'cursor:pointer;border:0px !important;',
 				listeners: {
 					change: function(){
@@ -144,8 +153,14 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						console.info(activeTab);
 						var gridContainer = activeTab.items.items[0];
 						var gridCtl = gridContainer.items.items[0];
+						if(gridCtl.parentIds[0].parentId == undefined){
+							var parentId =  gridCtl.parentIds
+						}else{
+							var parentId = gridCtl.parentIds[0].parentId
+						}
+						console.info(gridCtl);
 						console.info(gridCtl.siteIds);
-						ShowSearchResult(gridCtl.siteIds, gridCtl.parentId, "", gridCtl.id,fName.value);
+						ShowSearchResult(gridCtl.siteIds, parentId, "", gridCtl.id,fName.value);
 					}
 				}
 			
