@@ -85,30 +85,62 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	var treeCtl = Ext.getCmp("siteListTree");
             	var siteIds = "";
             	var parentId = "";
-            	var gridId = "grid_" + record.data.id;;
+            	//var gridId = "grid_" + record.data.id;
             	
             	var me = this.findParentByType("window");
-            	me.setSiteIds(record, true);
-            	//console.info(me.parentIds);
+            	console.info(record);
+            	if(record.id.length == 1){
+            		var childRecord = record.childNodes;
+            		for(var i = 0; i < childRecord.length; i++){
+            			var gridId = "grid_" + childRecord[i].data.id;
+            			me.setSiteIds(childRecord[i], true);
+                    	//console.info(me.parentIds);
 
-            	//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
-            		
-            		// 버튼 On/Off
-    				currCtl = Ext.getCmp("btnSearchResult");
-    				if(currCtl.btnOnOff == "off"){
-    					SetBtnOnOff("btnSearchResult");
-    				}
-    				
-    				var pNm = me.parentIds[0].parentId;
-    				
-    				pNm = pNm.substring(0,1);
-    				console.info(pNm);
-    				
-    				
-    				// 검색결과창 띄우기
-    				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
-            		
-            	//}
+                    	//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
+                    		
+                    		// 버튼 On/Off
+            				currCtl = Ext.getCmp("btnSearchResult");
+            				if(currCtl.btnOnOff == "off"){
+            					SetBtnOnOff("btnSearchResult");
+            				}
+            				
+            				var pNm = me.parentIds[0].parentId;
+            				
+            				pNm = pNm.substring(0,1);
+            				console.info(pNm);
+            				
+            				
+            				// 검색결과창 띄우기
+            				ShowSearchResult(me.siteIds, me.parentIds, childRecord[i].data.text, gridId , "");
+                    		
+                    	//}
+            		}
+            	}
+            	else{
+            		var gridId = "grid_" + record.data.id;
+            		me.setSiteIds(record, true);
+                	//console.info(me.parentIds);
+
+                	//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
+                		
+                		// 버튼 On/Off
+        				currCtl = Ext.getCmp("btnSearchResult");
+        				if(currCtl.btnOnOff == "off"){
+        					SetBtnOnOff("btnSearchResult");
+        				}
+        				
+        				var pNm = me.parentIds[0].parentId;
+        				
+        				pNm = pNm.substring(0,1);
+        				console.info(pNm);
+        				
+        				
+        				// 검색결과창 띄우기
+        				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
+                		
+                	//}
+            	}
+            	
             },
         }]
 	}],

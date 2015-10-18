@@ -187,7 +187,8 @@ try{
 		
 		cnt++;
 		
-		if(!preSeq.equals("") && !preSeq.equals(rs.getString("RN"))){
+		if((!preSeq.equals("") && !preSeq.equals(rs.getString("RN")))
+				|| (!PT_NO.equals("") && !PT_NO.equals(rs.getString("PT_NO")))){
 			
 			cnt = 1;
 			

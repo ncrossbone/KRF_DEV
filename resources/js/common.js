@@ -341,6 +341,9 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	var searchResultWindow = this.GetWindowControl(options);
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
 	centerContainer.add(searchResultWindow.show()); // window 보이기
+	//console.info(gridId);
+	if(gridId == undefined)
+		return;
 	
 	options = {
 			id: 'searchResultTab',

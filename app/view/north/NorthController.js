@@ -63,13 +63,36 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	onClickReset: function(obj, el, evt){
 		
 		// 버튼 On/Off
-		//var currCtl = SetBtnOnOff(el.id);
+		var currCtl = SetBtnOnOff(el.id);
+//		
+//		var me = GetCoreMap();
+//		// 리치 선택 종료
+//		me.reachLayerAdmin.drawEnd();
+//		// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
+//		me.reachLayerAdmin.clearGraphicsLayer("reset");
 		
 		var me = GetCoreMap();
-		// 리치 선택 종료
-		me.reachLayerAdmin.drawEnd();
-		// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
-		me.reachLayerAdmin.clearGraphicsLayer("reset");
+		var activeLayer = me.map.getLayer("DynamicLayer1");
+    	console.info(activeLayer);
+    	var layers = activeLayer.visibleLayers;
+    	var visibleLayer = [];
+    	activeLayer.setVisibleLayers([]);
+    	
+    	for(var i = 0; i < layers.length; i++){
+    		//console.info(layers[i]);
+			if(layers[i] != 45 && layers[i] != 44){
+				visibleLayer.push(layers[i]);
+			}
+    	}
+    	
+		if(currCtl.btnOnOff == "on"){
+			visibleLayer.push(45);
+	    	activeLayer.setVisibleLayers(visibleLayer);
+		}
+		else{
+			//console.info(visibleLayer);
+			activeLayer.setVisibleLayers(visibleLayer);
+		}
 		
 	}
 });
