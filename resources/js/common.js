@@ -353,12 +353,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-<<<<<<< HEAD
-
-=======
 	console.info(searchResultTab);
 	
->>>>>>> dcc4d3879d202196623ce089a2a6baadd3323686
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
@@ -383,21 +379,19 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	
 	tab.setActiveTab(gridId + "_container");
 	
-<<<<<<< HEAD
 	console.info(parentIds);
 	console.info(parentIds[0].parentId);
 	if(parentIds[0].parentId == undefined){
 		var parentCheck = parentIds.substring(0,1);
 	}else{
 		var parentCheck = parentIds[0].parentId.substring(0,1);
-=======
+		
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 	grdCtl.id = gridId;
 	
 	if(siteIds != ""){
 		grdCtl.siteIds = siteIds;
->>>>>>> dcc4d3879d202196623ce089a2a6baadd3323686
 	}
 	if(parentIds != ""){
 		grdCtl.parentIds = parentIds;
@@ -410,7 +404,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 	
 	grdCtl.getView().bindStore(gridStore);
 	
-<<<<<<< HEAD
 	var hiddenGrid = Ext.getCmp("F_CHANGE");	
 		//var parentCheck = parentIds.substring(0.1);  
 	
@@ -560,16 +553,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId){
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
-		
-=======
-	
-	//var store = grdCtl.getStore();
-	//var store = Ext.create('KRF_DEV.store.south.SearchResultGrid');
-	//store.load();
-	//grdCtl.setStore(store);
-	//alert("ss");
-	//console.info(store.data);
->>>>>>> dcc4d3879d202196623ce089a2a6baadd3323686
 	
 	}
 }
