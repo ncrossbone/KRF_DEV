@@ -579,12 +579,21 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			var looRchId = feature.attributes.LOO_RCH_ID;
 			var catId = feature.attributes.CAT_ID;
 			
-			/*
+			if(me.isAMDraw == true){
+				// 시작위치로 설정된 집수구역 중권역 설정
+				AM_CD = catId.substring(0, 4);
+				//console.info(AM_CD);
+				AS_CD = ""; // 소권역은 공백
+			}
+			else{
+				AM_CD = "";
+				AS_CD = "";
+			}
+			
     		console.info("대권역 : " + WS_CD);
     		console.info("중권역 : " + AM_CD);
     		console.info("소권역 : " + AS_CD);
     		console.info("법정동 : " + ADM_CD);
-    		*/
 			
 			// 집수구역 그리기
 			me.currAreaDraw(feature);
@@ -622,11 +631,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			}
 			
 			if(type == "start"){
-				// 시작위치로 설정된 집수구역 중권역 설정
-				//AM_CD = catId.substring(0, 4);
-				//console.info(AM_CD);
-				//AS_CD = ""; // 소권역은 공백
-				
 				//me.amCD_temp = AM_CD;
 				//console.info(me.amCD_temp);
 				// 지점목록 창 띄우기
@@ -1042,6 +1046,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	me = this;
     	me.map.disablePan();
         //me.map.disableMapNavigation();
+    	
+    	me.initSelectToolbar(me, option, btnId);
 
     	require(["esri/toolbars/draw","dojo/i18n!esri/nls/jsapi"], function(Draw, bundle){
     		
@@ -1055,6 +1061,29 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     		me.selectionToolbar.activate(Draw.EXTENT);
     		//me.selectionToolbar.activate(Draw.POINT);
     		//me.selectionToolbar.activate(Draw.CIRCLE);
+    		//me.selectionToolbar.activate("polyline");
+    	});
+    },
+    
+    radiusDraw: function(option, btnId){
+    	me = this;
+    	me.map.disablePan();
+        //me.map.disableMapNavigation();
+    	
+    	me.initSelectToolbar(me, option, btnId);
+
+    	require(["esri/toolbars/draw","dojo/i18n!esri/nls/jsapi"], function(Draw, bundle){
+    		
+    		if(option == "REMOVE"){
+    			bundle.toolbars.draw.addPoint = "제거할 영역을 드래그하세요.";
+    		}
+    		else{
+    			bundle.toolbars.draw.addPoint = "선택할 영역을 드래그하세요.";
+    		}
+    		
+    		//me.selectionToolbar.activate(Draw.EXTENT);
+    		//me.selectionToolbar.activate(Draw.POINT);
+    		me.selectionToolbar.activate(Draw.CIRCLE);
     		//me.selectionToolbar.activate("polyline");
     	});
     },

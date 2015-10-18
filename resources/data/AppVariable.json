@@ -5,15 +5,16 @@
 	"reachTestServiceUrl_bak" : "http://112.218.1.243:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
 	"dimServiceUrl" : "http://112.218.1.243:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
 	"dimServiceUrl_bak" : "http://112.218.1.243:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
-	"reachNodeLayerId" : "45", // 리치노드 레이어 아이디
-	"reachLineLayerId" : "46", // 리치라인 레이어 아이디
-	"reachAreaLayerId" : "47", // 집수구역 레이어 아이디
-	"admSidoLayerId" : "57", // 시/도 레이어 아이디
-	"admSigunguLayerId" : "58", // 시/군/구 레이어 아이디
-	"admDongLayerId" : "59", // 읍/면/동 레이어 아이디
-	"admRiLayerId" : "60", // 리 레이어 아이디
-	"areaWSLayerId" : "53", // 대권역 레이어 아이디
-	"areaAMLayerId" : "54", // 중권역 레이어 아이디
-	"areaASLayerId" : "55", // 소권역 레이어 아이디
-	"siteInfoLayerId" : "84" // 레이어별 지점정보 레이어 아이디
+	"reachFlowLayerId" : "45", // 리치흐름 레이어 아이디
+	"reachNodeLayerId" : "46", // 리치노드 레이어 아이디
+	"reachLineLayerId" : "47", // 리치라인 레이어 아이디
+	"reachAreaLayerId" : "48", // 집수구역 레이어 아이디
+	"admSidoLayerId" : "58", // 시/도 레이어 아이디
+	"admSigunguLayerId" : "59", // 시/군/구 레이어 아이디
+	"admDongLayerId" : "60", // 읍/면/동 레이어 아이디
+	"admRiLayerId" : "61", // 리 레이어 아이디
+	"areaWSLayerId" : "54", // 대권역 레이어 아이디
+	"areaAMLayerId" : "55", // 중권역 레이어 아이디
+	"areaASLayerId" : "56", // 소권역 레이어 아이디
+	"siteInfoLayerId" : "85" // 레이어별 지점정보 레이어 아이디
 }]

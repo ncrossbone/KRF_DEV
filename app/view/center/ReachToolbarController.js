@@ -300,6 +300,48 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			popCtl.hide();
 		
 	},
+	
+	// 드래그 선택 버튼
+	onClickDrag: function(obj, el, evt){
+		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
+		var me = KRF_DEV.getApplication().coreMap;
+		
+		// 리치 선택 종료
+		me.reachLayerAdmin.drawEnd();
+		
+		if(currCtl.btnOnOff == "on"){
+			GetCoreMap().reachLayerAdmin.extentDraw("ADD", el.id);
+		}
+		else{
+			// 리치 선택 종료
+			GetCoreMap().reachLayerAdmin.drawEnd();
+		}
+		
+	},
+	
+	// 반경 선택 버튼
+	onClickRadius: function(obj, el, evt){
+		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
+		var me = KRF_DEV.getApplication().coreMap;
+		
+		// 리치 선택 종료
+		me.reachLayerAdmin.drawEnd();
+		
+		if(currCtl.btnOnOff == "on"){
+			GetCoreMap().reachLayerAdmin.radiusDraw("ADD", el.id);
+		}
+		else{
+			// 리치 선택 종료
+			GetCoreMap().reachLayerAdmin.drawEnd();
+		}
+		
+	},
 
 	onClickButton: function(btn, el, evt) {
 		
@@ -308,9 +350,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		var me = KRF_DEV.getApplication().coreMap;
 		var currCtl = Ext.getCmp(el.id);
-		
-		alert("준비중입니다.");
-		return;
 		
 		// 이미지 셋팅
 		Ext.SetSrc(currCtl);

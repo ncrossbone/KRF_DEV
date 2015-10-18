@@ -46,7 +46,11 @@
      */
     "requires": [
     	//"ext-charts"
+<<<<<<< HEAD
     	 "sencha-charts"
+=======
+    	"sencha-charts"
+>>>>>>> 3250973b89a79b9b3672de32f991beab7fe07647
     ],
 
     /**

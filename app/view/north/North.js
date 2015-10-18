@@ -2,8 +2,8 @@ Ext.define('KRF_DEV.view.north.North', {
 	
 	xtype: 'app-default-north',
 	
-	//extend: 'Ext.panel.Panel',
-	extend: 'Ext.toolbar.Toolbar',
+	extend: 'Ext.panel.Panel',
+	//extend: 'Ext.toolbar.Toolbar',
 	
 	requires: [
 	    'KRF_DEV.view.north.NorthController'
@@ -17,7 +17,8 @@ Ext.define('KRF_DEV.view.north.North', {
 	
 	//padding: 0,
 	
-	cls: 'x-toolbar-default-north-khLee',
+	//cls: 'x-toolbar-default-north-khLee',
+	//style: 'background-image:url(./resources/images/button/top_bg.png) !important;',
 	
 	layout: {
 		type: 'hbox',
@@ -35,7 +36,10 @@ Ext.define('KRF_DEV.view.north.North', {
 		//height: 37,
 		//cls: 'khLee-x-box-item',
 		src: './resources/images/button/top_logo.png'
-	}, '->', { 
+	}, {
+		xtype: 'container',
+		flex: 1
+	}, { 
 		xtype: 'image',
 		id: 'btnReachLayer',
 		layerId: '46',

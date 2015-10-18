@@ -101,7 +101,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "\"children\":  \n";
 				jsonStr += "[\n";
 				
+<<<<<<< HEAD
 				Ext.each(result, function(objLayer, idx, objLayers){
+=======
+				var groupCnt = 0;
+				var layerCnt = 0;
+				
+				Ext.each(result, function(objLayer, idx, objLayers){
+>>>>>>> 3250973b89a79b9b3672de32f991beab7fe07647
 					var preGubun = "";
 					var groupGubun ="";
 					var cnt = 0;
@@ -118,10 +125,17 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								aa = i;
 								jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
 								jsonStr += "\n]}]}, ";
-							}
 								
+								jsonStr = jsonStr.replace("#groupCnt#", groupCnt); // 그룹 카운트 설정
+								groupCnt = 0; // 그룹 카운트 초기화
+							}
+							
+							var queryGroup = new esri.tasks.Query();
+							queryGroup.returnGeometry = false;
+							//var groupCnt = "0";
+							
 							jsonStr += "{	\"id\": \"" + result.features[i].attributes.GROUP_CODE + "\",\n";
-							jsonStr += "	\"text\": \"" + result.features[i].attributes.GROUP_NM + "\",\n";
+							jsonStr += "	\"text\": \"" + result.features[i].attributes.GROUP_NM + "(#groupCnt#)\",\n";
 							jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
 							if(i == 0){
 								jsonStr += "	\"expanded\": true,\n";
@@ -143,11 +157,17 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "\n]}, ";
 									cnt = i;
 								}
+<<<<<<< HEAD
+=======
+								
+								jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
+								layerCnt = 0; // 레이어 카운트 초기화
+>>>>>>> 3250973b89a79b9b3672de32f991beab7fe07647
 							}
 							
 							jsonStr += "{\n";
 							jsonStr += "	\"id\": \"" + result.features[i].attributes.LAYER_CODE + "\",\n";
-							jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "\",\n";
+							jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "(#layerCnt#)\",\n";
 							
 							if(i == 0 ){
 								jsonStr += "	\"expanded\": true,\n"; // 펼치기..
@@ -168,11 +188,17 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "		\"leaf\": true,\n";
 						jsonStr += "		\"checked\": null\n";
 						jsonStr += "	}, ";
+						
+						groupCnt++;
+						layerCnt++;
 					}
 				});
 				
 				jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
 				jsonStr += "]}]}]}";
+				
+				jsonStr = jsonStr.replace("#groupCnt#", groupCnt); // 그룹 카운트 설정
+				jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);

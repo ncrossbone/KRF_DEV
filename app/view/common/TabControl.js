@@ -104,6 +104,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				listeners: {
 					el: {
 						click: function(){
+							var fName = Ext.getCmp("F_CHANGE");
 							var tabCtl = Ext.getCmp("searchResultTab");
 							console.info(tabCtl);
 							tabCtl = tabCtl.items.items[1];
@@ -111,11 +112,60 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							console.info(activeTab);
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
+							console.info(gridCtl);
+							if(gridCtl.parentIds[0].parentId == undefined){
+								var parentId =  gridCtl.parentIds
+							}else{
+								var parentId = gridCtl.parentIds[0].parentId
+							}
+							console.info(gridCtl.parentIds[0].parentId);
 							console.info(gridCtl.siteIds);
-							ShowSearchResult(gridCtl.siteIds, gridCtl.parentId, "기간검색이상해요..", gridCtl.id);
+							KRF_DEV.getApplication().btnFlag = "date";
+							ShowSearchResult(gridCtl.siteIds, parentId, "기간검색이상해요..", gridCtl.id, fName.value);
 						}
 					}
 				}
+			},{
+				xtype: 'combo',
+				id: 'F_CHANGE',
+				valueField: 'id',
+				displayField: 'name',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: '1', name: '관거이송량'}
+						,{id: '2', name: '방류유량'}
+						,{id: '3', name: '직접이송량'}
+						,{id: '4', name: '총유입량'}]
+				}),
+				//store: ['', '관거이송량','방류유량','직접이송량','총유입량'],
+				value: '관거이송량',
+				width: 85,
+				height: 19,
+				hidden: true,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					change: function(){
+						var fName = Ext.getCmp("F_CHANGE");
+						console.info(fName.value);
+						var tabCtl = Ext.getCmp("searchResultTab");
+						console.info(tabCtl);
+						tabCtl = tabCtl.items.items[1];
+						var activeTab = tabCtl.getActiveTab();
+						console.info(activeTab);
+						var gridContainer = activeTab.items.items[0];
+						var gridCtl = gridContainer.items.items[0];
+						if(gridCtl.parentIds[0].parentId == undefined){
+							var parentId =  gridCtl.parentIds
+						}else{
+							var parentId = gridCtl.parentIds[0].parentId
+						}
+						console.info(gridCtl);
+						console.info(gridCtl.siteIds);
+						ShowSearchResult(gridCtl.siteIds, parentId, "", gridCtl.id,fName.value);
+					}
+				}
+			
+					
 			}]
 		}, {
 			xtype: 'image',
@@ -153,7 +203,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		xtype: 'tabpanel',
 		//id: 'tabControl',
 		//title: 'tab1',
-		header: false
+		style: 'background-color: #157fcb;',
+		//header: false
+		cls: 'khLee-tab-active khLee-tab-unselectable'
 	}]
 		
 });
