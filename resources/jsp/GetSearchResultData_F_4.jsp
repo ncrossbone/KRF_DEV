@@ -22,6 +22,7 @@ try{
 	String startMonth = request.getParameter("startMonth");
 	String endYear = request.getParameter("endYear");
 	String endMonth = request.getParameter("endMonth");
+	String firstSearch = request.getParameter("firstSearch");
 	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
@@ -93,9 +94,13 @@ sql = " SELECT 																																																" +
 "    AND A.PIPE_NUM  =  B.PIPE_NUM                                                                            " +
 "    AND A.ADM_CD    =  B.ADM_CD                                                                              " +
 "    AND A.NO BETWEEN B.NO -4 AND B.NO                                                                        " +
-"    AND A.FACI_CD IN (" + siteIds + ")                                                                             " +
-"     AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'                      " +
-"  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                  " ;
+"    AND A.FACI_CD IN (" + siteIds + ")                                                                             " ; 
+if(firstSearch.equals("date")){
+	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               " ;
+}else{
+	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
+}
+sql += "  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                  " ;
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    

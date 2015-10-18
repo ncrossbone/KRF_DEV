@@ -48,6 +48,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 			startMonth = Ext.getCmp("cmbStartMonth").value;
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
+			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			
 			var jsonData = "";
 			var arrData = [];
@@ -56,7 +57,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
         		url: './resources/jsp/GetSearchResultData_F_2.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
+        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {

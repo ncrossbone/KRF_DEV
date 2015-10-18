@@ -30,7 +30,16 @@ try{
 		"	SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */     "+
 		"     , A.PT_NO /* 지점코드 */, A.PT_NM /* 지점명 */, C.WMCYMD /* 측정일자 */                             "+
 		"	 , B.WMYR /* 년 */, B.WMOD /* 월 */                                                                     "+
-		"     , C.WMWK /* 회차 */                                                                                 "+
+		//"     , C.WMWK /* 회차 */                                                                                 "+
+	" CASE WHEN LENGTH(C.WMWK) = '2' THEN																													"+
+	"           CASE WHEN SUBSTR(C.WMWK, -1) = '1' THEN SUBSTR(C.WMWK, 1, 1)||'회차 상층부'       "+
+	"                WHEN SUBSTR(C.WMWK, -1) = '2' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중상층부'     "+
+	"                WHEN SUBSTR(C.WMWK, -1) = '3' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중층부'       "+
+	"                WHEN SUBSTR(C.WMWK, -1) = '4' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중하층부'     "+
+	"                WHEN SUBSTR(C.WMWK, -1) = '5' THEN SUBSTR(C.WMWK, 1, 1)||'회차 상층부'       "+
+	"           END                                                                               "+
+	"      ELSE C.WMWK                                                                            "+
+	"      END AS WMWK/* 회차 -수정-*/,                                                           "+
     "         , C.WMDEP /*수심 -추가-*/                                                                       "+
     "         , B.ITEM_AMNT  /* 유량  */                                                                      "+
 		"     , B.ITEM_BOD /* BOD */                                                                              "+
@@ -80,7 +89,8 @@ try{
     "         , B.ITEM_CHCL3 /* 클로로포름 */                                                                 "+
     "         , B.ITEM_OP /* 유기인 */                                                                        "+
     "         , B.ITEM_PCB /* PCB */                                                                          "+
-    "         , B.ITEM_DEHP /* DEHP */                                                                        "+
+    "         , B.ITEM_DEHP /* DEHP */                                                                        "+  //
+    "         , B.ITEM_DIOX /* 1,4-다이옥세인 - 추가 -*/                                                                        "+
     "         , B.ITEM_HCHO /* 포름알데히드 */                                                                "+
     "         , B.ITEM_HCB /* HCB */                                                                          "+
 		"     , A.ADMCODE /* 법정동코드 */                                                                        "+
