@@ -265,20 +265,20 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 																	
 																	var labelNm = selectItem.lastMutatedValue;
 																	if(labelNm == "BOD"){
-																		labelNm = "BOD(㎎/ℓ)";
+																		labelNm = "BOD(㎎/L)";
 																	}else if(labelNm == "DO"){
 																		labelNm = "DO(㎎/L)";
 																	}else if(labelNm == "COD"){
-																		labelNm = "COD(%)";
+																		labelNm = "COD(㎎/L)";
 																	}else if(labelNm == "T.N"){
-																		labelNm = "T-N(㎎/㎏)";
+																		labelNm = "T-N (㎎/L)";
 																	}else if(labelNm == "T.P"){
-																		labelNm = "T-P(㎎/㎏)";
+																		labelNm = "T-P (㎎/L)";
 																	}else if(labelNm == "수온"){
 																		labelNm = "수온(℃)";
 																	}else if(labelNm == "pH"){
 																		labelNm = "pH";
-																	}else if(labelNm == "S.S"){
+																	}else if(labelNm == "SS"){
 																		labelNm = "SS(㎎/ℓ)";
 																	}else if(labelNm == "클로로필a"){
 																		labelNm = "클로로필a(㎎/㎥)";
