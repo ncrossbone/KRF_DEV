@@ -100,11 +100,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "\"expanded\": true, \n";
 					jsonStr += "\"children\":  \n";
 				jsonStr += "[\n";
-				
+
 				var groupCnt = 0;
 				var layerCnt = 0;
 				
 				Ext.each(result, function(objLayer, idx, objLayers){
+
 					var preGubun = "";
 					var groupGubun ="";
 					var cnt = 0;
@@ -153,7 +154,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "\n]}, ";
 									cnt = i;
 								}
-								
+
 								jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
 								layerCnt = 0; // 레이어 카운트 초기화
 							}

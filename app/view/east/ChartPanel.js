@@ -1,6 +1,7 @@
 Ext.define('KRF_DEV.view.east.ChartPanel', {
     extend: 'Ext.panel.Panel',
     xtype: 'east-chartpanel',
+    
     id: 'chartPanel',
     //renderTo: Ext.getBody(),
     title: '차트정보',
@@ -51,16 +52,17 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						click: function(){
 							
 							//console.info(Ext.getBody().getWidth());
-							var x = Ext.getBody().getWidth() - 350;
+							var x = Ext.getBody().getWidth() -500;
 							
 							var win = Ext.getCmp("datePanel1");
 							
 							if(win == undefined){
 								var win = Ext.create('Ext.window.Window',{
 									id: 'datePanel1',
-							        width : 310,
-							        height : 10,
-							        header: false,
+							        width : 450,
+							        height : 70,
+							        header: true,
+							        title: '기간설정',
 							        x: x,
 							        cls: 'khLee-window-panel-header khLee-x-window-default ',
 							        items: [{
@@ -80,22 +82,22 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 								        	items: [{
 												xtype: 'combo',
 												id : 'selectYear',
-												//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
+												fieldLabel: '<b>년도</b> ',
 												store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
 												value: '2014',
-												/*labelWidth: 30,
-												labelAlign: 'right',*/
-												width: 65,
+												labelWidth: 30,
+												labelAlign: 'left',
+												width: 105,
 												height: 25
 											},{
 												xtype: 'combo',
 												id : 'selectMonth',
-												//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>월</b> ',
+												fieldLabel: '<b>월</b> ',
 												store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 												value: '10',
-												/*labelWidth: 30,
-												labelAlign: 'right',*/
-												width: 50,
+												labelWidth: 20,
+												labelAlign: 'left',
+												width: 85,
 												height: 25
 											}, {
 												xtype: 'label',
@@ -103,22 +105,22 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 											},{
 												xtype: 'combo',
 												id : 'selectYear2',
-												//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
+												fieldLabel: '<b>년도</b> ',
 												store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
 												value: '2015',
-												/*labelWidth: 30,
-												labelAlign: 'right',*/
-												width: 65,
+												labelWidth: 30,
+												labelAlign: 'left',
+												width: 105,
 												height: 25
 											},{
 												xtype: 'combo',
 												id : 'selectMonth2',
-												//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>월</b> ',
+												fieldLabel: '<b>월</b> ',
 												store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 												value: '10',
-												/*labelWidth: 30,
-												labelAlign: 'right',*/
-												width: 50,
+												labelWidth: 20,
+												labelAlign: 'left',
+												width: 85,
 												height: 25
 											},{
 												xtype: 'combo',
@@ -141,7 +143,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 												value: 'ITEM_BOD',
 												/*labelWidth: 60,
 												labelAlign: 'right',*/
-												width: 70,
+												width: 65,
 												height: 25
 											}]
 							        	}, {
@@ -280,11 +282,18 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                }
 	            }
 	        }],
+	        
+//	        type: 'line',
+//	        xField: 'OBJECTID',
+//	        yField: info[member]['index'],
+//	        title:info[member]['text'],
+//	        marker: true
+	        
 	        series: [{
 	        	text: 'month',
 	            type: 'line',
 	            axis: 'left',
-	            xField: 'month',
+	            xField: 'yearMonth',
 	            yField: 'ITEM_BOD',
 	            /*
 	            markerConfig: {

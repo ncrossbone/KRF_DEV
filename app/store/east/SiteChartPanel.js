@@ -45,12 +45,14 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 				defaultChart = '1';
 				recordYear = '2014'
 			}else{
+				defaultChart = '0';
 				recordYear = selectYear.lastValue;
 			}
+			console.info(defaultChart);
 			
 			var recordYear2 = "";
 			if(selectYear2 == undefined){
-				defaultChart = '0';
+				//defaultChart = '0';
 				recordYear2 = '2015'
 			}else{
 				recordYear2 = selectYear2.lastValue;
@@ -99,6 +101,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			, recordYear2: recordYear2
         			, recordMonth: recordMonth
         			, recordMonth2: recordMonth2
+        			, defaultChart: defaultChart
         			},
         		async: false, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
@@ -107,7 +110,8 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
         			//console.info(jsonData.data);
-        			store.setData(jsonData.data);
+        			//store.setData(jsonData.data);
+        			store.loadData(jsonData.data);
         			var chart = Ext.getCmp("siteCharttest");
         			console.info(chart);
         			//chart.setupGrid();
