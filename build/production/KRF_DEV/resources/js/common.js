@@ -217,7 +217,9 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 		});
 	}
 	
+	
 	winCtl.show();
+	
 
 	var winX = Ext.getBody().getViewSize().width - winCtl.width;
 	var winY = 98;
@@ -263,14 +265,20 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	
 	
 	
-	var siteinfoCtl = Ext.getCmp("siteinfotest");  //
+	var siteinfoCtl = Ext.getCmp("siteinfotest");  //selectItemButton
 	var siteChartCtl = Ext.getCmp("siteCharttest");
 	var siteText = Ext.getCmp("selectName");
 	siteText.setText(test);
 	
+	//console.info(Ext.getCmp("selectItem"));
+	
+	
 	if(siteinfoCtl != undefined){
 		var store = siteinfoCtl.getStore();
 		var chartStore = siteChartCtl.getStore();
+		
+		
+		
 		
 		store.siteCD = title;
 		chartStore.siteCD = title;
