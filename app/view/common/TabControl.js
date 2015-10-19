@@ -205,7 +205,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		//title: 'tab1',
 		style: 'background-color: #157fcb;',
 		//header: false
-		cls: 'khLee-tab-active khLee-tab-unselectable'
+		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab'
 	}]
 		
 });

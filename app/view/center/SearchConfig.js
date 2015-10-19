@@ -71,7 +71,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
     	}, {
     		xtype: 'panel',
     		title: {
-    			text: '영향권역경계기준',
+    			text: '경계기준선택',
     			style: 'color: #000;'
     		},
     		header: {

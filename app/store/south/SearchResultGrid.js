@@ -34,6 +34,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
     siteId: '',
     
     autoLoad: true,
+    
+    buffered: true, // 버퍼드 스토어 지정
+    pageSize: 100,
 
 	remoteSort: true,
 	
@@ -45,10 +48,18 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
-			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartMonth").value;
-			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndMonth").value;
+			var sYearCtl = Ext.getCmp("cmbStartYear");
+			if(sYearCtl != undefined)
+				startYear = Ext.getCmp("cmbStartYear").value;
+			var sMonthCtl = Ext.getCmp("cmbStartMonth");
+			if(sMonthCtl != undefined)
+				startMonth = Ext.getCmp("cmbStartMonth").value;
+			var eYearCtl = Ext.getCmp("cmbEndYear");
+			if(eYearCtl != undefined)
+				endYear = Ext.getCmp("cmbEndYear").value;
+			var eMonthCtl = Ext.getCmp("cmbEndMonth");
+			if(eMonthCtl != undefined)
+				endMonth = Ext.getCmp("cmbEndMonth").value;
 			
 			var jsonData = "";
 			var arrData = [];

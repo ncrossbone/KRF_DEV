@@ -73,9 +73,9 @@ Ext.application({
     autoCreateViewport: 'KRF_DEV.view.main.Main',
     
     stores: [
-        'KRF_DEV.store.south.PrototypeGrid',
+        /*'KRF_DEV.store.south.PrototypeGrid',
         'KRF_DEV.store.east.SiteInfoPanel',
-        'KRF_DEV.store.south.SearchResultGrid'
+        'KRF_DEV.store.south.SearchResultGrid'*/
  		/*'KRF_DEV.store.dev_test.GridStoreTest',
  		'KRF_DEV.store.dev_test.WestTabLayerStore',
  		'KRF_DEV.store.west.WestTabSearch_ADM_GRID'*/
@@ -83,10 +83,23 @@ Ext.application({
  	
  	launch: function(){
  		
+ 		Ext.Ajax.on('beforerequest', function (con, opt) {
+ 			Ext.LoadMask({msg: 'Please Wait...'});
+ 			}, this);
+ 			 /*
+ 			Ext.Ajax.on('requestcomplete', function (con, res, opt) {
+ 			  Ext.Viewport.setMasked(false);
+ 			}, this);
+ 			 
+ 			Ext.Ajax.on('requestexception', function (con, response, opt) {
+ 			  Ext.Viewport.setMasked(false);
+ 			}, this);
+ 		*/
  		Ext.WestTabChange = function(tabIdx){
  			var westContents = Ext.getCmp("westContents");
  			westContents.setActiveItem(tabIdx);
  		}
+ 		
  		
  		//Ext.WestTabChange(1);
  		

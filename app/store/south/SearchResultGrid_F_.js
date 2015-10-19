@@ -31,6 +31,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
     siteId: '',
     
     autoLoad: true,
+    
+    buffered: true,
+    pageSize: 100,
 
 	remoteSort: true,
 	
