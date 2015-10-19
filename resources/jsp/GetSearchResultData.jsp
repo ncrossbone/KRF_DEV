@@ -27,8 +27,8 @@ try{
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
 	sql = "  WITH TMP AS (  				" +	
-		"	SELECT RANK() OVER(PARTITION BY A.PT_NO ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */     "+
-		"     , A.PT_NO /* 지점코드 */, A.PT_NM /* 지점명 */, C.WMCYMD /* 측정일자 */                             "+
+		"	SELECT RANK() OVER(PARTITION BY A.PT_NO||SUBSTR(C.WMWK, -1) ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */     "+
+		"     ,A.PT_NO||SUBSTR(C.WMWK, -1) AS PT_NO /* 지점코드 */, A.PT_NM /* 지점명 */, C.WMCYMD /* 측정일자 */                             "+
 		"	 , B.WMYR /* 년 */, B.WMOD /* 월 */,                                                                     "+
 		//"     , C.WMWK /* 회차 */                                                                                 "+
 	" CASE WHEN LENGTH(C.WMWK) = '2' THEN																													"+
@@ -105,7 +105,7 @@ try{
     "       AND C.WMCYMD IS NOT NULL                                                                          "+
     "    )                                                                                                    "+
     
-    "SELECT A.RN, A.PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ , A.WMDEP" +
+    "SELECT A.RN, SUBSTR(A.PT_NO,1,7) AS PT_NO, A.PT_NM, A.WMCYMD, B.WMCYMD AS CHART_DATE, A.WMYR, A.WMOD, A.WMWK, B.WMWK AS SEQ , A.WMDEP" +
     ", A.ITEM_BOD AS CURR_BOD, B.ITEM_BOD AS CHART_BOD " +
     ", A.ITEM_DOC AS CURR_DO, B.ITEM_DOC AS CHART_DO " +
     ", A.ITEM_COD AS CURR_COD, B.ITEM_COD AS CHART_COD " +
@@ -144,7 +144,7 @@ try{
 	}
 	
 	if(siteIds != ""){
-		sql += "AND A.PT_NO IN (" + siteIds + ") ";
+		sql += "AND SUBSTR(A.PT_NO,1,7) IN (" + siteIds + ") ";
 	}
 		//sql += "AND C.ADM_CD LIKE '42%' /* 강원도 */ " +
 		   //"AND C.ADM_CD LIKE '42110%' /* 춘천시 */ " +

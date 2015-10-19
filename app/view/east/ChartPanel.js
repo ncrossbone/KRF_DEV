@@ -38,15 +38,31 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				id : 'selectName',
 				style: 'font-weight: bold; padding-left: 15px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
-				store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
+				//store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
 				displayField: 'ptNm',
 				width: 65,
 				height: 25
-			}, {
+			},{
 				xtype: 'container',
-				width: 250
+				width: 10
 			},{
 				xtype: 'image',
+				src: './resources/images/button/arrow.gif'
+			},{
+				xtype: 'label',
+				id : 'selectItemName',
+				style: 'font-weight: bold; padding-left: 15px;',
+				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
+				store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
+				text: 'BOD(㎎/ℓ)',
+				width: 125,
+				height: 25
+			}, {
+				xtype: 'container',
+				width:  77
+			},{
+				xtype: 'image',
+				id : 'asdfasdf',
 				listeners: {
 					el: {
 						click: function(){
@@ -60,13 +76,14 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 								var win = Ext.create('Ext.window.Window',{
 									id: 'datePanel1',
 							        width : 450,
-							        height : 70,
+							        height : 80,
 							        header: true,
 							        title: '기간설정',
 							        x: x,
 							        cls: 'khLee-window-panel-header khLee-x-window-default ',
 							        items: [{
 							        	xtype: 'container',
+							        	y: 10,
 							        	layout: {
 							        		type: 'vbox',
 							        		align: 'middle',
@@ -160,6 +177,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 														
 														//item 선택
 														var selectItem = Ext.getCmp("selectItem");
+														console.info(selectItem.lastMutatedValue);
 														
 														//년도
 														var selectYear = Ext.getCmp("selectYear");
@@ -172,6 +190,27 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 														var store = chartCtl.getStore();
 														//console.info(selectItem.lastMutatedValue);
 														var s = selectItem.lastValue;
+														
+														var labelNm = selectItem.lastMutatedValue;
+														if(labelNm == "BOD"){
+															labelNm = "BOD(㎎/ℓ)";
+														}else if(labelNm == "DO"){
+															labelNm = "DO(㎎/L)";
+														}else if(labelNm == "COD"){
+															labelNm = "COD(%)";
+														}else if(labelNm == "T.N"){
+															labelNm = "T-N(㎎/㎏)";
+														}else if(labelNm == "T.P"){
+															labelNm = "T-P(㎎/㎏)";
+														}else if(labelNm == "수온"){
+															labelNm = "수온(℃)";
+														}else if(labelNm == "pH"){
+															labelNm = "pH";
+														}else if(labelNm == "S.S"){
+															labelNm = "SS(㎎/ℓ)";
+														}else if(labelNm == "클로로필a"){
+															labelNm = "클로로필a(㎎/㎥)";
+														}
 														
 														var ITEM_BOD = parseFloat(store.arrMax[0].ITEM_BOD);
 														var ITEM_DOC = parseFloat(store.arrMax[0].ITEM_DOC);
@@ -203,6 +242,10 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 															axes.prevMax = ITEM_CLOA;
 														}
 														
+														var selectItemName = Ext.getCmp("selectItemName")
+														console.info(labelNm);
+														selectItemName.setText(labelNm);
+														
 														store.load();
 														
 														win.hide();
@@ -211,8 +254,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 												}
 											},
 											//text: '선택',
-											width: 40,
-											height: 25,
+											width: 34,
+											height: 19,
 											//icon: './resources/images/button/icon_seah.gif'
 											//iconCls: ' khLee-x-serch-btn',
 											src: './resources/images/button/icon_seah.gif'
