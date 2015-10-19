@@ -94,6 +94,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			},{ 
 				text      : '수심',
 				dataIndex : 'WMDEP',
+				hidden: true,
+				hideable: false, // filter Columns영역에 보이지 않기
 				width: 90,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{

@@ -75,7 +75,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							if(win == undefined){
 								var win = Ext.create('Ext.window.Window',{
 									id: 'datePanel1',
-							        width : 250,
+							        width : 205,
 							        height : 150,
 							        header: true,
 							        title: '기간설정',
@@ -83,18 +83,19 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							        cls: 'khLee-window-panel-header khLee-x-window-default ',
 							        items: [{
 							        	xtype: 'container',
-							        	y: 10,
+							        	y: 15,
+							        	x: 5,
 							        	layout: {
 							        		type: 'vbox',
-							        		align: 'middle',
+							        		align: 'left',
 							        		pack: 'middle'
 							        	},
 							        	items: [{
 								        	xtype: 'container',
 								        	layout: {
 								        		type: 'hbox',
-								        		align: 'middle',
-								        		pack: 'middle'
+								        		align: 'left',
+								        		pack: 'left'
 								        	},
 								        	items: [{
 												xtype: 'combo',
@@ -109,10 +110,9 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 											},{
 												xtype: 'label',
 												text: '년'
-											},{
+											}, {
 												xtype: 'container',
-												width: '20'
-													
+												width:  10
 											},{
 												xtype: 'combo',
 												id : 'selectMonth',
@@ -125,19 +125,18 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 												height: 25
 											},{
 												xtype: 'label',
-												text: '월'
-											},{
-												xtype: 'container',
-												width: '20'
-													
+												text: '월 부터'
 											}]
-							        	} ,{
+							        	},{
+											xtype: 'container',
+											height: 5
+										},{
 							        		items:[{
 							        			xtype: 'container',
 									        	layout: {
 									        		type: 'hbox',
-									        		align: 'middle',
-									        		pack: 'middle'
+									        		align: 'left',
+									        		pack: 'left'
 									        	},
 									        	items: [{
 									        		xtype: 'combo',
@@ -150,12 +149,12 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 													width: 65,
 													height: 25
 												},{
-													xtype: 'container',
-													width: '20'
-														
-												},{
 													xtype: 'label',
 													text: '년'
+												},{
+													xtype: 'container',
+													width: 10
+														
 												},{
 													xtype: 'combo',
 													id : 'selectMonth2',
@@ -173,6 +172,9 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							        			
 							        		}]
 							        	},{
+											xtype: 'container',
+											height: 5
+										},{
 							        		items:[{
 							        			xtype: 'container',
 									        	layout: {
@@ -196,23 +198,39 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 														,{id: 'ITEM_TP', name: 'T.P'}
 														,{id: 'ITEM_TEMP', name: '수온'}
 														,{id: 'ITEM_PH', name: 'pH'}
-														,{id: 'ITEM_SS', name: 'S.S'}
+														,{id: 'ITEM_SS', name: 'SS'}
 														,{id: 'ITEM_CLOA', name: '클로로필a'}]
 												}),
 												value: 'ITEM_BOD',
 												/*labelWidth: 60,
 												labelAlign: 'right',*/
-												width: 65,
+												width: 75,
 												height: 25
+											},{
+												xtype: 'container',
+												width: 10
+													
 											},{
 												xtype: 'label',
 												text: '항목'
 											}]
 							        	}]
-							        	}, {
+							        	},{
+											xtype: 'container',
+											height: 5
+										}, {
+							        		items:[{
+							        			xtype: 'container',
+									        	layout: {
+									        		type: 'hbox',
+									        		align: 'middle',
+									        		pack: 'middle'
+									        		},
+										        	items: [{
+														xtype: 'container',
+														width: 80
+													},{
 											xtype: 'image',
-											//xtype: 'button',
-											//id: 'selecta',
 											listeners: {
 												el: {
 													click: function(){
@@ -243,16 +261,16 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 														}else if(labelNm == "DO"){
 															labelNm = "DO(㎎/L)";
 														}else if(labelNm == "COD"){
-															labelNm = "COD(%)";
+															labelNm = "COD(㎎/L)";
 														}else if(labelNm == "T.N"){
-															labelNm = "T-N(㎎/㎏)";
+															labelNm = "T-N(㎎/L)";
 														}else if(labelNm == "T.P"){
-															labelNm = "T-P(㎎/㎏)";
+															labelNm = "T-P(㎎/L)";
 														}else if(labelNm == "수온"){
 															labelNm = "수온(℃)";
 														}else if(labelNm == "pH"){
 															labelNm = "pH";
-														}else if(labelNm == "S.S"){
+														}else if(labelNm == "SS"){
 															labelNm = "SS(㎎/ℓ)";
 														}else if(labelNm == "클로로필a"){
 															labelNm = "클로로필a(㎎/㎥)";
@@ -299,13 +317,13 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 													}
 												}
 											},
-											//text: '선택',
 											width: 34,
 											height: 19,
-											//icon: './resources/images/button/icon_seah.gif'
-											//iconCls: ' khLee-x-serch-btn',
 											src: './resources/images/button/icon_seah.gif'
+												
 										}]
+							        }]
+							        	}]
 							        }]
 					             });
 							}
