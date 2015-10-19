@@ -75,8 +75,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							if(win == undefined){
 								var win = Ext.create('Ext.window.Window',{
 									id: 'datePanel1',
-							        width : 450,
-							        height : 80,
+							        width : 250,
+							        height : 150,
 							        header: true,
 							        title: '기간설정',
 							        x: x,
@@ -99,47 +99,89 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 								        	items: [{
 												xtype: 'combo',
 												id : 'selectYear',
-												fieldLabel: '<b>년도</b> ',
+												//..fieldLabel: '<b>년</b> ',
 												store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
 												value: '2014',
-												labelWidth: 30,
-												labelAlign: 'left',
-												width: 105,
+												//labelWidth: 30,
+												//labelAlign: 'right',
+												width: 65,
 												height: 25
+											},{
+												xtype: 'label',
+												text: '년'
+											},{
+												xtype: 'container',
+												width: '20'
+													
 											},{
 												xtype: 'combo',
 												id : 'selectMonth',
-												fieldLabel: '<b>월</b> ',
+												//fieldLabel: '<b>월</b> ',
 												store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
 												value: '10',
-												labelWidth: 20,
-												labelAlign: 'left',
-												width: 85,
+												//labelWidth: 20,
+												//labelAlign: 'right',
+												width: 55,
 												height: 25
-											}, {
+											},{
 												xtype: 'label',
-												text: '~'
+												text: '월'
 											},{
-												xtype: 'combo',
-												id : 'selectYear2',
-												fieldLabel: '<b>년도</b> ',
-												store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
-												value: '2015',
-												labelWidth: 30,
-												labelAlign: 'left',
-												width: 105,
-												height: 25
-											},{
-												xtype: 'combo',
-												id : 'selectMonth2',
-												fieldLabel: '<b>월</b> ',
-												store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-												value: '10',
-												labelWidth: 20,
-												labelAlign: 'left',
-												width: 85,
-												height: 25
-											},{
+												xtype: 'container',
+												width: '20'
+													
+											}]
+							        	} ,{
+							        		items:[{
+							        			xtype: 'container',
+									        	layout: {
+									        		type: 'hbox',
+									        		align: 'middle',
+									        		pack: 'middle'
+									        	},
+									        	items: [{
+									        		xtype: 'combo',
+													id : 'selectYear2',
+													//fieldLabel: '<b>년</b> ',
+													store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
+													value: '2015',
+													//labelWidth: 30,
+													//labelAlign: 'right',
+													width: 65,
+													height: 25
+												},{
+													xtype: 'container',
+													width: '20'
+														
+												},{
+													xtype: 'label',
+													text: '년'
+												},{
+													xtype: 'combo',
+													id : 'selectMonth2',
+													//fieldLabel: '<b>월</b> ',
+													store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+													value: '10',
+													//labelWidth: 20,
+													//labelAlign: 'right',
+													width: 55,
+													height: 25
+												},{
+													xtype: 'label',
+													text: '월 까지'
+												}]
+							        			
+							        		}]
+							        	},{
+							        		items:[{
+							        			xtype: 'container',
+									        	layout: {
+									        		type: 'hbox',
+									        		align: 'middle',
+									        		pack: 'middle'
+									        	},
+									        	items: [{
+												
 												xtype: 'combo',
 												id : 'selectItem',
 												//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
@@ -162,7 +204,11 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 												labelAlign: 'right',*/
 												width: 65,
 												height: 25
+											},{
+												xtype: 'label',
+												text: '항목'
 											}]
+							        	}]
 							        	}, {
 											xtype: 'image',
 											//xtype: 'button',
