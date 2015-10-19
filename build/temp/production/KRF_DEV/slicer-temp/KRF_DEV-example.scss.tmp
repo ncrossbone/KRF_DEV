@@ -1,4 +1,4 @@
-$image-search-path: 'D:/_0010_Cetech_Workspace/_010_2015_Workspace/000_Git/KRF_DEV/build/production/KRF_DEV/resources';
+$image-search-path: 'D:/eclipse-gis/KRF/KRF_DEV/build/production/KRF_DEV/resources';
 $theme-name:  'ext-theme-neptune' !default;
 $include-ext-abstractcomponent: true;
 $include-ext-abstractcontainer: true;
@@ -1070,6 +1070,7 @@ $include-krf_dev-store-appvariable: true;
 $include-krf_dev-store-dev_test-gridstoretest: true;
 $include-krf_dev-store-dev_test-westtablayerstore: true;
 $include-krf_dev-store-east-sitechartpanel: true;
+$include-krf_dev-store-east-sitechartpanel_c: true;
 $include-krf_dev-store-east-siteinfopanel: true;
 $include-krf_dev-store-east-sitelistwindow: true;
 $include-krf_dev-store-south-prototypegrid: true;
