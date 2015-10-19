@@ -192,10 +192,15 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 	
 	onWaterReset: function(button, eOpts){
 		
+		
 		Ext.HideSiteListWindow(null);
 		Ext.HideSiteInfoWindow();
 		Ext.HideChartResult();
 		KRF_DEV.getApplication().fireEvent('drawEnd');
+		
+		var combo1 = Ext.getCmp("cmbWater1");
+		combo1.setValue("");
+		this.setCtlDisable("cmbWater1");
 		
 	}
 	
