@@ -11,7 +11,9 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	restore: true, // 이전크기 tool icon 표시
 	maximize: true, // 최대화 tool icon 표시
 	minimize: true, // 최소화 tool icon 표시
-	close: true,
+	//close: true,
+	//closable: false,
+	closeAction:'hide',
 	width: 300,
 	height: 300,
 	itemxType: 'panel', // window 내부 아이템 타입
@@ -28,6 +30,8 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	//renderTo: Ext.getBody(),
 	
 	initComponent: function(){
+		
+		this.callParent();
 		
 		var me = this;
 		var toolCtl = [];
@@ -169,7 +173,14 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 		
 		this.tools = toolCtl;
 		
-		this.callParent();
+		console.info(this.tools);
+		
+//		this.on("beforeclose", function(a, b, c){
+//			console.info(a);
+//			console.info(b);
+//			console.info(c);
+//			me.removeAll();
+//		});
 		
 	},
 	

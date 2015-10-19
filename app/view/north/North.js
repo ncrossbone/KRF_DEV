@@ -50,6 +50,9 @@ Ext.define('KRF_DEV.view.north.North', {
     	btnOnImg: './resources/images/button/btn_top_01_on.png',
     	btnOffImg: './resources/images/button/btn_top_01_off.png',
     	src: './resources/images/button/btn_top_01_on.png'
+    }, {
+    	xtype: 'container',
+    	width: 5
     }, { 
 		xtype: 'image',
 		id: 'btnAreaLayer',
@@ -60,6 +63,22 @@ Ext.define('KRF_DEV.view.north.North', {
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
     	src: './resources/images/button/btn_top_02_on.png'
+    }, {
+    	xtype: 'container',
+    	width: 5
+    }, { 
+		xtype: 'image',
+		id: 'btnFlowLayer',
+		groupId: 'grpFlow',
+    	title: '리치흐름',
+    	listeners: { el: { click: 'onClickFlowLayer' } },
+    	btnOnOff: 'off',
+    	btnOnImg: './resources/images/button/btn_top_04_on.png',
+    	btnOffImg: './resources/images/button/btn_top_04_off.png',
+    	src: './resources/images/button/btn_top_04_off.png'
+    }, {
+    	xtype: 'container',
+    	width: 5
     }, { 
 		xtype: 'image',
 		id: 'btnLayerReset',

@@ -46,6 +46,18 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
     
 	    this.items = [{
 	    	xtype: 'image',
+	    	id: 'btnMenu01',
+	    	groupId: 'groupSmart',
+	    	title: '스마트선택',
+	    	width: this.itemWidth,
+	    	height: this.itemHeight,
+	    	listeners: { el: { click: 'onClickSmart' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu01_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu01.png',
+	    	src: './resources/images/button/reach_menu01.png'
+	    }, {
+	    	xtype: 'image',
 	    	id: 'btnMenu04',
 	    	groupId: 'group1',
 	    	title: '시작위치',
@@ -128,18 +140,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	btnOnImg: './resources/images/button/reach_menu08_on.png',
 	    	btnOffImg: './resources/images/button/reach_menu08.png',
 	    	src: './resources/images/button/reach_menu08.png'
-	    }, {
-	    	xtype: 'image',
-	    	id: 'btnMenu01',
-	    	groupId: 'groupSmart',
-	    	title: '스마트선택',
-	    	width: this.itemWidth,
-	    	height: this.itemHeight,
-	    	listeners: { el: { click: 'onClickSmart' } },
-	    	btnOnOff: 'off',
-	    	btnOnImg: './resources/images/button/reach_menu01_on.png',
-	    	btnOffImg: './resources/images/button/reach_menu01.png',
-	    	src: './resources/images/button/reach_menu01.png'
 	    }, '->', {
 	    	xtype: 'image',
 	    	id: 'btnMenuSave',

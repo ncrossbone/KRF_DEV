@@ -21,6 +21,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
 			height: 215,
+			loadMask: true,
+			plugins: 'bufferedrenderer',
 			siteIds: "",
 			parentIds: [],
 			//height: '100%',
@@ -36,10 +38,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				var me = this;
 				var parentCtl = this.findParentByType("window");
 				
+				me.setWidth(parentCtl.getWidth() - 10);
+				me.setHeight(parentCtl.getHeight() - 110);
+				
 				parentCtl.on("resize", function(){
 					//console.info(parentCtl);
-					me.setWidth(parentCtl.getWidth());
-					me.setHeight(parentCtl.getHeight() - 90);
+					me.setWidth(parentCtl.getWidth() - 10);
+					me.setHeight(parentCtl.getHeight() - 110);
 				});
 				
 			},

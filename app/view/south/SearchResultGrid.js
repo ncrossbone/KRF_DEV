@@ -20,7 +20,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			//id: this.up('container').up('container'),
 			plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
-			height: 215,
+			//height: 195,
+			loadMask: true, // 로딩 표시 할라구 한건데.. 안먹네..-_-;
+			plugins: 'bufferedrenderer',
 			siteIds: "",
 			parentIds: [],
 			//height: '100%',
@@ -36,10 +38,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				var me = this;
 				var parentCtl = this.findParentByType("window");
 				
+				me.setWidth(parentCtl.getWidth() - 10);
+				me.setHeight(parentCtl.getHeight() - 110);
+				
 				parentCtl.on("resize", function(){
 					//console.info(parentCtl);
-					me.setWidth(parentCtl.getWidth());
-					me.setHeight(parentCtl.getHeight() - 90);
+					me.setWidth(parentCtl.getWidth() - 10);
+					me.setHeight(parentCtl.getHeight() - 110);
 				});
 				
 			},
