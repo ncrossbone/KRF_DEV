@@ -146,12 +146,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				listeners: {
 					change: function(){
 						var fName = Ext.getCmp("F_CHANGE");
-						console.info(fName.value);
 						var tabCtl = Ext.getCmp("searchResultTab");
-						console.info(tabCtl);
 						tabCtl = tabCtl.items.items[1];
 						var activeTab = tabCtl.getActiveTab();
-						console.info(activeTab);
 						var gridContainer = activeTab.items.items[0];
 						var gridCtl = gridContainer.items.items[0];
 						if(gridCtl.parentIds[0].parentId == undefined){
@@ -159,8 +156,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						}else{
 							var parentId = gridCtl.parentIds[0].parentId
 						}
-						console.info(gridCtl);
-						console.info(gridCtl.siteIds);
 						ShowSearchResult(gridCtl.siteIds, parentId, "", gridCtl.id,fName.value);
 					}
 				}

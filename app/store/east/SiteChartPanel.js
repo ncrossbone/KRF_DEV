@@ -18,9 +18,10 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
     ],
     
 
-    autoLoad: true,
+    //autoLoad: true,
 	remoteSort: true,
 	arrMax: [],
+	parentId: '',
 	
 	siteCD: '',
 	
@@ -28,6 +29,128 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	listeners: {
 		load: function(store) { 
 			//var siteCd= Ext.getCmp("siteCd");
+			console.info("###");
+			console.info(KRF_DEV.getApplication().chartFlag);
+			console.info(store.parentId);
+			var defaultChart = KRF_DEV.getApplication().chartFlag;
+			var f_Chart = Ext.getCmp("f_Chart");
+			
+			
+			var f_parentId = "";
+			
+			if(store.parentId == "F" ){
+				if(f_Chart == undefined){
+					f_parentId = "F_1";
+				}else if(f_Chart.lastValue == "1"){
+					f_parentId = "F_1";
+				}else if(f_Chart.lastValue == "2"){
+					f_parentId = "F_2";
+				}else if(f_Chart.lastValue == "3"){
+					f_parentId = "F_3";
+				}else if(f_Chart.lastValue == "4"){
+					f_parentId = "F_4";
+				}
+			}
+			
+			
+			 if(store.parentId == "A"){
+					store.config.fields = [
+					                       'month',
+					                       {name: 'ITEM_BOD', type: 'float'},
+					                       {name: 'ITEM_DOC', type: 'float'},
+					                       {name: 'ITEM_COD', type: 'float'},
+					                       {name: 'ITEM_TN', type: 'float'},
+					                       {name: 'ITEM_TP', type: 'float'},
+					                       {name: 'ITEM_TEMP', type: 'float'},
+					                       {name: 'ITEM_PH', type: 'float'},
+					                       {name: 'ITEM_SS', type: 'float'},
+					                       {name: 'ITEM_CLOA', type: 'float'},
+					                       'ptNm',
+					                       'year',
+					                       'yearMonth'
+					                       ];
+			}else if(store.parentId == "B"){
+				store.config.fields = [
+				                       'PT_NO',
+				                       'PT_NM',
+				                       'WAST_NO',
+				                       'WMCYMD',
+				                       {name: 'ITEM_BOD', type: 'float'},
+				                       {name: 'ITEM_COD', type: 'float'},
+				                       {name: 'ITEM_SS', type: 'float'},
+				                       {name: 'ITEM_TN', type: 'float'},
+				                       {name: 'ITEM_TP', type: 'float'},
+				                       {name: 'ITEM_PH', type: 'float'},
+				                       {name: 'ITEM_FLW', type: 'float'},
+				                       {name: 'ITEM_TOC', type: 'float'}
+				                       ];
+			}else if(store.parentId == "C"){
+				store.config.fields = [
+				                       'PT_NO',
+				                       'PT_NM',
+				                       'WMYR',
+				                       'WMOM',
+				                       'WMCYMD',
+				                       'JOSANAME',
+				                       {name: 'ITEM_DOW', type: 'float'},
+				                       {name: 'ITEM_TEMP', type: 'float'},
+				                       {name: 'ITEM_DO', type: 'float'},
+				                       {name: 'ITEM_PH', type: 'float'},
+				                       {name: 'ITEM_EC', type: 'float'},
+				                       {name: 'ITEM_COD', type: 'float'},
+				                       {name: 'ITEM_TOC', type: 'float'},
+				                       {name: 'ITEM_TN', type: 'float'},
+				                       {name: 'ITEM_TP', type: 'float'},
+				                       'AMDCODE'
+				                       ];
+				}else if(store.parentId == "F"){
+					console.info(f_parentId);					
+					if(f_parentId == "F_1"){
+						store.config.fields = [
+						                       'FACI_CD',
+						                       'FACI_NM',
+						                       'WORK_DT',
+						                       'DISCHARGE_NUM',
+						                       {name: 'AMT_PHYS', type: 'float'},
+						                       {name: 'AMT_BIO', type: 'float'},
+						                       {name: 'AMT_HIGHTEC', type: 'float'},
+						                       {name: 'ITEM_BOD', type: 'float'},
+						                       {name: 'ITEM_COD', type: 'float'},
+						                       {name: 'ITEM_SS', type: 'float'},
+						                       {name: 'ITEM_TN', type: 'float'},
+						                       {name: 'ITEM_TP', type: 'float'},
+						                       {name: 'ITEM_COLI', type: 'float'}
+						                       ];
+					}else if(f_parentId == "F_2" || f_parentId == "F_3"){
+						store.config.fields = [
+						                       'FACI_NM',
+						                       'WORK_DT',
+						                       {name: 'ITEM_AMT', type: 'float'},
+						                       {name: 'ITEM_BOD', type: 'float'},
+						                       {name: 'ITEM_COD', type: 'float'},
+						                       {name: 'ITEM_SS', type: 'float'},
+						                       {name: 'ITEM_TN', type: 'float'},
+						                       {name: 'ITEM_TP', type: 'float'},
+						                       {name: 'ITEM_COLI', type: 'float'}
+						                       ];
+					}else if(f_parentId == "F_4"){
+						store.config.fields = [
+						                       'FACI_NM',
+						                       'WORK_DT',
+						                       {name: 'ITEM_AMT', type: 'float'},
+						                       {name: 'ITEM_BOD', type: 'float'},
+						                       {name: 'ITEM_COD', type: 'float'},
+						                       {name: 'ITEM_SS', type: 'float'},
+						                       {name: 'ITEM_TN', type: 'float'},
+						                       {name: 'ITEM_TP', type: 'float'},
+						                       {name: 'ITEM_COLI', type: 'float'},
+						                       {name: 'ITEM_BYPASS_AMT', type: 'float'}
+						                       ];
+					}
+					
+					
+					
+				}
 			
 			//
 			
@@ -37,22 +160,19 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			var selectYear2 = Ext.getCmp("selectYear2");
 			var selectMonth2 = Ext.getCmp("selectMonth2");
 			
-			var defaultChart = "";
+			var search_F = Ext.getCmp("");
 			
-			console.info(selectYear);
+			
 			var recordYear = "";
 			if( selectYear == undefined){
-				defaultChart = '1';
 				recordYear = '2014'
 			}else{
-				defaultChart = '0';
 				recordYear = selectYear.lastValue;
 			}
-			console.info(defaultChart);
+			
 			
 			var recordYear2 = "";
 			if(selectYear2 == undefined){
-				//defaultChart = '0';
 				recordYear2 = '2015'
 			}else{
 				recordYear2 = selectYear2.lastValue;
@@ -90,12 +210,15 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
-			//console.info(recordId);
+			
 			
 			var jsonData = "";
 			
+			console.info(store.parentId);
+			if(store.parentId != "F"){
+			
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetRWMDT1.jsp',    // To Which url you wanna POST.
+        		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
         		params: {recordId: recordId
         			, recordYear: recordYear
         			, recordYear2: recordYear2
@@ -106,20 +229,11 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         		async: false, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			
-        			//console.info(response.responseText);
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			//console.info(jsonData.data);
-        			//store.setData(jsonData.data);
+        			
         			store.loadData(jsonData.data);
-        			var chart = Ext.getCmp("siteCharttest");
-        			console.info(chart);
-        			//chart.setupGrid();
-        			//chart.draw();
         			store.arrMax = jsonData.maxdata;
-        			//console.info(store.data);
-        			//store.data = jsonData.data;
-        			//store.load();
         			
         		},
         		failure: function(form, action) {
@@ -127,6 +241,33 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			alert("오류가 발생하였습니다.");
         		}
         	});
+			
+			}else{
+				Ext.Ajax.request({
+	        		url: './resources/jsp/GetRWMDT_'+f_parentId+'.jsp',    // To Which url you wanna POST.
+	        		params: {recordId: recordId
+	        			, recordYear: recordYear
+	        			, recordYear2: recordYear2
+	        			, recordMonth: recordMonth
+	        			, recordMonth2: recordMonth2
+	        			, defaultChart: defaultChart
+	        			},
+	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		success : function(response, opts) {
+	        			
+	        			// JSON Object로 변경
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+	        			
+	        			store.loadData(jsonData.data);
+	        			store.arrMax = jsonData.maxdata;
+	        			
+	        		},
+	        		failure: function(form, action) {
+	        			//alert(form.responseText);
+	        			alert("오류가 발생하였습니다.");
+	        		}
+	        	});
+			}
 		}
     }
     
