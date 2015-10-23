@@ -207,15 +207,23 @@ ReachInfoBinding = function(objs){
 
 
 //지점/차트 정보 창 띄우기
-ShowWindowSiteNChart = function(tabIdx, title, test){
+ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
+	console.info(tabIdx);
+	console.info(title);
+	
+	//console.info(parentId);
+	KRF_DEV.getApplication().parentFlag = parentId;
+	KRF_DEV.getApplication().chartFlag = "1";
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	//console.info(winCtl);
+	
 	if(winCtl == undefined){
 		winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart',{
 			
 		});
 	}
+	
+	
 	
 	
 	winCtl.show();
@@ -225,10 +233,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	var winY = 98;
 	
 	var listCtl = Ext.getCmp("siteListWindow");
-	//console.info(listCtl);
 	if(listCtl != undefined){
-		//var store = listCtl.getStore();
-		//console.info(store);
 		winY = listCtl.height + winY;
 	}
 	
@@ -239,11 +244,27 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	
 	
 	
-	var siteinfoCtl = Ext.getCmp("siteinfotest");  //selectItemButton
-	var siteChartCtl = Ext.getCmp("siteCharttest");
-	var siteText = Ext.getCmp("selectName");
+	var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
+	var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
+	var siteText = Ext.getCmp("selectName");  //
+	//지점명 표출
 	siteText.setText(test);
 	
+	//각쿼리당 초기값 설정
+	var series = siteChartCtl.series[0];
+	if(parentId == "A"){
+		series.setXField("yearMonth");
+		series.setYField("ITEM_BOD");
+	}else if(parentId == "B"){
+		series.setXField("WMCYMD");
+		series.setYField("ITEM_COD");
+	}else if(parentId == "C"){
+		series.setXField("WMCYMD");
+		series.setYField("ITEM_DOW");
+	}else if(parentId == "F"){
+		series.setXField("WORK_DT");
+		series.setYField("ITEM_BOD");
+	}
 	
 	
 	if(siteinfoCtl != undefined){
@@ -257,13 +278,11 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 		chartStore.siteCD = title;
 		
 		store.load();
+		chartStore.parentId = parentId;
 		chartStore.load();
+		console.info(chartStore.config.fields);
 		siteinfoCtl.getView().refresh();
-		//siteChartCtl.refresh();
 		
-		//ChangeTabIndex(tabIdx);
-		
-		//return;
 	}
 	
 	ChangeTabIndex(tabIdx);
@@ -419,16 +438,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		console.info(grdContainer);
 		
 		
-		//console.info(test);
 		var ResultGrid_F = Ext.getCmp(gridId + "_container");
 		
-		//var ResultGrid_F = Ext.getCmp("ResultGrid_F")
-		
-		//tab.setActiveTab(gridId + "_container");
-		
-		console.info(ResultGrid_F);
-		
-		//ResultGrid_F.columns[1].setHidden(true);
 		
 		
 		tab.setActiveTab(gridId + "_container");
@@ -460,13 +471,19 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.columns[7].setHidden(true);
 			grdCtl.columns[8].setHidden(true);
 			grdCtl.columns[9].setHidden(true);
+			grdCtl.columns[10].setHidden(true);
+			grdCtl.columns[11].setHidden(true);
+			grdCtl.columns[12].setHidden(true);
 			
-			grdCtl.columns[10].setHidden(false);
-			grdCtl.columns[17].setHidden(false);
-			grdCtl.columns[18].setHidden(false);
+			grdCtl.columns[13].setHidden(false);
+			grdCtl.columns[14].setHidden(false);
 			
-			grdCtl.columns[19].setHidden(true);
-			grdCtl.columns[20].setHidden(true);
+			grdCtl.columns[27].setHidden(false);
+			grdCtl.columns[28].setHidden(false);
+			grdCtl.columns[29].setHidden(false);
+			
+			grdCtl.columns[30].setHidden(true);
+			grdCtl.columns[31].setHidden(true);
 			
 			
 			
@@ -480,13 +497,18 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.columns[7].setHidden(false);
 			grdCtl.columns[8].setHidden(false);
 			grdCtl.columns[9].setHidden(false);
+			grdCtl.columns[10].setHidden(false);
+			grdCtl.columns[11].setHidden(false);
+			grdCtl.columns[12].setHidden(false);
 			
-			grdCtl.columns[10].setHidden(true);
-			grdCtl.columns[17].setHidden(true);
-			grdCtl.columns[18].setHidden(true);
+			grdCtl.columns[13].setHidden(true);
+			grdCtl.columns[14].setHidden(true);
+			grdCtl.columns[27].setHidden(true);
+			grdCtl.columns[28].setHidden(true);
+			grdCtl.columns[29].setHidden(true);
 			
-			grdCtl.columns[19].setHidden(false);
-			grdCtl.columns[20].setHidden(false);
+			grdCtl.columns[30].setHidden(false);
+			grdCtl.columns[31].setHidden(false);
 			
 		}else if(test == "3"){
 			grdCtl.columns[3].setHidden(true);
@@ -498,13 +520,18 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.columns[7].setHidden(true);
 			grdCtl.columns[8].setHidden(true);
 			grdCtl.columns[9].setHidden(true);
+			grdCtl.columns[10].setHidden(true);
+			grdCtl.columns[11].setHidden(true);
+			grdCtl.columns[12].setHidden(true);
 			
-			grdCtl.columns[10].setHidden(false);
+			grdCtl.columns[13].setHidden(false);
+			grdCtl.columns[14].setHidden(false);
 			
-			grdCtl.columns[17].setHidden(true);
-			grdCtl.columns[18].setHidden(true);
-			grdCtl.columns[19].setHidden(true);
-			grdCtl.columns[20].setHidden(true);
+			grdCtl.columns[27].setHidden(true);
+			grdCtl.columns[28].setHidden(true);
+			grdCtl.columns[29].setHidden(true);
+			grdCtl.columns[30].setHidden(true);
+			grdCtl.columns[31].setHidden(true);
 		}else{
 			grdCtl.columns[3].setHidden(false);
 			
@@ -515,13 +542,18 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.columns[7].setHidden(true);
 			grdCtl.columns[8].setHidden(true);
 			grdCtl.columns[9].setHidden(true);
+			grdCtl.columns[10].setHidden(true);
+			grdCtl.columns[11].setHidden(true);
+			grdCtl.columns[12].setHidden(true);
 			
-			grdCtl.columns[10].setHidden(false);
+			grdCtl.columns[13].setHidden(false);
+			grdCtl.columns[14].setHidden(false);
 			
-			grdCtl.columns[17].setHidden(true);
-			grdCtl.columns[18].setHidden(true);
-			grdCtl.columns[19].setHidden(true);
-			grdCtl.columns[20].setHidden(true);
+			grdCtl.columns[27].setHidden(true);
+			grdCtl.columns[28].setHidden(true);
+			grdCtl.columns[29].setHidden(true);
+			grdCtl.columns[30].setHidden(true);
+			grdCtl.columns[31].setHidden(true);
 		}
 		console.info(test);
 		
@@ -533,7 +565,42 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		grdCtl.getView().bindStore(gridStore);
 		
+	}else if(parentCheck == "B"){
+		hiddenGrid.setHidden(true);
+		if(grdContainer == null || grdContainer == undefined){
+			
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B", options);
+			
+			
+			tab.add(grdContainer);
+		}
+		
+		tab.setActiveTab(gridId + "_container");
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		grdCtl.id = gridId;
+		
+		if(siteIds != ""){
+			grdCtl.siteIds = siteIds;
+		}
+		if(parentIds != ""){
+			grdCtl.parentIds = parentIds;
+		}
+		
+		console.info(grdCtl.parentIds)
+		console.info(grdCtl.siteIds);
+		
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			firstSession: test
+		});
+		
+		grdCtl.getView().bindStore(gridStore);
+	
 	}else{
+
 		hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
@@ -566,6 +633,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
+	
 	
 	}
 }

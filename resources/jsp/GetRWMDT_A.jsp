@@ -75,7 +75,7 @@ sql += "    and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('"+a
 if(defaultChart.equals("1")){
 	sql += "    ORDER BY WMYR asc , wmod asc                                                                                                      ";	
 }else{
-	sql += "    ORDER BY WMYR desc , wmod desc                                                                                                      ";
+	sql += "    ORDER BY WMYR asc , wmod asc                                                                                                      ";
 }
 sql += "     )                                                                                                                                  ";
 sql += "    SELECT *                                                                                                                            ";
@@ -88,6 +88,7 @@ if(defaultChart.equals("1")){
 	sql += "        )                                                                                                                               ";	
 }else{
 	sql += "   FROM TMP_TBL                                                                                                                       ";
+	//sql += "   order by wmcymd                                                                                                                      ";
 }
 sql += " UNION ALL                                                                                                                              ";
 sql += " SELECT 999 as RN, '', '','', '', '', MAX(ITEM_BOD), MAX(ITEM_DOC), MAX(ITEM_COD),                                                      ";
