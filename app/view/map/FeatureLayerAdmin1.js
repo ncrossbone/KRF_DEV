@@ -62,10 +62,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		
 		var renderer = new esri.renderer.SimpleRenderer(selectedSymbol);
 		me.layer.setRenderer(renderer);
-		
-		
-		
-		
 		/* 심볼 설정 끝 */
 		
 		for(var i = 0; i < 100; i++){
@@ -86,7 +82,10 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			me.map.centerAt(point);
 		}, 1000, this);
 		
-		
+		// 5초뒤 레이어(이미지) 제거
+		Ext.defer(function(){
+			me.map.removeLayer(me.layer);
+		}, 5000, this);
 		
     }
 });

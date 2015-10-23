@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
     title: '검색설정',
     
     width: 310,
-    height: 250,
+    height: 270,
     
     cls: 'khLee-window-panel-header khLee-x-window-default ',
     
@@ -39,32 +39,128 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
             	xtype: 'checkboxgroup',
             	id: 'chkGroup1',
             	width: '100%',
-            	columns: 4,
+            	columns: 3,
             	allowBlank: false,
             	style: 'margin-bottom: 30px;',
             	items: [{
             		xtype: 'checkbox',
             		boxLabel: '상류',
             		checked: true,
+            		handler: function(obj, checked){
+            			var chkGroup1 = this.findParentByType("checkboxgroup");
+            			var chkGroup1Items = chkGroup1.items.items;
+            			for(var i = 0; i < chkGroup1Items.length; i++){
+            				if(chkGroup1Items[i].inputValue == "isUpBonDraw"){
+            					chkGroup1Items[i].setValue(checked);
+            				}
+            				if(chkGroup1Items[i].inputValue == "isUpJiDraw"){
+            					if(checked == false){
+            						chkGroup1Items[i].setValue(checked);
+            					}
+            				}
+            			}
+            		},
             		inputValue: 'isUpDraw',
+            		style: 'margin-right: 15px;'
+            	}, {
+            		xtype: 'checkbox',
+            		boxLabel: '본류',
+            		checked: true,
+            		handler: function(obj, checked){
+            			var chkGroup1 = this.findParentByType("checkboxgroup");
+            			var chkGroup1Items = chkGroup1.items.items;
+            			for(var i = 0; i < chkGroup1Items.length; i++){
+            				if(chkGroup1Items[i].inputValue == "isUpDraw"){
+            					chkGroup1Items[i].setValue(checked);
+            				}
+            				if(chkGroup1Items[i].inputValue == "isUpJiDraw"){
+            					if(checked == false){
+            						chkGroup1Items[i].setValue(checked);
+            					}
+            				}
+            			}
+            		},
+            		inputValue: 'isUpBonDraw',
+            		style: 'margin-right: 15px;'
+            	}, {
+            		xtype: 'checkbox',
+            		boxLabel: '지류',
+            		checked: false,
+            		handler: function(obj, checked){
+            			var chkGroup1 = this.findParentByType("checkboxgroup");
+            			var chkGroup1Items = chkGroup1.items.items;
+            			if(checked == true){
+	            			for(var i = 0; i < chkGroup1Items.length; i++){
+	            				if(chkGroup1Items[i].inputValue == "isUpDraw"){
+	            					chkGroup1Items[i].setValue(checked);
+	            				}
+	            				if(chkGroup1Items[i].inputValue == "isUpBoneDraw"){
+	            						chkGroup1Items[i].setValue(checked);
+	            				}
+	            			}
+            			}
+            		},
+            		inputValue: 'isUpJiDraw',
             		style: 'margin-right: 15px;'
             	}, {
             		xtype: 'checkbox',
             		boxLabel: '하류',
             		checked: false,
+            		handler: function(obj, checked){
+            			var chkGroup1 = this.findParentByType("checkboxgroup");
+            			var chkGroup1Items = chkGroup1.items.items;
+            			for(var i = 0; i < chkGroup1Items.length; i++){
+            				if(chkGroup1Items[i].inputValue == "isDownBonDraw"){
+            					chkGroup1Items[i].setValue(checked);
+            				}
+            				if(chkGroup1Items[i].inputValue == "isDownJiDraw"){
+            					if(checked == false){
+            						chkGroup1Items[i].setValue(checked);
+            					}
+            				}
+            			}
+            		},
             		inputValue: 'isDownDraw',
             		style: 'margin-right: 15px;'
             	}, {
             		xtype: 'checkbox',
             		boxLabel: '본류',
             		checked: false,
-            		inputValue: 'isBonDraw',
+            		handler: function(obj, checked){
+            			var chkGroup1 = this.findParentByType("checkboxgroup");
+            			var chkGroup1Items = chkGroup1.items.items;
+            			for(var i = 0; i < chkGroup1Items.length; i++){
+            				if(chkGroup1Items[i].inputValue == "isDownDraw"){
+            					chkGroup1Items[i].setValue(checked);
+            				}
+            				if(chkGroup1Items[i].inputValue == "isDownJiDraw"){
+            					if(checked == false){
+            						chkGroup1Items[i].setValue(checked);
+            					}
+            				}
+            			}
+            		},
+            		inputValue: 'isDownBonDraw',
             		style: 'margin-right: 15px;'
             	}, {
             		xtype: 'checkbox',
             		boxLabel: '지류',
             		checked: false,
-            		inputValue: 'isJiDraw',
+            		handler: function(obj, checked){
+            			var chkGroup1 = this.findParentByType("checkboxgroup");
+            			var chkGroup1Items = chkGroup1.items.items;
+            			if(checked == true){
+	            			for(var i = 0; i < chkGroup1Items.length; i++){
+	            				if(chkGroup1Items[i].inputValue == "isDownDraw"){
+	            					chkGroup1Items[i].setValue(checked);
+	            				}
+	            				if(chkGroup1Items[i].inputValue == "isDownBoneDraw"){
+	            						chkGroup1Items[i].setValue(checked);
+	            				}
+	            			}
+            			}
+            		},
+            		inputValue: 'isDownJiDraw',
             		style: 'margin-right: 15px;'
             	}]
             }]

@@ -14,8 +14,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     
     isUpDraw: true, // 검색설정 상류 체크여부
     isDownDraw: false, // 검색설정 하류 체크여부
-    isBonDraw: true, // 검색설정 본류 체크여부
-    isJiDraw: true, // 검색설정 지류 체크여부
+    isUpBonDraw: true, // 검색설정 상류 본류 체크여부
+    isUpJiDraw: true, // 검색설정 상류 지류 체크여부
+    isDownBonDraw: true, // 검색설정 상류 본류 체크여부
+    isDownJiDraw: true, // 검색설정 상류 지류 체크여부
     isAMDraw: true, // 검색설정 해당중권역 체크여부
     isDemDraw: false, // 검색설정 댐 체크여부
     
@@ -228,8 +230,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	me.isUpDraw = false; // 검색설정 상류 체크여부
     	me.isDownDraw = false; // 검색설정 하류 체크여부
-    	me.isBonDraw = false; // 검색설정 본류 체크여부
-    	me.isJiDraw = false; // 검색설정 지류 체크여부
+    	me.isUpBonDraw = false; // 검색설정 상류 본류 체크여부
+    	me.isDownBonDraw = false; // 검색설정 하류 본류 체크여부
+    	me.isUpJiDraw = false; // 검색설정 상류 지류 체크여부
+    	me.isDownJiDraw = false; // 검색설정 하류 지류 체크여부
     	me.isAMDraw = false; // 검색설정 해당중권역 체크여부
     	me.isDemDraw = false; // 검색설정 댐 체크여부
     	
@@ -245,11 +249,17 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 				if(chkGroup1Items[i].inputValue == "isDownDraw"){
 					me.isDownDraw = true;
 				}
-				if(chkGroup1Items[i].inputValue == "isBonDraw"){
-					me.isBonDraw = true;
+				if(chkGroup1Items[i].inputValue == "isUpBonDraw"){
+					me.isUpBonDraw = true;
 				}
-				if(chkGroup1Items[i].inputValue == "isJiDraw"){
-					me.isJiDraw = true;
+				if(chkGroup1Items[i].inputValue == "isDownBonDraw"){
+					me.isDownBonDraw = true;
+				}
+				if(chkGroup1Items[i].inputValue == "isUpJiDraw"){
+					me.isUpJiDraw = true;
+				}
+				if(chkGroup1Items[i].inputValue == "isDownJiDraw"){
+					me.isDownJiDraw = true;
 				}
 			}
 		}
@@ -269,9 +279,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			}
 		}
 
-		console.info("me.isUpDraw : " + me.isUpDraw + ", me.isDownDraw : " 
-				+ me.isDownDraw + ", me.isBonDraw : " + me.isBonDraw + ", me.isJiDraw : " 
-				+ me.isJiDraw + ", me.isAMDraw : " + me.isAMDraw + ", me.isDemDraw : " + me.isDemDraw);
+		console.info("me.isUpDraw : " + me.isUpDraw + ", me.isDownDraw : " + me.isDownDraw
+				+ ", me.isUpBonDraw : " + me.isUpBonDraw + ", me.isDownBonDraw : " + me.isDownBonDraw
+				+ ", me.isUpJiDraw : " + me.isUpJiDraw + ", me.isAMDraw : " + me.isAMDraw
+				+ ", me.isDownJiDraw : " + me.isDownJiDraw+ ", me.isDemDraw : " + me.isDemDraw);
     	
     },
     
@@ -573,11 +584,13 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			query.returnGeometry = true;
 			query.outFields = ["*"];
 			
-			var rchId = feature.attributes.RCH_ID;
-			var rupRchId = feature.attributes.RUP_RCH_ID;
-			var lupRchId = feature.attributes.LUP_RCH_ID;
-			var looRchId = feature.attributes.LOO_RCH_ID;
-			var catId = feature.attributes.CAT_ID;
+			var rchId = feature.attributes.RCH_ID; // 리치 아이디
+			var rupRchId = feature.attributes.RUP_RCH_ID; // 우측 상류 아이디
+			var lupRchId = feature.attributes.LUP_RCH_ID; // 좌측 상류 아이디
+			var looRchId = feature.attributes.LOO_RCH_ID; // 하류 유출 아이디
+			var loiRchId = feature.attributes.LOI_RCH_ID; // 하류 유입 아이디
+			var geoTrib = feature.attributes.GEO_TRIB; // 본류, 지류 구분 (0:본류, 1,2,3... depth: 지류)
+			var catId = feature.attributes.CAT_ID; // 집수구역 아이디
 			
 			if(me.isAMDraw == true){
 				// 시작위치로 설정된 집수구역 중권역 설정

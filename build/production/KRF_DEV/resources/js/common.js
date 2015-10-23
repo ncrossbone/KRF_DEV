@@ -235,32 +235,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	winCtl.setX(winX);
 	winCtl.setY(winY);
 	
-	//console.info(title);
-//	var chartCtl = Ext.getCmp("siteCharttest");
-//	//console.info(chartCtl);
-//	//console.info(chartCtl.axes);
-//	//console.info(chartCtl.axes.items[0].axisBBox.y);
-//	console.info(chartCtl.axes.items[0].labels);
-//	console.info(chartCtl.axes.items[0].labels[2]);
-//	console.info(chartCtl.axes.items[0].labels.length);
-//	//   "+ i + ","+chartCtl.axes.items[0].labels[i]+"," +"
-//	var length = "[";
-//	for(var i = 1 ; i < chartCtl.axes.items[0].labels.length ;i += 2){
-//		//console.info(chartCtl.axes.items[0].labels[i])
-//		if(i => chartCtl.axes.items[0].labels.length){
-//			length +=  chartCtl.axes.items[0].labels[i];
-//		}else{
-//			length +=  chartCtl.axes.items[0].labels[i] +"\,";
-//		}
-//		
-//	}
-//	length += "]";
-//	
-//	var aaa = chartCtl.axes.items[0];
-	//console.info(chartCtl.axes.items[0].labels);
-	//console.info(length);
-	//aaa.labels(length);
-	//console.info(chartCtl.axes.items[0].labels);
 	
 	
 	
@@ -270,7 +244,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	var siteText = Ext.getCmp("selectName");
 	siteText.setText(test);
 	
-	//console.info(Ext.getCmp("selectItem"));
 	
 	
 	if(siteinfoCtl != undefined){
@@ -347,8 +320,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
+	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
-	centerContainer.add(searchResultWindow.show()); // window 보이기
+	
+	//centerContainer.add(searchResultWindow.show()); // window 보이기
 	//console.info(gridId);
 	if(gridId == undefined)
 		return;
@@ -360,10 +335,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	};
 	
 	var tabCtl = Ext.getCmp("searchResultTab");
-	console.info(KRF_DEV.getApplication().btnFlag);
+	//console.info(KRF_DEV.getApplication().btnFlag);
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	console.info(searchResultTab);
+	//console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -411,23 +386,23 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		grdCtl.id = gridId;
 		
+		//grdCtl.id = gridId; // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
+		//return;
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
 		}
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
+		//console.info(grdCtl.parentIds)
+		//console.info(grdCtl.siteIds);
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds
 		});
-		
 		
 		grdCtl.getView().bindStore(gridStore);
 	
@@ -442,7 +417,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			
 			tab.add(grdContainer);
 		}
-		console.info(grdContainer);
+		//console.info(grdContainer);
 		
 		
 		//console.info(test);
@@ -452,7 +427,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		//tab.setActiveTab(gridId + "_container");
 		
-		console.info(ResultGrid_F);
+		//console.info(ResultGrid_F);
 		
 		//ResultGrid_F.columns[1].setHidden(true);
 		
@@ -461,7 +436,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		grdCtl.id = gridId;
+		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
@@ -474,33 +449,80 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		console.info(grdCtl.siteIds);
 		console.info(test);
 		console.info(grdCtl);
+		
+		//0~2 , 11~16 공통
 		if(test == "" ||test == "1" || test == "관거이송량"){
 			test = "";
 			grdCtl.columns[3].setHidden(false);
 			grdCtl.columns[4].setHidden(false);
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
-			grdCtl.columns[27].setHidden(false);
-			grdCtl.columns[28].setHidden(false);
-			grdCtl.columns[29].setHidden(false);
+			
+			grdCtl.columns[5].setHidden(true);
+			grdCtl.columns[6].setHidden(true);
+			grdCtl.columns[7].setHidden(true);
+			grdCtl.columns[8].setHidden(true);
+			grdCtl.columns[9].setHidden(true);
+			
+			grdCtl.columns[10].setHidden(false);
+			grdCtl.columns[17].setHidden(false);
+			grdCtl.columns[18].setHidden(false);
+			
+			grdCtl.columns[19].setHidden(true);
+			grdCtl.columns[20].setHidden(true);
+			
+			
+			
+			
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
+			grdCtl.columns[3].setHidden(true);
+			grdCtl.columns[4].setHidden(true);
+			grdCtl.columns[5].setHidden(true);
+			
 			grdCtl.columns[6].setHidden(false);
 			grdCtl.columns[7].setHidden(false);
 			grdCtl.columns[8].setHidden(false);
 			grdCtl.columns[9].setHidden(false);
-			grdCtl.columns[10].setHidden(false);
-			grdCtl.columns[11].setHidden(false);
-			grdCtl.columns[12].setHidden(false);
-			grdCtl.columns[30].setHidden(false);
-			grdCtl.columns[31].setHidden(false);
+			
+			grdCtl.columns[10].setHidden(true);
+			grdCtl.columns[17].setHidden(true);
+			grdCtl.columns[18].setHidden(true);
+			
+			grdCtl.columns[19].setHidden(false);
+			grdCtl.columns[20].setHidden(false);
+			
 		}else if(test == "3"){
+			grdCtl.columns[3].setHidden(true);
+			grdCtl.columns[4].setHidden(true);
+			
 			grdCtl.columns[5].setHidden(false);
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
+			
+			grdCtl.columns[6].setHidden(true);
+			grdCtl.columns[7].setHidden(true);
+			grdCtl.columns[8].setHidden(true);
+			grdCtl.columns[9].setHidden(true);
+			
+			grdCtl.columns[10].setHidden(false);
+			
+			grdCtl.columns[17].setHidden(true);
+			grdCtl.columns[18].setHidden(true);
+			grdCtl.columns[19].setHidden(true);
+			grdCtl.columns[20].setHidden(true);
 		}else{
 			grdCtl.columns[3].setHidden(false);
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
+			
+			grdCtl.columns[4].setHidden(true);
+			grdCtl.columns[5].setHidden(true);
+			
+			grdCtl.columns[6].setHidden(true);
+			grdCtl.columns[7].setHidden(true);
+			grdCtl.columns[8].setHidden(true);
+			grdCtl.columns[9].setHidden(true);
+			
+			grdCtl.columns[10].setHidden(false);
+			
+			grdCtl.columns[17].setHidden(true);
+			grdCtl.columns[18].setHidden(true);
+			grdCtl.columns[19].setHidden(true);
+			grdCtl.columns[20].setHidden(true);
 		}
 		console.info(test);
 		
@@ -526,7 +548,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		grdCtl.id = gridId;
+		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
@@ -568,6 +590,7 @@ GetWindowControl = function(options){
 	if(winCtl == undefined){
 		
 		winCtl = Ext.create('KRF_DEV.view.common.WindowControl', options);
+		//winCtl = Ext.create('KRF_DEV.view.common.WindowControl');
 		
 	}
 	

@@ -13,7 +13,7 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	minimize: true, // 최소화 tool icon 표시
 	//close: true,
 	//closable: false,
-	closeAction:'hide',
+	//closeAction:'hide', // close, destroy로하면 시스템 멈춰버리므로 일단 hide
 	width: 300,
 	height: 300,
 	itemxType: 'panel', // window 내부 아이템 타입
@@ -175,12 +175,11 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 		
 		console.info(this.tools);
 		
-//		this.on("beforeclose", function(a, b, c){
-//			console.info(a);
-//			console.info(b);
-//			console.info(c);
-//			me.removeAll();
-//		});
+		this.on("beforeclose", function(window){
+			window.removeAll();
+			//me.removeAll();
+			//return;
+		});
 		
 	},
 	

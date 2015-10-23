@@ -322,6 +322,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	var searchResultWindow = this.GetWindowControl(options);
 	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
+	
 	//centerContainer.add(searchResultWindow.show()); // window 보이기
 	//console.info(gridId);
 	if(gridId == undefined)
@@ -334,10 +335,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	};
 	
 	var tabCtl = Ext.getCmp("searchResultTab");
-	console.info(KRF_DEV.getApplication().btnFlag);
+	//console.info(KRF_DEV.getApplication().btnFlag);
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	console.info(searchResultTab);
+	//console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -385,23 +386,23 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		grdCtl.id = gridId;
 		
+		//grdCtl.id = gridId; // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
+		//return;
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
 		}
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
+		//console.info(grdCtl.parentIds)
+		//console.info(grdCtl.siteIds);
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds
 		});
-		
 		
 		grdCtl.getView().bindStore(gridStore);
 	
@@ -416,7 +417,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			
 			tab.add(grdContainer);
 		}
-		console.info(grdContainer);
+		//console.info(grdContainer);
 		
 		
 		//console.info(test);
@@ -426,7 +427,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		//tab.setActiveTab(gridId + "_container");
 		
-		console.info(ResultGrid_F);
+		//console.info(ResultGrid_F);
 		
 		//ResultGrid_F.columns[1].setHidden(true);
 		
@@ -435,7 +436,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		grdCtl.id = gridId;
+		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
@@ -547,7 +548,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		grdCtl.id = gridId;
+		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
