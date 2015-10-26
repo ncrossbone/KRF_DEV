@@ -208,9 +208,13 @@ ReachInfoBinding = function(objs){
 
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
-	console.info(tabIdx);
-	console.info(title);
+	var orgParentId = parentId
 	
+	parentId = parentId.substring(0,1);
+	
+	if(parentId == "D"){
+		KRF_DEV.getApplication().chartFlag_D = orgParentId;
+	}
 	//console.info(parentId);
 	KRF_DEV.getApplication().parentFlag = parentId;
 	KRF_DEV.getApplication().chartFlag = "1";
@@ -240,30 +244,88 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	winCtl.setX(winX);
 	winCtl.setY(winY);
 	
-	
-	
-	
-	
 	var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 	var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 	var siteText = Ext.getCmp("selectName");  //
+	var siteItemText = Ext.getCmp("selectItemName");  //
 	//지점명 표출
 	siteText.setText(test);
-	
 	//각쿼리당 초기값 설정
+	var labelName = "";
+	var yFieldName = "";
 	var series = siteChartCtl.series[0];
 	if(parentId == "A"){
 		series.setXField("yearMonth");
-		series.setYField("ITEM_BOD");
+		siteItemText.setText("BOD(㎎/L)");
+		//series.setYField("ITEM_BOD");
+		labelName = "BOD";
+		yFieldName = "ITEM_BOD";
 	}else if(parentId == "B"){
 		series.setXField("WMCYMD");
-		series.setYField("ITEM_COD");
+		siteItemText.setText("COD(㎎/L)");
+		//series.setYField("ITEM_COD");
+		labelName = "COD";
+		yFieldName = "ITEM_COD";
 	}else if(parentId == "C"){
 		series.setXField("WMCYMD");
-		series.setYField("ITEM_DOW");
+		siteItemText.setText("DO(㎎/L)");
+		//series.setYField("ITEM_DOW");
+		labelName = "DO";
+		yFieldName = "ITEM_DOW";
 	}else if(parentId == "F"){
 		series.setXField("WORK_DT");
-		series.setYField("ITEM_BOD");
+		siteItemText.setText("BOD(㎎/L)");
+		//series.setYField("ITEM_BOD");
+		labelName = "BOD";
+		yFieldName = "ITEM_BOD";
+	}else if(orgParentId == "D001"){
+		series.setXField("WMCYMD");
+		//series.setYField("RF");
+		siteItemText.setText("RF");
+		labelName = "RF";
+		yFieldName = "RF";
+		
+	}else if(orgParentId == "D002"){
+		series.setXField("WMCYMD");
+		//series.setYField("WL");
+		siteItemText.setText("WL");
+		labelName = "WL";
+		yFieldName = "WL";
+		
+	}else if(orgParentId == "D003"){
+		series.setXField("WMCYMD");
+		//series.setYField("FW");
+		siteItemText.setText("FW");
+		labelName = "FW";
+		yFieldName = "FW";
+		
+	}else if(orgParentId == "D004"){
+		series.setXField("WMCYMD");
+		//series.setYField("SWL");
+		siteItemText.setText("SWL");
+		labelName = "SWL";
+		yFieldName = "SWL";
+		
+	}else if(orgParentId == "D005"){
+		series.setXField("WMCYMD");
+		//series.setYField("WD");
+		siteItemText.setText("WDE");
+		labelName = "WDE";
+		yFieldName = "WD";
+		
+	}else if(orgParentId == "D006"){
+		series.setXField("WMCYMD");
+		//series.setYField("RND");
+		siteItemText.setText("RND");
+		labelName = "RND";
+		yFieldName = "RND";
+		
+	}else if(orgParentId == "D007"){
+		series.setXField("WMCYMD");
+		//series.setYField("SWL");
+		siteItemText.setText("SWL");
+		labelName = "SWL";
+		yFieldName = "SWL";
 	}
 	
 	
@@ -271,18 +333,14 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		var store = siteinfoCtl.getStore();
 		var chartStore = siteChartCtl.getStore();
 		
-		
-		
-		
 		store.siteCD = title;
 		chartStore.siteCD = title;
 		
 		store.load();
 		chartStore.parentId = parentId;
 		chartStore.load();
-		console.info(chartStore.config.fields);
-		siteinfoCtl.getView().refresh();
 		
+		SetChartData(labelName, yFieldName, title, parentId);
 	}
 	
 	ChangeTabIndex(tabIdx);
@@ -297,6 +355,163 @@ HideWindowSiteNChart = function(){
 	if(winCtl != undefined)
 		winCtl.close();
 
+}
+
+// 차트 라벨 맥시멈 등 셋팅 및 스토어 로드
+// 기간설정 검색 시 파라메터 모두 공백으로.. 지점목록에서 검색 시 해당 값 파라메터
+SetChartData = function(labelName, yFieldName, siteCd, parentId){
+	
+	var chartCtl = Ext.getCmp("siteCharttest");
+	var axes   = chartCtl.axes[0];
+	var series = chartCtl.series[0];
+	
+	//item 선택
+	var selectItem = Ext.getCmp("selectItem");
+	//년도
+	var selectYear = Ext.getCmp("selectYear");
+	var s = "";
+	
+	// y필드 셋팅
+	if(yFieldName == undefined || yFieldName == ""){
+		series.setYField(selectItem.lastValue);
+		axes.fields = selectItem.lastValue;
+		s = selectItem.lastValue;
+	}
+	else{
+		series.setYField(yFieldName);
+		axes.fields = yFieldName;
+		s = yFieldName;
+	}
+	
+	var store = chartCtl.getStore();
+	
+	// 사이트 코드 셋팅
+	if(siteCd != undefined && siteCd != ""){
+		store.siteCD = siteCd;
+	}
+	
+	if(parentId != undefined && parentId != ""){
+		store.parentId = parentId;
+	}
+	
+	var labelNm = "";
+	// 라벨 셋팅
+	if(labelName == undefined || labelName == ""){
+		labelNm= selectItem.lastMutatedValue;
+	}
+	else{
+		labelNm = labelName;
+	}
+	
+	if(labelNm == "BOD"){
+		labelNm = "BOD(㎎/L)";
+	}else if(labelNm == "DO"){
+		labelNm = "DO(㎎/L)";
+	}else if(labelNm == "COD"){
+		labelNm = "COD(㎎/L)";
+	}else if(labelNm == "T.N"){
+		labelNm = "T-N (㎎/L)";
+	}else if(labelNm == "T.P"){
+		labelNm = "T-P (㎎/L)";
+	}else if(labelNm == "수온"){
+		labelNm = "수온(℃)";
+	}else if(labelNm == "pH"){
+		labelNm = "pH";
+	}else if(labelNm == "SS"){
+		labelNm = "SS(㎎/ℓ)";
+	}else if(labelNm == "클로로필a"){
+		labelNm = "클로로필a(㎎/㎥)";
+	}
+	
+	var ITEM_BOD = parseFloat(store.arrMax[0].ITEM_BOD);
+	var ITEM_DOC = parseFloat(store.arrMax[0].ITEM_DOC);
+	var ITEM_COD = parseFloat(store.arrMax[0].ITEM_COD);
+	var ITEM_TN = parseFloat(store.arrMax[0].ITEM_TN);
+	var ITEM_TP = parseFloat(store.arrMax[0].ITEM_TP);
+	var ITEM_TEMP = parseFloat(store.arrMax[0].ITEM_TEMP);
+	var ITEM_PH = parseFloat(store.arrMax[0].ITEM_PH);
+	var ITEM_SS = parseFloat(store.arrMax[0].ITEM_SS);
+	var ITEM_CLOA = parseFloat(store.arrMax[0].ITEM_CLOA);
+	var ITEM_DOW = parseFloat(store.arrMax[0].ITEM_DOW);
+	var ITEM_FLW = parseFloat(store.arrMax[0].ITEM_FLW);
+	var ITEM_EC = parseFloat(store.arrMax[0].ITEM_EC);
+	var AMT_PHYS = parseFloat(store.arrMax[0].AMT_PHYS);
+	var AMT_BIO = parseFloat(store.arrMax[0].AMT_BIO);
+	var AMT_HIGHTEC = parseFloat(store.arrMax[0].AMT_HIGHTEC);
+	var ITEM_COLI = parseFloat(store.arrMax[0].ITEM_COLI);
+	var ITEM_AMT = parseFloat(store.arrMax[0].ITEM_AMT);
+	var ITEM_BYPASS_AMT = parseFloat(store.arrMax[0].ITEM_BYPASS_AMT);
+	
+	if(s == "ITEM_BOD"){
+		axes.setMaximum(ITEM_BOD);
+		//axes.prevMax = 3;
+		//axes.prevMax = ITEM_BOD;
+	}else if(s == "ITEM_DOC"){
+		axes.setMaximum(ITEM_DOC);
+		//axes.prevMax = ITEM_DOC;
+	}else if(s == "ITEM_COD"){
+		axes.setMaximum(ITEM_COD);
+		//axes.prevMax = ITEM_COD;
+	}else if(s == "ITEM_TN"){
+		axes.setMaximum(ITEM_TN);
+		//axes.prevMax = ITEM_TN;
+	}else if(s == "ITEM_TP"){
+		axes.setMaximum(ITEM_TP);
+		//axes.prevMax = ITEM_TP;
+	}else if(s == "ITEM_TEMP"){
+		axes.setMaximum(ITEM_TEMP);
+		//axes.prevMax = ITEM_TEMP;
+	}else if(s == "ITEM_PH"){
+		axes.setMaximum(ITEM_PH);
+		//axes.prevMax = ITEM_PH;
+	}else if(s == "ITEM_SS"){
+		axes.setMaximum(ITEM_SS);
+		//axes.prevMax = ITEM_SS;
+	}else if(s == "ITEM_CLOA"){
+		axes.setMaximum(ITEM_CLOA);
+		//axes.prevMax = ITEM_CLOA;
+	}else if(s == "ITEM_DOW"){
+		axes.setMaximum(ITEM_DOW);
+		//axes.prevMax = ITEM_DOW;
+	}else if(s == "ITEM_FLW"){
+		axes.setMaximum(ITEM_FLW);
+		//axes.prevMax = ITEM_FLW;
+	}else if(s == "ITEM_EC"){
+		axes.setMaximum(ITEM_EC);
+		//axes.prevMax = ITEM_EC;
+	}else if(s == "AMT_PHYS"){
+		axes.setMaximum(AMT_PHYS);
+		//axes.prevMax = AMT_PHYS;
+	}else if(s == "AMT_BIO"){
+		axes.setMaximum(AMT_BIO);
+		//axes.prevMax = AMT_BIO;
+	}else if(s == "AMT_HIGHTEC"){
+		axes.setMaximum(AMT_HIGHTEC);
+		//axes.prevMax = AMT_HIGHTEC;
+	}else if(s == "ITEM_COLI"){
+		axes.setMaximum(ITEM_COLI);
+		//axes.prevMax = ITEM_COLI;
+	}else if(s == "ITEM_AMT"){
+		axes.setMaximum(ITEM_AMT);
+		//axes.prevMax = ITEM_AMT;
+	}else if(s == "ITEM_BYPASS_AMT"){
+		axes.setMaximum(ITEM_BYPASS_AMT);
+		//axes.prevMax = ITEM_BYPASS_AMT;
+	}
+	
+	//ITEM_BYPASS_AMT
+	KRF_DEV.getApplication().chartFlag = "0";
+	
+	var selectItemName = Ext.getCmp("selectItemName")
+	selectItemName.setText(labelNm);
+
+	store.load();
+	//chartCtl.getView().refresh();
+
+	var win = Ext.getCmp("datePanel1");
+	if(win != undefined)
+		win.hide();
+	
 }
 
 // 정보창 탭 체인지
@@ -342,6 +557,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
 	
+	console.info(siteIds);
+	console.info(parentIds);
+	console.info(gridId);
+	
 	//centerContainer.add(searchResultWindow.show()); // window 보이기
 	//console.info(gridId);
 	if(gridId == undefined)
@@ -375,6 +594,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
+	
+	var orgParentId = parentIds[0].parentId;
 	
 	if(parentIds[0].parentId == undefined){
 		var parentCheck = parentIds.substring(0,1);
@@ -598,7 +819,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		grdCtl.getView().bindStore(gridStore);
 	
-	}else{
+	}else if(parentCheck == "C"){
 
 		hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
@@ -632,6 +853,63 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
+	
+	
+	}else if(parentCheck == "D"){
+
+		console.info(orgParentId);
+		hiddenGrid.setHidden(true);
+		if(grdContainer == null || grdContainer == undefined){
+			
+			if(orgParentId == "D001"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D", options);
+			}else if(orgParentId == "D002"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_2", options);
+			}else if(orgParentId == "D003"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_3", options);
+			}else if(orgParentId == "D004"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_4", options);
+			}else if(orgParentId == "D005"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_5", options);
+			}else if(orgParentId == "D006"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_6", options);
+			}else if(orgParentId == "D007"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_7", options);
+			}
+			
+			
+			
+			tab.add(grdContainer);
+		}
+		
+		tab.setActiveTab(gridId + "_container");
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		console.info(grdCtl);
+		console.info(grdCtl.parentIds);
+		console.info(parentIds);
+		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
+		
+		if(siteIds != ""){
+			grdCtl.siteIds = siteIds;
+		}
+		if(parentIds != ""){
+			grdCtl.parentIds = parentIds;
+		}
+		
+		console.info(grdCtl.parentIds)
+		console.info(grdCtl.siteIds);
+		
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_D", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			orgParentIds: orgParentId
+		});
+		
+		grdCtl.getView().bindStore(gridStore);
+	
 	
 	
 	}

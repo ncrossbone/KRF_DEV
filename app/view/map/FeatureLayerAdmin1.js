@@ -52,11 +52,11 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		    //"yoffset": 35,
 		    "type": "esriPMS",
 		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
-		    "url": "./resources/images/symbol/spot_06.png",
+		    "url": "./resources/images/symbol/spot_09.png",
 		    "contentType": "image/gif",
-		    "width": 25,
-		    "height": 53,
-		    "yoffset": 36,
+		    "width": 31,
+		    "height": 79,
+		    "yoffset": 16,
 		    "xoffset": 4
 		});
 		

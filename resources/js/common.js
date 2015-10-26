@@ -256,79 +256,76 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	var series = siteChartCtl.series[0];
 	if(parentId == "A"){
 		series.setXField("yearMonth");
-<<<<<<< HEAD
+		siteItemText.setText("BOD(㎎/L)");
 		//series.setYField("ITEM_BOD");
 		labelName = "BOD";
 		yFieldName = "ITEM_BOD";
 	}else if(parentId == "B"){
 		series.setXField("WMCYMD");
+		siteItemText.setText("COD(㎎/L)");
 		//series.setYField("ITEM_COD");
 		labelName = "COD";
 		yFieldName = "ITEM_COD";
 	}else if(parentId == "C"){
 		series.setXField("WMCYMD");
+		siteItemText.setText("DO(㎎/L)");
 		//series.setYField("ITEM_DOW");
 		labelName = "DO";
 		yFieldName = "ITEM_DOW";
 	}else if(parentId == "F"){
 		series.setXField("WORK_DT");
+		siteItemText.setText("BOD(㎎/L)");
 		//series.setYField("ITEM_BOD");
 		labelName = "BOD";
 		yFieldName = "ITEM_BOD";
-=======
-		series.setYField("ITEM_BOD");
-		siteItemText.setText("BOD(㎎/L)");
-		
-	}else if(parentId == "B"){
-		series.setXField("WMCYMD");
-		series.setYField("ITEM_COD");
-		siteItemText.setText("COD(㎎/L)");
-		
-	}else if(parentId == "C"){
-		series.setXField("WMCYMD");
-		series.setYField("COD(㎎/L)");
-		siteItemText.setText("COD(㎎/L)");
-		
-	}else if(parentId == "F"){
-		series.setXField("WORK_DT");
-		series.setYField("ITEM_BOD");
-		siteItemText.setText("BOD(㎎/L)");
-		
 	}else if(orgParentId == "D001"){
 		series.setXField("WMCYMD");
-		series.setYField("RF");
+		//series.setYField("RF");
 		siteItemText.setText("RF");
+		labelName = "RF";
+		yFieldName = "RF";
 		
 	}else if(orgParentId == "D002"){
 		series.setXField("WMCYMD");
-		series.setYField("WL");
+		//series.setYField("WL");
 		siteItemText.setText("WL");
+		labelName = "WL";
+		yFieldName = "WL";
 		
 	}else if(orgParentId == "D003"){
 		series.setXField("WMCYMD");
-		series.setYField("FW");
+		//series.setYField("FW");
 		siteItemText.setText("FW");
+		labelName = "FW";
+		yFieldName = "FW";
 		
 	}else if(orgParentId == "D004"){
 		series.setXField("WMCYMD");
-		series.setYField("SWL");
+		//series.setYField("SWL");
 		siteItemText.setText("SWL");
+		labelName = "SWL";
+		yFieldName = "SWL";
 		
 	}else if(orgParentId == "D005"){
 		series.setXField("WMCYMD");
-		series.setYField("WD");
+		//series.setYField("WD");
 		siteItemText.setText("WDE");
+		labelName = "WDE";
+		yFieldName = "WD";
 		
 	}else if(orgParentId == "D006"){
 		series.setXField("WMCYMD");
-		series.setYField("RND");
+		//series.setYField("RND");
 		siteItemText.setText("RND");
+		labelName = "RND";
+		yFieldName = "RND";
 		
 	}else if(orgParentId == "D007"){
 		series.setXField("WMCYMD");
-		series.setYField("SWL");
+		//series.setYField("SWL");
 		siteItemText.setText("SWL");
->>>>>>> b965bf4bc87843b74ded14903fefed407d1ca83a
+		labelName = "SWL";
+		yFieldName = "SWL";
 	}
 	
 	
@@ -342,13 +339,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		store.load();
 		chartStore.parentId = parentId;
 		chartStore.load();
-<<<<<<< HEAD
-=======
-		//console.info(chartStore.config.fields);
-		siteinfoCtl.getView().refresh();
->>>>>>> b965bf4bc87843b74ded14903fefed407d1ca83a
-		
-		//siteinfoCtl.getView().refresh();
 		
 		SetChartData(labelName, yFieldName, title, parentId);
 	}
