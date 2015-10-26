@@ -91,9 +91,9 @@ if(defaultChart.equals("1")){
 	//sql += "   order by wmcymd                                                                                                                      ";
 }
 sql += " UNION ALL                                                                                                                              ";
-sql += " SELECT 999 as RN, '', '','', '', '', MAX(ITEM_BOD), MAX(ITEM_DOC), MAX(ITEM_COD),                                                      ";
-sql += " MAX(ITEM_TN), MAX(ITEM_TP), MAX(ITEM_TEMP), MAX(ITEM_PH),                                                                              ";
-sql += " MAX(ITEM_SS), MAX(ITEM_CLOA), ''                                                                                                       ";
+sql += " SELECT 999 as RN, '', '','', '', '', MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10, MAX(ITEM_DOC) + MAX(ITEM_DOC) / 10, MAX(ITEM_COD) + MAX(ITEM_COD) / 10,                                                      ";
+sql += " MAX(ITEM_TN) + MAX(ITEM_TN) / 10, MAX(ITEM_TP) + MAX(ITEM_TP) / 10, MAX(ITEM_TEMP) + MAX(ITEM_TEMP) / 10, MAX(ITEM_PH) + MAX(ITEM_PH) / 10,                                                                              ";
+sql += " MAX(ITEM_SS) + MAX(ITEM_SS) / 10, MAX(ITEM_CLOA) + MAX(ITEM_CLOA) / 10, ''                                                                                                       ";
 sql += "   FROM TMP_TBL                                                                                                                         ";	                                 
 
 

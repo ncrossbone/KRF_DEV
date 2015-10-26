@@ -12,6 +12,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     startRchGraphics: [], // 시작위치로 지정된 그래픽 배열
     selAreaGraphics: [], // 선택된 집수구역 그래픽 배열
     
+    selLoiRchIds: [], // 하류 유입 리치 아이디 선택 배열
+    
     isUpDraw: true, // 검색설정 상류 체크여부
     isDownDraw: false, // 검색설정 하류 체크여부
     isUpBonDraw: true, // 검색설정 상류 본류 체크여부
@@ -485,12 +487,15 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			return;
     		}
     		
-    		console.info(me.reachLayerAdmin.isDownDraw);
+    		// 하류 유입 아이디 배열 초기화
+    		me.selLoiRchIds = [];
     		
 	    	me.reachLayerAdmin.executeQuery(evt[0], "start");
+
 	    	if(me.reachLayerAdmin.isUpDraw == true){
 	    		me.reachLayerAdmin.executeQuery(evt[0], "up");
 	    	}
+	    	
 	    	if(me.reachLayerAdmin.isDownDraw == true){
 	    		me.reachLayerAdmin.executeQuery(evt[0], "down");
 	    	}
@@ -603,10 +608,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 				AS_CD = "";
 			}
 			
-    		console.info("대권역 : " + WS_CD);
-    		console.info("중권역 : " + AM_CD);
-    		console.info("소권역 : " + AS_CD);
-    		console.info("법정동 : " + ADM_CD);
+    		//console.info("대권역 : " + WS_CD);
+    		//console.info("중권역 : " + AM_CD);
+    		//console.info("소권역 : " + AS_CD);
+    		//console.info("법정동 : " + ADM_CD);
 			
 			// 집수구역 그리기
 			me.currAreaDraw(feature);
@@ -614,52 +619,75 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			var queryWhere = "";
 			
 			if(AM_CD != ""){
-				queryWhere = "RCH_ID LIKE '" + AM_CD + "%'";
+				queryWhere = "RCH_ID LIKE '" + AM_CD + "%' AND";
 			}
 			if(AS_CD != ""){
-				queryWhere = "RCH_ID LIKE '" + AS_CD + "%'";
+				queryWhere = "RCH_ID LIKE '" + AS_CD + "%' AND";
 			}
 			
-			if(queryWhere != ""){
-				queryWhere += " AND ";
-			}
+			//isUpBonDraw: true, // 검색설정 상류 본류 체크여부
+	        //isUpJiDraw: true, // 검색설정 상류 지류 체크여부
 		
+			// 상류 검색
 			if(type == "up"){
+				
+				// 상류 본류 체크, 상류 지류 체크 해제 시
+				if(me.isUpBonDraw == true && me.isUpJiDraw == false){
+					queryWhere += " GEO_TRIB = 0 AND";
+    				//queryWhere += " GEO_TRIB IN (0, 1) AND";
+					//queryWhere += " GEO_TRIB = " + geoTrib + " AND";
+    			}
+				
 				if(rupRchId != "00000000"){
-					query.where = queryWhere + "RCH_ID = '" + rupRchId + "'";
+					query.where = queryWhere + " RCH_ID = '" + rupRchId + "'";
 					queryTask.execute(query, me.upLineDraw_auto);
 				}
 				
 				if(lupRchId != "00000000"){
-					query.where = queryWhere + "RCH_ID = '" + lupRchId + "'";
+					query.where = queryWhere + " RCH_ID = '" + lupRchId + "'";
 					queryTask.execute(query, me.upLineDraw_auto);
 				}
 			}
 			
+			// 하류 검색
 			if(type == "down"){
+				
+				// 하류 본류 체크, 상류 지류 체크 해제 시
+				if(me.isDownBonDraw == true && me.isDownJiDraw == false){
+					queryWhere += " GEO_TRIB = 0 AND";
+    				//queryWhere += " GEO_TRIB IN (0, 1) AND";
+					//queryWhere += " GEO_TRIB = " + geoTrib + " AND";
+    			}
+				
 				if(looRchId != "00000000"){
-					query.where = queryWhere + "RCH_ID = '" + looRchId + "'";
+					query.where = queryWhere + " RCH_ID = '" + looRchId + "'";
 					queryTask.execute(query, me.downLineDraw_auto);
 				}
+				
+				/*
+				if(loiRchId != "00000000"){
+					
+					// 하류 유입 아이디 전역 배열 인덱스 가져오기
+					var loiIdx = me.getLoiRchIdIndex(loiRchId);
+					
+					if(loiIdx == -1){ // 하류 유입 아이디 인덱스 없으면
+						me.selLoiRchIds.push(loiRchId); // 하류 유입 아이디 인덱스 추가
+						query.where = queryWhere + " RCH_ID = '" + loiRchId + "'";
+						queryTask.execute(query, me.downLineDraw_auto);
+					}
+				}
+				*/
 			}
 			
+			// 시작 위치 검색
 			if(type == "start"){
-				//me.amCD_temp = AM_CD;
-				//console.info(me.amCD_temp);
-				// 지점목록 창 띄우기
-				//Ext.ShowSiteListWindow(AM_CD);
-				
-				queryWhere = "RCH_ID LIKE '" + AM_CD + "%' AND ";
-				query.where = queryWhere + "RCH_ID = '" + rchId + "'";
+				query.where = queryWhere + " RCH_ID = '" + rchId + "'";
 				queryTask.execute(query, me.startLineDrawGraphic);
 			}
 			
+			// 리치 추가 검색
 			if(type == "add"){
-				// 추가위치로 설정된 집수구역 중권역 설정
-				//AM_CD = catId.substring(0, 4);
-				//AS_CD = ""; // 소권역은 공백
-				
-				query.where = "RCH_ID = '" + rchId + "'";
+				query.where = " RCH_ID = '" + rchId + "'";
 				queryTask.execute(query, me.currLineDraw);
 			}
 			
@@ -811,6 +839,25 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     },
     
+    // 하류 유입 RCH ID 인덱스 가져오기
+    getLoiRchIdIndex: function(loiRchId){
+    	
+    	var me = this;
+    	
+    	if(me.selLoiRchIds != null && me.selLoiRchIds != undefined){
+	    	for(var i = 0; i < me.selLoiRchIds.length; i++){
+	    		var tmpId = me.selLoiRchIds[i];
+	    		if(tmpId == loiRchId){
+	    			return i;
+	    		}
+	    	}
+    	}
+    	
+    	return -1;
+    	
+    },
+    
+    // 선택, 상류, 하류 리치 그래픽 인덱스 가져오기
     getRchGraphicIndex: function(rchId, graphicArray){
     	
     	if(graphicArray != null && graphicArray != undefined){
@@ -825,6 +872,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	return -1;
     },
     
+    // 선택, 상류, 하류 집수구역 그래픽 인덱스 가져오기
     getCatGraphicIndex: function(catId, graphicArray){
     	
     	if(graphicArray != null && graphicArray != undefined){

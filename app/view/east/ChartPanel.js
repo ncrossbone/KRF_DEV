@@ -94,7 +94,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        //xtype: 'chart',
 			xtype: 'cartesian',
 	        id: 'siteCharttest',
-	        width: '95%',
+	        width: '100%',
 	        height: 250,
 	        padding: '10 0 0 0',
 	        style: {

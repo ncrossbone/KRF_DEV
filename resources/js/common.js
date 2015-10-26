@@ -240,10 +240,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	winCtl.setX(winX);
 	winCtl.setY(winY);
 	
-	
-	
-	
-	
 	var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 	var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 	var siteText = Ext.getCmp("selectName");  //
@@ -251,19 +247,29 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	siteText.setText(test);
 	
 	//각쿼리당 초기값 설정
+	var labelName = "";
+	var yFieldName = "";
 	var series = siteChartCtl.series[0];
 	if(parentId == "A"){
 		series.setXField("yearMonth");
-		series.setYField("ITEM_BOD");
+		//series.setYField("ITEM_BOD");
+		labelName = "BOD";
+		yFieldName = "ITEM_BOD";
 	}else if(parentId == "B"){
 		series.setXField("WMCYMD");
-		series.setYField("ITEM_COD");
+		//series.setYField("ITEM_COD");
+		labelName = "COD";
+		yFieldName = "ITEM_COD";
 	}else if(parentId == "C"){
 		series.setXField("WMCYMD");
-		series.setYField("ITEM_DOW");
+		//series.setYField("ITEM_DOW");
+		labelName = "DO";
+		yFieldName = "ITEM_DOW";
 	}else if(parentId == "F"){
 		series.setXField("WORK_DT");
-		series.setYField("ITEM_BOD");
+		//series.setYField("ITEM_BOD");
+		labelName = "BOD";
+		yFieldName = "ITEM_BOD";
 	}
 	
 	
@@ -271,18 +277,16 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		var store = siteinfoCtl.getStore();
 		var chartStore = siteChartCtl.getStore();
 		
-		
-		
-		
 		store.siteCD = title;
 		chartStore.siteCD = title;
 		
 		store.load();
 		chartStore.parentId = parentId;
 		chartStore.load();
-		console.info(chartStore.config.fields);
-		siteinfoCtl.getView().refresh();
 		
+		//siteinfoCtl.getView().refresh();
+		
+		SetChartData(labelName, yFieldName, title, parentId);
 	}
 	
 	ChangeTabIndex(tabIdx);
@@ -297,6 +301,163 @@ HideWindowSiteNChart = function(){
 	if(winCtl != undefined)
 		winCtl.close();
 
+}
+
+// 차트 라벨 맥시멈 등 셋팅 및 스토어 로드
+// 기간설정 검색 시 파라메터 모두 공백으로.. 지점목록에서 검색 시 해당 값 파라메터
+SetChartData = function(labelName, yFieldName, siteCd, parentId){
+	
+	var chartCtl = Ext.getCmp("siteCharttest");
+	var axes   = chartCtl.axes[0];
+	var series = chartCtl.series[0];
+	
+	//item 선택
+	var selectItem = Ext.getCmp("selectItem");
+	//년도
+	var selectYear = Ext.getCmp("selectYear");
+	var s = "";
+	
+	// y필드 셋팅
+	if(yFieldName == undefined || yFieldName == ""){
+		series.setYField(selectItem.lastValue);
+		axes.fields = selectItem.lastValue;
+		s = selectItem.lastValue;
+	}
+	else{
+		series.setYField(yFieldName);
+		axes.fields = yFieldName;
+		s = yFieldName;
+	}
+	
+	var store = chartCtl.getStore();
+	
+	// 사이트 코드 셋팅
+	if(siteCd != undefined && siteCd != ""){
+		store.siteCD = siteCd;
+	}
+	
+	if(parentId != undefined && parentId != ""){
+		store.parentId = parentId;
+	}
+	
+	var labelNm = "";
+	// 라벨 셋팅
+	if(labelName == undefined || labelName == ""){
+		labelNm= selectItem.lastMutatedValue;
+	}
+	else{
+		labelNm = labelName;
+	}
+	
+	if(labelNm == "BOD"){
+		labelNm = "BOD(㎎/L)";
+	}else if(labelNm == "DO"){
+		labelNm = "DO(㎎/L)";
+	}else if(labelNm == "COD"){
+		labelNm = "COD(㎎/L)";
+	}else if(labelNm == "T.N"){
+		labelNm = "T-N (㎎/L)";
+	}else if(labelNm == "T.P"){
+		labelNm = "T-P (㎎/L)";
+	}else if(labelNm == "수온"){
+		labelNm = "수온(℃)";
+	}else if(labelNm == "pH"){
+		labelNm = "pH";
+	}else if(labelNm == "SS"){
+		labelNm = "SS(㎎/ℓ)";
+	}else if(labelNm == "클로로필a"){
+		labelNm = "클로로필a(㎎/㎥)";
+	}
+	
+	var ITEM_BOD = parseFloat(store.arrMax[0].ITEM_BOD);
+	var ITEM_DOC = parseFloat(store.arrMax[0].ITEM_DOC);
+	var ITEM_COD = parseFloat(store.arrMax[0].ITEM_COD);
+	var ITEM_TN = parseFloat(store.arrMax[0].ITEM_TN);
+	var ITEM_TP = parseFloat(store.arrMax[0].ITEM_TP);
+	var ITEM_TEMP = parseFloat(store.arrMax[0].ITEM_TEMP);
+	var ITEM_PH = parseFloat(store.arrMax[0].ITEM_PH);
+	var ITEM_SS = parseFloat(store.arrMax[0].ITEM_SS);
+	var ITEM_CLOA = parseFloat(store.arrMax[0].ITEM_CLOA);
+	var ITEM_DOW = parseFloat(store.arrMax[0].ITEM_DOW);
+	var ITEM_FLW = parseFloat(store.arrMax[0].ITEM_FLW);
+	var ITEM_EC = parseFloat(store.arrMax[0].ITEM_EC);
+	var AMT_PHYS = parseFloat(store.arrMax[0].AMT_PHYS);
+	var AMT_BIO = parseFloat(store.arrMax[0].AMT_BIO);
+	var AMT_HIGHTEC = parseFloat(store.arrMax[0].AMT_HIGHTEC);
+	var ITEM_COLI = parseFloat(store.arrMax[0].ITEM_COLI);
+	var ITEM_AMT = parseFloat(store.arrMax[0].ITEM_AMT);
+	var ITEM_BYPASS_AMT = parseFloat(store.arrMax[0].ITEM_BYPASS_AMT);
+	
+	if(s == "ITEM_BOD"){
+		axes.setMaximum(ITEM_BOD);
+		//axes.prevMax = 3;
+		//axes.prevMax = ITEM_BOD;
+	}else if(s == "ITEM_DOC"){
+		axes.setMaximum(ITEM_DOC);
+		//axes.prevMax = ITEM_DOC;
+	}else if(s == "ITEM_COD"){
+		axes.setMaximum(ITEM_COD);
+		//axes.prevMax = ITEM_COD;
+	}else if(s == "ITEM_TN"){
+		axes.setMaximum(ITEM_TN);
+		//axes.prevMax = ITEM_TN;
+	}else if(s == "ITEM_TP"){
+		axes.setMaximum(ITEM_TP);
+		//axes.prevMax = ITEM_TP;
+	}else if(s == "ITEM_TEMP"){
+		axes.setMaximum(ITEM_TEMP);
+		//axes.prevMax = ITEM_TEMP;
+	}else if(s == "ITEM_PH"){
+		axes.setMaximum(ITEM_PH);
+		//axes.prevMax = ITEM_PH;
+	}else if(s == "ITEM_SS"){
+		axes.setMaximum(ITEM_SS);
+		//axes.prevMax = ITEM_SS;
+	}else if(s == "ITEM_CLOA"){
+		axes.setMaximum(ITEM_CLOA);
+		//axes.prevMax = ITEM_CLOA;
+	}else if(s == "ITEM_DOW"){
+		axes.setMaximum(ITEM_DOW);
+		//axes.prevMax = ITEM_DOW;
+	}else if(s == "ITEM_FLW"){
+		axes.setMaximum(ITEM_FLW);
+		//axes.prevMax = ITEM_FLW;
+	}else if(s == "ITEM_EC"){
+		axes.setMaximum(ITEM_EC);
+		//axes.prevMax = ITEM_EC;
+	}else if(s == "AMT_PHYS"){
+		axes.setMaximum(AMT_PHYS);
+		//axes.prevMax = AMT_PHYS;
+	}else if(s == "AMT_BIO"){
+		axes.setMaximum(AMT_BIO);
+		//axes.prevMax = AMT_BIO;
+	}else if(s == "AMT_HIGHTEC"){
+		axes.setMaximum(AMT_HIGHTEC);
+		//axes.prevMax = AMT_HIGHTEC;
+	}else if(s == "ITEM_COLI"){
+		axes.setMaximum(ITEM_COLI);
+		//axes.prevMax = ITEM_COLI;
+	}else if(s == "ITEM_AMT"){
+		axes.setMaximum(ITEM_AMT);
+		//axes.prevMax = ITEM_AMT;
+	}else if(s == "ITEM_BYPASS_AMT"){
+		axes.setMaximum(ITEM_BYPASS_AMT);
+		//axes.prevMax = ITEM_BYPASS_AMT;
+	}
+	
+	//ITEM_BYPASS_AMT
+	KRF_DEV.getApplication().chartFlag = "0";
+	
+	var selectItemName = Ext.getCmp("selectItemName")
+	selectItemName.setText(labelNm);
+
+	store.load();
+	//chartCtl.getView().refresh();
+
+	var win = Ext.getCmp("datePanel1");
+	if(win != undefined)
+		win.hide();
+	
 }
 
 // 정보창 탭 체인지
