@@ -16,7 +16,6 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 		//alert("dd");
 		var itemCtl = Ext.getCmp("selectItem");															
 		var f_Chart = Ext.getCmp("f_Chart");
-		
 		if(f_Chart.lastValue == "1"){
 			
 			var store = Ext.create('Ext.data.Store', {

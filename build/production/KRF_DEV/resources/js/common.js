@@ -441,18 +441,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var ResultGrid_F = Ext.getCmp(gridId + "_container");
 		
-<<<<<<< HEAD
-		//var ResultGrid_F = Ext.getCmp("ResultGrid_F")
-		
-		//tab.setActiveTab(gridId + "_container");
-		
-		//console.info(ResultGrid_F);
-		
-		//ResultGrid_F.columns[1].setHidden(true);
-=======
->>>>>>> 23135cc76ade7815141da61741e09aa065051c9f
-		
-		
 		tab.setActiveTab(gridId + "_container");
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너

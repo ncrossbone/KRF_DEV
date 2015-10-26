@@ -40,7 +40,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				style: 'font-weight: bold; padding-left: 15px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				//store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
-				displayField: 'ptNm',
 				width: 65,
 				height: 25
 			},{
@@ -157,8 +156,10 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                dismissDelay: 0,
 	                hideDelay: 0,
 	                renderer: function(storeItem, item) {
+	                	var series = Ext.getCmp("siteCharttest");
+	                	
 	                    //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('ITEM_BOD') + '%');
-	                	this.setTitle('측정일 : '+storeItem.get('yearMonth')+ '<br>' + '측정량 : ' + storeItem.get('ITEM_BOD'));
+	                	this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정량 : ' + storeItem.get(series.series[0]._yField));
 	                }
 	            }
 	        }]

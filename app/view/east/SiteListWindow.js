@@ -48,8 +48,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
             	var test = record.data.text;
             	var chkText = record.id;
-            	var parentId = "";
-            	parentId = record.data.parentId.substring(0,1);
+            	var parentId = record.data.parentId;
+            	//parentId = record.data.parentId.substring(0,1);
             	ShowWindowSiteNChart(1, chkText, test, parentId);
             },
             // Only leaf level tasks may be edited
@@ -68,8 +68,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
             	var test = record.data.text;
             	var chkText = record.id;
-            	var parentId = "";
-            	parentId = record.data.parentId.substring(0,1);
+            	var parentId = record.data.parentId;
+            	//parentId = record.data.parentId.substring(0,1);
             	ShowWindowSiteNChart(0, chkText, test, parentId);
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {

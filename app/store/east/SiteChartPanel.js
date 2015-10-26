@@ -29,16 +29,21 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	listeners: {
 		load: function(store) { 
 			//var siteCd= Ext.getCmp("siteCd");
-			console.info("###");
-			console.info(KRF_DEV.getApplication().chartFlag);
-			console.info(store.parentId);
 			var defaultChart = KRF_DEV.getApplication().chartFlag;
 			var f_Chart = Ext.getCmp("f_Chart");
+			var d_Chart = KRF_DEV.getApplication().chartFlag_D;
+			if(d_Chart != undefined){
+				var org_D_firstID = d_Chart.substring(0,1);
+			}
 			
+			
+			
+			//console.info(KRF_DEV.getApplication().chartFlag_D);
 			
 			var f_parentId = "";
 			
 			if(store.parentId == "F" ){
+				console.info(f_Chart);
 				if(f_Chart == undefined){
 					f_parentId = "F_1";
 				}else if(f_Chart.lastValue == "1"){
@@ -50,8 +55,9 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 				}else if(f_Chart.lastValue == "4"){
 					f_parentId = "F_4";
 				}
+			}else if(store.parentId == "D"){
+				store.parentId = d_Chart;
 			}
-			
 			
 			 if(store.parentId == "A"){
 					store.config.fields = [
@@ -147,11 +153,75 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 						                       {name: 'ITEM_BYPASS_AMT', type: 'float'}
 						                       ];
 					}
-					
-					
-					
+					console.info(f_parentId);
+				}else if(store.parentId == "D001"){
+					store.config.fields = [
+					                       'PT_NM',
+					                       'WMCYMD',
+					                       {name: 'RF', type: 'float'}
+					                       ]
+				}else if(store.parentId == "D002"){
+					store.config.fields = [
+					                       'PT_NM',
+					                       'WMCYMD',
+					                       {name: 'WL', type: 'float'}
+					                       ]
+				}else if(store.parentId == "D003"){
+					store.config.fields = [
+					                       'PT_NM',
+					                       'WMCYMD',
+					                       {name: 'FW', type: 'float'}
+					                       ]
+				}else if(store.parentId == "D004"){
+					store.config.fields = [
+					                       'PT_NM',
+					                       'WMCYMD',
+					                       {name: 'SWL', type: 'float'},
+					                       {name: 'INF', type: 'float'},
+					                       {name: 'OTF', type: 'float'},
+					                       {name: 'SFW', type: 'float'},
+					                       {name: 'ECPC', type: 'float'}
+					                       ]
+				}else if(store.parentId == "D005"){
+					store.config.fields = [
+					                       'PT_NM',
+					                       'WMCYMD',
+					                       {name: 'WD', type: 'float'},
+					                       {name: 'WSL', type: 'float'},
+					                       {name: 'TA', type: 'float'},
+					                       {name: 'HM', type: 'float'},
+					                       {name: 'PA', type: 'float'},
+					                       {name: 'PS', type: 'float'},
+					                       {name: 'RNYN', type: 'float'},
+					                       {name: 'RN1HR', type: 'float'},
+					                       {name: 'RNDAY', type: 'float'}
+					                       ]
+				}else if(store.parentId == "D006"){
+					store.config.fields = [
+					                       'PT_NM',
+					                       'WMCYMD',
+					                       {name: 'RND', type: 'float'},
+					                       {name: 'TA', type: 'float'},
+					                       {name: 'SIDAY', type: 'float'}
+					                       ]
+				}else if(store.parentId == "D007"){
+					store.config.fields = [
+					                       'PT_NM',
+					                       'WMCYMD',
+					                       {name: 'SWL', type: 'float'},
+					                       {name: 'OWL', type: 'float'},
+					                       {name: 'SFW', type: 'float'},
+					                       {name: 'ECPC', type: 'float'},
+					                       {name: 'INF', type: 'float'},
+					                       {name: 'TOTOTF', type: 'float'},
+					                       {name: 'EGOTF', type: 'float'},
+					                       {name: 'CBOTF', type: 'float'},
+					                       {name: 'FWOTF', type: 'float'},
+					                       {name: 'ETOTF', type: 'float'}
+					                       ]
 				}
-			
+				
+			 
 			//
 			
 			var selectYear = Ext.getCmp("selectYear");
@@ -212,11 +282,15 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			
 			
 			
+			
 			var jsonData = "";
-			
 			console.info(store.parentId);
-			if(store.parentId != "F"){
+			console.info(d_Chart);
 			
+			
+			
+			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
+				console.info("1");
 			Ext.Ajax.request({
         		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
         		params: {recordId: recordId
@@ -242,9 +316,36 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         		}
         	});
 			
-			}else{
+			}else if(store.parentId == "F"){
+				console.info("2");
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetRWMDT_'+f_parentId+'.jsp',    // To Which url you wanna POST.
+	        		params: {recordId: recordId
+	        			, recordYear: recordYear
+	        			, recordYear2: recordYear2
+	        			, recordMonth: recordMonth
+	        			, recordMonth2: recordMonth2
+	        			, defaultChart: defaultChart
+	        			},
+	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		success : function(response, opts) {
+	        			
+	        			// JSON Object로 변경
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+	        			
+	        			store.loadData(jsonData.data);
+	        			store.arrMax = jsonData.maxdata;
+	        			
+	        		},
+	        		failure: function(form, action) {
+	        			//alert(form.responseText);
+	        			alert("오류가 발생하였습니다.");
+	        		}
+	        	});
+			}else if(org_D_firstID == "D"){
+				console.info("3");
+				Ext.Ajax.request({
+	        		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
 	        		params: {recordId: recordId
 	        			, recordYear: recordYear
 	        			, recordYear2: recordYear2
