@@ -208,9 +208,13 @@ ReachInfoBinding = function(objs){
 
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
-	console.info(tabIdx);
-	console.info(title);
+	var orgParentId = parentId
 	
+	parentId = parentId.substring(0,1);
+	
+	if(parentId == "D"){
+		KRF_DEV.getApplication().chartFlag_D = orgParentId;
+	}
 	//console.info(parentId);
 	KRF_DEV.getApplication().parentFlag = parentId;
 	KRF_DEV.getApplication().chartFlag = "1";
@@ -247,23 +251,65 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 	var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 	var siteText = Ext.getCmp("selectName");  //
+	var siteItemText = Ext.getCmp("selectItemName");  //
 	//지점명 표출
 	siteText.setText(test);
-	
 	//각쿼리당 초기값 설정
 	var series = siteChartCtl.series[0];
 	if(parentId == "A"){
 		series.setXField("yearMonth");
 		series.setYField("ITEM_BOD");
+		siteItemText.setText("BOD(㎎/L)");
+		
 	}else if(parentId == "B"){
 		series.setXField("WMCYMD");
 		series.setYField("ITEM_COD");
+		siteItemText.setText("COD(㎎/L)");
+		
 	}else if(parentId == "C"){
 		series.setXField("WMCYMD");
-		series.setYField("ITEM_DOW");
+		series.setYField("COD(㎎/L)");
+		siteItemText.setText("COD(㎎/L)");
+		
 	}else if(parentId == "F"){
 		series.setXField("WORK_DT");
 		series.setYField("ITEM_BOD");
+		siteItemText.setText("BOD(㎎/L)");
+		
+	}else if(orgParentId == "D001"){
+		series.setXField("WMCYMD");
+		series.setYField("RF");
+		siteItemText.setText("RF");
+		
+	}else if(orgParentId == "D002"){
+		series.setXField("WMCYMD");
+		series.setYField("WL");
+		siteItemText.setText("WL");
+		
+	}else if(orgParentId == "D003"){
+		series.setXField("WMCYMD");
+		series.setYField("FW");
+		siteItemText.setText("FW");
+		
+	}else if(orgParentId == "D004"){
+		series.setXField("WMCYMD");
+		series.setYField("SWL");
+		siteItemText.setText("SWL");
+		
+	}else if(orgParentId == "D005"){
+		series.setXField("WMCYMD");
+		series.setYField("WD");
+		siteItemText.setText("WDE");
+		
+	}else if(orgParentId == "D006"){
+		series.setXField("WMCYMD");
+		series.setYField("RND");
+		siteItemText.setText("RND");
+		
+	}else if(orgParentId == "D007"){
+		series.setXField("WMCYMD");
+		series.setYField("SWL");
+		siteItemText.setText("SWL");
 	}
 	
 	
@@ -280,7 +326,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		store.load();
 		chartStore.parentId = parentId;
 		chartStore.load();
-		console.info(chartStore.config.fields);
+		//console.info(chartStore.config.fields);
 		siteinfoCtl.getView().refresh();
 		
 	}
@@ -342,6 +388,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
 	
+	console.info(siteIds);
+	console.info(parentIds);
+	console.info(gridId);
+	
 	//centerContainer.add(searchResultWindow.show()); // window 보이기
 	//console.info(gridId);
 	if(gridId == undefined)
@@ -375,6 +425,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
+	
+	var orgParentId = parentIds[0].parentId;
 	
 	if(parentIds[0].parentId == undefined){
 		var parentCheck = parentIds.substring(0,1);
@@ -598,7 +650,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		grdCtl.getView().bindStore(gridStore);
 	
-	}else{
+	}else if(parentCheck == "C"){
 
 		hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
@@ -632,6 +684,63 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
+	
+	
+	}else if(parentCheck == "D"){
+
+		console.info(orgParentId);
+		hiddenGrid.setHidden(true);
+		if(grdContainer == null || grdContainer == undefined){
+			
+			if(orgParentId == "D001"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D", options);
+			}else if(orgParentId == "D002"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_2", options);
+			}else if(orgParentId == "D003"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_3", options);
+			}else if(orgParentId == "D004"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_4", options);
+			}else if(orgParentId == "D005"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_5", options);
+			}else if(orgParentId == "D006"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_6", options);
+			}else if(orgParentId == "D007"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_7", options);
+			}
+			
+			
+			
+			tab.add(grdContainer);
+		}
+		
+		tab.setActiveTab(gridId + "_container");
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		console.info(grdCtl);
+		console.info(grdCtl.parentIds);
+		console.info(parentIds);
+		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
+		
+		if(siteIds != ""){
+			grdCtl.siteIds = siteIds;
+		}
+		if(parentIds != ""){
+			grdCtl.parentIds = parentIds;
+		}
+		
+		console.info(grdCtl.parentIds)
+		console.info(grdCtl.siteIds);
+		
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_D", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			orgParentIds: orgParentId
+		});
+		
+		grdCtl.getView().bindStore(gridStore);
+	
 	
 	
 	}
