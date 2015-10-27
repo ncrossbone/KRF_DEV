@@ -383,6 +383,8 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 		s = yFieldName;
 	}
 	
+	console.info(axes);
+	
 	var store = chartCtl.getStore();
 	
 	// 사이트 코드 셋팅
@@ -499,6 +501,10 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 		//axes.prevMax = ITEM_BYPASS_AMT;
 	}
 	
+	//axes.setMaximum(2);
+	//axes.setMajorTickSteps(6);
+	//axes.majorTickSize = 1;
+	
 	//ITEM_BYPASS_AMT
 	KRF_DEV.getApplication().chartFlag = "0";
 	
@@ -587,6 +593,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			//id: "searchResultContainer",
 			id: gridId + "_container",
 			title: titleText, //_searchType,
+			closable : true,
 			autoResize: true
 	};
 	

@@ -93,6 +93,11 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        //xtype: 'chart',
 			xtype: 'cartesian',
 	        id: 'siteCharttest',
+	        //insetPadding: 10,
+	        innerPadding: {
+	             //left: 30,
+	             right: 30
+	        }, 
 	        width: '100%',
 	        height: 250,
 	        padding: '10 0 0 0',
@@ -109,7 +114,11 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            //fields: 'ITEM_BOD',
 	            position: 'left',
 	            grid: true,
-	            majorTickSteps: 1,
+	            //minorTickSteps: 5,
+	            //majorTickSteps: 5,
+	            //majorUnit: 1,
+	            //step: 1,
+	            //scale: 'Exponential', // Exponential, Logarithmic
 	            minimum: 0/*,
 	            label: {
 	                renderer: function(v) { alert(v);return v + '%'; }
@@ -120,7 +129,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            //fields: 'yearMonth',
 	            position: 'bottom',
 	            grid: true,
-	            majorTickSteps: 1,
+	            //majorTickSteps: 1,
 	            label: {
 	                rotate: {
 	                    degrees: -45
