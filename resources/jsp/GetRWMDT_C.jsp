@@ -143,11 +143,15 @@ sql += "    AND A.WMYR||A.WMOD BETWEEN '"+ac+"' AND '"+bd+"'                    
 sql += "  ORDER BY WMYR DESC , WMOD DESC                                                                                                                                         ";
 sql += "  )                                                                                                                                                                      ";
 sql += "     SELECT *                                                                                                                                                            ";
-sql += " FROM (SELECT *                                                                                                                                                          ";
-sql += "         FROM TMP_TBL                                                                                                                                                    ";
-sql += "        WHERE ROWNUM <= 10                                                                                                                                               ";
-sql += "            ORDER BY WMCYMD                                                                                                                                              ";
-sql += "      )                                                                                                                                                                  ";
+if(defaultChart.equals("1")){
+	sql += " FROM (SELECT *                                                                                                                                                          ";
+	sql += "         FROM TMP_TBL                                                                                                                                                    ";
+	sql += "        WHERE ROWNUM <= 10                                                                                                                                               ";
+	sql += "            ORDER BY WMCYMD                                                                                                                                              ";
+	sql += "      )                                                                                                                                                                  ";
+}else{
+	sql += " FROM TMP_TBL    ";
+}
 sql += "  UNION ALL                                                                                                                                                              ";
 sql += "  SELECT 999 AS RN, '', '','', '', '', '', '', MAX(ITEM_DOW), MAX(ITEM_TEMP), MAX(ITEM_DO),                                                                              ";
 sql += "  MAX(ITEM_PH), MAX(ITEM_EC), MAX(ITEM_COD), MAX(ITEM_TOC),                                                                                                              ";

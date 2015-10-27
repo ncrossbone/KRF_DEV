@@ -158,13 +158,13 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 					store.config.fields = [
 					                       'PT_NM',
 					                       'WMCYMD',
-					                       {name: 'RF', type: 'float'}
+					                       {name: 'WL', type: 'float'}
 					                       ]
 				}else if(store.parentId == "D002"){
 					store.config.fields = [
 					                       'PT_NM',
 					                       'WMCYMD',
-					                       {name: 'WL', type: 'float'}
+					                       {name: 'RF', type: 'float'}
 					                       ]
 				}else if(store.parentId == "D003"){
 					store.config.fields = [

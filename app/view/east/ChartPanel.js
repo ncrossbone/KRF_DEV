@@ -46,9 +46,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				xtype: 'container',
 				width: 10
 			},{
-				xtype: 'image',
-				src: './resources/images/button/arrow.gif'
-			},{
 				xtype: 'label',
 				id : 'selectItemName',
 				style: 'font-weight: bold; padding-left: 15px;',

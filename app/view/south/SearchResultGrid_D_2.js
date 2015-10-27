@@ -96,86 +96,16 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_2', {
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				width: 110
 			}, {
-				text : '수위(cm)',
+				text : '우량쟈료(mm)',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'CURR_WL',
+					dataIndex: 'CURR_RF',
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'CHART_WL',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
-						    '</tpl>',
-						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
-						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
-						        }
-						    }
-						),
-						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
-						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : '최고수위',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_MXWL',
-					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_MXWL',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
-						    '</tpl>',
-						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
-						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
-						        }
-						    }
-						),
-						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
-						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : '최저수위(cm)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_MNXL',
-					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_MNXL',
+					dataIndex: 'CHART_RF',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
