@@ -280,17 +280,17 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		yFieldName = "ITEM_BOD";
 	}else if(orgParentId == "D001"){
 		series.setXField("WMCYMD");
-		//series.setYField("RF");
-		siteItemText.setText("RF");
-		labelName = "RF";
-		yFieldName = "RF";
-		
-	}else if(orgParentId == "D002"){
-		series.setXField("WMCYMD");
 		//series.setYField("WL");
 		siteItemText.setText("WL");
 		labelName = "WL";
 		yFieldName = "WL";
+		
+	}else if(orgParentId == "D002"){
+		series.setXField("WMCYMD");
+		//series.setYField("RF");
+		siteItemText.setText("RF");
+		labelName = "RF";
+		yFieldName = "RF";
 		
 	}else if(orgParentId == "D003"){
 		series.setXField("WMCYMD");
@@ -383,6 +383,8 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 		s = yFieldName;
 	}
 	
+	console.info(axes);
+	
 	var store = chartCtl.getStore();
 	
 	// 사이트 코드 셋팅
@@ -398,6 +400,7 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	// 라벨 셋팅
 	if(labelName == undefined || labelName == ""){
 		labelNm= selectItem.lastMutatedValue;
+		KRF_DEV.getApplication().chartFlag = "0";
 	}
 	else{
 		labelNm = labelName;
@@ -441,6 +444,32 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	var ITEM_COLI = parseFloat(store.arrMax[0].ITEM_COLI);
 	var ITEM_AMT = parseFloat(store.arrMax[0].ITEM_AMT);
 	var ITEM_BYPASS_AMT = parseFloat(store.arrMax[0].ITEM_BYPASS_AMT);
+	
+	
+	var RF = parseFloat(store.arrMax[0].RF);
+	var WL = parseFloat(store.arrMax[0].WL);
+	var FW = parseFloat(store.arrMax[0].FW);
+	var SWL = parseFloat(store.arrMax[0].INF);
+	var OTF = parseFloat(store.arrMax[0].OTF);
+	var SFW = parseFloat(store.arrMax[0].SFW);
+	var ECPC = parseFloat(store.arrMax[0].ECPC);
+	var WD = parseFloat(store.arrMax[0].WD);
+	var WS = parseFloat(store.arrMax[0].WS);
+	var TA = parseFloat(store.arrMax[0].TA);
+	var HM = parseFloat(store.arrMax[0].HM);
+	var PA = parseFloat(store.arrMax[0].PA);
+	var RNYN = parseFloat(store.arrMax[0].RNYN);
+	var RN1HR = parseFloat(store.arrMax[0].RN1HR);
+	var RNDAY = parseFloat(store.arrMax[0].RNDAY);
+	var RND = parseFloat(store.arrMax[0].RND);
+	var SIDAY = parseFloat(store.arrMax[0].SIDAY);
+	var OWL = parseFloat(store.arrMax[0].OWL);
+	var TOTOTF = parseFloat(store.arrMax[0].TOTOTF);
+	var EGOTF = parseFloat(store.arrMax[0].EGOTF);
+	var GTOTF = parseFloat(store.arrMax[0].GTOTF);
+	var CBOTF = parseFloat(store.arrMax[0].CBOTF);
+	var FWOTF = parseFloat(store.arrMax[0].FWOTF);
+	var ETCOTF = parseFloat(store.arrMax[0].ETCOTF);
 	
 	if(s == "ITEM_BOD"){
 		axes.setMaximum(ITEM_BOD);
@@ -497,10 +526,56 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	}else if(s == "ITEM_BYPASS_AMT"){
 		axes.setMaximum(ITEM_BYPASS_AMT);
 		//axes.prevMax = ITEM_BYPASS_AMT;
+		
+	}else if(s == "RF"){
+		axes.setMaximum(RF);
+	}else if(s == "WL"){
+		axes.setMaximum(WL);
+	}else if(s == "FW"){
+		axes.setMaximum(FW);
+	}else if(s == "SWL"){
+		axes.setMaximum(SWL);
+	}else if(s == "OTF"){
+		axes.setMaximum(OTF);
+	}else if(s == "SFW"){
+		axes.setMaximum(SFW);
+	}else if(s == "ECPC"){
+		axes.setMaximum(ECPC);
+	}else if(s == "WD"){
+		axes.setMaximum(WD);
+	}else if(s == "WS"){
+		axes.setMaximum(WS);
+	}else if(s == "TA"){
+		axes.setMaximum(TA);
+	}else if(s == "HM"){
+		axes.setMaximum(HM);
+	}else if(s == "PA"){
+		axes.setMaximum(PA);
+	}else if(s == "RNYN"){
+		axes.setMaximum(RNYN);
+	}else if(s == "RN1HR"){
+		axes.setMaximum(RN1HR);
+	}else if(s == "RNDAY"){
+		axes.setMaximum(RNDAY);
+	}else if(s == "RND"){
+		axes.setMaximum(RND);
+	}else if(s == "SIDAY"){
+		axes.setMaximum(SIDAY);
+	}else if(s == "OWL"){
+		axes.setMaximum(OWL);
+	}else if(s == "TOTOTF"){
+		axes.setMaximum(TOTOTF);
+	}else if(s == "EGOTF"){
+		axes.setMaximum(EGOTF);
+	}else if(s == "GTOTF"){
+		axes.setMaximum(GTOTF);
+	}else if(s == "CBOTF"){
+		axes.setMaximum(CBOTF);
+	}else if(s == "FWOTF"){
+		axes.setMaximum(FWOTF);
+	}else if(s == "ETCOTF"){
+		axes.setMaximum(ETCOTF);
 	}
-	
-	//ITEM_BYPASS_AMT
-	KRF_DEV.getApplication().chartFlag = "0";
 	
 	var selectItemName = Ext.getCmp("selectItemName")
 	selectItemName.setText(labelNm);
@@ -587,6 +662,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			//id: "searchResultContainer",
 			id: gridId + "_container",
 			title: titleText, //_searchType,
+			closable : true,
 			autoResize: true
 	};
 	
