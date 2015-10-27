@@ -41,9 +41,9 @@ try{
 	sql += "         FROM   FWDY A,                                                                             ";
 	sql += "                FWOBSIF D                                                                           ";
 	sql += "         WHERE  A.WLOBSCD = D.FWOBSCD                                                               ";
-	sql += "         AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) >='201502'                       ";
-	sql += "         AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) <='201502'                       ";
-	sql += "         AND    A.WLOBSCD = '1016550'                                                     ";
+	sql += "         AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) >='"+ac+"'                       ";
+	sql += "         AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) <='"+bd+"'                       ";
+	sql += "         AND    A.WLOBSCD = '"+recordId+"'                                                     ";
 	sql += "         GROUP BY TO_CHAR(YMDH, 'YYYY.MM.DD'), A.WLOBSCD , OBSNM ) A,                               ";
 	sql += "        KESTI_WATER_ALL_MAP B,                                                                      ";
 	sql += "        COM_DISTRICT_RAW C                                                                          ";
@@ -52,11 +52,15 @@ try{
 	sql += "  ORDER BY PT_NO, A.WMCYMD DESC                                                                     ";
 	sql += "  )                                                                                                 ";
 	sql += " SELECT *                                                                                           ";
-	sql += " FROM   (SELECT *                                                                                   ";
-	sql += "         FROM   TMP_TBL                                                                             ";
-	sql += "         WHERE  ROWNUM <= 10                                                                        ";
-	sql += "         ORDER BY WMCYMD                                                                            ";
-	sql += "      )                                                                                             ";
+	if(defaultChart.equals("1")){
+		sql += " FROM   (SELECT *                                                                                   ";
+		sql += "         FROM   TMP_TBL                                                                             ";
+		sql += "         WHERE  ROWNUM <= 10                                                                        ";
+		sql += "         ORDER BY WMCYMD                                                                            ";
+		sql += "      )                                                                                             ";
+	}else{
+		sql += "   FROM TMP_TBL    ";
+	}
 	sql += "  UNION ALL                                                                                         ";
 	sql += "  SELECT 999 AS RN, '','','', MAX(FW)                                                               ";                              
 	sql += "    FROM TMP_TBL                                                                                    ";                                                                                                                                                  

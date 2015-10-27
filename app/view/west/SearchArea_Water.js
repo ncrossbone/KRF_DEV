@@ -61,6 +61,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 		    	//text: '이동',
 		    	//width: 55,
 		    	//height: 25,
+		    	disabled: true,
 		    	cls: 'khLee-x-button-move'
 			}]
 		}, {

@@ -62,9 +62,9 @@ try{
 	sql += "         FROM   BOMST A ,                                                                                       ";
 	sql += "                BOOBSIF D                                                                                       ";
 	sql += "         WHERE  A.BOOBSCD = D.BOOBSCD                                                                           ";
-	sql += "         AND    SUBSTR(A.YMDHM ,1,6) >='201502'                                                                 ";
-	sql += "         AND    SUBSTR(A.YMDHM ,1,6) <='201502'                                                                 ";
-	sql += "         AND    A.BOOBSCD = '2011802'                                                                           ";
+	sql += "         AND    SUBSTR(A.YMDHM ,1,6) >='"+ac+"'                                                                 ";
+	sql += "         AND    SUBSTR(A.YMDHM ,1,6) <='"+bd+"'                                                                 ";
+	sql += "         AND    A.BOOBSCD = '"+recordId+"'                                                                           ";
 	sql += "         GROUP BY SUBSTR(A.YMDHM ,1,6), SUBSTR(A.YMDHM ,7,6), A.BOOBSCD , OBSNM ) A ,                           ";
 	sql += "        KESTI_WATER_ALL_MAP B ,                                                                                 ";
 	sql += "        COM_DISTRICT_RAW C                                                                                      ";
@@ -72,11 +72,15 @@ try{
 	sql += " AND    A.ADM_CD = C.ADM_CD                                                                                     ";
 	sql += " ORDER  BY PT_NO, A.WMCYMD DESC)                                                                                ";
 	sql += " SELECT *                                                                                                       ";
-	sql += " FROM   (SELECT *                                                                                               ";
-	sql += "         FROM   TMP_TBL                                                                                         ";
-	sql += "         WHERE  ROWNUM <= 10                                                                                    ";
-	sql += "         ORDER BY WMCYMD                                                                                        ";
-	sql += "      )                                                                                                         ";
+	if(defaultChart.equals("1")){
+		sql += " FROM   (SELECT *                                                                                               ";
+		sql += "         FROM   TMP_TBL                                                                                         ";
+		sql += "         WHERE  ROWNUM <= 10                                                                                    ";
+		sql += "         ORDER BY WMCYMD                                                                                        ";
+		sql += "      )                                                                                                         ";
+	}else{
+		sql += "         FROM TMP_TBL     ";
+	}
 	sql += "  UNION ALL                                                                                                     ";
 	sql += "  SELECT 999 AS RN, '','','',                                                                                   ";
 	sql += "        MAX(SWL), MAX(OWL), MAX(SFW),                                                                           ";

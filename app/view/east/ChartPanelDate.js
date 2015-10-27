@@ -14,10 +14,26 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
     initComponent: function(){
     	this.callParent();
 	    	var itemCtl = Ext.getCmp("selectItem");
-			var parentChk = KRF_DEV.getApplication().parentFlag;
+	    	
+	    	var f_Chart = Ext.getCmp("f_Chart");
+	    	var f_ChartText = Ext.getCmp("f_ChartText");
+	    	
+	    	var parentChk = KRF_DEV.getApplication().parentFlag;
 			var chartFlag_D = KRF_DEV.getApplication().chartFlag_D;
-			console.info(parentChk);
-			console.info(chartFlag_D);
+			console.info(f_Chart);
+	    	console.info(parentChk);
+	    	if(parentChk == "F"){
+	    		//console.info(parentChk);
+	    		f_Chart.hidden = false;
+	    		f_ChartText.hidden = false;
+	    	}else{
+	    		//console.info(parentChk);
+	    		f_Chart.hidden = true;
+	    		f_ChartText.hidden = true;
+	    	}
+	    	
+	    	//console.info(parentChk);
+			//console.info(chartFlag_D);
 			if(parentChk == "A"){
 			var store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
@@ -63,12 +79,12 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 				if(chartFlag_D == "D001"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'RF', name: 'RF'}]
+						data: [{id: 'WL', name: 'WL'}]
 					})
 				}else if(chartFlag_D == "D002"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'WL', name: 'WL'}]
+						data: [{id: 'RF', name: 'RF'}]
 					})
 				}else if(chartFlag_D == "D003"){
 					var store = Ext.create('Ext.data.Store', {
@@ -120,6 +136,19 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						       {id: 'ETCOTF', name: 'ETCOTF'}]
 					})
 				}
+			}else if(parentChk == "F"){
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: 'AMT_PHYS', name: 'AMT_PHYS'}
+					,{id: 'AMT_BIO', name: 'AMT_BIO'}
+					,{id: 'AMT_HIGHTEC', name: 'AMT_HIGHTEC'}
+					,{id: 'ITEM_BOD', name: 'BOD'}
+					,{id: 'ITEM_COD', name: 'COD'}
+					,{id: 'ITEM_SS', name: 'SS'}
+					,{id: 'ITEM_TN', name: 'T.N'}
+					,{id: 'ITEM_TP', name: 'T.P'}
+					,{id: 'ITEM_COLI', name: 'COLI'}]
+				})
 			}
 			
 			itemCtl.bindStore(store);
@@ -290,6 +319,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						
 				},{
 					xtype: 'label',
+					id: 'f_ChartText',
 					text: '항목'
 				}]
 	    	}]

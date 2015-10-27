@@ -27,42 +27,52 @@ try{
 		
 	String defaultChart = request.getParameter("defaultChart");
 	
-	sql = " WITH TMP_TBL AS       															";                                                                                                                                                                                                                                                  
-			sql += "  (SELECT RANK() OVER(PARTITION BY RFOBSCD ORDER BY RFOBSCD, YMD DESC) AS RN /* 순번 참고용 */        ";
-			sql += "      , RFOBSCD AS PT_NO /* 관측소코드 */                                                             ";
-			sql += "      , OBSNM AS PT_NM /* 관측소명 */                                                                 ";
-			sql += "      , YMD AS WMCYMD /* 관측일자*/                                                                   ";
-			sql += "      , RF /* 우량자료(mm) */                                                                         ";
-			sql += "   FROM (SELECT SUBSTR(YMD, 1, 4)||'.'||SUBSTR(YMD, 5, 2)||'.'||SUBSTR(YMD, 7, 2) AS YMD,             ";
-			sql += "                A.RFOBSCD,                                                                            ";
-			sql += "                OBSNM,                                                                                ";
-			sql += "                MAX(ADM_CD) ADM_CD,                                                                   ";
-			sql += "                ROUND(SUM(RF)/1, 3) RF                                                                ";
-			sql += "         FROM   RFDY A,                                                                               ";
-			sql += "                RFOBSIF D                                                                             ";
-			sql += "         WHERE  A.RFOBSCD = D.RFOBSCD                                                                 ";
-			sql += "           AND SUBSTR(YMD,1,6) BETWEEN '201501' AND '201502'                                          ";
-			sql += "           AND A.RFOBSCD = '10164080'                                                                 ";
-			sql += "         GROUP BY YMD, A.RFOBSCD , D.OBSNM                                                            ";
-			sql += "         ORDER BY YMD, A.RFOBSCD , D.OBSNM ) A,                                                       ";
-			sql += "        KESTI_WATER_ALL_MAP B,                                                                        ";
-			sql += "        COM_DISTRICT_RAW C                                                                            ";
-			sql += "  WHERE A.ADM_CD = B.ADM_CD                                                                           ";
-			sql += "    AND A.ADM_CD = C.ADM_CD                                                                           ";
-			sql += "  ORDER BY PT_NO, WMCYMD DESC )                                                                       ";
-			sql += " SELECT *                                                                                             ";
-			sql += " FROM   (SELECT *                                                                                     ";
-			sql += "         FROM   TMP_TBL                                                                               ";
-			sql += "         WHERE  ROWNUM <= 10                                                                          ";
-			sql += "         ORDER BY WMCYMD                                                                              ";
-			sql += "      )                                                                                               ";
-			sql += "  UNION ALL                                                                                           ";
-			sql += "  SELECT 999 AS RN, '','','', MAX(RF)                                                                 ";                                
-			sql += "    FROM TMP_TBL                                                                                     ";                                                                                                                                                       
+	sql = " WITH TMP_TBL AS             																																	";                                                                                                                                                                                                                                            
+	sql += "  (SELECT RANK() OVER(PARTITION BY WLOBSCD ORDER BY WLOBSCD, WMCYMD DESC) AS RN /* 순번 */    ";
+	sql += "      , WLOBSCD AS PT_NO /* 관측소코드 */                                                     ";
+	sql += "      , OBSNM AS PT_NM /* 관측소명 */                                                         ";
+	sql += "      , WMCYMD /* 관측일자 */                                                                 ";
+	sql += "      , TO_CHAR(WL, '999G999G999G990D00') AS WL /* 수위(cm) */                                ";
+	sql += "      , TO_CHAR(MXWL, '999G999G999G990D00') AS MXWL /* 최고수위(cm) */                        ";
+	sql += "      , TO_CHAR(MNWL, '999G999G999G990D00') AS MNWL /* 최저수위(cm) */                        ";
+	sql += " FROM   (                                                                                     ";
+	sql += "         SELECT TO_CHAR(A.YMDH , 'YYYY.MM.DD') AS WMCYMD,                                     ";
+	sql += "                A.WLOBSCD ,                                                                   ";
+	sql += "                OBSNM,                                                                        ";
+	sql += "                MAX(ADM_CD) ADM_CD,                                                           ";
+	sql += "                ROUND(AVG(WL)/1, 2) WL,                                                       ";
+	sql += "                ROUND(AVG(MXWL)/1, 2) MXWL,                                                   ";
+	sql += "                ROUND(AVG(MNWL)/1, 2) MNWL                                                    ";
+	sql += "         FROM   WLDY A,                                                                       ";
+	sql += "                WLOBSIF D                                                                     ";
+	sql += "         WHERE  A.WLOBSCD = D.WLOBSCD                                                         ";
+	sql += "           AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) >='"+ac+"'                  ";
+	sql += "           AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) <='"+bd+"'                 ";
+	sql += "           AND A.WLOBSCD = '"+recordId+"'                                              ";
+	sql += "         GROUP BY TO_CHAR(A.YMDH , 'YYYY.MM.DD') , A.WLOBSCD , OBSNM                          ";
+	sql += "        ) A,                                                                                  ";
+	sql += "        KESTI_WATER_ALL_MAP B,                                                                ";
+	sql += "        COM_DISTRICT_RAW C                                                                    ";
+	sql += " WHERE  A.ADM_CD = B.ADM_CD                                                                   ";
+	sql += " AND    A.ADM_CD = C.ADM_CD                                                                   ";
+	sql += " ORDER BY PT_NO, A.WMCYMD DESC)                                                               ";
+	sql += " SELECT *                                                                                     ";
+	if(defaultChart.equals("1")){
+		sql += " FROM   (SELECT *                                                                             ";
+		sql += "         FROM   TMP_TBL                                                                       ";
+		sql += "         WHERE  ROWNUM <= 10                                                                  ";
+		sql += "         ORDER BY WMCYMD                                                                      ";
+		sql += "      )                                                                                       ";
+	}else{
+		sql += "  FROM TMP_TBL   ";
+	}
+	sql += "  UNION ALL                                                                                   ";
+	sql += "  SELECT 999 AS RN, '','','', MAX(WL), MAX(MXWL), MAX(MNWL)                                   ";                                      
+	sql += "    FROM TMP_TBL                                                                              ";                                                                                                                                                     
                              
 
 
-		
+	//System.out.println(sql);
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
@@ -71,21 +81,23 @@ try{
 	JSONArray jsonArrMax = new JSONArray();
 	JSONObject jsonRecord = null;
 	
-	//int cnt = 0;
+	int cnt = 0;
 	while(rs.next()) {
-		//cnt++;
-		//out.print(cnt);
+		cnt++;
+		
 		jsonRecord = new JSONObject();
 
   		jsonRecord.put("PT_NM"	, rs.getString("PT_NM"));
   		jsonRecord.put("WMCYMD"	, rs.getString("WMCYMD"));
-  		jsonRecord.put("RF" 	, rs.getString("RF"));
+  		jsonRecord.put("WL" 	, rs.getString("WL"));
   		
   		if(rs.getString("RN").equals("999"))
   			jsonArrMax.add(jsonRecord);
   		else
   			jsonArr.add(jsonRecord);
 	}
+	
+	//System.out.println(cnt);
 	
 	jsonObj.put("maxdata", jsonArrMax);
 	jsonObj.put("data", jsonArr);

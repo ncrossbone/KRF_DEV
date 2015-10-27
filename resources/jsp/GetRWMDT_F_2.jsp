@@ -63,11 +63,15 @@ try{
 	sql += "    AND SUBSTR(WORK_DT, 1, 4)||SUBSTR(WORK_DT, 6, 2) BETWEEN '201202' AND '201310'                     ";
 	sql += "  ORDER BY FACI_NM, IN_PL_TYPE, WORK_DT DESC )                                                                    ";
 	sql += "     SELECT *                                                                                                     ";
-	sql += " FROM (SELECT *                                                                                                   ";
-	sql += "         FROM TMP_TBL                                                                                             ";
-	sql += "        WHERE ROWNUM <= 10                                                                                        ";
-	sql += "            ORDER BY WORK_DT                                                                                      ";
-	sql += "      )                                                                                                           ";
+	if(defaultChart.equals("1")){
+		sql += " FROM (SELECT *                                                                                                   ";
+		sql += "         FROM TMP_TBL                                                                                             ";
+		sql += "        WHERE ROWNUM <= 10                                                                                        ";
+		sql += "            ORDER BY WORK_DT                                                                                      ";
+		sql += "      )                                                                                                           ";
+	}else{
+		sql += "    FROM TMP_TBL   ";
+	}
 	sql += "  UNION ALL                                                                                                       ";
 	sql += "  SELECT 999 AS RN, '','','',MAX(ITEM_AMT), MAX(ITEM_BOD), MAX(ITEM_COD),                                         ";             
 	sql += "  MAX(ITEM_SS), MAX(ITEM_TN), MAX(ITEM_TP), MAX(ITEM_COLI)                                                        ";                                            

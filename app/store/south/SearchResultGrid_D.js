@@ -9,8 +9,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			'PT_NO',
 			'PT_NM',
 			'WMCYMD',
-			'CURR_RF',
-			{name: 'CHART_RF', type: 'number'}
+			'CURR_WL',
+			{name: 'CHART_WL', type: 'number'},
+			'CURR_MXWL',
+			{name: 'CHART_MXWL', type: 'number'},
+			'CURR_MNWL',
+			{name: 'CHART_MNWL', type: 'number'}
     ],
     
     siteId: '',
@@ -37,12 +41,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'PT_NO',
 										'PT_NM',
 										'WMCYMD',
-										'CURR_WL',
-										{name: 'CHART_WL', type: 'number'},
-										'CURR_MXWL',
-										{name: 'CHART_MXWL', type: 'number'},
-										'CURR_MNWL',
-										{name: 'CHART_MNWL', type: 'number'}
+										'CURR_RF',
+										{name: 'CHART_RF', type: 'number'}
 				                       ]
 			}else if(store.orgParentIds == "D003"){
 				store.config.fields = [
@@ -162,6 +162,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			//console.info(store.parentIds);
 			
 			if(store.orgParentIds == "D001"){
+
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetSearchResultData_D_1.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
@@ -190,8 +191,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	        			alert("오류가 발생하였습니다.");
 	        		}
 	        	});
+			
 			}else if(store.orgParentIds == "D002"){
-
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetSearchResultData_D_2.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
@@ -220,7 +221,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	        			alert("오류가 발생하였습니다.");
 	        		}
 	        	});
-			
 			}else if(store.orgParentIds == "D003"){
 
 				Ext.Ajax.request({
