@@ -664,7 +664,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 					queryTask.execute(query, me.downLineDraw_auto);
 				}
 				
-				/*
 				if(loiRchId != "00000000"){
 					
 					// 하류 유입 아이디 전역 배열 인덱스 가져오기
@@ -676,7 +675,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 						queryTask.execute(query, me.downLineDraw_auto);
 					}
 				}
-				*/
 			}
 			
 			// 시작 위치 검색

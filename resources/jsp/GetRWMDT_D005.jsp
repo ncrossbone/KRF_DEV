@@ -80,9 +80,9 @@ try{
 		sql += "    FROM TMP_TBL    ";
 	}
 	sql += "  UNION ALL                                                                               ";
-	sql += "  SELECT 999 AS RN, '','','', MAX(WD), MAX(WS), MAX(TA),                                  ";
-	sql += "  MAX(HM), MAX(PA), MAX(PS),                                                              ";
-	sql += "  MAX(RNYN), MAX(RN1HR), MAX(RNDAY)                                                       ";
+	sql += "  SELECT 999 AS RN, '','','', MAX(WD) + MAX(WD) / 10, MAX(WS) + MAX(WS) / 10, MAX(TA) + MAX(TA) / 10,                                  ";
+	sql += "  MAX(HM) + MAX(HM) / 10, MAX(PA) + MAX(PA) / 10, MAX(PS) + MAX(PS) / 10,                                                              ";
+	sql += "  MAX(RNYN) + MAX(RNYN) / 10, MAX(RN1HR) + MAX(RN1HR) / 10, MAX(RNDAY) + MAX(RNDAY) / 10                                                       ";
 	sql += "    FROM TMP_TBL                                                                          ";                                                                                                                                             
                              
 

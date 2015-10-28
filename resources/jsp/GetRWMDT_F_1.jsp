@@ -85,9 +85,9 @@ try{
 		sql += "    FROM TMP_TBL   ";
 	}
 	sql += " UNION ALL                                                                                                        ";
-	sql += " SELECT 999 AS RN, '','','','', MAX(AMT_PHYS), MAX(AMT_BIO), MAX(AMT_HIGHTEC),      ";                                                
-	sql += "         MAX(ITEM_BOD), MAX(ITEM_COD), MAX(ITEM_SS), MAX(ITEM_TN),                                                                    ";          
-	sql += "         MAX(ITEM_TP), MAX(ITEM_COLI)                                                                                       ";
+	sql += " SELECT 999 AS RN, '','','','', TO_CHAR(MAX(AMT_PHYS) + MAX(AMT_PHYS) / 10), TO_CHAR(MAX(AMT_BIO) + MAX(AMT_BIO) / 10), TO_CHAR(MAX(AMT_HIGHTEC) + MAX(AMT_HIGHTEC) / 10),      ";                                                
+	sql += "         TO_CHAR(MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10), TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10), TO_CHAR(MAX(ITEM_SS) + MAX(ITEM_SS) / 10), TO_CHAR(MAX(ITEM_TN) + MAX(ITEM_TN) / 10),                                                                    ";          
+	sql += "         TO_CHAR(MAX(ITEM_TP) + MAX(ITEM_TP) / 10), TO_CHAR(MAX(ITEM_COLI) + MAX(ITEM_COLI) / 10)                                                                                       ";
 	sql += "   FROM TMP_TBL                                                                                                   ";                                                                                                                                                          
                              
 

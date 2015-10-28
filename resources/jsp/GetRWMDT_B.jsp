@@ -142,8 +142,8 @@ try{
 		sql += "     SELECT *  FROM TMP_TBL                                                                                                                  ";
 	}
 	sql += "  UNION ALL                                                                                                                      ";        
-	sql += "  SELECT 999 AS RN, '', '','', '', MAX(ITEM_BOD), MAX(ITEM_COD), MAX(ITEM_SS),                                                   ";   
-	sql += "  MAX(ITEM_TN), MAX(ITEM_TP), MAX(ITEM_PH), MAX(ITEM_FLW), MAX(ITEM_TOC)                                                         ";
+	sql += "  SELECT 999 AS RN, '', '','', '', MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10, MAX(ITEM_COD) + MAX(ITEM_COD) / 10, MAX(ITEM_SS) + MAX(ITEM_SS) / 10,                                                   ";   
+	sql += "  MAX(ITEM_TN) + MAX(ITEM_TN) / 10, MAX(ITEM_TP) + MAX(ITEM_TP) / 10, MAX(ITEM_PH) + MAX(ITEM_PH) / 10, MAX(ITEM_FLW) + MAX(ITEM_FLW) / 10, MAX(ITEM_TOC) + MAX(ITEM_TOC) / 10                                                         ";
 	sql += "    FROM TMP_TBL                                                                                                                 ";                                                                                                                                                            
                              
 

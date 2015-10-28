@@ -83,10 +83,10 @@ try{
 	}
 	sql += "  UNION ALL                                                                                                     ";
 	sql += "  SELECT 999 AS RN, '','','',                                                                                   ";
-	sql += "        MAX(SWL), MAX(OWL), MAX(SFW),                                                                           ";
-	sql += "        MAX(ECPC), MAX(INF), MAX(TOTOTF),                                                                       ";
-	sql += "        MAX(EGOTF), MAX(GTOTF), MAX(CBOTF),                                                                     ";
-	sql += "        MAX(FWOTF), MAX(ETCOTF)                                                                                 ";
+	sql += "        MAX(SWL) + MAX(SWL) / 10, MAX(OWL) + MAX(OWL) / 10, MAX(SFW) + MAX(SFW) / 10,                                                                           ";
+	sql += "        MAX(ECPC) + MAX(ECPC) / 10, MAX(INF) + MAX(INF) / 10, MAX(TOTOTF) + MAX(TOTOTF) / 10,                                                                       ";
+	sql += "        MAX(EGOTF) + MAX(EGOTF) / 10, MAX(GTOTF) + MAX(GTOTF) / 10, MAX(CBOTF) + MAX(CBOTF) / 10,                                                                     ";
+	sql += "        MAX(FWOTF) + MAX(FWOTF) / 10, MAX(ETCOTF) + MAX(ETCOTF) / 10                                                                                 ";
 	sql += "    FROM TMP_TBL                                                                                                ";                                                                                                                                          
                              
 

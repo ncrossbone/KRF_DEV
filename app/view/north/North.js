@@ -94,23 +94,39 @@ Ext.define('KRF_DEV.view.north.North', {
     	width: 50
     }, {
 		xtype: 'image',
-    	title: '지리정보',
+    	title: '공지사항',
     	listeners: {
     		el: {
     			click: 'onButtonClick'
     		}
     	},
-    	params: {title: '지리정보', contents: '지리정보 클릭', msgBox: 'alert'},
+    	src: './resources/images/button/top_btn4_off.png'			
+	}, {
+		xtype: 'image',
+    	title: 'Q&A',
+    	listeners: {
+    		el: {
+    			click: 'onButtonClick'
+    		}
+    	},
+    	src: './resources/images/button/top_btn5_off.png'			
+	}, {
+		xtype: 'image',
+    	title: '인쇄',
+    	listeners: {
+    		el: {
+    			click: 'onButtonClick'
+    		}
+    	},
     	src: './resources/images/button/top_btn1_off.png'			
 	}, {
 		xtype: 'image',
-    	title: '데이터',
+    	title: '저장',
     	listeners: {
     		el: {
     			click: 'onButtonClick'
     		}
     	},
-    	params: {title: '데이터', contents: '데이터 클릭', msgBox: 'alert'},
     	src: './resources/images/button/top_btn2_off.png'
 	}, {
 		xtype: 'image',
@@ -120,7 +136,6 @@ Ext.define('KRF_DEV.view.north.North', {
     			click: 'onButtonClick'
     		}
     	},
-    	params: {title: '로그아웃', contents: '로그아웃 클릭', msgBox: 'alert'},
     	src: './resources/images/button/top_btn3_off.png'
 	}, {
 		xtype: 'container',
