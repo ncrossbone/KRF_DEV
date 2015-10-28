@@ -77,8 +77,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						}
 					}
 				},
-				width: 61,
-				height: 19,
+				width: 34,
+				height: 21,
 				src: './resources/images/button/btn_date.gif'
 			}, {
 				xtype: 'label',

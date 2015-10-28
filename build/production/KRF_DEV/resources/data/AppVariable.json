@@ -16,5 +16,6 @@
 	"areaWSLayerId" : "54", // 대권역 레이어 아이디
 	"areaAMLayerId" : "55", // 중권역 레이어 아이디
 	"areaASLayerId" : "56", // 소권역 레이어 아이디
-	"siteInfoLayerId" : "85" // 레이어별 지점정보 레이어 아이디
+	"siteInfoLayerId" : "85", // 레이어별 지점정보 레이어 아이디
+	"arcServiceUrl":"http://112.218.1.243:20002/arcgis"
 }]

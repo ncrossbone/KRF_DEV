@@ -61,7 +61,7 @@ try{
 				sql += "    FROM TMP_TBL  ";
 			}
 			sql += "  UNION ALL                                                                                           ";
-			sql += "  SELECT 999 AS RN, '','','', MAX(RF)                                                                 ";                                
+			sql += "  SELECT 999 AS RN, '','','', MAX(RF) + MAX(RF) / 10                                                                 ";                                
 			sql += "    FROM TMP_TBL                                                                                     ";                                                                                                                                                       
                              
 

@@ -13,6 +13,11 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
     
     cls: 'khLee-window-panel-header khLee-x-window-default ',
     
+    initComponent: function(){
+		this.callParent();
+		console.info(this.items.items[0].items.items[1].items.items[0]);
+	},
+    
     items: [{
     	xtype: 'container',
     	width: '100%',
@@ -42,6 +47,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
             	columns: 3,
             	allowBlank: false,
             	style: 'margin-bottom: 30px;',
+            	cls: 'khLee-checkboxgroup-body',
             	items: [{
             		xtype: 'checkbox',
             		boxLabel: '상류',
