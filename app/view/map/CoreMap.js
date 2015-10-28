@@ -14,6 +14,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	fullExtent:null,
 	initialExtent:null,
 	layerInfo: null,
+	printTask:null,
 	
 	initComponent: function() {
 		this.on('render', this.mapRendered, this);
@@ -21,7 +22,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	mapRendered: function(p){
-        var me = this;
+        var me = this;   
         
         var timerId = window.setInterval(function(){
         	me.map = new esri.Map('_mapDiv_', {
@@ -54,6 +55,11 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	// 전역 변수 설정 KRF_DEV.getApplication().coreMap
         	KRF_DEV.getApplication().coreMap = me;
+        	
+        	require(["KRF_DEV/view/map/task/CustomPrintTask"], function() {
+            	//me.printTask  = new KRF_DEV.view.map.task.CustomPrintTask();
+            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", _arcServiceUrl);
+            });
 		}, 1);
     },
     
@@ -122,5 +128,24 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		  });
 		var baseMap = new CustomMapsLayer();
 		this.map.addLayer(baseMap);
-	}
+	},
+	
+	extentMove:function(extent, level){
+		var me = this;
+		var deferred = me.map.setExtent(extent, true);
+		deferred.then(function(value){
+			me.map.setLevel(level);
+		},function(error){
+		});
+	},
+	
+	print:function(){
+		var me = this;
+		me.printTask.print();
+	},
+	
+	capture:function(){
+		var me = this;
+		me.printTask.capture();
+	},
 });

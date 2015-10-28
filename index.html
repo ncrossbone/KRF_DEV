@@ -9,10 +9,22 @@
     <link rel="stylesheet" href="./resources/css/layer.css">
 	<link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
     
+     <script>
+		(function(){
+			var offset=location.href.indexOf(location.host)+location.host.length;
+            var ctxPath=location.href.substring(offset,location.href.indexOf('/',offset+1));
+			var baseUrl = 'http://' + window.location.hostname + ':' + window.location.port + ctxPath;
+			dojoConfig = {
+					packages: [{name: "KRF_DEV", location: baseUrl+"/app"}]
+			};
+	    })();
+		
+	</script>
     <script type="text/javascript" src="http://js.arcgis.com/3.13/"></script>
-    
     <!-- 공통 스크립트 -->
     <script type="text/javascript" src="./resources/js/common.js"></script>
+    <script type="text/javascript" src="./resources/lib/JSLINQ.js"></script>
+    <script type="text/javascript" src="./resources/lib/jquery/jquery-1.11.3.min.js"></script>
 
     <!-- The line below must be kept intact for Sencha Cmd to build your application -->
     <script id="microloader" type="text/javascript" src="bootstrap.js"></script>

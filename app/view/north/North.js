@@ -115,7 +115,9 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '인쇄',
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				GetCoreMap().print();
+    			}
     		}
     	},
     	src: './resources/images/button/top_btn1_off.png'			
@@ -124,7 +126,9 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '저장',
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				GetCoreMap().capture();
+    			}
     		}
     	},
     	src: './resources/images/button/top_btn2_off.png'
