@@ -1,4 +1,4 @@
-$image-search-path: 'D:/_0010_Cetech_Workspace/_010_2015_Workspace/000_Git/KRF_DEV/build/production/KRF_DEV/resources';
+$image-search-path: 'F:/KRF_Source/workspace/KRF_DEV/build/production/KRF_DEV/resources';
 $theme-name:  'ext-theme-neptune' !default;
 $include-ext-abstractcomponent: true;
 $include-ext-abstractcontainer: true;

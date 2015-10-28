@@ -97,7 +97,9 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '지리정보',
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				GetCoreMap().print();
+    			}
     		}
     	},
     	params: {title: '지리정보', contents: '지리정보 클릭', msgBox: 'alert'},
@@ -107,7 +109,9 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '데이터',
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				GetCoreMap().capture();
+    			}
     		}
     	},
     	params: {title: '데이터', contents: '데이터 클릭', msgBox: 'alert'},

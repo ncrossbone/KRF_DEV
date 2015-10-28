@@ -189,7 +189,53 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			xtype: 'image',
 			width: 83,
 			height: 25,
-			src: './resources/images/button/btn_exl.gif' // 엑셀 다운
+			src: './resources/images/button/btn_exl.gif', // 엑셀 다운
+			listeners: { el: { click: function(){
+				var tabCtl = Ext.getCmp("searchResultTab");
+				tabCtl = tabCtl.items.items[1];
+				var activeTab = tabCtl.getActiveTab();
+				var gridContainer = activeTab.items.items[0];
+				var grid = gridContainer.down('gridpanel');
+//				if(!grid.download){
+//					grid.download = 'sleep';
+//				}
+				
+				var colArr = grid.getColumnManager().getColumns();
+				var headName = [];
+				var header = [];
+				var datas = [];
+
+				for(var i=0; i<colArr.length; i++){
+					if(colArr[i].dataIndex!=""){
+						headName.push(colArr[i].text);
+						header.push(colArr[i].dataIndex);
+					}
+				}
+				
+				var dataArr = grid.getView().store.data.items
+				if(!dataArr){
+					dataArr = store.data.map[1].value;
+				}
+				for(var i=0; i<dataArr.length; i++){
+					datas.push(dataArr[i].data)
+				}
+				
+				
+				
+				//if(grid.download=='sleep'){
+					this.status = 'download';
+					$.post("./resources/jsp/excelDown.jsp", {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
+						//grid.download = 'download';
+						$('#__fileDownloadIframe__').remove();
+						$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
+			   		},"json").error(function(){
+			   			//grid.download = 'download';
+			   		});
+//				}else{
+//					alert("다운로드중입니다.");
+//				}
+				
+			} } }
 		}, {
 			xtype: 'container',
 			width: 10
