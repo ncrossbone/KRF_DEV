@@ -82,9 +82,9 @@ sql += "                        ROUND(AVG(FW)/1, 4) FW                          
 sql += "                 FROM   FWDY A,                                                                 ";
 sql += "                        FWOBSIF D                                                               ";
 sql += "                 WHERE  A.WLOBSCD = D.FWOBSCD                                                   ";
-sql += "                 AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) >= TO_CHAR(TO_DATE('"+endYYYYMM+"'    ";
+sql += "                 AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) >= TO_CHAR(TO_DATE('"+startYYYYMM+"'    ";
 sql += "                       , 'YYYYMM') -35, 'YYYYMM')                                               ";
-sql += "                 AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) <= '201502'                    ";
+sql += "                 AND    SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) <= '"+endYYYYMM+"'                    ";
 sql += "                 AND    A.WLOBSCD IN ( "+siteIds+"  )                                                 ";
 sql += "                 GROUP BY A.WLOBSCD , TO_CHAR(YMDH, 'YYYY.MM.DD'), OBSNM ) A,                   ";
 sql += "                KESTI_WATER_ALL_MAP B,                                                          ";

@@ -139,7 +139,11 @@ sql += "        ) A                                                             
 sql += "      , SDM_RWMPT B                                                                                                                                                      ";
 sql += "  WHERE A.PT_NO = B.PT_NO                                                                                                                                                ";
 sql += "    AND A.PT_NO = '"+recordId+"'                                                                                                                                              ";
-sql += "    AND A.WMYR||A.WMOD BETWEEN '"+ac+"' AND '"+bd+"'                                                                                                          ";
+if(defaultChart.equals("1")){
+	sql += "    AND A.WMYR||A.WMOD BETWEEN '201001' AND '201512'                                                                                                          ";
+}else{
+	sql += "    AND A.WMYR||A.WMOD BETWEEN '"+ac+"' AND '"+bd+"'                                                                                                          ";
+}
 sql += "  ORDER BY WMYR DESC , WMOD DESC                                                                                                                                         ";
 sql += "  )                                                                                                                                                                      ";
 sql += "     SELECT *                                                                                                                                                            ";

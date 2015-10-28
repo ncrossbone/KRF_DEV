@@ -96,7 +96,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				width: 110
 			}, {
-				text : '풍샹(m/s)',
+				text : '풍향(m/s)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_WD',

@@ -102,7 +102,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 			}, { 
 				text      : '조사일',
 				dataIndex : 'WMCYMD',
-				hidden: true,
 				width: 110,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, { 

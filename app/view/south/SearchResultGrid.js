@@ -518,7 +518,1648 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
-			}]
+			}, {
+				text : '유량 (㎥/s)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_AMNT',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_AMNT',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'DTN (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_DNT',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_DNT',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'NO₃-N (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_NO3N',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_NO3N',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'NH₃-N (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_NH3N',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_NH3N',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'DTP (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_DTP',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_DTP',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'PO₄-P (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_POP',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_POP',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '투명도 (m)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_TRANS',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_TRANS',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '조류 (개체수/㎖)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ALGOL',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ALGOL',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '총대장균군수 (총대장균군수/100㎖)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_TCOLI',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_TCOLI',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '분원성대장균군수 (분원성대장균군수/100㎖)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ECOLI',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ECOLI',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '안티몬 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ANTIMON',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ANTIMON',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'phenol (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_PHENOL',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_PHENOL',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '색도(도)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_COL',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_COL',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'N-H (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_NHEX',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_NHEX',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Fe (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_FE',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_FE',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Mn (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_MN',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_MN',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Cd (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CD',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CD',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'CN (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CN',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CN',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Pb (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_PB',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_PB',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Cr6+ (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CR6',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CR6',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Cr (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CR',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CR',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'As (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_AS',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_AS',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Hg (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_HG',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_HG',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Cu (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CU',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CU',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'Zn (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ZN',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ZN',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'F (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_FL',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_FL',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'ABS (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ABS',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ABS',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'cl- (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CL',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CL',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'TCE (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_TCE',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_TCE',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'PCE (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_PCE',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_PCE',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '사염화탄소 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CCL4',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CCL4',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '1,2-디클로로에탄 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_DCETH',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_DCETH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '디클로로메탄 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_DCM',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_DCM',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '벤젠 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_BENZENE',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_BENZENE',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '클로로포름 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_CHCL3',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_CHCL3',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '유기인 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_OP',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_OP',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'PCB (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_PCB',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_PCB',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'DEHP (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_DEHP',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_DEHP',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '포름알데히드 (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_HCHO',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_HCHO',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'HCB (㎍/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_HCB',
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_HCB',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}
+			]
 		}]
 	}]
 });
