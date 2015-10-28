@@ -32,8 +32,8 @@ Ext.define('KRF_DEV.view.north.North', {
     }, {
 		xtype: 'image',
 		id: 'top-logo-khLee',
-		//width: 534,
-		//height: 37,
+		width: 273,
+		height: 37,
 		//cls: 'khLee-x-box-item',
 		src: './resources/images/button/top_logo.png'
 	}, {
@@ -44,7 +44,9 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnReachLayer',
 		layerId: '46',
 		groupId: 'grpReach',
-    	title: '리치',
+    	title: '리치라인',
+    	width: 32,
+    	height: 32,
     	listeners: { el: { click: 'onClickReachLayer' } },
     	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_01_on.png',
@@ -58,6 +60,8 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnAreaLayer',
 		groupId: 'grpArea',
     	title: '집수구역',
+    	width: 32,
+    	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
     	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
@@ -71,6 +75,8 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnFlowLayer',
 		groupId: 'grpFlow',
     	title: '리치흐름',
+    	width: 32,
+    	height: 32,
     	listeners: { el: { click: 'onClickFlowLayer' } },
     	btnOnOff: 'off',
     	btnOnImg: './resources/images/button/btn_top_04_on.png',
@@ -84,6 +90,8 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnLayerReset',
 		groupId: 'grpReset',
     	title: '초기화',
+    	width: 32,
+    	height: 32,
     	listeners: { el: { click: 'onClickReset' } },
     	btnOnOff: 'off',
     	btnOnImg: './resources/images/button/btn_top_03_on.png',
@@ -95,6 +103,8 @@ Ext.define('KRF_DEV.view.north.North', {
     }, {
 		xtype: 'image',
     	title: '공지사항',
+    	width: 69,
+    	height: 37,
     	listeners: {
     		el: {
     			click: 'onButtonClick'
@@ -104,6 +114,8 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'image',
     	title: 'Q&A',
+    	width: 69,
+    	height: 37,
     	listeners: {
     		el: {
     			click: 'onButtonClick'
@@ -113,6 +125,8 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'image',
     	title: '인쇄',
+    	width: 69,
+    	height: 37,
     	listeners: {
     		el: {
     			click: function(){
@@ -124,6 +138,8 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'image',
     	title: '저장',
+    	width: 69,
+    	height: 37,
     	listeners: {
     		el: {
     			click: function(){
@@ -135,12 +151,25 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'image',
     	title: '로그아웃',
+    	width: 69,
+    	height: 37,
     	listeners: {
     		el: {
     			click: 'onButtonClick'
     		}
     	},
     	src: './resources/images/button/top_btn3_off.png'
+	}, {
+		xtype: 'image',
+    	title: '매뉴얼',
+    	width: 69,
+    	height: 37,
+    	listeners: {
+    		el: {
+    			click: 'onButtonClick'
+    		}
+    	},
+    	src: './resources/images/button/top_btn6_off.png'
 	}, {
 		xtype: 'container',
 		width: 50
