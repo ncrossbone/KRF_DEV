@@ -109,19 +109,22 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							console.info(tabCtl);
 							tabCtl = tabCtl.items.items[1];
 							var activeTab = tabCtl.getActiveTab();
-							console.info(activeTab);
+							//console.info(activeTab);
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
-							console.info(gridCtl);
+							//console.info(gridCtl.id);
 							if(gridCtl.parentIds[0].parentId == undefined){
 								var parentId =  gridCtl.parentIds
 							}else{
 								var parentId = gridCtl.parentIds[0].parentId
 							}
-							console.info(gridCtl.parentIds[0].parentId);
-							console.info(gridCtl.siteIds);
+							//console.info(gridCtl.parentIds[0].parentId);
+							//console.info(gridCtl.siteIds);
+							
+							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
+							
 							KRF_DEV.getApplication().btnFlag = "date";
-							ShowSearchResult(gridCtl.siteIds, parentId, "기간검색이상해요..", gridCtl.id, fName.value);
+							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value);
 						}
 					}
 				}

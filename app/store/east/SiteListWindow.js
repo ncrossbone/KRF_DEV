@@ -46,14 +46,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			query.returnGeometry = false;
 			
 			if(buttonInfo1.lastValue != null ){
-				//console.log("수계찾기로검색");
+				console.log("수계찾기로검색");
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == ""){
 					query.where = "CAT_ID like '"+buttonInfo2.lastValue+"%'";
 				}else{
 					query.where = "CAT_ID like '"+buttonInfo3.lastValue+"%'";
 				}
 			}else if(buttonInfo1.lastValue == null && nameInfo.rawValue == ""){
-				//console.log("행정구역찾기로검색");
+				console.log("행정구역찾기로검색");
 				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
@@ -63,7 +63,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 				
 			}else{
-				//console.log("명칭찾기로검색");
+				console.log("명칭찾기로검색");
 				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
 			}
 			
@@ -83,7 +83,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				query.where = query.where.substring(0, query.where.length - 2);
 				query.where += ")";
 			}
-			
+			console.info(query);
 			/*if(buttonInfo2.lastValue != null){
 				
 			}else{*/

@@ -52,12 +52,12 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		    //"yoffset": 35,
 		    "type": "esriPMS",
 		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
-		    "url": "./resources/images/symbol/spot_04.png",
+		    "url": "./resources/images/symbol/spot_09.png",
 		    "contentType": "image/gif",
-		    "width": 51,
-		    "height": 114,
-		    "yoffset": 60,
-		    "xoffset": -9
+		    "width": 25,
+		    "height": 61,
+		    "yoffset": 16,
+		    "xoffset": 4
 		});
 		
 		var renderer = new esri.renderer.SimpleRenderer(selectedSymbol);
@@ -85,7 +85,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		// 5초뒤 레이어(이미지) 제거
 		Ext.defer(function(){
 			me.map.removeLayer(me.layer);
-		}, 5000, this);
+		}, 10000, this);
 		
     }
 });

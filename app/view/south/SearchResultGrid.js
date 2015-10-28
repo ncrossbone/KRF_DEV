@@ -115,6 +115,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					text     : '측정값',
 					dataIndex: 'CURR_BOD',
 					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -149,6 +152,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						chartRangeMax: 5.8,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -159,6 +164,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					text     : '측정값',
 					dataIndex: 'CURR_DO',
 					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -184,6 +192,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 15.5,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -194,6 +204,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					text     : '측정값',
 					dataIndex: 'CURR_COD',
 					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -219,6 +232,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 11.2,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -229,6 +244,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					text     : '측정값',
 					dataIndex: 'CURR_TN',
 					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.000');
+					},
 					filter: 'number'
 				}, {
 					text: '추이변화',
@@ -254,6 +272,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.628,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -264,6 +284,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					text     : '측정값',
 					dataIndex: 'CURR_TP',
 					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.000');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -289,6 +312,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 0.237,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -298,7 +323,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TEMP',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -323,6 +352,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 28.8,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -332,7 +363,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PH',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -357,6 +392,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 9.5,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -366,7 +403,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_SS',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -391,6 +432,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 27.7,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -400,7 +443,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CLOA',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -425,6 +472,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 30.4,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -434,7 +483,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TOC',
-					width: 60, filter: {type: 'numeric'/*, fields: {}*/}
+					width: 60,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
@@ -459,6 +512,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}

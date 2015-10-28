@@ -16,6 +16,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController', {
 		var btn = Ext.getCmp("btnSearchText");
 		
 		var treeResach = Ext.getCmp("siteListTree");
+		
 			if(treeResach != undefined){
 				var store = treeResach.getStore();
 				store.nameInfo = btn.rawValue;

@@ -173,10 +173,10 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 		
 		this.tools = toolCtl;
 		
-		console.info(this.tools);
+		//console.info(this.tools);
 		
 		this.on("beforeclose", function(window){
-			window.removeAll();
+			//window.removeAll();
 			//me.removeAll();
 			//return;
 		});
