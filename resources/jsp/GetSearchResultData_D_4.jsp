@@ -73,7 +73,7 @@ sql += "                 WHERE  A.DMOBSCD = D.DMOBSCD                           
 sql += "                 AND    SUBSTR(A.YMD, 1, 6) >='"+startYYYYMM+"'                                     ";
 sql += "                 AND    SUBSTR(A.YMD, 1, 6) <='"+endYYYYMM+"'                                     ";
 sql += "                 AND    A.DMOBSCD  IN ( "+siteIds+"  )                                            ";
-sql += "                 GROUP BY YMD, A.DMOBSCD , OBSNM ) A,                                                 ";
+sql += "                 GROUP BY SUBSTR(YMD,1,4)||'.'||SUBSTR(YMD,5,2)||'.'||SUBSTR(YMD,7,2), A.DMOBSCD , OBSNM ) A,                                                 ";
 sql += "                KESTI_WATER_ALL_MAP B,                                                                ";
 sql += "                COM_DISTRICT_RAW C                                                                    ";
 sql += "         WHERE  A.ADM_CD = B.ADM_CD                                                                   ";
@@ -107,7 +107,7 @@ sql += "                 WHERE  A.DMOBSCD = D.DMOBSCD                           
 sql += "                 AND    SUBSTR(A.YMD, 1, 6) >='"+startYYYYMM+"'                                                ";
 sql += "                 AND    SUBSTR(A.YMD, 1, 6) <='"+endYYYYMM+"'                                                ";
 sql += "                 AND    A.DMOBSCD IN ( "+siteIds+" )                                                        ";
-sql += "                 GROUP BY YMD, A.DMOBSCD , OBSNM ) A,                                                 ";
+sql += "                 GROUP BY SUBSTR(YMD,1,4)||'.'||SUBSTR(YMD,5,2)||'.'||SUBSTR(YMD,7,2), A.DMOBSCD , OBSNM ) A,                                                 ";
 sql += "                KESTI_WATER_ALL_MAP B,                                                                ";
 sql += "                COM_DISTRICT_RAW C                                                                    ";
 sql += "         WHERE  A.ADM_CD = B.ADM_CD                                                                   ";
