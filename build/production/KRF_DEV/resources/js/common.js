@@ -354,6 +354,10 @@ HideWindowSiteNChart = function(){
 	//console.info(winCtl);
 	if(winCtl != undefined)
 		winCtl.close();
+	
+	winCtl = Ext.getCmp("datePanel1");
+	if(winCtl != undefined)
+		winCtl.close();
 
 }
 
@@ -1006,8 +1010,8 @@ HideSearchResult = function(){
 	var searchResultWindow = KRF_DEV.getApplication().searchResultWindow;
 	
 	if(searchResultWindow != undefined){
-		//searchResultWindow.close();
-		searchResultWindow.hide();
+		searchResultWindow.close();
+		//searchResultWindow.hide();
 	}
 }
 
@@ -1190,4 +1194,51 @@ siteMovePoint = function(parentNodeId, nodeId){
 
 OpenMenualPop = function(){
 	window.open("./resources/menual/KRF_Menual.html", "하천망 분석도 사용자 메뉴얼", "width=300, height=300, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
+}
+
+ResetButtonClick = function(){
+	
+	var me = GetCoreMap();
+	// 리치 선택 종료
+	me.reachLayerAdmin.drawEnd();
+	// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
+	me.reachLayerAdmin.clearGraphicsLayer("reset");
+	
+	Ext.HideSiteListWindow();
+	HideWindowSiteNChart();
+	HideSearchResult();
+	
+	var combo = Ext.getCmp("cmbWater1");
+	combo.setValue("");
+	combo = Ext.getCmp("cmbWater2");
+	combo.setValue("");
+	combo.setDisabled(true);
+	combo = Ext.getCmp("cmbWater3");
+	combo.setValue("");
+	combo.setDisabled(true);
+	var btn = Ext.getCmp("btnWater1");
+	btn.setDisabled(true);
+	btn = Ext.getCmp("btnWater2");
+	btn.setDisabled(true);
+	btn = Ext.getCmp("btnWater3");
+	btn.setDisabled(true);
+	
+	combo = Ext.getCmp("cmbArea1");
+	combo.setValue("");
+	combo = Ext.getCmp("cmbArea2");
+	combo.setValue("");
+	combo.setDisabled(true);
+	combo = Ext.getCmp("cmbArea3");
+	combo.setValue("");
+	combo.setDisabled(true);
+	btn = Ext.getCmp("btnSearch1");
+	btn.setDisabled(true);
+	btn = Ext.getCmp("btnSearch2");
+	btn.setDisabled(true);
+	btn = Ext.getCmp("btnSearch3");
+	btn.setDisabled(true);
+	
+	var txtBox = Ext.getCmp("textSearchText");
+	txtBox.setValue("");
+	
 }
