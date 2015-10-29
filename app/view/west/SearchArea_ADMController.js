@@ -183,11 +183,13 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 				
 				Ext.ShowSiteListWindow("admSearch"); // 지점목록 창 띄우기
 				
+				/*
 				// 좌측 검색결과 버튼 On/Off
 				currCtl = Ext.getCmp("btnSearchResult");
 				if(currCtl.btnOnOff == "off"){
 					SetBtnOnOff("btnSearchResult");
 				}
+				*/
 				
 				// 검색결과 창 띄우기
 				// ShowSearchResult(); // 선택버튼 클릭 시 검색결과창 안띄우는걸로.. 20151008
