@@ -192,6 +192,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 	
 	onWaterReset: function(button, eOpts){
 		
+		/*
 		Ext.HideSiteListWindow(null);
 		Ext.HideSiteInfoWindow();
 		Ext.HideChartResult();
@@ -206,6 +207,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 		this.setCtlDisable("cmbWater1");
 		this.setCtlDisable("cmbWater2");
 		this.setCtlDisable("cmbWater3");
+		*/
+		
+		ResetButtonClick();
 		
 	}
 	

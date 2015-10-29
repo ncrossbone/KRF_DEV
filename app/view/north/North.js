@@ -17,7 +17,7 @@ Ext.define('KRF_DEV.view.north.North', {
 	
 	//padding: 0,
 	
-	//cls: 'x-toolbar-default-north-khLee',
+	cls: 'khLee-box-inner',
 	//style: 'background-image:url(./resources/images/button/top_bg.png) !important;',
 	
 	layout: {

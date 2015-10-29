@@ -52,7 +52,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name', {
 					xtype: 'textfield',
 					displayField: 'name',
 					valueField: 'id',
-					width: 130,
+					width: 120,
 				}, {
 					xtype: 'container',
 					width: 10

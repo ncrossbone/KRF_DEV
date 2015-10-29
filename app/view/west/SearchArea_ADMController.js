@@ -200,6 +200,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 	// 초기화 버튼
 	onADMReset: function(button, eOpts){
 		
+		/*
 		Ext.HideSiteListWindow(null);
 		Ext.HideSiteInfoWindow();
 		Ext.HideChartResult();
@@ -207,6 +208,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 		var combo1 = Ext.getCmp("cmbArea1");
 		combo1.setValue("");
 		this.setCtlDisable("cmbArea1");
+		*/
+		
+		ResetButtonClick();
 		
 	}
 	
