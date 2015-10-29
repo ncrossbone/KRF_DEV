@@ -28,17 +28,17 @@ try{
 	String defaultChart = request.getParameter("defaultChart");
 	
 	sql = " WITH TMP_TBL AS																																																	";
-	sql += "  (SELECT RN /* 순번 참고용 */                                                                                    ";
+	sql += "  (SELECT * FROM  ( SELECT RN /* 순번 참고용 */                                                                                    ";
 	sql += "      , FACI_NM    /* 처리시설명*/                                                                                ";
 	sql += "      , A.WORK_DT    /* 운영일자*/                                                                                ";
 	sql += "      , '유입원 : '||A.IN_PL_TYPE AS IN_PL_TYPE /* 유입원 */                                                      ";
-	sql += "      , TO_CHAR(AMT,  '999G999G999G990D00') AS ITEM_AMT    /* 유량(㎥/일) */                                      ";
-	sql += "      , TO_CHAR(BOD,  '999G999G999G990D00') AS ITEM_BOD    /* BOD(㎎/ℓ) */                                       ";
-	sql += "      , TO_CHAR(COD,  '999G999G999G990D00') AS ITEM_COD    /* COD(㎎/ℓ) */                                       ";
-	sql += "      , TO_CHAR(SS,   '999G999G999G990D00') AS ITEM_SS     /* SS(㎎/ℓ) */                                        ";
-	sql += "      , TO_CHAR(TN,   '999G999G999G990D00') AS ITEM_TN     /* TN(㎎/ℓ) */                                        ";
-	sql += "      , TO_CHAR(TP,   '999G999G999G990D00') AS ITEM_TP     /* TP(㎎/ℓ) */                                        ";
-	sql += "      , TO_CHAR(COLI, '999G999G999G999')    AS ITEM_COLI   /* 대장균군수(총대장균군수) */                         ";
+	sql += "      , AMT   AS ITEM_AMT    /* 유량(㎥/일) */                                      ";
+	sql += "      , BOD   AS ITEM_BOD    /* BOD(㎎/ℓ) */                                       ";
+	sql += "      , COD   AS ITEM_COD    /* COD(㎎/ℓ) */                                       ";
+	sql += "      , SS    AS ITEM_SS     /* SS(㎎/ℓ) */                                        ";
+	sql += "      , TN    AS ITEM_TN     /* TN(㎎/ℓ) */                                        ";
+	sql += "      , TP   AS ITEM_TP     /* TP(㎎/ℓ) */                                        ";
+	sql += "      , COLI     AS ITEM_COLI   /* 대장균군수(총대장균군수) */                         ";
 	sql += "   FROM (SELECT RANK() OVER(PARTITION BY FACI_CD, IN_PL_TYPE ORDER BY FACI_CD, IN_PL_TYPE, WORK_DT DESC) AS RN,   ";
 	sql += "                TT.ADM_CD,                                                                                        ";
 	sql += "                T.YYYY,                                                                                           ";
@@ -73,20 +73,27 @@ try{
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                 ";	
 	}
-	sql += "  ORDER BY FACI_NM, IN_PL_TYPE, WORK_DT DESC )                                                                    ";
+	sql += "    ) WHERE RN   <= 10                                                                                                  ";  
+	sql += "  ORDER BY FACI_NM, IN_PL_TYPE, WORK_DT ASC )                                                                    ";
 	sql += "     SELECT *                                                                                                     ";
 	if(defaultChart.equals("1")){
 		sql += " FROM (SELECT *                                                                                                   ";
 		sql += "         FROM TMP_TBL                                                                                             ";
-		sql += "        WHERE RN <= 10                                                                                            ";
+		//sql += "        WHERE RN <= 10                                                                                            ";
 		sql += "            ORDER BY WORK_DT                                                                                      ";
 		sql += "      )                                                                                                           ";
 	}else{
 		sql += "         FROM TMP_TBL                                                                                             ";
 	}
 	sql += "  UNION ALL                                                                                                       ";
-	sql += "  SELECT 999 AS RN, '','','',TO_CHAR(MAX(ITEM_AMT) + MAX(ITEM_AMT) / 10), TO_CHAR(MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10), TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10),                                         ";             
-	sql += "  TO_CHAR(MAX(ITEM_SS) + MAX(ITEM_SS) / 10), TO_CHAR(MAX(ITEM_TN) + MAX(ITEM_TN) / 10), TO_CHAR(MAX(ITEM_TP) + MAX(ITEM_TP) / 10), TO_CHAR(MAX(ITEM_COLI) + MAX(ITEM_COLI) / 10)                                                        ";                                            
+	sql += "  SELECT 999 AS RN, '','','',                                         ";             
+	sql += "  NVL(MAX(ITEM_AMT),0) + NVL(MAX(ITEM_AMT),0) / 10,		";
+	sql += "  NVL(MAX(ITEM_BOD),0) + NVL(MAX(ITEM_BOD),0) / 10,   ";
+	sql += "  NVL(MAX(ITEM_COD),0) + NVL(MAX(ITEM_COD),0) / 10,   ";
+	sql += "  NVL(MAX(ITEM_SS),0) + NVL(MAX(ITEM_SS),0) / 10,     ";
+	sql += "  NVL(MAX(ITEM_TN),0) + NVL(MAX(ITEM_TN),0) / 10,     ";
+	sql += "  NVL(MAX(ITEM_TP),0) + NVL(MAX(ITEM_TP),0) / 10,     ";
+	sql += "  NVL(MAX(ITEM_COLI),0) + NVL(MAX(ITEM_COLI),0) / 10  ";                                            
 	sql += "    FROM TMP_TBL                                                                                                  ";                                                                                                                                                        
                              
 

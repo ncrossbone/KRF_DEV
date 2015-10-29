@@ -28,17 +28,17 @@ try{
 	String defaultChart = request.getParameter("defaultChart");
 	
 	sql = " WITH TMP_TBL AS																																																";
-	sql += "  (SELECT RN                                                                                                    ";
+	sql += "  (SELECT * FROM ( SELECT RN                                                                                                    ";
 	sql += "      , FACI_NM  /* 처리시설명 */                                                                               ";
 	sql += "      , A.WORK_DT  /* 운영일자 */                                                                               ";
-	sql += "      , '유입구번호 : '||A.PIPE_NUM AS PIPE_NUM /* 유입구번호 */                                                ";
-	sql += "      , TO_CHAR(AMT, '999G999G999G990D00') AS ITEM_AMT /* 유량(㎥/일) */                                        ";
-	sql += "      , TO_CHAR(BOD, '999G999G999G990D00') AS ITEM_BOD /* BOD(㎎/ℓ) */                                         ";
-	sql += "      , TO_CHAR(COD, '999G999G999G990D00') AS ITEM_COD /* COD(㎎/ℓ) */                                         ";
-	sql += "      , TO_CHAR(SS, '999G999G999G990D00') AS ITEM_SS   /* SS(㎎/ℓ) */                                          ";
-	sql += "      , TO_CHAR(TN, '999G999G999G990D00') AS ITEM_TN   /* TN(㎎/ℓ) */                                          ";
-	sql += "      , TO_CHAR(TP, '999G999G999G990D00') AS ITEM_TP   /* TP(㎎/ℓ) */                                          ";
-	sql += "      , TO_CHAR(COLI, '999G999G999G999') AS ITEM_COLI  /* 대장균군수(총대장균군수) */                           ";
+	sql += "      , '유입구번호 : '||A.PIPE_NUM AS PIPE_NUM /* 유입구번호 */ ,                                               ";
+	sql += "  		TO_NUMBER(AMT ) AS ITEM_AMT /* 유량(㎥/일) */ ,								";
+	sql += "      TO_NUMBER(BOD ) AS ITEM_BOD /* BOD(㎎/ℓ) */ ,                ";
+	sql += "      TO_NUMBER(COD ) AS ITEM_COD /* COD(㎎/ℓ) */ ,                ";
+	sql += "      TO_NUMBER(SS  ) AS ITEM_SS /* SS(㎎/ℓ) */ ,                  ";
+	sql += "      TO_NUMBER(TN  ) AS ITEM_TN /* TN(㎎/ℓ) */ ,                  ";
+	sql += "      TO_NUMBER(TP  ) AS ITEM_TP /* TP(㎎/ℓ) */ ,                  ";
+	sql += "      TO_NUMBER(COLI) AS ITEM_COLI /* 대장균군수(총대장균군수) */   ";
 	sql += "   FROM (SELECT RANK() OVER(PARTITION BY FACI_CD, PIPE_NUM ORDER BY FACI_CD, PIPE_NUM, WORK_DT DESC) AS RN,     ";
 	sql += "                TT.ADM_CD,                                                                                      ";
 	sql += "                T.YYYY,                                                                                         ";
@@ -65,6 +65,7 @@ try{
 	sql += "          GROUP BY FACI_CD, WORK_DT                                                                             ";
 	sql += "        ) B                                                                                                     ";
 	sql += "  WHERE A.FACI_CD = B.FACI_CD                                                                                   ";
+	sql += "    AND A.PIPE_NUM = B.PIPE_NUM                                                                                   ";
 	sql += "    AND A.WORK_DT = B.WORK_DT                                                                                   ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                      ";
 	if(defaultChart.equals("1")){
@@ -72,7 +73,8 @@ try{
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'              ";
 	}
-	sql += "  ORDER BY FACI_NM, PIPE_NUM, WORK_DT DESC)                                                                     ";
+	sql += "  ) WHERE RN <= 10                                                                                                 ";
+	sql += "  ORDER BY FACI_NM, PIPE_NUM, WORK_DT ASC)                                                                     ";
 	sql += "     SELECT *                                                                                                   ";
 	if(defaultChart.equals("1")){
 		sql += " FROM (SELECT *                                                                                                 ";
@@ -85,8 +87,14 @@ try{
 	}
 
 	sql += "  UNION ALL                                                                                                   ";
-	sql += "  SELECT 999 AS RN, '','','',TO_CHAR(MAX(ITEM_AMT) + MAX(ITEM_AMT) / 10), TO_CHAR(MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10), TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10),                                     ";                 
-	sql += "  TO_CHAR(MAX(ITEM_SS) + MAX(ITEM_SS) / 10), TO_CHAR(MAX(ITEM_TN) + MAX(ITEM_TN) / 10), TO_CHAR(MAX(ITEM_TP) + MAX(ITEM_TP) / 10), TO_CHAR(MAX(ITEM_COLI) + MAX(ITEM_COLI) / 10)                                                    ";                                                
+	sql += "  SELECT 9999999999 AS RN, '','','',                                    ";                 
+	sql += " 	TO_NUMBER(MAX(ITEM_AMT)  + MAX(ITEM_AMT)  / 10),		";
+	sql += "   TO_NUMBER(MAX(ITEM_BOD)  + MAX(ITEM_BOD)  / 10),   ";
+	sql += "   TO_NUMBER(MAX(ITEM_COD)  + MAX(ITEM_COD)  / 10),   ";
+	sql += "   TO_NUMBER(MAX(ITEM_SS)   + MAX(ITEM_SS)   / 10),   ";
+	sql += "   TO_NUMBER(MAX(ITEM_TN)   + MAX(ITEM_TN)   / 10),   ";
+	sql += "   TO_NUMBER(MAX(ITEM_TP)   + MAX(ITEM_TP)   / 10),   ";
+	sql += "   TO_NUMBER(MAX(ITEM_COLI) + MAX(ITEM_COLI) / 10)    ";                                                
 	sql += "    FROM TMP_TBL                                                                                              ";                                                                                                                                                       
                              
 
@@ -116,7 +124,7 @@ try{
   		jsonRecord.put("ITEM_TP" 	, rs.getString("ITEM_TP"));
   		jsonRecord.put("ITEM_COLI" 	, rs.getString("ITEM_COLI"));
   		
-  		if(rs.getString("RN").equals("999"))
+  		if(rs.getString("RN").equals("9999999999"))
   			jsonArrMax.add(jsonRecord);
   		else
   			jsonArr.add(jsonRecord);

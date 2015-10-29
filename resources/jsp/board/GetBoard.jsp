@@ -9,6 +9,11 @@
 	}
 	
 	function getListByBoard(val){
+		
+		if(val == ''){
+			val = document.getElementById("boardType").value;
+		}
+		
 		location.href = './GetBoard.jsp?boardType='+val;
 	}
 	
@@ -230,7 +235,7 @@ try{
         <%if(pagingLargeVal >= 2 && pagingLargeVal >= startPage + 1) {%><a href="#" onclick="javascript:goPage('<%=maxPage %>');">&gt;&gt;</a><%} %>
     </div>
     <div class="btnArea2 fr MgT20" id="btnArea">
-    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="javascript:getListByBoard('<%=boardTypeVal%>')">목록</a>
+    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="javascript:getListByBoard('')">목록</a>
     	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="newBtn"    onclick="location.href='./writeContent.jsp'">등록</a>
     </div>
 </div>
