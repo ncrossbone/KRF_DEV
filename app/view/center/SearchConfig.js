@@ -184,7 +184,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
     		items: [{
             	xtype: 'checkboxgroup',
             	id: 'chkGroup2',
-            	columns: 2,
+            	columns: 1,
             	allowBlank: false,
             	style: 'margin-bottom: 30px;',
             	items: [{
@@ -193,13 +193,13 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
             		checked: true,
             		inputValue: 'isAMDraw',
             		style: 'margin-right: 15px;'
-            	}, {
+            	}/*, {
             		xtype: 'checkbox',
             		boxLabel: '댐이있는경우',
             		checked: false,
             		inputValue: 'isDemDraw',
             		style: 'margin-right: 15px;'
-            	}]
+            	}*/]
             }]
     	}, {
     		xtype: 'container',

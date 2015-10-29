@@ -118,7 +118,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         		//alert("clear");
         	});
         	*/
-        	
+        	console.info(me.reachLinelayer);
         	me.map.addLayer(me.reachLinelayer);
         	/* 리치라인 피처 레이어 추가 끝 */
         	

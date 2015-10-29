@@ -664,7 +664,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			//id: "searchResultContainer",
 			id: gridId + "_container",
 			title: titleText, //_searchType,
-			closable : true,
+			//closable : true,
 			autoResize: true
 	};
 	
@@ -1186,4 +1186,8 @@ siteMovePoint = function(parentNodeId, nodeId){
 	
 	// 피처 레이어 생성/갱신
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId);	
+}
+
+OpenMenualPop = function(){
+	window.open("./resources/menual/KRF_Menual.html", "하천망 분석도 사용자 메뉴얼", "width=300, height=300, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
 }

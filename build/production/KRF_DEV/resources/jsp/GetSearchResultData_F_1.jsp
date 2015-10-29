@@ -33,7 +33,7 @@ try{
 "      , A.FACI_NM /* 처리시설명*/                                                                                    " +
 "      , A.WORK_DT AS WORK_DT_VAL    /* 운영일자*/                                                                    " +
 "      , A.WORK_DT AS CHART_DATE    /* 운영일자*/                                                                    " +
-"      , B.WORK_DT AS WORK_DT_GRAPH  /* 운영일자(추이변화)*/                                                          " +
+"      , B.WORK_DT AS WORK_DT_GRAPH  /* 운영일자(추이변화)* /                                                          " +
 "      , A.PIPE_NUM  /* 관거번호*/                                                                                    " +
 "      , A.PIPE_TYPE /* 관거유형*/                                                                                    " +
 "      , TO_CHAR(A.AMT, '999G999G999G990D00') AS AMT_VAL      /* 유량(㎥/일)*/                                        " +
@@ -142,7 +142,7 @@ try{
 if(firstSearch.equals("date")){
 	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               " ;
 }else{
-	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201212' AND '201312'               " ;
+	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
 }
 sql += "  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                         ";
 		

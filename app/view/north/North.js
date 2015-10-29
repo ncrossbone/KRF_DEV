@@ -166,7 +166,17 @@ Ext.define('KRF_DEV.view.north.North', {
     	height: 37,
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				/*
+    				Ext.create("Ext.window.Window", {
+    					title: 'test',
+    					width: 300,
+    					height: 300,
+    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0"  src="./resources/menual/KRF_Menual.html"></iframe>'
+    				}).show();
+    				*/
+    				OpenMenualPop();
+    			}
     		}
     	},
     	src: './resources/images/button/top_btn6_off.png'

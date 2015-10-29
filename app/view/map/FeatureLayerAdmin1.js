@@ -82,7 +82,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			me.map.centerAt(point);
 		}, 1000, this);
 		
-		// 5초뒤 레이어(이미지) 제거
+		// 10초뒤 레이어(이미지) 제거
 		Ext.defer(function(){
 			me.map.removeLayer(me.layer);
 		}, 10000, this);
