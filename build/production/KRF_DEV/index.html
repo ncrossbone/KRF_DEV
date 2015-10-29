@@ -14,6 +14,7 @@
 			var offset=location.href.indexOf(location.host)+location.host.length;
             var ctxPath=location.href.substring(offset,location.href.indexOf('/',offset+1));
 			var baseUrl = 'http://' + window.location.hostname + ':' + window.location.port + ctxPath;
+			window.baseUrl = baseUrl;
 			dojoConfig = {
 					packages: [{name: "KRF_DEV", location: baseUrl+"/app"}]
 			};
