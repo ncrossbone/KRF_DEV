@@ -145,6 +145,8 @@ Ext.application({
  				
  			var me = GetCoreMap();
  			
+ 			console.info(searchText);
+ 			
 			//검샋시 다른 더튼값 초기화
 			var cmbArea1 = Ext.getCmp("cmbArea1");
 			var cmbArea2 = Ext.getCmp("cmbArea2");

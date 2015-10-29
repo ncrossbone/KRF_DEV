@@ -71,11 +71,21 @@ sql += "    AND B.WMOD  = C.WMOD                                                
 sql += "    AND B.WMWK  = C.WMWK                                                                                                                ";
 sql += "    AND C.WMCYMD IS NOT NULL                                                                                                            ";
 sql += "    and A.pt_no ='"+recordId+"'                                                                                                         ";
+
 if(defaultChart.equals("1")){
-	sql += "    and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('2010.01', 'YYYY.MM') and to_date('2015.12', 'YYYY.MM')     ";
+	sql += "  AND TO_DATE((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') BETWEEN CASE WHEN SUBSTR('"+recordId+"' 																											";
+	sql += "                                                                               ,5,1) = 'D' THEN TO_DATE('2010.01', 'YYYY.MM')    ";
+	sql += "                                                                   ELSE TO_DATE('2014.01', 'YYYY.MM')                           ";
+	sql += "                                                              END                                                                                     ";
+	sql += "                                                         AND TO_DATE('2015.12', 'YYYY.MM')                                           ";
 }else{
-	sql += "    and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('"+a+"."+c+"', 'YYYY.MM') and to_date('"+b+"."+d+"', 'YYYY.MM')     ";
+	sql += "  AND TO_DATE((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') BETWEEN CASE WHEN SUBSTR('"+recordId+"' 																											";
+	sql += "                                                                               ,5,1) = 'D' THEN TO_DATE('"+a+"."+c+"', 'YYYY.MM')    ";
+	sql += "                                                                   ELSE TO_DATE('"+a+"."+c+"', 'YYYY.MM')                           ";
+	sql += "                                                              END                                                                                     ";
+	sql += "                                                         AND TO_DATE('"+b+"."+d+"', 'YYYY.MM')                                           ";
 }
+
 sql += "    ORDER BY WMCYMD asc                                                                                                      ";
 sql += "     )                                                                                                                                  ";
 sql += "    SELECT *                                                                                                                            ";

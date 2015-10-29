@@ -204,10 +204,18 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 //				}
 				
 				var colArr = grid.getColumnManager().getColumns();
+				var hItem = grid.getHeaderContainer().config.items;
+				var gItem = [];
+				for(var i=0; i<hItem.length; i++){
+					var item = hItem[i];
+					if(item.columns){
+						gItem.push(item);
+					}
+				}
+				
 				var headName = [];
 				var header = [];
 				var datas = [];
-
 				
 				var dataArr = grid.getView().store.data.items
 				if(!dataArr){
@@ -235,7 +243,18 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 								}
 							}
 							if(add){
-								headName.push(colArr[i].text);
+								var preText = '';
+								for(var k=0; k<gItem.length; k++){
+									var gCols = gItem[k];
+									for(var j=0; j<gCols.columns.length; j++){
+										var gc = gCols.columns[j];
+										if(gc.dataIndex==colArr[i].dataIndex){
+											preText = gCols.text;
+											break;
+										}
+									}
+								}
+								headName.push(preText + colArr[i].text);
 								header.push(colArr[i].dataIndex);
 							}
 						}
@@ -243,7 +262,18 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				}else{
 					for(var i=0; i<colArr.length; i++){
 						if(colArr[i].dataIndex!=""){
-							headName.push(colArr[i].text);
+							var preText = '';
+							for(var k=0; k<gItem.length; k++){
+								var gCols = gItem[k];
+								for(var j=0; j<gCols.columns.length; j++){
+									var gc = gCols.columns[j];
+									if(gc.dataIndex==colArr[i].dataIndex){
+										preText = gCols.text;
+										break;
+									}
+								}
+							}
+							headName.push(preText + colArr[i].text);
 							header.push(colArr[i].dataIndex);
 						}
 					}

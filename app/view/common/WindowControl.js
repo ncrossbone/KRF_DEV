@@ -29,6 +29,15 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	
 	//renderTo: Ext.getBody(),
 	
+	listeners:{
+        close:function(){
+            var currCtl = Ext.getCmp("btnSearchResult");
+            if(currCtl.btnOnOff == "on"){
+            	SetBtnOnOff(currCtl.id);
+            }
+        }
+    },
+	
 	initComponent: function(){
 		
 		this.callParent();

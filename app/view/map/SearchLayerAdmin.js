@@ -226,7 +226,16 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		me.map.setExtent(extent, true);
 	    		console.info(me.map.getLevel());
 	    		me.geometry = obj.geometry;
+	    		
 	    		me.spSearch();
+	    		
+	    		// 5초 후 그래픽 삭제
+	    		Ext.defer(function(){
+	    			me.sourceGraphicLayer.clear();
+	    			me.targetGraphicLayer.clear();
+	    			me.highlightGraphicLayer.clear();
+	    		}, 5000, this);
+	    		//alert("dd");
 			});
 		});
 		
@@ -346,12 +355,12 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		graphic.img = 'btn_close'; 
 	    		me.sourceGraphicLayer.add(graphic);
 	            
-	            Sgis.getApplication().fireEvent('drawComplte', null);
+	            //Sgis.getApplication().fireEvent('drawComplte', null);
 	            me.spSearch();
 	            
 	    	}
 	  	},function(){
-	  		Sgis.getApplication().fireEvent('drawComplte', null)
+	  		//Sgis.getApplication().fireEvent('drawComplte', null)
 	  	});
 	},
     
@@ -364,6 +373,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		
 		if(me.sourceGraphicLayer.graphics.length==0 || !me.geometry || me.layers.length==0){
 			//SGIS.loading.finish();
+			//alert("dd");
 			return;
 		}
 		
@@ -371,6 +381,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		var receiveComplteCnt = 0;
 		var complteData = [];
 		Ext.each(me.layers, function(layerInfo, index) {
+			
 			if(layerInfo){
 				var layer = layerInfo.data
 				var filterBool = false;
@@ -412,7 +423,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 							complteData.push(resultData);
 						}
 						if(exeComplteCnt==me.layers.length){
-							Sgis.getApplication().fireEvent('searchComplete', complteData);
+							//Sgis.getApplication().fireEvent('searchComplete', complteData);
 						}
 					}
 					else
@@ -435,7 +446,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 									complteData.push(resultData);
 								}
 								if(exeComplteCnt==me.layers.length){
-									Sgis.getApplication().fireEvent('searchComplete', complteData);
+									//Sgis.getApplication().fireEvent('searchComplete', complteData);
 								}
 				    		}
 						});

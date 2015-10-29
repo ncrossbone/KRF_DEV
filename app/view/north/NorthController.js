@@ -92,14 +92,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	// 초기화 버튼 클릭
 	onClickReset: function(obj, el, evt){
 		
-		// 버튼 On/Off
-		//var currCtl = SetBtnOnOff(el.id);
-		
-		var me = GetCoreMap();
-		// 리치 선택 종료
-		me.reachLayerAdmin.drawEnd();
-		// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
-		me.reachLayerAdmin.clearGraphicsLayer("reset");
+		ResetButtonClick();
 		
 	}
 });

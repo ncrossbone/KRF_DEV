@@ -469,9 +469,19 @@ sql = " SELECT							" +
 "  WHERE A.PT_NO   =  B.PT_NO                                                                         " +
 "    AND A.NO BETWEEN B.NO -4 AND B.NO                                                                " +
 "    AND A.PT_NO IN (" + siteIds + ")                                                                                  " +
-"   ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                         " ;
+
+if(firstSearch.equals("date")){
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '"+startYYYYMM+"'                                                         " ;
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '"+endYYYYMM+"'                                                         " ;
+}else{
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201212'                                                         ";
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201210'                                                         " ;	
+}
+sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                                                         " ;
 		
-   //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
+     //sql += "AND A.PT_NO IN (" + siteIds + ") ";
+     
+     out.print(sql);  
    
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);

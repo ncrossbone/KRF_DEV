@@ -17,25 +17,27 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController', {
 		
 		var treeResach = Ext.getCmp("siteListTree");
 		
-			if(treeResach != undefined){
-				var store = treeResach.getStore();
-				store.nameInfo = btn.rawValue;
-				store.load();
-				treeResach.getView().refresh();
-				return;
-			}else{
-				
-				if(btn.disable == false){
-					btnCtl = btn;
-				}
-				
-				var currCtl = Ext.getCmp("btnSiteListWindow");
-				if(currCtl.btnOnOff == "off"){
-					SetBtnOnOff("btnSiteListWindow");
-					Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
-				}
-		
+		if(treeResach != undefined){
+			var store = treeResach.getStore();
+			store.nameInfo = btn.rawValue;
+			store.load();
+			treeResach.getView().refresh();
+			//return;
+		}else{
+			
+			if(btn.disable == false){
+				btnCtl = btn;
 			}
+			
+			var currCtl = Ext.getCmp("btnSiteListWindow");
+			if(currCtl.btnOnOff == "off"){
+				SetBtnOnOff("btnSiteListWindow");
+			}
+	
+		}
+		
+		Ext.ShowSiteListWindow("nameSearch"); // 지점목록 창 띄우기
+			
 	}
 
 
