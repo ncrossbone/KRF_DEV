@@ -84,6 +84,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 			$.post(me.printUrl, obj, function(data){
 				if(mode=="print"){
 					var popup = window.open(data.url, 'newWindow', "width=1000,height=700");
+					//console.info(data.url);
 					popup.focus(); //required for IE
 					popup.print();
 				}else if(mode=="capture"){
