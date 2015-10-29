@@ -107,7 +107,22 @@ Ext.define('KRF_DEV.view.north.North', {
     	height: 37,
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				
+    				var boardCtl = Ext.getCmp("boardNotice");
+    				if(boardCtl == undefined){
+	    				boardCtl = Ext.create("Ext.window.Window", {
+				    					id: "boardNotice",
+				    					title: "공지사항",
+				    					width: 660,
+				    					height: 600,
+				    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=2"></iframe>'
+				    				});
+    				}
+    				
+    				boardCtl.show();
+    				
+    			}
     		}
     	},
     	src: './resources/images/button/top_btn4_off.png'			
@@ -118,7 +133,22 @@ Ext.define('KRF_DEV.view.north.North', {
     	height: 37,
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				
+    				var boardCtl = Ext.getCmp("boardQNA");
+    				if(boardCtl == undefined){
+	    				boardCtl = Ext.create("Ext.window.Window", {
+				    					id: "boardQNA",
+				    					title: "Q&A",
+				    					width: 660,
+				    					height: 600,
+				    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=1"></iframe>'
+				    				});
+    				}
+    				
+    				boardCtl.show();
+    				
+    			}
     		}
     	},
     	src: './resources/images/button/top_btn5_off.png'			
