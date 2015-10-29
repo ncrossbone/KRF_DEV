@@ -368,7 +368,7 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	//item 선택
 	var selectItem = Ext.getCmp("selectItem");
 	//년도
-	var selectYear = Ext.getCmp("selectYear");
+	//var selectYear = Ext.getCmp("selectYear");
 	var s = "";
 	
 	// y필드 셋팅

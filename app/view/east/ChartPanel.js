@@ -67,13 +67,15 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							var parentCtl = btnCtl.findParentByType("container");
 							var dateWinCtl = Ext.getCmp("datePanel1");
 							
+							
+							console.info(dateWinCtl);
 							if(dateWinCtl == undefined){
 								dateWinCtl = Ext.create("KRF_DEV.view.east.ChartPanelDate");
-								//console.info(dateWinCtl);
 							}
 							console.info(dateWinCtl);
 							
 							dateWinCtl.show();
+							dateWinCtl = undefined;
 						}
 					}
 				},

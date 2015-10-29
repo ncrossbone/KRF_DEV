@@ -164,7 +164,7 @@ sql += "            AND E.ADM_CD = F.ADM_CD                                     
 sql += "        ) B                                                                                                                   ";
 sql += "  WHERE A.PT_NO   = B.PT_NO                                                                                                   ";
 sql += "    AND A.WAST_NO = B.WAST_NO                                                                                                 ";
-if(firstSearch == "date"){
+if(firstSearch.equals("date")){
 	sql += "AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '" + startYYYYMM + "' ";
 	sql += "AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '" + endYYYYMM + "' ";
 }else{
