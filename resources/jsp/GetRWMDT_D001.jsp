@@ -28,13 +28,13 @@ try{
 	String defaultChart = request.getParameter("defaultChart");
 	
 	sql = " WITH TMP_TBL AS             																																	";                                                                                                                                                                                                                                            
-	sql += "  (SELECT RANK() OVER(PARTITION BY WLOBSCD ORDER BY WLOBSCD, WMCYMD DESC) AS RN /* 순번 */    ";
+	sql += "  ( SELECT * FROM ( SELECT RANK() OVER(PARTITION BY WLOBSCD ORDER BY WLOBSCD, WMCYMD DESC) AS RN /* 순번 */    ";
 	sql += "      , WLOBSCD AS PT_NO /* 관측소코드 */                                                     ";
 	sql += "      , OBSNM AS PT_NM /* 관측소명 */                                                         ";
 	sql += "      , WMCYMD /* 관측일자 */                                                                 ";
-	sql += "      , TO_CHAR(WL, '999G999G999G990D00') AS WL /* 수위(cm) */                                ";
-	sql += "      , TO_CHAR(MXWL, '999G999G999G990D00') AS MXWL /* 최고수위(cm) */                        ";
-	sql += "      , TO_CHAR(MNWL, '999G999G999G990D00') AS MNWL /* 최저수위(cm) */                        ";
+	sql += "      , WL AS WL /* 수위(cm) */                                ";
+	sql += "      , MXWL AS MXWL /* 최고수위(cm) */                        ";
+	sql += "      , MNWL AS MNWL /* 최저수위(cm) */                        ";
 	sql += " FROM   (                                                                                     ";
 	sql += "         SELECT TO_CHAR(A.YMDH , 'YYYY.MM.DD') AS WMCYMD,                                     ";
 	sql += "                A.WLOBSCD ,                                                                   ";
@@ -55,19 +55,23 @@ try{
 	sql += "        COM_DISTRICT_RAW C                                                                    ";
 	sql += " WHERE  A.ADM_CD = B.ADM_CD                                                                   ";
 	sql += " AND    A.ADM_CD = C.ADM_CD                                                                   ";
-	sql += " ORDER BY PT_NO, A.WMCYMD DESC)                                                               ";
+	sql += " ) WHERE RN <= 10                                                               ";
+	sql += " ORDER BY PT_NO, WMCYMD DESC)                                                               ";
 	sql += " SELECT *                                                                                     ";
 	if(defaultChart.equals("1")){
 		sql += " FROM   (SELECT *                                                                             ";
 		sql += "         FROM   TMP_TBL                                                                       ";
-		sql += "         WHERE  ROWNUM <= 10                                                                  ";
+		//sql += "         WHERE  ROWNUM <= 10                                                                  ";
 		sql += "         ORDER BY WMCYMD                                                                      ";
 		sql += "      )                                                                                       ";
 	}else{
 		sql += "  FROM TMP_TBL   ";
 	}
 	sql += "  UNION ALL                                                                                   ";
-	sql += "  SELECT 999 AS RN, '','','', TO_CHAR(MAX(WL) + MAX(WL) / 10), TO_CHAR(MAX(MXWL) + MAX(MXWL) / 10), TO_CHAR(MAX(MNWL) + MAX(MNWL) / 10)                                   ";                                      
+	sql += "  SELECT 999 AS RN, '','','',               ";                                      
+	sql += " NVL(MAX(WL),0) + NVL(MAX(WL),0) / 10,			";
+	sql += " NVL(MAX(MXWL),0) + NVL(MAX(MXWL),0) / 10,  ";
+	sql += " NVL(MAX(MNWL),0) + NVL(MAX(MNWL),0) / 10   ";
 	sql += "    FROM TMP_TBL                                                                              ";                                                                                                                                                     
                              
 

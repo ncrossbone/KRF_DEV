@@ -28,7 +28,7 @@ try{
 	String defaultChart = request.getParameter("defaultChart");
 	
 	sql = " WITH TMP_TBL AS           																																					";                                                                                                                                                                                                                                              
-	sql += "  (SELECT RANK() OVER(PARTITION BY WLOBSCD ORDER BY WLOBSCD, WMCYMD DESC) AS RN , /* 순번 */        ";
+	sql += "  ( SELECT * FROM  ( SELECT RANK() OVER(PARTITION BY WLOBSCD ORDER BY WLOBSCD, WMCYMD DESC) AS RN , /* 순번 */        ";
 	sql += "        WLOBSCD AS PT_NO, /* 관측소코드 */                                                          ";
 	sql += "        OBSNM AS PT_NM, /* 관측소명 */                                                              ";
 	sql += "        WMCYMD, /* 관측일자 */                                                                      ";
@@ -49,13 +49,14 @@ try{
 	sql += "        COM_DISTRICT_RAW C                                                                          ";
 	sql += " WHERE  A.ADM_CD = B.ADM_CD                                                                         ";
 	sql += " AND    A.ADM_CD = C.ADM_CD                                                                         ";
-	sql += "  ORDER BY PT_NO, A.WMCYMD ASC                                                                     ";
+	sql += "  ) WHERE RN <= 10                                                                   ";
+	sql += "  ORDER BY PT_NO, WMCYMD ASC                                                                     ";
 	sql += "  )                                                                                                 ";
 	sql += " SELECT *                                                                                           ";
 	if(defaultChart.equals("1")){
 		sql += " FROM   (SELECT *                                                                                   ";
 		sql += "         FROM   TMP_TBL                                                                             ";
-		sql += "         WHERE  ROWNUM <= 10                                                                        ";
+		//sql += "         WHERE  ROWNUM <= 10                                                                        ";
 		sql += "         ORDER BY WMCYMD                                                                            ";
 		sql += "      )                                                                                             ";
 	}else{

@@ -25,6 +25,8 @@ try{
 	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
+	
+	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
 	
 sql = " SELECT A.RN																																																									";
@@ -162,8 +164,12 @@ sql += "            AND E.ADM_CD = F.ADM_CD                                     
 sql += "        ) B                                                                                                                   ";
 sql += "  WHERE A.PT_NO   = B.PT_NO                                                                                                   ";
 sql += "    AND A.WAST_NO = B.WAST_NO                                                                                                 ";
-sql += "    AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '"+startYYYYMM+"'                                                            ";
-sql += "    AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '"+endYYYYMM+"'                                                            ";
+if(firstSearch == "date"){
+	sql += "AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '" + startYYYYMM + "' ";
+	sql += "AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '" + endYYYYMM + "' ";
+}else{
+	sql += "AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201507' ";
+}
 sql += "    AND A.PT_NO IN ("+siteIds+")                                                                                                   ";
 sql += "    AND B.RN BETWEEN A.RN AND A.RN + 4                                                                                        ";
 sql += "  ORDER BY A.PT_NO, A.WAST_NO, A.RN, B.RN DESC                                                                                ";

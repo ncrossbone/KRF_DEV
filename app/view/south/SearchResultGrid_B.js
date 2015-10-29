@@ -144,7 +144,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -182,7 +182,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -220,7 +220,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -258,7 +258,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.000');
 						            return yVal;
 						        }
 						    }
@@ -296,7 +296,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.000');
 						            return yVal;
 						        }
 						    }
@@ -335,7 +335,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -375,7 +375,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -415,7 +415,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }

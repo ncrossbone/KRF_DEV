@@ -25,6 +25,8 @@ try{
 	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
+	
+	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
 	sql = " WITH TMP AS (  																																																																																																								";      
 	sql += "    SELECT RANK() OVER(PARTITION BY A.PT_NO||SUBSTR(C.WMWK, -1) ORDER BY A.PT_NO, C.WMCYMD DESC, C.WMWK DESC) RN /* 순번 */                                                                                                     ";
@@ -162,12 +164,18 @@ try{
 	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 4                                                                                                                                                                                           ";
 sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)                                                                                                                                                                                   ";
 		   
-	if(startYYYYMM != ""){
+	if(firstSearch == "date"){
+		sql += "AND A.WMYR || A.WMOD >= '" + startYYYYMM + "' ";
+		sql += "AND A.WMYR || A.WMOD <= '" + endYYYYMM + "' ";
+	}else{
+		sql += "AND A.WMYR || A.WMOD >= '201507' ";
+	}
+	/* if(startYYYYMM != ""){
 		sql += "AND A.WMYR || A.WMOD >= '" + startYYYYMM + "' ";
 	}
 	if(endYYYYMM != ""){
 		sql += "AND A.WMYR || A.WMOD <= '" + endYYYYMM + "' ";
-	}
+	} */
 	if(WS_CD != ""){
 		sql += "AND C.WS_CD = '" + WS_CD + "' /* 대권역 */ ";
 	}

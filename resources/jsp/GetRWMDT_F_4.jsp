@@ -29,18 +29,18 @@ try{
 	
 
 	sql = " WITH TMP_TBL AS																																																";
-	sql += "  (SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.PIPE_NUM ORDER BY A.FACI_CD, A.PIPE_NUM, A.WORK_DT DESC) AS RN  ";
+	sql += "  ( SELECT * FROM ( SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.PIPE_NUM ORDER BY A.FACI_CD, A.PIPE_NUM, A.WORK_DT DESC) AS RN  ";
 	sql += "      , FACI_NM   /* 처리시설명*/                                                                               ";
 	sql += "      , A.WORK_DT   /* 운영일자*/                                                                               ";
 	sql += "      , '관거번호 : '||A.PIPE_NUM||'('||PIPE_TYPE||')' AS PIPE_NUM /* 관거번호(관거유형) */                     ";
-	sql += "      , TO_CHAR(AMT, '999G999G999G990D00') AS ITEM_AMT      /* 유량(㎥/일)*/                                    ";
-	sql += "      , TO_CHAR(BOD, '999G999G999G990D00') AS ITEM_BOD      /* BOD(㎎/ℓ)*/                                     ";
-	sql += "      , TO_CHAR(COD, '999G999G999G990D00') AS ITEM_COD      /* COD(㎎/ℓ)*/                                     ";
-	sql += "      , TO_CHAR(SS,  '999G999G999G990D00') AS ITEM_SS       /* SS(㎎/ℓ)*/                                      ";
-	sql += "      , TO_CHAR(TN,  '999G999G999G990D00') AS ITEM_TN       /* TN(㎎/ℓ)*/                                      ";
-	sql += "      , TO_CHAR(TP,  '999G999G999G990D00') AS ITEM_TP       /* TP(㎎/ℓ)*/                                      ";
-	sql += "      , TO_CHAR(COLI,'999G999G999G999') AS ITEM_COLI        /* 대장균군수(총대장균군수)*/                       ";
-	sql += "      , TO_CHAR(BYPASS_AMT,'999G999G999G990D00') AS ITEM_BYPASS_AMT   /* 미처리배제유량(㎥/일)*/                ";
+	sql += "      , AMT AS ITEM_AMT      /* 유량(㎥/일)*/                                    ";
+	sql += "      , BOD AS ITEM_BOD      /* BOD(㎎/ℓ)*/                                     ";
+	sql += "      , COD AS ITEM_COD      /* COD(㎎/ℓ)*/                                     ";
+	sql += "      , SS AS ITEM_SS       /* SS(㎎/ℓ)*/                                      ";
+	sql += "      , TN AS ITEM_TN       /* TN(㎎/ℓ)*/                                      ";
+	sql += "      , TP AS ITEM_TP       /* TP(㎎/ℓ)*/                                      ";
+	sql += "      , COLI AS ITEM_COLI        /* 대장균군수(총대장균군수)*/                       ";
+	sql += "      , BYPASS_AMT AS ITEM_BYPASS_AMT   /* 미처리배제유량(㎥/일)*/                ";
 	sql += "   FROM (                                                                                                       ";
 	sql += "         SELECT FACI_CD                                                                                         ";
 	sql += "              , FACI_NM                                                                                         ";
@@ -77,6 +77,7 @@ try{
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                          ";	
 	}
+	sql += " ) WHERE RN <= 10                                                                                                     ";
 	sql += "  ORDER BY FACI_NM, PIPE_NUM, WORK_DT DESC)                                                                     ";
 	sql += " SELECT *                                                                                                       ";
 	if(defaultChart.equals("1")){
@@ -90,8 +91,15 @@ try{
 	}
 
 	sql += "  UNION ALL                                                                                                " ;
-	sql += "  SELECT 999 AS RN, '', '', TO_NUMBER(''), '', TO_CHAR(MAX(ITEM_AMT) + MAX(ITEM_AMT) / 10), TO_CHAR(MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10),                               " ;
-	sql += "  TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10), TO_CHAR(MAX(ITEM_SS) + MAX(ITEM_SS) / 10), TO_CHAR(MAX(ITEM_TN) + MAX(ITEM_TN) / 10), TO_CHAR(MAX(ITEM_TP) + MAX(ITEM_TP) / 10), TO_CHAR(MAX(ITEM_COLI) + MAX(ITEM_COLI) / 10), TO_CHAR(MAX(ITEM_BYPASS_AMT) + MAX(ITEM_BYPASS_AMT) / 10)            " ;
+	sql += "  SELECT 999 AS RN, '', '',  '',                       " ;
+	sql += "  NVL(MAX(ITEM_AMT),0) + NVL(MAX(ITEM_AMT),0) / 10,								";
+	sql += "  NVL(MAX(ITEM_BOD),0) + NVL(MAX(ITEM_BOD),0) / 10,               ";
+	sql += "  NVL(MAX(ITEM_COD),0) + NVL(MAX(ITEM_COD),0) / 10,               ";
+	sql += "  NVL(MAX(ITEM_SS),0) + NVL(MAX(ITEM_SS),0) / 10,                 ";
+	sql += "  NVL(MAX(ITEM_TN),0) + NVL(MAX(ITEM_TN),0) / 10,                 ";
+	sql += "  NVL(MAX(ITEM_TP),0) + NVL(MAX(ITEM_TP),0) / 10,                 ";
+	sql += "  NVL(MAX(ITEM_COLI),0) + NVL(MAX(ITEM_COLI),0) / 10,             ";
+	sql += "  NVL(MAX(ITEM_BYPASS_AMT),0) + NVL(MAX(ITEM_BYPASS_AMT),0) / 10  ";
 	sql += "    FROM TMP_TBL                                                                                           " ;
 	sql += "                                                                                                           " ;                                                                                                                                                      
                              

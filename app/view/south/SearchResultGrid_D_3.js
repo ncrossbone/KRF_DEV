@@ -101,6 +101,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_3', {
 					text     : '측정값',
 					dataIndex: 'CURR_FW',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
