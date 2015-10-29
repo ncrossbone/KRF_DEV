@@ -26,8 +26,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 				,{id: 'ITEM_BOD', name: 'BOD'}
 				,{id: 'ITEM_COD', name: 'COD'}
 				,{id: 'ITEM_SS', name: 'SS'}
-				,{id: 'ITEM_TN', name: 'T.N'}
-				,{id: 'ITEM_TP', name: 'T.P'}
+				,{id: 'ITEM_TN', name: 'T-N'}
+				,{id: 'ITEM_TP', name: 'T-P'}
 				,{id: 'ITEM_COLI', name: 'COLI'}]
 			});
 			
@@ -39,8 +39,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 				,{id: 'ITEM_BOD', name: 'BOD'}
 				,{id: 'ITEM_COD', name: 'COD'}
 				,{id: 'ITEM_SS', name: 'SS'}
-				,{id: 'ITEM_TN', name: 'T.N'}
-				,{id: 'ITEM_TP', name: 'T.P'}
+				,{id: 'ITEM_TN', name: 'T-N'}
+				,{id: 'ITEM_TP', name: 'T-P'}
 				,{id: 'ITEM_COLI', name: 'COLI'}]
 			});	
 			
@@ -52,8 +52,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 				,{id: 'ITEM_BOD', name: 'BOD'}
 				,{id: 'ITEM_COD', name: 'COD'}
 				,{id: 'ITEM_SS', name: 'SS'}
-				,{id: 'ITEM_TN', name: 'T.N'}
-				,{id: 'ITEM_TP', name: 'T.P'}
+				,{id: 'ITEM_TN', name: 'T-N'}
+				,{id: 'ITEM_TP', name: 'T-P'}
 				,{id: 'ITEM_COLI', name: 'COLI'}
 				,{id: 'ITEM_BYPASS_AMT', name: 'BYPASS_AMT'}]
 			});	

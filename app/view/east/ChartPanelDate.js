@@ -40,8 +40,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 				data: [{id: 'ITEM_BOD', name: 'BOD'}
 					,{id: 'ITEM_DOC', name: 'DO'}
 					,{id: 'ITEM_COD', name: 'COD'}
-					,{id: 'ITEM_TN', name: 'T.N'}
-					,{id: 'ITEM_TP', name: 'T.P'}
+					,{id: 'ITEM_TN', name: 'T-N'}
+					,{id: 'ITEM_TP', name: 'T-P'}
 					,{id: 'ITEM_TEMP', name: '수온'}
 					,{id: 'ITEM_PH', name: 'pH'}
 					,{id: 'ITEM_SS', name: 'SS'}
@@ -54,8 +54,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					data: [{id: 'ITEM_BOD', name: 'BOD'}
 						,{id: 'ITEM_COD', name: 'COD'}
 						,{id: 'ITEM_DOC', name: 'DO'}
-						,{id: 'ITEM_TN', name: 'T.N'}
-						,{id: 'ITEM_TP', name: 'T.P'}
+						,{id: 'ITEM_TN', name: 'T-N'}
+						,{id: 'ITEM_TP', name: 'T-P'}
 						,{id: 'ITEM_FLW', name: 'FLW'}
 						,{id: 'ITEM_PH', name: 'pH'}
 						,{id: 'ITEM_SS', name: 'SS'}
@@ -72,8 +72,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						,{id: 'ITEM_EC', name: 'EC'}
 						,{id: 'ITEM_COD', name: 'COD'}
 						,{id: 'ITEM_TOC', name: 'TOC'}
-						,{id: 'ITEM_TN', name: 'T.N'}
-						,{id: 'ITEM_TP', name: 'T.P'}]
+						,{id: 'ITEM_TN', name: 'T-N'}
+						,{id: 'ITEM_TP', name: 'T-P'}]
 				})
 			}else if(parentChk == "D"){
 				if(chartFlag_D == "D001"){
@@ -145,8 +145,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					,{id: 'ITEM_BOD', name: 'BOD'}
 					,{id: 'ITEM_COD', name: 'COD'}
 					,{id: 'ITEM_SS', name: 'SS'}
-					,{id: 'ITEM_TN', name: 'T.N'}
-					,{id: 'ITEM_TP', name: 'T.P'}
+					,{id: 'ITEM_TN', name: 'T-N'}
+					,{id: 'ITEM_TP', name: 'T-P'}
 					,{id: 'ITEM_COLI', name: 'COLI'}]
 				})
 			}
@@ -266,8 +266,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						data: [{id: 'ITEM_BOD', name: 'BOD'}
 							,{id: 'ITEM_DOC', name: 'DO'}
 							,{id: 'ITEM_COD', name: 'COD'}
-							,{id: 'ITEM_TN', name: 'T.N'}
-							,{id: 'ITEM_TP', name: 'T.P'}
+							,{id: 'ITEM_TN', name: 'T-N'}
+							,{id: 'ITEM_TP', name: 'T-P'}
 							,{id: 'ITEM_TEMP', name: '수온'}
 							,{id: 'ITEM_PH', name: 'pH'}
 							,{id: 'ITEM_SS', name: 'SS'}

@@ -372,7 +372,7 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	//item 선택
 	var selectItem = Ext.getCmp("selectItem");
 	//년도
-	var selectYear = Ext.getCmp("selectYear");
+	//var selectYear = Ext.getCmp("selectYear");
 	var s = "";
 	
 	// y필드 셋팅
@@ -416,9 +416,9 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 		labelNm = "DO(㎎/L)";
 	}else if(labelNm == "COD"){
 		labelNm = "COD(㎎/L)";
-	}else if(labelNm == "T.N"){
+	}else if(labelNm == "T-N"){
 		labelNm = "T-N (㎎/L)";
-	}else if(labelNm == "T.P"){
+	}else if(labelNm == "T-P"){
 		labelNm = "T-P (㎎/L)";
 	}else if(labelNm == "수온"){
 		labelNm = "수온(℃)";
@@ -692,8 +692,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	console.info(parentCheck);
 	//console.info(parentIds[0].parentId.substring(0,1));
+
 	
 	if(parentCheck == "A"){	
+		
+		//console.info(sYearCtl.setValue("2013"));
 		
 		//환경기초시설 검색값 히든처리
 		hiddenGrid.setHidden(true);

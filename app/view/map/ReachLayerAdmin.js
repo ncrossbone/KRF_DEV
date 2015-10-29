@@ -1075,7 +1075,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			    //"xoffset": 10,
 			    "yoffset": 14,
 			    "type": "esriPMS",
-			    "url": "./resources/images/symbol/btn_end01.png",
+			    "url": window.baseUrl + "/resources/images/symbol/btn_end01.png",
 			    "contentType": "image/png",
 			    "width": 20,
 			    "height": 28
