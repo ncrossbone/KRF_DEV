@@ -101,6 +101,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 					text     : '측정값',
 					dataIndex: 'CURR_WL',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -136,6 +139,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 					text     : '측정값',
 					dataIndex: 'CURR_MXWL',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -171,6 +177,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 					text     : '측정값',
 					dataIndex: 'CURR_MNXL',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',

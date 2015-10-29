@@ -41,7 +41,7 @@ Ext.define('KRF_DEV.view.map.GraphicsLayerAdmin', {
 		            // fill symbol used for extent, polygon and freehand polygon, use a picture fill symbol
 		            // the images folder contains additional fill images, other options: sand.png, swamp.png or stiple.png
 		            this.fillSymbol = new PictureFillSymbol(
-		            		"./resources/images/symbol/btn_start01.png",
+		            		window.baseUrl + "/resources/images/symbol/btn_start01.png",
 		            		new SimpleLineSymbol(
 		            				SimpleLineSymbol.STYLE_SOLID,
 		            				new Color('#000'), 
@@ -56,7 +56,7 @@ Ext.define('KRF_DEV.view.map.GraphicsLayerAdmin', {
 					    //"xoffset": 10,
 					    "yoffset": 14,
 					    "type": "esriPMS",
-					    "url": "./resources/images/symbol/btn_start01.png",
+					    "url": window.baseUrl + "/resources/images/symbol/btn_start01.png",
 					    "contentType": "image/png",
 					    "width": 20,
 					    "height": 28
@@ -67,7 +67,7 @@ Ext.define('KRF_DEV.view.map.GraphicsLayerAdmin', {
 					    //"xoffset": 10,
 					    "yoffset": 14,
 					    "type": "esriPMS",
-					    "url": "./resources/images/symbol/btn_end01.png",
+					    "url": window.baseUrl + "/resources/images/symbol/btn_end01.png",
 					    "contentType": "image/png",
 					    "width": 20,
 					    "height": 28

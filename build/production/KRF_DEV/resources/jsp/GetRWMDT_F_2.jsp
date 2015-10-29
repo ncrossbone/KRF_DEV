@@ -27,11 +27,11 @@ try{
 		
 	String defaultChart = request.getParameter("defaultChart");
 	
-	sql = " WITH TMP_TBL AS                  																																								";                                                                                                                                                                                                                                       
+	sql = " WITH TMP_TBL AS																																																	";
 	sql += "  (SELECT RN /* 순번 참고용 */                                                                                    ";
 	sql += "      , FACI_NM    /* 처리시설명*/                                                                                ";
-	sql += "      , WORK_DT    /* 운영일자*/                                                                                  ";
-	sql += "      , IN_PL_TYPE /* 유입원 */                                                                                   ";
+	sql += "      , A.WORK_DT    /* 운영일자*/                                                                                ";
+	sql += "      , '유입원 : '||A.IN_PL_TYPE AS IN_PL_TYPE /* 유입원 */                                                      ";
 	sql += "      , TO_CHAR(AMT,  '999G999G999G990D00') AS ITEM_AMT    /* 유량(㎥/일) */                                      ";
 	sql += "      , TO_CHAR(BOD,  '999G999G999G990D00') AS ITEM_BOD    /* BOD(㎎/ℓ) */                                       ";
 	sql += "      , TO_CHAR(COD,  '999G999G999G990D00') AS ITEM_COD    /* COD(㎎/ℓ) */                                       ";
@@ -58,19 +58,31 @@ try{
 	sql += "                KESTI_WATER_ALL_MAP C                                                                             ";
 	sql += "          WHERE T.ADM_CD = C.ADM_CD                                                                               ";
 	sql += "            AND T.ADM_CD = TT.ADM_CD                                                                              ";
-	sql += "        )                                                                                                         ";
-	sql += "  WHERE FACI_CD = '112000F01'                                                                       ";
-	sql += "    AND SUBSTR(WORK_DT, 1, 4)||SUBSTR(WORK_DT, 6, 2) BETWEEN '201202' AND '201310'                     ";
+	sql += "        ) A                                                                                                       ";
+	sql += "      , (                                                                                                         ";
+	sql += "         SELECT FACI_CD, WORK_DT, MAX(IN_PL_TYPE) AS IN_PL_TYPE                                                   ";
+	sql += "           FROM VPLA_FACI_DIRECT_TRANSFER                                                                         ";
+	sql += "          GROUP BY FACI_CD, WORK_DT                                                                               ";
+	sql += "        ) B                                                                                                       ";
+	sql += "  WHERE A.FACI_CD = B.FACI_CD                                                                                     ";
+	sql += "    AND A.WORK_DT = B.WORK_DT                                                                                     ";
+	sql += "    AND A.IN_PL_TYPE = B.IN_PL_TYPE                                                                               ";
+	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                        ";
+	if(defaultChart.equals("1")){
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201312'                 ";
+	}else{
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                 ";	
+	}
 	sql += "  ORDER BY FACI_NM, IN_PL_TYPE, WORK_DT DESC )                                                                    ";
 	sql += "     SELECT *                                                                                                     ";
 	if(defaultChart.equals("1")){
 		sql += " FROM (SELECT *                                                                                                   ";
 		sql += "         FROM TMP_TBL                                                                                             ";
-		sql += "        WHERE ROWNUM <= 10                                                                                        ";
+		sql += "        WHERE RN <= 10                                                                                            ";
 		sql += "            ORDER BY WORK_DT                                                                                      ";
 		sql += "      )                                                                                                           ";
 	}else{
-		sql += "    FROM TMP_TBL   ";
+		sql += "         FROM TMP_TBL                                                                                             ";
 	}
 	sql += "  UNION ALL                                                                                                       ";
 	sql += "  SELECT 999 AS RN, '','','',TO_CHAR(MAX(ITEM_AMT) + MAX(ITEM_AMT) / 10), TO_CHAR(MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10), TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10),                                         ";             

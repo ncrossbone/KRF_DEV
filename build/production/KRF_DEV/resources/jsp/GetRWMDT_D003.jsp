@@ -49,7 +49,7 @@ try{
 	sql += "        COM_DISTRICT_RAW C                                                                          ";
 	sql += " WHERE  A.ADM_CD = B.ADM_CD                                                                         ";
 	sql += " AND    A.ADM_CD = C.ADM_CD                                                                         ";
-	sql += "  ORDER BY PT_NO, A.WMCYMD DESC                                                                     ";
+	sql += "  ORDER BY PT_NO, A.WMCYMD ASC                                                                     ";
 	sql += "  )                                                                                                 ";
 	sql += " SELECT *                                                                                           ";
 	if(defaultChart.equals("1")){

@@ -448,8 +448,10 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	
 	var RF = parseFloat(store.arrMax[0].RF);
 	var WL = parseFloat(store.arrMax[0].WL);
+	var WDE = parseFloat(store.arrMax[0].WDE);
 	var FW = parseFloat(store.arrMax[0].FW);
-	var SWL = parseFloat(store.arrMax[0].INF);
+	var SWL = parseFloat(store.arrMax[0].SWL);
+	var INF = parseFloat(store.arrMax[0].INF);
 	var OTF = parseFloat(store.arrMax[0].OTF);
 	var SFW = parseFloat(store.arrMax[0].SFW);
 	var ECPC = parseFloat(store.arrMax[0].ECPC);
@@ -686,7 +688,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	console.info(parentCheck);
 	//console.info(parentIds[0].parentId.substring(0,1));
-	
 	
 	if(parentCheck == "A"){	
 		
@@ -966,6 +967,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		console.info(grdCtl);
 		console.info(grdCtl.parentIds);
 		console.info(parentIds);
+		console.info(orgParentId);
 		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
@@ -973,6 +975,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		}
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
+		}
+		
+		if(orgParentId == undefined){
+			orgParentId = parentIds;
 		}
 		
 		console.info(grdCtl.parentIds)

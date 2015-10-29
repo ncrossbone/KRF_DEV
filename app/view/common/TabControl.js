@@ -208,12 +208,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var header = [];
 				var datas = [];
 
-				for(var i=0; i<colArr.length; i++){
-					if(colArr[i].dataIndex!=""){
-						headName.push(colArr[i].text);
-						header.push(colArr[i].dataIndex);
-					}
-				}
 				
 				var dataArr = grid.getView().store.data.items
 				if(!dataArr){
@@ -223,7 +217,37 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					datas.push(dataArr[i].data)
 				}
 				
-				
+				var removeMem = []
+				if(datas.length>0){
+					var data = datas[0];
+					for(var mem in data){
+						if(data[mem] instanceof Array){
+							removeMem.push(mem);
+						}
+					}
+					for(var i=0; i<colArr.length; i++){
+						if(colArr[i].dataIndex!=""){
+							var add = true;
+							for(var k=0; k<removeMem.length; k++){
+								if(removeMem[k]==colArr[i].dataIndex){
+									add = false;
+									break;
+								}
+							}
+							if(add){
+								headName.push(colArr[i].text);
+								header.push(colArr[i].dataIndex);
+							}
+						}
+					}
+				}else{
+					for(var i=0; i<colArr.length; i++){
+						if(colArr[i].dataIndex!=""){
+							headName.push(colArr[i].text);
+							header.push(colArr[i].dataIndex);
+						}
+					}
+				}
 				
 				//if(grid.download=='sleep'){
 					this.status = 'download';

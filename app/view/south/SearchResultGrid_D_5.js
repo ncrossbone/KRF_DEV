@@ -96,11 +96,14 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				width: 110
 			}, {
-				text : '풍샹(m/s)',
+				text : '풍향(m/s)',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_WD',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -136,6 +139,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_WS',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -171,6 +177,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_TA',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -206,6 +215,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_HM',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -241,6 +253,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_PA',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -276,6 +291,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_PS',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.00');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -311,6 +329,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_RNYN',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -330,7 +351,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
@@ -346,6 +367,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_RN1HR',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -365,7 +389,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
@@ -381,6 +405,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 					text     : '측정값',
 					dataIndex: 'CURR_RNDAY',
 					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0');
+					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
@@ -400,7 +427,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
