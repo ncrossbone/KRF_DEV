@@ -136,7 +136,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
@@ -176,7 +176,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
@@ -256,7 +256,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
@@ -294,7 +294,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -333,7 +333,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -373,7 +373,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
@@ -392,7 +392,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 					dataIndex: 'TN_VAL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						return Ext.util.Format.number(value, '0.00');
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -432,7 +432,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 					dataIndex: 'TP_VAL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						return Ext.util.Format.number(value, '0.00');
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -493,7 +493,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
@@ -535,7 +535,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }

@@ -27,21 +27,21 @@ try{
 		
 	String defaultChart = request.getParameter("defaultChart");
 	
-	sql = " WITH TMP_TBL AS																																																							";
-	sql += "  (SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.DISCHARGE_NUM ORDER BY A.FACI_CD, A.DISCHARGE_NUM, A.WORK_DT DESC) AS RN      ";
+	sql =  " WITH TMP_TBL AS																																																							";
+	sql += "  (select * from ( SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.DISCHARGE_NUM ORDER BY A.FACI_CD, A.DISCHARGE_NUM, A.WORK_DT DESC) AS RN      ";
 	sql += "      , A.FACI_CD                                                                                                             ";
 	sql += "      , FACI_NM /* 처리시설명 */                                                                                              ";
 	sql += "      , A.WORK_DT /* 운영일자 */                                                                                              ";
 	sql += "      , '방류구번호 : '||A.DISCHARGE_NUM AS DISCHARGE_NUM /* 방류구번호 */                                                    ";
-	sql += "      , TO_CHAR(DISCHARGE_AMT_PHYS, '999G999G999G990D00') AS AMT_PHYS   /* 방류량_물리적(㎥/일) */                            ";
-	sql += "      , TO_CHAR(DISCHARGE_AMT_BIO,  '999G999G999G990D00') AS AMT_BIO    /* 방류량_생물학적(㎥/일) */                          ";
-	sql += "      , TO_CHAR(DISCHARGE_AMT_HIGHTEC, '999G999G999G990D00') AS AMT_HIGHTEC   /* 방류량_고도(㎥/일) */                        ";
-	sql += "      , TO_CHAR(BOD,  '999G999G999G990D00') AS ITEM_BOD   /* BOD(㎎/ℓ) */                                                    ";
-	sql += "      , TO_CHAR(COD,  '999G999G999G990D00') AS ITEM_COD   /* COD(㎎/ℓ) */                                                    ";
-	sql += "      , TO_CHAR(SS,   '999G999G999G990D00') AS ITEM_SS    /* SS(㎎/ℓ) */                                                     ";
-	sql += "      , TO_CHAR(TN,   '999G999G999G990D00') AS ITEM_TN    /* TN(㎎/ℓ) */                                                     ";
-	sql += "      , TO_CHAR(TP,   '999G999G999G990D00') AS ITEM_TP    /* TP(㎎/ℓ) */                                                     ";
-	sql += "      , TO_CHAR(COLI, '999G999G999G999') AS ITEM_COLI     /* 대장균군수(총대장균군수) */                                      ";
+	sql += "      , DISCHARGE_AMT_PHYS AS AMT_PHYS   /* 방류량_물리적(㎥/일) */                            ";
+	sql += "      , DISCHARGE_AMT_BIO AS AMT_BIO    /* 방류량_생물학적(㎥/일) */                          ";
+	sql += "      , DISCHARGE_AMT_HIGHTEC AS AMT_HIGHTEC   /* 방류량_고도(㎥/일) */                        ";
+	sql += "      , BOD AS ITEM_BOD   /* BOD(㎎/ℓ) */                                                    ";
+	sql += "      , COD AS ITEM_COD   /* COD(㎎/ℓ) */                                                    ";
+	sql += "      , SS AS ITEM_SS    /* SS(㎎/ℓ) */                                                     ";
+	sql += "      , TN AS ITEM_TN    /* TN(㎎/ℓ) */                                                     ";
+	sql += "      , TP AS ITEM_TP    /* TP(㎎/ℓ) */                                                     ";
+	sql += "      , COLI AS ITEM_COLI     /* 대장균군수(총대장균군수) */                                      ";
 	sql += "   FROM (                                                                                                                     ";
 	sql += "         SELECT TT.ADM_CD,                                                                                                    ";
 	sql += "                T.YYYY,                                                                                                       ";
@@ -85,6 +85,8 @@ try{
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                                        ";	
 	}
+sql += " ) ";
+sql += " where rn <= 10 ";
 	sql += "  ORDER BY FACI_NM, DISCHARGE_NUM, WORK_DT DESC)                                                                              ";
 	sql += " SELECT *                                                                                                                     ";
 	if(defaultChart.equals("1")){
@@ -97,9 +99,16 @@ try{
 		sql += "           FROM TMP_TBL                                                                                                       ";
 	}
 	sql += " UNION ALL                                                                                                        ";
-	sql += " SELECT 999 AS RN, '','','','', TO_CHAR(MAX(AMT_PHYS) + MAX(AMT_PHYS) / 10), TO_CHAR(MAX(AMT_BIO) + MAX(AMT_BIO) / 10), TO_CHAR(MAX(AMT_HIGHTEC) + MAX(AMT_HIGHTEC) / 10),      ";                                                
-	sql += "         TO_CHAR(MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10), TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10), TO_CHAR(MAX(ITEM_SS) + MAX(ITEM_SS) / 10), TO_CHAR(MAX(ITEM_TN) + MAX(ITEM_TN) / 10),                                                                    ";          
-	sql += "         TO_CHAR(MAX(ITEM_TP) + MAX(ITEM_TP) / 10), TO_CHAR(MAX(ITEM_COLI) + MAX(ITEM_COLI) / 10)                                                                                       ";
+	sql += " SELECT 999 AS RN, '','','','',      ";                                                
+	sql += "   NVL(MAX(AMT_PHYS), 0) + NVL(MAX(AMT_PHYS), 0) / 10,				";
+	sql += "   NVL(MAX(AMT_BIO), 0) + NVL(MAX(AMT_BIO), 0) / 10,        ";
+	sql += "   NVL(MAX(AMT_HIGHTEC), 0) + NVL(MAX(AMT_HIGHTEC), 0) / 10,";
+	sql += "   NVL(MAX(ITEM_BOD), 0) + NVL(MAX(ITEM_BOD), 0) / 10,      ";
+	sql += "   NVL(MAX(ITEM_COD), 0) + NVL(MAX(ITEM_COD), 0) / 10,      ";
+	sql += "   NVL(MAX(ITEM_SS), 0) + NVL(MAX(ITEM_SS), 0) / 10,        ";
+	sql += "   NVL(MAX(ITEM_TN), 0) + NVL(MAX(ITEM_TN), 0) / 10,        ";
+	sql += "   NVL(MAX(ITEM_TP), 0) + NVL(MAX(ITEM_TP), 0) / 10,        ";
+	sql += "   NVL(MAX(ITEM_COLI), 0) + NVL(MAX(ITEM_COLI), 0) / 10     ";
 	sql += "   FROM TMP_TBL                                                                                                   ";                                                                                                                                                          
                              
 
