@@ -28,7 +28,7 @@ try{
 	String defaultChart = request.getParameter("defaultChart");
 	
 	sql = " WITH TMP_TBL AS       															";                                                                                                                                                                                                                                                  
-			sql += "  (SELECT RANK() OVER(PARTITION BY RFOBSCD ORDER BY RFOBSCD, YMD DESC) AS RN /* 순번 참고용 */        ";
+			sql += "  ( SELECT * FROM (SELECT RANK() OVER(PARTITION BY RFOBSCD ORDER BY RFOBSCD, YMD DESC) AS RN /* 순번 참고용 */        ";
 			sql += "      , RFOBSCD AS PT_NO /* 관측소코드 */                                                             ";
 			sql += "      , OBSNM AS PT_NM /* 관측소명 */                                                                 ";
 			sql += "      , YMD AS WMCYMD /* 관측일자*/                                                                   ";
@@ -49,12 +49,13 @@ try{
 			sql += "        COM_DISTRICT_RAW C                                                                            ";
 			sql += "  WHERE A.ADM_CD = B.ADM_CD                                                                           ";
 			sql += "    AND A.ADM_CD = C.ADM_CD                                                                           ";
+			sql += "   )  WHERE RN <= 10                                                                      ";
 			sql += "  ORDER BY PT_NO, WMCYMD DESC )                                                                       ";
 			sql += " SELECT *                                                                                             ";
 			if(defaultChart.equals("1")){
 				sql += " FROM   (SELECT *                                                                                     ";
 				sql += "         FROM   TMP_TBL                                                                               ";
-				sql += "         WHERE  ROWNUM <= 10                                                                          ";
+				//sql += "         WHERE  ROWNUM <= 10                                                                          ";
 				sql += "         ORDER BY WMCYMD                                                                              ";
 				sql += "      )                                                                                               ";
 			}else{
@@ -67,7 +68,7 @@ try{
 
 
 		
-   //out.print(sql);
+  // out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
 	JSONObject jsonObj  = new JSONObject();
