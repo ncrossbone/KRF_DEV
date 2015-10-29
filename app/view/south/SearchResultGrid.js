@@ -58,7 +58,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text      : '측정소명',
 				dataIndex : 'PT_NM',
 				width: 100,
-				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
+				//filterable: true,
+				filter: {type: 'string'},
+				//filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						//console.info(this.findParentByType("grid").parentIds);
