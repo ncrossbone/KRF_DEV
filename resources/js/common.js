@@ -688,8 +688,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	console.info(parentCheck);
 	//console.info(parentIds[0].parentId.substring(0,1));
+
 	
 	if(parentCheck == "A"){	
+		
+		//console.info(sYearCtl.setValue("2013"));
 		
 		//환경기초시설 검색값 히든처리
 		hiddenGrid.setHidden(true);

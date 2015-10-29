@@ -164,18 +164,13 @@ try{
 	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 4                                                                                                                                                                                           ";
 sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)                                                                                                                                                                                   ";
 		   
-	if(firstSearch == "date"){
-		sql += "AND A.WMYR || A.WMOD >= '" + startYYYYMM + "' ";
-		sql += "AND A.WMYR || A.WMOD <= '" + endYYYYMM + "' ";
-	}else{
-		sql += "AND A.WMYR || A.WMOD >= '201507' ";
-	}
-	/* if(startYYYYMM != ""){
+
+	 if(startYYYYMM != ""){
 		sql += "AND A.WMYR || A.WMOD >= '" + startYYYYMM + "' ";
 	}
 	if(endYYYYMM != ""){
 		sql += "AND A.WMYR || A.WMOD <= '" + endYYYYMM + "' ";
-	} */
+	} 
 	if(WS_CD != ""){
 		sql += "AND C.WS_CD = '" + WS_CD + "' /* ´ë±Ç¿ª */ ";
 	}
