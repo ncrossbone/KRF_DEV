@@ -412,9 +412,9 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 		labelNm = "DO(㎎/L)";
 	}else if(labelNm == "COD"){
 		labelNm = "COD(㎎/L)";
-	}else if(labelNm == "T.N"){
+	}else if(labelNm == "T-N"){
 		labelNm = "T-N (㎎/L)";
-	}else if(labelNm == "T.P"){
+	}else if(labelNm == "T-P"){
 		labelNm = "T-P (㎎/L)";
 	}else if(labelNm == "수온"){
 		labelNm = "수온(℃)";
