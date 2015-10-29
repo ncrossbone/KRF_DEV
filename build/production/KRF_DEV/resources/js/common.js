@@ -966,6 +966,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		console.info(grdCtl);
 		console.info(grdCtl.parentIds);
 		console.info(parentIds);
+		console.info(orgParentId);
 		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
@@ -973,6 +974,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		}
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
+		}
+		
+		if(orgParentId == undefined){
+			orgParentId = parentIds;
 		}
 		
 		console.info(grdCtl.parentIds)

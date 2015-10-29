@@ -71,19 +71,18 @@ sql += "    AND B.WMOD  = C.WMOD                                                
 sql += "    AND B.WMWK  = C.WMWK                                                                                                                ";
 sql += "    AND C.WMCYMD IS NOT NULL                                                                                                            ";
 sql += "    and A.pt_no ='"+recordId+"'                                                                                                         ";
-sql += "    and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('"+a+"."+c+"', 'YYYY.MM') and to_date('"+b+"."+d+"', 'YYYY.MM')     ";
 if(defaultChart.equals("1")){
-	sql += "    ORDER BY WMYR asc , wmod asc                                                                                                      ";	
+	sql += "    and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('2010.01', 'YYYY.MM') and to_date('2015.12', 'YYYY.MM')     ";
 }else{
-	sql += "    ORDER BY WMYR asc , wmod asc                                                                                                      ";
+	sql += "    and to_date((B.WMYR ||'.'|| B.WMOD), 'YYYY.MM') between to_date('"+a+"."+c+"', 'YYYY.MM') and to_date('"+b+"."+d+"', 'YYYY.MM')     ";
 }
+sql += "    ORDER BY WMCYMD asc                                                                                                      ";
 sql += "     )                                                                                                                                  ";
 sql += "    SELECT *                                                                                                                            ";
-
 if(defaultChart.equals("1")){
 	sql += "   FROM (SELECT *                                                                                                                       ";
 	sql += "           FROM TMP_TBL                                                                                                                 ";
-	sql += "          WHERE ROWNUM <= 10                                                                                                            ";
+	sql += "          WHERE RN <= 10                                                                                                            ";
 	sql += "          ORDER BY WMCYMD                                                                                                               ";
 	sql += "        )                                                                                                                               ";	
 }else{

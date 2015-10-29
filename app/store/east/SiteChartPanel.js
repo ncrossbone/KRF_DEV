@@ -44,7 +44,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			
 			if(store.parentId == "F" ){
 				console.info(f_Chart);
-				if(f_Chart == undefined){
+				if(f_Chart == undefined || f_Chart.lastValue == "방류유량"){
 					f_parentId = "F_1";
 				}else if(f_Chart.lastValue == "1"){
 					f_parentId = "F_1";
@@ -280,12 +280,14 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
+			console.info(store.siteCD);
 			
 			
 			
 			var jsonData = "";
 			console.info(store.parentId);
 			console.info(d_Chart);
+			console.info(f_parentId);
 			
 			
 			

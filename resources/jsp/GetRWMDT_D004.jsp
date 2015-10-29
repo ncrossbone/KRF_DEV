@@ -69,8 +69,8 @@ try{
 		sql += "     FROM TMP_TBL   ";
 	}
 	sql += "  UNION ALL                                                                                   ";
-	sql += "  SELECT 999 AS RN, '','','', MAX(SWL), MAX(INF), MAX(OTF),                                   ";                   
-	sql += "  MAX(SFW), MAX(ECPC)                                                                         ";                           
+	sql += "  SELECT 999 AS RN, '','','', MAX(SWL) + MAX(SWL) / 10, MAX(INF) + MAX(INF) / 10, MAX(OTF) + MAX(OTF) / 10,                                   ";                   
+	sql += "  MAX(SFW) + MAX(SFW) / 10, MAX(ECPC) + MAX(ECPC) / 10                                                                         ";                           
 	sql += "    FROM TMP_TBL                                                                              ";                                                                                                                                                
                              
 

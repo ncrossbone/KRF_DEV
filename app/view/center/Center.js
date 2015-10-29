@@ -15,6 +15,8 @@ Ext.define('KEF_DEV.view.center.Center', {
 			id: 'btnModeNormal_center',
 			groupId: 'grpMode',
 	    	title: '일반모드',
+	    	width: 65,
+	    	height: 25,
 	    	listeners: { el: { click: 'onClickNormalMode' } },
 	    	btnOnOff: 'on',
 	    	btnOnImg: './resources/images/button/btn_nor_on.png',
@@ -25,12 +27,17 @@ Ext.define('KEF_DEV.view.center.Center', {
 			id: 'btnModeReach_center',
 			groupId: 'grpMode',
 	    	title: '리치모드',
+	    	width: 65,
+	    	height: 25,
 	    	listeners: { el: { click: 'onClickReachMode' } },
 	    	btnOnOff: 'off',
 	    	btnOnImg: './resources/images/button/btn_reach_on.png',
 	    	btnOffImg: './resources/images/button/btn_reach_off.png',
 	    	src: './resources/images/button/btn_reach_off.png'
-	    }]
+	    }, {
+			xtype: 'container',
+			width: 50
+		}]
 	},
 	
 	/*

@@ -139,7 +139,11 @@ sql += "        ) A                                                             
 sql += "      , SDM_RWMPT B                                                                                                                                                      ";
 sql += "  WHERE A.PT_NO = B.PT_NO                                                                                                                                                ";
 sql += "    AND A.PT_NO = '"+recordId+"'                                                                                                                                              ";
-sql += "    AND A.WMYR||A.WMOD BETWEEN '"+ac+"' AND '"+bd+"'                                                                                                          ";
+if(defaultChart.equals("1")){
+	sql += "    AND A.WMYR||A.WMOD BETWEEN '201001' AND '201512'                                                                                                          ";
+}else{
+	sql += "    AND A.WMYR||A.WMOD BETWEEN '"+ac+"' AND '"+bd+"'                                                                                                          ";
+}
 sql += "  ORDER BY WMYR DESC , WMOD DESC                                                                                                                                         ";
 sql += "  )                                                                                                                                                                      ";
 sql += "     SELECT *                                                                                                                                                            ";
@@ -153,9 +157,9 @@ if(defaultChart.equals("1")){
 	sql += " FROM TMP_TBL    ";
 }
 sql += "  UNION ALL                                                                                                                                                              ";
-sql += "  SELECT 999 AS RN, '', '','', '', '', '', '', MAX(ITEM_DOW), MAX(ITEM_TEMP), MAX(ITEM_DO),                                                                              ";
-sql += "  MAX(ITEM_PH), MAX(ITEM_EC), MAX(ITEM_COD), MAX(ITEM_TOC),                                                                                                              ";
-sql += "  MAX(ITEM_TN), MAX(ITEM_TP), ''                                                                                                                                         ";
+sql += "  SELECT 999 AS RN, '', '','', '', '', '', '', TO_CHAR(MAX(ITEM_DOW) + MAX(ITEM_DOW) / 10), TO_CHAR(MAX(ITEM_TEMP) + MAX(ITEM_TEMP) / 10), TO_CHAR(MAX(ITEM_DO) + MAX(ITEM_DO) / 10),                                                                              ";
+sql += "  TO_CHAR(MAX(ITEM_PH) + MAX(ITEM_PH) / 10), TO_CHAR(MAX(ITEM_EC) + MAX(ITEM_EC) / 10), TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10), TO_CHAR(MAX(ITEM_TOC) + MAX(ITEM_TOC) / 10),                                                                                                              ";
+sql += "  TO_CHAR(MAX(ITEM_TN) + MAX(ITEM_TN) / 10), TO_CHAR(MAX(ITEM_TP) + MAX(ITEM_TP) / 10), ''                                                                                                                                         ";
 sql += "    FROM TMP_TBL                                                                                                                                                         ";	                                                                                                                                                             
                              
 

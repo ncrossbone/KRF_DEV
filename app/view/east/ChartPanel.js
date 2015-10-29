@@ -40,7 +40,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				style: 'font-weight: bold; padding-left: 15px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				//store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
-				width: 65,
+				width: 155,
 				height: 25
 			},{
 				xtype: 'container',
@@ -56,7 +56,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				height: 25
 			}, {
 				xtype: 'container',
-				width:  77
+				width:  17
 			},{
 				xtype: 'image',
 				id: 'btnShowSearchWindow',
@@ -77,8 +77,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						}
 					}
 				},
-				width: 61,
-				height: 19,
+				width: 34,
+				height: 21,
 				src: './resources/images/button/btn_date.gif'
 			}, {
 				xtype: 'label',

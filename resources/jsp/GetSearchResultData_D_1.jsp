@@ -95,9 +95,9 @@ sql += "                         ROUND(AVG(MNWL)/1, 2) MNWL                     
 sql += "                  FROM   WLDY A,                                                                  ";
 sql += "                         WLOBSIF D                                                                ";
 sql += "                  WHERE  A.WLOBSCD = D.WLOBSCD                                                    ";
-sql += "                    AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDDHH24'),1,6) >= TO_CHAR(TO_DATE('"+endYYYYMM+"'  ";
+sql += "                    AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDDHH24'),1,6) >= TO_CHAR(TO_DATE('"+startYYYYMM+"'  ";
 sql += "                        , 'YYYYMM') -35, 'YYYYMM')                                                ";
-sql += "                    AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDDHH24'),1,6) <='201502'                   ";
+sql += "                    AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDDHH24'),1,6) <='"+endYYYYMM+"'                   ";
 sql += "                    AND A.WLOBSCD = '1016650'                                                     ";
 sql += "                  GROUP BY SUBSTR(TO_CHAR(YMDH , 'YYYYMMDDHH24'),1,8) , A.WLOBSCD , OBSNM         ";
 sql += "                 ) A,                                                                             ";
