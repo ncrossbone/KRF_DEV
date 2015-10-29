@@ -178,10 +178,12 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController', {
 				Ext.ShowSiteListWindow("waterSearch");
 				
 				// 버튼 On/Off
+				/*
 				currCtl = Ext.getCmp("btnSearchResult");
 				if(currCtl.btnOnOff == "off"){
 					SetBtnOnOff("btnSearchResult");
 				}
+				*/
 				
 				// 검색결과창 띄우기
 				// ShowSearchResult(); // 선택버튼 클릭 시 검색결과창 안띄우는걸로.. 20151008
