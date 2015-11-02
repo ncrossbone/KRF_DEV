@@ -37,7 +37,7 @@ sql = " SELECT 																																																" +
 "      , B.WORK_DT AS WORK_DT_GRAPH /* 운영일자 */                                                            " +
 "      , A.PIPE_NUM /* 유입구번호 */                                                                          " +
 "      , TO_CHAR(A.AMT, '999G999G999G990D00') AS AMT_VAL /* 유량(㎥/일) */                                    " +
-"      , TO_CHAR(B.AMT, '999G999G999G990D00') AS AMT_GRAPH /* 유량(㎥/일) */                                  " +
+"      , TO_CHAR(B.AMT, 'FM999999990') AS AMT_GRAPH /* 유량(㎥/일) */                                  " +
 "      , TO_CHAR(A.BOD, '999G999G999G990D00') AS BOD_VAL /* BOD(㎎/ℓ) */                                     " +
 "      , TO_CHAR(B.BOD, '999G999G999G990D00') AS BOD_GRAPH /* BOD(㎎/ℓ) */                                   " +
 "      , TO_CHAR(A.COD, '999G999G999G990D00') AS COD_VAL /* COD(㎎/ℓ) */                                     " +
@@ -49,7 +49,7 @@ sql = " SELECT 																																																" +
 "      , TO_CHAR(A.TP, '999G999G999G990D00') AS TP_VAL /* TP(㎎/ℓ) */                                        " +
 "      , TO_CHAR(B.TP, '999G999G999G990D00') AS TP_GRAPH /* TP(㎎/ℓ) */                                      " +
 "      , TO_CHAR(A.COLI, '999G999G999G999') AS COLI_VAL /* 대장균군수(총대장균군수) */                        " +
-"      , TO_CHAR(B.COLI, '999G999G999G999') AS COLI_GRAPH /* 대장균군수(총대장균군수) */                      " +
+"      , TO_CHAR(B.COLI, 'FM999999990') AS COLI_GRAPH /* 대장균군수(총대장균군수) */                      " +
 "   FROM (SELECT RANK() OVER(PARTITION BY FACI_CD, PIPE_NUM ORDER BY FACI_CD, PIPE_NUM, WORK_DT DESC) AS NO,  " +
 "                TT.ADM_CD,                                                                                   " +
 "                T.YYYY,                                                                                      " +

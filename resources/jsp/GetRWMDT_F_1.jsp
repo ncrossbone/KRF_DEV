@@ -36,7 +36,7 @@ try{
 	sql += "      , DISCHARGE_AMT_PHYS AS AMT_PHYS   /* 规幅樊_拱府利(З/老) */                            ";
 	sql += "      , DISCHARGE_AMT_BIO AS AMT_BIO    /* 规幅樊_积拱切利(З/老) */                          ";
 	sql += "      , DISCHARGE_AMT_HIGHTEC AS AMT_HIGHTEC   /* 规幅樊_绊档(З/老) */                        ";
-	sql += "      , BOD AS ITEM_BOD   /* BOD(Х/Г) */                                                    ";
+	sql += "      , BOD AS ITEM_BOD   /* BOD(Х/Г) */                                                     ";
 	sql += "      , COD AS ITEM_COD   /* COD(Х/Г) */                                                    ";
 	sql += "      , SS AS ITEM_SS    /* SS(Х/Г) */                                                     ";
 	sql += "      , TN AS ITEM_TN    /* TN(Х/Г) */                                                     ";
@@ -92,7 +92,7 @@ sql += " where rn <= 10 ";
 	if(defaultChart.equals("1")){
 		sql += "   FROM (SELECT *                                                                                                             ";
 		sql += "           FROM TMP_TBL                                                                                                       ";
-		sql += "          WHERE RN <= 10                                                                                                      ";
+		//sql += "          WHERE RN <= 10                                                                                                      ";
 		sql += "          ORDER BY WORK_DT                                                                                                    ";
 		sql += "        )                                                                                                                     ";
 	}else{

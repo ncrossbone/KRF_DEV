@@ -41,7 +41,7 @@ sql = " SELECT 																																																						" +
 "      , TO_CHAR(A.DISCHARGE_AMT_BIO,  '999G999G999G990D00') AS DISCHARGE_AMT_BIO_VAL    /* 방류량_생물학적(㎥/일) */     " +
 "      , TO_CHAR(B.DISCHARGE_AMT_BIO,  '999G999G999G990D00') AS DISCHARGE_AMT_BIO_GRAPH  /* 방류량_생물학적(㎥/일) */     " +
 "      , TO_CHAR(A.DISCHARGE_AMT_HIGHTEC, '999G999G999G990D00') AS DISCHARGE_AMT_HIGHTEC_VAL   /* 방류량_고도(㎥/일) */   " +
-"      , TO_CHAR(B.DISCHARGE_AMT_HIGHTEC, '999G999G999G990D00') AS DISCHARGE_AMT_HIGHTEC_GRAPH /* 방류량_고도(㎥/일) */   " +
+"      , TO_CHAR(B.DISCHARGE_AMT_HIGHTEC, 'FM999999990') AS DISCHARGE_AMT_HIGHTEC_GRAPH /* 방류량_고도(㎥/일) */   " +
 "      , TO_CHAR(A.BOD,  '999G999G999G990D00') AS BOD_VAL   /* BOD(㎎/ℓ) */                                              " +
 "      , TO_CHAR(B.BOD,  '999G999G999G990D00') AS BOD_GRAPH /* BOD(㎎/ℓ) */                                              " +
 "      , TO_CHAR(A.COD,  '999G999G999G990D00') AS COD_VAL   /* COD(㎎/ℓ) */                                              " +
