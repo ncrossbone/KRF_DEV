@@ -36,22 +36,22 @@ try{
 "      , B.WORK_DT AS WORK_DT_GRAPH  /* 운영일자(추이변화)*/                                                          " +
 "      , A.PIPE_NUM  /* 관거번호*/                                                                                    " +
 "      , A.PIPE_TYPE /* 관거유형*/                                                                                    " +
-"      , TO_CHAR(A.AMT, '999G999G999G990D00') AS AMT_VAL      /* 유량(㎥/일)*/                                        " +
-"      , TO_CHAR(B.AMT, 'FM999999990') AS AMT_GRAPH    /* 유량(추이변화)*/                                     " +
-"      , TO_CHAR(A.BOD, '999G999G999G990D00') AS BOD_VAL      /* BOD(㎎/ℓ)*/                                         " +
-"      , TO_CHAR(B.BOD, '999G999G999G990D00') AS BOD_GRAPH    /* BOD(추이변화)*/                                      " +
-"      , TO_CHAR(A.COD, '999G999G999G990D00') AS COD_VAL      /* COD(㎎/ℓ)*/                                         " +
-"      , TO_CHAR(B.COD, '999G999G999G990D00') AS COD_GRAPH    /* COD(추이변화)*/                                      " +
-"      , TO_CHAR(A.SS,  '999G999G999G990D00') AS SS_VAL       /* SS(㎎/ℓ)*/                                          " +
-"      , TO_CHAR(B.SS,  '999G999G999G990D00') AS SS_GRAPH     /* SS(추이변화)*/                                       " +
-"      , TO_CHAR(A.TN,  '999G999G999G990D00') AS TN_VAL       /* TN(㎎/ℓ)*/                                          " +
-"      , TO_CHAR(B.TN,  '999G999G999G990D00') AS TN_GRAPH     /* TN(추이변화)*/                                       " +
-"      , TO_CHAR(A.TP,  '999G999G999G990D00') AS TP_VAL       /* TP(㎎/ℓ)*/                                          " +
-"      , TO_CHAR(B.TP,  '999G999G999G990D00') AS TP_GRAPH     /* TP(추이변화)*/                                       " +
-"      , TO_CHAR(A.COLI,'999G999G999G999') AS COLI_VAL        /* 대장균군수(총대장균군수)*/                           " +
-"      , TO_CHAR(B.COLI,'FM999999990') AS COLI_GRAPH      /* 대장균군수(추이변화)*/                               " +
-"      , TO_CHAR(A.BYPASS_AMT,'999G999G999G990D00') AS BYPASS_AMT_VAL   /* 미처리배제유량(㎥/일)*/                    " +
-"      , TO_CHAR(B.BYPASS_AMT,'999G999G999G990D00') AS BYPASS_AMT_GRAPH /* 미처리배제유량(추이변화)*/                 " +
+"	   , A.AMT AS AMT_VAL      /* 유량(㎥/일)*/                                      " +
+"	   , B.AMT AS AMT_GRAPH    /* 유량(추이변화)*/                                   " +
+"	   , A.BOD AS BOD_VAL      /* BOD(㎎/ℓ)*/                                       " +
+"	   , B.BOD AS BOD_GRAPH    /* BOD(추이변화)*/                                    " +
+"	   , A.COD AS COD_VAL      /* COD(㎎/ℓ)*/                                       " +
+"	   , B.COD AS COD_GRAPH    /* COD(추이변화)*/                                    " +
+"	   , A.SS AS SS_VAL       /* SS(㎎/ℓ)*/                                        " +
+"	   , B.SS AS SS_GRAPH     /* SS(추이변화)*/                                     " +
+"	   , A.TN AS TN_VAL       /* TN(㎎/ℓ)*/                                        " +
+"	   , B.TN AS TN_GRAPH     /* TN(추이변화)*/                                     " +
+"	   , A.TP AS TP_VAL       /* TP(㎎/ℓ)*/                                        " +
+"	   , B.TP AS TP_GRAPH     /* TP(추이변화)*/                                     " +
+"	   , A.COLI AS COLI_VAL        /* 대장균군수(총대장균군수)*/                         " +
+"	   , B.COLI AS COLI_GRAPH      /* 대장균군수(추이변화)*/                             " +
+"	   , A.BYPASS_AMT AS BYPASS_AMT_VAL   /* 미처리배제유량(㎥/일)*/                  " +
+"	   , B.BYPASS_AMT AS BYPASS_AMT_GRAPH /* 미처리배제유량(추이변화)*/               " +
 "      , A.CONNECT_FACI_NM /*연계처리시설명*/                                                                         " +
 "   FROM (                                                                                                            " +
 "         SELECT RANK() OVER(PARTITION BY FACI_CD, PIPE_NUM ORDER BY FACI_CD, PIPE_NUM, WORK_DT DESC) AS NO           " +

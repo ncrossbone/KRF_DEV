@@ -474,8 +474,8 @@ if(firstSearch.equals("date")){
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '"+startYYYYMM+"'                                                         " ;
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '"+endYYYYMM+"'                                                         " ;
 }else{
-	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201212'                                                         ";
-	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201210'                                                         " ;	
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201209'                                                         ";
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201212'                                                         " ;	
 }
 sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                                                         " ;
 		
@@ -923,7 +923,9 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	jsonRecord.put("ITEM_HG_VAL",ITEM_HG_VAL);
 	jsonRecord.put("ITEM_HG_GRAPH",ITEM_HG_GRAPH);
 	jsonRecord.put("ITEM_AL_VAL",ITEM_AL_VAL);
-	jsonRecord.put("ITEM_HG_GRAPH",ITEM_AL_GRAPH);
+	jsonRecord.put("ITEM_AL_GRAPH",ITEM_HG_GRAPH); 
+	jsonRecord.put("ITEM_LI_VAL",ITEM_LI_VAL);
+	jsonRecord.put("ITEM_LI_GRAPH",ITEM_LI_GRAPH);
 	
 	jsonArr.add(jsonRecord);
 	
