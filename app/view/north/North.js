@@ -152,7 +152,7 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn5_off.png'			
-	}, {
+	}/*, {
 		xtype: 'image',
     	title: '인쇄',
     	width: 69,
@@ -165,7 +165,7 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn1_off.png'			
-	}, {
+	}*/, {
 		xtype: 'image',
     	title: '저장',
     	width: 69,

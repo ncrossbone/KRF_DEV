@@ -13,6 +13,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 	//autoLoad: true,
 
+	searchType: '',
 	remoteSort: true,
 	
 	listeners: {
@@ -67,29 +68,25 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
 			}
 			
-			/* 리치모드 지점목록 조건 설정 */
-			var me = GetCoreMap();
-			
-			var reachBtn = Ext.getCmp("btnModeReach");
-			
-			if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
+			if(store.searchType == "selectReach"){
+				/* 리치모드 지점목록 조건 설정 */
+				var me = GetCoreMap();
 				
-				query.where = "CAT_ID IN ("; 
+				var reachBtn = Ext.getCmp("btnModeReach");
 				
-				for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
-					query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
+				if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
+					
+					query.where = "CAT_ID IN ("; 
+					
+					for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
+						query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
+					}
+					
+					query.where = query.where.substring(0, query.where.length - 2);
+					query.where += ")";
 				}
-				
-				query.where = query.where.substring(0, query.where.length - 2);
-				query.where += ")";
 			}
-			console.info(query);
-			/*if(buttonInfo2.lastValue != null){
-				
-			}else{*/
-				//query.where = "1=1";	
-			//} 
-			//query.where = "CAT_ID like '1001%'";
+			
 			query.outFields = ["*"];
 			queryTask.execute(query, function(result){
 				var jsonStr = " { \"id\": \"0\", \n";
@@ -173,10 +170,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							preGubun = result.features[i].attributes.LAYER_CODE;
 							groupGubun = result.features[i].attributes.GROUP_CODE;
 						}
-						
+						//console.info(result.features[i].attributes);
 						jsonStr += "{\n";
 						jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
 						jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
+						jsonStr += "		\"catId\": \"" + result.features[i].attributes.CAT_ID + "\",\n";
 						jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
 						jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
 						jsonStr += "		\"leaf\": true,\n";

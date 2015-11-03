@@ -622,6 +622,12 @@ ChangeTabIndex = function(tabIdx){
 // 검색결과창 띄우기
 ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
+	// 리치검색 khLee 20151102 추가
+	if(siteIds == "CAT"){
+		ShowSearchResultReach();
+		return;
+	}
+	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
@@ -706,6 +712,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
 			//searchResultTab.add(grdContainer);
 			tab.add(grdContainer);
+			//tab.insert(0, grdContainer);
 		}
 		
 		tab.setActiveTab(gridId + "_container");
@@ -742,6 +749,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			
 			
 			tab.add(grdContainer);
+			//tab.insert(0, grdContainer);
 		}
 		//console.info(grdContainer);
 		
@@ -879,6 +887,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			
 			
 			tab.add(grdContainer);
+			//tab.insert(0, grdContainer);
 		}
 		
 		tab.setActiveTab(gridId + "_container");
@@ -914,6 +923,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			
 			
 			tab.add(grdContainer);
+			//tab.insert(0, grdContainer);
 		}
 		
 		tab.setActiveTab(gridId + "_container");
@@ -963,9 +973,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_7", options);
 			}
 			
-			
-			
 			tab.add(grdContainer);
+			//tab.insert(0, grdContainer);
 		}
 		
 		tab.setActiveTab(gridId + "_container");
@@ -1045,6 +1054,309 @@ GetTabControl = function(options){
 	}
 	
 	return tabCtl;
+	
+}
+
+// 리치정보 검색결과 탭 추가
+// catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
+ShowSearchResultReach = function(catIds){
+	
+	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
+	var windowWidth = centerContainer.getWidth();
+	var windowHeight = 300;
+	var windowY = centerContainer.getHeight() - windowHeight;
+	
+	// window 창 옵션
+	var options = {
+			renderTo: centerContainer.el,
+			id: 'searchResultWindow',
+			title: '검색결과',
+			width: windowWidth,
+			y: windowY
+	};
+	
+	// window 창 생성
+	var searchResultWindow = this.GetWindowControl(options);
+	searchResultWindow.show();
+	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
+	
+	options = {
+			id: 'searchResultTab',
+			//title: '결과탭1',
+			header: false
+	};
+	
+	var tabCtl = Ext.getCmp("searchResultTab");
+	// TabControl 생성
+	var searchResultTab = GetTabControl(options);
+	//console.info(searchResultTab);
+	
+	if(tabCtl == undefined)
+		searchResultWindow.add(searchResultTab); // window에 tab추가
+	
+	options = {
+			//id: "searchResultContainer",
+			id: "searchResultReach_container",
+			title: '리치정보',
+			autoResize: true
+	};
+	
+	var tab = searchResultTab.items.items[1];
+	
+	var gridStore = null;
+	var grdContainer = Ext.getCmp("searchResultReach_container");
+	
+	if(grdContainer == null || grdContainer == undefined){
+		grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_Reach", options);
+		//tab.add(grdContainer);
+		tab.insert(0, grdContainer);
+	}
+	
+	tab.setActiveTab("searchResultReach_container");
+	
+	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+	grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+	
+	var coreMap = GetCoreMap();
+	
+	var storeData = [];
+	
+	if(catIds == ""){ // 리치검색에서 넘어왔을때
+    	var rchMap = GetCoreMap();
+    	var sumRchLen = 0;
+    	var sumCatArea = 0;
+    	
+    	// 상류 데이터
+    	var tmpGraphics = rchMap.reachLayerAdmin.upRchGraphics;
+    	for(var i = 0; i < tmpGraphics.length; i++){
+    		var rowData = [];
+    		rowData.push(tmpGraphics[i].attributes.RCH_ID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].attributes.CAT_ID);
+//    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
+//    		if(catIdx != -1){
+//	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
+//	    		rowData.push(catArea);
+//    		}
+//    		else{
+//    			rowData.push(0);
+//    		}
+    		rowData.push(tmpGraphics[i].attributes.CAT_AREA);
+    		sumCatArea += tmpGraphics[i].attributes.CAT_AREA;
+    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
+    		if(geoTrib == "0")
+    			rowData.push("본류");
+    		else
+    			rowData.push(geoTrib + "지류");
+    		storeData.push(rowData);
+    	}
+    	
+    	// 시작위치 데이터
+    	tmpGraphics = rchMap.reachLayerAdmin.startRchGraphics;
+    	for(var i = 0; i < tmpGraphics.length; i++){
+    		var rowData = [];
+    		rowData.push(tmpGraphics[i].attributes.RCH_ID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].attributes.CAT_ID);
+//    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
+//    		if(catIdx != -1){
+//	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
+//	    		rowData.push(catArea);
+//    		}
+//    		else{
+//    			rowData.push(0);
+//    		}
+    		rowData.push(tmpGraphics[i].attributes.CAT_AREA);
+    		sumCatArea += tmpGraphics[i].attributes.CAT_AREA;
+    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
+    		if(geoTrib == "0")
+    			rowData.push("본류");
+    		else
+    			rowData.push(geoTrib + "지류");
+    		storeData.push(rowData);
+    	}
+    	
+    	//console.info(tmpGraphics);
+    	
+    	// 하류 데이터
+    	tmpGraphics = rchMap.reachLayerAdmin.downRchGraphics;
+    	for(var i = 0; i < tmpGraphics.length; i++){
+    		var rowData = [];
+    		rowData.push(tmpGraphics[i].attributes.RCH_ID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].attributes.CAT_ID);
+//    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
+//    		if(catIdx != -1){
+//	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
+//	    		rowData.push(catArea);
+//    		}
+//    		else{
+//    			rowData.push(0);
+//    		}
+    		rowData.push(tmpGraphics[i].attributes.CAT_AREA);
+    		sumCatArea += tmpGraphics[i].attributes.CAT_AREA;
+    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
+    		if(geoTrib == "0")
+    			rowData.push("본류");
+    		else
+    			rowData.push(geoTrib + "지류");
+    		storeData.push(rowData);
+    	}
+    	
+    	// 선택 데이터
+    	tmpGraphics = rchMap.reachLayerAdmin.selRchGraphics;
+    	for(var i = 0; i < tmpGraphics.length; i++){
+    		var rowData = [];
+    		rowData.push(tmpGraphics[i].attributes.RCH_ID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].attributes.CAT_ID);
+//    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
+//    		if(catIdx != -1){
+//	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
+//	    		rowData.push(catArea);
+//    		}
+//    		else{
+//    			rowData.push(0);
+//    		}
+    		rowData.push(tmpGraphics[i].attributes.CAT_AREA);
+    		sumCatArea += tmpGraphics[i].attributes.CAT_AREA;
+    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
+    		if(geoTrib == "0")
+    			rowData.push("본류");
+    		else
+    			rowData.push(geoTrib + "지류");
+    		storeData.push(rowData);
+    	}
+    	
+    	var rowData = [];
+		rowData.push("총계");
+		rowData.push(sumRchLen);
+		rowData.push("");
+		rowData.push(sumCatArea);
+		rowData.push("");
+		rowData.push(0);
+		rowData.push("");
+		
+		storeData.splice(0, 0, rowData);
+    	
+    	var store = new Ext.data.ArrayStore({
+    		fields: [{name: 'RCH_ID', type: 'string'},
+    		         {name: 'RCH_LEN', type: 'float'},
+    		         {name: 'CAT_ID', type: 'string'},
+    		         {name: 'CAT_AREA', type: 'float'},
+    		         {name: 'RIV_NM', type: 'string'},
+    		         {name: 'CUM_LEN', type: 'float'},
+    		         {name: 'GEO_TRIB', type: 'string'}]
+    	});
+    	store.loadData(storeData);
+    	grdCtl.setStore(store); // 그리드 스토어 셋팅
+	}
+	else{ // 정보창에서 넘어왔을때
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _reachLineLayerId); // 레이어 URL
+		var query = new esri.tasks.Query();
+		query.returnGeometry = false;
+		
+		query.where = "CAT_ID IN (" + catIds + ")";
+		
+		query.outFields = ["*"];
+		queryTask.execute(query, function(result){
+			Ext.each(result, function(objLayer, idx, objLayers){
+				var sumRchLen = 0;
+				var sumCatArea = 0;
+				for(var i = 0; i < objLayer.features.length; i++){
+					var rowData = [];
+					//var retVal = GetCatArea(objLayer.features[i].attributes.CAT_ID);
+					//console.info(retVal);
+					//console.info("after");
+					rowData.push(objLayer.features[i].attributes.RCH_ID);
+		    		rowData.push(objLayer.features[i].attributes.RCH_LEN);
+		    		sumRchLen += objLayer.features[i].attributes.RCH_LEN;
+		    		rowData.push(objLayer.features[i].attributes.CAT_ID);
+		    		rowData.push(objLayer.features[i].attributes.CAT_AREA);
+		    		sumCatArea += objLayer.features[i].attributes.CAT_AREA;
+		    		rowData.push(objLayer.features[i].attributes.RIV_NM);
+		    		rowData.push(objLayer.features[i].attributes.CUM_LEN);
+		    		var geoTrib = objLayer.features[i].attributes.GEO_TRIB;
+		    		if(geoTrib == "0")
+		    			rowData.push("본류");
+		    		else
+		    			rowData.push(geoTrib + "지류");
+		    		storeData.push(rowData);
+				}
+				
+				var rowData = [];
+				rowData.push("총계");
+				rowData.push(sumRchLen);
+				rowData.push("");
+				rowData.push(sumCatArea);
+				rowData.push("");
+				rowData.push(0);
+				rowData.push("");
+				
+				storeData.splice(0, 0, rowData);
+				
+				var store = new Ext.data.ArrayStore({
+	        		fields: [{name: 'RCH_ID', type: 'string'},
+	        		         {name: 'RCH_LEN', type: 'float'},
+	        		         {name: 'CAT_ID', type: 'string'},
+	        		         {name: 'CAT_AREA', type: 'float'},
+	        		         {name: 'RIV_NM', type: 'string'},
+	        		         {name: 'CUM_LEN', type: 'float'},
+	        		         {name: 'GEO_TRIB', type: 'string'}]
+	        	});
+				
+	        	store.loadData(storeData);
+	        	grdCtl.setStore(store); // 그리드 스토어 셋팅
+			});
+		});
+	}
+	
+}
+
+GetCatArea = function(catId){
+	
+	var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _reachAreaLayerId); // 레이어 URL
+	var query = new esri.tasks.Query();
+	query.returnGeometry = false;
+	
+	query.where = "CAT_ID IN '" + catId + "'";
+	
+	var test = "";
+	
+	query.outFields = ["*"];
+	var retVal = queryTask.execute(query);
+	
+	retVal.then(function(featureSet){
+		return featureSet;
+	});
+	
+	console.info("ddd");
+	
+	/*
+	for(var i = 0; i < 1000000; i++){
+		if(test == ""){
+			Ext.defer(function(){
+				console.info("fldskjfa");
+			}, 1000, this);
+		}
+	}
+	*/
+	
+	console.info(test);
+	
+	return test;
 	
 }
 
@@ -1141,10 +1453,14 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId){
-	
-	//console.info(parentNodeId);
 	var layerId = "";
-	if(parentNodeId == "A001"){
+	if(parentNodeId == "Cat"){ // 집수구역
+		layerId = "48";
+		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
+		layerId = "47";
+		KRF_DEV.getApplication().fireEvent('setSelectedRchLine', layerId, nodeId);
+		return;
+	}else if(parentNodeId == "A001"){
 		layerId = "1";
 	}else if(parentNodeId == "A002"){
 		layerId = "2";

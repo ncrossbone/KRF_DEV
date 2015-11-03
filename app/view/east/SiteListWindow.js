@@ -18,7 +18,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		type: 'fit'
 	},
 	
-	width: 400,
+	width: 500,
 	height: 305,
 
 	items: [{
@@ -35,7 +35,18 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             width: 200,
             sortable: true,
             dataIndex: 'text',
-            locked: true
+            locked: true,
+            listeners: {
+            	click: function(a, b, rowIdx, colIdx, node, f){
+	            	if(node.record.data.leaf == true){
+						if(node.record.data.id != undefined){
+							var nodeId = node.record.data.id;
+							var parentNodeId = node.record.data.parentId;
+							siteMovePoint(parentNodeId, nodeId);
+						}
+					}
+	            }
+            }
         }, {
             text: '정보',
             width: 50,
@@ -92,7 +103,12 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	//var gridId = "grid_" + record.data.id;
             	
             	var me = this.findParentByType("window");
-            	console.info(record);
+            	//console.info(grid.getStore());
+            	// 집수구역 아이디 셋팅
+            	me.setCatIds(record, true);
+            	// 리치정보 보이기
+            	ShowSearchResultReach(me.catIds);
+            	
             	if(record.id.length == 1){
             		var childRecord = record.childNodes;
             		for(var i = 0; i < childRecord.length; i++){
@@ -138,7 +154,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				pNm = pNm.substring(0,1);
         				console.info(pNm);
         				
-        				
         				// 검색결과창 띄우기
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
                 		
@@ -146,11 +161,36 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	}
             	
             },
+        }, {
+            text: '관련리치',
+            width: 80,
+            //xtype: 'templatecolumn',
+            tooltip: '관련리치',
+            dataIndex: 'catId',
+            renderer: function(val){
+            	var retVal = "";
+            	if(val != undefined)
+            		retVal = val;
+            	return '<a href="#">' + retVal + '</a>';
+            },
+            align: 'center',/*
+            hidden: true*/
+            listeners: {
+            	click: function(a, b, rowIdx, colIdx, node, f){
+	            	if(node.record.data.leaf == true){
+						if(node.record.data.id != undefined){
+							var nodeId = node.record.data.catId;
+							siteMovePoint("Cat", nodeId);
+						}
+					}
+	            }
+            }
         }]
 	}],
 	
 	siteIds: '',
 	parentIds: [],
+	catIds: '',
 	
 	// 사이트 아이디 셋팅 (record : tree node, isInit : siteIds 변수 초기화 여부)
 	setSiteIds: function(record, isInit){
@@ -178,6 +218,34 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		}
     	
     },
+    
+    setCatIds: function(record, isInit){
+    	var me = this;
+    	var childRecords = undefined;
+    	
+    	if(isInit == true){
+    		me.catIds = "";
+    		var treeCtl = Ext.getCmp("siteListTree");
+    		var rootNode = treeCtl.store.root;
+    		childRecords = rootNode.childNodes;
+    	}
+    	else{
+    		childRecords = record.childNodes;
+    	}
+    	
+    	if(childRecords != undefined && childRecords.length > 0){
+			for(var i = 0; i < childRecords.length; i++){
+				me.setCatIds(childRecords[i], false);
+			}
+		}
+		else{
+			if(me.catIds != ""){
+				me.catIds += ", ";
+			}
+ 
+			me.catIds += "'" + record.data.catId + "'";
+		}
+    },
 	
 	listeners:{
         close:function(){
@@ -188,6 +256,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         }
     },
     
+    /*
 	initComponent: function(){
 		this.callParent();
 		// 트리 노드 클릭 이벤트
@@ -204,5 +273,5 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				
 			});
 		}, 1, this);
-	}
+	}*/
 });
