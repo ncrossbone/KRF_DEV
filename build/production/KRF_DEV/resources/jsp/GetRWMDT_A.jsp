@@ -106,7 +106,7 @@ sql += " MAX(ITEM_SS) + MAX(ITEM_SS) / 10, MAX(ITEM_CLOA) + MAX(ITEM_CLOA) / 10,
 sql += "   FROM TMP_TBL                                                                                                                         ";	                                 
 
 
-		
+	System.out.println(sql);
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
