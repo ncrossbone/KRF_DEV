@@ -41,7 +41,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				xtype: 'combo',
 				id: 'cmbStartYear',
 				store: ['', '2015', '2014', '2013', '2012', '2011', '2010'],
-				value: '2014',
+				value: '2015',
 				width: 80,
 				height: 25
 			}, {
@@ -54,7 +54,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				xtype: 'combo',
 				id: 'cmbStartMonth',
 				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				value: '09',
+				value: '08',
 				width: 50,
 				height: 25
 			}, {
@@ -86,7 +86,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				xtype: 'combo',
 				id: 'cmbEndMonth',
 				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				value: '09',
+				value: '10',
 				width: 50,
 				height: 25
 			}, {

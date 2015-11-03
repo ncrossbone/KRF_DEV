@@ -96,7 +96,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             iconCls: ' khLee-x-serch-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
             	//Ext.ShowSearchResult("grid-tab-2", "하천수");
-            	
+            	KRF_DEV.getApplication().btnFlag = "noDate";
             	var treeCtl = Ext.getCmp("siteListTree");
             	var siteIds = "";
             	var parentId = "";
@@ -111,11 +111,12 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	
             	if(record.id.length == 1){
             		var childRecord = record.childNodes;
+            		
             		for(var i = 0; i < childRecord.length; i++){
             			var gridId = "grid_" + childRecord[i].data.id;
             			me.setSiteIds(childRecord[i], true);
                     	//console.info(me.parentIds);
-
+            			
                     	//if(ChkSearchCondition("지점코드찾기", siteIds, parentId, record.data.text, gridId)){
                     		
                     		// 버튼 On/Off

@@ -114,8 +114,8 @@ try{
 		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '" + startYYYYMM + "'                                             ";
 		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '" + endYYYYMM + "'                                           ";
 	}else{
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201510'                                             ";
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201509'                                           ";
+		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201508'                                             ";
+		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201510'                                           ";
 	}
 	sql += "            AND A.FACT_CODE IN ("+siteIds+")                                                                                ";
 	sql += "        ) A                                                                                                                       ";
@@ -174,9 +174,9 @@ try{
 		sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
 		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '" + endYYYYMM + "'                                           ";
 	}else{
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= TO_CHAR(TO_DATE('201502'                            ";
+		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= TO_CHAR(TO_DATE('201508'                            ";
 		sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201502'                                          ";
+		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201510'                                          ";
 	}
 	sql += "            AND A.FACT_CODE IN ("+siteIds+")                                                                               ";
 	sql += "        ) B                                                                                                                       ";
