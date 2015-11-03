@@ -229,6 +229,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		
 	    		me.spSearch();
 	    		
+	    		/*
 	    		// 5초 후 그래픽 삭제
 	    		Ext.defer(function(){
 	    			me.sourceGraphicLayer.clear();
@@ -236,6 +237,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    			me.highlightGraphicLayer.clear();
 	    		}, 5000, this);
 	    		//alert("dd");
+	    		*/
 			});
 		});
 		

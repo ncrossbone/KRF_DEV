@@ -190,6 +190,7 @@ Ext.application({
 			
 			var treeCtl = Ext.getCmp("siteListTree");
 			var store = treeCtl.getStore();
+			store.searchType = searchText;
 			store.load();
 			
 			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;

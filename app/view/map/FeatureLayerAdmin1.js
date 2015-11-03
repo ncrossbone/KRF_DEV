@@ -7,11 +7,24 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
         var me = this;
         me.map = map;
         
+        // 지점 이동 그래픽 레이어
         me.moveGraphicLayer = new esri.layers.GraphicsLayer();
 		me.moveGraphicLayer.id="moveGraphicLayer";
 		me.map.addLayer(me.moveGraphicLayer);
+		
+		// 집수구역 이동 그래픽 레이어
+		me.moveCatGraphicLayer = new esri.layers.GraphicsLayer();
+		me.moveCatGraphicLayer.id = "moveCatGraphicLayer";
+		me.map.addLayer(me.moveCatGraphicLayer);
+		
+		// 리치라인 이동 그래픽 레이어
+		me.moveRchGraphicLayer = new esri.layers.GraphicsLayer();
+		me.moveRchGraphicLayer.id = "moveRchGraphicLayer";
+		me.map.addLayer(me.moveRchGraphicLayer);
         
         KRF_DEV.getApplication().addListener('setSelectedSite', me.setSelectedSiteHandler, me);
+        KRF_DEV.getApplication().addListener('setSelectedCatArea', me.setSelectedCatAreaHandler, me);
+        KRF_DEV.getApplication().addListener('setSelectedRchLine', me.setSelectedRchLineHandler, me);
     },
     
     setSelectedSiteHandler: function(layerId, siteId){
@@ -23,6 +36,20 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
+		
+		var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
+		    "angle": 0,
+		    //"xoffset": 10,
+		    //"yoffset": 35,
+		    "type": "esriPMS",
+		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+		    "url": "./resources/images/symbol/spot_09.png",
+		    "contentType": "image/png",
+		    "width": 25,
+		    "height": 61,
+		    "yoffset": 16,
+		    "xoffset": 4
+		});
 		
 		if(layerId == "11"){ // 사업장 TMS
 			query.where =  "사업장코드='" + siteId + "'";
@@ -46,20 +73,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		
 		queryTask.execute(query,  function(results){
 			
-			var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
-			    "angle": 0,
-			    //"xoffset": 10,
-			    //"yoffset": 35,
-			    "type": "esriPMS",
-			    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
-			    "url": "./resources/images/symbol/spot_09.png",
-			    "contentType": "image/png",
-			    "width": 25,
-			    "height": 61,
-			    "yoffset": 16,
-			    "xoffset": 4
-			});
-			
 			Ext.each(results.features, function(obj, index) {
 				
 				me.moveGraphicLayer.clear();
@@ -70,7 +83,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				obj.setSymbol(selectedSymbol);
 				me.moveGraphicLayer.add(obj);
-				//console.info(obj);
 				
 				var x = obj.geometry.x;
 				var y = obj.geometry.y;
@@ -89,83 +101,96 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			
 		});
 		
-		return;
+    },
+    
+    // 집수구역 선택
+    setSelectedCatAreaHandler: function(layerId, catId){
+    	var me = this;
+    	
+    	// 집수구역 심볼 설정
+		var selectedSymbol = new esri.symbol.SimpleFillSymbol(
+			esri.symbol.SimpleFillSymbol.STYLE_SOLID,
+			me.smpLineSymbol,
+			new dojo.Color([255,0,0,0.5])
+		);
+    	
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + layerId);
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = {"wkid":102100};
+		query.outFields = ["*"];
 		
-		me = this;
+		query.where =  "CAT_ID='" + catId + "'";
 		
-		if(me.map.getLevel() < 12)
-			me.map.setLevel(12);
-
-		me.layer = new esri.layers.FeatureLayer(_mapServiceUrl + "/" + layerId, {
-			outFields: ["*"]
+		queryTask.execute(query,  function(results){
+			
+			Ext.each(results.features, function(obj, index) {
+				
+				me.moveCatGraphicLayer.clear();
+				me.moveCatGraphicLayer.id = "moveCatGraphicLayer" + catId;
+				
+				if(me.map.getLevel() < 12)
+					me.map.setLevel(12);
+				
+				obj.setSymbol(selectedSymbol);
+				me.moveCatGraphicLayer.add(obj);
+				
+				var extent = esri.geometry.Polygon(obj.geometry).getExtent();
+				//me.map.setExtent(extent, true);
+				me.map.centerAt(extent.getCenter());
+				
+				// 10초뒤 레이어(이미지) 제거
+				Ext.defer(function(){
+					me.moveCatGraphicLayer.clear();
+					//me.map.removeLayer(obj);
+				}, 10000, this);
+			});
 		});
+    },
+    
+    // 리치라인 선택
+    setSelectedRchLineHandler: function(layerId, catId){
+    	var me = this;
+    	
+    	// 집수구역 심볼 설정
+		var selectedSymbol = new esri.symbol.SimpleLineSymbol(
+			esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+			new dojo.Color([0, 0, 0, 1]),
+			5
+		);
+    	
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + layerId);
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = {"wkid":102100};
+		query.outFields = ["*"];
 		
-		if(layerId == "11"){ // 사업장 TMS
-			me.layer.setDefinitionExpression("사업장코드='" + siteId + "'");
-		}
-		else if(layerId == "25" || layerId == "26" || layerId == "27"
-			|| layerId == "28" || layerId == "29" || layerId == "30"
-			|| layerId == "31" || layerId == "32"){ // 환경기초시설
-			me.layer.setDefinitionExpression("시설코드='" + siteId + "'");
-		}
-		else if(layerId == "15" || layerId == "16" || layerId == "17"
-			|| layerId == "18" || layerId == "19" || layerId == "20"
-			|| layerId == "21"){ // 기타측정지점
-			me.layer.setDefinitionExpression("관측소코드='" + siteId + "'");
-		}
-		else if(layerId == "23"){ // 수생태계조사지점
-			me.layer.setDefinitionExpression("조사지코드='" + siteId + "'");
-		}
-		else{
-			me.layer.setDefinitionExpression("측정소코드='" + siteId + "'");
-		}
+		query.where =  "CAT_ID='" + catId + "'";
 		
-		me.layer.id = "FeatureLayer" + layerId;
-		
-		/* 심볼 설정 */
-		
-		
-		
-		var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
-		    "angle": 0,
-		    //"xoffset": 10,
-		    //"yoffset": 35,
-		    "type": "esriPMS",
-		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
-		    "url": "./resources/images/symbol/spot_09.png",
-		    "contentType": "image/gif",
-		    "width": 25,
-		    "height": 61,
-		    "yoffset": 16,
-		    "xoffset": 4
+		queryTask.execute(query,  function(results){
+			
+			me.moveRchGraphicLayer.clear();
+			
+			Ext.each(results.features, function(obj, index) {
+				
+				me.moveRchGraphicLayer.id = "moveRchGraphicLayer" + catId;
+				
+				if(me.map.getLevel() < 12)
+					me.map.setLevel(12);
+				
+				obj.setSymbol(selectedSymbol);
+				me.moveRchGraphicLayer.add(obj);
+				
+				//var extent = esri.geometry.Polygon(obj.geometry).getExtent();
+				//me.map.setExtent(extent, true);
+				//me.map.centerAt(extent.getCenter());
+				
+				// 10초뒤 레이어(이미지) 제거
+				Ext.defer(function(){
+					me.moveRchGraphicLayer.clear();
+					//me.map.removeLayer(obj);
+				}, 10000, this);
+			});
 		});
-		
-		var renderer = new esri.renderer.SimpleRenderer(selectedSymbol);
-		me.layer.setRenderer(renderer);
-		/* 심볼 설정 끝 */
-		
-		for(var i = 0; i < 100; i++){
-			var tmpLayer =  me.map.getLayer("FeatureLayer" + i);
-			if(tmpLayer != undefined){
-				me.map.removeLayer(tmpLayer);
-			}
-		}
-		
-		var layer = me.map.getLayer(me.layer.id);
-		me.map.addLayer(me.layer);
-		
-		Ext.defer(function(){
-			var x = me.layer.graphics[0].geometry.x;
-			var y = me.layer.graphics[0].geometry.y;
-			var point = new esri.geometry.Point(x, y, me.layer.graphics[0].geometry.spatialReference)
-			//me.map.centerAndZoom(point, 12);
-			me.map.centerAt(point);
-		}, 1000, this);
-		
-		// 10초뒤 레이어(이미지) 제거
-		Ext.defer(function(){
-			me.map.removeLayer(me.layer);
-		}, 10000, this);
-		
     }
 });
