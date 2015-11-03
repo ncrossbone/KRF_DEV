@@ -48,6 +48,32 @@ Ext.define('KRF_DEV.view.main.Main', {
     
     initComponent: function(){
     	
+    	console.info("Ext.browser.is.Chrome : " + Ext.browser.is.Chrome);
+ 		console.info("Ext.chromeVersion : " + Ext.chromeVersion);
+ 		//console.info("Ext.isChrome : " + Ext.isChrome);
+ 		console.info("Ext.browser.is.IE : " + Ext.browser.is.IE);
+ 		console.info("Ext.ieVersion : " + Ext.ieVersion)
+ 		//console.info("Ext.isIE : " + Ext.isIE);
+ 		console.info("Ext.browser.is.Safari : " + Ext.browser.is.Safari);
+ 		console.info("Ext.safariVersion : " + Ext.safariVersion);
+ 		//console.info("Ext.isSafari : " + Ext.isSafari);
+ 		console.info("Ext.browser.is.Gecko (Firefox) : " + Ext.browser.is.Gecko);
+ 		console.info("Ext.firefoxVersion : " + Ext.firefoxVersion);
+ 		//console.info("Ext.isGecko (Firefox) : " + Ext.isGecko);
+ 		
+ 		console.info(navigator.plugins);
+ 		
+ 		if(Ext.browser.is.Chrome == false){
+ 			//alert("크롬 브라우저를 사용하세요.");
+ 			Ext.create("Ext.window.Window", {
+ 				renderTo: Ext.getBody(),
+ 				width: 300,
+ 				height: 300,
+ 				html: "<a href='./resources/downloads/ChromeStandaloneSetup.exe'>크롬다운로드</a>"
+ 			}).show();
+ 			return;
+ 		}
+    	
     	this.callParent();
     	
     	// 메인 컨테이너 전역변수

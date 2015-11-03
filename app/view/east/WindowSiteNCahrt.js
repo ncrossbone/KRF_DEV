@@ -56,7 +56,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 		type: 'vbox'
 	},
 	
-	width: 400,
+	width: 450,
 	height: 350,
 	draggable: true,
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
