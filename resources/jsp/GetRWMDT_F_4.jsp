@@ -74,22 +74,20 @@ try{
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                 ";
 	if(defaultChart.equals("1")){
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201312'                          ";
+		sql += " ) WHERE RN <= 10                                                                                                     ";
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                          ";	
+		sql += " )                                                                                                   ";
 	}
-	sql += " ) WHERE RN <= 10                                                                                                     ";
-	sql += "  ORDER BY FACI_NM, PIPE_NUM, WORK_DT DESC)                                                                     ";
+	sql += "  ORDER BY FACI_NM, PIPE_NUM, WORK_DT ASC)                                                                     ";
 	sql += " SELECT *                                                                                                       ";
 	if(defaultChart.equals("1")){
 		sql += "   FROM (SELECT *                                                                                               ";
-		sql += "           FROM TMP_TBL                                                                                         ";
-		sql += "          WHERE RN <= 10                                                                                        ";
-		sql += "          ORDER BY WORK_DT                                                                                      ";
+		sql += "           FROM TMP_TBL                                                                                        ";
 		sql += "        )                                                                                                       ";
 	}else{
 		sql += "           FROM TMP_TBL                                                                                         ";
 	}
-
 	sql += "  UNION ALL                                                                                                " ;
 	sql += "  SELECT 999 AS RN, '', '',  '',                       " ;
 	sql += "  NVL(MAX(ITEM_AMT),0) + NVL(MAX(ITEM_AMT),0) / 10,								";

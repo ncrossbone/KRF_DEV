@@ -140,7 +140,7 @@ sql += "   FROM TMP_TBL                                                         
   		else
   			jsonArr.add(jsonRecord);
 	}
-	
+	rs.close();
 	jsonObj.put("maxdata", jsonArrMax);
 	jsonObj.put("data", jsonArr);
    //console.info(jsonObj);
