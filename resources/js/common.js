@@ -281,50 +281,50 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	}else if(orgParentId == "D001"){
 		series.setXField("WMCYMD");
 		//series.setYField("WL");
-		siteItemText.setText("WL");
-		labelName = "WL";
+		siteItemText.setText("수위(cm)");
+		labelName = "수위(cm)";
 		yFieldName = "WL";
 		
 	}else if(orgParentId == "D002"){
 		series.setXField("WMCYMD");
 		//series.setYField("RF");
-		siteItemText.setText("RF");
-		labelName = "RF";
+		siteItemText.setText("우량자료(mm)");
+		labelName = "우량자료(mm)";
 		yFieldName = "RF";
 		
 	}else if(orgParentId == "D003"){
 		series.setXField("WMCYMD");
 		//series.setYField("FW");
-		siteItemText.setText("FW");
-		labelName = "FW";
+		siteItemText.setText("유량(CMS)");
+		labelName = "유량(CMS)";
 		yFieldName = "FW";
 		
 	}else if(orgParentId == "D004"){
 		series.setXField("WMCYMD");
 		//series.setYField("SWL");
-		siteItemText.setText("SWL");
-		labelName = "SWL";
+		siteItemText.setText("저수위(cm)");
+		labelName = "저수위(cm)";
 		yFieldName = "SWL";
 		
 	}else if(orgParentId == "D005"){
 		series.setXField("WMCYMD");
 		//series.setYField("WD");
-		siteItemText.setText("WDE");
-		labelName = "WDE";
+		siteItemText.setText("풍향(m/s)");
+		labelName = "풍향(m/s)";
 		yFieldName = "WD";
 		
 	}else if(orgParentId == "D006"){
 		series.setXField("WMCYMD");
 		//series.setYField("RND");
-		siteItemText.setText("RND");
-		labelName = "RND";
+		siteItemText.setText("강수량자료(mm)");
+		labelName = "강수량자료(mm)";
 		yFieldName = "RND";
 		
 	}else if(orgParentId == "D007"){
 		series.setXField("WMCYMD");
 		//series.setYField("SWL");
-		siteItemText.setText("SWL");
-		labelName = "SWL";
+		siteItemText.setText("보 상류수위(m)");
+		labelName = "보 상류수위(m)";
 		yFieldName = "SWL";
 	}
 	
@@ -390,7 +390,6 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	console.info(axes);
 	
 	var store = chartCtl.getStore();
-	
 	// 사이트 코드 셋팅
 	if(siteCd != undefined && siteCd != ""){
 		store.siteCD = siteCd;
@@ -429,6 +428,8 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	}else if(labelNm == "클로로필a"){
 		labelNm = "클로로필a(㎎/㎥)";
 	}
+	
+	store.load();
 	
 	var ITEM_BOD = parseFloat(store.arrMax[0].ITEM_BOD);
 	var ITEM_DOC = parseFloat(store.arrMax[0].ITEM_DOC);
@@ -587,11 +588,12 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	selectItemName.setText(labelNm);
 
 	store.load();
+	
 	//chartCtl.getView().refresh();
 
 	var win = Ext.getCmp("datePanel1");
 	if(win != undefined)
-		win.hide();
+		win.close();
 	
 }
 

@@ -68,7 +68,7 @@ try{
 
 
 		
-  // out.print(sql);
+   //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
 	JSONObject jsonObj  = new JSONObject();

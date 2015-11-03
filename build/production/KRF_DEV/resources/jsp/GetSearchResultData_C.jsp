@@ -25,463 +25,463 @@ try{
 	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
+	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
 	
-sql = " SELECT							" +
-"        A.PT_NO                                                                                                    " +
-"      , A.NO    /* 순번 참고용 */                                                                                  " +
-"      , A.PT_NM /* 측정소명 */                                                                                     " +
-"      , A.WMYR  /* 년도 */                                                                                         " +
-"      , A.WMOM  /* 월 */                                                                                           " +
-"      , A.WMCYMD AS WMCYMD_VAL   /* 측정일자 */                                                                    " +
-"      , A.WMCYMD AS CHART_DATE                                                                                     " +
-"      , B.WMCYMD AS WMCYMD_GRAPH /* 측정일자 */                                                                    " +
-"      , A.MCNT     /* 회차 */                                                                                      " +
-"      , A.JOSANAME /* 조사기관 */                                                                                  " +
-"      , A.ITEM_DOW  AS ITEM_DOW_VAL    /* 수심(m) */                                                               " +
-"      , B.ITEM_DOW  AS ITEM_DOW_GRAPH  /* 수심(m) */                                                               " +
-"      , A.ITEM_TEMP AS ITEM_TEMP_VAL   /* 수온(℃) */                                                              " +
-"      , B.ITEM_TEMP AS ITEM_TEMP_GRAPH /* 수온(℃) */                                                              " +
-"      , A.ITEM_DO   AS ITEM_DO_VAL     /* DO(㎎/L) */                                                              " +
-"      , B.ITEM_DO   AS ITEM_DO_GRAPH   /* DO(㎎/L) */                                                              " +
-"      , A.ITEM_PH   AS ITEM_PH_VAL     /* pH */                                                                    " +
-"      , B.ITEM_PH   AS ITEM_PH_GRAPH   /* pH */                                                                    " +
-"      , A.ITEM_EC   AS ITEM_EC_VAL     /* 전기전도도(SC)(25℃ μS/㎝) */                                           " +
-"      , B.ITEM_EC   AS ITEM_EC_GRAPH   /* 전기전도도(SC)(25℃ μS/㎝) */                                           " +
-"      , A.ITEM_FSD  AS ITEM_FSD_VAL    /* 입도-모래(%) */                                                          " +
-"      , B.ITEM_FSD  AS ITEM_FSD_GRAPH  /* 입도-모래(%) */                                                          " +
-"      , A.ITEM_FST  AS ITEM_FST_VAL    /* 입도-실트(%) */                                                          " +
-"      , B.ITEM_FST  AS ITEM_FST_GRAPH  /* 입도-실트(%) */                                                          " +
-"      , A.ITEM_FCL  AS ITEM_FCL_VAL    /* 입도-점토(%) */                                                          " +
-"      , B.ITEM_FCL  AS ITEM_FCL_GRAPH  /* 입도-점토(%) */                                                          " +
-"      , A.ITEM_WTC  AS ITEM_WTC_VAL    /* 함수율(%) */                                                             " +
-"      , B.ITEM_WTC  AS ITEM_WTC_GRAPH  /* 함수율(%) */                                                             " +
-"      , A.ITEM_PCA  AS ITEM_PCA_VAL    /* 완전연소가능량(%) */                                                     " +
-"      , B.ITEM_PCA  AS ITEM_PCA_GRAPH  /* 완전연소가능량(%) */                                                     " +
-"      , A.ITEM_COD  AS ITEM_COD_VAL    /* COD(%) */                                                                " +
-"      , B.ITEM_COD  AS ITEM_COD_GRAPH  /* COD(%) */                                                                " +
-"      , A.ITEM_TOC  AS ITEM_TOC_VAL    /* TOC(%) */                                                                " +
-"      , B.ITEM_TOC  AS ITEM_TOC_GRAPH  /* TOC(%) */                                                                " +
-"      , A.ITEM_TN   AS ITEM_TN_VAL     /* T-N(㎎/㎏) */                                                            " +
-"      , B.ITEM_TN   AS ITEM_TN_GRAPH   /* T-N(㎎/㎏) */                                                            " +
-"      , A.ITEM_TP   AS ITEM_TP_VAL     /* T-P(㎎/㎏) */                                                            " +
-"      , B.ITEM_TP   AS ITEM_TP_GRAPH   /* T-P(㎎/㎏) */                                                            " +
-"      , A.ITEM_SRP  AS ITEM_SRP_VAL    /* SRP(㎎/㎏) */                                                            " +
-"      , B.ITEM_SRP  AS ITEM_SRP_GRAPH  /* SRP(㎎/㎏) */                                                            " +
-"      , A.ITEM_PB   AS ITEM_PB_VAL     /* Pb(㎎/㎏) */                                                             " +
-"      , B.ITEM_PB   AS ITEM_PB_GRAPH   /* Pb(㎎/㎏) */                                                             " +
-"      , A.ITEM_ZN   AS ITEM_ZN_VAL     /* Zn(㎎/㎏) */                                                             " +
-"      , B.ITEM_ZN   AS ITEM_ZN_GRAPH   /* Zn(㎎/㎏) */                                                             " +
-"      , A.ITEM_CU   AS ITEM_CU_VAL     /* Cu(㎎/㎏) */                                                             " +
-"      , B.ITEM_CU   AS ITEM_CU_GRAPH   /* Cu(㎎/㎏) */                                                             " +
-"      , A.ITEM_CR   AS ITEM_CR_VAL     /* Cr(㎎/㎏) */                                                             " +
-"      , B.ITEM_CR   AS ITEM_CR_GRAPH   /* Cr(㎎/㎏) */                                                             " +
-"      , A.ITEM_NI   AS ITEM_NI_VAL     /* Ni(㎎/㎏) */                                                             " +
-"      , B.ITEM_NI   AS ITEM_NI_GRAPH   /* Ni(㎎/㎏) */                                                             " +
-"      , A.ITEM_AS   AS ITEM_AS_VAL     /* As(㎎/㎏) */                                                             " +
-"      , B.ITEM_AS   AS ITEM_AS_GRAPH   /* As(㎎/㎏) */                                                             " +
-"      , A.ITEM_CD   AS ITEM_CD_VAL     /* Cd(㎎/㎏) */                                                             " +
-"      , B.ITEM_CD   AS ITEM_CD_GRAPH   /* Cd(㎎/㎏) */                                                             " +
-"      , A.ITEM_HG   AS ITEM_HG_VAL     /* Hg(㎎/㎏) */                                                             " +
-"      , B.ITEM_HG   AS ITEM_HG_GRAPH   /* Hg(㎎/㎏) */                                                             " +
-"      , A.ITEM_AL   AS ITEM_AL_VAL     /* Al(%) */                                                                 " +
-"      , B.ITEM_AL   AS ITEM_AL_GRAPH   /* Al(%) */                                                                 " +
-"      , A.ITEM_LI   AS ITEM_LI_VAL     /* Li(㎎/㎏) */                                                             " +
-"      , B.ITEM_LI   AS ITEM_LI_GRAPH   /* Li(㎎/㎏) */                                                             " +
-" FROM   (SELECT RANK() OVER(PARTITION BY PT_NO                                                                     " +
-"                 ORDER BY PT_NO, WMYR DESC, WMOM DESC, WMOD DESC) AS NO,                                           " +
-"                PT_NO,                                                                                             " +
-"                PT_NM ,                                                                                            " +
-"                WMYR ,                                                                                             " +
-"                WMOM ,                                                                                             " +
-"                WMYR||'.'||WMOM||'.'||WMOD AS WMCYMD ,                                                             " +
-"                MCNT ,                                                                                             " +
-"                ORD_PT_NM ,                                                                                        " +
-"                ORD_GBN ,                                                                                          " +
-"                JOSANAME ,                                                                                         " +
-"                DECODE(ITEM_DOW , '999999999', '정량한계미만', TO_CHAR(ITEM_DOW, 'FM999,999,990.0' ) ) ITEM_DOW ,  " +
-"                DECODE(ITEM_TEMP , '999999999', '정량한계미만', TO_CHAR(ITEM_TEMP, 'FM999,999,990' ) ) ITEM_TEMP , " +
-"                DECODE(ITEM_DO , '999999999', '정량한계미만', TO_CHAR(ITEM_DO, 'FM999,999,990.0' ) ) ITEM_DO ,     " +
-"                DECODE(ITEM_PH , '999999999', '정량한계미만', TO_CHAR(ITEM_PH, 'FM999,999,990.0' ) ) ITEM_PH ,     " +
-"                DECODE(ITEM_EC , '999999999', '정량한계미만', TO_CHAR(ITEM_EC, 'FM999,999,990' ) ) ITEM_EC ,       " +
-"                DECODE(ITEM_FSD , '999999999', '정량한계미만', TO_CHAR(ITEM_FSD, 'FM999,999,990.0' ) ) ITEM_FSD ,  " +
-"                DECODE(ITEM_FST , '999999999', '정량한계미만', TO_CHAR(ITEM_FST, 'FM999,999,990.0' ) ) ITEM_FST ,  " +
-"                DECODE(ITEM_FCL , '999999999', '정량한계미만', TO_CHAR(ITEM_FCL, 'FM999,999,990.0' ) ) ITEM_FCL ,  " +
-"                DECODE(ITEM_WTC , '999999999', '정량한계미만', TO_CHAR(ITEM_WTC, 'FM999,999,990.0' ) ) ITEM_WTC ,  " +
-"                DECODE(ITEM_PCA , '999999999', '정량한계미만', TO_CHAR(ITEM_PCA, 'FM999,999,990.00' ) ) ITEM_PCA , " +
-"                DECODE(ITEM_COD , '999999999', '정량한계미만', TO_CHAR(ITEM_COD, 'FM999,999,990.00' ) ) ITEM_COD , " +
-"                DECODE(ITEM_TOC , '999999999', '정량한계미만', TO_CHAR(ITEM_TOC, 'FM999,999,990.00' ) ) ITEM_TOC , " +
-"                DECODE(ITEM_TN , '999999999', '정량한계미만', TO_CHAR(ITEM_TN, 'FM999,999,990' ) ) ITEM_TN ,       " +
-"                DECODE(ITEM_TP , '999999999', '정량한계미만', TO_CHAR(ITEM_TP, 'FM999,999,990' ) ) ITEM_TP ,       " +
-"                DECODE(ITEM_SRP , '999999999', '정량한계미만', TO_CHAR(ITEM_SRP, 'FM999,999,990.0' ) ) ITEM_SRP ,  " +
-"                DECODE(ITEM_PB , '999999999', '정량한계미만', TO_CHAR(ITEM_PB, 'FM999,999,990.0' ) ) ITEM_PB ,     " +
-"                DECODE(ITEM_ZN , '999999999', '정량한계미만', TO_CHAR(ITEM_ZN, 'FM999,999,990.0' ) ) ITEM_ZN ,     " +
-"                DECODE(ITEM_CU , '999999999', '정량한계미만', TO_CHAR(ITEM_CU, 'FM999,999,990.0' ) ) ITEM_CU ,     " +
-"                DECODE(ITEM_CR , '999999999', '정량한계미만', TO_CHAR(ITEM_CR, 'FM999,999,990.0' ) ) ITEM_CR ,     " +
-"                DECODE(ITEM_NI , '999999999', '정량한계미만', TO_CHAR(ITEM_NI, 'FM999,999,990.0' ) ) ITEM_NI ,     " +
-"                DECODE(ITEM_AS , '999999999', '정량한계미만', TO_CHAR(ITEM_AS, 'FM999,999,990.0' ) ) ITEM_AS ,     " +
-"                DECODE(ITEM_CD , '999999999', '정량한계미만', TO_CHAR(ITEM_CD, 'FM999,999,990.00' ) ) ITEM_CD ,    " +
-"                DECODE(ITEM_HG , '999999999', '정량한계미만', TO_CHAR(ITEM_HG, 'FM999,999,990.000' ) ) ITEM_HG ,   " +
-"                DECODE(ITEM_AL , '999999999', '정량한계미만', TO_CHAR(ITEM_AL, 'FM999,999,990.00' ) ) ITEM_AL ,    " +
-"                DECODE(ITEM_LI , '999999999', '정량한계미만', TO_CHAR(ITEM_LI, 'FM999,999,990.0' ) ) ITEM_LI       " +
-"         FROM   (SELECT A.PT_NO ,                                                                                  " +
-"                        A.WMYR ,                                                                                   " +
-"                        A.WMWK ,                                                                                   " +
-"                        A.WMYR || A.WMWK WMYRWK ,                                                                  " +
-"                        A.WMOM ,                                                                                   " +
-"                        A.WMOD ,                                                                                   " +
-"                        A.WMCTM ,                                                                                  " +
-"                        A.WMSD ,                                                                                   " +
-"                        A.WMED ,                                                                                   " +
-"                        SUBSTR(B.PT_NO, 5, 1) VGBN ,                                                               " +
-"                        CD.CODE_CTN RAGBN ,                                                                        " +
-"                        B.PT_NM ,                                                                                  " +
-"                        DECODE(SUBSTR(UPPER(B.PT_NM), LENGTH(TRIM(B.PT_NM)), 1), 'U', REPLACE(UPPER(B.PT_NM), 'U'), 'D', REPLACE(UPPER(B.PT_NM), 'D'), B.PT_NM) ORD_PT_NM ,  " +
-"                        B.ORD_GBN ,																																																" +
-"                        B.JOSACODE ,                                                                                               " +
-"                        CD2.CODE_CTN JOSANAME ,                                                                                    " +
-"                                        CASE                                                                                       " +
-"                                          WHEN A.RGDT=A.UPDT THEN 'Y'                                                              " +
-"                                          ELSE ''                                                                                  " +
-"                                        END UPOK ,                                                                                 " +
-"                        A.UPDT ,                                                                                                   " +
-"                        CD3.CODE_CTN MCNT ,                                                                                        " +
-"                        ROUND(ITEM_DOW , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1001'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_DOW ,                                                                      " +
-"                        ROUND(ITEM_TEMP , (SELECT PRECISON                                                                         " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1002'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_TEMP ,                                                                     " +
-"                        ROUND(ITEM_DO , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1003'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_DO ,                                                                       " +
-"                        ROUND(ITEM_PH , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1004'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_PH ,                                                                       " +
-"                        ROUND(ITEM_EC , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1005'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_EC ,                                                                       " +
-"                        ROUND(ITEM_FSD , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1006'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_FSD ,                                                                      " +
-"                        ROUND(ITEM_FST , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1007'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_FST ,                                                                      " +
-"                        ROUND(ITEM_FCL , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1008'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_FCL ,                                                                      " +
-"                        ROUND(ITEM_WTC , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1009'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_WTC ,                                                                      " +
-"                        ROUND(ITEM_PCA , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1010'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_PCA ,                                                                      " +
-"                        ROUND(ITEM_COD , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1011'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_COD ,                                                                      " +
-"                        ROUND(ITEM_TOC , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1012'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_TOC ,                                                                      " +
-"                        ROUND(ITEM_TN , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1013'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_TN ,                                                                       " +
-"                        ROUND(ITEM_TP , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1014'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_TP ,                                                                       " +
-"                        ROUND(ITEM_SRP , (SELECT PRECISON                                                                          " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1015'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_SRP ,                                                                      " +
-"                        ROUND(ITEM_PB , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1016'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_PB ,                                                                       " +
-"                        ROUND(ITEM_ZN , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1017'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_ZN ,                                                                       " +
-"                        ROUND(ITEM_CU , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1018'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_CU ,                                                                       " +
-"                        ROUND(ITEM_CR , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1019'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_CR ,                                                                       " +
-"                        ROUND(ITEM_NI , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1020'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_NI ,                                                                       " +
-"                        ROUND(ITEM_AS , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1021'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_AS ,                                                                       " +
-"                        ROUND(ITEM_CD , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1022'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_CD ,                                                                       " +
-"                        ROUND(ITEM_HG , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1023'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_HG ,                                                                       " +
-"                        ROUND(ITEM_AL , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1024'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_AL ,                                                                       " +
-"                        ROUND(ITEM_LI , (SELECT PRECISON                                                                           " +
-"                                 FROM   SDM_WMIT SW                                                                                " +
-"                                 WHERE  SW.ITCD='1025'                                                                             " +
-"                                 AND    ROWNUM=1)) ITEM_LI ,                                                                       " +
-"                        (SELECT COUNT(*)                                                                                           " +
-"                         FROM   SDM_FILE_INFO FI                                                                                   " +
-"                         WHERE  FI.UM_GBN = 'B'                                                                                    " +
-"                         AND    FI.PT_NO = A.PT_NO                                                                                 " +
-"                         AND    FI.WMYR = A.WMYR                                                                                   " +
-"                         AND    FI.WMWK = A.WMWK) IMG_CNT ,                                                                        " +
-"                        (SELECT COUNT(*)                                                                                           " +
-"                         FROM   SDM_FILE_INFO FI                                                                                   " +
-"                         WHERE  FI.UM_GBN = 'C'                                                                                    " +
-"                         AND    FI.WMYR = A.WMYR                                                                                   " +
-"                         AND    FI.WMWK = A.WMWK) IMG_CNT2                                                                         " +
-"                 FROM   SDM_RWMDTI A ,                                                                                             " +
-"                        SDM_RWMPT B ,                                                                                              " +
-"                        (SELECT CODE,                                                                                              " +
-"                                CODE_CTN                                                                                           " +
-"                         FROM   CODE                                                                                               " +
-"                         WHERE  CODE_ID = 'SDM001') CD ,                                                                           " +
-"                        (SELECT CODE,                                                                                              " +
-"                                CODE_CTN                                                                                           " +
-"                         FROM   CODE                                                                                               " +
-"                         WHERE  CODE_ID = 'ORG001') CD2 ,                                                                          " +
-"                        (SELECT SUBSTR(CODE, 2, 1) CODE,                                                                           " +
-"                                CODE_CTN                                                                                           " +
-"                         FROM   CODE                                                                                               " +
-"                         WHERE  CODE_ID = 'ETS955'                                                                                 " +
-"                         AND    SUBSTR(CODE, 0, 1) = 'H') CD3                                                                      " +
-"                 WHERE  A.PT_NO = B.PT_NO                                                                                          " +
-"                 AND    SUBSTR(A.PT_NO, 5, 1) = CD.CODE(+)                                                                         " +
-"                 AND    B.JOSACODE = CD2.CODE(+)                                                                                   " +
-"                 AND    A.WMWK = CD3.CODE(+) )) A                                                                                  " +
-"              , (SELECT RANK() OVER(PARTITION BY PT_NO                                                                             " +
-"                         ORDER BY PT_NO, WMYR DESC, WMOM DESC, WMOD DESC) AS NO,                                                   " +
-"                        PT_NO,                                                                                                     " +
-"                        PT_NM ,                                                                                                    " +
-"                        WMYR ,                                                                                                     " +
-"                        WMOM ,                                                                                                     " +
-"                        WMYR||'.'||WMOM||'.'||WMOD AS WMCYMD ,                                                                     " +
-"                        MCNT ,                                                                                                     " +
-"                        ORD_PT_NM ,                                                                                                " +
-"                        ORD_GBN ,                                                                                                  " +
-"                        JOSANAME ,                                                                                                 " +
-"                        DECODE(ITEM_DOW , '999999999', '정량한계미만', TO_CHAR(ITEM_DOW, 'FM999,999,990.0' ) ) ITEM_DOW ,          " +
-"                        DECODE(ITEM_TEMP , '999999999', '정량한계미만', TO_CHAR(ITEM_TEMP, 'FM999,999,990' ) ) ITEM_TEMP ,         " +
-"                        DECODE(ITEM_DO , '999999999', '정량한계미만', TO_CHAR(ITEM_DO, 'FM999,999,990.0' ) ) ITEM_DO ,             " +
-"                        DECODE(ITEM_PH , '999999999', '정량한계미만', TO_CHAR(ITEM_PH, 'FM999,999,990.0' ) ) ITEM_PH ,             " +
-"                        DECODE(ITEM_EC , '999999999', '정량한계미만', TO_CHAR(ITEM_EC, 'FM999,999,990' ) ) ITEM_EC ,               " +
-"                        DECODE(ITEM_FSD , '999999999', '정량한계미만', TO_CHAR(ITEM_FSD, 'FM999,999,990.0' ) ) ITEM_FSD ,          " +
-"                        DECODE(ITEM_FST , '999999999', '정량한계미만', TO_CHAR(ITEM_FST, 'FM999,999,990.0' ) ) ITEM_FST ,          " +
-"                        DECODE(ITEM_FCL , '999999999', '정량한계미만', TO_CHAR(ITEM_FCL, 'FM999,999,990.0' ) ) ITEM_FCL ,          " +
-"                        DECODE(ITEM_WTC , '999999999', '정량한계미만', TO_CHAR(ITEM_WTC, 'FM999,999,990.0' ) ) ITEM_WTC ,          " +
-"                        DECODE(ITEM_PCA , '999999999', '정량한계미만', TO_CHAR(ITEM_PCA, 'FM999,999,990.00' ) ) ITEM_PCA ,         " +
-"                        DECODE(ITEM_COD , '999999999', '정량한계미만', TO_CHAR(ITEM_COD, 'FM999,999,990.00' ) ) ITEM_COD ,         " +
-"                        DECODE(ITEM_TOC , '999999999', '정량한계미만', TO_CHAR(ITEM_TOC, 'FM999,999,990.00' ) ) ITEM_TOC ,         " +
-"                        DECODE(ITEM_TN , '999999999', '정량한계미만', TO_CHAR(ITEM_TN, 'FM999,999,990' ) ) ITEM_TN ,               " +
-"                        DECODE(ITEM_TP , '999999999', '정량한계미만', TO_CHAR(ITEM_TP, 'FM999,999,990' ) ) ITEM_TP ,               " +
-"                        DECODE(ITEM_SRP , '999999999', '정량한계미만', TO_CHAR(ITEM_SRP, 'FM999,999,990.0' ) ) ITEM_SRP ,          " +
-"                        DECODE(ITEM_PB , '999999999', '정량한계미만', TO_CHAR(ITEM_PB, 'FM999,999,990.0' ) ) ITEM_PB ,             " +
-"                        DECODE(ITEM_ZN , '999999999', '정량한계미만', TO_CHAR(ITEM_ZN, 'FM999,999,990.0' ) ) ITEM_ZN ,             " +
-"                        DECODE(ITEM_CU , '999999999', '정량한계미만', TO_CHAR(ITEM_CU, 'FM999,999,990.0' ) ) ITEM_CU ,             " +
-"                        DECODE(ITEM_CR , '999999999', '정량한계미만', TO_CHAR(ITEM_CR, 'FM999,999,990.0' ) ) ITEM_CR ,             " +
-"                        DECODE(ITEM_NI , '999999999', '정량한계미만', TO_CHAR(ITEM_NI, 'FM999,999,990.0' ) ) ITEM_NI ,             " +
-"                        DECODE(ITEM_AS , '999999999', '정량한계미만', TO_CHAR(ITEM_AS, 'FM999,999,990.0' ) ) ITEM_AS ,             " +
-"                        DECODE(ITEM_CD , '999999999', '정량한계미만', TO_CHAR(ITEM_CD, 'FM999,999,990.00' ) ) ITEM_CD ,            " +
-"                        DECODE(ITEM_HG , '999999999', '정량한계미만', TO_CHAR(ITEM_HG, 'FM999,999,990.000' ) ) ITEM_HG ,           " +
-"                        DECODE(ITEM_AL , '999999999', '정량한계미만', TO_CHAR(ITEM_AL, 'FM999,999,990.00' ) ) ITEM_AL ,            " +
-"                        DECODE(ITEM_LI , '999999999', '정량한계미만', TO_CHAR(ITEM_LI, 'FM999,999,990.0' ) ) ITEM_LI               " +
-"                 FROM   (SELECT A.PT_NO ,                                                                                          " +
-"                                A.WMYR ,                                                                                           " +
-"                                A.WMWK ,                                                                                           " +
-"                                A.WMYR || A.WMWK WMYRWK ,                                                                          " +
-"                                A.WMOM ,                                                                                           " +
-"                                A.WMOD ,                                                                                           " +
-"                                A.WMCTM ,                                                                                          " +
-"                                A.WMSD ,                                                                                           " +
-"                                A.WMED ,                                                                                           " +
-"                                SUBSTR(B.PT_NO, 5, 1) VGBN ,                                                                       " +
-"                                CD.CODE_CTN RAGBN ,                                                                                " +
-"                                B.PT_NM ,                                                                                          " +
-"                                DECODE(SUBSTR(UPPER(B.PT_NM), LENGTH(TRIM(B.PT_NM)), 1), 'U', REPLACE(UPPER(B.PT_NM), 'U'), 'D', REPLACE(UPPER(B.PT_NM), 'D'), B.PT_NM) ORD_PT_NM ,	" +
-"                                B.ORD_GBN ,																													" +
-"                                B.JOSACODE ,                                                         " +
-"                                CD2.CODE_CTN JOSANAME ,                                              " +
-"                                                        CASE                                         " +
-"                                                          WHEN A.RGDT=A.UPDT THEN 'Y'                " +
-"                                                          ELSE ''                                    " +
-"                                                        END UPOK ,                                   " +
-"                                A.UPDT ,                                                             " +
-"                                CD3.CODE_CTN MCNT ,                                                  " +
-"                                ROUND(ITEM_DOW , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1001'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_DOW ,                                " +
-"                                ROUND(ITEM_TEMP , (SELECT PRECISON                                   " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1002'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_TEMP ,                               " +
-"                                ROUND(ITEM_DO , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1003'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_DO ,                                 " +
-"                                ROUND(ITEM_PH , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1004'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_PH ,                                 " +
-"                                ROUND(ITEM_EC , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1005'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_EC ,                                 " +
-"                                ROUND(ITEM_FSD , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1006'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_FSD ,                                " +
-"                                ROUND(ITEM_FST , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1007'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_FST ,                                " +
-"                                ROUND(ITEM_FCL , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1008'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_FCL ,                                " +
-"                                ROUND(ITEM_WTC , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1009'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_WTC ,                                " +
-"                                ROUND(ITEM_PCA , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1010'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_PCA ,                                " +
-"                                ROUND(ITEM_COD , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1011'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_COD ,                                " +
-"                                ROUND(ITEM_TOC , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1012'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_TOC ,                                " +
-"                                ROUND(ITEM_TN , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1013'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_TN ,                                 " +
-"                                ROUND(ITEM_TP , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1014'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_TP ,                                 " +
-"                                ROUND(ITEM_SRP , (SELECT PRECISON                                    " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1015'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_SRP ,                                " +
-"                                ROUND(ITEM_PB , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1016'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_PB ,                                 " +
-"                                ROUND(ITEM_ZN , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1017'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_ZN ,                                 " +
-"                                ROUND(ITEM_CU , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1018'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_CU ,                                 " +
-"                                ROUND(ITEM_CR , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1019'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_CR ,                                 " +
-"                                ROUND(ITEM_NI , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1020'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_NI ,                                 " +
-"                                ROUND(ITEM_AS , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1021'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_AS ,                                 " +
-"                                ROUND(ITEM_CD , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1022'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_CD ,                                 " +
-"                                ROUND(ITEM_HG , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1023'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_HG ,                                 " +
-"                                ROUND(ITEM_AL , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1024'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_AL ,                                 " +
-"                                ROUND(ITEM_LI , (SELECT PRECISON                                     " +
-"                                         FROM   SDM_WMIT SW                                          " +
-"                                         WHERE  SW.ITCD='1025'                                       " +
-"                                         AND    ROWNUM=1)) ITEM_LI ,                                 " +
-"                                (SELECT COUNT(*)                                                     " +
-"                                 FROM   SDM_FILE_INFO FI                                             " +
-"                                 WHERE  FI.UM_GBN = 'B'                                              " +
-"                                 AND    FI.PT_NO = A.PT_NO                                           " +
-"                                 AND    FI.WMYR = A.WMYR                                             " +
-"                                 AND    FI.WMWK = A.WMWK) IMG_CNT ,                                  " +
-"                                (SELECT COUNT(*)                                                     " +
-"                                 FROM   SDM_FILE_INFO FI                                             " +
-"                                 WHERE  FI.UM_GBN = 'C'                                              " +
-"                                 AND    FI.WMYR = A.WMYR                                             " +
-"                                 AND    FI.WMWK = A.WMWK) IMG_CNT2                                   " +
-"                         FROM   SDM_RWMDTI A ,                                                       " +
-"                                SDM_RWMPT B ,                                                        " +
-"                                (SELECT CODE,                                                        " +
-"                                        CODE_CTN                                                     " +
-"                                 FROM   CODE                                                         " +
-"                                 WHERE  CODE_ID = 'SDM001') CD ,                                     " +
-"                                (SELECT CODE,                                                        " +
-"                                        CODE_CTN                                                     " +
-"                                 FROM   CODE                                                         " +
-"                                 WHERE  CODE_ID = 'ORG001') CD2 ,                                    " +
-"                                (SELECT SUBSTR(CODE, 2, 1) CODE,                                     " +
-"                                        CODE_CTN                                                     " +
-"                                 FROM   CODE                                                         " +
-"                                 WHERE  CODE_ID = 'ETS955'                                           " +
-"                                 AND    SUBSTR(CODE, 0, 1) = 'H') CD3                                " +
-"                         WHERE  A.PT_NO = B.PT_NO                                                    " +
-"                         AND    SUBSTR(A.PT_NO, 5, 1) = CD.CODE(+)                                   " +
-"                         AND    B.JOSACODE = CD2.CODE(+)                                             " +
-"                         AND    A.WMWK = CD3.CODE(+)                                                 " +
-"                 )                                                                                   " +
-"        ) B                                                                                          " +
-"  WHERE A.PT_NO   =  B.PT_NO                                                                         " +
-"    AND A.NO BETWEEN B.NO -4 AND B.NO                                                                " +
-"    AND A.PT_NO IN (" + siteIds + ")                                                                                  " +
-
+sql = "  SELECT																																																						";
+sql += "         A.PT_NO                                                                                                    ";
+sql += "       , A.NO    /* 순번 참고용 */                                                                                  ";
+sql += "       , A.PT_NM /* 측정소명 */                                                                                     ";
+sql += "       , A.WMYR  /* 년도 */                                                                                         ";
+sql += "       , A.WMOM  /* 월 */                                                                                           ";
+sql += "       , A.WMCYMD AS WMCYMD_VAL   /* 측정일자 */                                                                    ";
+sql += "       , A.WMCYMD AS CHART_DATE                                                                                     ";
+sql += "       , B.WMCYMD AS WMCYMD_GRAPH /* 측정일자 */                                                                    ";
+sql += "       , A.MCNT     /* 회차 */                                                                                      ";
+sql += "       , A.JOSANAME /* 조사기관 */                                                                                  ";
+sql += "       , A.ITEM_DOW  AS ITEM_DOW_VAL    /* 수심(m) */                                                               ";
+sql += "       , B.ITEM_DOW  AS ITEM_DOW_GRAPH  /* 수심(m) */                                                               ";
+sql += "       , A.ITEM_TEMP AS ITEM_TEMP_VAL   /* 수온(℃) */                                                              ";
+sql += "       , B.ITEM_TEMP AS ITEM_TEMP_GRAPH /* 수온(℃) */                                                              ";
+sql += "       , A.ITEM_DO   AS ITEM_DO_VAL     /* DO(㎎/L) */                                                              ";
+sql += "       , B.ITEM_DO   AS ITEM_DO_GRAPH   /* DO(㎎/L) */                                                              ";
+sql += "       , A.ITEM_PH   AS ITEM_PH_VAL     /* pH */                                                                    ";
+sql += "       , B.ITEM_PH   AS ITEM_PH_GRAPH   /* pH */                                                                    ";
+sql += "       , A.ITEM_EC   AS ITEM_EC_VAL     /* 전기전도도(SC)(25℃ μS/㎝) */                                           ";
+sql += "       , B.ITEM_EC   AS ITEM_EC_GRAPH   /* 전기전도도(SC)(25℃ μS/㎝) */                                           ";
+sql += "       , A.ITEM_FSD  AS ITEM_FSD_VAL    /* 입도-모래(%) */                                                          ";
+sql += "       , B.ITEM_FSD  AS ITEM_FSD_GRAPH  /* 입도-모래(%) */                                                          ";
+sql += "       , A.ITEM_FST  AS ITEM_FST_VAL    /* 입도-실트(%) */                                                          ";
+sql += "       , B.ITEM_FST  AS ITEM_FST_GRAPH  /* 입도-실트(%) */                                                          ";
+sql += "       , A.ITEM_FCL  AS ITEM_FCL_VAL    /* 입도-점토(%) */                                                          ";
+sql += "       , B.ITEM_FCL  AS ITEM_FCL_GRAPH  /* 입도-점토(%) */                                                          ";
+sql += "       , A.ITEM_WTC  AS ITEM_WTC_VAL    /* 함수율(%) */                                                             ";
+sql += "       , B.ITEM_WTC  AS ITEM_WTC_GRAPH  /* 함수율(%) */                                                             ";
+sql += "       , A.ITEM_PCA  AS ITEM_PCA_VAL    /* 완전연소가능량(%) */                                                     ";
+sql += "       , B.ITEM_PCA  AS ITEM_PCA_GRAPH  /* 완전연소가능량(%) */                                                     ";
+sql += "       , A.ITEM_COD  AS ITEM_COD_VAL    /* COD(%) */                                                                ";
+sql += "       , B.ITEM_COD  AS ITEM_COD_GRAPH  /* COD(%) */                                                                ";
+sql += "       , A.ITEM_TOC  AS ITEM_TOC_VAL    /* TOC(%) */                                                                ";
+sql += "       , B.ITEM_TOC  AS ITEM_TOC_GRAPH  /* TOC(%) */                                                                ";
+sql += "       , A.ITEM_TN   AS ITEM_TN_VAL     /* T-N(㎎/㎏) */                                                            ";
+sql += "       , B.ITEM_TN   AS ITEM_TN_GRAPH   /* T-N(㎎/㎏) */                                                            ";
+sql += "       , A.ITEM_TP   AS ITEM_TP_VAL     /* T-P(㎎/㎏) */                                                            ";
+sql += "       , B.ITEM_TP   AS ITEM_TP_GRAPH   /* T-P(㎎/㎏) */                                                            ";
+sql += "       , A.ITEM_SRP  AS ITEM_SRP_VAL    /* SRP(㎎/㎏) */                                                            ";
+sql += "       , B.ITEM_SRP  AS ITEM_SRP_GRAPH  /* SRP(㎎/㎏) */                                                            ";
+sql += "       , A.ITEM_PB   AS ITEM_PB_VAL     /* Pb(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_PB   AS ITEM_PB_GRAPH   /* Pb(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_ZN   AS ITEM_ZN_VAL     /* Zn(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_ZN   AS ITEM_ZN_GRAPH   /* Zn(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_CU   AS ITEM_CU_VAL     /* Cu(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_CU   AS ITEM_CU_GRAPH   /* Cu(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_CR   AS ITEM_CR_VAL     /* Cr(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_CR   AS ITEM_CR_GRAPH   /* Cr(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_NI   AS ITEM_NI_VAL     /* Ni(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_NI   AS ITEM_NI_GRAPH   /* Ni(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_AS   AS ITEM_AS_VAL     /* As(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_AS   AS ITEM_AS_GRAPH   /* As(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_CD   AS ITEM_CD_VAL     /* Cd(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_CD   AS ITEM_CD_GRAPH   /* Cd(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_HG   AS ITEM_HG_VAL     /* Hg(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_HG   AS ITEM_HG_GRAPH   /* Hg(㎎/㎏) */                                                             ";
+sql += "       , A.ITEM_AL   AS ITEM_AL_VAL     /* Al(%) */                                                                 ";
+sql += "       , B.ITEM_AL   AS ITEM_AL_GRAPH   /* Al(%) */                                                                 ";
+sql += "       , A.ITEM_LI   AS ITEM_LI_VAL     /* Li(㎎/㎏) */                                                             ";
+sql += "       , B.ITEM_LI   AS ITEM_LI_GRAPH   /* Li(㎎/㎏) */                                                             ";
+sql += "  FROM   (SELECT RANK() OVER(PARTITION BY PT_NO                                                                     ";
+sql += "                  ORDER BY PT_NO, WMYR DESC, WMOM DESC, WMOD DESC) AS NO,                                           ";
+sql += "                 PT_NO,                                                                                             ";
+sql += "                 PT_NM ,                                                                                            ";
+sql += "                 WMYR ,                                                                                             ";
+sql += "                 WMOM ,                                                                                             ";
+sql += "                 WMYR||'.'||WMOM||'.'||WMOD AS WMCYMD ,                                                             ";
+sql += "                 MCNT ,                                                                                             ";
+sql += "                 ORD_PT_NM ,                                                                                        ";
+sql += "                 ORD_GBN ,                                                                                          ";
+sql += "                 JOSANAME ,                                                                                         ";
+sql += "                 DECODE(ITEM_DOW , '999999999', '정량한계미만', TO_CHAR(ITEM_DOW, 'FM999,999,990.0' ) ) ITEM_DOW ,  ";
+sql += "                 DECODE(ITEM_TEMP , '999999999', '정량한계미만', TO_CHAR(ITEM_TEMP, 'FM999,999,990' ) ) ITEM_TEMP , ";
+sql += "                 DECODE(ITEM_DO , '999999999', '정량한계미만', TO_CHAR(ITEM_DO, 'FM999,999,990.0' ) ) ITEM_DO ,     ";
+sql += "                 DECODE(ITEM_PH , '999999999', '정량한계미만', TO_CHAR(ITEM_PH, 'FM999,999,990.0' ) ) ITEM_PH ,     ";
+sql += "                 DECODE(ITEM_EC , '999999999', '정량한계미만', TO_CHAR(ITEM_EC, 'FM999,999,990' ) ) ITEM_EC ,       ";
+sql += "                 DECODE(ITEM_FSD , '999999999', '정량한계미만', TO_CHAR(ITEM_FSD, 'FM999,999,990.0' ) ) ITEM_FSD ,  ";
+sql += "                 DECODE(ITEM_FST , '999999999', '정량한계미만', TO_CHAR(ITEM_FST, 'FM999,999,990.0' ) ) ITEM_FST ,  ";
+sql += "                 DECODE(ITEM_FCL , '999999999', '정량한계미만', TO_CHAR(ITEM_FCL, 'FM999,999,990.0' ) ) ITEM_FCL ,  ";
+sql += "                 DECODE(ITEM_WTC , '999999999', '정량한계미만', TO_CHAR(ITEM_WTC, 'FM999,999,990.0' ) ) ITEM_WTC ,  ";
+sql += "                 DECODE(ITEM_PCA , '999999999', '정량한계미만', TO_CHAR(ITEM_PCA, 'FM999,999,990.00' ) ) ITEM_PCA , ";
+sql += "                 DECODE(ITEM_COD , '999999999', '정량한계미만', TO_CHAR(ITEM_COD, 'FM999,999,990.00' ) ) ITEM_COD , ";
+sql += "                 DECODE(ITEM_TOC , '999999999', '정량한계미만', TO_CHAR(ITEM_TOC, 'FM999,999,990.00' ) ) ITEM_TOC , ";
+sql += "                 DECODE(ITEM_TN , '999999999', '정량한계미만', TO_CHAR(ITEM_TN, 'FM999,999,990' ) ) ITEM_TN ,       ";
+sql += "                 DECODE(ITEM_TP , '999999999', '정량한계미만', TO_CHAR(ITEM_TP, 'FM999,999,990' ) ) ITEM_TP ,       ";
+sql += "                 DECODE(ITEM_SRP , '999999999', '정량한계미만', TO_CHAR(ITEM_SRP, 'FM999,999,990.0' ) ) ITEM_SRP ,  ";
+sql += "                 DECODE(ITEM_PB , '999999999', '정량한계미만', TO_CHAR(ITEM_PB, 'FM999,999,990.0' ) ) ITEM_PB ,     ";
+sql += "                 DECODE(ITEM_ZN , '999999999', '정량한계미만', TO_CHAR(ITEM_ZN, 'FM999,999,990.0' ) ) ITEM_ZN ,     ";
+sql += "                 DECODE(ITEM_CU , '999999999', '정량한계미만', TO_CHAR(ITEM_CU, 'FM999,999,990.0' ) ) ITEM_CU ,     ";
+sql += "                 DECODE(ITEM_CR , '999999999', '정량한계미만', TO_CHAR(ITEM_CR, 'FM999,999,990.0' ) ) ITEM_CR ,     ";
+sql += "                 DECODE(ITEM_NI , '999999999', '정량한계미만', TO_CHAR(ITEM_NI, 'FM999,999,990.0' ) ) ITEM_NI ,     ";
+sql += "                 DECODE(ITEM_AS , '999999999', '정량한계미만', TO_CHAR(ITEM_AS, 'FM999,999,990.0' ) ) ITEM_AS ,     ";
+sql += "                 DECODE(ITEM_CD , '999999999', '정량한계미만', TO_CHAR(ITEM_CD, 'FM999,999,990.00' ) ) ITEM_CD ,    ";
+sql += "                 DECODE(ITEM_HG , '999999999', '정량한계미만', TO_CHAR(ITEM_HG, 'FM999,999,990.000' ) ) ITEM_HG ,   ";
+sql += "                 DECODE(ITEM_AL , '999999999', '정량한계미만', TO_CHAR(ITEM_AL, 'FM999,999,990.00' ) ) ITEM_AL ,    ";
+sql += "                 DECODE(ITEM_LI , '999999999', '정량한계미만', TO_CHAR(ITEM_LI, 'FM999,999,990.0' ) ) ITEM_LI       ";
+sql += "          FROM   (SELECT A.PT_NO ,                                                                                  ";
+sql += "                         A.WMYR ,                                                                                   ";
+sql += "                         A.WMWK ,                                                                                   ";
+sql += "                         A.WMYR || A.WMWK WMYRWK ,                                                                  ";
+sql += "                         A.WMOM ,                                                                                   ";
+sql += "                         A.WMOD ,                                                                                   ";
+sql += "                         A.WMCTM ,                                                                                  ";
+sql += "                         A.WMSD ,                                                                                   ";
+sql += "                         A.WMED ,                                                                                   ";
+sql += "                         SUBSTR(B.PT_NO, 5, 1) VGBN ,                                                               ";
+sql += "                         CD.CODE_CTN RAGBN ,                                                                        ";
+sql += "                         B.PT_NM ,                                                                                  ";
+sql += "                         DECODE(SUBSTR(UPPER(B.PT_NM), LENGTH(TRIM(B.PT_NM)), 1), 'U', REPLACE(UPPER(B.PT_NM), 'U'), 'D', REPLACE(UPPER(B.PT_NM), 'D'), B.PT_NM) ORD_PT_NM ,  							";	
+sql += "                         B.ORD_GBN ,																																																                                                        ";
+sql += "                         B.JOSACODE ,                                                                                                                                                       ";
+sql += "                         CD2.CODE_CTN JOSANAME ,                                                                                                                                            ";
+sql += "                                         CASE                                                                                                                                               ";
+sql += "                                           WHEN A.RGDT=A.UPDT THEN 'Y'                                                                                                                      ";
+sql += "                                           ELSE ''                                                                                                                                          ";
+sql += "                                         END UPOK ,                                                                                                                                         ";
+sql += "                         A.UPDT ,                                                                                                                                                           ";
+sql += "                         CD3.CODE_CTN MCNT ,                                                                                                                                                ";
+sql += "                         ROUND(ITEM_DOW , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1001'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_DOW ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_TEMP , (SELECT PRECISON                                                                                                                                 ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1002'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_TEMP ,                                                                                                                             ";
+sql += "                         ROUND(ITEM_DO , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1003'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_DO ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_PH , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1004'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_PH ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_EC , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1005'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_EC ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_FSD , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1006'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_FSD ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_FST , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1007'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_FST ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_FCL , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1008'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_FCL ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_WTC , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1009'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_WTC ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_PCA , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1010'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_PCA ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_COD , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1011'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_COD ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_TOC , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1012'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_TOC ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_TN , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1013'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_TN ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_TP , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1014'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_TP ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_SRP , (SELECT PRECISON                                                                                                                                  ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1015'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_SRP ,                                                                                                                              ";
+sql += "                         ROUND(ITEM_PB , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1016'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_PB ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_ZN , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1017'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_ZN ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_CU , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1018'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_CU ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_CR , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1019'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_CR ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_NI , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1020'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_NI ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_AS , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1021'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_AS ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_CD , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1022'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_CD ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_HG , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1023'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_HG ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_AL , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1024'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_AL ,                                                                                                                               ";
+sql += "                         ROUND(ITEM_LI , (SELECT PRECISON                                                                                                                                   ";
+sql += "                                  FROM   SDM_WMIT SW                                                                                                                                        ";
+sql += "                                  WHERE  SW.ITCD='1025'                                                                                                                                     ";
+sql += "                                  AND    ROWNUM=1)) ITEM_LI ,                                                                                                                               ";
+sql += "                         (SELECT COUNT(*)                                                                                                                                                   ";
+sql += "                          FROM   SDM_FILE_INFO FI                                                                                                                                           ";
+sql += "                          WHERE  FI.UM_GBN = 'B'                                                                                                                                            ";
+sql += "                          AND    FI.PT_NO = A.PT_NO                                                                                                                                         ";
+sql += "                          AND    FI.WMYR = A.WMYR                                                                                                                                           ";
+sql += "                          AND    FI.WMWK = A.WMWK) IMG_CNT ,                                                                                                                                ";
+sql += "                         (SELECT COUNT(*)                                                                                                                                                   ";
+sql += "                          FROM   SDM_FILE_INFO FI                                                                                                                                           ";
+sql += "                          WHERE  FI.UM_GBN = 'C'                                                                                                                                            ";
+sql += "                          AND    FI.WMYR = A.WMYR                                                                                                                                           ";
+sql += "                          AND    FI.WMWK = A.WMWK) IMG_CNT2                                                                                                                                 ";
+sql += "                  FROM   SDM_RWMDTI A ,                                                                                                                                                     ";
+sql += "                         SDM_RWMPT B ,                                                                                                                                                      ";
+sql += "                         (SELECT CODE,                                                                                                                                                      ";
+sql += "                                 CODE_CTN                                                                                                                                                   ";
+sql += "                          FROM   CODE                                                                                                                                                       ";
+sql += "                          WHERE  CODE_ID = 'SDM001') CD ,                                                                                                                                   ";
+sql += "                         (SELECT CODE,                                                                                                                                                      ";
+sql += "                                 CODE_CTN                                                                                                                                                   ";
+sql += "                          FROM   CODE                                                                                                                                                       ";
+sql += "                          WHERE  CODE_ID = 'ORG001') CD2 ,                                                                                                                                  ";
+sql += "                         (SELECT SUBSTR(CODE, 2, 1) CODE,                                                                                                                                   ";
+sql += "                                 CODE_CTN                                                                                                                                                   ";
+sql += "                          FROM   CODE                                                                                                                                                       ";
+sql += "                          WHERE  CODE_ID = 'ETS955'                                                                                                                                         ";
+sql += "                          AND    SUBSTR(CODE, 0, 1) = 'H') CD3                                                                                                                              ";
+sql += "                  WHERE  A.PT_NO = B.PT_NO                                                                                                                                                  ";
+sql += "                  AND    SUBSTR(A.PT_NO, 5, 1) = CD.CODE(+)                                                                                                                                 ";
+sql += "                  AND    B.JOSACODE = CD2.CODE(+)                                                                                                                                           ";
+sql += "                  AND    A.WMWK = CD3.CODE(+) )) A                                                                                                                                          ";
+sql += "               , (SELECT RANK() OVER(PARTITION BY PT_NO                                                                                                                                     ";
+sql += "                          ORDER BY PT_NO, WMYR DESC, WMOM DESC, WMOD DESC) AS NO,                                                                                                           ";
+sql += "                         PT_NO,                                                                                                                                                             ";
+sql += "                         PT_NM ,                                                                                                                                                            ";
+sql += "                         WMYR ,                                                                                                                                                             ";
+sql += "                         WMOM ,                                                                                                                                                             ";
+sql += "                         WMYR||'.'||WMOM||'.'||WMOD AS WMCYMD ,                                                                                                                             ";
+sql += "                         MCNT ,                                                                                                                                                             ";
+sql += "                         ORD_PT_NM ,                                                                                                                                                        ";
+sql += "                         ORD_GBN ,                                                                                                                                                          ";
+sql += "                         JOSANAME ,                                                                                                                                                         ";
+sql += "                         DECODE(ITEM_DOW , '999999999', '정량한계미만', TO_CHAR(ITEM_DOW, 'FM999,999,990.0' ) ) ITEM_DOW ,                                                                  ";
+sql += "                         DECODE(ITEM_TEMP , '999999999', '정량한계미만', TO_CHAR(ITEM_TEMP, 'FM999,999,990' ) ) ITEM_TEMP ,                                                                 ";
+sql += "                         DECODE(ITEM_DO , '999999999', '정량한계미만', TO_CHAR(ITEM_DO, 'FM999,999,990.0' ) ) ITEM_DO ,                                                                     ";
+sql += "                         DECODE(ITEM_PH , '999999999', '정량한계미만', TO_CHAR(ITEM_PH, 'FM999,999,990.0' ) ) ITEM_PH ,                                                                     ";
+sql += "                         DECODE(ITEM_EC , '999999999', '정량한계미만', TO_CHAR(ITEM_EC, 'FM999,999,990' ) ) ITEM_EC ,                                                                       ";
+sql += "                         DECODE(ITEM_FSD , '999999999', '정량한계미만', TO_CHAR(ITEM_FSD, 'FM999,999,990.0' ) ) ITEM_FSD ,                                                                  ";
+sql += "                         DECODE(ITEM_FST , '999999999', '정량한계미만', TO_CHAR(ITEM_FST, 'FM999,999,990.0' ) ) ITEM_FST ,                                                                  ";
+sql += "                         DECODE(ITEM_FCL , '999999999', '정량한계미만', TO_CHAR(ITEM_FCL, 'FM999,999,990.0' ) ) ITEM_FCL ,                                                                  ";
+sql += "                         DECODE(ITEM_WTC , '999999999', '정량한계미만', TO_CHAR(ITEM_WTC, 'FM999,999,990.0' ) ) ITEM_WTC ,                                                                  ";
+sql += "                         DECODE(ITEM_PCA , '999999999', '정량한계미만', TO_CHAR(ITEM_PCA, 'FM999,999,990.00' ) ) ITEM_PCA ,                                                                 ";
+sql += "                         DECODE(ITEM_COD , '999999999', '정량한계미만', TO_CHAR(ITEM_COD, 'FM999,999,990.00' ) ) ITEM_COD ,                                                                 ";
+sql += "                         DECODE(ITEM_TOC , '999999999', '정량한계미만', TO_CHAR(ITEM_TOC, 'FM999,999,990.00' ) ) ITEM_TOC ,                                                                 ";
+sql += "                         DECODE(ITEM_TN , '999999999', '정량한계미만', TO_CHAR(ITEM_TN, 'FM999,999,990' ) ) ITEM_TN ,                                                                       ";
+sql += "                         DECODE(ITEM_TP , '999999999', '정량한계미만', TO_CHAR(ITEM_TP, 'FM999,999,990' ) ) ITEM_TP ,                                                                       ";
+sql += "                         DECODE(ITEM_SRP , '999999999', '정량한계미만', TO_CHAR(ITEM_SRP, 'FM999,999,990.0' ) ) ITEM_SRP ,                                                                  ";
+sql += "                         DECODE(ITEM_PB , '999999999', '정량한계미만', TO_CHAR(ITEM_PB, 'FM999,999,990.0' ) ) ITEM_PB ,                                                                     ";
+sql += "                         DECODE(ITEM_ZN , '999999999', '정량한계미만', TO_CHAR(ITEM_ZN, 'FM999,999,990.0' ) ) ITEM_ZN ,                                                                     ";
+sql += "                         DECODE(ITEM_CU , '999999999', '정량한계미만', TO_CHAR(ITEM_CU, 'FM999,999,990.0' ) ) ITEM_CU ,                                                                     ";
+sql += "                         DECODE(ITEM_CR , '999999999', '정량한계미만', TO_CHAR(ITEM_CR, 'FM999,999,990.0' ) ) ITEM_CR ,                                                                     ";
+sql += "                         DECODE(ITEM_NI , '999999999', '정량한계미만', TO_CHAR(ITEM_NI, 'FM999,999,990.0' ) ) ITEM_NI ,                                                                     ";
+sql += "                         DECODE(ITEM_AS , '999999999', '정량한계미만', TO_CHAR(ITEM_AS, 'FM999,999,990.0' ) ) ITEM_AS ,                                                                     ";
+sql += "                         DECODE(ITEM_CD , '999999999', '정량한계미만', TO_CHAR(ITEM_CD, 'FM999,999,990.00' ) ) ITEM_CD ,                                                                    ";
+sql += "                         DECODE(ITEM_HG , '999999999', '정량한계미만', TO_CHAR(ITEM_HG, 'FM999,999,990.000' ) ) ITEM_HG ,                                                                   ";
+sql += "                         DECODE(ITEM_AL , '999999999', '정량한계미만', TO_CHAR(ITEM_AL, 'FM999,999,990.00' ) ) ITEM_AL ,                                                                    ";
+sql += "                         DECODE(ITEM_LI , '999999999', '정량한계미만', TO_CHAR(ITEM_LI, 'FM999,999,990.0' ) ) ITEM_LI                                                                       ";
+sql += "                  FROM   (SELECT A.PT_NO ,                                                                                                                                                  ";
+sql += "                                 A.WMYR ,                                                                                                                                                   ";
+sql += "                                 A.WMWK ,                                                                                                                                                   ";
+sql += "                                 A.WMYR || A.WMWK WMYRWK ,                                                                                                                                  ";
+sql += "                                 A.WMOM ,                                                                                                                                                   ";
+sql += "                                 A.WMOD ,                                                                                                                                                   ";
+sql += "                                 A.WMCTM ,                                                                                                                                                  ";
+sql += "                                 A.WMSD ,                                                                                                                                                   ";
+sql += "                                 A.WMED ,                                                                                                                                                   ";
+sql += "                                 SUBSTR(B.PT_NO, 5, 1) VGBN ,                                                                                                                               ";
+sql += "                                 CD.CODE_CTN RAGBN ,                                                                                                                                        ";
+sql += "                                 B.PT_NM ,                                                                                                                                                  ";
+sql += "                                 DECODE(SUBSTR(UPPER(B.PT_NM), LENGTH(TRIM(B.PT_NM)), 1), 'U', REPLACE(UPPER(B.PT_NM), 'U'), 'D', REPLACE(UPPER(B.PT_NM), 'D'), B.PT_NM) ORD_PT_NM ,	      ";
+sql += "                                 B.ORD_GBN ,																													                                                                                      ";
+sql += "                                 B.JOSACODE ,                                                                                                                                               ";
+sql += "                                 CD2.CODE_CTN JOSANAME ,                                                                                                                                    ";
+sql += "                                                         CASE                                                                                                                               ";
+sql += "                                                           WHEN A.RGDT=A.UPDT THEN 'Y'                                                                                                      ";
+sql += "                                                           ELSE ''                                                                                                                          ";
+sql += "                                                         END UPOK ,                                                                                                                         ";
+sql += "                                 A.UPDT ,                                                                                                                                                   ";
+sql += "                                 CD3.CODE_CTN MCNT ,                                                                                                                                        ";
+sql += "                                 ROUND(ITEM_DOW , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1001'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_DOW ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_TEMP , (SELECT PRECISON                                                                                                                         ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1002'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_TEMP ,                                                                                                                     ";
+sql += "                                 ROUND(ITEM_DO , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1003'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_DO ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_PH , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1004'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_PH ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_EC , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1005'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_EC ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_FSD , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1006'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_FSD ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_FST , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1007'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_FST ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_FCL , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1008'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_FCL ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_WTC , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1009'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_WTC ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_PCA , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1010'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_PCA ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_COD , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1011'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_COD ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_TOC , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1012'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_TOC ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_TN , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1013'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_TN ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_TP , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1014'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_TP ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_SRP , (SELECT PRECISON                                                                                                                          ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1015'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_SRP ,                                                                                                                      ";
+sql += "                                 ROUND(ITEM_PB , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1016'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_PB ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_ZN , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1017'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_ZN ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_CU , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1018'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_CU ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_CR , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1019'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_CR ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_NI , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1020'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_NI ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_AS , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1021'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_AS ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_CD , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1022'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_CD ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_HG , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1023'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_HG ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_AL , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1024'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_AL ,                                                                                                                       ";
+sql += "                                 ROUND(ITEM_LI , (SELECT PRECISON                                                                                                                           ";
+sql += "                                          FROM   SDM_WMIT SW                                                                                                                                ";
+sql += "                                          WHERE  SW.ITCD='1025'                                                                                                                             ";
+sql += "                                          AND    ROWNUM=1)) ITEM_LI ,                                                                                                                       ";
+sql += "                                 (SELECT COUNT(*)                                                                                                                                           ";
+sql += "                                  FROM   SDM_FILE_INFO FI                                                                                                                                   ";
+sql += "                                  WHERE  FI.UM_GBN = 'B'                                                                                                                                    ";
+sql += "                                  AND    FI.PT_NO = A.PT_NO                                                                                                                                 ";
+sql += "                                  AND    FI.WMYR = A.WMYR                                                                                                                                   ";
+sql += "                                  AND    FI.WMWK = A.WMWK) IMG_CNT ,                                                                                                                        ";
+sql += "                                 (SELECT COUNT(*)                                                                                                                                           ";
+sql += "                                  FROM   SDM_FILE_INFO FI                                                                                                                                   ";
+sql += "                                  WHERE  FI.UM_GBN = 'C'                                                                                                                                    ";
+sql += "                                  AND    FI.WMYR = A.WMYR                                                                                                                                   ";
+sql += "                                  AND    FI.WMWK = A.WMWK) IMG_CNT2                                                                                                                         ";
+sql += "                          FROM   SDM_RWMDTI A ,                                                                                                                                             ";
+sql += "                                 SDM_RWMPT B ,                                                                                                                                              ";
+sql += "                                 (SELECT CODE,                                                                                                                                              ";
+sql += "                                         CODE_CTN                                                                                                                                           ";
+sql += "                                  FROM   CODE                                                                                                                                               ";
+sql += "                                  WHERE  CODE_ID = 'SDM001') CD ,                                                                                                                           ";
+sql += "                                 (SELECT CODE,                                                                                                                                              ";
+sql += "                                         CODE_CTN                                                                                                                                           ";
+sql += "                                  FROM   CODE                                                                                                                                               ";
+sql += "                                  WHERE  CODE_ID = 'ORG001') CD2 ,                                                                                                                          ";
+sql += "                                 (SELECT SUBSTR(CODE, 2, 1) CODE,                                                                                                                           ";
+sql += "                                         CODE_CTN                                                                                                                                           ";
+sql += "                                  FROM   CODE                                                                                                                                               ";
+sql += "                                  WHERE  CODE_ID = 'ETS955'                                                                                                                                 ";
+sql += "                                  AND    SUBSTR(CODE, 0, 1) = 'H') CD3                                                                                                                      ";
+sql += "                          WHERE  A.PT_NO = B.PT_NO                                                                                                                                          ";
+sql += "                          AND    SUBSTR(A.PT_NO, 5, 1) = CD.CODE(+)                                                                                                                         ";
+sql += "                          AND    B.JOSACODE = CD2.CODE(+)                                                                                                                                   ";
+sql += "                          AND    A.WMWK = CD3.CODE(+)                                                                                                                                       ";
+sql += "                  )                                                                                                                                                                         ";
+sql += "         ) B                                                                                                                                                                                ";
+sql += "  WHERE A.PT_NO   =  B.PT_NO                                                                                                                                                                ";
+sql += "     AND A.NO BETWEEN B.NO -4 AND B.NO                                                                                                                                                      ";
+sql += "      AND A.PT_NO IN ("+siteIds+ ")                                                                                                                                                       ";
 if(firstSearch.equals("date")){
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '"+startYYYYMM+"'                                                         " ;
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '"+endYYYYMM+"'                                                         " ;
 }else{
-	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201212'                                                         ";
-	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201210'                                                         " ;	
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201209'                                                         ";
+	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201212'                                                         " ;	
 }
 sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                                                         " ;
 		
      //sql += "AND A.PT_NO IN (" + siteIds + ") ";
      
-     out.print(sql);  
+     //out.print(sql);  
    
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
@@ -923,7 +923,9 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	jsonRecord.put("ITEM_HG_VAL",ITEM_HG_VAL);
 	jsonRecord.put("ITEM_HG_GRAPH",ITEM_HG_GRAPH);
 	jsonRecord.put("ITEM_AL_VAL",ITEM_AL_VAL);
-	jsonRecord.put("ITEM_HG_GRAPH",ITEM_AL_GRAPH);
+	jsonRecord.put("ITEM_AL_GRAPH",ITEM_HG_GRAPH); 
+	jsonRecord.put("ITEM_LI_VAL",ITEM_LI_VAL);
+	jsonRecord.put("ITEM_LI_GRAPH",ITEM_LI_GRAPH);
 	
 	jsonArr.add(jsonRecord);
 	

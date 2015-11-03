@@ -27,6 +27,10 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 		header: {
 		height: 5
 		},
+		filter: {
+	            value:1,    // 0 is false, 1 is true
+	            active:true // turn on the filter
+	        },
 		title: '검색결과',
 		header: false,
 		//store: 'KRF_DEV.store.east.SiteInfoPanel',

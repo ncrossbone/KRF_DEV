@@ -79,46 +79,46 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 				if(chartFlag_D == "D001"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'WL', name: 'WL'}]
+						data: [{id: 'WL', name: '수위(cm)'}]
 					})
 				}else if(chartFlag_D == "D002"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'RF', name: 'RF'}]
+						data: [{id: 'RF', name: '우량자료(mm)'}]
 					})
 				}else if(chartFlag_D == "D003"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'FW', name: 'FW'}]
+						data: [{id: 'FW', name: '유량(CMS)'}]
 					})
 				}else if(chartFlag_D == "D004"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'SWL', name: 'SWL'},
-						       {id: 'INF', name: 'INF'},
-						       {id: 'OTF', name: 'OTF'},
-						       {id: 'SFW', name: 'SFW'},
-						       {id: 'ECPC', name: 'ECPC'}]
+						data: [{id: 'SWL', name: '저수위(cm)'},
+						       {id: 'INF', name: '유입량(cms)'},
+						       {id: 'OTF', name: '방류량(cms)'},
+						       {id: 'SFW', name: '저수량(만㎥)'},
+						       {id: 'ECPC', name: '공용량(백만㎥)'}]
 					})
 				}else if(chartFlag_D == "D005"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'WD', name: 'WD'},
-						       {id: 'WS', name: 'WS'},
-						       {id: 'TA', name: 'TA'},
-						       {id: 'HM', name: 'HM'},
-						       {id: 'PA', name: 'PA'},
-						       {id: 'PS', name: 'PS'},
-						       {id: 'RNYN', name: 'RNYN'},
-						       {id: 'RN1HR', name: 'RN1HR'},
-						       {id: 'RNDAY', name: 'RNDAY'}]
+						data: [{id: 'WD', name: '풍향(m/s)'},
+						       {id: 'WS', name: '풍속(m/s)'},
+						       {id: 'TA', name: '기온(℃)'},
+						       {id: 'HM', name: '습도'},
+						       {id: 'PA', name: '현지기압'},
+						       {id: 'PS', name: '해면기압'},
+						       {id: 'RNYN', name: '강수감지'},
+						       {id: 'RN1HR', name: '강수량(mm)'},
+						       {id: 'RNDAY', name: '누적강수량(mm)'}]
 					})
 				}else if(chartFlag_D == "D006"){
 					var store = Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: 'RND', name: 'RND'},
-						       {id: 'TA', name: 'TA'},
-						       {id: 'SIDAY', name: 'SIDAY'}]
+						data: [{id: 'RND', name: '강수량자료(mm)'},
+						       {id: 'TA', name: '기온(℃)'},
+						       {id: 'SIDAY', name: '일사(MJ/m2)'}]
 					})
 				}else if(chartFlag_D == "D007"){
 					var store = Ext.create('Ext.data.Store', {

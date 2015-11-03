@@ -43,7 +43,6 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			var f_parentId = "";
 			
 			if(store.parentId == "F" ){
-				console.info(f_Chart);
 				if(f_Chart == undefined || f_Chart.lastValue == "방류유량"){
 					f_parentId = "F_1";
 				}else if(f_Chart.lastValue == "1"){
@@ -110,7 +109,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 				                       'AMDCODE'
 				                       ];
 				}else if(store.parentId == "F"){
-					console.info(f_parentId);					
+										
 					if(f_parentId == "F_1"){
 						store.config.fields = [
 						                       'FACI_CD',
@@ -153,7 +152,8 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 						                       {name: 'ITEM_BYPASS_AMT', type: 'float'}
 						                       ];
 					}
-					console.info(f_parentId);
+
+
 				}else if(store.parentId == "D001"){
 					store.config.fields = [
 					                       'PT_NM',
@@ -280,19 +280,12 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
-			console.info(store.siteCD);
-			
-			
 			
 			var jsonData = "";
-			console.info(store.parentId);
-			console.info(d_Chart);
-			console.info(f_parentId);
 			
 			
 			
 			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
-				console.info("1");
 			Ext.Ajax.request({
         		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
         		params: {recordId: recordId
@@ -319,7 +312,6 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         	});
 			
 			}else if(store.parentId == "F"){
-				console.info("2");
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetRWMDT_'+f_parentId+'.jsp',    // To Which url you wanna POST.
 	        		params: {recordId: recordId
@@ -345,7 +337,6 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	        		}
 	        	});
 			}else if(org_D_firstID == "D"){
-				console.info("3");
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
 	        		params: {recordId: recordId

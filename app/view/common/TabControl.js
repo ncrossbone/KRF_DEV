@@ -159,7 +159,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						}else{
 							var parentId = gridCtl.parentIds[0].parentId
 						}
-						ShowSearchResult(gridCtl.siteIds, parentId, "", gridCtl.id,fName.value);
+						
+						var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
+						
+						ShowSearchResult(gridCtl.siteIds, parentId, "", gridId,fName.value);
 					}
 				}
 			
