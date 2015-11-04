@@ -706,15 +706,9 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 	
-	var firstSearch =  KRF_DEV.getApplication().btnFlag;
-	console.info(firstSearch);
+	
 	if(parentCheck == "A"){	
-		if(firstSearch == "noDate"){
-			cmbStartYear.setValue("2015");
-			cmbStartMonth.setValue("10");
-			cmbEndYear.setValue("2015");
-			cmbEndMonth.setValue("12");
-		}
+		
 		//console.info(sYearCtl.setValue("2013"));
 		
 		//환경기초시설 검색값 히든처리
@@ -752,7 +746,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	}else if(parentCheck == "F"){
 		
-		
+		var firstSearch =  KRF_DEV.getApplication().btnFlag;
 		if(firstSearch == "noDate"){
 			cmbStartYear.setValue("2012");
 			cmbStartMonth.setValue("09");
@@ -904,14 +898,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		grdCtl.getView().bindStore(gridStore);
 		
 	}else if(parentCheck == "B"){
-		
-		if(firstSearch == "noDate"){
-			cmbStartYear.setValue("2015");
-			cmbStartMonth.setValue("10");
-			cmbEndYear.setValue("2015");
-			cmbEndMonth.setValue("12");
-		}
-		
 		hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
@@ -948,11 +934,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	}else if(parentCheck == "C"){
 		
-		//var firstSearch =  KRF_DEV.getApplication().btnFlag;
+		var firstSearch =  KRF_DEV.getApplication().btnFlag;
 		if(firstSearch == "noDate"){
-			cmbStartYear.setValue("2012");
+			cmbStartYear.setValue("2013");
 			cmbStartMonth.setValue("10");
-			cmbEndYear.setValue("2012");
+			cmbEndYear.setValue("2013");
 			cmbEndMonth.setValue("12");
 		}
 
@@ -992,13 +978,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	
 	}else if(parentCheck == "D"){
-		
-		if(firstSearch == "noDate"){
-			cmbStartYear.setValue("2015");
-			cmbStartMonth.setValue("10");
-			cmbEndYear.setValue("2015");
-			cmbEndMonth.setValue("12");
-		}
 
 		console.info(orgParentId);
 		hiddenGrid.setHidden(true);
