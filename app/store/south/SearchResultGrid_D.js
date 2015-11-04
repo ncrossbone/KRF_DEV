@@ -9,12 +9,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			'PT_NO',
 			'PT_NM',
 			'WMCYMD',
-			'CURR_WL',
-			{name: 'CHART_WL', type: 'number'},
-			'CURR_MXWL',
-			{name: 'CHART_MXWL', type: 'number'},
-			'CURR_MNWL',
-			{name: 'CHART_MNWL', type: 'number'}
+			'CHART_WL',
+			{name: 'CURR_WL', type: 'number'},
+			'CHART_MXWL',
+			{name: 'CURR_MXWL', type: 'number'},
+			'CHART_MNWL',
+			{name: 'CURR_MNWL', type: 'number'}
     ],
     
     siteId: '',

@@ -47,7 +47,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					,{id: 'ITEM_SS', name: 'SS'}
 					,{id: 'ITEM_CLOA', name: '클로로필a'}]
 			})
-			
+			itemCtl.setValue("ITEM_BOD");
 			}else if(parentChk == "B"){
 				var store = Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
@@ -61,7 +61,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						,{id: 'ITEM_SS', name: 'SS'}
 						,{id: 'ITEM_TOC', name: 'TOC'}]
 				})	
-				
+				itemCtl.setValue("ITEM_BOD");	
 			}else if(parentChk == "C"){
 				var store = Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
@@ -75,6 +75,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						,{id: 'ITEM_TN', name: 'T-N'}
 						,{id: 'ITEM_TP', name: 'T-P'}]
 				})
+				itemCtl.setValue("ITEM_DOW");
 			}else if(parentChk == "D"){
 				if(chartFlag_D == "D001"){
 					var store = Ext.create('Ext.data.Store', {
@@ -136,6 +137,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						       {id: 'ETCOTF', name: 'ETCOTF'}]
 					})
 				}
+				itemCtl.setValue("SWL");
 			}else if(parentChk == "F"){
 				var store = Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
