@@ -284,7 +284,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			var jsonData = "";
 			
 			
-			
+			console.info(recordId);
 			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
 			Ext.Ajax.request({
         		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.

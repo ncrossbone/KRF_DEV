@@ -1118,6 +1118,7 @@ $include-krf_dev-view-map-dynamiclayeradmin: true;
 $include-krf_dev-view-map-dynamiclayeradmin_reachtest: true;
 $include-krf_dev-view-map-featurelayeradmin1: true;
 $include-krf_dev-view-map-graphicslayeradmin: true;
+$include-krf_dev-view-map-labellayeradmin: true;
 $include-krf_dev-view-map-maptoolbar: true;
 $include-krf_dev-view-map-reachlayeradmin: true;
 $include-krf_dev-view-map-reachlayeradminbackground: true;

@@ -4,12 +4,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
     
     fields: [
         'PT_NO',
-        'PT_NM',
+        {name: 'PT_NM', type: 'string'},
         'WMYR',
         'WMOD',
         'WMCYMD',
         'WMDEP',
-        {name: 'CURR_BOD', type: 'number', filter: {type: 'number'}},
+        {name: 'CURR_BOD', type: 'number'},
         'CHART_BOD',
         {name: 'CURR_DO', type: 'number'},
         'CHART_DO',
@@ -115,10 +115,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
     
     autoLoad: true,
     
-    buffered: true, // 버퍼드 스토어 지정
+    //buffered: true, // 버퍼드 스토어 지정
     pageSize: 100,
 
-	remoteSort: true,
+	//remoteSort: true,
 	
 	siteIds: "",
 	parentIds: [],

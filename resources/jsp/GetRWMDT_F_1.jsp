@@ -87,7 +87,7 @@ try{
 	}
 sql += " ) ";
 sql += " where rn <= 10 ";
-	sql += "  ORDER BY FACI_NM, DISCHARGE_NUM, WORK_DT DESC)                                                                              ";
+	sql += "  ORDER BY FACI_NM, DISCHARGE_NUM, WORK_DT ASC)                                                                              ";
 	sql += " SELECT *                                                                                                                     ";
 	if(defaultChart.equals("1")){
 		sql += "   FROM (SELECT *                                                                                                             ";

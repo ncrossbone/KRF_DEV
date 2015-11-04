@@ -11,7 +11,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 		type: 'fit'
 	},
 	
-	width: 400,
+	width: 450,
 	height: 600,
 	y: 5,
 	//controller: 'chartPanelController',
@@ -97,7 +97,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	             //left: 30,
 	             right: 30
 	        }, 
-	        width: '100%',
+	        width: 450,
 	        height: 250,
 	        padding: '10 0 0 0',
 	        style: {
@@ -176,6 +176,5 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	
     initComponent: function() {
         this.callParent();
-        console.info(this);
     }
 });

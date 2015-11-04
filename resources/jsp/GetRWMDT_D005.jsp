@@ -68,13 +68,12 @@ try{
 	sql += "        KESTI_WATER_ALL_MAP C ,                                                           ";
 	sql += "        COM_DISTRICT_RAW D                                                                ";
 	sql += " WHERE  A.ADM_CD = C.ADM_CD                                                               ";
-	sql += " AND    A.ADM_CD = D.ADM_CD)                                                              ";
+	sql += " AND    A.ADM_CD = D.ADM_CD    ORDER BY WMCYMD ASC)                                                              ";
 	sql += " SELECT *                                                                                 ";
 	if(defaultChart.equals("1")){
 		sql += " FROM   (SELECT *                                                                         ";
 		sql += "         FROM   TMP_TBL                                                                   ";
 		sql += "         WHERE  ROWNUM <= 10                                                              ";
-		sql += "         ORDER BY WMCYMD                                                                  ";
 		sql += "      )                                                                                   ";
 	}else{
 		sql += "    FROM TMP_TBL    ";

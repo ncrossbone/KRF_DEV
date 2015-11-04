@@ -18,11 +18,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			xtype: 'grid',
 			//id: 'grdSearchResult',
 			//id: this.up('container').up('container'),
-			plugins: 'gridfilters',
+			plugins: ['bufferedrenderer', 'gridfilters'],
 			cls: 'khLee-x-column-header-text',
 			//height: 195,
 			loadMask: true, // 로딩 표시 할라구 한건데.. 안먹네..-_-;
-			plugins: 'bufferedrenderer',
+			//plugins: 'bufferedrenderer',
 			siteIds: "",
 			parentIds: [],
 			//height: '100%',
@@ -59,8 +59,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				dataIndex : 'PT_NM',
 				width: 100,
 				//filterable: true,
-				filter: {type: 'string'},
-				//filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
+				//filter: {type: 'string'},
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						//console.info(this.findParentByType("grid").parentIds);
@@ -75,7 +75,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							}
 						}
 						
-						siteMovePoint(parentId, siteId);
+						if(parentId == ""){
+							siteMovePoint(parentIds, siteId);
+						}else{
+							siteMovePoint(parentId, siteId);
+						}
 					}
 				}
 			}, {

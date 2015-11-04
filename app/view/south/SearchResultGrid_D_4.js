@@ -87,7 +87,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_4', {
 							}
 						}
 						
-						siteMovePoint(parentId, siteId);
+						if(parentId == ""){
+							siteMovePoint(parentIds, siteId);
+						}else{
+							siteMovePoint(parentId, siteId);
+						}
 					}
 				}
 			},{

@@ -55,8 +55,12 @@ try{
 	sql += "        COM_DISTRICT_RAW C                                                                    ";
 	sql += " WHERE  A.ADM_CD = B.ADM_CD                                                                   ";
 	sql += " AND    A.ADM_CD = C.ADM_CD                                                                   ";
-	sql += " ) WHERE RN <= 10                                                               ";
-	sql += " ORDER BY PT_NO, WMCYMD DESC)                                                               ";
+	if(defaultChart.equals("1")){
+		sql += " ) WHERE RN <= 10                                                               ";
+	}else{
+		sql += " )                                                              ";
+	}
+	sql += " ORDER BY PT_NO, WMCYMD ASC)                                                               ";
 	sql += " SELECT *                                                                                     ";
 	if(defaultChart.equals("1")){
 		sql += " FROM   (SELECT *                                                                             ";

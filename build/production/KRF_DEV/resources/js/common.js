@@ -701,6 +701,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	console.info(parentCheck);
 	//console.info(parentIds[0].parentId.substring(0,1));
 
+	var cmbStartYear = Ext.getCmp("cmbStartYear");
+	var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+	var cmbEndYear = Ext.getCmp("cmbEndYear");
+	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
+	
 	
 	if(parentCheck == "A"){	
 		
@@ -740,6 +745,19 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		grdCtl.getView().bindStore(gridStore);
 	
 	}else if(parentCheck == "F"){
+		
+		var firstSearch =  KRF_DEV.getApplication().btnFlag;
+		if(firstSearch == "noDate"){
+			cmbStartYear.setValue("2012");
+			cmbStartMonth.setValue("09");
+			cmbEndYear.setValue("2012");
+			cmbEndMonth.setValue("12");
+		}
+		
+		//cmbStartYear.setValue("2015");
+		//cmbStartMonth.setValue("2015");
+		//cmbEndYear.setValue("2015");
+		//cmbEndMonth.setValue("2015");
 		
 		//환경기초시설 검색값 히든처리
 		hiddenGrid.setHidden(false);
@@ -915,6 +933,14 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		grdCtl.getView().bindStore(gridStore);
 	
 	}else if(parentCheck == "C"){
+		
+		var firstSearch =  KRF_DEV.getApplication().btnFlag;
+		if(firstSearch == "noDate"){
+			cmbStartYear.setValue("2013");
+			cmbStartMonth.setValue("10");
+			cmbEndYear.setValue("2013");
+			cmbEndMonth.setValue("12");
+		}
 
 		hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
@@ -1453,6 +1479,9 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId){
+	console.info("~~");
+	console.info(parentNodeId);
+	console.info(nodeId);
 	var layerId = "";
 	if(parentNodeId == "Cat"){ // 집수구역
 		layerId = "48";

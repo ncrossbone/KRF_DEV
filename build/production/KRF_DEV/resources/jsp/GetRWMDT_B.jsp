@@ -131,7 +131,7 @@ try{
 	sql += " AND    A.ADM_CD = C.ADM_CD                                                                                                      ";
 	sql += "   AND SUBSTR(A.BASE_TIME,1,6) >= '"+ac+"'                                                                                       ";
 	sql += "   AND SUBSTR(A.BASE_TIME,1,6) <= '"+bd+"'                                                                                       ";
-	sql += "   AND A.FACT_CODE = '"+recordId+"')                                                                                                  ";
+	sql += "   AND A.FACT_CODE = '"+recordId+"'    ORDER BY WMCYMD   )                                                                                                  ";
 	if(defaultChart.equals("1")){
 		sql += "     SELECT *                                                                                                                    ";
 		sql += " FROM (SELECT *                                                                                                                  ";     
@@ -139,7 +139,7 @@ try{
 		sql += "            WHERE ROWNUM <= 10                                                                                                   ";
 		sql += "            ORDER BY WMCYMD)                                                                                                     ";
 	}else{
-		sql += "     SELECT *  FROM TMP_TBL                                                                                                                  ";
+		sql += "     SELECT *  FROM TMP_TBL                                                                                                               ";
 	}
 	sql += "  UNION ALL                                                                                                                      ";        
 	sql += "  SELECT 999 AS RN, '', '','', '', MAX(ITEM_BOD) + MAX(ITEM_BOD) / 10, MAX(ITEM_COD) + MAX(ITEM_COD) / 10, MAX(ITEM_SS) + MAX(ITEM_SS) / 10,                                                   ";   

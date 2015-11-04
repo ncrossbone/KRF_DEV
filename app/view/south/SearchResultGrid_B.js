@@ -62,7 +62,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						//console.info(this.findParentByType("grid").parentIds);
-						var gridCtl = this.findParentByType("grid")
+						var gridCtl = this.findParentByType("grid");
 						var parentIds = gridCtl.parentIds;
 						var siteId = row.record.data.PT_NO;
 						var parentId = "";
@@ -73,7 +73,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 							}
 						}
 						
-						siteMovePoint(parentId, siteId);
+						if(parentId == ""){
+							siteMovePoint(parentIds, siteId);
+						}else{
+							siteMovePoint(parentId, siteId);
+						}
 					}
 				}
 			}, {
