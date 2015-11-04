@@ -1175,8 +1175,10 @@ ShowSearchResultReach = function(catIds){
     		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
     		if(geoTrib == "0")
     			rowData.push("본류");
-    		else
-    			rowData.push(geoTrib + "지류");
+    		else{
+    			//rowData.push(geoTrib + "지류");
+    			rowData.push("지류");
+    		}
     		storeData.push(rowData);
     	}
     	
@@ -1203,8 +1205,10 @@ ShowSearchResultReach = function(catIds){
     		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
     		if(geoTrib == "0")
     			rowData.push("본류");
-    		else
-    			rowData.push(geoTrib + "지류");
+    		else{
+    			//rowData.push(geoTrib + "지류");
+    			rowData.push("지류");
+    		}
     		storeData.push(rowData);
     	}
     	
@@ -1263,8 +1267,10 @@ ShowSearchResultReach = function(catIds){
     		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
     		if(geoTrib == "0")
     			rowData.push("본류");
-    		else
-    			rowData.push(geoTrib + "지류");
+    		else{
+    			//rowData.push(geoTrib + "지류");
+    			rowData.push("지류");
+    		}
     		storeData.push(rowData);
     	}
     	
@@ -1319,8 +1325,10 @@ ShowSearchResultReach = function(catIds){
 		    		var geoTrib = objLayer.features[i].attributes.GEO_TRIB;
 		    		if(geoTrib == "0")
 		    			rowData.push("본류");
-		    		else
-		    			rowData.push(geoTrib + "지류");
+		    		else{
+		    			//rowData.push(geoTrib + "지류");
+		    			rowData.push("지류");
+		    		}
 		    		storeData.push(rowData);
 				}
 				
