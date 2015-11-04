@@ -30,7 +30,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 				,{id: 'ITEM_TP', name: 'T-P'}
 				,{id: 'ITEM_COLI', name: 'COLI'}]
 			});
-			
+			itemCtl.setValue("AMT_PHYS");
 		}else if(f_Chart.lastValue == "2" || f_Chart.lastValue == "3"){
 			
 			var store = Ext.create('Ext.data.Store', {
@@ -43,7 +43,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 				,{id: 'ITEM_TP', name: 'T-P'}
 				,{id: 'ITEM_COLI', name: 'COLI'}]
 			});	
-			
+			itemCtl.setValue("ITEM_AMT");
 		}else if(f_Chart.lastValue == "4"){
 			
 			var store = Ext.create('Ext.data.Store', {
@@ -57,6 +57,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 				,{id: 'ITEM_COLI', name: 'COLI'}
 				,{id: 'ITEM_BYPASS_AMT', name: 'BYPASS_AMT'}]
 			});	
+			itemCtl.setValue("ITEM_AMT");
 		}
 		
 		itemCtl.bindStore(store);

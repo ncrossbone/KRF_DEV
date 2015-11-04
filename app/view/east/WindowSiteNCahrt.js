@@ -64,7 +64,9 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
             var chartPanel = Ext.getCmp("chartPanel");
             var siteCharttest = Ext.getCmp("siteCharttest");
             chartPanel.setWidth(width);
+            chartPanel.setHeight(height);
             siteCharttest.setWidth(width);
+            siteCharttest.setHeight(height-80);
           }
 	 },
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
