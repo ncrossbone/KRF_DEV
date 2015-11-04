@@ -926,7 +926,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		grdCtl.id = gridId;
+		//grdCtl.id = gridId;
 		
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
