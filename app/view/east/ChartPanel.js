@@ -97,7 +97,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	             //left: 30,
 	             right: 30
 	        }, 
-	        width: '100%',
+	        width: 450,
 	        height: 250,
 	        padding: '10 0 0 0',
 	        style: {

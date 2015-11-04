@@ -708,12 +708,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	
 	if(parentCheck == "A"){	
-		if(firstSearch == "noDate"){
-			cmbStartYear.setValue("2012");
-			cmbStartMonth.setValue("09");
-			cmbEndYear.setValue("2012");
-			cmbEndMonth.setValue("12");
-		}
+		
 		//console.info(sYearCtl.setValue("2013"));
 		
 		//환경기초시설 검색값 히든처리

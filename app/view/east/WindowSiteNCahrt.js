@@ -2,7 +2,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
     extend: 'Ext.window.Window',
     xtype: 'east-windowsitenchart',
     
- requires : [
+    requires : [
 	            
 	    		'Ext.chart.*'
 	    		],
@@ -59,6 +59,14 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 	width: 450,
 	height: 350,
 	draggable: true,
+	 listeners : {//resize될때 chart panel width값 변경
+         'resize' : function(win,width,height,opt){
+            var chartPanel = Ext.getCmp("chartPanel");
+            var siteCharttest = Ext.getCmp("siteCharttest");
+            chartPanel.setWidth(width);
+            siteCharttest.setWidth(width);
+          }
+	 },
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 
 	items: [{
