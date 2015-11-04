@@ -48,6 +48,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
+        	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
         	//me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin_ReachTest', me.map); // 시뮬레이션용 레이어 서비스
         	
         	//dojo.require("esri.dijit.Scalebar");
@@ -148,4 +149,57 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		var me = this;
 		me.printTask.capture();
 	},
+	
+	favoriteExe:function(data){
+		var me = this;
+		var extentJson = data.EXTENT;
+		var extent = new esri.geometry.Extent(extentJson);
+		var level = data.LEVEL;
+		var reachLineGArr = data.reachLineGArr;
+		var reachAreaGArr = data.reachAreaGArr;
+		
+		me.reachLayerAdmin.addLineGraphic(null);
+		me.reachLayerAdmin.addAreaGraphic(null);
+		
+		var deferred = me.map.setExtent(extent, true);
+		deferred.then(function(value){
+			var deferred2 = me.map.setLevel(level);
+			deferred2.then(function(value){
+				if(me.reachLayerAdmin.reachLineGraphics){
+					me.reachLayerAdmin.reachLineGraphics.clear();
+					for(var i=0; i<reachLineGArr.length; i++){
+						me.reachLayerAdmin.reachLineGraphics.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+					}
+				}
+				if(me.reachLayerAdmin.reachAreaGraphics){
+					me.reachLayerAdmin.reachAreaGraphics.clear();
+					for(var i=0; i<reachAreaGArr.length; i++){
+						me.reachLayerAdmin.reachAreaGraphics.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
+					}
+				}
+				me.reachLayerAdmin.upRchGraphics = [];
+				me.reachLayerAdmin.downRchGraphics = [];
+				me.reachLayerAdmin.selRchGraphics = [];
+				me.reachLayerAdmin.startRchGraphics = [];
+				me.reachLayerAdmin.selAreaGraphics = [];
+				for(var i=0; i<data.upRchGraphics.length; i++){
+					me.reachLayerAdmin.upRchGraphics.push(new esri.Graphic(JSON.parse(data.upRchGraphics[i])))
+				}
+				for(var i=0; i<data.downRchGraphics.length; i++){
+					me.reachLayerAdmin.downRchGraphics.push(new esri.Graphic(JSON.parse(data.downRchGraphics[i])))
+				}
+				for(var i=0; i<data.selRchGraphics.length; i++){
+					me.reachLayerAdmin.selRchGraphics.push(new esri.Graphic(JSON.parse(data.selRchGraphics[i])))
+				}
+				for(var i=0; i<data.startRchGraphics.length; i++){
+					me.reachLayerAdmin.startRchGraphics.push(new esri.Graphic(JSON.parse(data.startRchGraphics[i])))
+				}
+				for(var i=0; i<data.selAreaGraphics.length; i++){
+					me.reachLayerAdmin.selAreaGraphics.push(new esri.Graphic(JSON.parse(data.selAreaGraphics[i])))
+				}
+			},function(error2){
+			});
+		},function(error){
+		});
+	}
 });
