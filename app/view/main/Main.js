@@ -69,7 +69,26 @@ Ext.define('KRF_DEV.view.main.Main', {
  				renderTo: Ext.getBody(),
  				width: 300,
  				height: 300,
- 				html: "<a href='./resources/downloads/ChromeStandaloneSetup.exe'>크롬다운로드</a>"
+ 				closable: false,
+ 				title: '알림',
+ 				items: [{
+ 					xtype: 'panel',
+ 					layout: {
+ 						type: 'vbox',
+ 						align: 'middle',
+ 						pack: 'middle'
+ 					},
+ 					header: false,
+ 					items: [{
+ 						height: 30
+ 					}, {
+ 						html: "하천망 분석도 시스템은 IE를 지원하지 않습니다.<br>크롬 브라우저를 사용해주세요."
+ 					}, {
+ 						height: 30
+ 					}, {
+ 						html: "<a href='./resources/downloads/ChromeStandaloneSetup.exe'>크롬다운로드</a>"
+ 					}]
+ 				}]
  			}).show();
  			return;
  		}
