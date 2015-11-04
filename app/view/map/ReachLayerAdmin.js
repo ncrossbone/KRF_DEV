@@ -302,17 +302,17 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	        	me.reachLayerAdmin.reachLineGraphics.id = "reachLineGraphics";
 	        	me.map.addLayer(me.reachLayerAdmin.reachLineGraphics);
     		}
-    		
-    		me.reachLayerAdmin.reachLineGraphics.add(graphic);
-    		
-    		// 지점 목록 창 띄우기
-    		Ext.ShowSiteListWindow("selectReach");
-    		
-    		// 검색결과 창 띄우기
-    		ShowSearchResultReach("");
-    		
-    		// 위치검색 선택영역 그래픽 삭제
-    		me.searchLayerAdmin.sourceGraphicLayer.clear();
+    		if(graphic){
+    			me.reachLayerAdmin.reachLineGraphics.add(graphic);
+    			// 지점 목록 창 띄우기
+        		Ext.ShowSiteListWindow("selectReach");
+        		
+        		// 검색결과 창 띄우기
+        		ShowSearchResultReach("");
+        		
+        		// 위치검색 선택영역 그래픽 삭제
+        		me.searchLayerAdmin.sourceGraphicLayer.clear();
+    		}
     	});
     },
     
@@ -415,28 +415,29 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	        	me.reachLayerAdmin.reachAreaGraphics.id = "reachAreaGraphics";
 	        	me.map.addLayer(me.reachLayerAdmin.reachAreaGraphics);
     		}
-    		
-    		for(var i = 0; i < featureSet.features.length; i++){
-    			
-    			var graphic = featureSet.features[i];
-    			
-    			var arrIdx = me.reachLayerAdmin.getCatGraphicIndex(graphic.attributes.CAT_ID, me.reachLayerAdmin.selAreaGraphics);
-    			
-    	    	if(arrIdx == -1){
-    	    		graphic.setSymbol(me.reachLayerAdmin.areaSymbol); // 심볼설정
-        			me.reachLayerAdmin.reachAreaGraphics.add(graphic);
-        			// 전역 변수 배열에 담아두기
-            		me.reachLayerAdmin.selAreaGraphics.push(graphic);
-            		
-            		// 지점 목록 창 띄우기
-            		Ext.ShowSiteListWindow("selectReach");
-            		
-            		// 검색결과 창 띄우기
-            		ShowSearchResultReach("");
-            		
-            		// 위치검색 선택영역 그래픽 삭제
-            		me.searchLayerAdmin.sourceGraphicLayer.clear();
-    	    	}
+    		if(featureSet){
+    			for(var i = 0; i < featureSet.features.length; i++){
+        			
+        			var graphic = featureSet.features[i];
+        			
+        			var arrIdx = me.reachLayerAdmin.getCatGraphicIndex(graphic.attributes.CAT_ID, me.reachLayerAdmin.selAreaGraphics);
+        			
+        	    	if(arrIdx == -1){
+        	    		graphic.setSymbol(me.reachLayerAdmin.areaSymbol); // 심볼설정
+            			me.reachLayerAdmin.reachAreaGraphics.add(graphic);
+            			// 전역 변수 배열에 담아두기
+                		me.reachLayerAdmin.selAreaGraphics.push(graphic);
+                		
+                		// 지점 목록 창 띄우기
+                		Ext.ShowSiteListWindow("selectReach");
+                		
+                		// 검색결과 창 띄우기
+                		ShowSearchResultReach("");
+                		
+                		// 위치검색 선택영역 그래픽 삭제
+                		me.searchLayerAdmin.sourceGraphicLayer.clear();
+        	    	}
+        		}
     		}
     	});
     },
