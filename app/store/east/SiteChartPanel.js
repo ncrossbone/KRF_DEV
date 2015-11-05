@@ -284,7 +284,10 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			var jsonData = "";
 			
 			
-			console.info(recordId);
+			//console.info(recordId);
+			
+			Ext.getCmp("windowSiteNChart").mask("loading", "loading...");
+			
 			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
 			Ext.Ajax.request({
         		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
@@ -295,7 +298,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			, recordMonth2: recordMonth2
         			, defaultChart: defaultChart
         			},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			
         			// JSON Object로 변경
@@ -304,8 +307,12 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			store.loadData(jsonData.data);
         			store.arrMax = jsonData.maxdata;
         			
+        			Ext.getCmp("windowSiteNChart").unmask();
+        			
         		},
         		failure: function(form, action) {
+        			Ext.getCmp("windowSiteNChart").unmask();
+        			
         			//alert(form.responseText);
         			alert("오류가 발생하였습니다.");
         		}
@@ -321,7 +328,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	        			, recordMonth2: recordMonth2
 	        			, defaultChart: defaultChart
 	        			},
-	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		async: true, // 비동기 = async: true, 동기 = async: false
 	        		success : function(response, opts) {
 	        			
 	        			// JSON Object로 변경
@@ -330,8 +337,12 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	        			store.loadData(jsonData.data);
 	        			store.arrMax = jsonData.maxdata;
 	        			
+	        			Ext.getCmp("windowSiteNChart").unmask();
+	        			
 	        		},
 	        		failure: function(form, action) {
+	        			Ext.getCmp("windowSiteNChart").unmask();
+	        			
 	        			//alert(form.responseText);
 	        			alert("오류가 발생하였습니다.");
 	        		}
@@ -346,7 +357,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	        			, recordMonth2: recordMonth2
 	        			, defaultChart: defaultChart
 	        			},
-	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		async: true, // 비동기 = async: true, 동기 = async: false
 	        		success : function(response, opts) {
 	        			
 	        			// JSON Object로 변경
@@ -355,8 +366,12 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	        			store.loadData(jsonData.data);
 	        			store.arrMax = jsonData.maxdata;
 	        			
+	        			Ext.getCmp("windowSiteNChart").unmask();
+	        			
 	        		},
 	        		failure: function(form, action) {
+	        			Ext.getCmp("windowSiteNChart").unmask();
+	        			
 	        			//alert(form.responseText);
 	        			alert("오류가 발생하였습니다.");
 	        		}

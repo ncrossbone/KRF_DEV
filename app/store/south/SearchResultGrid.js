@@ -125,7 +125,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 	parentIds: [],
 	
 	listeners: {
-		load: function(store) {
+		load: function(store, a, b, c, d, e) {
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			console.info(firstSearch);
@@ -148,6 +148,19 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			var jsonData = "";
 			var arrData = [];
 			//console.info(store.parentIds);
+			//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
+			//myMask.show();
+			
+			console.info(store);
+			console.info(a);
+			console.info(b);
+			console.info(c);
+			console.info(d);
+			console.info(e);
+			
+			Ext.getCmp("searchResultWindow").mask("loading", "loading...");
+			//Ext.getBody().mask("loading", "loading...");
+			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
@@ -162,17 +175,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         			jsonData = Ext.util.JSON.decode( response.responseText );
         			store.setData(jsonData.data);
         			console.info(jsonData.data);
-        			//store.loadData(jsonData.data);
-        			//for(var i = 0; i < jsonData.data.length; i++){
-        				//arrData.push({name: jsonData.data[i].name});
-        			//}
-        			//store.setData(arrData);
-        			//console.info(store.data.length);
-        			//store.load();
+        			
+        			Ext.getCmp("searchResultWindow").unmask();
         			
         		},
         		failure: function(form, action) {
-        			alert(form.responseText);
+        			Ext.getCmp("searchResultWindow").unmask();
+        			//alert(form.responseText);
         			alert("오류가 발생하였습니다.");
         		}
         	});
