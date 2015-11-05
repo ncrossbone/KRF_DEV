@@ -137,7 +137,6 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 						       {id: 'ETCOTF', name: 'ETCOTF'}]
 					})
 				}
-				itemCtl.setValue("SWL");
 			}else if(parentChk == "F"){
 				var store = Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
@@ -151,6 +150,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					,{id: 'ITEM_TP', name: 'T-P'}
 					,{id: 'ITEM_COLI', name: 'COLI'}]
 				})
+				itemCtl.setValue("AMT_PHYS");
 			}
 			
 			itemCtl.bindStore(store);

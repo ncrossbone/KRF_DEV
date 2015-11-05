@@ -151,7 +151,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
-			},{
+			}, {
 				text : '방류량_생물학적(㎥/일)',
 				columns: [{
 					text     : '측정값',
@@ -191,7 +191,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
-			},{
+			}, {
 				text : '방류량_고도(㎥/일)',
 				columns: [{
 					text     : '측정값',
@@ -221,7 +221,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
@@ -231,7 +231,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
-			},{
+			}, {
 				text : '유량(㎥/일)',
 				columns: [{
 					text     : '측정값',
