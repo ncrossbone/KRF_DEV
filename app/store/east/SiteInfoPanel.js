@@ -25,19 +25,25 @@ Ext.define('KRF_DEV.store.east.SiteInfoPanel', {
 			
 			var jsonData = "";
 			
+			Ext.getCmp("windowSiteNChart").mask("loading", "loading...");
+			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
         		//params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
         		params: {recordId: recordId},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
         			store.setData(jsonData.data);
         			
+        			Ext.getCmp("windowSiteNChart").unmask();
+        			
         		},
         		failure: function(form, action) {
+        			Ext.getCmp("windowSiteNChart").unmask();
+        			
         			//alert(form.responseText);
         			alert("오류가 발생하였습니다.");
         		}
