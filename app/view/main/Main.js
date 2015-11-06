@@ -62,7 +62,7 @@ Ext.define('KRF_DEV.view.main.Main', {
  		//console.info("Ext.isGecko (Firefox) : " + Ext.isGecko);
  		
  		//console.info(document.URL);
- 		if(location.host != "http://112.218.1.243:20003/KRF_IE/"){
+ 		if(document.URL != "http://112.218.1.243:20003/KRF_IE/"){
 	 		//if(Ext.browser.is.Chrome == false){
 	 		if(Ext.browser.is.IE == true){
 	 			Ext.create("Ext.window.Window", {

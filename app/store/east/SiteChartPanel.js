@@ -315,7 +315,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			console.info(jsonData.maxdata);
         			
         			// 차트 컨트롤에 max 데이터 셋팅
-        			//SetChartMaxData(store);
+        			SetChartMaxData(store);
         			
         			// 로딩바 숨김
         			Ext.getCmp("siteCharttest").unmask();

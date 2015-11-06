@@ -65,6 +65,6 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 	
 	onSearchChartData: function() {
 		//alert("dd");
-		SetChartData("", "", "", "");
+		ShowWindowSiteNChart("", "", "", "");
 	}
 });
