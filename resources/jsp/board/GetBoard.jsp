@@ -109,6 +109,7 @@ try{
 	sb.append("\n        ) T2                         ");
 	sb.append("\n   WHERE ROWNO1 >  ").append( (pageNum-1)*rowsPerPage);
 	sb.append("\n     AND ROWNO1 <= ").append( (pageNum)*rowsPerPage);
+	sb.append("\n     AND TYPE = ").append(boardType);
 	
 	sql = sb.toString();
 	
