@@ -246,8 +246,8 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	
 	var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
 	var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
-	var siteText = Ext.getCmp("selectName");  //
-	var siteItemText = Ext.getCmp("selectItemName");  //
+	var siteText = Ext.getCmp("selectName");  // 지점명
+	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
 	//지점명 표출
 	siteText.setText(test);
 	//각쿼리당 초기값 설정
@@ -328,22 +328,27 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		yFieldName = "SWL";
 	}
 	
+	// 정보창 탭 체인지
+	ChangeTabIndex(tabIdx);
 	
+	// 지점정보 스토어 로드
 	if(siteinfoCtl != undefined){
-		var store = siteinfoCtl.getStore();
-		var chartStore = siteChartCtl.getStore();
-		
+		//var store = siteinfoCtl.getStore();
+		var store = Ext.create('KRF_DEV.store.east.SiteInfoPanel');
 		store.siteCD = title;
-		chartStore.siteCD = title;
-		
 		store.load();
-		chartStore.parentId = parentId;
-		chartStore.load();
-		
-		SetChartData(labelName, yFieldName, title, parentId);
+		siteinfoCtl.setStore(store);
 	}
 	
-	ChangeTabIndex(tabIdx);
+	// 차트정보 스토어 로드
+	if(siteChartCtl != undefined){
+		//var chartStore = siteChartCtl.getStore();
+		var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
+		chartStore.siteCD = title;
+		chartStore.parentId = parentId;
+		chartStore.load();
+		siteChartCtl.setStore(chartStore);
+	}
 
 }
 
@@ -361,9 +366,48 @@ HideWindowSiteNChart = function(){
 
 }
 
+GetItemLabelText = function(itemNm){
+	
+	var itemLable = "";
+	
+	if(itemNm == "ITEM_BOD"){
+		itemLable = "BOD(㎎/L)";
+	}else if(itemNm == "ITEM_COD"){
+		itemLable = "COD(㎎/L)";
+	}else if(itemNm == "ITEM_DOW"){
+		itemLable = "DO(㎎/L)";
+	}else if(itemNm == "WL"){
+		itemLable = "수위(cm)";
+	}else if(itemNm == "RF"){
+		itemLable = "우량(mm)";
+	}else if(itemNm == "FW"){
+		itemLable = "유량(CMS)";
+	}else if(itemNm == "SWL"){
+		itemLable = "저수위(cm)";
+	}else if(itemNm == "WD"){
+		itemLable = "풍향(m/s)";
+	}else if(itemNm == "RND"){
+		itemLable = "강수량자료(mm)";
+	}else if(itemNm == "SWL"){
+		itemLable = "보 상류수위(m)";
+	}else if(itemNm == "T-N"){
+		itemLable = "T-N (㎎/L)";
+	}else if(itemNm == "T-P"){
+		itemLable = "T-P (㎎/L)";
+	}else if(itemNm == "수온"){
+		itemLable = "수온(℃)";
+	}else if(itemNm == "pH"){
+		itemLable = "pH";
+	}else if(itemNm == "SS"){
+		itemLable = "SS(㎎/ℓ)";
+	}else if(itemNm == "클로로필a"){
+		itemLable = "클로로필a(㎎/㎥)";
+	}
+}
+
 // 차트 라벨 맥시멈 등 셋팅 및 스토어 로드
 // 기간설정 검색 시 파라메터 모두 공백으로.. 지점목록에서 검색 시 해당 값 파라메터
-SetChartData = function(labelName, yFieldName, siteCd, parentId){
+SetChartMaxData = function(labelName, yFieldName, siteCd, parentId){
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes   = chartCtl.axes[0];
@@ -387,8 +431,9 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 		s = yFieldName;
 	}
 	
-	console.info(axes);
+	//console.info(axes);
 	
+	/*
 	var store = chartCtl.getStore();
 	// 사이트 코드 셋팅
 	if(siteCd != undefined && siteCd != ""){
@@ -398,7 +443,9 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	if(parentId != undefined && parentId != ""){
 		store.parentId = parentId;
 	}
+	*/
 	
+	/*
 	var labelNm = "";
 	// 라벨 셋팅
 	if(labelName == undefined || labelName == ""){
@@ -429,7 +476,11 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 		labelNm = "클로로필a(㎎/㎥)";
 	}
 	
-	store.load();
+	var selectItemName = Ext.getCmp("selectItemName")
+	selectItemName.setText(labelNm);
+	*/
+	
+	//store.load();
 	
 	var ITEM_BOD = parseFloat(store.arrMax[0].ITEM_BOD);
 	var ITEM_DOC = parseFloat(store.arrMax[0].ITEM_DOC);
@@ -583,11 +634,8 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	}else if(s == "ETCOTF"){
 		axes.setMaximum(ETCOTF);
 	}
-	
-	var selectItemName = Ext.getCmp("selectItemName")
-	selectItemName.setText(labelNm);
 
-	store.load();
+	//store.load();
 	
 	//chartCtl.getView().refresh();
 

@@ -32,8 +32,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	
 	listeners: {
 		load: function(store) {
-			console.info(store.orgParentIds);
-			if(store.orgParentIds == "D002"){
+			
+			var requestUrl = "";
+			
+			if(store.orgParentIds == "D001"){
+				requestUrl = "./resources/jsp/GetSearchResultData_D_1.jsp";
+			}else if(store.orgParentIds == "D002"){
+				requestUrl = "./resources/jsp/GetSearchResultData_D_2.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -45,6 +50,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										{name: 'CHART_RF', type: 'number'}
 				                       ]
 			}else if(store.orgParentIds == "D003"){
+				requestUrl = "./resources/jsp/GetSearchResultData_D_3.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -56,6 +62,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										{name: 'CHART_FW', type: 'number'}										
 				                       ]
 			}else if(store.orgParentIds == "D004"){
+				requestUrl = "./resources/jsp/GetSearchResultData_D_4.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -75,6 +82,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										{name: 'CHART_ECPC', type: 'number'}
 				                       ]
 			}else if(store.orgParentIds == "D005"){
+				requestUrl = "./resources/jsp/GetSearchResultData_D_5.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -102,6 +110,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										{name: 'CHART_RNDAY', type: 'number'}
 				                       ]
 			}else if(store.orgParentIds == "D006"){
+				requestUrl = "./resources/jsp/GetSearchResultData_D_6.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -117,6 +126,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										{name: 'CHART_SIDAY', type: 'number'}
 				                       ]
 			}else if(store.orgParentIds == "D007"){
+				requestUrl = "./resources/jsp/GetSearchResultData_D_7.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -159,220 +169,37 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			
 			var jsonData = "";
 			var arrData = [];
-			//console.info(store.parentIds);
 			
-			if(store.orgParentIds == "D001"){
+			// 로딩바 표시
+			Ext.getCmp("searchResultWindow").mask("loading", "loading...");
+			console.info(requestUrl);
+			Ext.Ajax.request({
+        		url: requestUrl,
+        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
+        		async: true, // 비동기 = async: true, 동기 = async: false
+        		success : function(response, opts) {
 
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_D_1.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-	        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		//rootProperty : 'items',
-	        		success : function(response, opts) {
-	        			
-	        			//console.info(response.responseText);
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        			console.info(jsonData.data);
-	        			//store.loadData(jsonData.data);
-	        			//for(var i = 0; i < jsonData.data.length; i++){
-	        				//arrData.push({name: jsonData.data[i].name});
-	        			//}
-	        			//store.setData(arrData);
-	        			//console.info(store.data.length);
-	        			//store.load();
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			
-			}else if(store.orgParentIds == "D002"){
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_D_2.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-	        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		//rootProperty : 'items',
-	        		success : function(response, opts) {
-	        			
-	        			//console.info(response.responseText);
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        			console.info(jsonData.data);
-	        			//store.loadData(jsonData.data);
-	        			//for(var i = 0; i < jsonData.data.length; i++){
-	        				//arrData.push({name: jsonData.data[i].name});
-	        			//}
-	        			//store.setData(arrData);
-	        			//console.info(store.data.length);
-	        			//store.load();
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}else if(store.orgParentIds == "D003"){
-
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_D_3.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-	        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		//rootProperty : 'items',
-	        		success : function(response, opts) {
-	        			
-	        			//console.info(response.responseText);
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        			console.info(jsonData.data);
-	        			//store.loadData(jsonData.data);
-	        			//for(var i = 0; i < jsonData.data.length; i++){
-	        				//arrData.push({name: jsonData.data[i].name});
-	        			//}
-	        			//store.setData(arrData);
-	        			//console.info(store.data.length);
-	        			//store.load();
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			
-			}else if(store.orgParentIds == "D004"){
-				
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_D_4.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-	        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		//rootProperty : 'items',
-	        		success : function(response, opts) {
-	        			
-	        			//console.info(response.responseText);
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        			console.info(jsonData.data);
-	        			//store.loadData(jsonData.data);
-	        			//for(var i = 0; i < jsonData.data.length; i++){
-	        				//arrData.push({name: jsonData.data[i].name});
-	        			//}
-	        			//store.setData(arrData);
-	        			//console.info(store.data.length);
-	        			//store.load();
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}else if(store.orgParentIds == "D005"){
-				
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_D_5.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-	        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		//rootProperty : 'items',
-	        		success : function(response, opts) {
-	        			
-	        			//console.info(response.responseText);
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        			console.info(jsonData.data);
-	        			//store.loadData(jsonData.data);
-	        			//for(var i = 0; i < jsonData.data.length; i++){
-	        				//arrData.push({name: jsonData.data[i].name});
-	        			//}
-	        			//store.setData(arrData);
-	        			//console.info(store.data.length);
-	        			//store.load();
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}else if(store.orgParentIds == "D006"){
-				
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_D_6.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-	        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		//rootProperty : 'items',
-	        		success : function(response, opts) {
-	        			
-	        			//console.info(response.responseText);
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        			console.info(jsonData.data);
-	        			//store.loadData(jsonData.data);
-	        			//for(var i = 0; i < jsonData.data.length; i++){
-	        				//arrData.push({name: jsonData.data[i].name});
-	        			//}
-	        			//store.setData(arrData);
-	        			//console.info(store.data.length);
-	        			//store.load();
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}else if(store.orgParentIds == "D007"){
-				
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_D_7.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-	        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-	        		async: true, // 비동기 = async: true, 동기 = async: false
-	        		//rootProperty : 'items',
-	        		success : function(response, opts) {
-	        			
-	        			//console.info(response.responseText);
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			store.setData(jsonData.data);
-	        			console.info(jsonData.data);
-	        			//store.loadData(jsonData.data);
-	        			//for(var i = 0; i < jsonData.data.length; i++){
-	        				//arrData.push({name: jsonData.data[i].name});
-	        			//}
-	        			//store.setData(arrData);
-	        			//console.info(store.data.length);
-	        			//store.load();
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}
+        			//console.info(response.responseText);
+        			jsonData = Ext.util.JSON.decode( response.responseText );
+        			store.setData(jsonData.data);
+        			console.info(jsonData.data);
+        			
+        			// 로딩바 숨김
+        			Ext.getCmp("searchResultWindow").unmask();
+        			
+        		},
+        		failure: function(form, action) {
+        			// 로딩바 숨김
+        			Ext.getCmp("searchResultWindow").unmask();
+        			
+        			//alert(form.responseText);
+        			console.info(form);
+        			console.info(action);
+        			alert("오류가 발생하였습니다.");
+        		}
+        	});
 			
 		}
     }

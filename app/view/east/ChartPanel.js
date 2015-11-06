@@ -105,7 +105,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        },
 	        animate: true,
 	        shadow: false,
-	        store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
+	        //store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
 	        insetPadding: 10,
 	       
 	        axes: [{

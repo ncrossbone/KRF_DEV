@@ -61,36 +61,59 @@ Ext.define('KRF_DEV.view.main.Main', {
  		console.info("Ext.firefoxVersion : " + Ext.firefoxVersion);
  		//console.info("Ext.isGecko (Firefox) : " + Ext.isGecko);
  		
- 		console.info(navigator.plugins);
- 		
- 		if(Ext.browser.is.Chrome == false){
- 			//alert("크롬 브라우저를 사용하세요.");
- 			Ext.create("Ext.window.Window", {
- 				renderTo: Ext.getBody(),
- 				width: 300,
- 				height: 300,
- 				closable: false,
- 				title: '알림',
- 				items: [{
- 					xtype: 'panel',
- 					layout: {
- 						type: 'vbox',
- 						align: 'middle',
- 						pack: 'middle'
- 					},
- 					header: false,
- 					items: [{
- 						height: 30
- 					}, {
- 						html: "하천망 분석도 시스템은 IE를 지원하지 않습니다.<br>크롬 브라우저를 사용해주세요."
- 					}, {
- 						height: 30
- 					}, {
- 						html: "<a href='./resources/downloads/ChromeStandaloneSetup.exe'>크롬다운로드</a>"
- 					}]
- 				}]
- 			}).show();
- 			return;
+ 		//console.info(document.URL);
+ 		if(location.host != "http://112.218.1.243:20003/KRF_IE/"){
+	 		//if(Ext.browser.is.Chrome == false){
+	 		if(Ext.browser.is.IE == true){
+	 			Ext.create("Ext.window.Window", {
+	 				renderTo: Ext.getBody(),
+	 				width: 886,
+	 				height: 620,
+	 				closable: false,
+	 				header: false,
+	 				title: '알림',
+	 				style: 'border: 0px; margin: 0 0 0 0',
+	 				items: [{
+	 					xtype: 'panel',
+	 					layout: {
+	 						type: 'vbox',
+	 						align: 'middle',
+	 						pack: 'middle'
+	 					},
+	 					header: false,
+	 					items: [{
+	 						html: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">'
+	 							+ '<html xmlns="http://www.w3.org/1999/xhtml">'
+	 							+ '<head>'
+	 							+ '<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />'
+	 							+ '<title>Untitled Document</title>'
+	 							+ '<style>'
+	 							+ 'html, body,'
+	 							+ 'div, span,'
+	 							+ 'dl, dt, dd, ul, ol, li,'
+	 							+ 'h1, h2, h3, h4, h5, h6,'
+	 							+ 'blockquote, p, address, pre, cite,'
+	 							+ 'form, fieldset, input, textarea, select,'
+	 							+ 'table, th, td {'
+	 							+ 'margin:0;'
+	 							+ 'padding:0;'
+	 							+ '}'
+	 							+ '</style>'
+	 							+ '</head>'
+	 							+ '<body>'
+	 							+ '<div><img src="./resources/images/chrome_pop.jpg" usemap="#Map" border="0" />'
+	 							+ '<map name="Map" id="Map">'
+	 							+ '<area shape="rect" coords="850,3,885,35" href="javascript:window.close();" title="닫기" />'
+	 							+ '<area shape="rect" coords="135,184,749,315" href="./resources/downloads/ChromeStandaloneSetup.exe" title="Chrome 다운로드" />'
+	 							+ '</map>'
+	 							+ '</div>'
+	 							+ '</body>'
+	 							+ '</html>'
+	 					}]
+	 				}]
+	 			}).show();
+	 			return;
+	 		}
  		}
     	
     	this.callParent();
