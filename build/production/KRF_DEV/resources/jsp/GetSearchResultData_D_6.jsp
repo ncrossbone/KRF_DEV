@@ -111,7 +111,7 @@ sql += "    AND A.RN BETWEEN B.RN -4 AND B.RN                                   
 sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                          ";
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
-   
+   //out.print(sql);
 	stmt = con.createStatement();
 	rs = stmt.executeQuery(sql);
 

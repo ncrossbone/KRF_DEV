@@ -31,7 +31,7 @@ try{
 	sql += "  (SELECT RANK() OVER(PARTITION BY STNID ORDER BY STNID, WMCYMD DESC) AS RN, /* 순번 */   ";
 	sql += "        STNID AS PT_NO, /* 관측소코드 */                                                  ";
 	sql += "        OBSNM AS PT_NM, /* 관측소명 */                                                    ";
-	sql += "        WMCYMD, /* 관측일자 */                                                            ";
+	sql += "        SUBSTR(WMCYMD,1,4)||'.'||SUBSTR(WMCYMD,5,2)||'.'||SUBSTR(WMCYMD,7,2) AS WMCYMD, /* 관측일자 */                                                            ";
 	sql += "        WD, /* 풍향(m/s) */                                                               ";
 	sql += "        WS, /* 풍속(m/s) */                                                               ";
 	sql += "        TA, /* 기온 */                                                                    ";
