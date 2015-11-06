@@ -319,6 +319,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			
         			// 로딩바 숨김
         			Ext.getCmp("siteCharttest").unmask();
+        			//Ext.getCmp("siteCharttest").mask("데이터가 존재하지 않습니다.", "no data");
         			
         		},
         		failure: function(form, action) {
