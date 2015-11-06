@@ -112,77 +112,78 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					
 					
 					for(i = 0; i < result.features.length; i++){
-						
-						if(result.features[i].attributes.GROUP_CODE != groupGubun){
-							
-							if(i != "0"){
-								aa = i;
-								jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-								jsonStr += "\n]}]}, ";
+						if(result.features[i].attributes.GROUP_CODE != "E"){
+							if(result.features[i].attributes.GROUP_CODE != groupGubun ){
 								
-								jsonStr = jsonStr.replace("#groupCnt#", groupCnt); // 그룹 카운트 설정
-								groupCnt = 0; // 그룹 카운트 초기화
-							}
-							
-							var queryGroup = new esri.tasks.Query();
-							queryGroup.returnGeometry = false;
-							//var groupCnt = "0";
-							
-							jsonStr += "{	\"id\": \"" + result.features[i].attributes.GROUP_CODE + "\",\n";
-							jsonStr += "	\"text\": \"" + result.features[i].attributes.GROUP_NM + "(#groupCnt#)\",\n";
-							jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
-							if(i == 0){
-								jsonStr += "	\"expanded\": true,\n";
-							}else{
-								jsonStr += "	\"expanded\": false,\n";
-							}
-							//jsonStr += "	\"expanded\": true,\n";
-							jsonStr += "	\"checked\": null,\n";
-							jsonStr += "	\"children\": [ \n";
-						
-						}
-						
-						if(result.features[i].attributes.LAYER_CODE != preGubun){
-							if(i > 0){
-								if(aa == i){
+								if(i != "0"){
+									aa = i;
 									jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-								}else{
-									jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-									jsonStr += "\n]}, ";
-									cnt = i;
+									jsonStr += "\n]}]}, ";
+									
+									jsonStr = jsonStr.replace("#groupCnt#", groupCnt); // 그룹 카운트 설정
+									groupCnt = 0; // 그룹 카운트 초기화
 								}
-
-								jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
-								layerCnt = 0; // 레이어 카운트 초기화
+								
+								var queryGroup = new esri.tasks.Query();
+								queryGroup.returnGeometry = false;
+								//var groupCnt = "0";
+								
+								jsonStr += "{	\"id\": \"" + result.features[i].attributes.GROUP_CODE + "\",\n";
+								jsonStr += "	\"text\": \"" + result.features[i].attributes.GROUP_NM + "(#groupCnt#)\",\n";
+								jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
+								if(i == 0){
+									jsonStr += "	\"expanded\": true,\n";
+								}else{
+									jsonStr += "	\"expanded\": false,\n";
+								}
+								//jsonStr += "	\"expanded\": true,\n";
+								jsonStr += "	\"checked\": null,\n";
+								jsonStr += "	\"children\": [ \n";
+							
 							}
 							
+							if(result.features[i].attributes.LAYER_CODE != preGubun){
+								if(i > 0){
+									if(aa == i){
+										jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
+									}else{
+										jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
+										jsonStr += "\n]}, ";
+										cnt = i;
+									}
+	
+									jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
+									layerCnt = 0; // 레이어 카운트 초기화
+								}
+								
+								jsonStr += "{\n";
+								jsonStr += "	\"id\": \"" + result.features[i].attributes.LAYER_CODE + "\",\n";
+								jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "(#layerCnt#)\",\n";
+								
+								if(i == 0 ){
+									jsonStr += "	\"expanded\": true,\n"; // 펼치기..
+								}else{
+									jsonStr += "	\"expanded\": false,\n"; // 펼치기..
+								}
+								
+								jsonStr += "	\"children\": [";
+								preGubun = result.features[i].attributes.LAYER_CODE;
+								groupGubun = result.features[i].attributes.GROUP_CODE;
+							}
+							//console.info(result.features[i].attributes);
 							jsonStr += "{\n";
-							jsonStr += "	\"id\": \"" + result.features[i].attributes.LAYER_CODE + "\",\n";
-							jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "(#layerCnt#)\",\n";
+							jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
+							jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
+							jsonStr += "		\"catId\": \"" + result.features[i].attributes.CAT_ID + "\",\n";
+							jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
+							jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
+							jsonStr += "		\"leaf\": true,\n";
+							jsonStr += "		\"checked\": null\n";
+							jsonStr += "	}, ";
 							
-							if(i == 0 ){
-								jsonStr += "	\"expanded\": true,\n"; // 펼치기..
-							}else{
-								jsonStr += "	\"expanded\": false,\n"; // 펼치기..
-							}
-							
-							jsonStr += "	\"children\": [";
-							preGubun = result.features[i].attributes.LAYER_CODE;
-							groupGubun = result.features[i].attributes.GROUP_CODE;
+							groupCnt++;
+							layerCnt++;
 						}
-						//console.info(result.features[i].attributes);
-						jsonStr += "{\n";
-						jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
-						jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
-						jsonStr += "		\"catId\": \"" + result.features[i].attributes.CAT_ID + "\",\n";
-						jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
-						jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
-						jsonStr += "		\"leaf\": true,\n";
-						jsonStr += "		\"checked\": null\n";
-						jsonStr += "	}, ";
-						
-						groupCnt++;
-						layerCnt++;
 					}
 				});
 				

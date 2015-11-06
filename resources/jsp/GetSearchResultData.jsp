@@ -28,7 +28,7 @@ try{
 	
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
-	sql = " SELECT CASE WHEN SUBSTR(A.PT_NO,5,1) = 'B' THEN RANK() OVER(PARTITION BY SUBSTR(A.PT_NO, 1, 7) ORDER BY A.PT_NO, A.WMWK DESC)  ELSE A.RN   END RN,   ";
+	sql = " SELECT CASE  WHEN SUBSTR(A.WMWK, 2, 1) = 'ȸ' THEN A.RN  ELSE RANK() OVER(PARTITION BY SUBSTR(A.PT_NO, 1, 7) ORDER BY A.PT_NO, A.WMWK DESC) END RN,   ";
 	sql += "   SUBSTR(A.PT_NO, 1, 7) AS PT_NO,                                                                                      ";
 	sql += "   A.PT_NM,                                                                                                             ";
 	sql += "   A.WMCYMD,                                                                                                            ";
