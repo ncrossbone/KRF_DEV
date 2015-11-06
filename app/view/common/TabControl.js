@@ -306,7 +306,19 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		//title: 'tab1',
 		style: 'background-color: #157fcb;',
 		//header: false
-		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab'
+		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
+		listeners:{
+			'tabchange': function (tabPanel, tab){
+				console.info(tab.parentId);
+				if(tab.parentId != "F"){
+					var hiddenGrid = Ext.getCmp("F_CHANGE");
+					hiddenGrid.setHidden(true);
+				}else{
+					var hiddenGrid = Ext.getCmp("F_CHANGE");
+					hiddenGrid.setHidden(false);
+				}
+			}
+		}
 	}]
 		
 });

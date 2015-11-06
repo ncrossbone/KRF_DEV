@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 	//bodyStyle: 'background-color: white;',
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 	
-	width: 400,
+	width: '100%',
 	height: 300,
 
 	items: [{

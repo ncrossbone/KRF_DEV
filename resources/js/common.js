@@ -670,6 +670,15 @@ ChangeTabIndex = function(tabIdx){
 // 검색결과창 띄우기
 ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
+	var orgParentId = parentIds[0].parentId;
+	
+	if(parentIds[0].parentId == undefined){
+		var parentCheck = parentIds.substring(0,1);
+	}else{
+		var parentCheck = parentIds[0].parentId.substring(0,1);
+	}
+	
+	
 	// 리치검색 khLee 20151102 추가
 	if(siteIds == "CAT"){
 		ShowSearchResultReach();
@@ -724,6 +733,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			//id: "searchResultContainer",
 			id: gridId + "_container",
 			title: titleText, //_searchType,
+			parentId: parentCheck,
 			//closable : true,
 			autoResize: true
 	};
@@ -733,13 +743,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
 	
-	var orgParentId = parentIds[0].parentId;
-	
-	if(parentIds[0].parentId == undefined){
-		var parentCheck = parentIds.substring(0,1);
-	}else{
-		var parentCheck = parentIds[0].parentId.substring(0,1);
-	}	
+		
 	
 	
 	var hiddenGrid = Ext.getCmp("F_CHANGE");	
@@ -758,9 +762,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	if(parentCheck == "A"){	
 		
 		//console.info(sYearCtl.setValue("2013"));
-		
 		//환경기초시설 검색값 히든처리
-		hiddenGrid.setHidden(true);
+		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
 			//searchResultTab.add(grdContainer);
@@ -808,7 +811,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		//cmbEndMonth.setValue("2015");
 		
 		//환경기초시설 검색값 히든처리
-		hiddenGrid.setHidden(false);
+		//hiddenGrid.setHidden(false);
 		if(grdContainer == null || grdContainer == undefined){
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
@@ -946,7 +949,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		grdCtl.getView().bindStore(gridStore);
 		
 	}else if(parentCheck == "B"){
-		hiddenGrid.setHidden(true);
+		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B", options);
@@ -990,7 +993,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			cmbEndMonth.setValue("12");
 		}
 
-		hiddenGrid.setHidden(true);
+		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_C", options);
@@ -1028,7 +1031,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	}else if(parentCheck == "D"){
 
 		console.info(orgParentId);
-		hiddenGrid.setHidden(true);
+		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
 			if(orgParentId == "D001"){

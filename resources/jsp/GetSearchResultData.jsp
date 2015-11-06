@@ -28,7 +28,7 @@ try{
 	
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
-	sql = " SELECT A.RN,																																																						";
+	sql = " SELECT CASE WHEN SUBSTR(A.PT_NO,5,1) = 'B' THEN RANK() OVER(PARTITION BY SUBSTR(A.PT_NO, 1, 7) ORDER BY A.PT_NO, A.WMWK DESC)  ELSE A.RN   END RN,   ";
 	sql += "   SUBSTR(A.PT_NO, 1, 7) AS PT_NO,                                                                                      ";
 	sql += "   A.PT_NM,                                                                                                             ";
 	sql += "   A.WMCYMD,                                                                                                            ";
@@ -452,7 +452,7 @@ try{
 	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '2' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중상층부'          ";
 	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '3' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중층부'            ";
 	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '4' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중하층부'          ";
-	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '5' THEN SUBSTR(C.WMWK, 1, 1)||'회차 상층부'            ";
+	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '5' THEN SUBSTR(C.WMWK, 1, 1)||'회차 하층부'            ";
 	sql += "                  END                                                                                 ";
 	sql += "                  ELSE C.WMWK                                                                         ";
 	sql += "                END AS WMWK /* 회차 -수정-*/,                                                         ";
@@ -544,7 +544,7 @@ try{
 	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '2' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중상층부'      ";
 	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '3' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중층부'        ";
 	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '4' THEN SUBSTR(C.WMWK, 1, 1)||'회차 중하층부'      ";
-	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '5' THEN SUBSTR(C.WMWK, 1, 1)||'회차 상층부'        ";
+	sql += "                    WHEN SUBSTR(C.WMWK, -1) = '5' THEN SUBSTR(C.WMWK, 1, 1)||'회차 하층부'        ";
 	sql += "                  END                                                                             ";
 	sql += "                  ELSE C.WMWK                                                                     ";
 	sql += "                END AS WMWK /* 회차 -수정-*/,                                                     ";
