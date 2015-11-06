@@ -30,7 +30,7 @@ try{
 	sql = " WITH TMP_TBL AS																																																";
 	sql += "  (SELECT * FROM ( SELECT RN                                                                                                    ";
 	sql += "      , FACI_NM  /* 처리시설명 */                                                                               ";
-	sql += "      , A.WORK_DT  /* 운영일자 */                                                                               ";
+	sql += "      , REPLACE(A.WORK_DT,'-','.') AS WORK_DT  /* 운영일자 */                                                                               ";
 	sql += "      , '유입구번호 : '||A.PIPE_NUM AS PIPE_NUM /* 유입구번호 */ ,                                               ";
 	sql += "  		TO_NUMBER(AMT ) AS ITEM_AMT /* 유량(㎥/일) */ ,								";
 	sql += "      TO_NUMBER(BOD ) AS ITEM_BOD /* BOD(㎎/ℓ) */ ,                ";
@@ -100,7 +100,7 @@ try{
                              
 
 
-		
+	System.out.println(sql);		
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);

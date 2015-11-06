@@ -30,7 +30,7 @@ try{
 	sql = " WITH TMP_TBL AS																																																	";
 	sql += "  (SELECT * FROM  ( SELECT RN /* 순번 참고용 */                                                                                    ";
 	sql += "      , FACI_NM    /* 처리시설명*/                                                                                ";
-	sql += "      , A.WORK_DT    /* 운영일자*/                                                                                ";
+	sql += "      , REPLACE(A.WORK_DT,'-','.') AS WORK_DT    /* 운영일자*/                                                                                ";
 	sql += "      , '유입원 : '||A.IN_PL_TYPE AS IN_PL_TYPE /* 유입원 */                                                      ";
 	sql += "      , AMT   AS ITEM_AMT    /* 유량(㎥/일) */                                      ";
 	sql += "      , BOD   AS ITEM_BOD    /* BOD(㎎/ℓ) */                                       ";
@@ -73,7 +73,7 @@ try{
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                 ";	
 	}  
-	sql += "  ORDER BY FACI_NM, IN_PL_TYPE, WORK_DT ASC )                                                                    ";
+	sql += "  ORDER BY FACI_NM, IN_PL_TYPE, WORK_DT ASC )           )                                                         ";
 	sql += "     SELECT *                                                                                                     ";
 	if(defaultChart.equals("1")){
 		sql += " FROM (SELECT *                                                                                                   ";
@@ -97,7 +97,7 @@ try{
                              
 
 
-		
+	System.out.println(sql);		
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
