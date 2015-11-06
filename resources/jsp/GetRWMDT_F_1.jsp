@@ -81,12 +81,10 @@ try{
 	sql += "    AND A.DISCHARGE_NUM = B.DISCHARGE_NUM                                                                                     ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                               ";
 	if(defaultChart.equals("1")){
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201312'                          ";
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201312'       )        WHERE RN  <= 10         ";
 	}else{
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                                        ";	
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'      )                                  ";
 	}
-sql += " ) ";
-sql += " where rn <= 10 ";
 	sql += "  ORDER BY FACI_NM, DISCHARGE_NUM, WORK_DT ASC)                                                                              ";
 	sql += " SELECT *                                                                                                                     ";
 	if(defaultChart.equals("1")){
@@ -113,7 +111,7 @@ sql += " where rn <= 10 ";
                              
 
 
-		
+	System.out.println(sql);
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);

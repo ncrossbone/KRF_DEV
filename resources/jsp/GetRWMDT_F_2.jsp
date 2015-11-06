@@ -69,11 +69,10 @@ try{
 	sql += "    AND A.IN_PL_TYPE = B.IN_PL_TYPE                                                                               ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                        ";
 	if(defaultChart.equals("1")){
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201312'                 ";
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201312'    ) WHERE RN   <= 10                ";
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'                 ";	
-	}
-	sql += "    ) WHERE RN   <= 10                                                                                                  ";  
+	}  
 	sql += "  ORDER BY FACI_NM, IN_PL_TYPE, WORK_DT ASC )                                                                    ";
 	sql += "     SELECT *                                                                                                     ";
 	if(defaultChart.equals("1")){

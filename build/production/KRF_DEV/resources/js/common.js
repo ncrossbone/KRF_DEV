@@ -208,142 +208,121 @@ ReachInfoBinding = function(objs){
 
 //지점/차트 정보 창 띄우기
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
-	var orgParentId = parentId
 	
-	parentId = parentId.substring(0,1);
-	
-	if(parentId == "D"){
-		KRF_DEV.getApplication().chartFlag_D = orgParentId;
-	}
-	//console.info(parentId);
-	KRF_DEV.getApplication().parentFlag = parentId;
-	KRF_DEV.getApplication().chartFlag = "1";
-	
-	var winCtl = Ext.getCmp("windowSiteNChart");
-	
-	if(winCtl == undefined){
-		winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart',{
-			
-		});
-	}
-	
-	
-	
-	
-	winCtl.show();
-	
-
-	var winX = Ext.getBody().getViewSize().width - winCtl.width;
-	var winY = 98;
-	
-	var listCtl = Ext.getCmp("siteListWindow");
-	if(listCtl != undefined){
-		winY = listCtl.height + winY;
-	}
-	
-	winCtl.setX(winX);
-	winCtl.setY(winY);
-	
-	var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
-	var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
-	var siteText = Ext.getCmp("selectName");  //
-	var siteItemText = Ext.getCmp("selectItemName");  //
-	//지점명 표출
-	siteText.setText(test);
-	//각쿼리당 초기값 설정
-	var labelName = "";
 	var yFieldName = "";
-	var series = siteChartCtl.series[0];
-	if(parentId == "A"){
-		series.setXField("yearMonth");
-		siteItemText.setText("BOD(㎎/L)");
-		//series.setYField("ITEM_BOD");
-		labelName = "BOD";
-		yFieldName = "ITEM_BOD";
-	}else if(parentId == "B"){
-		series.setXField("WMCYMD");
-		siteItemText.setText("COD(㎎/L)");
-		//series.setYField("ITEM_COD");
-		labelName = "COD";
-		yFieldName = "ITEM_COD";
-	}else if(parentId == "C"){
-		series.setXField("WMCYMD");
-		siteItemText.setText("DO(㎎/L)");
-		//series.setYField("ITEM_DOW");
-		labelName = "DO";
-		yFieldName = "ITEM_DOW";
-	}else if(parentId == "F"){
-		series.setXField("WORK_DT");
-		siteItemText.setText("BOD(㎎/L)");
-		//series.setYField("ITEM_BOD");
-		labelName = "BOD";
-		yFieldName = "ITEM_BOD";
-	}else if(orgParentId == "D001"){
-		series.setXField("WMCYMD");
-		//series.setYField("WL");
-		siteItemText.setText("수위(cm)");
-		labelName = "수위(cm)";
-		yFieldName = "WL";
+	
+	//console.info(tabIdx);
+	
+	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
+		var orgParentId = parentId
 		
-	}else if(orgParentId == "D002"){
-		series.setXField("WMCYMD");
-		//series.setYField("RF");
-		siteItemText.setText("우량자료(mm)");
-		labelName = "우량자료(mm)";
-		yFieldName = "RF";
+		parentId = parentId.substring(0,1);
 		
-	}else if(orgParentId == "D003"){
-		series.setXField("WMCYMD");
-		//series.setYField("FW");
-		siteItemText.setText("유량(CMS)");
-		labelName = "유량(CMS)";
-		yFieldName = "FW";
+		if(parentId == "D"){
+			KRF_DEV.getApplication().chartFlag_D = orgParentId;
+		}
 		
-	}else if(orgParentId == "D004"){
-		series.setXField("WMCYMD");
-		//series.setYField("SWL");
-		siteItemText.setText("저수위(cm)");
-		labelName = "저수위(cm)";
-		yFieldName = "SWL";
+		KRF_DEV.getApplication().parentFlag = parentId;
+		KRF_DEV.getApplication().chartFlag = "1";
 		
-	}else if(orgParentId == "D005"){
-		series.setXField("WMCYMD");
-		//series.setYField("WD");
-		siteItemText.setText("풍향(m/s)");
-		labelName = "풍향(m/s)";
-		yFieldName = "WD";
+		var winCtl = Ext.getCmp("windowSiteNChart");
 		
-	}else if(orgParentId == "D006"){
-		series.setXField("WMCYMD");
-		//series.setYField("RND");
-		siteItemText.setText("강수량자료(mm)");
-		labelName = "강수량자료(mm)";
-		yFieldName = "RND";
+		if(winCtl == undefined){
+			winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart',{
+				
+			});
+		}
+	
+		winCtl.show();
 		
-	}else if(orgParentId == "D007"){
-		series.setXField("WMCYMD");
-		//series.setYField("SWL");
-		siteItemText.setText("보 상류수위(m)");
-		labelName = "보 상류수위(m)";
-		yFieldName = "SWL";
+	
+		var winX = Ext.getBody().getViewSize().width - winCtl.width;
+		var winY = 98;
+		
+		var listCtl = Ext.getCmp("siteListWindow");
+		if(listCtl != undefined){
+			winY = listCtl.height + winY;
+		}
+		
+		winCtl.setX(winX);
+		winCtl.setY(winY);
+		
+		var siteinfoCtl = Ext.getCmp("siteinfotest");  // 지점정보 ID
+		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
+		
+		var siteText = Ext.getCmp("selectName");  // 지점명
+		//지점명 표출
+		siteText.setText(test);
+		
+		//각쿼리당 초기값 설정
+		var series = siteChartCtl.series[0];
+		
+		if(parentId == "A"){
+			series.setXField("yearMonth");
+			yFieldName = "ITEM_BOD";
+		}else if(parentId == "B"){
+			series.setXField("WMCYMD");
+			yFieldName = "ITEM_COD";
+		}else if(parentId == "C"){
+			series.setXField("WMCYMD");
+			yFieldName = "ITEM_DOW";
+		}else if(parentId == "F"){
+			series.setXField("WORK_DT");
+			yFieldName = "ITEM_BOD";
+		}else if(orgParentId == "D001"){
+			series.setXField("WMCYMD");
+			yFieldName = "WL";
+		}else if(orgParentId == "D002"){
+			series.setXField("WMCYMD");
+			yFieldName = "RF";
+		}else if(orgParentId == "D003"){
+			series.setXField("WMCYMD");
+			yFieldName = "FW";
+		}else if(orgParentId == "D004"){
+			series.setXField("WMCYMD");
+			yFieldName = "SWL";
+		}else if(orgParentId == "D005"){
+			series.setXField("WMCYMD");
+			yFieldName = "WD";
+		}else if(orgParentId == "D006"){
+			series.setXField("WMCYMD");
+			yFieldName = "RND";
+		}else if(orgParentId == "D007"){
+			series.setXField("WMCYMD");
+			yFieldName = "SWL";
+		}
+		console.info(yFieldName);
+		// 정보창 탭 체인지
+		ChangeTabIndex(tabIdx);
+		
+		// 지점정보 스토어 로드
+		if(siteinfoCtl != undefined){
+			//var store = siteinfoCtl.getStore();
+			var store = Ext.create('KRF_DEV.store.east.SiteInfoPanel');
+			store.siteCD = title;
+			store.load();
+			siteinfoCtl.setStore(store);
+		}
+		
+		// 차트정보 스토어 로드
+		if(siteChartCtl != undefined){
+			//var chartStore = siteChartCtl.getStore();
+			var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
+			chartStore.siteCD = title;
+			chartStore.parentId = parentId;
+			chartStore.load();
+			siteChartCtl.setStore(chartStore);
+		}
 	}
-	
-	
-	if(siteinfoCtl != undefined){
-		var store = siteinfoCtl.getStore();
+	else{
+		KRF_DEV.getApplication().chartFlag = "0";
+		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 		var chartStore = siteChartCtl.getStore();
-		
-		store.siteCD = title;
-		chartStore.siteCD = title;
-		
-		store.load();
-		chartStore.parentId = parentId;
 		chartStore.load();
-		
-		SetChartData(labelName, yFieldName, title, parentId);
 	}
 	
-	ChangeTabIndex(tabIdx);
+	console.info(yFieldName);
+	SetItemLabelText(yFieldName);
 
 }
 
@@ -361,75 +340,64 @@ HideWindowSiteNChart = function(){
 
 }
 
-// 차트 라벨 맥시멈 등 셋팅 및 스토어 로드
-// 기간설정 검색 시 파라메터 모두 공백으로.. 지점목록에서 검색 시 해당 값 파라메터
-SetChartData = function(labelName, yFieldName, siteCd, parentId){
+SetItemLabelText = function(itemNm){
+	
+	if(itemNm == undefined || itemNm == ""){
+		//item 선택
+		var selectItem = Ext.getCmp("selectItem");
+		itemNm = selectItem.lastValue;
+	}
+	console.info(itemNm);
+	var itemLable = "";
+	
+	if(itemNm == "ITEM_BOD"){
+		itemLable = "BOD(㎎/L)";
+	}else if(itemNm == "ITEM_COD"){
+		itemLable = "COD(㎎/L)";
+	}else if(itemNm == "ITEM_DOC" || itemNm == "ITEM_DOW"){
+		itemLable = "DO(㎎/L)";
+	}else if(itemNm == "WL"){
+		itemLable = "수위(cm)";
+	}else if(itemNm == "RF"){
+		itemLable = "우량(mm)";
+	}else if(itemNm == "FW"){
+		itemLable = "유량(CMS)";
+	}else if(itemNm == "SWL"){
+		itemLable = "저수위(cm)";
+	}else if(itemNm == "WD"){
+		itemLable = "풍향(m/s)";
+	}else if(itemNm == "RND"){
+		itemLable = "강수량(mm)";
+	}else if(itemNm == "SWL"){
+		itemLable = "보 상류수위(m)";
+	}else if(itemNm == "ITEM_TN"){
+		itemLable = "T-N (㎎/L)";
+	}else if(itemNm == "ITEM_TP"){
+		itemLable = "T-P (㎎/L)";
+	}else if(itemNm == "ITEM_TEMP"){
+		itemLable = "수온(℃)";
+	}else if(itemNm == "ITEM_PH"){
+		itemLable = "pH";
+	}else if(itemNm == "ITEM_SS"){
+		itemLable = "SS(㎎/ℓ)";
+	}else if(itemNm == "ITEM_CLOA"){
+		itemLable = "클로로필a(㎎/㎥)";
+	}
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes   = chartCtl.axes[0];
 	var series = chartCtl.series[0];
 	
-	//item 선택
-	var selectItem = Ext.getCmp("selectItem");
-	//년도
-	//var selectYear = Ext.getCmp("selectYear");
-	var s = "";
+	series.setYField(itemNm);
+	axes.fields = itemNm;
 	
-	// y필드 셋팅
-	if(yFieldName == undefined || yFieldName == ""){
-		series.setYField(selectItem.lastValue);
-		axes.fields = selectItem.lastValue;
-		s = selectItem.lastValue;
-	}
-	else{
-		series.setYField(yFieldName);
-		axes.fields = yFieldName;
-		s = yFieldName;
-	}
-	
-	console.info(axes);
-	
-	var store = chartCtl.getStore();
-	// 사이트 코드 셋팅
-	if(siteCd != undefined && siteCd != ""){
-		store.siteCD = siteCd;
-	}
-	
-	if(parentId != undefined && parentId != ""){
-		store.parentId = parentId;
-	}
-	
-	var labelNm = "";
-	// 라벨 셋팅
-	if(labelName == undefined || labelName == ""){
-		labelNm= selectItem.lastMutatedValue;
-		KRF_DEV.getApplication().chartFlag = "0";
-	}
-	else{
-		labelNm = labelName;
-	}
-	
-	if(labelNm == "BOD"){
-		labelNm = "BOD(㎎/L)";
-	}else if(labelNm == "DO"){
-		labelNm = "DO(㎎/L)";
-	}else if(labelNm == "COD"){
-		labelNm = "COD(㎎/L)";
-	}else if(labelNm == "T-N"){
-		labelNm = "T-N (㎎/L)";
-	}else if(labelNm == "T-P"){
-		labelNm = "T-P (㎎/L)";
-	}else if(labelNm == "수온"){
-		labelNm = "수온(℃)";
-	}else if(labelNm == "pH"){
-		labelNm = "pH";
-	}else if(labelNm == "SS"){
-		labelNm = "SS(㎎/ℓ)";
-	}else if(labelNm == "클로로필a"){
-		labelNm = "클로로필a(㎎/㎥)";
-	}
-	
-	store.load();
+	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
+	siteItemText.setText(itemLable);
+}
+
+// 차트 라벨 맥시멈 등 셋팅 및 스토어 로드
+// 기간설정 검색 시 파라메터 모두 공백으로.. 지점목록에서 검색 시 해당 값 파라메터
+SetChartMaxData = function(store){
 	
 	var ITEM_BOD = parseFloat(store.arrMax[0].ITEM_BOD);
 	var ITEM_DOC = parseFloat(store.arrMax[0].ITEM_DOC);
@@ -477,6 +445,11 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	var CBOTF = parseFloat(store.arrMax[0].CBOTF);
 	var FWOTF = parseFloat(store.arrMax[0].FWOTF);
 	var ETCOTF = parseFloat(store.arrMax[0].ETCOTF);
+	
+	var chartCtl = Ext.getCmp("siteCharttest");
+	var axes   = chartCtl.axes[0];
+	var series = chartCtl.series[0];
+	var s = series.getYField();
 	
 	if(s == "ITEM_BOD"){
 		axes.setMaximum(ITEM_BOD);
@@ -583,13 +556,10 @@ SetChartData = function(labelName, yFieldName, siteCd, parentId){
 	}else if(s == "ETCOTF"){
 		axes.setMaximum(ETCOTF);
 	}
-	
-	var selectItemName = Ext.getCmp("selectItemName")
-	selectItemName.setText(labelNm);
 
-	store.load();
+	//store.load();
 	
-	//chartCtl.getView().refresh();
+	chartCtl.redraw();
 
 	var win = Ext.getCmp("datePanel1");
 	if(win != undefined)
@@ -622,15 +592,6 @@ ChangeTabIndex = function(tabIdx){
 // 검색결과창 띄우기
 ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
-	var orgParentId = parentIds[0].parentId;
-	
-	if(parentIds[0].parentId == undefined){
-		var parentCheck = parentIds.substring(0,1);
-	}else{
-		var parentCheck = parentIds[0].parentId.substring(0,1);
-	}
-	
-	
 	// 리치검색 khLee 20151102 추가
 	if(siteIds == "CAT"){
 		ShowSearchResultReach();
@@ -652,6 +613,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
+	console.info(searchResultWindow);
 	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
 	
@@ -680,6 +642,14 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
 	//console.info(searchResultTab.items.items[1]);
+	
+	var orgParentId = parentIds[0].parentId;
+	
+	if(parentIds[0].parentId == undefined){
+		var parentCheck = parentIds.substring(0,1);
+	}else{
+		var parentCheck = parentIds[0].parentId.substring(0,1);
+	}
 	
 	options = {
 			//id: "searchResultContainer",
