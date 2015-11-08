@@ -8,7 +8,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 	controller: 'center',
 	
 	cls: 'khLee-x-header',
-	
+	/*
 	header: {
 		items: [{ 
 			xtype: 'image',
@@ -39,7 +39,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 			width: 50
 		}]
 	},
-	
+	*/
 	/*
 	tools: [{ 
 		xtype: 'image',

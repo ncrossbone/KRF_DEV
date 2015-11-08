@@ -283,11 +283,19 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			
 			var jsonData = "";
 			
-			
-			console.info(recordId);
 			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
+				requestUrl = "./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+			}else if(store.parentId == "F"){
+				requestUrl = "./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
+			}else if(org_D_firstID == "D"){
+				requestUrl = "./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+			}
+			
+			// 로딩바 표시
+			Ext.getCmp("siteCharttest").mask("loading", "loading...");
+			console.info(requestUrl);
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
+        		url: requestUrl,    // To Which url you wanna POST.
         		params: {recordId: recordId
         			, recordYear: recordYear
         			, recordYear2: recordYear2
@@ -295,7 +303,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			, recordMonth2: recordMonth2
         			, defaultChart: defaultChart
         			},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			
         			// JSON Object로 변경
@@ -303,65 +311,25 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			
         			store.loadData(jsonData.data);
         			store.arrMax = jsonData.maxdata;
+        			console.info(jsonData.data);
+        			console.info(jsonData.maxdata);
+        			
+        			// 차트 컨트롤에 max 데이터 셋팅
+        			SetChartMaxData(store);
+        			
+        			// 로딩바 숨김
+        			Ext.getCmp("siteCharttest").unmask();
+        			//Ext.getCmp("siteCharttest").mask("데이터가 존재하지 않습니다.", "no data");
         			
         		},
         		failure: function(form, action) {
+        			// 로딩바 숨김
+        			Ext.getCmp("siteCharttest").unmask();
+        			
         			//alert(form.responseText);
         			alert("오류가 발생하였습니다.");
         		}
         	});
-			
-			}else if(store.parentId == "F"){
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetRWMDT_'+f_parentId+'.jsp',    // To Which url you wanna POST.
-	        		params: {recordId: recordId
-	        			, recordYear: recordYear
-	        			, recordYear2: recordYear2
-	        			, recordMonth: recordMonth
-	        			, recordMonth2: recordMonth2
-	        			, defaultChart: defaultChart
-	        			},
-	        		async: false, // 비동기 = async: true, 동기 = async: false
-	        		success : function(response, opts) {
-	        			
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			
-	        			store.loadData(jsonData.data);
-	        			store.arrMax = jsonData.maxdata;
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			//alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}else if(org_D_firstID == "D"){
-				Ext.Ajax.request({
-	        		url: './resources/jsp/GetRWMDT_'+store.parentId+'.jsp',    // To Which url you wanna POST.
-	        		params: {recordId: recordId
-	        			, recordYear: recordYear
-	        			, recordYear2: recordYear2
-	        			, recordMonth: recordMonth
-	        			, recordMonth2: recordMonth2
-	        			, defaultChart: defaultChart
-	        			},
-	        		async: false, // 비동기 = async: true, 동기 = async: false
-	        		success : function(response, opts) {
-	        			
-	        			// JSON Object로 변경
-	        			jsonData = Ext.util.JSON.decode( response.responseText );
-	        			
-	        			store.loadData(jsonData.data);
-	        			store.arrMax = jsonData.maxdata;
-	        			
-	        		},
-	        		failure: function(form, action) {
-	        			//alert(form.responseText);
-	        			alert("오류가 발생하였습니다.");
-	        		}
-	        	});
-			}
 		}
     }
     

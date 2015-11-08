@@ -31,7 +31,7 @@ try{
 	sql = " WITH TMP_TBL AS																																																";
 	sql += "  ( SELECT * FROM ( SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.PIPE_NUM ORDER BY A.FACI_CD, A.PIPE_NUM, A.WORK_DT DESC) AS RN  ";
 	sql += "      , FACI_NM   /* 처리시설명*/                                                                               ";
-	sql += "      , A.WORK_DT   /* 운영일자*/                                                                               ";
+	sql += "      , REPLACE(A.WORK_DT,'-','.') AS WORK_DT   /* 운영일자*/                                                                               ";
 	sql += "      , '관거번호 : '||A.PIPE_NUM||'('||PIPE_TYPE||')' AS PIPE_NUM /* 관거번호(관거유형) */                     ";
 	sql += "      , AMT AS ITEM_AMT      /* 유량(㎥/일)*/                                    ";
 	sql += "      , BOD AS ITEM_BOD      /* BOD(㎎/ℓ)*/                                     ";
@@ -103,7 +103,7 @@ try{
                              
 
 
-		
+	System.out.println(sql);		
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);

@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 	//bodyStyle: 'background-color: white;',
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 	
-	width: 400,
+	width: '100%',
 	height: 300,
 
 	items: [{
@@ -34,7 +34,7 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 		title: '검색결과',
 		header: false,
 		//store: 'KRF_DEV.store.east.SiteInfoPanel',
-		store: Ext.create('KRF_DEV.store.east.SiteInfoPanel'),
+		//store: Ext.create('KRF_DEV.store.east.SiteInfoPanel'),
 		columns: [{
 			text      : '구분',
 			dataIndex : 'column',

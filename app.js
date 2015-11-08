@@ -85,23 +85,24 @@ Ext.application({
  	
  	launch: function(){
  		
+ 		/*
  		Ext.Ajax.on('beforerequest', function (con, opt) {
- 			Ext.LoadMask({msg: 'Please Wait...'});
- 			}, this);
- 			 /*
- 			Ext.Ajax.on('requestcomplete', function (con, res, opt) {
- 			  Ext.Viewport.setMasked(false);
- 			}, this);
+ 			console.info(con);
+ 			console.info(opt);
+ 			Ext.getBody().mask("loading", "loading...");
+ 		});
+ 		
+ 		Ext.Ajax.on('success', function(){
+ 			Ext.getBody().unmask();
+ 		});
  			 
- 			Ext.Ajax.on('requestexception', function (con, response, opt) {
- 			  Ext.Viewport.setMasked(false);
- 			}, this);
- 		*/
+ 		//Ext.Ajax.on('failure', Ext.getBody().unmask, Ext.getBody());
+ 			
  		Ext.WestTabChange = function(tabIdx){
  			var westContents = Ext.getCmp("westContents");
  			westContents.setActiveItem(tabIdx);
  		}
- 		
+ 		*/
  		
  		//Ext.WestTabChange(1);
  		
