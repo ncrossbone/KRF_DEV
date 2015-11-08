@@ -183,7 +183,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			listeners: {
 				change: function(combo, newVal, oldVal){
 					// 피처 레이어 생성/갱신
-					KRF_DEV.getApplication().fireEvent('Reach_TestOnOff', "DynamicLayerAdmin_ReachTest", newVal, 1);
+					//KRF_DEV.getApplication().fireEvent('Reach_TestOnOff', "DynamicLayerAdmin_ReachTest", newVal, 1);
+					KRF_DEV.getApplication().fireEvent('selectMapDisplayType',  newVal, 1);
 				}
 			},
 			width: 100,

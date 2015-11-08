@@ -31,7 +31,7 @@ try{
 	sql += "  (select * from ( SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.DISCHARGE_NUM ORDER BY A.FACI_CD, A.DISCHARGE_NUM, A.WORK_DT DESC) AS RN      ";
 	sql += "      , A.FACI_CD                                                                                                             ";
 	sql += "      , FACI_NM /* 贸府矫汲疙 */                                                                                              ";
-	sql += "      , A.WORK_DT /* 款康老磊 */                                                                                              ";
+	sql += "      , REPLACE(A.WORK_DT,'-','.') AS WORK_DT /* 款康老磊 */                                                                                              ";
 	sql += "      , '规幅备锅龋 : '||A.DISCHARGE_NUM AS DISCHARGE_NUM /* 规幅备锅龋 */                                                    ";
 	sql += "      , DISCHARGE_AMT_PHYS AS AMT_PHYS   /* 规幅樊_拱府利(З/老) */                            ";
 	sql += "      , DISCHARGE_AMT_BIO AS AMT_BIO    /* 规幅樊_积拱切利(З/老) */                          ";
