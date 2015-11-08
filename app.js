@@ -97,12 +97,11 @@ Ext.application({
  		});
  			 
  		//Ext.Ajax.on('failure', Ext.getBody().unmask, Ext.getBody());
- 			
+ 		*/	
  		Ext.WestTabChange = function(tabIdx){
  			var westContents = Ext.getCmp("westContents");
  			westContents.setActiveItem(tabIdx);
  		}
- 		*/
  		
  		//Ext.WestTabChange(1);
  		

@@ -331,33 +331,37 @@ sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                             
 	
 	jsonRecord = new JSONObject();
 	
-	jsonRecord.put("WS_NM",WS_NM);
-	jsonRecord.put("AM_NM",AM_NM);
-	jsonRecord.put("AS_NM",AS_NM);
-	jsonRecord.put("PT_NO",PT_NO);
-	jsonRecord.put("PT_NM",PT_NM);
-	jsonRecord.put("WMCYMD",WMCYMD);
-	jsonRecord.put("CURR_WD",CURR_WD);
-	jsonRecord.put("CHART_WD",CHART_WD);
-	jsonRecord.put("CURR_WS",CURR_WS);
-	jsonRecord.put("CHART_WS",CHART_WS);
-	jsonRecord.put("CURR_TA",CURR_TA);
-	jsonRecord.put("CHART_TA",CHART_TA);
-	jsonRecord.put("CURR_PS",CURR_PS);
-	jsonRecord.put("CHART_PS",CHART_PS);
-	jsonRecord.put("CURR_HM",CURR_HM);
-	jsonRecord.put("CHART_HM",CHART_HM);
-	jsonRecord.put("CURR_PA",CURR_PA);
-	jsonRecord.put("CHART_PA",CHART_PA);
-	jsonRecord.put("CURR_PS",CURR_PS);
-	jsonRecord.put("CHART_PS",CHART_PS);
-	jsonRecord.put("CURR_RNYN",CURR_RNYN);
-	jsonRecord.put("CHART_RNYN",CHART_RNYN);
-	jsonRecord.put("CURR_RN1HR",CURR_RN1HR);
-	jsonRecord.put("CHART_RN1HR",CHART_RN1HR);
-	jsonRecord.put("CURR_RNDAY",CURR_RNDAY);
-	jsonRecord.put("CHART_RNDAY",CHART_RNDAY);
-	
+	if(cnt > 0){
+		jsonRecord.put("WS_NM",WS_NM);
+		jsonRecord.put("AM_NM",AM_NM);
+		jsonRecord.put("AS_NM",AS_NM);
+		jsonRecord.put("PT_NO",PT_NO);
+		jsonRecord.put("PT_NM",PT_NM);
+		jsonRecord.put("WMCYMD",WMCYMD);
+		jsonRecord.put("CURR_WD",CURR_WD);
+		jsonRecord.put("CHART_WD",CHART_WD);
+		jsonRecord.put("CURR_WS",CURR_WS);
+		jsonRecord.put("CHART_WS",CHART_WS);
+		jsonRecord.put("CURR_TA",CURR_TA);
+		jsonRecord.put("CHART_TA",CHART_TA);
+		jsonRecord.put("CURR_PS",CURR_PS);
+		jsonRecord.put("CHART_PS",CHART_PS);
+		jsonRecord.put("CURR_HM",CURR_HM);
+		jsonRecord.put("CHART_HM",CHART_HM);
+		jsonRecord.put("CURR_PA",CURR_PA);
+		jsonRecord.put("CHART_PA",CHART_PA);
+		jsonRecord.put("CURR_PS",CURR_PS);
+		jsonRecord.put("CHART_PS",CHART_PS);
+		jsonRecord.put("CURR_RNYN",CURR_RNYN);
+		jsonRecord.put("CHART_RNYN",CHART_RNYN);
+		jsonRecord.put("CURR_RN1HR",CURR_RN1HR);
+		jsonRecord.put("CHART_RN1HR",CHART_RN1HR);
+		jsonRecord.put("CURR_RNDAY",CURR_RNDAY);
+		jsonRecord.put("CHART_RNDAY",CHART_RNDAY);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
 	
 	jsonArr.add(jsonRecord);
 	
