@@ -257,22 +257,15 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         }
     },
     
-    /*
-	initComponent: function(){
+    initComponent: function(){
+		this.on("beforeclose", function windSitreNChartClose(){
+			var windowSiteNChart = Ext.getCmp("windowSiteNChart");
+			if(windowSiteNChart != undefined){
+				windowSiteNChart.close();
+			}
+			
+		});
 		this.callParent();
-		// 트리 노드 클릭 이벤트
-		Ext.defer(function(){
-			Ext.getCmp("siteListTree").el.on("click", function(node, el){
-				
-				if(node.record.data.leaf == true){
-					if(node.record.data.id != undefined){
-						var nodeId = node.record.data.id;
-						var parentNodeId = node.record.data.parentId;
-						siteMovePoint(parentNodeId, nodeId);
-					}
-				}
-				
-			});
-		}, 1, this);
-	}*/
+		
+	}
 });

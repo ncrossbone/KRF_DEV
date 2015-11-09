@@ -103,8 +103,11 @@ Ext.application({
  			westContents.setActiveItem(tabIdx);
  		}
  		*/
- 		
- 		//Ext.WestTabChange(1);
+ 		Ext.WestTabChange = function(tabIdx){
+ 			var westContents = Ext.getCmp("westContents");
+ 			westContents.setActiveItem(tabIdx)
+ 		}
+ 		Ext.WestTabChange(1);
  		
  		// 이미지 on/off
  		Ext.SetSrc = function(currCtl){

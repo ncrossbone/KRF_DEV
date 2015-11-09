@@ -63,11 +63,10 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
          'resize' : function(win,width,height,opt){
             var chartPanel = Ext.getCmp("chartPanel");
             var siteCharttest = Ext.getCmp("siteCharttest");
-            var siteinfotest = Ext.getCmp("siteinfotest");
+            //var siteinfotest = Ext.getCmp("siteinfotest");
             var siteInfoPanel = Ext.getCmp("siteInfoPanel");
             siteInfoPanel.setWidth(width);//정보창 사이즈 조절
-            siteinfotest.columns[0].setWidth(width-300); // 정보창 구분 사이즈
-            siteinfotest.columns[1].setWidth(width-180); // 정보창 내용 사이즈
+            
             chartPanel.setWidth(width);
             chartPanel.setHeight(height);
             siteCharttest.setWidth(width);
@@ -87,14 +86,17 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 		}, {
 			xtype: 'east-siteinfopanel'
 		}]
-	}]/*,
+	}],
 	initComponent: function(){
-		Ext.apply(this,{
-			id: 'siteCd',
-			params: this.params
+		this.on("beforeclose", function windSitreNChartClose(){
+			var datePanel1 = Ext.getCmp("datePanel1");
+			if(datePanel1 != undefined){
+				datePanel1.close();
+			}
+			
 		});
 		this.callParent();
 		
 	}
-	*/
+	
 });
