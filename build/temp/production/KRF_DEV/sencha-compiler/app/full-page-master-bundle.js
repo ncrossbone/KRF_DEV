@@ -1,2 +1,2 @@
 // @tag full-page
-// @require D:\eclipse-gis\KRF\KRF_DEV\app.js
+// @require F:\KRF_Source\workspace\KRF_DEV\app.js
