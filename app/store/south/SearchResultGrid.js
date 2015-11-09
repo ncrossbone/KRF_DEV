@@ -159,8 +159,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			console.info(e);
 			
 			// 로딩바 표시
-			Ext.getCmp("searchResultWindow").mask("loading", "loading...");
+			//Ext.getCmp("searchResultWindow").mask("loading", "loading...");
 			//Ext.getBody().mask("loading", "loading...");
+			var winCtl = Ext.getCmp("searchResultWindow");
+			var tabContainer = winCtl.items.items[0];
+			var tabCtl = tabContainer.items.items[1];
+			var activeTab = tabCtl.getActiveTab();
+			activeTab.mask("loading", "loading...");
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData.jsp',
@@ -174,16 +179,21 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         			//console.info(response.responseText);
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			store.setData(jsonData.data);
-        			//console.info(jsonData.data);
         			
-        			// 로딩바 숨김
-        			Ext.getCmp("searchResultWindow").unmask();
+        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+        				store.setData(jsonData.data);
+	        			// 로딩바 숨김
+	        			activeTab.unmask();
+        			}
+        			else{
+        				activeTab.mask(jsonData.data[0].msg, "noData");
+        			}
         			
         		},
         		failure: function(form, action) {
         			// 로딩바 숨김
-        			Ext.getCmp("searchResultWindow").unmask();
+        			//Ext.getCmp("searchResultWindow").unmask();
+        			activeTab.unmask();
         			
         			//alert(form.responseText);
         			alert("오류가 발생하였습니다.");

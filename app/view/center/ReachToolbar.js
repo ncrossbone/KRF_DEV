@@ -39,8 +39,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
     layout: {
     	type: 'hbox',
     	align: 'middle',
-    	pack: 'middle'
+    	pack: 'left'
     },
+    
+    y: 10,
     
     initComponent: function(){
     
@@ -140,7 +142,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	btnOnImg: './resources/images/button/reach_menu08_on.png',
 	    	btnOffImg: './resources/images/button/reach_menu08.png',
 	    	src: './resources/images/button/reach_menu08.png'
-	    }, '->', {
+	    }/*, '->', {
 	    	xtype: 'image',
 	    	id: 'btnMenuSave',
 	    	groupId: 'groupSave',
@@ -160,7 +162,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	listeners: { el: { click: 'onClickOpen' } },
 	    	btnOnOff: 'off',
 	    	src: './resources/images/button/reach_menu_fileopen.png'
-	    }];
+	    }*/];
 	    
 	    var popCtl = Ext.create("KRF_DEV.view.center.SearchConfig", {
 			x: 390,

@@ -218,19 +218,23 @@ sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                             
 	
 	jsonRecord = new JSONObject();
 	
-	jsonRecord.put("WS_NM",WS_NM);
-	jsonRecord.put("AM_NM",AM_NM);
-	jsonRecord.put("AS_NM",AS_NM);
-	jsonRecord.put("PT_NO",PT_NO);
-	jsonRecord.put("PT_NM",PT_NM);
-	jsonRecord.put("WMCYMD",WMCYMD);
-	jsonRecord.put("CURR_RND",CURR_RND);
-	jsonRecord.put("CHART_RND",CHART_RND);
-	jsonRecord.put("CURR_TA",CURR_TA);
-	jsonRecord.put("CHART_TA",CHART_TA);
-	jsonRecord.put("CURR_SIDAY",CURR_SIDAY);
-	jsonRecord.put("CHART_SIDAY",CHART_SIDAY);
-	
+	if(cnt > 0){
+		jsonRecord.put("WS_NM",WS_NM);
+		jsonRecord.put("AM_NM",AM_NM);
+		jsonRecord.put("AS_NM",AS_NM);
+		jsonRecord.put("PT_NO",PT_NO);
+		jsonRecord.put("PT_NM",PT_NM);
+		jsonRecord.put("WMCYMD",WMCYMD);
+		jsonRecord.put("CURR_RND",CURR_RND);
+		jsonRecord.put("CHART_RND",CHART_RND);
+		jsonRecord.put("CURR_TA",CURR_TA);
+		jsonRecord.put("CHART_TA",CHART_TA);
+		jsonRecord.put("CURR_SIDAY",CURR_SIDAY);
+		jsonRecord.put("CHART_SIDAY",CHART_SIDAY);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
 	
 	jsonArr.add(jsonRecord);
 	

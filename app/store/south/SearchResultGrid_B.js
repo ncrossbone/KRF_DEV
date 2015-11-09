@@ -64,7 +64,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 			
 			var jsonData = "";
 			var arrData = [];
-			//console.info(store.parentIds);
+			
+			// 로딩바 표시
+			var winCtl = Ext.getCmp("searchResultWindow");
+			var tabContainer = winCtl.items.items[0];
+			var tabCtl = tabContainer.items.items[1];
+			var activeTab = tabCtl.getActiveTab();
+			activeTab.mask("loading", "loading...");
+			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_B.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
@@ -74,22 +81,22 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
-        			//console.info(response.responseText);
-        			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			store.setData(jsonData.data);
-        			console.info(jsonData.data);
-        			//store.loadData(jsonData.data);
-        			//for(var i = 0; i < jsonData.data.length; i++){
-        				//arrData.push({name: jsonData.data[i].name});
-        			//}
-        			//store.setData(arrData);
-        			//console.info(store.data.length);
-        			//store.load();
+
+        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+        				store.setData(jsonData.data);
+	        			// 로딩바 숨김
+	        			activeTab.unmask();
+        			}
+        			else{
+        				activeTab.mask(jsonData.data[0].msg, "noData");
+        			}
         			
         		},
         		failure: function(form, action) {
-        			alert(form.responseText);
+        			// 로딩바 숨김
+        			activeTab.unmask();
+        			
         			alert("오류가 발생하였습니다.");
         		}
         	});

@@ -364,35 +364,39 @@ try{
 	
 	jsonRecord = new JSONObject();
 	
-	jsonRecord.put("WS_NM",WS_NM);
-	jsonRecord.put("AM_NM",AM_NM);
-	jsonRecord.put("AS_NM",AS_NM);
-	jsonRecord.put("PT_NO",PT_NO);
-	jsonRecord.put("PT_NM",PT_NM);
-	jsonRecord.put("WMCYMD",WMCYMD);
-	jsonRecord.put("CURR_SWL",CURR_SWL);
-	jsonRecord.put("CHART_SWL",CHART_SWL);
-	jsonRecord.put("CURR_OWL",CURR_OWL);
-	jsonRecord.put("CHART_OWL",CHART_OWL);
-	jsonRecord.put("CURR_SFW",CURR_SFW);
-	jsonRecord.put("CHART_SFW",CHART_SFW);
-	jsonRecord.put("CURR_ECPC",CURR_ECPC);
-	jsonRecord.put("CHART_ECPC",CHART_ECPC);
-	jsonRecord.put("CURR_INF",CURR_INF);
-	jsonRecord.put("CHART_INF",CHART_INF);
-	jsonRecord.put("CURR_TOTOTF",CURR_TOTOTF);
-	jsonRecord.put("CHART_TOTOTF",CHART_TOTOTF);
-	jsonRecord.put("CURR_EGOTF",CURR_EGOTF);
-	jsonRecord.put("CHART_EGOTF",CHART_EGOTF);
-	jsonRecord.put("CURR_GTOTF",CURR_GTOTF);
-	jsonRecord.put("CHART_GTOTF",CHART_GTOTF);
-	jsonRecord.put("CURR_CBOTF",CURR_CBOTF);
-	jsonRecord.put("CHART_CBOTF",CHART_CBOTF);
-	jsonRecord.put("CURR_FWOTF",CURR_FWOTF);
-	jsonRecord.put("CHART_FWOTF",CHART_FWOTF);
-	jsonRecord.put("CURR_ETCOTF",CURR_ETCOTF);
-	jsonRecord.put("CHART_ETCOTF",CHART_ETCOTF);
-	
+	if(cnt > 0){
+		jsonRecord.put("WS_NM",WS_NM);
+		jsonRecord.put("AM_NM",AM_NM);
+		jsonRecord.put("AS_NM",AS_NM);
+		jsonRecord.put("PT_NO",PT_NO);
+		jsonRecord.put("PT_NM",PT_NM);
+		jsonRecord.put("WMCYMD",WMCYMD);
+		jsonRecord.put("CURR_SWL",CURR_SWL);
+		jsonRecord.put("CHART_SWL",CHART_SWL);
+		jsonRecord.put("CURR_OWL",CURR_OWL);
+		jsonRecord.put("CHART_OWL",CHART_OWL);
+		jsonRecord.put("CURR_SFW",CURR_SFW);
+		jsonRecord.put("CHART_SFW",CHART_SFW);
+		jsonRecord.put("CURR_ECPC",CURR_ECPC);
+		jsonRecord.put("CHART_ECPC",CHART_ECPC);
+		jsonRecord.put("CURR_INF",CURR_INF);
+		jsonRecord.put("CHART_INF",CHART_INF);
+		jsonRecord.put("CURR_TOTOTF",CURR_TOTOTF);
+		jsonRecord.put("CHART_TOTOTF",CHART_TOTOTF);
+		jsonRecord.put("CURR_EGOTF",CURR_EGOTF);
+		jsonRecord.put("CHART_EGOTF",CHART_EGOTF);
+		jsonRecord.put("CURR_GTOTF",CURR_GTOTF);
+		jsonRecord.put("CHART_GTOTF",CHART_GTOTF);
+		jsonRecord.put("CURR_CBOTF",CURR_CBOTF);
+		jsonRecord.put("CHART_CBOTF",CHART_CBOTF);
+		jsonRecord.put("CURR_FWOTF",CURR_FWOTF);
+		jsonRecord.put("CHART_FWOTF",CHART_FWOTF);
+		jsonRecord.put("CURR_ETCOTF",CURR_ETCOTF);
+		jsonRecord.put("CHART_ETCOTF",CHART_ETCOTF);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
 	
 	jsonArr.add(jsonRecord);
 	

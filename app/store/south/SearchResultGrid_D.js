@@ -171,8 +171,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			var arrData = [];
 			
 			// 로딩바 표시
-			Ext.getCmp("searchResultWindow").mask("loading", "loading...");
-			console.info(requestUrl);
+			var winCtl = Ext.getCmp("searchResultWindow");
+			var tabContainer = winCtl.items.items[0];
+			var tabCtl = tabContainer.items.items[1];
+			var activeTab = tabCtl.getActiveTab();
+			activeTab.mask("loading", "loading...");
+			
 			Ext.Ajax.request({
         		url: requestUrl,
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
@@ -183,20 +187,21 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 
         			//console.info(response.responseText);
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			store.setData(jsonData.data);
-        			console.info(jsonData.data);
-        			
-        			// 로딩바 숨김
-        			Ext.getCmp("searchResultWindow").unmask();
+
+        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+        				store.setData(jsonData.data);
+	        			// 로딩바 숨김
+	        			activeTab.unmask();
+        			}
+        			else{
+        				activeTab.mask(jsonData.data[0].msg, "noData");
+        			}
         			
         		},
         		failure: function(form, action) {
         			// 로딩바 숨김
-        			Ext.getCmp("searchResultWindow").unmask();
+        			activeTab.unmask();
         			
-        			//alert(form.responseText);
-        			console.info(form);
-        			console.info(action);
         			alert("오류가 발생하였습니다.");
         		}
         	});

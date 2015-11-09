@@ -220,19 +220,23 @@ rs = stmt.executeQuery(sql);
 	
 	jsonRecord = new JSONObject();
 	
-	jsonRecord.put("WS_NM",WS_NM);
-	jsonRecord.put("AM_NM",AM_NM);
-	jsonRecord.put("AS_NM",AS_NM);
-	jsonRecord.put("PT_NO",PT_NO);
-	jsonRecord.put("PT_NM",PT_NM);
-	jsonRecord.put("WMCYMD",WMCYMD);
-	jsonRecord.put("CURR_WL",CURR_WL);
-	jsonRecord.put("CHART_WL",CHART_WL);
-	jsonRecord.put("CURR_MXWL",CURR_MXWL);
-	jsonRecord.put("CHART_MXWL",CHART_MXWL);
-	jsonRecord.put("CURR_MNWL",CURR_MNWL);
-	jsonRecord.put("CHART_MNWL	",CHART_MNWL);
-	
+	if(cnt > 0){
+		jsonRecord.put("WS_NM",WS_NM);
+		jsonRecord.put("AM_NM",AM_NM);
+		jsonRecord.put("AS_NM",AS_NM);
+		jsonRecord.put("PT_NO",PT_NO);
+		jsonRecord.put("PT_NM",PT_NM);
+		jsonRecord.put("WMCYMD",WMCYMD);
+		jsonRecord.put("CURR_WL",CURR_WL);
+		jsonRecord.put("CHART_WL",CHART_WL);
+		jsonRecord.put("CURR_MXWL",CURR_MXWL);
+		jsonRecord.put("CHART_MXWL",CHART_MXWL);
+		jsonRecord.put("CURR_MNWL",CURR_MNWL);
+		jsonRecord.put("CHART_MNWL	",CHART_MNWL);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
 	
 	jsonArr.add(jsonRecord);
 	
