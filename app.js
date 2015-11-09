@@ -102,6 +102,7 @@ Ext.application({
  			var westContents = Ext.getCmp("westContents");
  			westContents.setActiveItem(tabIdx);
  		}
+
  		
  		//Ext.WestTabChange(1);
  		

@@ -28,7 +28,23 @@ try{
 	
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
-	sql = " SELECT CASE  WHEN SUBSTR(A.WMWK, 2, 1) = 'È¸' THEN A.RN  ELSE RANK() OVER(PARTITION BY SUBSTR(A.PT_NO, 1, 7) ORDER BY A.PT_NO, A.WMWK DESC) END RN,   ";
+	sql = " SELECT RN, PT_NO, PT_NM, WMCYMD, CHART_DATE, WMYR, WMOD, WMWK, SEQ, WMDEP, CURR_BOD, CHART_BOD, CURR_DO, CHART_DO, CURR_COD, 												";
+	sql += " CHART_COD, CURR_TN, CHART_TN, CURR_TP, CHART_TP, CURR_TEMP, CHART_TEMP, CURR_PH, CHART_PH, CURR_SS, CHART_SS, CURR_CLOA, CHART_CLOA, CURR_TOC,       ";
+	sql += "  CHART_TOC, CURR_AMNT, CHART_AMNT, CURR_DTN, CHART_DTN, CURR_NO3N, CHART_NO3N, CURR_NH3N, CHART_NH3N, CURR_DTP, CHART_DTP, CURR_POP, CHART_POP,      ";
+	sql += "   CURR_TRANS, CHART_TRANS, CURR_ALGOL, CHART_ALGOL, CURR_TCOLI, CHART_TCOLI, CURR_ECOLI, CHART_ECOLI, CURR_ANTIMON, CHART_ANTIMON, CURR_PHENOL,      ";
+	sql += "    CHART_PHENOL, CURR_COL, CHART_COL, CURR_NHEX, CHART_NHEX, CURR_MN, CHART_MN, CURR_FE, CHART_FE, CURR_CD, CHART_CD, CURR_CN, CHART_CN, CURR_PB,    ";
+	sql += "    CHART_PB, CURR_CR6, CHART_CR6, CURR_CR, CHART_CR, CURR_AS, CHART_AS, CURR_HG, CHART_HG, CURR_CU, CHART_CU, CURR_ZN, CHART_ZN, CURR_FL, CHART_FL,  ";
+	sql += "    CURR_ABS, CHART_ABS, CURR_CL, CHART_CL, CURR_TCE, CHART_TCE, CURR_PCE, CHART_PCE, CURR_CCL4, CHART_CCL4, CURR_DCETH, CHART_DCETH, CURR_DCM,       ";
+	sql += "    CHART_DCM, CURR_BENZENE, CHART_BENZENE, CURR_CHCL3, CHART_CHCL3, CURR_OP, CHART_OP, CURR_PCB, CHART_PCB, CURR_DEHP, CHART_DEHP, CURR_HCHO,        ";
+	sql += "     CHART_HCHO, CURR_HCB, CHART_HCB                                                                                                                  ";
+	sql += "   FROM (                                                                                                                                             ";
+	sql += "         SELECT                                                                                                                                       ";
+	sql += "                CASE                                                                                                                                  ";
+	sql += "                  WHEN SUBSTR(A.WMWK,-1) = 'Â÷' THEN A.RN                                                                                             ";
+	sql += "                  WHEN SUBSTR(A.WMWK,-1) = 'ºÎ' THEN RANK() OVER(PARTITION BY SUBSTR(A.PT_NO, 1, 7) ORDER BY A.WMYR, A.WMOD DESC, A.WMWK)             ";
+	sql += "                  ELSE A.RN                                                                                                                           ";
+	sql += "                END AS RN,                                                                                                                            ";
+	sql += "                B.RN AS RN_2,                                                                                                                         ";
 	sql += "   SUBSTR(A.PT_NO, 1, 7) AS PT_NO,                                                                                      ";
 	sql += "   A.PT_NM,                                                                                                             ";
 	sql += "   A.WMCYMD,                                                                                                            ";
@@ -624,9 +640,7 @@ try{
 	sql += " WHERE A.PT_NO = B.PT_NO                                                                          ";
 	sql += "   AND A.ADMCODE = B.ADMCODE                                                                      ";
 	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 4                                                             ";
-	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)                                                     ";
-	sql += " ORDER BY A.PT_NO, A.RN, B.RN DESC                                                                ";
-	sql += "                                                                                                  ";
+	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)      ) ORDER BY PT_NO, RN, RN_2 DESC                ";
 		
    //out.print(sql);
    

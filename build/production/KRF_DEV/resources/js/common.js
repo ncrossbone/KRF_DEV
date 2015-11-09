@@ -1,5 +1,5 @@
 //  버튼 on/off
-SetBtnOnOff = function(btnId){
+SetBtnOnOff = function(btnId, strOnOff){
 	var currCtl = Ext.getCmp(btnId);
 	var parentCtl = currCtl.findParentByType('container');
 	var items = parentCtl.items.items;
@@ -7,11 +7,16 @@ SetBtnOnOff = function(btnId){
 	
 	var btnOnOff = currCtl.btnOnOff;
 	
-	if(currCtl.btnOnOff == "on"){
-		currCtl.btnOnOff = "off";
+	if(strOnOff == undefined || strOnOff == ""){
+		if(currCtl.btnOnOff == "on"){
+			currCtl.btnOnOff = "off";
+		}
+		else{
+			currCtl.btnOnOff = "on";
+		}
 	}
 	else{
-		currCtl.btnOnOff = "on";
+		currCtl.btnOnOff = strOnOff;
 	}
 	
 	for(i = 0; i < items.length; i++){

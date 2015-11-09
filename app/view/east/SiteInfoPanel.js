@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 	//bodyStyle: 'background-color: white;',
 	cls: 'khLee-window-panel-header khLee-x-window-default ',
 	
-	width: '100%',
+	width: 450,
 	height: 300,
 
 	items: [{
@@ -38,11 +38,15 @@ Ext.define('KRF_DEV.view.east.SiteInfoPanel', {
 		columns: [{
 			text      : '구분',
 			dataIndex : 'column',
-			width: 150
+			menuDisabled: true,
+			//width: 150
+			width: "40%"
 		}, {
 			text      : '내용',
 			dataIndex : 'cont',
-			width: 240
+			menuDisabled: true,
+			//width: 240
+			width: "60%"
 		}]
 	}],
 	initComponent: function(){
