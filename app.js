@@ -97,12 +97,12 @@ Ext.application({
  		});
  			 
  		//Ext.Ajax.on('failure', Ext.getBody().unmask, Ext.getBody());
- 			
+ 		*/	
  		Ext.WestTabChange = function(tabIdx){
  			var westContents = Ext.getCmp("westContents");
  			westContents.setActiveItem(tabIdx);
  		}
- 		*/
+
  		
  		//Ext.WestTabChange(1);
  		
@@ -142,8 +142,7 @@ Ext.application({
  		
  		// 지점 목록 창 띄우기
  		Ext.ShowSiteListWindow = function(searchText){
- 			//if(Ext.getCmp("btnModeNomal").src.indexOf("_on") > -1){
- 				
+ 			
  			var me = GetCoreMap();
  			
  			console.info(searchText);
@@ -188,7 +187,7 @@ Ext.application({
 				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
 			
 			listWinCtl.show();
-			
+			//alert("dd");
 			var treeCtl = Ext.getCmp("siteListTree");
 			var store = treeCtl.getStore();
 			store.searchType = searchText;
@@ -200,21 +199,9 @@ Ext.application({
 			
 			listWinCtl.setX(listWinX);
 			listWinCtl.setY(listWinY);
-//			}
-//			else{
-//				listWinCtl = Ext.getCmp("siteListWindow_reach");
-//	 			
-//				if(listWinCtl == undefined)
-//					listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow_Reach');
-//				
-//				listWinCtl.show();
-//				
-//				var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
-//				var listWinY = 98;
-//				
-//				listWinCtl.setX(listWinX);
-//				listWinCtl.setY(listWinY);
-//			}
+			
+			// 좌측 정보창 버튼 on
+ 			SetBtnOnOff("btnSiteListWindow", "on");
 			
  		}
  		
@@ -230,6 +217,9 @@ Ext.application({
  			
  			if(listWinCtl != undefined)
  				listWinCtl.close();
+ 			
+ 			// 좌측 정보창 버튼 off
+ 			SetBtnOnOff("btnSiteListWindow", "off");
 			
  		}
  		

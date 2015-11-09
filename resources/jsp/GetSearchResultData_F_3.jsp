@@ -149,6 +149,7 @@ sql += "  ORDER BY A.FACI_NM, A.IN_PL_TYPE, A.WORK_DT DESC, B.WORK_DT           
 	while(rs.next()) {
 		
 		cnt++;
+		
 		if(!preSeq.equals("") && !preSeq.equals(rs.getString("NO"))){
 			
 			cnt = 1;
@@ -262,26 +263,32 @@ sql += "  ORDER BY A.FACI_NM, A.IN_PL_TYPE, A.WORK_DT DESC, B.WORK_DT           
 	
 	jsonRecord = new JSONObject();
 	
-	//jsonRecord.put("parentId", parentId);
-	jsonRecord.put("FACI_CD", FACI_CD);
-	jsonRecord.put("FACI_NM", FACI_NM);
-	jsonRecord.put("WORK_DT_VAL", WORK_DT_VAL);
-	jsonRecord.put("WORK_DT_GRAPH", WORK_DT_GRAPH);
-	jsonRecord.put("IN_PL_TYPE", IN_PL_TYPE);
-	jsonRecord.put("AMT_VAL", AMT_VAL);
-	jsonRecord.put("AMT_GRAPH", AMT_GRAPH);
-	jsonRecord.put("BOD_VAL", BOD_VAL);
-	jsonRecord.put("BOD_GRAPH", BOD_GRAPH);
-	jsonRecord.put("COD_VAL", COD_VAL);
-	jsonRecord.put("COD_GRAPH", COD_GRAPH);
-	jsonRecord.put("SS_VAL", SS_VAL);
-	jsonRecord.put("SS_GRAPH", SS_GRAPH);
-	jsonRecord.put("TN_VAL", TN_VAL);
-	jsonRecord.put("TN_GRAPH", TN_GRAPH);
-	jsonRecord.put("TP_VAL", TP_VAL);
-	jsonRecord.put("TP_GRAPH", TP_GRAPH);
-	jsonRecord.put("COLI_VAL", COLI_VAL);
-	jsonRecord.put("COLI_GRAPH", COLI_GRAPH); 
+	if(cnt > 0){
+		//jsonRecord.put("parentId", parentId);
+		jsonRecord.put("FACI_CD", FACI_CD);
+		jsonRecord.put("FACI_NM", FACI_NM);
+		jsonRecord.put("WORK_DT_VAL", WORK_DT_VAL);
+		jsonRecord.put("WORK_DT_GRAPH", WORK_DT_GRAPH);
+		jsonRecord.put("IN_PL_TYPE", IN_PL_TYPE);
+		jsonRecord.put("AMT_VAL", AMT_VAL);
+		jsonRecord.put("AMT_GRAPH", AMT_GRAPH);
+		jsonRecord.put("BOD_VAL", BOD_VAL);
+		jsonRecord.put("BOD_GRAPH", BOD_GRAPH);
+		jsonRecord.put("COD_VAL", COD_VAL);
+		jsonRecord.put("COD_GRAPH", COD_GRAPH);
+		jsonRecord.put("SS_VAL", SS_VAL);
+		jsonRecord.put("SS_GRAPH", SS_GRAPH);
+		jsonRecord.put("TN_VAL", TN_VAL);
+		jsonRecord.put("TN_GRAPH", TN_GRAPH);
+		jsonRecord.put("TP_VAL", TP_VAL);
+		jsonRecord.put("TP_GRAPH", TP_GRAPH);
+		jsonRecord.put("COLI_VAL", COLI_VAL);
+		jsonRecord.put("COLI_GRAPH", COLI_GRAPH);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
+	
 	jsonArr.add(jsonRecord);
 	
 	jsonObj.put("data", jsonArr);

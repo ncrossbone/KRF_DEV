@@ -169,12 +169,14 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 					me.reachLayerAdmin.reachLineGraphics.clear();
 					for(var i=0; i<reachLineGArr.length; i++){
 						me.reachLayerAdmin.reachLineGraphics.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 				if(me.reachLayerAdmin.reachAreaGraphics){
 					me.reachLayerAdmin.reachAreaGraphics.clear();
 					for(var i=0; i<reachAreaGArr.length; i++){
 						me.reachLayerAdmin.reachAreaGraphics.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
+						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 				me.reachLayerAdmin.upRchGraphics = [];
@@ -197,6 +199,13 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 				for(var i=0; i<data.selAreaGraphics.length; i++){
 					me.reachLayerAdmin.selAreaGraphics.push(new esri.Graphic(JSON.parse(data.selAreaGraphics[i])))
 				}
+				//console.info(me.reachLayerAdmin.selAreaGraphics);
+				// 지점 목록 창 띄우기
+        		Ext.ShowSiteListWindow("selectReach");
+        		
+        		// 검색결과 창 띄우기
+        		ShowSearchResultReach("");
+        		
 			},function(error2){
 			});
 		},function(error){

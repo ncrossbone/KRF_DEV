@@ -1,5 +1,5 @@
 //  버튼 on/off
-SetBtnOnOff = function(btnId){
+SetBtnOnOff = function(btnId, strOnOff){
 	var currCtl = Ext.getCmp(btnId);
 	var parentCtl = currCtl.findParentByType('container');
 	var items = parentCtl.items.items;
@@ -7,11 +7,16 @@ SetBtnOnOff = function(btnId){
 	
 	var btnOnOff = currCtl.btnOnOff;
 	
-	if(currCtl.btnOnOff == "on"){
-		currCtl.btnOnOff = "off";
+	if(strOnOff == undefined || strOnOff == ""){
+		if(currCtl.btnOnOff == "on"){
+			currCtl.btnOnOff = "off";
+		}
+		else{
+			currCtl.btnOnOff = "on";
+		}
 	}
 	else{
-		currCtl.btnOnOff = "on";
+		currCtl.btnOnOff = strOnOff;
 	}
 	
 	for(i = 0; i < items.length; i++){
@@ -668,18 +673,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 	
 	
-	var hiddenGrid = Ext.getCmp("F_CHANGE");	
-		//var parentCheck = parentIds.substring(0.1);  
-	
-	
-	console.info(parentCheck);
-	//console.info(parentIds[0].parentId.substring(0,1));
-
+	var hiddenGrid = Ext.getCmp("F_CHANGE");
 	var cmbStartYear = Ext.getCmp("cmbStartYear");
 	var cmbStartMonth = Ext.getCmp("cmbStartMonth");
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 	
+	console.info(parentCheck);
 	
 	if(parentCheck == "A"){	
 		
@@ -737,8 +737,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		if(grdContainer == null || grdContainer == undefined){
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
-			
-			
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -760,10 +758,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.parentIds = parentIds;
 		}
 		
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
 		console.info(test);
-		console.info(grdCtl);
 		
 		//0~2 , 11~16 공통
 		if(test == "" ||test == "1" || test == "관거이송량"){
@@ -860,6 +855,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.columns[30].setHidden(true);
 			grdCtl.columns[31].setHidden(true);
 		}
+		
 		console.info(test);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {

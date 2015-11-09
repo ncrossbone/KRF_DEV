@@ -182,15 +182,19 @@ rs = stmt.executeQuery(sql);
 	
 	jsonRecord = new JSONObject();
 	
-	jsonRecord.put("WS_NM",WS_NM);
-	jsonRecord.put("AM_NM",AM_NM);
-	jsonRecord.put("AS_NM",AS_NM);
-	jsonRecord.put("PT_NO",PT_NO);
-	jsonRecord.put("PT_NM",PT_NM);
-	jsonRecord.put("WMCYMD",WMCYMD);
-	jsonRecord.put("CURR_FW",CURR_FW);
-	jsonRecord.put("CHART_FW",CHART_FW);
-	
+	if(cnt > 0){
+		jsonRecord.put("WS_NM",WS_NM);
+		jsonRecord.put("AM_NM",AM_NM);
+		jsonRecord.put("AS_NM",AS_NM);
+		jsonRecord.put("PT_NO",PT_NO);
+		jsonRecord.put("PT_NM",PT_NM);
+		jsonRecord.put("WMCYMD",WMCYMD);
+		jsonRecord.put("CURR_FW",CURR_FW);
+		jsonRecord.put("CHART_FW",CHART_FW);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
 	
 	jsonArr.add(jsonRecord);
 	

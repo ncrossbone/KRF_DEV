@@ -229,6 +229,7 @@ sql += "  ORDER BY A.FACI_NM, A.DISCHARGE_NUM, A.WORK_DT DESC, B.WORK_DT DESC   
 	while(rs.next()) {
 		
 		cnt++;
+		
 		if(!preSeq.equals("") && !preSeq.equals(rs.getString("NO"))){
 			
 			cnt = 1;
@@ -368,32 +369,38 @@ sql += "  ORDER BY A.FACI_NM, A.DISCHARGE_NUM, A.WORK_DT DESC, B.WORK_DT DESC   
 	
 	jsonRecord = new JSONObject();
 	
-	//jsonRecord.put("parentId", parentId);
-	jsonRecord.put("FACI_CD", FACI_CD);
-	jsonRecord.put("FACI_NM", FACI_NM);
-	jsonRecord.put("WORK_DT_VAL", WORK_DT_VAL);
-	jsonRecord.put("WORK_DT_GRAPH", WORK_DT_GRAPH);
-	jsonRecord.put("DISCHARGE_NUM", DISCHARGE_NUM);
-	jsonRecord.put("DISCHARGE_AMT_PHYS_VAL", DISCHARGE_AMT_PHYS_VAL);
-	jsonRecord.put("DISCHARGE_AMT_PHYS_GRAPH", DISCHARGE_AMT_PHYS_GRAPH);
-	jsonRecord.put("DISCHARGE_AMT_BIO_VAL", DISCHARGE_AMT_BIO_VAL);
-	jsonRecord.put("DISCHARGE_AMT_BIO_GRAPH", DISCHARGE_AMT_BIO_GRAPH);
-	jsonRecord.put("DISCHARGE_AMT_HIGHTEC_VAL", DISCHARGE_AMT_HIGHTEC_VAL);
-	jsonRecord.put("DISCHARGE_AMT_HIGHTEC_GRAPH", DISCHARGE_AMT_HIGHTEC_GRAPH);
-	jsonRecord.put("BOD_VAL", BOD_VAL);
-	jsonRecord.put("BOD_GRAPH", BOD_GRAPH);
-	jsonRecord.put("COD_VAL", COD_VAL);
-	jsonRecord.put("COD_GRAPH", COD_GRAPH);
-	jsonRecord.put("SS_VAL", SS_VAL);
-	jsonRecord.put("SS_GRAPH", SS_GRAPH);
-	jsonRecord.put("TN_VAL", TN_VAL);
-	jsonRecord.put("TN_GRAPH", TN_GRAPH);
-	jsonRecord.put("TP_VAL", TP_VAL);
-	jsonRecord.put("TP_GRAPH", TP_GRAPH);
-	jsonRecord.put("COLI_VAL", COLI_VAL);
-	jsonRecord.put("COLI_GRAPH", COLI_GRAPH); 
-	jsonRecord.put("DISCHARGE_DISINFECT", DISCHARGE_DISINFECT);
-	jsonRecord.put("DISCHARGE_FACI_NM", DISCHARGE_FACI_NM);
+	if(cnt > 0){
+		//jsonRecord.put("parentId", parentId);
+		jsonRecord.put("FACI_CD", FACI_CD);
+		jsonRecord.put("FACI_NM", FACI_NM);
+		jsonRecord.put("WORK_DT_VAL", WORK_DT_VAL);
+		jsonRecord.put("WORK_DT_GRAPH", WORK_DT_GRAPH);
+		jsonRecord.put("DISCHARGE_NUM", DISCHARGE_NUM);
+		jsonRecord.put("DISCHARGE_AMT_PHYS_VAL", DISCHARGE_AMT_PHYS_VAL);
+		jsonRecord.put("DISCHARGE_AMT_PHYS_GRAPH", DISCHARGE_AMT_PHYS_GRAPH);
+		jsonRecord.put("DISCHARGE_AMT_BIO_VAL", DISCHARGE_AMT_BIO_VAL);
+		jsonRecord.put("DISCHARGE_AMT_BIO_GRAPH", DISCHARGE_AMT_BIO_GRAPH);
+		jsonRecord.put("DISCHARGE_AMT_HIGHTEC_VAL", DISCHARGE_AMT_HIGHTEC_VAL);
+		jsonRecord.put("DISCHARGE_AMT_HIGHTEC_GRAPH", DISCHARGE_AMT_HIGHTEC_GRAPH);
+		jsonRecord.put("BOD_VAL", BOD_VAL);
+		jsonRecord.put("BOD_GRAPH", BOD_GRAPH);
+		jsonRecord.put("COD_VAL", COD_VAL);
+		jsonRecord.put("COD_GRAPH", COD_GRAPH);
+		jsonRecord.put("SS_VAL", SS_VAL);
+		jsonRecord.put("SS_GRAPH", SS_GRAPH);
+		jsonRecord.put("TN_VAL", TN_VAL);
+		jsonRecord.put("TN_GRAPH", TN_GRAPH);
+		jsonRecord.put("TP_VAL", TP_VAL);
+		jsonRecord.put("TP_GRAPH", TP_GRAPH);
+		jsonRecord.put("COLI_VAL", COLI_VAL);
+		jsonRecord.put("COLI_GRAPH", COLI_GRAPH); 
+		jsonRecord.put("DISCHARGE_DISINFECT", DISCHARGE_DISINFECT);
+		jsonRecord.put("DISCHARGE_FACI_NM", DISCHARGE_FACI_NM);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
+	
 	jsonArr.add(jsonRecord);
 	
 	jsonObj.put("data", jsonArr);

@@ -242,23 +242,27 @@ sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                             
 		
 		jsonRecord = new JSONObject();
 		
-		jsonRecord.put("WS_NM",WS_NM);
-		jsonRecord.put("AM_NM",AM_NM);
-		jsonRecord.put("AS_NM",AS_NM);
-		jsonRecord.put("PT_NO",PT_NO);
-		jsonRecord.put("PT_NM",PT_NM);
-		jsonRecord.put("WMCYMD",WMCYMD);
-		jsonRecord.put("CURR_SWL",CURR_SWL);
-		jsonRecord.put("CHART_SWL",CHART_SWL);
-		jsonRecord.put("CURR_INF",CURR_INF);
-		jsonRecord.put("CHART_INF",CHART_INF);
-		jsonRecord.put("CURR_OTF",CURR_OTF);
-		jsonRecord.put("CHART_OTF",CHART_OTF);
-		jsonRecord.put("CURR_SFW",CURR_SFW);
-		jsonRecord.put("CHART_SFW",CHART_SFW);
-		jsonRecord.put("CURR_ECPC",CURR_ECPC);
-		jsonRecord.put("CHART_ECPC",CHART_ECPC);
-		
+		if(cnt > 0){
+			jsonRecord.put("WS_NM",WS_NM);
+			jsonRecord.put("AM_NM",AM_NM);
+			jsonRecord.put("AS_NM",AS_NM);
+			jsonRecord.put("PT_NO",PT_NO);
+			jsonRecord.put("PT_NM",PT_NM);
+			jsonRecord.put("WMCYMD",WMCYMD);
+			jsonRecord.put("CURR_SWL",CURR_SWL);
+			jsonRecord.put("CHART_SWL",CHART_SWL);
+			jsonRecord.put("CURR_INF",CURR_INF);
+			jsonRecord.put("CHART_INF",CHART_INF);
+			jsonRecord.put("CURR_OTF",CURR_OTF);
+			jsonRecord.put("CHART_OTF",CHART_OTF);
+			jsonRecord.put("CURR_SFW",CURR_SFW);
+			jsonRecord.put("CHART_SFW",CHART_SFW);
+			jsonRecord.put("CURR_ECPC",CURR_ECPC);
+			jsonRecord.put("CHART_ECPC",CHART_ECPC);
+		}
+		else{
+			jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+		}
 		
 		jsonArr.add(jsonRecord);
 		
