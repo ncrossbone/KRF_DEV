@@ -1519,7 +1519,7 @@ siteMovePoint = function(parentNodeId, nodeId){
 }
 
 OpenMenualPop = function(){
-	window.open("./resources/menual/KRF_Menual.html", "하천망 분석도 사용자 메뉴얼", "width=300, height=300, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
+	window.open("./resources/menual/KRF_USER_MANUAL.html", "하천망 분석도 사용자 메뉴얼", "width=1024, height=768, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
 }
 
 ResetButtonClick = function(){

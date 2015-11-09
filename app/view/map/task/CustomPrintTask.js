@@ -26,6 +26,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 	},
 	
 	execute:function(mode){
+		alert("dd");
 		var me = this;
 		var svgInfo = $('#'+me.mapDivId+' svg').parent().html();
 		var layerIds = me.map.layerIds;
