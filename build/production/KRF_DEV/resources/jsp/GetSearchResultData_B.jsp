@@ -389,35 +389,40 @@ try{
 	
 	jsonRecord = new JSONObject();
 	
-	jsonRecord.put("WS_NM",WS_NM);
-	jsonRecord.put("AM_NM",AM_NM);
-	jsonRecord.put("AS_NM",AS_NM);
-	jsonRecord.put("PT_NO",PT_NO);
-	jsonRecord.put("PT_NM",PT_NM);
-	jsonRecord.put("WAST_NO",WAST_NO);
-	jsonRecord.put("FACT_KIND_NAME",FACT_KIND_NAME);
-	jsonRecord.put("FACT_CAPACITY",FACT_CAPACITY);
-	jsonRecord.put("WMCYMD",WMCYMD);
-	jsonRecord.put("CURR_BOD",CURR_BOD);
-	jsonRecord.put("CHART_BOD",CHART_BOD);
-	jsonRecord.put("CURR_COD",CURR_COD);
-	jsonRecord.put("CHART_COD	",CHART_COD);
-	jsonRecord.put("CURR_SS",CURR_SS);
-	jsonRecord.put("CHART_SS	",CHART_SS);
-	jsonRecord.put("CURR_TN",CURR_TN);
-	jsonRecord.put("CHART_TN	",CHART_TN);
-	jsonRecord.put("CURR_TP",CURR_TP);
-	jsonRecord.put("CHART_TP	",CHART_TP);
-	jsonRecord.put("CURR_PH",CURR_PH);
-	jsonRecord.put("CHART_PH	",CHART_PH);
-	jsonRecord.put("CURR_FLW",CURR_FLW);
-	jsonRecord.put("CHART_FLW	",CHART_FLW);
-	jsonRecord.put("CURR_TOC",CURR_TOC);
-	jsonRecord.put("CHART_TOC	",CHART_TOC);
-	jsonRecord.put("DO_NM",DO_NM);
-	jsonRecord.put("CTY_NM",CTY_NM);
-	jsonRecord.put("DONG_NM",DONG_NM);
-	jsonRecord.put("RI_NM",RI_NM);
+	if(cnt > 0){
+		jsonRecord.put("WS_NM",WS_NM);
+		jsonRecord.put("AM_NM",AM_NM);
+		jsonRecord.put("AS_NM",AS_NM);
+		jsonRecord.put("PT_NO",PT_NO);
+		jsonRecord.put("PT_NM",PT_NM);
+		jsonRecord.put("WAST_NO",WAST_NO);
+		jsonRecord.put("FACT_KIND_NAME",FACT_KIND_NAME);
+		jsonRecord.put("FACT_CAPACITY",FACT_CAPACITY);
+		jsonRecord.put("WMCYMD",WMCYMD);
+		jsonRecord.put("CURR_BOD",CURR_BOD);
+		jsonRecord.put("CHART_BOD",CHART_BOD);
+		jsonRecord.put("CURR_COD",CURR_COD);
+		jsonRecord.put("CHART_COD	",CHART_COD);
+		jsonRecord.put("CURR_SS",CURR_SS);
+		jsonRecord.put("CHART_SS	",CHART_SS);
+		jsonRecord.put("CURR_TN",CURR_TN);
+		jsonRecord.put("CHART_TN	",CHART_TN);
+		jsonRecord.put("CURR_TP",CURR_TP);
+		jsonRecord.put("CHART_TP	",CHART_TP);
+		jsonRecord.put("CURR_PH",CURR_PH);
+		jsonRecord.put("CHART_PH	",CHART_PH);
+		jsonRecord.put("CURR_FLW",CURR_FLW);
+		jsonRecord.put("CHART_FLW	",CHART_FLW);
+		jsonRecord.put("CURR_TOC",CURR_TOC);
+		jsonRecord.put("CHART_TOC	",CHART_TOC);
+		jsonRecord.put("DO_NM",DO_NM);
+		jsonRecord.put("CTY_NM",CTY_NM);
+		jsonRecord.put("DONG_NM",DONG_NM);
+		jsonRecord.put("RI_NM",RI_NM);
+	}
+	else{
+		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
+	}
 	
 	jsonArr.add(jsonRecord);
 	

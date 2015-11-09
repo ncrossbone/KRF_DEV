@@ -74,17 +74,18 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				var reachBtn = Ext.getCmp("btnModeReach");
 				
-				if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
+				//if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
 					
 					query.where = "CAT_ID IN ("; 
 					
 					for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
 						query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
+						//console.info(query.where);
 					}
 					
 					query.where = query.where.substring(0, query.where.length - 2);
 					query.where += ")";
-				}
+				//}
 			}
 			
 			query.outFields = ["*"];

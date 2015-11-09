@@ -16,16 +16,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
-			//id: 'grdSearchResult',
-			//id: this.up('container').up('container'),
-			//plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
-			//height: 195,
-			loadMask: true, // 로딩 표시 할라구 한건데.. 안먹네..-_-;
-			//plugins: 'bufferedrenderer',
+			plugins: 'gridfilters',
 			siteIds: "",
 			parentIds: [],
-			//height: '100%',
 			header: {
 				height: 5
 			},
@@ -51,7 +45,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				text      : '리치코드',
 				dataIndex : 'RCH_ID',
 				width: 100,
-				//filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						//console.info(row);
@@ -70,6 +64,29 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				text      : '리치길이 (km)',
 				dataIndex : 'RCH_LEN',
 				width: 150,
+				filter: {
+					type: 'numeric',
+					fields: {
+						gt: {
+							minValue: 0,
+					        maxValue: 1,
+					        step: 0.01,
+					        decimalPrecision: 3
+						},
+						lt: {
+							minValue: 0,
+					        maxValue: 1,
+					        step: 0.01,
+					        decimalPrecision: 3
+						},
+						eq: {
+							minValue: 0,
+					        maxValue: 1,
+					        step: 0.01,
+					        decimalPrecision: 3
+						}
+					}
+				},
 				renderer: function(val, a, b, rowIdx, colIdx){
 					if(rowIdx == 0)
 						return "<b>" + Ext.util.Format.number(val / 1000, '0.0') + "</b>";
