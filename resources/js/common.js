@@ -1,5 +1,5 @@
 //  버튼 on/off
-SetBtnOnOff = function(btnId){
+SetBtnOnOff = function(btnId, strOnOff){
 	var currCtl = Ext.getCmp(btnId);
 	var parentCtl = currCtl.findParentByType('container');
 	var items = parentCtl.items.items;
@@ -7,11 +7,16 @@ SetBtnOnOff = function(btnId){
 	
 	var btnOnOff = currCtl.btnOnOff;
 	
-	if(currCtl.btnOnOff == "on"){
-		currCtl.btnOnOff = "off";
+	if(strOnOff == undefined || strOnOff == ""){
+		if(currCtl.btnOnOff == "on"){
+			currCtl.btnOnOff = "off";
+		}
+		else{
+			currCtl.btnOnOff = "on";
+		}
 	}
 	else{
-		currCtl.btnOnOff = "on";
+		currCtl.btnOnOff = strOnOff;
 	}
 	
 	for(i = 0; i < items.length; i++){
@@ -694,7 +699,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		
+		console.info(grdCtl);
+		grdCtl.columns[8].hidden = true;
+		grdCtl.columns[9].hidden = true;
+		//grdCtl.columns[8].hideable = false;
+		//grdCtl.columns[9].hideable = false;
+		grdCtl.initialConfig.columns[8].hidden = true;
+		grdCtl.initialConfig.columns[8].hideable = false;
 		//grdCtl.id = gridId; // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		//return;
 		if(siteIds != ""){
@@ -1490,7 +1501,7 @@ siteMovePoint = function(parentNodeId, nodeId){
 }
 
 OpenMenualPop = function(){
-	window.open("./resources/menual/KRF_Menual.html", "하천망 분석도 사용자 메뉴얼", "width=300, height=300, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
+	window.open("./resources/menual/KRF_USER_MANUAL.html", "하천망 분석도 사용자 메뉴얼", "width=1024, height=768, toolbar=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=150, top=150");
 }
 
 ResetButtonClick = function(){

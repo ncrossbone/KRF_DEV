@@ -21,7 +21,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 			plugins: ['bufferedrenderer', 'gridfilters'],
 			cls: 'khLee-x-column-header-text',
 			//height: 195,
-			//loadMask: true, // 로딩 표시 할라구 한건데.. 안먹네..-_-;
 			//plugins: 'bufferedrenderer',
 			siteIds: "",
 			parentIds: [],

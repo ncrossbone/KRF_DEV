@@ -314,12 +314,15 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			console.info(jsonData.data);
         			console.info(jsonData.maxdata);
         			
-        			// 차트 컨트롤에 max 데이터 셋팅
-        			SetChartMaxData(store);
-        			
-        			// 로딩바 숨김
-        			Ext.getCmp("siteCharttest").unmask();
-        			//Ext.getCmp("siteCharttest").mask("데이터가 존재하지 않습니다.", "no data");
+        			if(jsonData.data.length > 0){
+	        			// 차트 컨트롤에 max 데이터 셋팅
+	        			SetChartMaxData(store);
+	        			// 로딩바 숨김
+	        			Ext.getCmp("siteCharttest").unmask();
+        			}
+        			else{
+	        			Ext.getCmp("siteCharttest").mask("데이터가 존재하지 않습니다.", "noData");
+        			}
         			
         		},
         		failure: function(form, action) {

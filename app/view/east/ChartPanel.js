@@ -96,10 +96,10 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        //xtype: 'chart',
 			xtype: 'cartesian',
 	        id: 'siteCharttest',
-	        //insetPadding: 10,
+	        //insetPadding: 30,
 	        innerPadding: {
-	             //left: 30,
-	             right: 30
+	             left: 30,
+	             right:30
 	        }, 
 	        width: 450,
 	        height: 250,
@@ -122,7 +122,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            //majorUnit: 1,
 	            //step: 1,
 	            //scale: 'Exponential', // Exponential, Logarithmic
-	            minimum: 0/*,
+	            minimum: 0
+	            /*,
 	            label: {
 	                renderer: function(v) { alert(v);return v + '%'; }
 	            }*/
