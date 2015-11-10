@@ -4,6 +4,8 @@ Ext.define('KRF_DEV.view.main.Main', {
 
     xtype: 'app-main',
     
+    requires:['KRF_DEV.view.south.SearchResultGrid_Reach', 'KRF_DEV.view.south.SearchResultGrid', 'Ext.grid.filters.Filters'],
+    
     viewModel: {
         type: 'main'
     },

@@ -715,7 +715,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			parentIds: grdCtl.parentIds
 		});
 		
-		grdCtl.getView().bindStore(gridStore);
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
 	
 	}else if(parentCheck == "F"){
 		
