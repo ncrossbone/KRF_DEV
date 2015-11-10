@@ -37,15 +37,15 @@ sql += "        WMOM , /* 월 */                                                 
 sql += "        WMYR||'.'||WMOM||'.'||WMOD AS WMCYMD , /* 측정일자 */                                                                                                            ";
 sql += "        MCNT , /* 회차 */                                                                                                                                                ";
 sql += "        JOSANAME , /* 조사기관 */                                                                                                                                        ";
-sql += "        DECODE(ITEM_DOW , '999999999', '정량한계미만', TO_CHAR(ITEM_DOW, 'FM999,999,990.0' ) ) ITEM_DOW , /* 수심(m) */                                                  ";
-sql += "        DECODE(ITEM_TEMP , '999999999', '정량한계미만', TO_CHAR(ITEM_TEMP, 'FM999,999,990' ) ) ITEM_TEMP , /* 수온(℃) */                                                ";
-sql += "        DECODE(ITEM_DO , '999999999', '정량한계미만', TO_CHAR(ITEM_DO, 'FM999,999,990.0' ) ) ITEM_DO , /* DO(㎎/L) */                                                    ";
-sql += "        DECODE(ITEM_PH , '999999999', '정량한계미만', TO_CHAR(ITEM_PH, 'FM999,999,990.0' ) ) ITEM_PH , /* pH */                                                          ";
-sql += "        DECODE(ITEM_EC , '999999999', '정량한계미만', TO_CHAR(ITEM_EC, 'FM999,999,990' ) ) ITEM_EC , /* 전기전도도(SC)(25℃ μS/㎝) */                                   ";
-sql += "        DECODE(ITEM_COD , '999999999', '정량한계미만', TO_CHAR(ITEM_COD, 'FM999,999,990.00' ) ) ITEM_COD , /* COD(%) */                                                  ";
-sql += "        DECODE(ITEM_TOC , '999999999', '정량한계미만', TO_CHAR(ITEM_TOC, 'FM999,999,990.00' ) ) ITEM_TOC , /* TOC(%) */                                                  ";
-sql += "        DECODE(ITEM_TN , '999999999', '정량한계미만', TO_CHAR(ITEM_TN, 'FM999,999,990' ) ) ITEM_TN , /* T-N(㎎/㎏) */                                                    ";
-sql += "        DECODE(ITEM_TP , '999999999', '정량한계미만', TO_CHAR(ITEM_TP, 'FM999,999,990' ) ) ITEM_TP, /* T-P(㎎/㎏) */                                                     ";
+sql += "        DECODE(ITEM_DOW , '999999999', '정량한계미만', TO_CHAR(ITEM_DOW, 'FM999,999990.0' ) ) ITEM_DOW , /* 수심(m) */                                                  ";
+sql += "        DECODE(ITEM_TEMP , '999999999', '정량한계미만', TO_CHAR(ITEM_TEMP, 'FM999,999990' ) ) ITEM_TEMP , /* 수온(℃) */                                                ";
+sql += "        DECODE(ITEM_DO , '999999999', '정량한계미만', TO_CHAR(ITEM_DO, 'FM999,999990.0' ) ) ITEM_DO , /* DO(㎎/L) */                                                    ";
+sql += "        DECODE(ITEM_PH , '999999999', '정량한계미만', TO_CHAR(ITEM_PH, 'FM999,999990.0' ) ) ITEM_PH , /* pH */                                                          ";
+sql += "        DECODE(ITEM_EC , '999999999', '정량한계미만', TO_CHAR(ITEM_EC, 'FM999,999990' ) ) ITEM_EC , /* 전기전도도(SC)(25℃ μS/㎝) */                                   ";
+sql += "        DECODE(ITEM_COD , '999999999', '정량한계미만', TO_CHAR(ITEM_COD, 'FM999,999990.00' ) ) ITEM_COD , /* COD(%) */                                                  ";
+sql += "        DECODE(ITEM_TOC , '999999999', '정량한계미만', TO_CHAR(ITEM_TOC, 'FM999,999990.00' ) ) ITEM_TOC , /* TOC(%) */                                                  ";
+sql += "        DECODE(ITEM_TN , '999999999', '정량한계미만', TO_CHAR(ITEM_TN, 'FM999,999990' ) ) ITEM_TN , /* T-N(㎎/㎏) */                                                    ";
+sql += "        DECODE(ITEM_TP , '999999999', '정량한계미만', TO_CHAR(ITEM_TP, 'FM999,999990' ) ) ITEM_TP, /* T-P(㎎/㎏) */                                                     ";
 sql += "        B.ADMCODE                                                                                                                                                        ";
 sql += " FROM   (SELECT A.PT_NO ,                                                                                                                                                ";
 sql += "                A.WMYR ,                                                                                                                                                 ";
@@ -157,14 +157,23 @@ if(defaultChart.equals("1")){
 	sql += " FROM TMP_TBL    ";
 }
 sql += "  UNION ALL                                                                                                                                                              ";
-sql += "  SELECT 999 AS RN, '', '','', '', '', '', '', TO_CHAR(MAX(ITEM_DOW) + MAX(ITEM_DOW) / 10), TO_CHAR(MAX(ITEM_TEMP) + MAX(ITEM_TEMP) / 10), TO_CHAR(MAX(ITEM_DO) + MAX(ITEM_DO) / 10),                                                                              ";
-sql += "  TO_CHAR(MAX(ITEM_PH) + MAX(ITEM_PH) / 10), TO_CHAR(MAX(ITEM_EC) + MAX(ITEM_EC) / 10), TO_CHAR(MAX(ITEM_COD) + MAX(ITEM_COD) / 10), TO_CHAR(MAX(ITEM_TOC) + MAX(ITEM_TOC) / 10),                                                                                                              ";
-sql += "  TO_CHAR(MAX(ITEM_TN) + MAX(ITEM_TN) / 10), TO_CHAR(MAX(ITEM_TP) + MAX(ITEM_TP) / 10), ''                                                                                                                                         ";
-sql += "    FROM TMP_TBL                                                                                                                                                         ";	                                                                                                                                                             
+sql += "  SELECT 999 AS RN, '', '','', '', '', '', '', 									  ";
+sql += "  			TO_CHAR(MAX(TO_NUMBER(ITEM_DOW)) + MAX(TO_NUMBER(ITEM_DOW)) / 10),	  ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_TEMP)) + (MAX(TO_NUMBER(ITEM_TEMP)) / 10)),   ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_DO)) + MAX(TO_NUMBER(ITEM_DO)) / 10),         ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_PH)) + MAX(TO_NUMBER(ITEM_PH)) / 10),         ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_EC)) + MAX(TO_NUMBER(ITEM_EC)) / 10),         ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_COD)) + MAX(TO_NUMBER(ITEM_COD)) / 10),       ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_TOC)) + MAX(TO_NUMBER(ITEM_TOC)) / 10),       ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_TN)) + MAX(TO_NUMBER(ITEM_TN)) / 10),         ";
+sql += "         TO_CHAR(MAX(TO_NUMBER(ITEM_TP)) + MAX(TO_NUMBER(ITEM_TP)) / 10),         ";
+sql += "    ''                                                                            ";
+sql += "  FROM TMP_TBL                                                                    ";
+	                                                                                                                                                             
                              
 
 
-		
+	System.out.println(sql);	
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
@@ -189,6 +198,7 @@ sql += "    FROM TMP_TBL                                                        
   		jsonRecord.put("ITEM_DOW" 	, rs.getString("ITEM_DOW"));
   		jsonRecord.put("ITEM_TEMP" 	, rs.getString("ITEM_TEMP"));
   		jsonRecord.put("ITEM_DO" 	, rs.getString("ITEM_DO"));
+  		jsonRecord.put("ITEM_EC" 	, rs.getString("ITEM_EC"));
   		jsonRecord.put("ITEM_PH" 	, rs.getString("ITEM_PH"));
   		jsonRecord.put("ITEM_COD" 	, rs.getString("ITEM_COD"));
   		jsonRecord.put("ITEM_TOC" 	, rs.getString("ITEM_TOC"));

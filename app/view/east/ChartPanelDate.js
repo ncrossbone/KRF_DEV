@@ -68,7 +68,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					data: [{id: 'ITEM_DOW', name: '수심'}
 						,{id: 'ITEM_TEMP', name: '수온'}
 						,{id: 'ITEM_DOC', name: 'DO'}
-						,{id: 'ITEM_PH', name: 'PH'}
+						,{id: 'ITEM_PH', name: 'pH'}
 						,{id: 'ITEM_EC', name: '전기전도도'}
 						,{id: 'ITEM_COD', name: 'COD'}
 						,{id: 'ITEM_TOC', name: 'TOC'}

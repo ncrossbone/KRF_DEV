@@ -354,8 +354,10 @@ SetItemLabelText = function(itemNm){
 		itemLable = "BOD(㎎/L)";
 	}else if(itemNm == "ITEM_COD"){
 		itemLable = "COD(㎎/L)";
-	}else if(itemNm == "ITEM_DOC" || itemNm == "ITEM_DOW"){
+	}else if(itemNm == "ITEM_DOC"){
 		itemLable = "DO(㎎/L)";
+	}else if(itemNm == "ITEM_DOW"){
+		itemLable = "수심(cm)";
 	}else if(itemNm == "WL"){
 		itemLable = "수위(cm)";
 	}else if(itemNm == "RF"){
@@ -729,9 +731,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		//환경기초시설 검색값 히든처리
 		//hiddenGrid.setHidden(false);
+		var fNum = test;
+		if(fNum == "" ||fNum == "1" || fNum == "관거이송량"){
+			fNum = "";
+		}
 		if(grdContainer == null || grdContainer == undefined){
 			
-			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F_"+fNum+"", options);
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -754,104 +760,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		}
 		
 		console.info(test);
-		
-		//0~2 , 11~16 공통
-		if(test == "" ||test == "1" || test == "관거이송량"){
-			test = "";
-			grdCtl.columns[3].setHidden(false);
-			grdCtl.columns[4].setHidden(false);
-			
-			grdCtl.columns[5].setHidden(true);
-			grdCtl.columns[6].setHidden(true);
-			grdCtl.columns[7].setHidden(true);
-			grdCtl.columns[8].setHidden(true);
-			grdCtl.columns[9].setHidden(true);
-			grdCtl.columns[10].setHidden(true);
-			grdCtl.columns[11].setHidden(true);
-			grdCtl.columns[12].setHidden(true);
-			
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
-			
-			grdCtl.columns[27].setHidden(false);
-			grdCtl.columns[28].setHidden(false);
-			grdCtl.columns[29].setHidden(false);
-			
-			grdCtl.columns[30].setHidden(true);
-			grdCtl.columns[31].setHidden(true);
-			
-			
-			
-			
-		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
-			grdCtl.columns[3].setHidden(true);
-			grdCtl.columns[4].setHidden(true);
-			grdCtl.columns[5].setHidden(true);
-			
-			grdCtl.columns[6].setHidden(false);
-			grdCtl.columns[7].setHidden(false);
-			grdCtl.columns[8].setHidden(false);
-			grdCtl.columns[9].setHidden(false);
-			grdCtl.columns[10].setHidden(false);
-			grdCtl.columns[11].setHidden(false);
-			grdCtl.columns[12].setHidden(false);
-			
-			grdCtl.columns[13].setHidden(true);
-			grdCtl.columns[14].setHidden(true);
-			grdCtl.columns[27].setHidden(true);
-			grdCtl.columns[28].setHidden(true);
-			grdCtl.columns[29].setHidden(true);
-			
-			grdCtl.columns[30].setHidden(false);
-			grdCtl.columns[31].setHidden(false);
-			
-		}else if(test == "3"){
-			grdCtl.columns[3].setHidden(true);
-			grdCtl.columns[4].setHidden(true);
-			
-			grdCtl.columns[5].setHidden(false);
-			
-			grdCtl.columns[6].setHidden(true);
-			grdCtl.columns[7].setHidden(true);
-			grdCtl.columns[8].setHidden(true);
-			grdCtl.columns[9].setHidden(true);
-			grdCtl.columns[10].setHidden(true);
-			grdCtl.columns[11].setHidden(true);
-			grdCtl.columns[12].setHidden(true);
-			
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
-			
-			grdCtl.columns[27].setHidden(true);
-			grdCtl.columns[28].setHidden(true);
-			grdCtl.columns[29].setHidden(true);
-			grdCtl.columns[30].setHidden(true);
-			grdCtl.columns[31].setHidden(true);
-		}else{
-			grdCtl.columns[3].setHidden(false);
-			
-			grdCtl.columns[4].setHidden(true);
-			grdCtl.columns[5].setHidden(true);
-			
-			grdCtl.columns[6].setHidden(true);
-			grdCtl.columns[7].setHidden(true);
-			grdCtl.columns[8].setHidden(true);
-			grdCtl.columns[9].setHidden(true);
-			grdCtl.columns[10].setHidden(true);
-			grdCtl.columns[11].setHidden(true);
-			grdCtl.columns[12].setHidden(true);
-			
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
-			
-			grdCtl.columns[27].setHidden(true);
-			grdCtl.columns[28].setHidden(true);
-			grdCtl.columns[29].setHidden(true);
-			grdCtl.columns[30].setHidden(true);
-			grdCtl.columns[31].setHidden(true);
-		}
-		
-		console.info(test);
+		console.info(grdCtl);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
 			siteIds: grdCtl.siteIds,

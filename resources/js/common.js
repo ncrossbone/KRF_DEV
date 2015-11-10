@@ -354,8 +354,10 @@ SetItemLabelText = function(itemNm){
 		itemLable = "BOD(㎎/L)";
 	}else if(itemNm == "ITEM_COD"){
 		itemLable = "COD(㎎/L)";
-	}else if(itemNm == "ITEM_DOC" || itemNm == "ITEM_DOW"){
+	}else if(itemNm == "ITEM_DOC"){
 		itemLable = "DO(㎎/L)";
+	}else if(itemNm == "ITEM_DOW"){
+		itemLable = "수심(cm)";
 	}else if(itemNm == "WL"){
 		itemLable = "수위(cm)";
 	}else if(itemNm == "RF"){
@@ -754,101 +756,75 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		}
 		
 		console.info(test);
+		console.info(grdCtl);
+		var hiddenF = "";
+		var hiddenT = "";
+		
+		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
 		
 		//0~2 , 11~16 공통
 		if(test == "" ||test == "1" || test == "관거이송량"){
 			test = "";
-			grdCtl.columns[3].setHidden(false);
-			grdCtl.columns[4].setHidden(false);
-			
-			grdCtl.columns[5].setHidden(true);
-			grdCtl.columns[6].setHidden(true);
-			grdCtl.columns[7].setHidden(true);
-			grdCtl.columns[8].setHidden(true);
-			grdCtl.columns[9].setHidden(true);
-			grdCtl.columns[10].setHidden(true);
-			grdCtl.columns[11].setHidden(true);
-			grdCtl.columns[12].setHidden(true);
-			
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
-			
-			grdCtl.columns[27].setHidden(false);
-			grdCtl.columns[28].setHidden(false);
-			grdCtl.columns[29].setHidden(false);
-			
-			grdCtl.columns[30].setHidden(true);
-			grdCtl.columns[31].setHidden(true);
+			var arrayF = ['3','4','13','14','27','28','29'];
+			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
 			
 			
+			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
+				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
+			}
+			
+			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
+				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			
+			console.info("1");
+			//DISCHARGE_AMT_PHYS_VAL.hideable = false;
+			/*PIPE_NUM.hideable = true;
+			PIPE_TYPE.hideable = true;
+			AMT_VAL.hideable = true;
+			BYPASS_AMT_VAL.hideable = true;
+			CONNECT_FACI_NM.hideable = true;*/
 			
 			
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
-			grdCtl.columns[3].setHidden(true);
-			grdCtl.columns[4].setHidden(true);
-			grdCtl.columns[5].setHidden(true);
 			
-			grdCtl.columns[6].setHidden(false);
-			grdCtl.columns[7].setHidden(false);
-			grdCtl.columns[8].setHidden(false);
-			grdCtl.columns[9].setHidden(false);
-			grdCtl.columns[10].setHidden(false);
-			grdCtl.columns[11].setHidden(false);
-			grdCtl.columns[12].setHidden(false);
+			var arrayT = ['3','4','5','13','14','15','27','28','29'];
+			var arrayF = ['6','7','8','9','10','11','12','30','31'];
 			
-			grdCtl.columns[13].setHidden(true);
-			grdCtl.columns[14].setHidden(true);
-			grdCtl.columns[27].setHidden(true);
-			grdCtl.columns[28].setHidden(true);
-			grdCtl.columns[29].setHidden(true);
+			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
+				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
+			}
+			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
+				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
 			
-			grdCtl.columns[30].setHidden(false);
-			grdCtl.columns[31].setHidden(false);
 			
 		}else if(test == "3"){
-			grdCtl.columns[3].setHidden(true);
-			grdCtl.columns[4].setHidden(true);
 			
-			grdCtl.columns[5].setHidden(false);
+			var arrayT = ['3','4','6','7','8','9','10','11','12','27','28','29','30','31'];
+			var arrayF = ['5','13','14'];
 			
-			grdCtl.columns[6].setHidden(true);
-			grdCtl.columns[7].setHidden(true);
-			grdCtl.columns[8].setHidden(true);
-			grdCtl.columns[9].setHidden(true);
-			grdCtl.columns[10].setHidden(true);
-			grdCtl.columns[11].setHidden(true);
-			grdCtl.columns[12].setHidden(true);
+			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
+				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
+			}
+			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
+				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
 			
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
 			
-			grdCtl.columns[27].setHidden(true);
-			grdCtl.columns[28].setHidden(true);
-			grdCtl.columns[29].setHidden(true);
-			grdCtl.columns[30].setHidden(true);
-			grdCtl.columns[31].setHidden(true);
 		}else{
-			grdCtl.columns[3].setHidden(false);
 			
-			grdCtl.columns[4].setHidden(true);
-			grdCtl.columns[5].setHidden(true);
+			var arrayT = ['4','5','6','7','8','9','10','11','12','27','28','29','30','31'];
+			var arrayF = ['3','13','14'];
 			
-			grdCtl.columns[6].setHidden(true);
-			grdCtl.columns[7].setHidden(true);
-			grdCtl.columns[8].setHidden(true);
-			grdCtl.columns[9].setHidden(true);
-			grdCtl.columns[10].setHidden(true);
-			grdCtl.columns[11].setHidden(true);
-			grdCtl.columns[12].setHidden(true);
+			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
+				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
+			}
+			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
+				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
 			
-			grdCtl.columns[13].setHidden(false);
-			grdCtl.columns[14].setHidden(false);
-			
-			grdCtl.columns[27].setHidden(true);
-			grdCtl.columns[28].setHidden(true);
-			grdCtl.columns[29].setHidden(true);
-			grdCtl.columns[30].setHidden(true);
-			grdCtl.columns[31].setHidden(true);
 		}
 		
 		console.info(test);
