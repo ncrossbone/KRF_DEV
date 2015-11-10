@@ -42,7 +42,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 			},
 			
 			columns: [{
-				text      : '리치코드',
+				text      : '리치ID',
 				dataIndex : 'RCH_ID',
 				width: 100,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
@@ -94,7 +94,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 						return Ext.util.Format.number(val / 1000, '0.0');
 				}
 			}, {
-				text      : '집수구역코드',
+				text      : '집수구역ID',
 				dataIndex : 'CAT_ID',
 				width: 150
 			}, { 
