@@ -16,7 +16,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
-			//id: 'grdSearchResult',
+			id: 'grdSearchResult_F',
 			//id: this.up('container').up('container'),
 			plugins: 'gridfilters',
 			cls: 'khLee-x-column-header-text',
@@ -90,6 +90,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 			}, { 
 				text      : '관거번호',
 				dataIndex : 'PIPE_NUM',
+				id: 'PIPE_NUM',
 				hidden : true,
 				width: 70,
 				filter: {type: 'numeric'/*, fields: {}*/}
@@ -97,22 +98,26 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				text      : '관거유형',
 				dataIndex : 'PIPE_TYPE',
 				hidden : true,
+				id: 'PIPE_TYPE',
 				width: 110,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{ 
 				text      : '유입원',
 				dataIndex : 'IN_PL_TYPE',
 				hidden : true,
+				id: 'IN_PL_TYPE',
 				width: 110,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, { 
 				text      : '방류구분번호',
 				dataIndex : 'DISCHARGE_NUM',
 				hidden : true,
+				id: 'DISCHARGE_NUM',
 				width: 110,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, {
 				text : '방류량_물리적(㎥/일)',
+				id: 'DISCHARGE_AMT_PHYS_VAL',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'DISCHARGE_AMT_PHYS_VAL',
@@ -153,6 +158,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}]
 			}, {
 				text : '방류량_생물학적(㎥/일)',
+				id: 'DISCHARGE_AMT_BIO_VAL',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'DISCHARGE_AMT_BIO_VAL',
@@ -193,6 +199,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}]
 			}, {
 				text : '방류량_고도(㎥/일)',
+				id: 'DISCHARGE_AMT_HIGHTEC_VAL',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'DISCHARGE_AMT_HIGHTEC_VAL',
@@ -233,6 +240,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}]
 			}, {
 				text : '유량(㎥/일)',
+				id: 'AMT_VAL',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'AMT_VAL',
@@ -512,6 +520,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 			},{
 
 				text : '미처리배제유량(㎥/일)',
+				id: 'BYPASS_AMT_VAL',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'BYPASS_AMT_VAL',
@@ -554,18 +563,21 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 			}, {
 				text      : '연계처리시설명',
 				dataIndex : 'CONNECT_FACI_NM',
+				id: 'CONNECT_FACI_NM',
 				hidden : true,
 				width: 110,
 				filter: {type: 'numeric'/*, fields: {}*/}
 			}, {
 				text      : '방류수소독방법',
 				dataIndex : 'DISCHARGE_DISINFECT',
+				id: 'DISCHARGE_DISINFECT',
 				hidden : true,
 				width: 110,
 				filter: {type: 'numeric'/*, fields: {}*/}
 			}, {
 				text      : '연계처리시설명',
 				dataIndex : 'DISCHARGE_FACI_NM',
+				id: 'DISCHARGE_FACI_NM',
 				hidden : true,
 				width: 110,
 				filter: {type: 'numeric'/*, fields: {}*/}
