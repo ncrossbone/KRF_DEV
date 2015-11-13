@@ -172,7 +172,7 @@ if(firstSearch.equals("date")){
 }else{
 	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
 }
-sql += "  ORDER BY A.FACI_NM, A.DISCHARGE_NUM, A.WORK_DT DESC, B.WORK_DT DESC                                                    " ;
+sql += "  ORDER BY A.FACI_NM, A.DISCHARGE_NUM, A.WORK_DT DESC, B.WORK_DT                                                    " ;
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    

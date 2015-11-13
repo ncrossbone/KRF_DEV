@@ -410,7 +410,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_SS',
 					width: 60,
 					renderer: function(value){
-						console.info(value);
 						if(value == 999999999){
 							return "N.D";
 						}
