@@ -187,6 +187,7 @@ try{
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    //out.print(sql);
+   System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
    
@@ -249,10 +250,11 @@ try{
 		if(!preSeq.equals("") && !preSeq.equals(rs.getString("RN"))){
 			
 			cnt = 1;
-			
+			//System.out.println("CURR_COD ::"+CURR_COD);
+			//System.out.println("CHART_COD ::"+CHART_COD);
 			//System.out.println(preSite + preDate);
 			jsonRecord = new JSONObject();
-	
+			
 			//jsonRecord.put("parentId", parentId);
 			jsonRecord.put("WS_NM",WS_NM);
 			jsonRecord.put("AM_NM",AM_NM);
@@ -326,7 +328,6 @@ try{
 			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 			Chart_Data_tmp.add(rs.getString("CHART_COD"));
 			CHART_COD.add(Chart_Data_tmp);
-			
 						
 			CURR_SS  = rs.getString("CURR_SS");
 			Chart_Data_tmp = new JSONArray();
@@ -402,23 +403,25 @@ try{
 		jsonRecord.put("CURR_BOD",CURR_BOD);
 		jsonRecord.put("CHART_BOD",CHART_BOD);
 		jsonRecord.put("CURR_COD",CURR_COD);
-		jsonRecord.put("CHART_COD	",CHART_COD);
+		jsonRecord.put("CHART_COD",CHART_COD);
 		jsonRecord.put("CURR_SS",CURR_SS);
-		jsonRecord.put("CHART_SS	",CHART_SS);
+		jsonRecord.put("CHART_SS",CHART_SS);
 		jsonRecord.put("CURR_TN",CURR_TN);
-		jsonRecord.put("CHART_TN	",CHART_TN);
+		jsonRecord.put("CHART_TN",CHART_TN);
 		jsonRecord.put("CURR_TP",CURR_TP);
-		jsonRecord.put("CHART_TP	",CHART_TP);
+		jsonRecord.put("CHART_TP",CHART_TP);
 		jsonRecord.put("CURR_PH",CURR_PH);
-		jsonRecord.put("CHART_PH	",CHART_PH);
+		jsonRecord.put("CHART_PH",CHART_PH);
 		jsonRecord.put("CURR_FLW",CURR_FLW);
-		jsonRecord.put("CHART_FLW	",CHART_FLW);
+		jsonRecord.put("CHART_FLW",CHART_FLW);
 		jsonRecord.put("CURR_TOC",CURR_TOC);
-		jsonRecord.put("CHART_TOC	",CHART_TOC);
+		jsonRecord.put("CHART_TOC",CHART_TOC);
 		jsonRecord.put("DO_NM",DO_NM);
 		jsonRecord.put("CTY_NM",CTY_NM);
 		jsonRecord.put("DONG_NM",DONG_NM);
 		jsonRecord.put("RI_NM",RI_NM);
+		
+		
 	}
 	else{
 		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");

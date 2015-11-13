@@ -110,10 +110,11 @@ try{
 	sql += "     WHEN B.ITEM_PH = '999999999' THEN 0                                                                                ";
 	sql += "     ELSE B.ITEM_PH                                                                                                     ";
 	sql += "   END AS CHART_PH ,                                                                                                    ";
-	sql += "   CASE                                                                                                                 ";
-	sql += "     WHEN A.ITEM_SS = '999999999' THEN '정량한계미만'                                                                   ";
-	sql += "     ELSE TO_CHAR(A.ITEM_SS )                                                                                           ";
-	sql += "   END AS CURR_SS ,                                                                                                     ";
+	//sql += "   CASE                                                                                                                 ";
+	//sql += "     WHEN A.ITEM_SS = '999999999' THEN '정량한계미만'                                                                   ";
+	//sql += "     ELSE TO_CHAR(A.ITEM_SS )                                                                                           ";
+	//sql += "   END AS CURR_SS ,                                                                                                     ";
+	sql += "   NVL(A.ITEM_SS, 888888888) AS CURR_SS ,                                                                                                     ";
 	sql += "   CASE                                                                                                                 ";
 	sql += "     WHEN B.ITEM_SS = '999999999' THEN 0                                                                                ";
 	sql += "     ELSE B.ITEM_SS                                                                                                     ";
@@ -527,7 +528,7 @@ try{
 	sql += "                B.ITEM_HCB /* HCB */,                                                                 ";
 	sql += "                A.ADMCODE /* 법정동코드 */                                                            ";
 	sql += "         FROM   RWMPT A ,                                                                             ";
-	sql += "                RWMDTI B ,                                                                            ";
+	sql += "                RWMDTI_NEW B ,                                                                            ";
 	sql += "                RWMDTD C                                                                              ";
 	sql += "         WHERE  A.PT_NO = B.PT_NO                                                                     ";
 	sql += "         AND    A.PT_NO = C.PT_NO                                                                     ";
@@ -619,7 +620,7 @@ try{
 	sql += "                B.ITEM_HCB /* HCB */,                                                             ";
 	sql += "                A.ADMCODE /* 법정동코드 */                                                        ";
 	sql += "         FROM   RWMPT A ,                                                                         ";
-	sql += "                RWMDTI B ,                                                                        ";
+	sql += "                RWMDTI_NEW B ,                                                                        ";
 	sql += "                RWMDTD C                                                                          ";
 	sql += "         WHERE  A.PT_NO = B.PT_NO                                                                 ";
 	sql += "         AND    A.PT_NO = C.PT_NO                                                                 ";
@@ -643,9 +644,10 @@ try{
 	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)      ) ORDER BY PT_NO, RN, RN_2 DESC                ";
 		
    //out.print(sql);
-   
+   //System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
+   
 	JSONObject jsonObj  = new JSONObject();
 	JSONArray jsonArr = new JSONArray();
 	JSONObject jsonRecord = null;
@@ -774,9 +776,10 @@ try{
 			
 			cnt = 1;
 			
-			//System.out.println(preSite + preDate);
+			System.out.println("CURR_BOD :: "+CURR_BOD);
+			//System.out.println("CHART_BOD :: "+CHART_BOD);
 			jsonRecord = new JSONObject();
-	
+		
 			//jsonRecord.put("parentId", parentId);
 			jsonRecord.put("PT_NO", PT_NO);
 	  		jsonRecord.put("PT_NM", PT_NM);
@@ -899,7 +902,50 @@ try{
 	  		CHART_SS = new JSONArray();
 	  		CHART_CLOA = new JSONArray();
 	  		CHART_TOC = new JSONArray();
+	  		
+		  	CHART_AMNT	 = new JSONArray();
+		  	CHART_DTN	 = new JSONArray();
+		  	CHART_NO3N	 = new JSONArray();
+		  	CHART_NH3N	 = new JSONArray();
+		  	CHART_DTP	 = new JSONArray();
+		  	CHART_POP	 = new JSONArray();
+		  	CHART_TRANS	 = new JSONArray();
+		  	CHART_ALGOL	 = new JSONArray();
+		  	CHART_TCOLI	 = new JSONArray();
+		  	CHART_ECOLI	 = new JSONArray();
+		  	CHART_ANTIMON	 = new JSONArray();
+		  	CHART_PHENOL	 = new JSONArray();
+		  	CHART_COL	 = new JSONArray();
+		  	CHART_NHEX	 = new JSONArray();
+		  	CHART_MN	 = new JSONArray();
+		  	CHART_FE	 = new JSONArray();
+		  	CHART_CD	 = new JSONArray();
+		  	CHART_CN	 = new JSONArray();
+		  	CHART_PB	 = new JSONArray();
+		  	CHART_CR6	 = new JSONArray();
+		  	CHART_CR	 = new JSONArray();
+		  	CHART_AS	 = new JSONArray();
+		  	CHART_HG	 = new JSONArray();
+		  	CHART_CU	 = new JSONArray();
+		  	CHART_ZN	 = new JSONArray();
+		  	CHART_FL	 = new JSONArray();
+		  	CHART_ABS	 = new JSONArray();
+		  	CHART_CL	 = new JSONArray();
+		  	CHART_TCE	 = new JSONArray();
+		  	CHART_PCE	 = new JSONArray();
+		  	CHART_CCL4	 = new JSONArray();
+		  	CHART_DCETH	 = new JSONArray();
+		  	CHART_DCM	 = new JSONArray();
+		  	CHART_BENZENE	 = new JSONArray();
+		  	CHART_CHCL3	 = new JSONArray();
+		  	CHART_OP	 = new JSONArray();
+		  	CHART_PCB	 = new JSONArray();
+		  	CHART_DEHP	 = new JSONArray();
+		  	CHART_HCHO	 = new JSONArray();
+		  	CHART_HCB	 = new JSONArray();
 		}
+		
+		//System.out.print("count : " + cnt);
 
 		PT_NO = rs.getString("PT_NO");
 		PT_NM = rs.getString("PT_NM");
@@ -908,7 +954,8 @@ try{
 		WMOD = rs.getString("WMOD");
 		WMWK = rs.getString("WMWK");
 		WMDEP = rs.getString("WMDEP");
-		CURR_BOD = rs.getString("CURR_BOD");
+		
+		CURR_BOD = rs.getString("CURR_BOD");	
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_BOD"));
@@ -1222,7 +1269,7 @@ try{
 			preSeq = rs.getString("RN");
   		
 	}
-	
+	//System.out.print("loop end");
 	jsonRecord = new JSONObject();
 	
 	if(cnt > 0){
@@ -1339,17 +1386,22 @@ try{
 	else{
 		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
 	}
-
+	//System.out.print(cnt);
 	jsonArr.add(jsonRecord);
 	
 	jsonObj.put("data", jsonArr);
    
-   out.print(jsonObj);
+	out.print(jsonObj);
+	//System.out.print("end");
+    jsonObj  = null;
+	jsonArr = null;
+	jsonRecord = null;
+	
    //out.print("success");
 }catch(Exception ex){
 	//throw;
 	System.out.println(ex);
-	System.out.println(sql);
+	//System.out.println(sql);
 	out.print("error");
 } 
 %>

@@ -700,14 +700,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 		console.info(grdCtl);
-		grdCtl.columns[8].hidden = true;
-		grdCtl.columns[9].hidden = true;
-		//grdCtl.columns[8].hideable = false;
-		//grdCtl.columns[9].hideable = false;
-		grdCtl.initialConfig.columns[8].hidden = true;
-		grdCtl.initialConfig.columns[8].hideable = false;
-		//grdCtl.id = gridId; // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
-		//return;
+
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
@@ -801,7 +794,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
 			
-			var arrayT = ['3','4','5','13','14','15','27','28','29'];
+			var arrayT = ['3','4','5','13','14','27','28','29'];
 			var arrayF = ['6','7','8','9','10','11','12','30','31'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){

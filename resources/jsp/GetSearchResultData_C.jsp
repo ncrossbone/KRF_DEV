@@ -591,7 +591,6 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 			
 			//System.out.println(preSite + preDate);
 			jsonRecord = new JSONObject();
-	
 			//jsonRecord.put("parentId", parentId);
 			jsonRecord.put("PT_NO",PT_NO);
 			jsonRecord.put("PT_NM",PT_NM);
