@@ -110,10 +110,11 @@ try{
 	sql += "     WHEN B.ITEM_PH = '999999999' THEN 0                                                                                ";
 	sql += "     ELSE B.ITEM_PH                                                                                                     ";
 	sql += "   END AS CHART_PH ,                                                                                                    ";
-	sql += "   CASE                                                                                                                 ";
-	sql += "     WHEN A.ITEM_SS = '999999999' THEN '정량한계미만'                                                                   ";
-	sql += "     ELSE TO_CHAR(A.ITEM_SS )                                                                                           ";
-	sql += "   END AS CURR_SS ,                                                                                                     ";
+	//sql += "   CASE                                                                                                                 ";
+	//sql += "     WHEN A.ITEM_SS = '999999999' THEN '정량한계미만'                                                                   ";
+	//sql += "     ELSE TO_CHAR(A.ITEM_SS )                                                                                           ";
+	//sql += "   END AS CURR_SS ,                                                                                                     ";
+	sql += "   NVL(A.ITEM_SS, 888888888) AS CURR_SS,                                                                                                     ";
 	sql += "   CASE                                                                                                                 ";
 	sql += "     WHEN B.ITEM_SS = '999999999' THEN 0                                                                                ";
 	sql += "     ELSE B.ITEM_SS                                                                                                     ";

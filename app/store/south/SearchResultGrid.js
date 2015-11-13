@@ -195,7 +195,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         			//Ext.getCmp("searchResultWindow").unmask();
         			activeTab.unmask();
         			
-        			//alert(form.responseText);
+        			console.info(form.responseText);
         			alert("오류가 발생하였습니다.");
         		}
         	});
