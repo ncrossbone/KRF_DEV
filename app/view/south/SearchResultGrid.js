@@ -121,7 +121,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_BOD',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -170,7 +178,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_DO',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -210,7 +226,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_COD',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -250,7 +274,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_TN',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: 'number'
 				}, {
@@ -290,7 +322,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_TP',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -330,7 +370,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_TEMP',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -370,7 +418,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_PH',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -462,7 +518,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CLOA',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{	
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -502,7 +566,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_TOC',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -543,7 +615,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_AMNT',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -584,7 +664,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_DNT',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -625,7 +713,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_NO3N',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -666,7 +762,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_NH3N',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -707,7 +811,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_DTP',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -748,7 +860,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_POP',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -789,7 +909,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_TRANS',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{	
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -830,7 +958,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_ALGOL',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -871,7 +1007,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_TCOLI',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -912,7 +1056,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_ECOLI',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -953,7 +1105,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_ANTIMON',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -994,7 +1154,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_PHENOL',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1035,7 +1203,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_COL',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1076,7 +1252,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_NHEX',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1117,7 +1301,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_FE',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1158,7 +1350,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_MN',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.00');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1199,7 +1399,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CD',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1240,7 +1448,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CN',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.00');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1281,7 +1497,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_PB',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.00');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1322,7 +1546,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CR6',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.00');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1363,7 +1595,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CR',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.00');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1404,7 +1644,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_AS',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1445,7 +1693,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_HG',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0000000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1486,7 +1742,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CU',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1527,7 +1791,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_ZN',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1568,7 +1840,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_FL',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.00');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1609,7 +1889,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_ABS',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1650,7 +1938,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CL',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1691,7 +1987,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_TCE',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1732,7 +2036,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_PCE',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1773,7 +2085,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CCL4',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1814,7 +2134,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_DCETH',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1855,7 +2183,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_DCM',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{	
+							return Ext.util.Format.number(value, '0.0000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1896,7 +2232,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_BENZENE',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1937,7 +2281,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_CHCL3',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -1978,7 +2330,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_OP',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -2019,7 +2379,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_PCB',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -2060,7 +2428,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_DEHP',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -2101,7 +2477,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_HCHO',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -2142,7 +2526,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					dataIndex: 'CURR_HCB',
 					width: 60,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.000');
+						if(value == 999999999){
+							return "N.D";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
