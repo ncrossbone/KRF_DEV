@@ -114,11 +114,7 @@ try{
 	//sql += "     WHEN A.ITEM_SS = '999999999' THEN '정량한계미만'                                                                   ";
 	//sql += "     ELSE TO_CHAR(A.ITEM_SS )                                                                                           ";
 	//sql += "   END AS CURR_SS ,                                                                                                     ";
-<<<<<<< HEAD
-	sql += "   NVL(A.ITEM_SS, 888888888) AS CURR_SS,                                                                                                     ";
-=======
-	sql += "   NVL(A.ITEM_SS, 888888888) AS CURR_SS ,                                                                                                     ";
->>>>>>> 0fbe64eb786a177dc2e96ca2271b9fbcffcd8a38
+	sql += "   NVL(A.ITEM_SS, 888888888) AS CURR_SS ,";
 	sql += "   CASE                                                                                                                 ";
 	sql += "     WHEN B.ITEM_SS = '999999999' THEN 0                                                                                ";
 	sql += "     ELSE B.ITEM_SS                                                                                                     ";

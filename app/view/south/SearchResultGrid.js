@@ -436,6 +436,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    {
 							    formatX: function(xVal){
 							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	//console.info(xVal);
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
@@ -445,6 +446,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						renderer: function(value){
+							console.info(value);
+						},
 						chartRangeMax: 27.7,
 						chartRangeMin: 0,
 						spotRadius: 1,

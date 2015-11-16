@@ -193,6 +193,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         		failure: function(form, action) {
         			// 로딩바 숨김
         			//Ext.getCmp("searchResultWindow").unmask();
+        			console.info(form);
         			activeTab.unmask();
         			alert("오류가 발생하였습니다.");
         		}

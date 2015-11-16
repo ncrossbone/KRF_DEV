@@ -699,12 +699,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-<<<<<<< HEAD
-		
-=======
-		console.info(grdCtl);
-
->>>>>>> 0fbe64eb786a177dc2e96ca2271b9fbcffcd8a38
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
