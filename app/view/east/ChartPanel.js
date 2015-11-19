@@ -153,6 +153,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	            axis: 'left',
 	            xField: 'yearMonth',
 	            yField: 'ITEM_BOD',
+	            
 	            /*
 	            markerConfig: {
 	                type: "circle",

@@ -119,10 +119,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BOD',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -140,18 +140,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
-						//values: [[2, 4], [3, 3], [4, 5], [5, 2], [6, 3]],
-						//xvalues: [2, 3, 4, 5, 6],
-						/*tooltipFormatter: function (sparkline, options, fields) {
-							console.info(fields.x.substring(1, 9));
-							//console.info(options);
-							//console.info(sparkline);
-							return "test";
-						},*/
-						tipTpl: new Ext.XTemplate(
+						tipTpl: new Ext.XTemplate(  //'<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -159,16 +151,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
+						        	
 						        }
 						    }
+						    
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
 						chartRangeMax: 5.8,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+						
 					}
 				}]
 			}, {
@@ -176,10 +176,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DO',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -199,7 +199,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -207,8 +207,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -216,6 +220,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 15.5,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -224,10 +229,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_COD',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -247,7 +252,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -255,8 +260,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -264,6 +273,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 11.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -272,10 +282,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TN',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -295,7 +305,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -303,8 +313,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -312,6 +326,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.628,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -320,10 +335,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TP',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -343,7 +358,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -351,8 +366,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -360,6 +379,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 0.237,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -368,10 +388,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TEMP',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -391,7 +411,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ℃</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -399,8 +419,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ℃";
+						        	}
 						        }
 						    }
 						),
@@ -408,6 +432,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 28.8,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -416,10 +441,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PH',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -447,8 +472,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal;
+						        	}
 						        }
 						    }
 						),
@@ -456,6 +485,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 9.5,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -464,10 +494,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_SS',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -487,7 +517,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -496,8 +526,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -508,6 +542,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 27.7,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -516,10 +551,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CLOA',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -539,7 +574,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/㎥</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} </p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -547,8 +582,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/㎥";
+						        	}
 						        }
 						    }
 						),
@@ -556,6 +595,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 30.4,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -564,10 +604,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TOC',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -587,7 +627,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -595,8 +635,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -604,6 +648,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -613,10 +658,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_AMNT',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -636,7 +681,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -644,8 +689,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎥/s";
+						        	}
 						        }
 						    }
 						),
@@ -653,6 +702,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -662,10 +712,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DNT',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -685,7 +735,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -693,8 +743,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -702,6 +756,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -711,10 +766,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_NO3N',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -734,7 +789,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -742,8 +797,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -751,6 +810,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -760,10 +820,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_NH3N',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -783,7 +843,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -791,8 +851,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -800,6 +864,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -809,10 +874,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DTP',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -832,7 +897,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -840,8 +905,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -849,6 +918,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -858,10 +928,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_POP',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -881,7 +951,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -889,8 +959,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -898,6 +972,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -907,10 +982,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TRANS',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -930,7 +1005,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -938,8 +1013,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " m";
+						        	}
 						        }
 						    }
 						),
@@ -947,6 +1026,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -956,10 +1036,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ALGOL',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -979,7 +1059,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -987,8 +1067,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + " 개체수/㎖";
+						        	}
 						        }
 						    }
 						),
@@ -996,6 +1080,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1005,10 +1090,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TCOLI',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1028,7 +1113,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1036,8 +1121,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + " 총대장균군수/100㎖";
+						        	}
 						        }
 						    }
 						),
@@ -1045,6 +1134,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1054,10 +1144,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ECOLI',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1077,7 +1167,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1085,8 +1175,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + " 분원성대장균군수/100㎖";
+						        	}
 						        }
 						    }
 						),
@@ -1094,6 +1188,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1103,10 +1198,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ANTIMON',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1126,7 +1221,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1134,8 +1229,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1143,6 +1242,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1152,10 +1252,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PHENOL',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1175,7 +1275,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1183,8 +1283,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1192,6 +1296,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1201,10 +1306,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_COL',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1224,7 +1329,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1232,8 +1337,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + " 도";
+						        	}
 						        }
 						    }
 						),
@@ -1241,6 +1350,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1250,10 +1360,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_NHEX',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1273,7 +1383,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1281,8 +1391,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1290,6 +1404,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1299,10 +1414,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_FE',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1322,7 +1437,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1330,8 +1445,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1339,6 +1458,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1348,10 +1468,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_MN',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1371,7 +1491,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1379,8 +1499,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.00');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1388,6 +1512,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1397,10 +1522,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CD',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1420,7 +1545,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1428,8 +1553,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1437,6 +1566,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1446,10 +1576,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CN',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1469,7 +1599,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1477,8 +1607,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.00');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1486,6 +1620,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1495,10 +1630,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PB',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1518,7 +1653,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1526,8 +1661,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.00');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1535,6 +1674,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1544,10 +1684,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CR6',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1567,7 +1707,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1575,8 +1715,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.00');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1584,6 +1728,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1593,10 +1738,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CR',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1616,7 +1761,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1624,8 +1769,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.00');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1633,6 +1782,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1642,10 +1792,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_AS',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1665,7 +1815,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1673,8 +1823,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1682,6 +1836,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1691,10 +1846,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_HG',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1714,7 +1869,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1722,8 +1877,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0000000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1731,6 +1890,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1740,10 +1900,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CU',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1763,7 +1923,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1771,8 +1931,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1780,6 +1944,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1789,10 +1954,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ZN',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1812,7 +1977,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1820,8 +1985,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1829,6 +1998,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1838,10 +2008,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_FL',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1861,7 +2031,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1869,8 +2039,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.00');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1878,6 +2052,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1887,10 +2062,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ABS',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1910,7 +2085,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1918,8 +2093,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1927,6 +2106,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1936,10 +2116,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CL',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -1959,7 +2139,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -1967,8 +2147,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -1976,6 +2160,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -1985,10 +2170,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TCE',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2008,7 +2193,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2016,8 +2201,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2025,6 +2214,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2034,10 +2224,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PCE',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2057,7 +2247,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2065,8 +2255,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2074,6 +2268,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2083,10 +2278,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CCL4',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2106,7 +2301,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2114,8 +2309,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2123,6 +2322,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2132,10 +2332,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DCETH',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2155,7 +2355,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2163,8 +2363,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2172,6 +2376,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2181,10 +2386,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DCM',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2204,7 +2409,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2212,8 +2417,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2221,6 +2430,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2230,10 +2440,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BENZENE',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2253,7 +2463,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2261,8 +2471,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2270,6 +2484,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2279,10 +2494,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CHCL3',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2302,7 +2517,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2310,8 +2525,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2319,6 +2538,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2328,10 +2548,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_OP',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2351,7 +2571,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2359,8 +2579,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2368,6 +2592,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2377,10 +2602,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PCB',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2400,7 +2625,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2408,8 +2633,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2417,6 +2646,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2426,10 +2656,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DEHP',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2449,7 +2679,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2457,8 +2687,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2466,6 +2700,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2475,10 +2710,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_HCHO',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2498,7 +2733,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2506,8 +2741,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
 						        }
 						    }
 						),
@@ -2515,6 +2754,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
@@ -2524,10 +2764,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_HCB',
-					width: 60,
+					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
-							return "N.D";
+							return "정량한계미만";
 						}
 						else if(value == 888888888){
 							return "";
@@ -2547,7 +2787,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						tipTpl: new Ext.XTemplate(
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
@@ -2555,8 +2795,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.000');
-						            return yVal;
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎍/L";
+						        	}
 						        }
 						    }
 						),
@@ -2564,6 +2808,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						chartRangeMax: 6.2,
 						chartRangeMin: 0,
 						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
