@@ -17,7 +17,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 		items: [{
 			xtype: 'grid',
 			cls: 'khLee-x-column-header-text',
-			plugins: 'gridfilters',
+			plugins: ['bufferedrenderer', 'gridfilters'],
 			siteIds: "",
 			parentIds: [],
 			header: {
@@ -64,29 +64,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				text      : '리치길이 (km)',
 				dataIndex : 'RCH_LEN',
 				width: 150,
-				filter: {
-					type: 'numeric',
-					fields: {
-						gt: {
-							minValue: 0,
-					        maxValue: 1,
-					        step: 0.01,
-					        decimalPrecision: 3
-						},
-						lt: {
-							minValue: 0,
-					        maxValue: 1,
-					        step: 0.01,
-					        decimalPrecision: 3
-						},
-						eq: {
-							minValue: 0,
-					        maxValue: 1,
-					        step: 0.01,
-					        decimalPrecision: 3
-						}
-					}
-				},
+				filter: {type: 'numeric'},
 				renderer: function(val, a, b, rowIdx, colIdx){
 					if(rowIdx == 0)
 						return "<b>" + Ext.util.Format.number(val / 1000, '0.0') + "</b>";
@@ -96,11 +74,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 			}, {
 				text      : '집수구역ID',
 				dataIndex : 'CAT_ID',
-				width: 150
+				width: 150,
+				filter: {type: 'numeric'}
 			}, { 
 				text      : '집수구역면적 (㎥)',
 				dataIndex : 'CAT_AREA',
 				width: 150,
+				filter: {type: 'numeric'},
 				renderer: function(val, a, b, rowIdx, colIdx){
 					var retVal = "";
 					if(val != 0)
@@ -113,19 +93,22 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 			}, { 
 				text      : '하천명',
 				dataIndex : 'RIV_NM',
-				width: 150
+				width: 150,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, { 
 				text      : '하천 총 거리 (km)',
 				dataIndex : 'CUM_LEN',
 				width: 150,
 				hidden: true,
+				filter: {type: 'numeric'},
 				renderer: function(val){
 					return Ext.util.Format.number(val / 1000, '0.0');
 				}
 			}, { 
 				text      : '하천등급',
 				dataIndex : 'GEO_TRIB',
-				width: 150
+				width: 150,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}]
 		}]
 	}]
