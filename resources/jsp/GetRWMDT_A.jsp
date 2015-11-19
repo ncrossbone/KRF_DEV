@@ -69,6 +69,7 @@ sql += "    AND A.PT_NO = C.PT_NO                                               
 sql += "    AND B.WMYR  = C.WMYR                                                                                                                ";
 sql += "    AND B.WMOD  = C.WMOD                                                                                                                ";
 sql += "    AND B.WMWK  = C.WMWK                                                                                                                ";
+//sql += "    and b.ITEM_BOD is not null    ";
 sql += "    AND C.WMCYMD IS NOT NULL                                                                                                            ";
 sql += "    and A.pt_no ='"+recordId+"'                                                                                                         ";
 
@@ -120,21 +121,50 @@ sql += "   FROM TMP_TBL                                                         
 		//cnt++;
 		//out.print(cnt);
 		jsonRecord = new JSONObject();
-
+		JSONArray ITEM_BOD	  = new JSONArray();
+		JSONArray ITEM_DOC    = new JSONArray();
+		JSONArray ITEM_COD    = new JSONArray();
+		JSONArray ITEM_TN     = new JSONArray();
+		JSONArray ITEM_TP     = new JSONArray();
+		JSONArray ITEM_TEMP   = new JSONArray();
+		JSONArray ITEM_PH     = new JSONArray();
+		JSONArray ITEM_SS     = new JSONArray();
+		JSONArray ITEM_CLOA   = new JSONArray();
+		JSONArray Chart_Data_tmp = new JSONArray();
+		
+		if(rs.getString("ITEM_BOD") != null){
+			System.out.println(rs.getString("ITEM_BOD"));
+			ITEM_BOD.add(rs.getString("ITEM_BOD"));	
+		}
+		
+		ITEM_DOC.add(rs.getString("ITEM_DOC"));
+		ITEM_COD.add(rs.getString("ITEM_COD"));
+		ITEM_TN.add(rs.getString("ITEM_TN"));
+		ITEM_TP.add(rs.getString("ITEM_TP"));
+		ITEM_TEMP.add(rs.getString("ITEM_TEMP"));
+		ITEM_PH.add(rs.getString("ITEM_PH"));
+		ITEM_SS.add(rs.getString("ITEM_SS"));
+		ITEM_CLOA.add(rs.getString("ITEM_CLOA"));
+		Chart_Data_tmp = new JSONArray();
+		
   		jsonRecord.put("month"	, rs.getString("WMOD"));
   		jsonRecord.put("year"	, rs.getString("WMYR"));
   		jsonRecord.put("yearMonth"	, rs.getString("WMCYMD"));
   		jsonRecord.put("ptNm"	, rs.getString("PT_NM"));
-  		jsonRecord.put("ITEM_BOD" 	, rs.getString("ITEM_BOD"));
-  		jsonRecord.put("ITEM_DOC" 	, rs.getString("ITEM_DOC"));
-  		jsonRecord.put("ITEM_COD" 	, rs.getString("ITEM_COD"));
-  		jsonRecord.put("ITEM_TN" 	, rs.getString("ITEM_TN"));
-  		jsonRecord.put("ITEM_TP" 	, rs.getString("ITEM_TP"));
-  		jsonRecord.put("ITEM_TEMP" 	, rs.getString("ITEM_TEMP"));
-  		jsonRecord.put("ITEM_PH" 	, rs.getString("ITEM_PH"));
-  		jsonRecord.put("ITEM_SS" 	, rs.getString("ITEM_SS"));
-  		jsonRecord.put("ITEM_CLOA" 	, rs.getString("ITEM_CLOA"));
+  		/* Chart_Data_tmp.add(rs.getString("WMCYMD"));
+  		Chart_Data_tmp.add(ITEM_BOD);
+  		ITEM_BOD.add(Chart_Data_tmp); */
+		jsonRecord.put("ITEM_BOD" 	, ITEM_BOD);
+		jsonRecord.put("ITEM_DOC" 	, ITEM_DOC);
+  		jsonRecord.put("ITEM_COD" 	, ITEM_COD);
+  		jsonRecord.put("ITEM_TN" 	,	  ITEM_TN);
+  		jsonRecord.put("ITEM_TP" 	,   ITEM_TP);
+  		jsonRecord.put("ITEM_TEMP" 	, ITEM_TEMP);
+  		jsonRecord.put("ITEM_PH" 	,   ITEM_PH);
+  		jsonRecord.put("ITEM_SS" 	,   ITEM_SS);
+  		jsonRecord.put("ITEM_CLOA" 	, ITEM_CLOA);
   		
+  		//System.out.println(jsonRecord);
   		if(rs.getString("RN").equals("999"))
   			jsonArrMax.add(jsonRecord);
   		else
@@ -144,6 +174,7 @@ sql += "   FROM TMP_TBL                                                         
 	jsonObj.put("maxdata", jsonArrMax);
 	jsonObj.put("data", jsonArr);
    //console.info(jsonObj);
+   //System.out.println(jsonObj);
    out.print(jsonObj);
    //out.print("success");
 }catch(Exception ex){

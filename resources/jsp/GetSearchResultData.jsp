@@ -28,7 +28,7 @@ try{
 	
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
-	sql = " SELECT RN, PT_NO, PT_NM, WMCYMD, CHART_DATE, WMYR, WMOD, WMWK, SEQ, WMDEP, CURR_BOD, CHART_BOD, CURR_DO, CHART_DO, CURR_COD, 												";
+	sql = " SELECT RN,RN_2, PT_NO, PT_NM, WMCYMD, CHART_DATE, WMYR, WMOD, WMWK, SEQ, WMDEP, CURR_BOD, CHART_BOD, CURR_DO, CHART_DO, CURR_COD, 												";
 	sql += " CHART_COD, CURR_TN, CHART_TN, CURR_TP, CHART_TP, CURR_TEMP, CHART_TEMP, CURR_PH, CHART_PH, CURR_SS, CHART_SS, CURR_CLOA, CHART_CLOA, CURR_TOC,       ";
 	sql += "  CHART_TOC, CURR_AMNT, CHART_AMNT, CURR_DTN, CHART_DTN, CURR_NO3N, CHART_NO3N, CURR_NH3N, CHART_NH3N, CURR_DTP, CHART_DTP, CURR_POP, CHART_POP,      ";
 	sql += "   CURR_TRANS, CHART_TRANS, CURR_ALGOL, CHART_ALGOL, CURR_TCOLI, CHART_TCOLI, CURR_ECOLI, CHART_ECOLI, CURR_ANTIMON, CHART_ANTIMON, CURR_PHENOL,      ";
@@ -57,6 +57,7 @@ try{
 	sql += " NVL(A.ITEM_BOD, 888888888) AS CURR_BOD,				  ";
 	sql += "   CASE                                                                                                                 ";
 	sql += "     WHEN B.ITEM_BOD = '999999999' THEN 0                                                                               ";
+	//sql += "     WHEN B.ITEM_BOD is null THEN -200				";
 	sql += "     ELSE B.ITEM_BOD                                                                                                    ";
 	sql += "   END AS CHART_BOD ,                                                                                                   ";
 	sql += " NVL(A.ITEM_DOC, 888888888) AS CURR_DO,            ";
@@ -489,7 +490,7 @@ try{
 	sql += "     , KESTI_WATER_ALL_MAP C                                                                      ";
 	sql += " WHERE A.PT_NO = B.PT_NO                                                                          ";
 	sql += "   AND A.ADMCODE = B.ADMCODE                                                                      ";
-	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 4                                                             ";
+	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 9                                                             ";
 	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)      ) ORDER BY PT_NO, RN, RN_2 DESC                ";
 		
    //out.print(sql);
@@ -616,20 +617,20 @@ try{
 	
 	int cnt = 0;
 	
+	
 	while(rs.next()) {
 		
 		cnt++;
 		
+		
 		if((!preSeq.equals("") && !preSeq.equals(rs.getString("RN")))
 				|| (!PT_NO.equals("") && !PT_NO.equals(rs.getString("PT_NO")))){
 			
+			
 			cnt = 1;
 			
-			System.out.println("CURR_BOD :: "+CURR_BOD);
-			//System.out.println("CHART_BOD :: "+CHART_BOD);
 			jsonRecord = new JSONObject();
 		
-			//jsonRecord.put("parentId", parentId);
 			jsonRecord.put("PT_NO", PT_NO);
 	  		jsonRecord.put("PT_NM", PT_NM);
 	  		jsonRecord.put("WMCYMD", WMCYMD);
@@ -638,7 +639,7 @@ try{
 	  		jsonRecord.put("WMWK", WMWK);
 	  		jsonRecord.put("WMDEP", WMDEP);
 	  		jsonRecord.put("CURR_BOD", CURR_BOD);
-	  		jsonRecord.put("CHART_BOD", CHART_BOD);
+	 		jsonRecord.put("CHART_BOD", CHART_BOD);
 	  		jsonRecord.put("CURR_DO", CURR_DO);
 	  		jsonRecord.put("CHART_DO", CHART_DO);
 	  		jsonRecord.put("CURR_COD", CURR_COD);
@@ -738,7 +739,7 @@ try{
 	  		jsonRecord.put("CHART_DEHP",CHART_DEHP);
 	  		jsonRecord.put("CHART_HCHO",CHART_HCHO);
 	  		jsonRecord.put("CHART_HCB",CHART_HCB);
-	  	
+	  		//System.out.println("CHART_BOD ||"+CHART_BOD);
 	  		jsonArr.add(jsonRecord);
 	  		
 	  		CHART_BOD = new JSONArray();
@@ -804,72 +805,102 @@ try{
 		WMWK = rs.getString("WMWK");
 		WMDEP = rs.getString("WMDEP");
 		
-		CURR_BOD = rs.getString("CURR_BOD");	
+		
+		
+		CURR_BOD = rs.getString("CURR_BOD");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_BOD"));
-		//CHART_BOD.add(rs.getString("CHART_BOD"));
-		CHART_BOD.add(Chart_Data_tmp);
+		if(rs.getString("CHART_BOD") != null){
+			CHART_BOD.add(Chart_Data_tmp);	
+		}
 		
 		CURR_DO = rs.getString("CURR_DO");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_DO"));
-  		CHART_DO.add(Chart_Data_tmp);
+		if(rs.getString("CHART_DO") != null){
+			CHART_DO.add(Chart_Data_tmp);	
+		}
+  		
   		
   		CURR_COD = rs.getString("CURR_COD");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_COD"));
-  		CHART_COD.add(Chart_Data_tmp);
+		if(rs.getString("CHART_COD") != null){
+			CHART_COD.add(Chart_Data_tmp);	
+		}
+  		//CHART_COD.add(Chart_Data_tmp);
   		//CHART_COD.add(rs.getString("CHART_COD"));
   		
   		CURR_TN = rs.getString("CURR_TN");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_TN"));
-  		CHART_TN.add(Chart_Data_tmp);
+		if(rs.getString("CHART_TN") != null){
+			CHART_TN.add(Chart_Data_tmp);	
+		}
+  		//CHART_TN.add(Chart_Data_tmp);
   		//CHART_TN.add(rs.getString("CHART_TN"));
   		
   		CURR_TP = rs.getString("CURR_TP");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_TP"));
-  		CHART_TP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_TP") != null){
+			CHART_TP.add(Chart_Data_tmp);	
+		}
+  		//CHART_TP.add(Chart_Data_tmp);
   		//CHART_TP.add(rs.getString("CHART_TP"));
   		
   		CURR_TEMP = rs.getString("CURR_TEMP");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_TEMP"));
-  		CHART_TEMP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_TEMP") != null){
+			CHART_TEMP.add(Chart_Data_tmp);	
+		}
+  		//CHART_TEMP.add(Chart_Data_tmp);
   		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
   		
   		CURR_PH = rs.getString("CURR_PH");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_PH"));
-  		CHART_PH.add(Chart_Data_tmp);
+		if(rs.getString("CHART_PH") != null){
+			CHART_PH.add(Chart_Data_tmp);	
+		}
+  		//CHART_PH.add(Chart_Data_tmp);
   		//CHART_PH.add(rs.getString("CHART_PH")); 
   		
   		CURR_SS = rs.getString("CURR_SS");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_SS"));
-  		CHART_SS.add(Chart_Data_tmp);
+		if(rs.getString("CHART_SS") != null){
+			CHART_SS.add(Chart_Data_tmp);	
+		}
+  		//CHART_SS.add(Chart_Data_tmp);
   		//CHART_SS.add(rs.getString("CHART_SS"));
   		
   		CURR_CLOA = rs.getString("CURR_CLOA");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CLOA"));
-  		CHART_CLOA.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CLOA") != null){
+			CHART_CLOA.add(Chart_Data_tmp);	
+		}
+  		//CHART_CLOA.add(Chart_Data_tmp);
   		
   		CURR_TOC = rs.getString("CURR_TOC");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_TOC"));
-  		CHART_TOC.add(Chart_Data_tmp);
+		if(rs.getString("CHART_TOC") != null){
+			CHART_TOC.add(Chart_Data_tmp);	
+		}
+  		//CHART_TOC.add(Chart_Data_tmp);
   		//CHART_CLOA.add(rs.getString("CHART_CLOA"));
   		
   		
@@ -878,241 +909,361 @@ try{
   		Chart_Data_tmp = new JSONArray();
   		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_AMNT"));
-		CHART_AMNT.add(Chart_Data_tmp);
+		if(rs.getString("CHART_AMNT") != null){
+			CHART_AMNT.add(Chart_Data_tmp);	
+		}
+		//CHART_AMNT.add(Chart_Data_tmp);
 
   		CURR_DTN = rs.getString("CURR_DTN");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_DTN"));
-		CHART_DTN.add(Chart_Data_tmp);
+		if(rs.getString("CHART_DTN") != null){
+			CHART_DTN.add(Chart_Data_tmp);	
+		}
+		//CHART_DTN.add(Chart_Data_tmp);
 		
 		CURR_NO3N = rs.getString("CURR_NO3N");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_NO3N"));
-		CHART_NO3N.add(Chart_Data_tmp);
+		if(rs.getString("CHART_NO3N") != null){
+			CHART_NO3N.add(Chart_Data_tmp);	
+		}
+		//CHART_NO3N.add(Chart_Data_tmp);
 		
 		CURR_NH3N = rs.getString("CURR_NH3N");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_NH3N"));
-		CHART_NH3N.add(Chart_Data_tmp);
+		if(rs.getString("CHART_NH3N") != null){
+			CHART_NH3N.add(Chart_Data_tmp);	
+		}
+		//CHART_NH3N.add(Chart_Data_tmp);
 		
 		CURR_DTP = rs.getString("CURR_DTP");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_DTP"));
-		CHART_DTP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_DTP") != null){
+			CHART_DTP.add(Chart_Data_tmp);	
+		}
+		//CHART_DTP.add(Chart_Data_tmp);
 		
 		CURR_POP = rs.getString("CURR_POP");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_POP"));
-		CHART_POP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_POP") != null){
+			CHART_POP.add(Chart_Data_tmp);	
+		}
+		//CHART_POP.add(Chart_Data_tmp);
 		
 		CURR_TRANS = rs.getString("CURR_TRANS");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_TRANS"));
-		CHART_TRANS.add(Chart_Data_tmp);
+		if(rs.getString("CHART_TRANS") != null){
+			CHART_TRANS.add(Chart_Data_tmp);	
+		}
+		//CHART_TRANS.add(Chart_Data_tmp);
 		
 		CURR_ALGOL = rs.getString("CURR_ALGOL");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_ALGOL"));
-		CHART_ALGOL.add(Chart_Data_tmp);
+		if(rs.getString("CHART_ALGOL") != null){
+			CHART_ALGOL.add(Chart_Data_tmp);	
+		}
+		//CHART_ALGOL.add(Chart_Data_tmp);
 		
 		CURR_TCOLI = rs.getString("CURR_TCOLI");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_TCOLI"));
-		CHART_TCOLI.add(Chart_Data_tmp);
+		if(rs.getString("CHART_TCOLI") != null){
+			CHART_TCOLI.add(Chart_Data_tmp);	
+		}
+		//CHART_TCOLI.add(Chart_Data_tmp);
 		
 		CURR_ECOLI = rs.getString("CURR_ECOLI");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_ECOLI"));
-		CHART_ECOLI.add(Chart_Data_tmp);
+		if(rs.getString("CHART_ECOLI") != null){
+			CHART_ECOLI.add(Chart_Data_tmp);	
+		}
+		//CHART_ECOLI.add(Chart_Data_tmp);
 		
 		CURR_ANTIMON = rs.getString("CURR_ANTIMON");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_ANTIMON"));
-		CHART_ANTIMON.add(Chart_Data_tmp);
+		if(rs.getString("CHART_ANTIMON") != null){
+			CHART_ANTIMON.add(Chart_Data_tmp);	
+		}
+		//CHART_ANTIMON.add(Chart_Data_tmp);
 		
 		CURR_PHENOL = rs.getString("CURR_PHENOL");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_PHENOL"));
-		CHART_PHENOL.add(Chart_Data_tmp);
+		if(rs.getString("CHART_PHENOL") != null){
+			CHART_PHENOL.add(Chart_Data_tmp);	
+		}
+		//CHART_PHENOL.add(Chart_Data_tmp);
 		
 		CURR_COL = rs.getString("CURR_COL");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_COL"));
-		CHART_COL.add(Chart_Data_tmp);
+		if(rs.getString("CHART_COL") != null){
+			CHART_COL.add(Chart_Data_tmp);	
+		}
+		//CHART_COL.add(Chart_Data_tmp);
 		
 		CURR_NHEX = rs.getString("CURR_NHEX");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_NHEX"));
-		CHART_NHEX.add(Chart_Data_tmp);
+		if(rs.getString("CHART_NHEX") != null){
+			CHART_NHEX.add(Chart_Data_tmp);	
+		}
+		//CHART_NHEX.add(Chart_Data_tmp);
 		
 		CURR_MN = rs.getString("CURR_MN");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_MN"));
-		CHART_MN.add(Chart_Data_tmp);
+		if(rs.getString("CHART_MN") != null){
+			CHART_MN.add(Chart_Data_tmp);	
+		}
+		//CHART_MN.add(Chart_Data_tmp);
 		
 		CURR_FE = rs.getString("CURR_FE");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_FE"));
+		if(rs.getString("CHART_FE") != null){
+			CHART_FE.add(Chart_Data_tmp);	
+		}
 		
-		CHART_DTP.add(Chart_Data_tmp);
+		//CHART_DTP.add(Chart_Data_tmp);
 		CURR_CD = rs.getString("CURR_CD");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CD"));
-		CHART_CD.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CD") != null){
+			CHART_CD.add(Chart_Data_tmp);	
+		}
+		//CHART_CD.add(Chart_Data_tmp);
 		
 		CURR_CN = rs.getString("CURR_CN");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CN"));
-		CHART_CN.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CN") != null){
+			CHART_CN.add(Chart_Data_tmp);	
+		}
+		//CHART_CN.add(Chart_Data_tmp);
 		
 		CURR_PB = rs.getString("CURR_PB");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_PB"));
-		CHART_PB.add(Chart_Data_tmp);
+		if(rs.getString("CHART_PB") != null){
+			CHART_PB.add(Chart_Data_tmp);	
+		}
+		//CHART_PB.add(Chart_Data_tmp);
 		
 		CURR_CR6 = rs.getString("CURR_CR6");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CR6"));
-		CHART_CR6.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CR6") != null){
+			CHART_CR6.add(Chart_Data_tmp);	
+		}
+		//CHART_CR6.add(Chart_Data_tmp);
 		
 		CURR_CR = rs.getString("CURR_CR");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CR"));
-		CHART_CR.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CR") != null){
+			CHART_CR.add(Chart_Data_tmp);	
+		}
+		//CHART_CR.add(Chart_Data_tmp);
 		
 		CURR_AS = rs.getString("CURR_AS");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_AS"));
-		CHART_DTP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_AS") != null){
+			CHART_AS.add(Chart_Data_tmp);	
+		}
+		//CHART_DTP.add(Chart_Data_tmp);
 		
 		CURR_HG = rs.getString("CURR_HG");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_HG"));
-		CHART_HG.add(Chart_Data_tmp);
+		if(rs.getString("CHART_HG") != null){
+			CHART_HG.add(Chart_Data_tmp);	
+		}
+		//CHART_HG.add(Chart_Data_tmp);
 		
 		CURR_CU = rs.getString("CURR_CU");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CU"));
-		CHART_DTP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CU") != null){
+			CHART_CU.add(Chart_Data_tmp);	
+		}
+		//CHART_DTP.add(Chart_Data_tmp);
 		
 		CURR_ZN = rs.getString("CURR_ZN");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_ZN"));
-		CHART_ZN.add(Chart_Data_tmp);
+		if(rs.getString("CHART_ZN") != null){
+			CHART_ZN.add(Chart_Data_tmp);	
+		}
+		//CHART_ZN.add(Chart_Data_tmp);
 		
 		CURR_FL = rs.getString("CURR_FL");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_FL"));
-		CHART_FL.add(Chart_Data_tmp);
+		if(rs.getString("CHART_FL") != null){
+			CHART_FL.add(Chart_Data_tmp);	
+		}
+		//CHART_FL.add(Chart_Data_tmp);
 		
 		CURR_ABS = rs.getString("CURR_ABS");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_ABS"));
-		CHART_ABS.add(Chart_Data_tmp);
+		if(rs.getString("CHART_ABS") != null){
+			CHART_ABS.add(Chart_Data_tmp);	
+		}
+		//CHART_ABS.add(Chart_Data_tmp);
 		
 		CURR_CL = rs.getString("CURR_CL");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CL"));
-		CHART_CL.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CL") != null){
+			CHART_CL.add(Chart_Data_tmp);	
+		}
+		//CHART_CL.add(Chart_Data_tmp);
 		
 		CURR_TCE = rs.getString("CURR_TCE");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_TCE"));
-		CHART_TCE.add(Chart_Data_tmp);
+		if(rs.getString("CHART_TCE") != null){
+			CHART_TCE.add(Chart_Data_tmp);	
+		}
+		//CHART_TCE.add(Chart_Data_tmp);
 		
 		CURR_PCE = rs.getString("CURR_PCE");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_PCE"));
-		CHART_PCE.add(Chart_Data_tmp);
+		if(rs.getString("CHART_PCE") != null){
+			CHART_PCE.add(Chart_Data_tmp);	
+		}
+		//CHART_PCE.add(Chart_Data_tmp);
 		
 		CURR_CCL4 = rs.getString("CURR_CCL4");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CCL4"));
-		CHART_CCL4.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CCL4") != null){
+			CHART_CCL4.add(Chart_Data_tmp);	
+		}
+		//CHART_CCL4.add(Chart_Data_tmp);
 		
 		CURR_DCETH = rs.getString("CURR_DCETH");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_DCETH"));
-		CHART_DCETH.add(Chart_Data_tmp);
+		if(rs.getString("CHART_DCETH") != null){
+			CHART_DCETH.add(Chart_Data_tmp);	
+		}
+		//CHART_DCETH.add(Chart_Data_tmp);
 		
 		CURR_DCM = rs.getString("CURR_DCM");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_DCM"));
-		CHART_DCM.add(Chart_Data_tmp);
+		if(rs.getString("CHART_DCM") != null){
+			CHART_DCM.add(Chart_Data_tmp);	
+		}
+		//CHART_DCM.add(Chart_Data_tmp);
 		
 		CURR_BENZENE = rs.getString("CURR_BENZENE");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_BENZENE"));
-		CHART_BENZENE.add(Chart_Data_tmp);
+		if(rs.getString("CHART_BENZENE") != null){
+			CHART_BENZENE.add(Chart_Data_tmp);	
+		}
+		//CHART_BENZENE.add(Chart_Data_tmp);
 		
 		CURR_CHCL3 = rs.getString("CURR_CHCL3");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_CHCL3"));
-		CHART_CHCL3.add(Chart_Data_tmp);
+		if(rs.getString("CHART_CHCL3") != null){
+			CHART_CHCL3.add(Chart_Data_tmp);	
+		}
+		//CHART_CHCL3.add(Chart_Data_tmp);
 		
 		CURR_OP = rs.getString("CURR_OP");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_OP"));
-		CHART_OP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_OP") != null){
+			CHART_OP.add(Chart_Data_tmp);	
+		}
+		//CHART_OP.add(Chart_Data_tmp);
 		
 		CURR_PCB = rs.getString("CURR_PCB");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_PCB"));
-		CHART_PCB.add(Chart_Data_tmp);
+		if(rs.getString("CHART_PCB") != null){
+			CHART_PCB.add(Chart_Data_tmp);	
+		}
+		//CHART_PCB.add(Chart_Data_tmp);
 		
 		CURR_DEHP = rs.getString("CURR_DEHP");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_DEHP"));
-		CHART_DEHP.add(Chart_Data_tmp);
+		if(rs.getString("CHART_DEHP") != null){
+			CHART_DEHP.add(Chart_Data_tmp);	
+		}
+		//CHART_DEHP.add(Chart_Data_tmp);
 		
 		CURR_HCHO = rs.getString("CURR_HCHO");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_HCHO"));
-		CHART_HCHO.add(Chart_Data_tmp);
+		if(rs.getString("CHART_HCHO") != null){
+			CHART_HCHO.add(Chart_Data_tmp);	
+		}
+		//CHART_HCHO.add(Chart_Data_tmp);
 		
 		CURR_HCB = rs.getString("CURR_HCB");
 		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_HCB"));
-		CHART_HCB.add(Chart_Data_tmp);
+		if(rs.getString("CHART_HCB") != null){
+			CHART_HCB.add(Chart_Data_tmp);	
+		}
+		//HART_HCB.add(Chart_Data_tmp);
 		
 		if(!preSeq.equals(rs.getString("RN")))
 			preSeq = rs.getString("RN");
@@ -1120,7 +1271,7 @@ try{
 	}
 	//System.out.print("loop end");
 	jsonRecord = new JSONObject();
-	
+	//System.out.println("CHART_BOD:::"+CHART_BOD);
 	if(cnt > 0){
 		//jsonRecord.put("parentId", parentId);
 		jsonRecord.put("PT_NO", PT_NO);
@@ -1130,8 +1281,11 @@ try{
 		jsonRecord.put("WMOD", WMOD);
 		jsonRecord.put("WMWK", WMWK);
 		jsonRecord.put("WMDEP", WMDEP);
+		
 		jsonRecord.put("CURR_BOD", CURR_BOD);
+		//System.out.println("CHART_BOD:::"+CHART_BOD);
 		jsonRecord.put("CHART_BOD", CHART_BOD);
+		
 		jsonRecord.put("CURR_DO", CURR_DO);
 		jsonRecord.put("CHART_DO", CHART_DO);
 		jsonRecord.put("CURR_COD", CURR_COD);
@@ -1236,6 +1390,7 @@ try{
 		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
 	}
 	//System.out.print(cnt);
+	//System.out.println(jsonRecord);
 	jsonArr.add(jsonRecord);
 	
 	jsonObj.put("data", jsonArr);
