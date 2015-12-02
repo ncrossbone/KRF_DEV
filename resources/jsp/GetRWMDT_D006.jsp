@@ -22,59 +22,57 @@ try{
 	String c = request.getParameter("recordMonth");
 	String d = request.getParameter("recordMonth2");
 	
-	String ac = a+c;
-	String bd = b+d;
+	String startDate = a+c;
+	String endDate = b+d;
 		
 	String defaultChart = request.getParameter("defaultChart");
 	
-	sql = " WITH TMP_TBL AS																																				";
-	sql += "  (SELECT * FROM ( SELECT RANK() OVER(PARTITION BY STNID ORDER BY STNID, WMCYMD DESC) AS RN, /* 순번 */ ";
-	sql += "        STNID AS PT_NO, /* 관측소코드 */                                                ";
-	sql += "        OBSNM AS PT_NM, /* 관측소명 */                                                  ";
-	sql += "        WMCYMD, /* 관측일자 */                                                          ";
-	sql += "        RND, /* 강수량자료(mm) */                                                       ";
-	sql += "        TA, /* 기온(℃) */                                                              ";
-	sql += "        SIDAY /* 일사(MJ/㎡) */                                                         ";
-	sql += " FROM   (SELECT TM AS WMCYMD,                                                           ";
-	sql += "                E.OBSNMENG AS STNID,                                                    ";
-	sql += "                STN_NM AS OBSNM,                                                        ";
-	sql += "                MAX(D.ADM_CD) ADM_CD,                                                   ";
-	sql += "                MAX(RN_DAY) AS RND,                                                     ";
-	sql += "                A.TA AS TA,                                                             ";
-	sql += "                A.SI_DAY AS SIDAY                                                       ";
-	sql += "         FROM   RNDY A,                                                                 ";
-	sql += "                KESTI_RNDY_ST D,                                                        ";
-	sql += "                WTOBSIF E                                                               ";
-	sql += "         WHERE  A.STN_ID = D.STN_ID                                                     ";
-	sql += "         AND    A.STN_ID= E.OBSNMENG                                                    ";
-	sql += "         AND    SUBSTR(A.TM, 1, 6) >='"+ac+"'                                           ";
-	sql += "         AND    SUBSTR(A.TM, 1, 6) <='"+bd+"'                                           ";
-	sql += "         AND    D.STN_ID = '"+recordId+"'                                                        ";
-	sql += "         GROUP BY TM, E.OBSNMENG, STN_NM, TA, SI_DAY)A,                                 ";
-	sql += "        KESTI_WATER_ALL_MAP B,                                                          ";
-	sql += "        COM_DISTRICT_RAW C                                                              ";
-	sql += " WHERE  A.ADM_CD = B.ADM_CD                                                             ";
-	sql += " AND    A.ADM_CD = C.ADM_CD                                                             ";
+	String selectItem = request.getParameter("selectItem");
+	
+	//지상기상관측소
+	
+	sql = " WITH TMP_TBL AS (																																									";
+	sql += " SELECT RANK() OVER(PARTITION BY OBSNMENG||ITEM_NAME ORDER BY OBSNMENG, TM DESC) AS RN              ";
+	sql += "      , TM AS WMCYMD                                                                                ";
+	sql += "      , E.OBSNMENG AS PT_NO                                                                         ";
+	sql += "      , STN_NM AS PT_NM                                                                             ";
+	sql += "      , ITEM_NAME                                                                                   ";
+	sql += "      , MAX(ITEM_VALUE) AS ITEM_VALUE                                                               ";
+	sql += "   FROM (SELECT *                                                                                   ";
+	sql += "           FROM (                                                                                   ";
+	sql += "                 SELECT STN_ID, TM, 'RND' AS ITEM_NAME, RN_DAY AS ITEM_VALUE FROM RNDY UNION ALL ";
+	sql += "                 SELECT STN_ID, TM, 'TA'     AS ITEM_NAME, TA     AS ITEM_VALUE FROM RNDY UNION ALL ";
+	sql += "                 SELECT STN_ID, TM, 'SIDAY' AS ITEM_NAME, SI_DAY AS ITEM_VALUE FROM RNDY           ";
+	sql += "                )                                                                                   ";
+	sql += "        ) A                                                                                         ";
+	sql += "      , KESTI_RNDY_ST D                                                                             ";
+	sql += "      , WTOBSIF E                                                                                   ";
+	sql += "  WHERE A.STN_ID = D.STN_ID                                                                         ";
+	sql += "    AND A.STN_ID = E.OBSNMENG                                                                       ";
 	if(defaultChart.equals("1")){
-		sql += "  ) WHERE RN <= 10                                                                   ";
+		sql += "    AND SUBSTR(A.TM, 1, 6) BETWEEN '201410' AND '201510'                                            ";
 	}else{
-		sql += "  )                                                                ";	
+		sql += "    AND SUBSTR(A.TM, 1, 6) BETWEEN '"+startDate+"' AND '"+endDate+"'                                            ";
 	}
-	sql += " ORDER BY PT_NO, WMCYMD ASC                                                          ";
-	sql += "  )                                                                                     ";
-	sql += " SELECT *                                                                               ";
+	sql += "    AND D.STN_ID = '"+recordId+"'                                                                            ";
+	sql += "    AND ITEM_NAME = '"+selectItem+"'                                                                        ";
+	sql += "    AND ITEM_VALUE IS NOT NULL                                                                      ";
+	sql += "  GROUP BY TM, E.OBSNMENG, STN_NM, ITEM_NAME                                                        ";
+	sql += "  ORDER BY PT_NO, WMCYMD ASC)                                                                       ";
+	sql += " SELECT *                                                                                           ";
+	sql += "   FROM (SELECT *                                                                                   ";
+	sql += "           FROM TMP_TBL                                                                             ";
 	if(defaultChart.equals("1")){
-		sql += " FROM   (SELECT *                                                                       ";
-		sql += "         FROM   TMP_TBL                                                                 ";
-		sql += "         WHERE  ROWNUM <= 10                                                            ";
-		sql += "         ORDER BY WMCYMD                                                                ";
-		sql += "      )                                                                                 ";
-	}else{
-		sql += "    FROM TMP_TBL    ";
+		sql += "          WHERE RN <= 10                                                                        ";
 	}
-	sql += "  UNION ALL                                                                             ";
-	sql += "  SELECT 999 AS RN, '','','',MAX(RND) + MAX(RND) / 10, MAX(TA) + MAX(TA) / 10, MAX(SIDAY) + MAX(SIDAY) / 10                              ";
-	sql += "    FROM TMP_TBL                                                                        ";                                                                                                                                             
+	sql += "        )                                                                                           ";
+	sql += " UNION ALL                                                                                          ";
+	sql += " SELECT 999 AS RN, '', '', '', '',                                                                  ";
+	sql += "   MAX(ITEM_VALUE) + MAX(ITEM_VALUE) / 10                                                           ";
+	sql += "   FROM TMP_TBL                                                                                     ";
+	if(defaultChart.equals("1")){
+		sql += "  WHERE RN <= 10                                                                                ";
+	}
                              
 
 
@@ -96,9 +94,12 @@ try{
 
   		jsonRecord.put("PT_NM"	, rs.getString("PT_NM"));
   		jsonRecord.put("WMCYMD"	, rs.getString("WMCYMD"));
-  		jsonRecord.put("RND" 	, rs.getString("RND"));
+  		jsonRecord.put("ITEM_NAME" 	, rs.getString("ITEM_NAME"));
+  		jsonRecord.put("ITEM_VALUE" 	, rs.getString("ITEM_VALUE"));
+  		
+  		/* jsonRecord.put("RND" 	, rs.getString("RND"));
   		jsonRecord.put("TA" 	, rs.getString("TA"));
-  		jsonRecord.put("SIDAY" 	, rs.getString("SIDAY"));
+  		jsonRecord.put("SIDAY" 	, rs.getString("SIDAY")); */
   		
   		
   		if(rs.getString("RN").equals("999"))

@@ -76,7 +76,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							if(dateWinCtl == undefined){
 								dateWinCtl = Ext.create("KRF_DEV.view.east.ChartPanelDate");
 							}
-							console.info(dateWinCtl);
+							//console.info(dateWinCtl);
 							
 							dateWinCtl.show();
 							dateWinCtl = undefined;
@@ -151,8 +151,8 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        	text: 'month',
 	            type: 'line',
 	            axis: 'left',
-	            xField: 'yearMonth',
-	            yField: 'ITEM_BOD',
+	            xField: 'WMCYMD',
+	            yField: 'ITEM_VALUE',
 	            
 	            /*
 	            markerConfig: {
@@ -173,7 +173,21 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                	var series = Ext.getCmp("siteCharttest");
 	                	
 	                    //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('ITEM_BOD') + '%');
-	                	this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));
+	                	/*console.info(storeItem);
+	                	console.info(item);
+	                	console.info(series.series[0]._yField);*/
+	                	//console.info(storeItem);
+	                	if(storeItem.joined[0].parentId == "A"){
+			                	if(storeItem.get(series.series[0]._yField) == 0){
+			                		console.info(console.info(storeItem));
+			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField+"_1"));
+			                	}else{
+			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));
+			                	}
+	                	}else{
+	                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));
+	                	}
+	                	
 	                }
 	            }
 	        }]

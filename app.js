@@ -246,6 +246,10 @@ Ext.application({
 			
  		}
  		
+ 		Ext.App = function(){
+ 			console.info("itemNm");
+ 		}
+ 		
  		// 지점 정보 창 닫기
  		Ext.HideSiteInfoWindow = function(){
  			

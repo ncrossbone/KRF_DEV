@@ -22,61 +22,66 @@ try{
 	String c = request.getParameter("recordMonth");
 	String d = request.getParameter("recordMonth2");
 	
-	String ac = a+c;
-	String bd = b+d;
+	String startDate = a+c;
+	String endDate = b+d;
 		
 	String defaultChart = request.getParameter("defaultChart");
 	
-	sql = " WITH TMP_TBL AS             																																	";                                                                                                                                                                                                                                            
-	sql += "  ( SELECT * FROM ( SELECT RANK() OVER(PARTITION BY WLOBSCD ORDER BY WLOBSCD, WMCYMD DESC) AS RN /* 순번 */    ";
-	sql += "      , WLOBSCD AS PT_NO /* 관측소코드 */                                                     ";
-	sql += "      , OBSNM AS PT_NM /* 관측소명 */                                                         ";
-	sql += "      , WMCYMD /* 관측일자 */                                                                 ";
-	sql += "      , WL AS WL /* 수위(cm) */                                ";
-	sql += "      , MXWL AS MXWL /* 최고수위(cm) */                        ";
-	sql += "      , MNWL AS MNWL /* 최저수위(cm) */                        ";
-	sql += " FROM   (                                                                                     ";
-	sql += "         SELECT TO_CHAR(A.YMDH , 'YYYY.MM.DD') AS WMCYMD,                                     ";
-	sql += "                A.WLOBSCD ,                                                                   ";
-	sql += "                OBSNM,                                                                        ";
-	sql += "                MAX(ADM_CD) ADM_CD,                                                           ";
-	sql += "                ROUND(AVG(WL)/1, 2) WL,                                                       ";
-	sql += "                ROUND(AVG(MXWL)/1, 2) MXWL,                                                   ";
-	sql += "                ROUND(AVG(MNWL)/1, 2) MNWL                                                    ";
-	sql += "         FROM   WLDY A,                                                                       ";
-	sql += "                WLOBSIF D                                                                     ";
-	sql += "         WHERE  A.WLOBSCD = D.WLOBSCD                                                         ";
-	sql += "           AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) >='"+ac+"'                  ";
-	sql += "           AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'),1,6) <='"+bd+"'                 ";
-	sql += "           AND A.WLOBSCD = '"+recordId+"'                                              ";
-	sql += "         GROUP BY TO_CHAR(A.YMDH , 'YYYY.MM.DD') , A.WLOBSCD , OBSNM                          ";
-	sql += "        ) A,                                                                                  ";
-	sql += "        KESTI_WATER_ALL_MAP B,                                                                ";
-	sql += "        COM_DISTRICT_RAW C                                                                    ";
-	sql += " WHERE  A.ADM_CD = B.ADM_CD                                                                   ";
-	sql += " AND    A.ADM_CD = C.ADM_CD                                                                   ";
+	String selectItem = request.getParameter("selectItem");
+	
+	//수위관측소
+	
+	sql = "  WITH TMP_TBL AS (																													";
+	sql += "     SELECT *                                                               ";
+	sql += "     FROM (                                                                 ";
+	sql += "         SELECT RANK() OVER(PARTITION BY WLOBSCD                            ";
+	sql += "             ORDER BY WLOBSCD, WMCYMD DESC) AS RN /* 순번 */,               ";
+	sql += "           WLOBSCD AS PT_NO /* 관측소코드 */                                ";
+	sql += "           ,OBSNM AS PT_NM /* 관측소명 */,                                  ";
+	sql += "           WMCYMD /* 관측일자 */,                                           ";
+	sql += "           'WL' AS ITEM_NAME,                                               ";
+	sql += "           WL AS ITEM_VALUE /* 수위(cm) */                                  ";
+	sql += "         FROM (                                                             ";
+	sql += "             SELECT TO_CHAR(A.YMDH , 'YYYY.MM.DD') AS WMCYMD,               ";
+	sql += "               A.WLOBSCD ,                                                  ";
+	sql += "               OBSNM,                                                       ";
+	sql += "               MAX(ADM_CD) ADM_CD,                                          ";
+	sql += "               ROUND(AVG(WL  )/1, 2) WL                                     ";
+	sql += "             FROM WLDY A,                                                   ";
+	sql += "               WLOBSIF D                                                    ";
+	sql += "             WHERE A.WLOBSCD = D.WLOBSCD                                    ";
 	if(defaultChart.equals("1")){
-		sql += " ) WHERE RN <= 10                                                               ";
+		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) >='201410'    ";
+		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) <='201510'    ";
 	}else{
-		sql += " )                                                              ";
+		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) >='"+startDate+"'    ";
+		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) <='"+endDate+"'    ";
 	}
-	sql += " ORDER BY PT_NO, WMCYMD ASC)                                                               ";
-	sql += " SELECT *                                                                                     ";
+	sql += "               AND A.WLOBSCD = '"+recordId+"'                                    ";
+	sql += "			   AND WL IS NOT NULL  ";
+	sql += "             GROUP BY TO_CHAR(A.YMDH ,                                      ";
+	sql += "                   'YYYY.MM.DD') , A.WLOBSCD , OBSNM ) A,                   ";
+	sql += "           KESTI_WATER_ALL_MAP B,                                           ";
+	sql += "           COM_DISTRICT_RAW C                                               ";
+	sql += "         WHERE A.ADM_CD = B.ADM_CD                                          ";
+	sql += "           AND A.ADM_CD = C.ADM_CD )                                        ";
 	if(defaultChart.equals("1")){
-		sql += " FROM   (SELECT *                                                                             ";
-		sql += "         FROM   TMP_TBL                                                                       ";
-		//sql += "         WHERE  ROWNUM <= 10                                                                  ";
-		sql += "         ORDER BY WMCYMD                                                                      ";
-		sql += "      )                                                                                       ";
-	}else{
-		sql += "  FROM TMP_TBL   ";
+		sql += "     WHERE RN <= 10                                                         ";
 	}
-	sql += "  UNION ALL                                                                                   ";
-	sql += "  SELECT 999 AS RN, '','','',               ";                                      
-	sql += " NVL(MAX(WL),0) + NVL(MAX(WL),0) / 10,			";
-	sql += " NVL(MAX(MXWL),0) + NVL(MAX(MXWL),0) / 10,  ";
-	sql += " NVL(MAX(MNWL),0) + NVL(MAX(MNWL),0) / 10   ";
-	sql += "    FROM TMP_TBL                                                                              ";                                                                                                                                                     
+	sql += "     ORDER BY PT_NO, WMCYMD ASC)                                            ";
+	sql += " SELECT *                                                                   ";
+	sql += " FROM (                                                                     ";
+	sql += "     SELECT *                                                               ";
+	sql += "     FROM TMP_TBL                                                           ";
+	sql += "     ORDER BY WMCYMD )                                                      ";
+	sql += " UNION ALL                                                                  ";
+	sql += " SELECT 999 AS RN,                                                          ";
+	sql += "   '',                                                                      ";
+	sql += "   '',                                                                      ";
+	sql += "   '',                                                                      ";
+	sql += "   '',                                                                      ";
+	sql += "   NVL(MAX(ITEM_VALUE), 0) + NVL(MAX(ITEM_VALUE), 0) / 10                   ";
+	sql += " FROM TMP_TBL                                                               ";                                                                                                                                                    
                              
 
 
@@ -98,7 +103,8 @@ try{
 
   		jsonRecord.put("PT_NM"	, rs.getString("PT_NM"));
   		jsonRecord.put("WMCYMD"	, rs.getString("WMCYMD"));
-  		jsonRecord.put("WL" 	, rs.getString("WL"));
+  		jsonRecord.put("ITEM_NAME" 	, rs.getString("ITEM_NAME"));
+  		jsonRecord.put("ITEM_VALUE" 	, rs.getString("ITEM_VALUE"));
   		
   		if(rs.getString("RN").equals("999"))
   			jsonArrMax.add(jsonRecord);
