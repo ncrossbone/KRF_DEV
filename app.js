@@ -145,7 +145,7 @@ Ext.application({
  			
  			var me = GetCoreMap();
  			
- 			console.info(searchText);
+ 			//console.info(searchText);
  			
 			//검샋시 다른 더튼값 초기화
 			var cmbArea1 = Ext.getCmp("cmbArea1");
@@ -181,6 +181,16 @@ Ext.application({
 				me.reachLayerAdmin.amCD_temp = searchText;
 			}
 			
+			
+			
+			//var searchAreaContents_1 = Ext.getCmp("searchAreaContents_1");
+			//KRF_DEV.view.west.SearchArea
+			
+			/*var aStore = Ext.create('KRF_DEV.store.east.SiteListWindow');
+			aStore.load();
+			console.info(aStore);*/
+			
+			
 			//console.info(searchText);
 			listWinCtl = Ext.getCmp("siteListWindow");
 			if(listWinCtl == undefined)
@@ -188,18 +198,30 @@ Ext.application({
 			
 			listWinCtl.show();
 			//alert("dd");
+			
+			//var richSearch = Ext.create('KRF_DEV.store.east.SiteListWindow');
+			
+			//console.info("##");
+			
 			var treeCtl = Ext.getCmp("siteListTree");
 			var store = treeCtl.getStore();
 			store.searchType = searchText;
 			store.load();
+			//console.info(store);
+			
+			//console.info(searchAreaContents_1);
+			//searchAreaContents_1.setStore(store);
+			
 			
 			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
 			var listWinY = 98;
 			
+			//console.info("!");
+			//console.info(searchAreaContents1.getStore());
+			//console.info("!");
 			
 			listWinCtl.setX(listWinX);
 			listWinCtl.setY(listWinY);
-			
 			// 좌측 정보창 버튼 on
  			SetBtnOnOff("btnSiteListWindow", "on");
 			

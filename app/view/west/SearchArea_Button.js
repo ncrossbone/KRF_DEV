@@ -36,6 +36,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_Button', {
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: this.onClickListener,
+	    	btnOnOff: 'on',
+	    	btnOnImg: './resources/images/button/search_select01_on.png',
+	    	btnOffImg: './resources/images/button/search_select01.png',
 	    	src: './resources/images/button/search_select01_on.png'
 		}, '-', {
 			xtype: 'image',
@@ -45,6 +48,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_Button', {
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: this.onClickListener,
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/search_select02_on.png',
+	    	btnOffImg: './resources/images/button/search_select02.png',
 	    	src: './resources/images/button/search_select02.png'
 		}, '-', {
 			xtype: 'image',
@@ -54,6 +60,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_Button', {
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: this.onClickListener,
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/search_select03_on.png',
+	    	btnOffImg: './resources/images/button/search_select03.png',
 	    	src: './resources/images/button/search_select03.png'
 		}, '->'];
 		
