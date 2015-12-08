@@ -229,7 +229,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var dataArr = grid.getView().store.data.items
 				if(!dataArr){
 					dataArr = store.data.map[1].value;
+					
+					//console.info();
 				}
+				console.info(dataArr);
 				for(var i=0; i<dataArr.length; i++){
 					datas.push(dataArr[i].data)
 				}

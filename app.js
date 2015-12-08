@@ -369,5 +369,123 @@ Ext.application({
 				}
 
 			}
+<<<<<<< HEAD
 
 		});
+=======
+			var infoWinY = 98;
+			
+			infoWinCtl.setX(infoWinX);
+			infoWinCtl.setY(infoWinY);
+			
+ 		}
+ 		
+ 		Ext.App = function(){
+ 			console.info("itemNm");
+ 		}
+ 		
+ 		// 지점 정보 창 닫기
+ 		Ext.HideSiteInfoWindow = function(){
+ 			
+ 			var infoWinCtl = Ext.getCmp("siteInfoWindow");
+ 			
+			if(infoWinCtl != undefined)
+				infoWinCtl.hide();
+			
+ 		}
+ 		
+ 		// 차트정보창 띄우기
+ 		Ext.ShowChartResult = function(siteId, title){
+ 			
+ 			var chartWinCtl = Ext.getCmp("chartWindow");
+			
+			if(chartWinCtl == undefined)
+				chartWinCtl = Ext.create("KRF_DEV.view.east.ChartWindow");
+			
+			chartWinCtl.show();
+			
+			var chartWinX = Ext.getBody().getViewSize().width - chartWinCtl.width;
+			var chartWinY = 388;
+			
+			chartWinCtl.setX(chartWinX);
+			chartWinCtl.setY(chartWinY);
+ 			
+ 		}
+ 		
+ 		// 차트정보창 닫기
+ 		Ext.HideChartResult = function(){
+ 			
+ 			var chartWinCtl = Ext.getCmp("chartWindow");
+			
+			if(chartWinCtl != undefined)
+				chartWinCtl.hide();
+ 			
+ 		}
+ 		
+ 		/*
+ 		// 검색결과창 띄우기
+ 		Ext.ShowSearchResult = function(tabId, title){
+ 			//console.info(tabId);
+ 			var tabCtl = Ext.getCmp(tabId);
+ 			
+ 			if(tabCtl == undefined){ 			
+	 			Ext.create('KRF_DEV.view.common.Window', {
+	 				params: {
+	 					xtype: 'south-grid-prototype',
+	 					id: tabId,
+	 					title: title
+	 				}
+	 			});
+ 			}
+ 			else{
+ 				var tabContainer = Ext.getCmp("datawindow-tabpanel");
+ 				if(tabContainer != undefined){
+ 					tabContainer.setActiveTab(tabCtl);
+ 				}
+ 			}
+ 			
+ 			var winContainer = Ext.getCmp("datawindow-container");
+ 			winContainer.setTitle("검색결과");
+ 			winContainer.show();
+ 			//winContainerY = Ext.getBody().getViewSize().height - winContainer.height;
+ 			//winContainer.setY(winContainerY);
+ 			
+ 		}
+ 		
+ 		// 검색결과창 닫기
+ 		Ext.HideSearchResult = function(){
+ 			
+ 			var winContainer = Ext.getCmp("datawindow-container");
+ 			
+ 			if(winContainer != undefined)
+ 				winContainer.close();
+ 			
+ 		}
+ 		*/
+ 		
+ 		Ext.ShowReachToolbar = function(evtArgs, el){
+ 			
+ 			var rToolbar = Ext.getCmp("reachToolbar");
+ 			//console.info(rToolbar);
+ 			if(rToolbar == undefined){
+	 			rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar', {
+	 				//region: 'north',
+	 				id: 'reachToolbar',
+	 				cls: 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
+	 			});
+ 			}
+ 			
+			var cContainer = Ext.getCmp("center_container");
+			cContainer.add(rToolbar);
+			
+ 		}
+ 		
+ 		Ext.HideReachToolbar = function(){
+ 			var cContainer = Ext.getCmp("center_container");
+ 			var rToolbar = Ext.getCmp("reachToolbar");
+ 			cContainer.remove(rToolbar, false);
+ 		}
+ 		
+ 	}
+});
+>>>>>>> 3c9642583380a8f75e6d11173ff90b0238011832

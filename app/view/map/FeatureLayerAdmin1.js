@@ -86,7 +86,8 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				var x = obj.geometry.x;
 				var y = obj.geometry.y;
-				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference)
+				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference);
+				console.info(obj.geometry.spatialReference);
 				//me.map.centerAndZoom(point, 12);
 				me.map.centerAt(point);
 				
