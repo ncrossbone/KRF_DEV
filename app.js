@@ -70,6 +70,7 @@ store.load(function(a, b, c) {
 Ext.application({
 			name : 'KRF_DEV',
 
+<<<<<<< HEAD
 			// extend: 'KRF_DEV.Application',
 
 			autoCreateViewport : 'KRF_DEV.view.main.Main',
@@ -338,6 +339,161 @@ Ext.application({
 					var rToolbar = Ext.getCmp("reachToolbar");
 					cContainer.remove(rToolbar, false);
 				}
+=======
+ 		
+ 		//Ext.WestTabChange(1);
+ 		
+ 		// 이미지 on/off
+ 		Ext.SetSrc = function(currCtl){
+ 			var parentCtl = currCtl.findParentByType('container');
+ 			var items = parentCtl.items.items;
+ 			var groupCnt = 0;
+ 			
+ 			for(i = 0; i < items.length; i++){
+ 				if(currCtl.groupId == items[i].groupId){
+ 					var srcPath = items[i].src;
+ 					
+ 					if(currCtl != items[i]){
+ 						items[i].setSrc(srcPath.replace("_on", ""));
+ 					}
+ 					
+ 					groupCnt++;
+ 				}
+ 			}
+ 			
+ 			if(groupCnt > 1){
+ 				if(currCtl.src.indexOf("_on") == -1)
+					currCtl.setSrc(currCtl.src.replace(".png", "_on.png"));
+ 			}
+ 			else{
+				if(currCtl.src.indexOf("_on") == -1)
+					currCtl.setSrc(currCtl.src.replace(".png", "_on.png"));
+				else
+					currCtl.setSrc(currCtl.src.replace("_on.png", ".png"));
+ 			}
+ 		}
+ 		
+ 		var listWinCtl = null;
+ 		var infoWinCtl = null;
+ 		
+ 		
+ 		// 지점 목록 창 띄우기
+ 		Ext.ShowSiteListWindow = function(searchText){
+ 			
+ 			var me = GetCoreMap();
+ 			
+ 			//console.info(searchText);
+ 			
+			//검샋시 다른 더튼값 초기화
+			var cmbArea1 = Ext.getCmp("cmbArea1");
+			var cmbArea2 = Ext.getCmp("cmbArea2");
+			var cmbArea3 = Ext.getCmp("cmbArea3");
+			var cmbWater1 = Ext.getCmp("cmbWater1");
+			var cmbWater2 = Ext.getCmp("cmbWater2");
+			var cmbWater3 = Ext.getCmp("cmbWater3");
+			var txtSearch = Ext.getCmp("textSearchText");
+			
+			if(searchText == 'waterSearch'){//수계검색시 행정구역 초기화
+				cmbArea1.setValue("");
+				cmbArea2.setValue("");
+				cmbArea3.setValue("");
+				txtSearch.setValue("");
+				me.reachLayerAdmin.amCD_temp = "";
+			}else if(searchText == 'admSearch'){//행정구역검색시 수계 초기화
+				cmbWater1.setValue("");
+				cmbWater2.setValue("");
+				cmbWater3.setValue("");
+				txtSearch.setValue("");
+				me.reachLayerAdmin.amCD_temp = "";
+			}else if(searchText == "nameSearch"){//명칭찾기시 수계 행정구역 초기화
+				cmbArea1.setValue("");
+				cmbArea2.setValue("");
+				cmbArea3.setValue("");
+				cmbWater1.setValue("");
+				cmbWater2.setValue("");
+				cmbWater3.setValue("");
+				me.reachLayerAdmin.amCD_temp = "";
+			}
+			else{
+				me.reachLayerAdmin.amCD_temp = searchText;
+			}
+			
+			
+			
+			//var searchAreaContents_1 = Ext.getCmp("searchAreaContents_1");
+			//KRF_DEV.view.west.SearchArea
+			
+			/*var aStore = Ext.create('KRF_DEV.store.east.SiteListWindow');
+			aStore.load();
+			console.info(aStore);*/
+			
+			
+			//console.info(searchText);
+			listWinCtl = Ext.getCmp("siteListWindow");
+			if(listWinCtl == undefined)
+				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
+			
+			listWinCtl.show();
+			//alert("dd");
+			
+			//var richSearch = Ext.create('KRF_DEV.store.east.SiteListWindow');
+			
+			//console.info("##");
+			
+			var treeCtl = Ext.getCmp("siteListTree");
+			var store = treeCtl.getStore();
+			store.searchType = searchText;
+			store.load();
+			//console.info(store);
+			
+			//console.info(searchAreaContents_1);
+			//searchAreaContents_1.setStore(store);
+			
+			
+			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
+			var listWinY = 98;
+			
+			//console.info("!");
+			//console.info(searchAreaContents1.getStore());
+			//console.info("!");
+			
+			listWinCtl.setX(listWinX);
+			listWinCtl.setY(listWinY);
+			// 좌측 정보창 버튼 on
+ 			SetBtnOnOff("btnSiteListWindow", "on");
+			
+ 		}
+ 		
+ 		// 지점 목록 창 닫기
+ 		Ext.HideSiteListWindow = function(currCtl){
+ 			
+ 			listWinCtl = Ext.getCmp("siteListWindow");
+ 			
+ 			if(listWinCtl != undefined)
+ 				listWinCtl.close();
+ 			
+			listWinCtl = Ext.getCmp("siteListWindow_reach");
+ 			
+ 			if(listWinCtl != undefined)
+ 				listWinCtl.close();
+ 			
+ 			// 좌측 정보창 버튼 off
+ 			SetBtnOnOff("btnSiteListWindow", "off");
+			
+ 		}
+ 		
+ 		// 지점 정보 창 띄우기
+ 		Ext.ShowSiteInfoWindow = function(siteId){
+ 			
+ 			infoWinCtl = Ext.getCmp("siteInfoWindow");
+ 			
+			if(infoWinCtl == undefined)
+				infoWinCtl = Ext.create('KRF_DEV.view.east.SiteInfoWindow');
+			
+			infoWinCtl.show();
+			
+			//console.info(infoWinCtl.visible);
+>>>>>>> 8810b80b8b9408290ebb1c4e427b4b5bdbacb38f
 			
 				
 
