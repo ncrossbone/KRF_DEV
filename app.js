@@ -217,7 +217,6 @@ Ext.application({
 				listWinCtl.close();
 
 			listWinCtl = Ext.getCmp("siteListWindow_reach");
-
 			if (listWinCtl != undefined)
 				listWinCtl.close();
 

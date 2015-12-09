@@ -21,6 +21,10 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		me.moveRchGraphicLayer = new esri.layers.GraphicsLayer();
 		me.moveRchGraphicLayer.id = "moveRchGraphicLayer";
 		me.map.addLayer(me.moveRchGraphicLayer);
+		
+		me.movePopGraphicLayer = new esri.layers.GraphicsLayer();
+		me.movePopGraphicLayer.id = "movePopGraphicLayer";
+		me.map.addLayer(me.movePopGraphicLayer);
         
         KRF_DEV.getApplication().addListener('setSelectedSite', me.setSelectedSiteHandler, me);
         KRF_DEV.getApplication().addListener('setSelectedCatArea', me.setSelectedCatAreaHandler, me);
