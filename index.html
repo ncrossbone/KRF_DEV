@@ -247,8 +247,16 @@
 		.khLee-x-label-default {
 			padding-top: 2px;
 			min-height: 24px;
+			position: relative;
 		}
 		
+		.khLee-x-label-default b {
+			letter-spacing: -1px;
+			position: absolute;
+			top: 4px;
+			left: 14px;
+		
+		}
 		.khLee-x-form-item-label-default .x-form-item-label-default {
 			padding-top: 2px;
 		}
@@ -312,12 +320,67 @@
         
         .khLee-tab .x-tab{
         	margin-right: 2px;
-        }
         
-        .khLee-checkboxgroup-body .x-form-checkboxgroup-body table{
+        }
+        .khLee-checkboxgroup-body .x-form-checkboxgroup-body table {
         	border-top: 2px solid #2b343d;
         }
-	
+        
+        /*20151208-위치찾기*/
+        table.dj_result { width: 100%; border-bottom: 1px dashed #d5d5d5; } 
+        table.dj_result> tbody> tr> th { width: 25px; } 
+		table.dj_result> tbody> tr> td { font-size: 12px; color: #555; text-indent: 5px; } 
+		table.dj_result> tbody> tr> td span { font-weight: bold; color: #000; } 
+		
+		.dj_result_info {
+			width: 290px;	
+			margin-top: 10px;	
+		}
+		
+		.dj_reach_list_title {
+			color: #555;
+		}
+		
+		.dj_reach_list_title span{
+			font-weight: bold;
+			color: #0b4a7f;
+			padding-left: 5px;
+		}
+		
+		.dj_accordion .x-accordion-item .x-accordion-hd{
+			background-color: #eef5fb;
+			border-top: 1px solid #bfd6e4;
+			border-bottom: 1px solid #bfd6e4;
+			color: #000;
+			
+		}
+		
+		
+		.dj_layer_nm .x-title-text{
+			color: #000;
+		}
+		
+		
+		/* 시작위치 */
+		.dj_stextfield .x-form-trigger-wrap-default{
+		    border: 1px solid #f5bf32;
+		}
+		
+		/* 끝위치 */
+		.dj_etextfield .x-form-trigger-wrap-default{
+			border: 1px solid #3eaf0e;
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+			
 	</style>
 
 </head>

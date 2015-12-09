@@ -227,6 +227,10 @@ Ext.application({
 			
  		}
  		
+ 		Ext.Hello = function(){
+ 			alert("Hellow World!");
+ 		}
+ 		
  		// 지점 목록 창 닫기
  		Ext.HideSiteListWindow = function(currCtl){
  			
