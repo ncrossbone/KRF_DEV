@@ -490,11 +490,11 @@ try{
 	sql += "     , KESTI_WATER_ALL_MAP C                                                                      ";
 	sql += " WHERE A.PT_NO = B.PT_NO                                                                          ";
 	sql += "   AND A.ADMCODE = B.ADMCODE                                                                      ";
-	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 9                                                             ";
+	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 8                                                             ";
 	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)      ) ORDER BY PT_NO, RN, RN_2 DESC                ";
 		
    //out.print(sql);
-   //System.out.println(sql);
+   System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
    
@@ -809,6 +809,7 @@ try{
 		
 		CURR_BOD = rs.getString("CURR_BOD");
 		Chart_Data_tmp = new JSONArray();
+		
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_BOD"));
 		if(rs.getString("CHART_BOD") != null){

@@ -36,6 +36,7 @@
 			ArrayList headNameList = gson.fromJson(request.getParameter("headName"), ArrayList.class);
 			ArrayList headList = gson.fromJson(request.getParameter("header"), ArrayList.class);
 			ArrayList dataList = gson.fromJson(request.getParameter("datas"), ArrayList.class);
+			System.out.println(dataList);
 			String url = request.getParameter("url");
 			String param = request.getParameter("param");
 			if(url!=null && !"".equals(url)){
