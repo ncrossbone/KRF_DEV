@@ -185,7 +185,24 @@ Ext.define('KRF_DEV.view.north.North', {
     	height: 37,
     	listeners: {
     		el: {
-    			click: 'onButtonClick'
+    			click: function(){
+    				Ext.Ajax.request({
+						//session out-hyeok
+						url : "./resources/jsp/SessionOut.jsp",
+						async:true,						
+						method : "GET",
+						success : function(result, request) {
+							window.location = './index.html';
+						},
+						failure : function(result, request) {
+							Ext.Msg.alert("Failed", "Connection Failed");
+						}
+
+					});
+    				
+    				
+    				
+    			}
     		}
     	},
     	src: './resources/images/button/top_btn3_off.png'
