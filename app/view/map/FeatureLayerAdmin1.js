@@ -88,63 +88,102 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		queryTask.execute(query,  function(results){
 			
 			Ext.each(results.features, function(obj, index) {
+				//console.info(obj);
+				//me.map.on("click", function(evt){
+					Ext.create("Ext.window.Window", {
+						//renderTo: Ext.getBody(),
+						header: false,
+						shadow: false,
+						//frame: true,
+						plain: true, // 요게 있어야 background: transparent 먹음..
+						//cls: 'khLee-x-window-default',
+						style: 'border-style: none !important; background: transparent none !important;',
+						layout: {
+							type: 'absolute'
+						},
+						//x: evt.pageX,
+						//y: evt.pageY,
+						html: "<b>" + obj.attributes.채수지점 + "</b>"
+					}).show();
+				//});
 				
 				
-				me.movePopGraphicLayer.clear();
-				me.movePopGraphicLayer.id = "moveGraphicLayer" + siteId;
-				
-				if(me.map.getLevel() < 12)
-					me.map.setLevel(12);
-				
-				//obj.setSymbol(selectedSymbol);
-				
-				var dialog, highlightSymbol;
-				
-				require(["dijit/TooltipDialog"], function(TooltipDialog){
-					dialog = new TooltipDialog({
-			          //id: "tooltipDialog",
-			          style: "position: absolute; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100"
-			        });
-			        dialog.startup();
-				});
-				
-				
-				var t = "testetestewtetet";
-				/*me.map.infoWindow =
-					setInfo*/
-				
-				
-				
-				var content, highlightGraphic;
-		          
-		          require(["esri/lang"], function(esriLang){
-		        	 content = esriLang.substitute(obj.attributes,t);
-		        	 console.info(obj);
-		        	 console.info(obj.attributes);
-		          });
-				    
-				//me.movePopGraphicLayer.add(obj);
-				dialog.setContent(content);
-				
+//				me.movePopGraphicLayer.clear();
+//				me.movePopGraphicLayer.id = "moveGraphicLayer" + siteId;
+//				
+//				if(me.map.getLevel() < 12)
+//					me.map.setLevel(12);
+//				
+//				//obj.setSymbol(selectedSymbol);
+//				
+//				var dialog, highlightSymbol;
+//				
+//				require(["dijit/TooltipDialog"], function(TooltipDialog){
+//					dialog = new TooltipDialog({
+//			          //id: "tooltipDialog",
+//			          style: "position: absolute; top: 300px; left: 500px; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100"
+//			        });
+//			        dialog.startup();
+//				});
+//				
+//				
+//				var t = "testetestewtetet";
+//				/*me.map.infoWindow =
+//					setInfo*/
+//				
+//				
+//				
+//				var content, highlightGraphic;
+//		          
+//		          require(["esri/lang"], function(esriLang){
+//		        	 content = esriLang.substitute(obj.attributes,t);
+//		        	 console.info(obj);
+//		        	 console.info(obj.attributes);
+//		          });
+//				    
+//				//me.movePopGraphicLayer.add(obj);
+//				dialog.setContent(content);
+//				
 				var x = obj.geometry.x;
 				var y = obj.geometry.y;
+//				
+//				require(["dojo/dom-style", "dijit/popup"], function(domStyle, dijitPopup){
+//					
+//			        	  domStyle.set(dialog.domNode, "opacity", 1);
+//			        	  console.info("open");
+//	  		          dijitPopup.open({
+//	  		            popup: dialog, 
+//	  		            x: 1076,
+//	  		            y: 588
+//	  		            /*x: results.features[0].attributes.TM_X,
+//	  		            y: results.features[0].attributes.TM_Y*/
+//	  		          });
+//		          });
 				
-				require(["dojo/dom-style", "dijit/popup"], function(domStyle, dijitPopup){
-					
-			        	  domStyle.set(dialog.domNode, "opacity", 1);
-			        	  console.info("open");
-	  		          dijitPopup.open({
-	  		            popup: dialog, 
-	  		            x: x,
-	  		            y: y
-	  		            /*x: results.features[0].attributes.TM_X,
-	  		            y: results.features[0].attributes.TM_Y*/
-	  		          });
-		          });
+				var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
+				var curLevel = me.map.getLevel();
+				var xOffset = tileInfo.lods[curLevel].resolution;
 				
+				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * xOffset);
+				y = y - ((979 - Ext.getBody().getHeight()) / 2 * xOffset);
 				
 				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference);
 				me.map.centerAt(point);
+				
+				console.info(KRF_DEV.getApplication().coreMap.getWidth());
+				console.info(Ext.getBody().getHeight());
+				//console.info(me.map.getLevel());
+				//console.info(me.map.extent);
+				//console.info(KRF_DEV.getApplication().coreMap.tileInfo);
+				
+				//extent.xmin = extent.xmin + 20000;
+	    		//extent.xmax = extent.xmax + 20000;
+	    		//extent.xmin = extent.xmin + (extent.xmax/2 - extent.xmin/2);
+	    		//extent.xmax = extent.xmax + (extent.xmax/2 - extent.xmin/2);
+	    		//extent.ymin = extent.ymin - 6000;
+	    		//extent.ymax = extent.ymax - 6000;
+	    		//extent.ymin = extent.ymin - (extent.ymax/2 - extent.ymin/2);
+	    		//extent.ymax = extent.ymax - (extent.ymax/2 - extent.ymin/2);
 				
 				
 				// 10초뒤 레이어(이미지) 제거

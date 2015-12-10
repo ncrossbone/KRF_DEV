@@ -98,6 +98,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		          ]
 		      });
 		      
+		      me.tileInfo = this.tileInfo;
+		      
 		      this.fullExtent = new esri.geometry.Extent({
 		    	  xmin: 12928905.446270483,
 		    	  ymin: 3309091.461517964,
