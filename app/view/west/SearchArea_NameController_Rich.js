@@ -59,8 +59,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 					if(result.features[i].attributes.LAYER_NM != guBunNm){
 							listCtl.addCls('dj_accordion');
 							
-							console.info(result.features[i].attributes);
-							
 							
 							listCtl.add({
 								xtype : 'panel',
@@ -107,7 +105,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 											"</table>                             "
 											
 								});
-							console.info(layerCnt);
+							
 							layerCnt++;		
 						}
 					}
