@@ -66,7 +66,6 @@ Ext.define('KRF_DEV.store.west.SearchArea_ADM', {
 						var nameVal = eval('media.attributes.' + nameColumn);
 						
 						receiveData.push({id: idVal, name: nameVal});
-						
 		   				if(data.length==index+1){ store.setData(receiveData); }
 		   				
 					});

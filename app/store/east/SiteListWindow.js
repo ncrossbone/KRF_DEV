@@ -18,6 +18,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	
 	listeners: {
 		load: function(store) {
+			console.info(store);
 			var a = Ext.getCmp("btnADMSelect");
 			
 			var nameInfo = Ext.getCmp("textSearchText");
@@ -39,6 +40,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			//읍변동
 			var amdBtn3 = Ext.getCmp("cmbArea3");
+			
+			var start = Ext.getCmp("textSearchText_Start");
+			
+			//console.info(start.rawValue);
+			//console.info("##");
 			//http://cetech.iptime.org:6080/arcgis/rest/services/Layer2/MapServer
 			//var queryTask = new esri.tasks.QueryTask('http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
 			//var queryTask = new esri.tasks.QueryTask('http://cetech.iptime.org:6080/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
@@ -55,17 +61,18 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 			}else if(buttonInfo1.lastValue == null && nameInfo.rawValue == ""){
 				console.log("행정구역찾기로검색");
-				if(amdBtn2.lastValue == null){
+				/*if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn2.lastValue.substring(0,5)+"%'";
 				}else{    
 					query.where = "ADM_CD like '"+amdBtn3.lastValue.substring(0,7)+"%'";
-				}
-				
+				}*/
+				query.where = "JIJUM_NM like '"+start.rawValue+"%'";
 			}else{
 				console.log("명칭찾기로검색");
-				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
+				//query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
+				query.where = "JIJUM_NM like '"+start.rawValue+"%'";
 			}
 			
 			if(store.searchType == "selectReach"){
@@ -196,6 +203,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
+				console.info(jsonData);
 				store.setRootNode(jsonData);
 
 	        });

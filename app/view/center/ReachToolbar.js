@@ -67,7 +67,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	height: this.itemHeight,
 	    	listeners: { el: { click: 'onClickStartReach' } },
 	    	btnOnOff: 'off',
-	    	btnOnImg: './resources/images/button/reach_menu04_on.png',
+	    	/*btnOnImg: './resources/images/button/reach_menu04_on.png',*/
+	    	btnOnImg: './resources/images/button/reach_menu04.png',
 	    	btnOffImg: './resources/images/button/reach_menu04.png',
 	    	src: './resources/images/button/reach_menu04.png'
 	    }, {
@@ -79,7 +80,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	height: this.itemHeight,
 	    	listeners: { el: { click: 'onClickEndReach' } },
 	    	btnOnOff: 'off',
-	    	btnOnImg: './resources/images/button/reach_menu05_on.png',
+	    	/*btnOnImg: './resources/images/button/reach_menu05_on.png',*/
+	    	//btnOnImg: './resources/images/button/reach_menu05.png',
 	    	btnOffImg: './resources/images/button/reach_menu05.png',
 	    	src: './resources/images/button/reach_menu05.png'
 	    }, {

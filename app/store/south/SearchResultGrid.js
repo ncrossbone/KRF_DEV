@@ -151,12 +151,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
 			//myMask.show();
 			
-			console.info(store);/*
+			//console.info(store);
 			console.info(a);
 			console.info(b);
 			console.info(c);
 			console.info(d);
-			console.info(e);*/
+			console.info(e);
 			
 			// 로딩바 표시
 			//Ext.getCmp("searchResultWindow").mask("loading", "loading...");
@@ -178,8 +178,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         			
         			//console.info(response.responseText);
         			// JSON Object로 변경
-        			console.info(response.responseText);
+        			//console.info(response.responseText);
         			jsonData = Ext.util.JSON.decode( response.responseText );
+        			console.info(response.responseText);
         			console.info(jsonData.data);
         			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				

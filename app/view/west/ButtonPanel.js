@@ -96,6 +96,9 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: this.onClickListener,
+	    	btnOnOff: 'on',
+	    	btnOnImg: './resources/images/button/left_menu05_on.png',
+	    	btnOffImg: './resources/images/button/left_menu05.png',
 	    	src: './resources/images/button/left_menu05_on.png'
 	    }, {
 	    	xtype: 'image',
@@ -106,6 +109,9 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: this.onClickListener,
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/left_menu06_on.png',
+	    	btnOffImg: './resources/images/button/left_menu06.png',
 	    	src: './resources/images/button/left_menu06.png'
 	    }, {
 	    	xtype: 'image',

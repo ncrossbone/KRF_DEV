@@ -115,7 +115,9 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		//console.info(evtArgs);
 		
 		// 이미지 셋팅
-		Ext.SetSrc(currCtl);
+		//Ext.SetSrc(currCtl);
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id, "on");
 		
 		// 주제도선택
 		if(el.id == "btnLayer"){
@@ -141,6 +143,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				this.onClickButton(evtArgs, btnNormal.el);
 	    		return;
 	    	}
+	    	
+	    	var westContents = Ext.getCmp("searchAreaContents");
+			var btnName = Ext.getCmp("btnNameSearch");
+			if(btnName.btnOnOff == "on")
+				westContents.setActiveItem(3); // 명칭찾기 리치모드 인덱스
 	    	
 	    	// Dim 처리 서비스 레이어
 	    	var activeLayer = me.map.getLayer("ReachLayerAdminBackground");
@@ -185,6 +192,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			//var btn = SetBtnOnOff("btnModeNormal_center");
 			//if(btn.btnOnOff == "off")
 				//SetBtnOnOff("btnModeNormal_center");
+			
+			var westContents = Ext.getCmp("searchAreaContents");
+			var btnName = Ext.getCmp("btnNameSearch");
+			if(btnName.btnOnOff == "on")
+				westContents.setActiveItem(2); // 명칭찾기 일반모드 인덱스
 			
 			/* 전체 레이어 끄기 */
 	    	var activeLayer = me.map.getLayer("DynamicLayerAdmin_ReachTest");

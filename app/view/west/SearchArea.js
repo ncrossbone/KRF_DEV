@@ -33,8 +33,19 @@ Ext.define('KRF_DEV.view.west.SearchArea', {
 			xtype: 'west-searchArea_Water'
 		}, {
 			xtype: 'west-searchArea_ADM'
-		}, {
+		}
+		, {
 			xtype: 'west-searchArea_Name'
+		}
+		, {
+			xtype: 'container',
+			items: [{
+				xtype: 'west-searchArea_Name_Rich'
+			}, {
+				xtype: 'west-searchArea-list_Total'
+			}, {
+				xtype: 'west-searchArea-list'
+			}]
 		}]
 	}]
 
