@@ -22,92 +22,64 @@ try{
 	String c = request.getParameter("recordMonth");
 	String d = request.getParameter("recordMonth2");
 	
-	String ac = a+c;
-	String bd = b+d;
+	String startDate = a+c;
+	String endDate = b+d;
 		
 	String defaultChart = request.getParameter("defaultChart");
 	
-	sql =  " WITH TMP_TBL AS																																																							";
-	sql += "  (select * from ( SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.DISCHARGE_NUM ORDER BY A.FACI_CD, A.DISCHARGE_NUM, A.WORK_DT DESC) AS RN      ";
-	sql += "      , A.FACI_CD                                                                                                             ";
-	sql += "      , FACI_NM /* 처리시설명 */                                                                                              ";
-	sql += "      , REPLACE(A.WORK_DT,'-','.') AS WORK_DT /* 운영일자 */                                                                                              ";
-	sql += "      , '방류구번호 : '||A.DISCHARGE_NUM AS DISCHARGE_NUM /* 방류구번호 */                                                    ";
-	sql += "      , DISCHARGE_AMT_PHYS AS AMT_PHYS   /* 방류량_물리적(㎥/일) */                            ";
-	sql += "      , DISCHARGE_AMT_BIO AS AMT_BIO    /* 방류량_생물학적(㎥/일) */                          ";
-	sql += "      , DISCHARGE_AMT_HIGHTEC AS AMT_HIGHTEC   /* 방류량_고도(㎥/일) */                        ";
-	sql += "      , BOD AS ITEM_BOD   /* BOD(㎎/ℓ) */                                                     ";
-	sql += "      , COD AS ITEM_COD   /* COD(㎎/ℓ) */                                                    ";
-	sql += "      , SS AS ITEM_SS    /* SS(㎎/ℓ) */                                                     ";
-	sql += "      , TN AS ITEM_TN    /* TN(㎎/ℓ) */                                                     ";
-	sql += "      , TP AS ITEM_TP    /* TP(㎎/ℓ) */                                                     ";
-	sql += "      , COLI AS ITEM_COLI     /* 대장균군수(총대장균군수) */                                      ";
-	sql += "   FROM (                                                                                                                     ";
-	sql += "         SELECT TT.ADM_CD,                                                                                                    ";
-	sql += "                T.YYYY,                                                                                                       ";
-	sql += "                FACI_NM,                                                                                                      ";
-	sql += "                FACI_CD,                                                                                                      ";
-	sql += "                WORK_DT,                                                                                                      ";
-	sql += "                DISCHARGE_NUM,                                                                                                ";
-	sql += "                DISCHARGE_AMT_PHYS,                                                                                           ";
-	sql += "                DISCHARGE_AMT_BIO,                                                                                            ";
-	sql += "                DISCHARGE_AMT_HIGHTEC,                                                                                        ";
-	sql += "                BOD,                                                                                                          ";
-	sql += "                COD,                                                                                                          ";
-	sql += "                SS,                                                                                                           ";
-	sql += "                TN,                                                                                                           ";
-	sql += "                TP,                                                                                                           ";
-	sql += "                COLI,                                                                                                         ";
-	sql += "                DISCHARGE_DISINFECT,                                                                                          ";
-	sql += "                DISCHARGE_FACI_NM,                                                                                            ";
-	sql += "                DISCHARGE_FACI_CD,                                                                                            ";
-	sql += "                DISCHARGE_ADM_CD,                                                                                             ";
-	sql += "                DISCHARGE_RIVER_NM,                                                                                           ";
-	sql += "                DISCHARGE_RIVER_CD,                                                                                           ";
-	sql += "                DISCHARGE_AMT                                                                                                 ";
-	sql += "           FROM VPLA_FACI_OUT_TOTAL T ,                                                                                       ";
-	sql += "                COM_DISTRICT_RAW TT,                                                                                          ";
-	sql += "                KESTI_WATER_ALL_MAP C                                                                                         ";
-	sql += "          WHERE T.ADM_CD = C.ADM_CD                                                                                           ";
-	sql += "            AND T.ADM_CD = TT.ADM_CD                                                                                          ";
-	sql += "        ) A                                                                                                                   ";
-	sql += "      , (                                                                                                                     ";
-	sql += "         SELECT FACI_CD, WORK_DT, MAX(DISCHARGE_NUM) AS DISCHARGE_NUM                                                         ";
-	sql += "           FROM VPLA_FACI_OUT_TOTAL                                                                                           ";
-	sql += "          GROUP BY FACI_CD, WORK_DT                                                                                           ";
-	sql += "        ) B                                                                                                                   ";
-	sql += "  WHERE A.FACI_CD = B.FACI_CD                                                                                                 ";
-	sql += "    AND A.WORK_DT = B.WORK_DT                                                                                                 ";
-	sql += "    AND A.DISCHARGE_NUM = B.DISCHARGE_NUM                                                                                     ";
-	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                               ";
+	String selectItem = request.getParameter("selectItem");                   
+	
+	sql = " WITH TMP_TBL AS (																																								";
+	sql += " SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.DISCHARGE_NUM, ITEM_NAME ORDER BY A.FACI_CD, A.DISCHARGE_NUM, A.WORK_DT DESC) AS RN                                               ";
+	sql += "      , A.FACI_CD  AS PT_NO                                                                                                                                                               ";
+	sql += "      , FACI_NM AS PT_NM /* 처리시설명 */                                                                                                                                                ";
+	sql += "      , REPLACE(A.WORK_DT, '-', '.') AS WMCYMD /* 운영일자 */                                                                                                                  ";
+	sql += "      , '방류구번호 : '||A.DISCHARGE_NUM AS DISCHARGE_NUM /* 방류구번호 */                                                                                                      ";
+	sql += "      , ITEM_NAME                                                                                                                                                               ";
+	sql += "      , ITEM_VALUE                                                                                                                                                              ";
+	sql += "   FROM (SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('AMT_PHYS    ') AS ITEM_NAME, DISCHARGE_AMT_PHYS    AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('AMT_BIO     ') AS ITEM_NAME, DISCHARGE_AMT_BIO     AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('AMT_HIGHTEC ') AS ITEM_NAME, DISCHARGE_AMT_HIGHTEC AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('ITEM_BOD    ') AS ITEM_NAME, BOD                   AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('ITEM_COD    ') AS ITEM_NAME, COD                   AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('ITEM_SS     ') AS ITEM_NAME, SS                    AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('ITEM_TN     ') AS ITEM_NAME, TN                    AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('ITEM_TP     ') AS ITEM_NAME, TP                    AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL UNION ALL       ";
+	sql += "         SELECT YYYY, FACI_NM, FACI_CD, WORK_DT, DISCHARGE_NUM, TRIM('ITEM_COLI   ') AS ITEM_NAME, COLI                  AS ITEM_VALUE FROM VPLA_FACI_OUT_TOTAL                 ";
+	sql += "        ) A                                                                                                                                                                     ";
+	sql += "      , (SELECT FACI_CD                                                                                                                                                         ";
+	sql += "              , WORK_DT                                                                                                                                                         ";
+	sql += "              , MAX(DISCHARGE_NUM) AS DISCHARGE_NUM                                                                                                                             ";
+	sql += "           FROM VPLA_FACI_OUT_TOTAL                                                                                                                                             ";
+	sql += "          GROUP BY FACI_CD, WORK_DT                                                                                                                                             ";
+	sql += "        ) B                                                                                                                                                                     ";
+	sql += "  WHERE A.FACI_CD = B.FACI_CD                                                                                                                                                   ";
+	sql += "    AND A.WORK_DT = B.WORK_DT                                                                                                                                                   ";
+	sql += "    AND A.DISCHARGE_NUM = B.DISCHARGE_NUM                                                                                                                                       ";
+	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                                                                                 ";
 	if(defaultChart.equals("1")){
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201312'       )        WHERE RN  <= 10         ";
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201301' AND '201301'                                                                                          ";
 	}else{
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+ac+"' AND '"+bd+"'      )                                  ";
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startDate+"' AND '"+endDate+"'                                                                                          ";
 	}
-	sql += "  ORDER BY FACI_NM, DISCHARGE_NUM, WORK_DT ASC)                                                                              ";
-	sql += " SELECT *                                                                                                                     ";
+	sql += "    AND ITEM_NAME = '"+selectItem+"'                                                                                                                                                  ";
+	sql += " 	AND ITEM_VALUE IS NOT NULL			";
+	sql += "  ORDER BY FACI_NM, DISCHARGE_NUM, WMCYMD ASC)                                                                                                                                 ";
+	sql += " SELECT *                                                                                                                                                                       ";
+	sql += "   FROM (SELECT *                                                                                                                                                               ";
+	sql += "           FROM TMP_TBL                                                                                                                                                         ";
+	sql += "          ORDER BY WMCYMD                                                                                                                                                      ";
+	sql += "        )                                                                                                                                                                       ";
 	if(defaultChart.equals("1")){
-		sql += "   FROM (SELECT *                                                                                                             ";
-		sql += "           FROM TMP_TBL                                                                                                       ";
-		//sql += "          WHERE RN <= 10                                                                                                      ";
-		sql += "          ORDER BY WORK_DT                                                                                                    ";
-		sql += "        )                                                                                                                     ";
-	}else{
-		sql += "           FROM TMP_TBL                                                                                                       ";
+		sql += "  WHERE RN <= 10                                                                                                                                                                ";
 	}
-	sql += " UNION ALL                                                                                                        ";
-	sql += " SELECT 999 AS RN, '','','','',      ";                                                
-	sql += "   NVL(MAX(AMT_PHYS), 0) + NVL(MAX(AMT_PHYS), 0) / 10,				";
-	sql += "   NVL(MAX(AMT_BIO), 0) + NVL(MAX(AMT_BIO), 0) / 10,        ";
-	sql += "   NVL(MAX(AMT_HIGHTEC), 0) + NVL(MAX(AMT_HIGHTEC), 0) / 10,";
-	sql += "   NVL(MAX(ITEM_BOD), 0) + NVL(MAX(ITEM_BOD), 0) / 10,      ";
-	sql += "   NVL(MAX(ITEM_COD), 0) + NVL(MAX(ITEM_COD), 0) / 10,      ";
-	sql += "   NVL(MAX(ITEM_SS), 0) + NVL(MAX(ITEM_SS), 0) / 10,        ";
-	sql += "   NVL(MAX(ITEM_TN), 0) + NVL(MAX(ITEM_TN), 0) / 10,        ";
-	sql += "   NVL(MAX(ITEM_TP), 0) + NVL(MAX(ITEM_TP), 0) / 10,        ";
-	sql += "   NVL(MAX(ITEM_COLI), 0) + NVL(MAX(ITEM_COLI), 0) / 10     ";
-	sql += "   FROM TMP_TBL                                                                                                   ";                                                                                                                                                          
+	sql += " UNION ALL                                                                                                                                                                      ";
+	sql += " SELECT 999 AS RN, '', '', '', '', ''                                                                                                                                           ";
+	sql += "      , MAX(ITEM_VALUE) + MAX(ITEM_VALUE) / 10                                                                                                                                  ";
+	sql += "   FROM TMP_TBL                                                                                                                                                                 ";
+	if(defaultChart.equals("1")){
+		sql += "  WHERE RN <= 10                                                                                                                                                                ";
+	}
                              
 
 
@@ -126,10 +98,14 @@ try{
 		//out.print(cnt);
 		jsonRecord = new JSONObject();
 
-  		jsonRecord.put("FACI_CD"	, rs.getString("FACI_CD"));
-  		jsonRecord.put("FACI_NM"	, rs.getString("FACI_NM"));
-  		jsonRecord.put("WORK_DT"	, rs.getString("WORK_DT"));
-  		jsonRecord.put("DISCHARGE_NUM"	, rs.getString("DISCHARGE_NUM"));
+  		jsonRecord.put("PT_NO"	, rs.getString("PT_NO"));
+  		jsonRecord.put("PT_NM"	, rs.getString("PT_NM"));
+  		jsonRecord.put("WMCYMD"	, rs.getString("WMCYMD"));
+  		jsonRecord.put("ITEM_NAME" 	, rs.getString("ITEM_NAME"));
+  		jsonRecord.put("ITEM_VALUE" 	, rs.getString("ITEM_VALUE"));
+  		
+  		
+  		/* jsonRecord.put("DISCHARGE_NUM"	, rs.getString("DISCHARGE_NUM"));
   		jsonRecord.put("AMT_PHYS"	, rs.getString("AMT_PHYS"));
   		jsonRecord.put("AMT_BIO"	, rs.getString("AMT_BIO"));
   		jsonRecord.put("AMT_HIGHTEC"	, rs.getString("AMT_HIGHTEC"));
@@ -138,7 +114,7 @@ try{
   		jsonRecord.put("ITEM_SS" 	, rs.getString("ITEM_SS"));
   		jsonRecord.put("ITEM_TN" 	, rs.getString("ITEM_TN"));
   		jsonRecord.put("ITEM_TP" 	, rs.getString("ITEM_TP"));
-  		jsonRecord.put("ITEM_COLI" 	, rs.getString("ITEM_COLI"));
+  		jsonRecord.put("ITEM_COLI" 	, rs.getString("ITEM_COLI")); */
   		
   		if(rs.getString("RN").equals("999"))
   			jsonArrMax.add(jsonRecord);

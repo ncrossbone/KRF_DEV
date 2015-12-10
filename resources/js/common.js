@@ -1384,7 +1384,8 @@ siteMovePoint = function(parentNodeId, nodeId){
 	}
 	
 	// 피처 레이어 생성/갱신
-	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId);	
+	//KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId);	
+	KRF_DEV.getApplication().fireEvent('setSelectedPopSite', layerId, nodeId);
 }
 
 OpenMenualPop = function(){

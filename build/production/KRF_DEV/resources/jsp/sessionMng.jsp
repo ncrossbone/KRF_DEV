@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=euc-kr" pageEncoding="EUC-KR" %>
+<%@ page contentType="text/html; charset=euc-kr" pageEncoding="EUC-KR"%>
 <%@ page import="java.util.*,java.text.*"%>
 <%
 /* 
@@ -13,6 +13,7 @@ try{
 	
 	Object id = session.getAttribute("id");
 	Object currDate = session.getAttribute("currDate");
+	
 	//out.print(id);
 	if(id == null){
 		

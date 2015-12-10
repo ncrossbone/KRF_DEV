@@ -29,7 +29,142 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
         KRF_DEV.getApplication().addListener('setSelectedSite', me.setSelectedSiteHandler, me);
         KRF_DEV.getApplication().addListener('setSelectedCatArea', me.setSelectedCatAreaHandler, me);
         KRF_DEV.getApplication().addListener('setSelectedRchLine', me.setSelectedRchLineHandler, me);
+        
+        KRF_DEV.getApplication().addListener('setSelectedPopSite', me.setSelectedPopSiteHandler, me);
     },
+    
+    
+    
+    
+    setSelectedPopSiteHandler: function(layerId, siteId){
+    	console.info("##");
+		
+    	var me = this;
+    	
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + layerId);
+		var query = new esri.tasks.Query();
+		query.returnGeometry = true;
+		query.outSpatialReference = {"wkid":102100};
+		query.outFields = ["*"];
+		
+		
+		
+		
+		
+		/*var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
+		    "angle": 0,
+		    //"xoffset": 10,
+		    //"yoffset": 35,
+		    "type": "esriPMS",
+		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+		    "url": "./resources/images/symbol/spot_09.png",
+		    "contentType": "image/png",
+		    "width": 25,
+		    "height": 61,
+		    "yoffset": 16,
+		    "xoffset": 4
+		});*/
+		
+		if(layerId == "11"){ // 사업장 TMS
+			query.where =  "사업장코드='" + siteId + "'";
+		}
+		else if(layerId == "25" || layerId == "26" || layerId == "27"
+			|| layerId == "28" || layerId == "29" || layerId == "30"
+			|| layerId == "31" || layerId == "32"){ // 환경기초시설
+			query.where = "시설코드='" + siteId + "'";
+		}
+		else if(layerId == "15" || layerId == "16" || layerId == "17"
+			|| layerId == "18" || layerId == "19" || layerId == "20"
+			|| layerId == "21"){ // 기타측정지점
+			query.where = "관측소코드='" + siteId + "'";
+		}
+		else if(layerId == "23"){ // 수생태계조사지점
+			query.where = "조사지코드='" + siteId + "'";
+		}
+		else{
+			query.where = "측정소코드='" + siteId + "'";
+		}
+		
+		queryTask.execute(query,  function(results){
+			
+			Ext.each(results.features, function(obj, index) {
+				
+				
+				me.movePopGraphicLayer.clear();
+				me.movePopGraphicLayer.id = "moveGraphicLayer" + siteId;
+				
+				if(me.map.getLevel() < 12)
+					me.map.setLevel(12);
+				
+				//obj.setSymbol(selectedSymbol);
+				
+				var dialog, highlightSymbol;
+				
+				require(["dijit/TooltipDialog"], function(TooltipDialog){
+					dialog = new TooltipDialog({
+			          //id: "tooltipDialog",
+			          style: "position: absolute; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100"
+			        });
+			        dialog.startup();
+				});
+				
+				
+				var t = "testetestewtetet";
+				/*me.map.infoWindow =
+					setInfo*/
+				
+				
+				
+				var content, highlightGraphic;
+		          
+		          require(["esri/lang"], function(esriLang){
+		        	 content = esriLang.substitute(obj.attributes,t);
+		        	 console.info(obj);
+		        	 console.info(obj.attributes);
+		          });
+				    
+				//me.movePopGraphicLayer.add(obj);
+				dialog.setContent(content);
+				
+				var x = obj.geometry.x;
+				var y = obj.geometry.y;
+				
+				require(["dojo/dom-style", "dijit/popup"], function(domStyle, dijitPopup){
+					
+			        	  domStyle.set(dialog.domNode, "opacity", 1);
+			        	  console.info("open");
+	  		          dijitPopup.open({
+	  		            popup: dialog, 
+	  		            x: x,
+	  		            y: y
+	  		            /*x: results.features[0].attributes.TM_X,
+	  		            y: results.features[0].attributes.TM_Y*/
+	  		          });
+		          });
+				
+				
+				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference);
+				me.map.centerAt(point);
+				
+				
+				// 10초뒤 레이어(이미지) 제거
+				/*Ext.defer(function(){
+					me.moveGraphicLayer.clear();
+					//me.map.removeLayer(obj);
+				}, 10000, this);*/
+			});
+			
+		});
+		
+    },
+    
+    
+    
+    
+    
+    
+    
+    
     
     setSelectedSiteHandler: function(layerId, siteId){
 		
