@@ -1105,7 +1105,6 @@ $include-krf_dev-view-east-chartpanelcontroller: true;
 $include-krf_dev-view-east-chartpaneldate: true;
 $include-krf_dev-view-east-chartpaneldatecontroller: true;
 $include-krf_dev-view-east-favoritewindow: true;
-$include-krf_dev-view-east-infogridwindow: true;
 $include-krf_dev-view-east-reachinfowindow: true;
 $include-krf_dev-view-east-siteinfopanel: true;
 $include-krf_dev-view-east-sitelistwindow: true;
@@ -1124,6 +1123,7 @@ $include-krf_dev-view-map-labellayeradmin: true;
 $include-krf_dev-view-map-maptoolbar: true;
 $include-krf_dev-view-map-reachlayeradmin: true;
 $include-krf_dev-view-map-reachlayeradminbackground: true;
+$include-krf_dev-view-map-reachlayeradmin_v3: true;
 $include-krf_dev-view-map-searchlayeradmin: true;
 $include-krf_dev-view-north-north: true;
 $include-krf_dev-view-north-northcontroller: true;
@@ -1159,11 +1159,9 @@ $include-krf_dev-view-west-searcharea_name: true;
 $include-krf_dev-view-west-searcharea_namecontroller: true;
 $include-krf_dev-view-west-searcharea_namecontroller_rich: true;
 $include-krf_dev-view-west-searcharea_name_rich: true;
-$include-krf_dev-view-west-searcharea_name_richcontroller: true;
 $include-krf_dev-view-west-searcharea_water: true;
 $include-krf_dev-view-west-searcharea_watercontroller: true;
 $include-krf_dev-view-west-west: true;
-$include-task: true;
 /* including package ext-theme-base */
 @import '../../../../../ext/packages/ext-theme-base/sass/etc/all';
 /* including package ext-theme-neutral */

@@ -170,8 +170,36 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 				], function(Draw, Query, on, FeatureLayer, Point, Extent, Graphic){
     		
     		me.selectionToolbar = new Draw(me.map, { showTooltips: true });
+    		
+    		on(me.map, "mouse-down", function(evt){
+    			console.info(evt);
+    		});
 
             on(me.selectionToolbar, "DrawEnd", function (evt) {
+            	
+            	/* 시작위치, 끝위치, 리치추가, 구간제거 시 
+            	 * 좌측 레이어 및 검색창 크기 변경될때 
+            	 * 포인트가 좌측으로 치우치는 현상이 있어 계산 로직 추가 */
+            	var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
+    			var curLevel = me.map.getLevel();
+    			var resolution = tileInfo.lods[curLevel].resolution;
+    			
+            	var initWidth = Ext.getCmp("west_container").initWidth;
+    			var leftWidth = Ext.getCmp("west_container").getWidth();
+    			var isCollapsed = Ext.getCmp("west_container").collapsed;
+    			if(isCollapsed != false)
+    				leftWidth = 0;
+    			//console.info(evt);
+    			var offset = (initWidth - leftWidth) * resolution;
+    			
+    			// 위에서 계산된 offset 적용
+    			if(evt.x != undefined)
+    				evt.x = evt.x + offset;
+    			if(evt.xmin != undefined)
+    				evt.xmin = evt.xmin + offset;
+    			if(evt.xmax != undefined)
+    				evt.xmax = evt.xmax + offset;
+    			/* 계산 끝 */
             	
             	var selectQuery = new Query();
             	var queryExtent = evt;
@@ -518,11 +546,15 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			return;
     		}
     		
+    		//console.info(evt[0]);
+	    	// khLee 검색 수정 테스트
+	    	//return;
+    		
     		// 하류 유입 아이디 배열 초기화
     		me.selLoiRchIds = [];
     		
 	    	me.reachLayerAdmin.executeQuery(evt[0], "start");
-
+	    	
 	    	if(me.reachLayerAdmin.isUpDraw == true){
 	    		me.reachLayerAdmin.executeQuery(evt[0], "up");
 	    	}
@@ -933,6 +965,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			return;
     		}
     		
+    		//console.info(evt[0]);
+	    	// khLee 검색 수정 테스트
+	    	//return;
+	    	
     		var rchId = evt[0].attributes.RCH_ID;
     		me.reachLayerAdmin.removeLineGraphics(rchId, true);
     	}

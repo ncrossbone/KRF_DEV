@@ -128,7 +128,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 		load: function(store, a, b, c, d, e) {
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			console.info(firstSearch);
+			//console.info(firstSearch);
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -152,11 +152,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			//myMask.show();
 			
 			//console.info(store);
-			console.info(a);
-			console.info(b);
-			console.info(c);
-			console.info(d);
-			console.info(e);
+			//console.info(a);
+			//console.info(b);
+			//console.info(c);
+			//console.info(d);
+			//console.info(e);
 			
 			// 로딩바 표시
 			//Ext.getCmp("searchResultWindow").mask("loading", "loading...");
@@ -180,8 +180,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         			// JSON Object로 변경
         			//console.info(response.responseText);
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			console.info(response.responseText);
-        			console.info(jsonData.data);
+        			//console.info(response.responseText);
+        			//console.info(jsonData.data);
         			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				
         				for(var cnt = 0 ; cnt<jsonData.data.length ; cnt++){

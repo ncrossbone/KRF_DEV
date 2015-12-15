@@ -146,51 +146,16 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 //				
 				var x = obj.geometry.x;
 				var y = obj.geometry.y;
-//				
-//				require(["dojo/dom-style", "dijit/popup"], function(domStyle, dijitPopup){
-//					
-//			        	  domStyle.set(dialog.domNode, "opacity", 1);
-//			        	  console.info("open");
-//	  		          dijitPopup.open({
-//	  		            popup: dialog, 
-//	  		            x: 1076,
-//	  		            y: 588
-//	  		            /*x: results.features[0].attributes.TM_X,
-//	  		            y: results.features[0].attributes.TM_Y*/
-//	  		          });
-//		          });
 				
 				var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
 				var curLevel = me.map.getLevel();
-				var xOffset = tileInfo.lods[curLevel].resolution;
+				var resolution = tileInfo.lods[curLevel].resolution;
 				
-				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * xOffset);
-				y = y - ((979 - Ext.getBody().getHeight()) / 2 * xOffset);
+				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * resolution);
+				y = y - ((1080 - Ext.getBody().getHeight()) / 4 * resolution);
 				
 				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference);
 				me.map.centerAt(point);
-				
-				console.info(KRF_DEV.getApplication().coreMap.getWidth());
-				console.info(Ext.getBody().getHeight());
-				//console.info(me.map.getLevel());
-				//console.info(me.map.extent);
-				//console.info(KRF_DEV.getApplication().coreMap.tileInfo);
-				
-				//extent.xmin = extent.xmin + 20000;
-	    		//extent.xmax = extent.xmax + 20000;
-	    		//extent.xmin = extent.xmin + (extent.xmax/2 - extent.xmin/2);
-	    		//extent.xmax = extent.xmax + (extent.xmax/2 - extent.xmin/2);
-	    		//extent.ymin = extent.ymin - 6000;
-	    		//extent.ymax = extent.ymax - 6000;
-	    		//extent.ymin = extent.ymin - (extent.ymax/2 - extent.ymin/2);
-	    		//extent.ymax = extent.ymax - (extent.ymax/2 - extent.ymin/2);
-				
-				
-				// 10초뒤 레이어(이미지) 제거
-				/*Ext.defer(function(){
-					me.moveGraphicLayer.clear();
-					//me.map.removeLayer(obj);
-				}, 10000, this);*/
 			});
 			
 		});
