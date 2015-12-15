@@ -12,9 +12,8 @@ Ext.define('KRF_DEV.view.west.SearchArea_List', {
 	
 	layout: {
 		type: 'accordion'
-	},
-
-	items: [{
+	}
+	/*,items: [{
 		xtype: 'panel',
 		layout: {
 			type: 'vbox'
@@ -41,6 +40,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_List', {
 			xtype: 'label',
 			html: '&nbsp;&nbsp;테스트2'
 		}]
-	}]
+	}]*/
 
 });

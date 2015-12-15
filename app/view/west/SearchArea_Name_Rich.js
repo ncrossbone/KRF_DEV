@@ -99,9 +99,11 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 				}]
 			}, {
 				xtye: 'container',
+				id: 'smartButton',
 				//style: 'border: 0px !important; top: -10px !important;',
 				style: 'border: 0px !important; padding: 0px; text-align: right; height: 17px;',
-				html: '<a href="#"><img src="./resources/images/button/txtSetup.png" /></a>',
+				html: '<a href="#"><img src="./resources/images/button/txtSetup.png"  /></a>',
+				listeners: { el: { click: 'onClickSmart' } }   //검색설정보기
 			}]
 		}]
 	}]

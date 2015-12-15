@@ -156,12 +156,17 @@ Ext.application({
 			var cmbWater2 = Ext.getCmp("cmbWater2");
 			var cmbWater3 = Ext.getCmp("cmbWater3");
 			var txtSearch = Ext.getCmp("textSearchText");
+			
+			var textSearchText_Start = Ext.getCmp("textSearchText_Start");
+			var textSearchText_End = Ext.getCmp("textSearchText_End");
 
 			if (searchText == 'waterSearch') {// 수계검색시 행정구역 초기화
 				cmbArea1.setValue("");
 				cmbArea2.setValue("");
 				cmbArea3.setValue("");
 				txtSearch.setValue("");
+				textSearchText_Start.setValue("");
+				textSearchText_End.setValue("");
 				me.reachLayerAdmin.amCD_temp = "";
 			} else if (searchText == 'admSearch') {// 행정구역검색시 수계
 				// 초기화
@@ -169,6 +174,8 @@ Ext.application({
 				cmbWater2.setValue("");
 				cmbWater3.setValue("");
 				txtSearch.setValue("");
+				textSearchText_Start.setValue("");
+				textSearchText_End.setValue("");
 				me.reachLayerAdmin.amCD_temp = "";
 			} else if (searchText == "nameSearch") {// 명칭찾기시 수계 행정구역
 				// 초기화
@@ -178,7 +185,18 @@ Ext.application({
 				cmbWater1.setValue("");
 				cmbWater2.setValue("");
 				cmbWater3.setValue("");
+				textSearchText_Start.setValue("");
+				textSearchText_End.setValue("");
 				me.reachLayerAdmin.amCD_temp = "";
+			} else if("SEnameSearch"){
+				cmbArea1.setValue("");
+				cmbArea2.setValue("");
+				cmbArea3.setValue("");
+				cmbWater1.setValue("");
+				cmbWater2.setValue("");
+				cmbWater3.setValue("");
+				txtSearch.setValue("");
+				
 			} else {
 				me.reachLayerAdmin.amCD_temp = searchText;
 			}
@@ -315,20 +333,28 @@ Ext.application({
 		 */
 
 		Ext.ShowReachToolbar = function(evtArgs, el) {
-
+			
+			var rNameToolbar = Ext.getCmp("ReachNameToolbar");
 			var rToolbar = Ext.getCmp("reachToolbar");
-			// console.info(rToolbar);
-			if (rToolbar == undefined) {
-				rToolbar = Ext
-						.create(
-								'KRF_DEV.view.center.ReachToolbar',
-								{
-									// region: 'north',
-									id : 'reachToolbar',
-									cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
-								});
+			
+			 console.info(rToolbar);
+				if (rToolbar == undefined) {
+					rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar',{
+										// region: 'north',
+										id : 'reachToolbar',
+										cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
+									});
+				
+				
 			}
-
+				
+			console.info(rNameToolbar);
+			if(rNameToolbar == undefined){
+				rNameToolbar = Ext.create('KRF_DEV.view.center.ReachNameToolbar');
+				rNameToolbar.show();
+			}
+			
+			
 			var cContainer = Ext.getCmp("center_container");
 			cContainer.add(rToolbar);
 
@@ -337,7 +363,9 @@ Ext.application({
 		Ext.HideReachToolbar = function() {
 			var cContainer = Ext.getCmp("center_container");
 			var rToolbar = Ext.getCmp("reachToolbar");
+			var rNameToolbar = Ext.getCmp("reachNameToolbar");
 			cContainer.remove(rToolbar, false);
+			rNameToolbar.close();
 		}
 	},
 	// session정보 없을 시 로그인 창 이동. 2015.11.27 hyeok

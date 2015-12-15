@@ -41,7 +41,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//읍변동
 			var amdBtn3 = Ext.getCmp("cmbArea3");
 			
-			var start = Ext.getCmp("textSearchText_Start");
+			var startPoint = Ext.getCmp("textSearchText_Start");
+			var endPoint = Ext.getCmp("textSearchText_End");
 			
 			//console.info(start.rawValue);
 			//console.info("##");
@@ -59,20 +60,27 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}else{
 					query.where = "CAT_ID like '"+buttonInfo3.lastValue+"%'";
 				}
-			}else if(buttonInfo1.lastValue == null && nameInfo.rawValue == ""){
+			}else if(buttonInfo1.lastValue == null && nameInfo.rawValue == "" && startPoint.rawValue == "" && endPoint.rawValue == ""){
 				console.log("행정구역찾기로검색");
-				/*if(amdBtn2.lastValue == null){
+				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn2.lastValue.substring(0,5)+"%'";
 				}else{    
 					query.where = "ADM_CD like '"+amdBtn3.lastValue.substring(0,7)+"%'";
-				}*/
-				query.where = "JIJUM_NM like '"+start.rawValue+"%'";
-			}else{
+				}
+				//query.where = "JIJUM_NM like '"+start.rawValue+"%'";
+			}else if(buttonInfo1.lastValue == "" && amdBtn1.lastValue == ""  && startPoint.rawValue == "" && endPoint.rawValue == "" ){
 				console.log("명칭찾기로검색");
-				//query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
-				query.where = "JIJUM_NM like '"+start.rawValue+"%'";
+				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
+				//query.where = "JIJUM_NM like '"+start.rawValue+"%'";
+			}else{
+				if(endPoint.rawValue == ""){
+					query.where = "JIJUM_NM like '"+startPoint.rawValue+"%'";
+				}else{
+					query.where = "JIJUM_NM like '"+endPoint.rawValue+"%'";
+				}
+				
 			}
 			
 			if(store.searchType == "selectReach"){

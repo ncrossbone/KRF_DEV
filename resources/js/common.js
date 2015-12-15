@@ -215,7 +215,7 @@ ReachInfoBinding = function(objs){
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	
 	var yFieldName = "";
-	
+	console.info(parentId);
 	//console.info(tabIdx);
 	
 	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
@@ -311,7 +311,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		
 		// 차트정보 스토어 로드
 		if(siteChartCtl != undefined){
-			//console.info("!");
 			//var chartStore = siteChartCtl.getStore();
 			var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
 			chartStore.siteCD = title;
@@ -322,7 +321,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		}
 	}
 	else{
-		console.info("!!");
 		KRF_DEV.getApplication().chartFlag = "0";
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 		var chartStore = siteChartCtl.getStore();
@@ -919,6 +917,7 @@ GetTabControl = function(options){
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
+	console.info(catIds);
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -1132,12 +1131,20 @@ ShowSearchResultReach = function(catIds){
 	}
 	else{ // 정보창에서 넘어왔을때
 		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _reachLineLayerId); // 레이어 URL
+		
+		console.info(queryTask);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = false;
+		
+		//
+		if(catIds.indexOf("'")== -1){
+			catIds = "'" + catIds + "'";
+		}
 		
 		query.where = "CAT_ID IN (" + catIds + ")";
 		
 		query.outFields = ["*"];
+		console.info(query.where);
 		queryTask.execute(query, function(result){
 			Ext.each(result, function(objLayer, idx, objLayers){
 				var sumRchLen = 0;
@@ -1321,14 +1328,9 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 }
 
 
-siteMovePoint = function(parentNodeId, nodeId){
-	console.info("~~");
+siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	console.info(parentNodeId);
 	console.info(nodeId);
-	
-	//console.info(this.map);
-	
-	
 	
 	var layerId = "";
 	if(parentNodeId == "Cat"){ // 집수구역
@@ -1384,8 +1386,8 @@ siteMovePoint = function(parentNodeId, nodeId){
 	}
 	
 	// 피처 레이어 생성/갱신
-	//KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId);	
-	KRF_DEV.getApplication().fireEvent('setSelectedPopSite', layerId, nodeId);
+	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
+	//KRF_DEV.getApplication().fireEvent('siteMovePoint', layerId, nodeId);
 }
 
 OpenMenualPop = function(){
