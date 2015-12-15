@@ -181,34 +181,17 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 //				
 				var x = obj.geometry.x;
 				var y = obj.geometry.y;
-//				
-//				require(["dojo/dom-style", "dijit/popup"], function(domStyle, dijitPopup){
-//					
-//			        	  domStyle.set(dialog.domNode, "opacity", 1);
-//			        	  console.info("open");
-//	  		          dijitPopup.open({
-//	  		            popup: dialog, 
-//	  		            x: 1076,
-//	  		            y: 588
-//	  		            /*x: results.features[0].attributes.TM_X,
-//	  		            y: results.features[0].attributes.TM_Y*/
-//	  		          });
-//		          });
 				
 				var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
 				var curLevel = me.map.getLevel();
-				var xOffset = tileInfo.lods[curLevel].resolution;
+				var resolution = tileInfo.lods[curLevel].resolution;
 				
-				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * xOffset);
-				y = y - ((979 - Ext.getBody().getHeight()) / 2 * xOffset);
+				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * resolution);
+				y = y - ((1080 - Ext.getBody().getHeight()) / 4 * resolution);
 				
 				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference);
 				me.map.centerAt(point);
-				
-				console.info(KRF_DEV.getApplication().coreMap.getWidth());
-				console.info(Ext.getBody().getHeight());
-				
-				
+
 			});
 			
 		});
@@ -445,7 +428,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 					Ext.create("Ext.window.Window", {
 						//renderTo: Ext.getBody(),
-						header: true,
+						header: false,
 						shadow: false,
 						//frame: true,
 						plain: true, // 요게 있어야 background: transparent 먹음..

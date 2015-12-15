@@ -985,13 +985,14 @@ ShowSearchResultReach = function(catIds){
     	var sumCatArea = 0;
     	
     	// 상류 데이터
-    	var tmpGraphics = rchMap.reachLayerAdmin.upRchGraphics;
+    	//var tmpGraphics = rchMap.reachLayerAdmin.upRchGraphics;
+    	var tmpGraphics = rchMap.reachLayerAdmin_v3.arrLineGrp;
     	for(var i = 0; i < tmpGraphics.length; i++){
     		var rowData = [];
-    		rowData.push(tmpGraphics[i].attributes.RCH_ID);
-    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
-    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
-    		rowData.push(tmpGraphics[i].attributes.CAT_ID);
+    		rowData.push(tmpGraphics[i].grp.attributes.RCH_ID);
+    		rowData.push(tmpGraphics[i].grp.attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].grp.attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].grp.attributes.CAT_ID);
 //    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
 //    		if(catIdx != -1){
 //	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
@@ -1000,11 +1001,11 @@ ShowSearchResultReach = function(catIds){
 //    		else{
 //    			rowData.push(0);
 //    		}
-    		rowData.push(tmpGraphics[i].attributes.CAT_AREA);
-    		sumCatArea += tmpGraphics[i].attributes.CAT_AREA;
-    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
-    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
-    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
+    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
+    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
+    		rowData.push(tmpGraphics[i].grp.attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].grp.attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].grp.attributes.GEO_TRIB;
     		if(geoTrib == "0")
     			rowData.push("본류");
     		else{
@@ -1014,6 +1015,7 @@ ShowSearchResultReach = function(catIds){
     		storeData.push(rowData);
     	}
     	
+    	/*
     	// 시작위치 데이터
     	tmpGraphics = rchMap.reachLayerAdmin.startRchGraphics;
     	for(var i = 0; i < tmpGraphics.length; i++){
@@ -1043,9 +1045,11 @@ ShowSearchResultReach = function(catIds){
     		}
     		storeData.push(rowData);
     	}
+    	*/
     	
     	//console.info(tmpGraphics);
     	
+    	/*
     	// 하류 데이터
     	tmpGraphics = rchMap.reachLayerAdmin.downRchGraphics;
     	for(var i = 0; i < tmpGraphics.length; i++){
@@ -1075,7 +1079,9 @@ ShowSearchResultReach = function(catIds){
     		}
     		storeData.push(rowData);
     	}
+    	*/
     	
+    	/*
     	// 선택 데이터
     	tmpGraphics = rchMap.reachLayerAdmin.selRchGraphics;
     	for(var i = 0; i < tmpGraphics.length; i++){
@@ -1105,6 +1111,7 @@ ShowSearchResultReach = function(catIds){
     		}
     		storeData.push(rowData);
     	}
+    	*/
     	
     	var rowData = [];
 		rowData.push("총계");
@@ -1398,9 +1405,11 @@ ResetButtonClick = function(){
 	
 	var me = GetCoreMap();
 	// 리치 선택 종료
-	me.reachLayerAdmin.drawEnd();
+	//me.reachLayerAdmin.drawEnd();
+	me.reachLayerAdmin_v3.drawEnd();
 	// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
-	me.reachLayerAdmin.clearGraphicsLayer("reset");
+	//me.reachLayerAdmin.clearGraphicsLayer("reset");
+	me.reachLayerAdmin_v3.clearGraphicsLayer("reset");
 	
 	Ext.HideSiteListWindow();
 	HideWindowSiteNChart();

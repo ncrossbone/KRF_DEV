@@ -1,6 +1,7 @@
 var _testUrl = null;
 var _serviceUrl = null;
 var _mapServiceUrl = null; // 리치 맵 서비스
+var _mapServiceUrl_v3 = null; // 리치 맵 서비스 v3
 var _mapServiceUrl_reachtest = null; // 시연용 테스트 맵 서비스
 var _mapServiceUrl_dim = null; // dim처리 맵 서비스
 var _reachFlowLayerId = null; // 리치흐름 레이어 아이디
@@ -44,6 +45,7 @@ var store = Ext.create('Ext.data.Store', {
 store.load(function(a, b, c) {
 	this.each(function(record, cnt, totCnt) {
 		_mapServiceUrl = record.data.reachServiceUrl;
+		_mapServiceUrl_v3 = record.data.reachServiceUrl_v3;
 		_mapServiceUrl_reachtest = record.data.reachTestServiceUrl;
 		_mapServiceUrl_dim = record.data.dimServiceUrl;
 		_reachFlowLayerId = record.data.reachFlowLayerId;
@@ -146,7 +148,7 @@ Ext.application({
 
 			var me = GetCoreMap();
 
-			console.info(searchText);
+			//console.info(searchText);
 
 			// 검샋시 다른 더튼값 초기화
 			var cmbArea1 = Ext.getCmp("cmbArea1");
@@ -165,6 +167,7 @@ Ext.application({
 				cmbArea2.setValue("");
 				cmbArea3.setValue("");
 				txtSearch.setValue("");
+
 				textSearchText_Start.setValue("");
 				textSearchText_End.setValue("");
 				me.reachLayerAdmin.amCD_temp = "";
@@ -196,16 +199,14 @@ Ext.application({
 				cmbWater2.setValue("");
 				cmbWater3.setValue("");
 				txtSearch.setValue("");
-				
 			} else {
-				me.reachLayerAdmin.amCD_temp = searchText;
+				//me.reachLayerAdmin.amCD_temp = searchText;
 			}
 
 			// console.info(searchText);
 			listWinCtl = Ext.getCmp("siteListWindow");
 			if (listWinCtl == undefined)
-				listWinCtl = Ext
-						.create('KRF_DEV.view.east.SiteListWindow');
+				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
 
 			listWinCtl.show();
 			// alert("dd");
@@ -214,8 +215,7 @@ Ext.application({
 			store.searchType = searchText;
 			store.load();
 
-			var listWinX = Ext.getBody().getViewSize().width
-					- listWinCtl.width;
+			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
 			var listWinY = 98;
 
 			listWinCtl.setX(listWinX);

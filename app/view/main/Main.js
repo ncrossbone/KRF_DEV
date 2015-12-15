@@ -40,8 +40,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     		items: [{
     			xtype: 'app-default-west',
     	        region: 'west',
-    	        id: 'west_container',
-    	        width: 300
+    	        id: 'west_container'
     		}, {
     	    	xtype: 'app-default-center',
     	    	region: 'center',

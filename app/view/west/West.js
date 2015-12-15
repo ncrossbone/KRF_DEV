@@ -7,6 +7,7 @@ Ext.define('KRF_DEV.view.west.West', {
     
     xtype: 'app-default-west',
 
+    initWidth: 300,
     width: 300,
 
 //    tabPosition: 'left',
