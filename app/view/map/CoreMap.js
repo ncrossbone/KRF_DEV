@@ -13,8 +13,10 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	dynamicLayerAdmin:null,
 	fullExtent:null,
 	initialExtent:null,
+	preExtent: null,
 	layerInfo: null,
 	printTask:null,
+	baseMap: null,
 	
 	initComponent: function() {
 		this.on('render', this.mapRendered, this);
@@ -62,6 +64,10 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
             	//me.printTask  = new KRF_DEV.view.map.task.CustomPrintTask();
             	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", _arcServiceUrl);
             });
+        	
+        	// Extent Change Event
+    		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
+        	
 		}, 1);
     },
     
@@ -111,7 +117,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		          }
 		      });
 		      
-		      me.initialExtent = this.initialExtent = new esri.geometry.Extent({
+		      me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
 		    	  xmin: 12928905.446270483,
 		    	  ymin: 3309091.461517964,
 		    	  xmax: 15766818.698435722,
@@ -135,8 +141,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		    	return "http://xdworld.vworld.kr:8080/2d/Base/201301/" + level + "/" + col + "/" + row + ".png";
 		    }	
 		  });
-		var baseMap = new CustomMapsLayer();
-		this.map.addLayer(baseMap);
+		me.baseMap = new CustomMapsLayer();
+		this.map.addLayer(me.baseMap);
 	},
 	
 	extentMove:function(extent, level){
@@ -218,5 +224,42 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 			});
 		},function(error){
 		});
+	},
+	
+	onExtentChange: function(extent, a, b, obj){
+		
+		var me = GetCoreMap();
+		
+		if(me.preExtent != extent){
+			
+			var popCtl = Ext.getCmp("popSiteInfo");
+			
+			if(popCtl != undefined){
+				
+				if(popCtl.isMove == true){
+					var x = me.preExtent.getCenter().x - extent.getCenter().x;
+					var y = me.preExtent.getCenter().y - extent.getCenter().y;
+					var resolution = obj.resolution;
+					
+					var xOffset = x / resolution;
+					var yOffset = y / resolution;
+					
+					var popX = popCtl.getX();
+					var popY = popCtl.getY();
+					
+					//console.info(popX);
+					//console.info(popY);
+					
+					popCtl.setX(popX + xOffset);
+					popCtl.setY(popY - yOffset);
+				}
+				else{
+					popCtl.isMove = true;
+				}
+			}
+			
+			me.preExtent = extent;
+		}
+		
 	}
 });

@@ -198,14 +198,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		
     },
     
-    
-    
-    
-    
-    
-    
-    
-    
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
 		
     	console.info(clickValue);
@@ -248,7 +240,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     		height = 38;
     	}
     	
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + layerId);
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerId);
 		console.info(queryTask);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
@@ -401,79 +393,13 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				if(clickValue == "start"){
 					reachNameToolbar.items.items[0].setValue(jijum_Name);
 					textSearchText_Start.setValue(jijum_Name);
-					console.info("start");
+					//console.info("start");
 				}
 				if(clickValue == "end"){
 					reachNameToolbar.items.items[1].setValue(jijum_Name);
 					textSearchText_End.setValue(jijum_Name);
-					console.info("end");
+					//console.info("end");
 				}
-				
-				
-				
-					Ext.create("Ext.window.Window", {
-						//renderTo: Ext.getBody(),
-						header: false,
-						shadow: false,
-						//frame: true,
-						plain: true, // 요게 있어야 background: transparent 먹음..
-						width: 360,
-						height: 210,
-						//style: ' background: transparent none !important; height: 500px;',
-						style: 'border-style: none !important; background: transparent none !important; height: 700px;',
-						//style: "position: absolute; top: 300px; left: 500px; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100",
-						layout: {
-							type: 'absolute'
-						},
-						x: 860,
-						y: 315,
-						html: 
-							"<!doctype html>																																									"+
-							"<html lang=\"ko\">                                                                                                                                                                 "+
-							"<head>                                                                                                                                                                             "+
-							"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />                                                                                                          "+
-							"<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge, chrome=1\" />                                                                                                              "+
-							"<title>KRF-TOOLTIP</title>                                                                                                                                                         "+
-							"<!--[if lt ie 9]>                                                                                                                                                                  "+
-							"<script src=\"./resources/js/html5shiv.js\"></script>                                                                                                                                          "+
-							"<![endif]-->                                                                                                                                                                       "+
-							"<link href=\"./resources/css/BasicSet.css\" rel=\"stylesheet\" type=\"text/css\" />                                                                                                            "+
-							"<style type=\"text/css\">                                                                                                                                                          "+
-							"#toolTip { width: 360px; height: 210px; padding: 10px 15px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
-							"#toolTip> h1 { font-family: 'malgunbd'; font-size: 20px; margin: 0px; padding: 0px; letter-spacing: -1px; }                                                                        "+
-							"#toolTip> dl { margin: 20px 0px 5px 0px; }                                                                                                                                         "+
-							"#toolTip> dl:after { content:\"\"; clear:both; display:block; *zoom:1;}                                                                                                            "+
-							"#toolTip> dl dt { float: left; font-weight: bold; color: #000; }                                                                                                                   "+
-							"#toolTip> dl dd { margin: 0px; color: #434343; text-indent: 5px; }                                                                                                                 "+
-							"#toolTip> ul { width: 362px; position: absolute; left: 15px; top: 143px;}                                                                                                          "+
-							"#toolTip> ul> li { }                                                                                                                                                               "+
-							"#toolTip> ul> li> a { float: left; }                                                                                                                                               "+
-							"</style>                                                                                                                                                                           "+
-							"</head>                                                                                                                                                                            "+
-							"<body>                                                                                                                                                                             "+
-							"<div id=\"toolTip\">                                                                                                                                                               "+
-							"	<h1>"+jijum_Name+"</h1>                                                                                                                                                                  "+
-							"	<dl><br>                                                                                                                                                                              "+
-							"    	<dt>분류 :</dt>                                                                                                                                                               "+
-							"        <dd>수질측정지점 > 하천수</dd>                                                                                                                                             "+
-							"        <dt>주소 :</dt>                                                                                                                                                            "+
-							"        <dd>"+jijum_Addr+"</dd>                                                                                       "+
-							"    </dl>                                                                                                                                                                          "+
-							"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
-							"    <ul>                                                                                                                                                                           "+
-							"    	<li style=\"float: left;\">                                                                                                                                                   "+
-							"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
-							"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResultReach('"+obj.attributes.CAT_ID+"');\" /></a>                                                                                                                  "+
-							"        </li>                                                                                                                                                                   "+
-							"        <li style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
-							"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'start' );\"  /></a>                                                                                                                "+
-							"            <a href=\"#\"><img src=\"./resources/images/popup/btn_endSpot.gif\"   onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'end' );\"  /></a>                                                                                                               "+
-							"        </li>                                                                                                                                                                      "+
-							"    </ul>                                                                                                                                                                          "+
-							"</div>                                                                                                                                                                             "+
-							"</body>                                                                                                                                                                            "+
-							"</html>                                                                                                                                                                            "
-					}).show();
 					
 				var x = obj.geometry.x;
 				var y = obj.geometry.y;
@@ -485,12 +411,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * xOffset);
 				y = y - ((979 - Ext.getBody().getHeight()) / 2 * xOffset);
 
-				
-				
-				
-				
-				
-				
 				me.moveGraphicLayer.clear();
 				me.moveGraphicLayer.id = "moveGraphicLayer" + siteId;
 				
@@ -524,16 +444,116 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				//me.map.centerAndZoom(point, 12);
 				me.map.centerAt(point);
 				
+				// 10초뒤 레이어(이미지) 제거
+				Ext.defer(function(){
+					me.moveGraphicLayer.clear();
+					//me.map.removeLayer(obj);
+				}, 10000, this);
+				
 				var symbol = null;
 				var option = null;
 				
 				var coreMap = GetCoreMap();
+				
+				/* 사이트 정보 팝업 띄우기 */
+				var popCtl = Ext.getCmp("popSiteInfo");
+				
+				// 팝업 띄워져있으면 닫기
+				if(popCtl != undefined){
+					popCtl.close();
+				}
+				
+				var curLevel = coreMap.map.getLevel();
+				var resolution = coreMap.tileInfo.lods[curLevel].resolution;
+				var popWidth = 360;
+				var popHeight = 210;
+				var extent = coreMap.map.extent;
+				
+				var xLen = extent.xmax - extent.xmin;
+				var yLen = extent.ymax - extent.ymin;
+				
+				var xPx = xLen / resolution / 2 - popWidth / 2;
+				var yPx = yLen / resolution / 2 - popHeight;
+				
+				Ext.create("Ext.window.Window", {
+					//renderTo: Ext.getBody(),
+					header: false,
+					id: 'popSiteInfo',
+					shadow: false,
+					//frame: true,
+					plain: true, // 요게 있어야 background: transparent 먹음..
+					point: point, // 팝업 포인트 정보
+					width: popWidth,
+					height: popHeight,
+					x: xPx,
+					y: yPx,
+					isMove: false,
+					//style: ' background: transparent none !important; height: 500px;',
+					style: 'border-style: none !important; background: transparent none !important; height: 700px;',
+					//style: "position: absolute; top: 300px; left: 500px; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100",
+					layout: {
+						type: 'absolute'
+					},
+					html: 
+						"<!doctype html>																																									"+
+						"<html lang=\"ko\">                                                                                                                                                                 "+
+						"<head>                                                                                                                                                                             "+
+						"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />                                                                                                          "+
+						"<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge, chrome=1\" />                                                                                                              "+
+						"<title>KRF-TOOLTIP</title>                                                                                                                                                         "+
+						"<!--[if lt ie 9]>                                                                                                                                                                  "+
+						"<script src=\"./resources/js/html5shiv.js\"></script>                                                                                                                                          "+
+						"<![endif]-->                                                                                                                                                                       "+
+						"<link href=\"./resources/css/BasicSet.css\" rel=\"stylesheet\" type=\"text/css\" />                                                                                                            "+
+						"<style type=\"text/css\">                                                                                                                                                          "+
+						"#toolTip { width: 360px; height: 210px; padding: 10px 15px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
+						"#toolTip> h1 { font-family: 'malgunbd'; font-size: 20px; margin: 0px; padding: 0px; letter-spacing: -1px; }                                                                        "+
+						"#toolTip> dl { margin: 20px 0px 5px 0px; }                                                                                                                                         "+
+						"#toolTip> dl:after { content:\"\"; clear:both; display:block; *zoom:1;}                                                                                                            "+
+						"#toolTip> dl dt { float: left; font-weight: bold; color: #000; }                                                                                                                   "+
+						"#toolTip> dl dd { margin: 0px; color: #434343; text-indent: 5px; }                                                                                                                 "+
+						"#toolTip> ul { width: 362px; position: absolute; left: 15px; top: 143px;}                                                                                                          "+
+						"#toolTip> ul> li { }                                                                                                                                                               "+
+						"#toolTip> ul> li> a { float: left; }                                                                                                                                               "+
+						"</style>                                                                                                                                                                           "+
+						"</head>                                                                                                                                                                            "+
+						"<body>                                                                                                                                                                             "+
+						"<div id=\"toolTip\">                                                                                                                                                               "+
+						"	<li style=\"float: left;\"><h1>"+jijum_Name+"</h1></li><li style=\"float: right;\"><img onClick=\"closePopSiteInfo();\" src=\"./resources/images/button/btn_close.png\" /></li>"+
+						"	<dl><br><br>                                                                                                                                                                              "+
+						"    	<dt>분류 :</dt>                                                                                                                                                               "+
+						"        <dd>수질측정지점 > 하천수</dd>                                                                                                                                             "+
+						"        <dt>주소 :</dt>                                                                                                                                                            "+
+						"        <dd>"+jijum_Addr+"</dd>                                                                                       "+
+						"    </dl>                                                                                                                                                                          "+
+						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>"+
+						"    <ul>                                                                                                                                                                           "+
+						"    	<li style=\"float: left;\">                                                                                                                                                   "+
+						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
+						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResultReach('"+obj.attributes.CAT_ID+"');\" /></a>                                                                                                                  "+
+						"        </li>                                                                                                                                                                   "+
+						"        <li style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
+						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'start' );\"  /></a>                                                                                                                "+
+						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_endSpot.gif\"   onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'end' );\"  /></a>                                                                                                               "+
+						"        </li>                                                                                                                                                                      "+
+						"    </ul>                                                                                                                                                                          "+
+						"</div>                                                                                                                                                                             "+
+						"</body>                                                                                                                                                                            "+
+						"</html>                                                                                                                                                                            "
+				}).show();
+				
 				if(clickValue == "start"){
 					symbol = coreMap.reachLayerAdmin_v3.startSymbol;
+					symbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
+					symbol.width = 48;
+					symbol.height = 38;
 					option = "STARTPOINT";
 				}
 				if(clickValue == "end"){
 					symbol = coreMap.reachLayerAdmin_v3.endSymbol;
+					symbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
+					symbol.width = 48;
+					symbol.height = 38;
 					option = "ENDPOINT";
 				}
 				
@@ -541,18 +561,12 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					require(["esri/graphic"], function(Graphic){
 						var graphic = new Graphic(point, symbol);
 				 		console.info(graphic);
-				 		// 그래픽 배열 추가
+				 		// 그래픽 그리기
 						coreMap.reachLayerAdmin_v3.drawGraphic(option, graphic, "pointGrpLayer");
 					});
+					
+					closePopSiteInfo(); // 툴팁 닫기
 				}
-				
-				//console.info(me.moveGraphicLayer);
-				
-				// 10초뒤 레이어(이미지) 제거
-				Ext.defer(function(){
-					me.moveGraphicLayer.clear();
-					//me.map.removeLayer(obj);
-				}, 10000, this);
 			});
 			
 		});

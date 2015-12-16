@@ -42,16 +42,16 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, { 
 		xtype: 'image',
 		//id: 'btnReachLayer',
-		layerId: '46',
-		groupId: 'grpReach',
-    	title: '리치라인',
+		layerId: 'baseMap',
+		groupId: 'grpBase',
+    	title: '배경맵',
     	width: 32,
     	height: 32,
-    	listeners: { el: { click: 'onClickReachLayer' } },
+    	listeners: { el: { click: 'onClickBaseLayer' } },
     	btnOnOff: 'on',
-    	btnOnImg: './resources/images/button/btn_top_01_on.png',
-    	btnOffImg: './resources/images/button/btn_top_01_off.png',
-    	src: './resources/images/button/btn_top_01_on.png'
+    	btnOnImg: './resources/images/button/btn_top_05_on.png',
+    	btnOffImg: './resources/images/button/btn_top_05_off.png',
+    	src: './resources/images/button/btn_top_05_on.png'
     }, {
     	xtype: 'container',
     	width: 5

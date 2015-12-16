@@ -66,18 +66,52 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 		});
     },
     
+    getStartSymbolUrl: function(){
+    	var me = this;
+    	
+    	var stCnt = me.arrStartGrp.length;
+    	var edCnt = me.arrEndGrp.length;
+    	if(stCnt <= edCnt){
+    		stCnt = stCnt + 1;
+    	}
+    	
+    	return "./resources/images/symbol/btn_s" + stCnt + ".png";
+    },
+    
+    getEndSymbolUrl: function(){
+    	var me = this;
+    	
+    	var stCnt = me.arrStartGrp.length;
+    	var edCnt = me.arrEndGrp.length;
+    	if(edCnt <= stCnt){
+    		edCnt = edCnt + 1;
+    	}
+    	
+    	return "./resources/images/symbol/btn_e" + edCnt + ".png";
+    },
+    
     btnStartClick: function(option, btnId){
     	var me = this;
+    	
+    	me.startSymbol.url = me.getStartSymbolUrl();
+		me.startSymbol.width = 48;
+		me.startSymbol.height = 38;
+		
     	// 커서 이미지 설정
-		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+		Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.startSymbol.url + ') 24 38,auto');
 		// 그리기 start
     	me.setDrawEvent(option, me.startSymbol, btnId);
     },
     
     btnEndClick: function(option, btnId){
     	var me = this;
+    	
+    	me.endSymbol.url = me.getEndSymbolUrl();
+		me.endSymbol.width = 48;
+		me.endSymbol.height = 38;
+		
     	// 커서 이미지 설정
-    	Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
+    	Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.endSymbol.url + ') 24 38,auto');
     	// 그리기 start
     	me.setDrawEvent(option, me.endSymbol, btnId);
     },
@@ -232,6 +266,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	
     	// 끝위치 클릭일때
     	if(option == "ENDPOINT"){
+    		
     		lastEdIdx = me.arrEndGrp.length - 1;
     		lastEdGrp = me.arrEndGrp[lastEdIdx];
     		if(lastEdIdx > -1){
@@ -251,6 +286,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	var edLength = me.arrEndGrp.length;
     	
     	if((option == "STARTPOINT" || option == "ENDPOINT") && stLength == edLength){
+    		//alert("dd");
     		me.runStartEnd();
     	}
     },
@@ -310,12 +346,25 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 									
 									queryLine.where = "CAT_ID = '" + edCatId + "'";
 									
+									// 시작위치 하천명 셋팅
+									var rivNm = stLineFeature.attributes.RIV_NM;
+									if(rivNm != undefined && rivNm != ""){
+										SetStEdSiteName("start", rivNm);
+									}
+									
 									// 끝위치 리치라인 조회
 									queryTaskLine.execute(queryLine, function(featureSet){
 										
 										for(var l = 0; l < featureSet.features.length; l++){
 											
 											var edLineFeature = featureSet.features[l];
+											
+											// 끝위치 하천명 셋팅
+											var rivNm = edLineFeature.attributes.RIV_NM;
+											if(rivNm != undefined && rivNm != ""){
+												SetStEdSiteName("end", rivNm);
+											}
+											
 											var stRchId = stLineFeature.attributes.RCH_ID;
 											var edRchId = edLineFeature.attributes.RCH_ID;
 											
@@ -385,7 +434,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    	// 검색 대상이 끝위치(하류)보다 하류이거나 같을때..
 				    	// 시작위치, 끝위치 사이의 최하위 하류일때 그래픽 그리고 거기부터 상류로 검색
 				    	else{
-				    	
+
 				    		// 하류 라인 그리기
 				    		me.drawLineGrp(curRchId, me.downLineSymbol);
 				    		

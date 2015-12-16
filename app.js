@@ -170,7 +170,7 @@ Ext.application({
 
 				textSearchText_Start.setValue("");
 				textSearchText_End.setValue("");
-				me.reachLayerAdmin.amCD_temp = "";
+				//me.reachLayerAdmin.amCD_temp = "";
 			} else if (searchText == 'admSearch') {// 행정구역검색시 수계
 				// 초기화
 				cmbWater1.setValue("");
@@ -179,7 +179,7 @@ Ext.application({
 				txtSearch.setValue("");
 				textSearchText_Start.setValue("");
 				textSearchText_End.setValue("");
-				me.reachLayerAdmin.amCD_temp = "";
+				//me.reachLayerAdmin.amCD_temp = "";
 			} else if (searchText == "nameSearch") {// 명칭찾기시 수계 행정구역
 				// 초기화
 				cmbArea1.setValue("");
@@ -190,7 +190,7 @@ Ext.application({
 				cmbWater3.setValue("");
 				textSearchText_Start.setValue("");
 				textSearchText_End.setValue("");
-				me.reachLayerAdmin.amCD_temp = "";
+				//me.reachLayerAdmin.amCD_temp = "";
 			} else if("SEnameSearch"){
 				cmbArea1.setValue("");
 				cmbArea2.setValue("");

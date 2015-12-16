@@ -86,7 +86,8 @@ ReachLayerOnOff = function(btnId, layerId){
 	var node = treeCtl.getStore().getNodeById(layerId);
 	
 	var me = GetCoreMap();
-	var graphics = me.reachLayerAdmin.reachLinelayer.getSelectedFeatures();
+	//var graphics = me.reachLayerAdmin.reachLinelayer.getSelectedFeatures();
+	var graphics = me.reachLayerAdmin_v3.lineGrpLayer.getSelectedFeatures();
 	
 	//console.info(record);
 	if(currCtl.btnOnOff == "on"){
@@ -1336,9 +1337,6 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
-	console.info(parentNodeId);
-	console.info(nodeId);
-	
 	var layerId = "";
 	if(parentNodeId == "Cat"){ // 집수구역
 		layerId = "48";
@@ -1395,6 +1393,9 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	// 피처 레이어 생성/갱신
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
 	//KRF_DEV.getApplication().fireEvent('siteMovePoint', layerId, nodeId);
+	
+	// 주제도 레이어 키기
+	Layer01OnOff(layerId);
 }
 
 OpenMenualPop = function(){
@@ -1448,4 +1449,41 @@ ResetButtonClick = function(){
 	var txtBox = Ext.getCmp("textSearchText");
 	txtBox.setValue("");
 	
+}
+
+// 지점정보 툴팁 닫기
+closePopSiteInfo = function(){
+	var popCtl = Ext.getCmp("popSiteInfo");
+	
+	if(popCtl != undefined){
+		popCtl.close();
+	}
+}
+
+// 주제도 레이어 on/off
+Layer01OnOff = function(layerId){
+	var treeCtl = Ext.getCmp("layer01");
+	var node = treeCtl.getStore().getNodeById(layerId);
+	if(node.data.checked == false){
+		//console.info(node);
+		node.set("checked", true);
+		treeCtl.fireEvent('checkchange', node, true, null);
+	}
+}
+
+// 시작지점 끝지점 값 셋팅
+SetStEdSiteName = function(option, value){
+	
+	var reachNameToolbar = Ext.getCmp("reachNameToolbar");
+	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
+	var textSearchText_End = Ext.getCmp("textSearchText_End");
+	
+	if(option == "start"){
+		reachNameToolbar.items.items[0].setValue(value);
+		textSearchText_Start.setValue(value);
+	}
+	if(option == "end"){
+		reachNameToolbar.items.items[1].setValue(value);
+		textSearchText_End.setValue(value);
+	}
 }
