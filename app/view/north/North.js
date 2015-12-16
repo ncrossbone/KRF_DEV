@@ -49,9 +49,9 @@ Ext.define('KRF_DEV.view.north.North', {
     	height: 32,
     	listeners: { el: { click: 'onClickReachLayer' } },
     	btnOnOff: 'on',
-    	btnOnImg: './resources/images/button/btn_top_01_on.png',
-    	btnOffImg: './resources/images/button/btn_top_01_off.png',
-    	src: './resources/images/button/btn_top_01_on.png'
+    	btnOnImg: './resources/images/button/btn_top_05_on.png',
+    	btnOffImg: './resources/images/button/btn_top_05_off.png',
+    	src: './resources/images/button/btn_top_05_on.png'
     }, {
     	xtype: 'container',
     	width: 5

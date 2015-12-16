@@ -285,7 +285,9 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				var jijum_Name = "";	//지점명
 				var jijum_Addr = "";	//주소
 				var jijum_Cd = "";		//지점토드
+				var jijum_Gubun = "";
 				
+				console.info(jijum);
 				
 				//layer마다 column값이 달라 분기처리
 				if(layerId == "1"){
@@ -293,108 +295,134 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					jijum_Name = jijum.측정소명;
 					jijum_Addr = jijum.채수지점;
 					jijum_Cd = jijum.측정소코드;
+					jijum_Gubun = "하천수";
+					
 				}else if(layerId == "2"){
 					parentChcek = "A002";
 					jijum_Name = jijum.측정소명;
 					jijum_Addr = jijum.채수지점;
 					jijum_Cd = jijum.측정소코드;
-				}else if(layerId == "33"){
+					jijum_Gubun = "호소수";
+				}else if(layerId == "3"){
 					parentChcek = "A003";
 					jijum_Name = jijum.측정소명;
 					jijum_Addr = jijum.채수지점;
 					jijum_Cd = jijum.측정소코드;
+					jijum_Gubun = "농업용수";
 				}else if(layerId == "A004"){
 					parentChcek = "4";
 					jijum_Name = jijum.측정소명;
 					jijum_Addr = jijum.채수지점;
 					jijum_Cd = jijum.측정소코드;
+					jijum_Gubun =  "산단하천" ;
 				}else if(layerId == "5"){
 					parentChcek = "A005";
 					jijum_Name = jijum.측정소명;
 					jijum_Addr = jijum.채수지점;
 					jijum_Cd = jijum.측정소코드;
+					jijum_Gubun =  "도시관류" ;
 				}else if(layerId == "11"){
 					parentChcek = "B002"; // 사업장TMS
 					jijum_Name = jijum.사업장명칭;
 					jijum_Addr = jijum.사업장주소;
 					jijum_Cd = jijum.사업장코드;
+					jijum_Gubun =  "사업장TMS" ;
 				}else if(layerId == "13"){
 					parentChcek = "C001"; // 퇴적물
 					jijum_Name = jijum.지점명;
 					jijum_Addr = jijum.채취지점_;
 					jijum_Cd = jijum.측정소코드;
+					jijum_Gubun =  "퇴적물" ;
 				}else if(layerId == "15"){
 					parentChcek = "D001"; // 수위관측소
 					jijum_Name = jijum.관측소명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.관측소코드;
+					jijum_Gubun =  "수위관측소" ;
 				}else if(layerId == "16"){
 					parentChcek = "D002"; // 우량관측소
 					jijum_Name = jijum.관측소명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.관측소코드;
+					jijum_Gubun =  "우량관측소" ;
 				}else if(layerId == "17"){
 					parentChcek = "D003"; // 유량관측소
 					jijum_Name = jijum.관측소명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.관측소코드;
+					jijum_Gubun =  "유량관측소" ;
 				}else if(layerId == "18"){
 					parentChcek = "D004"; // 댐관측소
 					jijum_Name = jijum.관측소명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.관측소코드;
+					jijum_Gubun =  "댐관측소" ;
 				}else if(layerId == "19"){
 					parentChcek = "D005"; // AWS기상관측소
 					jijum_Name = jijum.관측소명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.관측소코드;
+					jijum_Gubun =  "AWS기상관측소" ;
 				}else if(layerId == "20"){
 					parentChcek = "D006"; // 지상기상관측소
 					jijum_Name = jijum.관측소명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.관측소코드;
+					jijum_Gubun =  "지상기상관측소" ;
 				}else if(layerId == "21"){
 					parentChcek = "D007"; // 보관측소
 					jijum_Name = jijum.보명;
 					jijum_Addr = "";	// 값없음
 					jijum_Cd = "";		// 값없음
+					jijum_Gubun =  "보관측소" ;
 				}else if(layerId == "23"){
 					parentChcek = "E001"; // 수생태계조사지점
 					jijum_Name = jijum.조사지명;
 					jijum_Addr = "";//값없음
 					jijum_Cd = jijum.조사지코드;
+					jijum_Gubun =  "수생태계조사지점" ;
 				}else if(layerId == "31"){
 					parentChcek = "F001"; // 농공단지처리시설
 					jijum_Name = jijum.시설명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.시설코드;
+					jijum_Gubun =  "농공단지처리시설" ;
 				}else if(layerId == "32"){
 					parentChcek = "F002"; // 기타공동처리시설
 					jijum_Name = jijum.시설명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.시설코드;
+					jijum_Gubun =  "기타공동처리시설" ;
 				}else if(layerId == "28"){
 					parentChcek = "F003"; // 분뇨처리시설
 					jijum_Name = jijum.시설명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.시설코드;
+					jijum_Gubun =  "분뇨처리시설" ;
 				}else if(layerId == "27"){
 					parentChcek = "F004"; // 산업폐수종말처리시설
 					jijum_Name = jijum.시설명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.시설코드;
+					jijum_Gubun =  "산업폐수종말처리시설" ;
 				}else if(layerId == "25"){
 					parentChcek = "F006"; // 축산폐수공공처리시설
 					jijum_Name = jijum.시설명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.시설코드;
+					jijum_Gubun =  "축산폐수공공처리시설" ;
 				}else if(layerId == "30"){
 					parentChcek = "F007"; // 마을하수도
+					jijum_Name = jijum.시설명;
+					jijum_Addr = jijum.주소;
+					jijum_Cd = jijum.시설코드;
+					jijum_Gubun =  "마을하수도" ;
 				}else if(layerId == "26"){
 					parentChcek = "F009"; // 하수종말처리시설
 					jijum_Name = jijum.시설명;
 					jijum_Addr = jijum.주소;
 					jijum_Cd = jijum.시설코드;
+					jijum_Gubun =  "하수종말처리시설" ;
 				}
 				
 				//시작지점 끝지점 처리및 지점명 삽입
@@ -418,7 +446,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						//frame: true,
 						plain: true, // 요게 있어야 background: transparent 먹음..
 						width: 360,
-						height: 210,
+						height: 230,
 						//style: ' background: transparent none !important; height: 500px;',
 						style: 'border-style: none !important; background: transparent none !important; height: 700px;',
 						//style: "position: absolute; top: 300px; left: 500px; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100",
@@ -439,7 +467,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 							"<![endif]-->                                                                                                                                                                       "+
 							"<link href=\"./resources/css/BasicSet.css\" rel=\"stylesheet\" type=\"text/css\" />                                                                                                            "+
 							"<style type=\"text/css\">                                                                                                                                                          "+
-							"#toolTip { width: 360px; height: 210px; padding: 10px 15px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
+							"#toolTip { width: 360px; height: 230px; padding: 10px 15px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
 							"#toolTip> h1 { font-family: 'malgunbd'; font-size: 20px; margin: 0px; padding: 0px; letter-spacing: -1px; }                                                                        "+
 							"#toolTip> dl { margin: 20px 0px 5px 0px; }                                                                                                                                         "+
 							"#toolTip> dl:after { content:\"\"; clear:both; display:block; *zoom:1;}                                                                                                            "+
@@ -455,7 +483,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 							"	<h1>"+jijum_Name+"</h1>                                                                                                                                                                  "+
 							"	<dl><br>                                                                                                                                                                              "+
 							"    	<dt>분류 :</dt>                                                                                                                                                               "+
-							"        <dd>수질측정지점 > 하천수</dd>                                                                                                                                             "+
+							"        <dd>"+jijum_Gubun+"</dd>                                                                                                                                             "+
 							"        <dt>주소 :</dt>                                                                                                                                                            "+
 							"        <dd>"+jijum_Addr+"</dd>                                                                                       "+
 							"    </dl>                                                                                                                                                                          "+
@@ -463,7 +491,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 							"    <ul>                                                                                                                                                                           "+
 							"    	<li style=\"float: left;\">                                                                                                                                                   "+
 							"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
-							"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResultReach('"+obj.attributes.CAT_ID+"');\" /></a>                                                                                                                  "+
+							"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResult('"+obj.attributes.CAT_ID+"');\" /></a>                                                                                                                  "+
 							"        </li>                                                                                                                                                                   "+
 							"        <li style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
 							"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'start' );\"  /></a>                                                                                                                "+

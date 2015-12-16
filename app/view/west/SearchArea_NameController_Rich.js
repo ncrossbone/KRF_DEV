@@ -132,7 +132,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 									type : 'vbox'
 								},
 								cls: 'dj_layer_nm',
-								title :  result.features[i].attributes.LAYER_NM + layerCnt ,
+								title :  '&nbsp;' + result.features[i].attributes.LAYER_NM +'&nbsp; (' + layerCnt +')' ,
 								layerCd : layerCode,
 								iconCls: 'layerIconSize '+layerId+''
 							});
@@ -159,8 +159,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 								listCtl.items.items[j].add({
 									xtype : 'label',
 									cls: 'dj_result_info',
+									style: 'left: 13px !important;',
 									html : 		/*"<input type=\"hidden\" value=\"\">&nbsp;&nbsp; <a href=\"#\" onClick=\"alert('dd')\">지점명 :"+result.features[i].attributes.JIJUM_NM+"</a> " +*/
-											"<table class=\"dj_result\" border=\"0\">										" +
+											"<table class=\"dj_result\" border=\"0\" >										" +
 											"<tr>                                 " +
 											" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot01.png\" alt=\"시작위치\" height =\"41\" width = \"21\"  onClick=\"siteMovePoint('"+layerCode+"','"+result.features[i].attributes.JIJUM_CODE+"' , 'start' );\"/></th> " +
 											" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot03.png\" alt=\"끝위치\" height =\"41\" width = \"21\" onClick=\"siteMovePoint('"+layerCode+"','"+result.features[i].attributes.JIJUM_CODE+"' , 'end');\" /></th> " +

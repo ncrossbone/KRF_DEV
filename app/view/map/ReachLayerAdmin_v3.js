@@ -276,7 +276,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 			//console.info(stLastGrp);
     		// 시작위치 집수구역 조회
 			queryTaskArea.execute(queryArea, function(featureSet){
-				
 				for(var i = 0; i < featureSet.features.length; i++){
 					
 					var stAreaFeature = featureSet.features[i];
@@ -563,7 +562,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 			
 			// 리치라인 검색
 			queryTaskLine.execute(queryLine, function(featureSet){
-				
 				for(var i = 0; i < featureSet.features.length; i++){
 					
 					var lineFeature = featureSet.features[i];
