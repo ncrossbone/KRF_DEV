@@ -17,16 +17,17 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
     
     /* 사이즈 지정 */
     itemWidth: 102,
-    itemHeight: 22,
+    itemHeight: 18,
     plain: true, // 요게 있어야 background: transparent 먹음..
-    style: 'border-style: none !important; height:22px !important; background: transparent none !important; ',
+    style: 'border-style: none !important; background: transparent none !important;',
+    cls: 'dj_toolbarNm dj_spottextfield2',
     //width: 78,
-    height: 22,
+    //height: 22,
     /* 사이즈 지정 끝 */
     floating: true,
     //border: 0,
-    x:487,
-    y:160,
+    x:486,
+    y:172,
     //style: 'padding: 0px;',
     
     layout: {
@@ -40,13 +41,14 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
     
 	    this.items = [{
 	    	xtype: 'textfield',
-	    	cls: 'dj_stextfield',
+	    	cls: 'dj_stoptextfield',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight
+	    	
 	    }, {
 	    	xtype: 'textfield',
+	    	cls: 'dj_etoptextfield',
 	    	width: this.itemWidth,
-	    	cls: 'dj_etextfield',
 	    	height: this.itemHeight
 	    }];
 	    

@@ -16,6 +16,7 @@ Ext.define('KRF_DEV.view.west.SearchArea', {
 	
 	items: [{
 		xtype: 'container',
+		autoScroll: true,
 		layout: {
 			type: 'fit',
 			align: 'center'

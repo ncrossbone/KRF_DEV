@@ -120,7 +120,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
 		GetCoreMap().reachLayerAdmin_v3.drawEnd();
-		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
