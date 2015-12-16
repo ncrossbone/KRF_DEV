@@ -164,10 +164,10 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 											"<tr>                                 " +
 											" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot01.png\" alt=\"시작위치\" height =\"41\" width = \"21\"  onClick=\"siteMovePoint('"+layerCode+"','"+result.features[i].attributes.JIJUM_CODE+"' , 'start' );\"/></th> " +
 											" <th rowspan=\"2\"><img style=\"cursor:pointer;\" src=\"./resources/images/symbol/spot03.png\" alt=\"끝위치\" height =\"41\" width = \"21\" onClick=\"siteMovePoint('"+layerCode+"','"+result.features[i].attributes.JIJUM_CODE+"' , 'end');\" /></th> " +
-											" <td><a href=\"#\" onClick=\"siteMovePoint('"+result.features[i].attributes.LAYER_CODE+"','"+result.features[i].attributes.JIJUM_CODE+"' , 'none');\" ><span>"+result.features[i].attributes.JIJUM_NM+"</span></a></td>                     " +
+											" <td><a href=\"#\" onClick=\"siteMovePoint('"+result.features[i].attributes.LAYER_CODE+"','"+result.features[i].attributes.JIJUM_CODE+"' , 'addrLink');\" ><span>"+result.features[i].attributes.JIJUM_NM+"</span></a></td>                     " +
 											"</tr>                                " +
 											"<tr>                                 " +
-											" <td> <a href=\"#\" onClick=\"siteMovePoint('"+result.features[i].attributes.LAYER_CODE+"','"+result.features[i].attributes.JIJUM_CODE+"', 'none');\" >경북 상주시 함창읍 구향리</a></td> " +
+											" <td> <a href=\"#\" onClick=\"siteMovePoint('"+result.features[i].attributes.LAYER_CODE+"','"+result.features[i].attributes.JIJUM_CODE+"', 'addrLink');\" >" + result.features[i].attributes.ADDR + "</a></td> " +
 											"</tr>                                " +
 											"</table>                             "
 											
@@ -182,7 +182,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 				listCtl_Total.doLayout();
 				
 				//검색후 가장 처음값으로 이동
-				siteMovePoint(result.features[0].attributes.LAYER_CODE,result.features[0].attributes.JIJUM_CODE, 'none');
+				siteMovePoint(result.features[0].attributes.LAYER_CODE,result.features[0].attributes.JIJUM_CODE, 'addrLink');
 		
 			});
 		});

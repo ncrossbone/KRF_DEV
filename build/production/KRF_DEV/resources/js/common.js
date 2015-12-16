@@ -215,7 +215,7 @@ ReachInfoBinding = function(objs){
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	
 	var yFieldName = "";
-	
+	console.info(parentId);
 	//console.info(tabIdx);
 	
 	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
@@ -311,7 +311,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		
 		// 차트정보 스토어 로드
 		if(siteChartCtl != undefined){
-			//console.info("!");
 			//var chartStore = siteChartCtl.getStore();
 			var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
 			chartStore.siteCD = title;
@@ -322,7 +321,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		}
 	}
 	else{
-		console.info("!!");
 		KRF_DEV.getApplication().chartFlag = "0";
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 		var chartStore = siteChartCtl.getStore();
@@ -919,6 +917,7 @@ GetTabControl = function(options){
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
+	console.info(catIds);
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -990,10 +989,10 @@ ShowSearchResultReach = function(catIds){
     	var tmpGraphics = rchMap.reachLayerAdmin_v3.arrLineGrp;
     	for(var i = 0; i < tmpGraphics.length; i++){
     		var rowData = [];
-    		rowData.push(tmpGraphics[i].attributes.RCH_ID);
-    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
-    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
-    		rowData.push(tmpGraphics[i].attributes.CAT_ID);
+    		rowData.push(tmpGraphics[i].grp.attributes.RCH_ID);
+    		rowData.push(tmpGraphics[i].grp.attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].grp.attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].grp.attributes.CAT_ID);
 //    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
 //    		if(catIdx != -1){
 //	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
@@ -1002,11 +1001,11 @@ ShowSearchResultReach = function(catIds){
 //    		else{
 //    			rowData.push(0);
 //    		}
-    		rowData.push(tmpGraphics[i].attributes.CAT_AREA);
-    		sumCatArea += tmpGraphics[i].attributes.CAT_AREA;
-    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
-    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
-    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
+    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
+    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
+    		rowData.push(tmpGraphics[i].grp.attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].grp.attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].grp.attributes.GEO_TRIB;
     		if(geoTrib == "0")
     			rowData.push("본류");
     		else{
@@ -1139,12 +1138,20 @@ ShowSearchResultReach = function(catIds){
 	}
 	else{ // 정보창에서 넘어왔을때
 		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _reachLineLayerId); // 레이어 URL
+		
+		console.info(queryTask);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = false;
+		
+		//
+		if(catIds.indexOf("'")== -1){
+			catIds = "'" + catIds + "'";
+		}
 		
 		query.where = "CAT_ID IN (" + catIds + ")";
 		
 		query.outFields = ["*"];
+		console.info(query.where);
 		queryTask.execute(query, function(result){
 			Ext.each(result, function(objLayer, idx, objLayers){
 				var sumRchLen = 0;
@@ -1328,14 +1335,9 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 }
 
 
-siteMovePoint = function(parentNodeId, nodeId){
-	console.info("~~");
+siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	console.info(parentNodeId);
 	console.info(nodeId);
-	
-	//console.info(this.map);
-	
-	
 	
 	var layerId = "";
 	if(parentNodeId == "Cat"){ // 집수구역
@@ -1391,8 +1393,8 @@ siteMovePoint = function(parentNodeId, nodeId){
 	}
 	
 	// 피처 레이어 생성/갱신
-	//KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId);	
-	KRF_DEV.getApplication().fireEvent('setSelectedPopSite', layerId, nodeId);
+	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
+	//KRF_DEV.getApplication().fireEvent('siteMovePoint', layerId, nodeId);
 }
 
 OpenMenualPop = function(){

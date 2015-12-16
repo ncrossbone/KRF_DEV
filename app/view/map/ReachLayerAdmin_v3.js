@@ -58,7 +58,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 			    "angle": 0,
 			    "yoffset": 14,
 			    "type": "esriPMS",
-			    "url": window.baseUrl + "/resources/images/symbol/btn_end01.png",
+			    "url": "./resources/images/symbol/btn_end01.png",
 			    "contentType": "image/png",
 			    "width": 20,
 			    "height": 28
@@ -194,6 +194,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				require(["esri/graphic"], function(Graphic){
 					
 			 		var graphic = new Graphic(evt, symbol);
+			 		//console.info(evt);
 			 		// 그래픽 배열 추가
 			 		me.drawGraphic(option, graphic, layerId);
 			 		

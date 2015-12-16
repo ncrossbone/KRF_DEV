@@ -242,7 +242,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     		width = 26;
     		height = 38;
     		
-    	}else{
+    	}else if(clickValue == "end"){
     		url = "./resources/images/symbol/btn_end01.png";
     		width = 26;
     		height = 38;
@@ -254,21 +254,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
-		
-		var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
-		    "angle": 0,
-		    //"xoffset": 10,
-		    //"yoffset": 35,
-		    "type": "esriPMS",
-		    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
-		    //"url": "./resources/images/symbol/spot_09.png",
-		    "url": url,
-		    "contentType": "image/png",
-		    "width": width,
-		    "height": height,
-		    "yoffset": 16,
-		    "xoffset": 4
-		});
 		
 		if(layerId == "11"){ // 사업장 TMS
 			query.where =  "사업장코드='" + siteId + "'";
@@ -432,16 +417,16 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						shadow: false,
 						//frame: true,
 						plain: true, // 요게 있어야 background: transparent 먹음..
-						width: 500,
-						height: 500,
+						width: 360,
+						height: 210,
 						//style: ' background: transparent none !important; height: 500px;',
 						style: 'border-style: none !important; background: transparent none !important; height: 700px;',
 						//style: "position: absolute; top: 300px; left: 500px; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100",
 						layout: {
 							type: 'absolute'
 						},
-						//x: evt.pageX,
-						//y: evt.pageY,
+						x: 860,
+						y: 315,
 						html: 
 							"<!doctype html>																																									"+
 							"<html lang=\"ko\">                                                                                                                                                                 "+
@@ -454,7 +439,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 							"<![endif]-->                                                                                                                                                                       "+
 							"<link href=\"./resources/css/BasicSet.css\" rel=\"stylesheet\" type=\"text/css\" />                                                                                                            "+
 							"<style type=\"text/css\">                                                                                                                                                          "+
-							"#toolTip { width: 342px; height: 199px; padding: 10px 15px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
+							"#toolTip { width: 360px; height: 210px; padding: 10px 15px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
 							"#toolTip> h1 { font-family: 'malgunbd'; font-size: 20px; margin: 0px; padding: 0px; letter-spacing: -1px; }                                                                        "+
 							"#toolTip> dl { margin: 20px 0px 5px 0px; }                                                                                                                                         "+
 							"#toolTip> dl:after { content:\"\"; clear:both; display:block; *zoom:1;}                                                                                                            "+
@@ -474,10 +459,10 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 							"        <dt>주소 :</dt>                                                                                                                                                            "+
 							"        <dd>"+jijum_Addr+"</dd>                                                                                       "+
 							"    </dl>                                                                                                                                                                          "+
-							"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"',"+groupCd+");\" /></a>                                                                                                                    "+
+							"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
 							"    <ul>                                                                                                                                                                           "+
 							"    	<li style=\"float: left;\">                                                                                                                                                   "+
-							"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"',"+groupCd+");\" /></a>                                                                                                                    "+
+							"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
 							"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResultReach('"+obj.attributes.CAT_ID+"');\" /></a>                                                                                                                  "+
 							"        </li>                                                                                                                                                                   "+
 							"        <li style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
@@ -512,15 +497,54 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				if(me.map.getLevel() < 12)
 					me.map.setLevel(12);
 				
-				obj.setSymbol(selectedSymbol);
-				me.moveGraphicLayer.add(obj);
+				if(clickValue == "none"){
+					var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
+					    "angle": 0,
+					    //"xoffset": 10,
+					    //"yoffset": 35,
+					    "type": "esriPMS",
+					    //"url": "./resources/images/symbol/symbol_"+layerId+"_42x42.gif",
+					    //"url": "./resources/images/symbol/spot_09.png",
+					    "url": url,
+					    "contentType": "image/png",
+					    "width": width,
+					    "height": height,
+					    "yoffset": 16,
+					    "xoffset": 4
+					});
+					
+					obj.setSymbol(selectedSymbol);
+					me.moveGraphicLayer.add(obj);
+				}
 				
 				/*var x = obj.geometry.x;
 				var y = obj.geometry.y;*/
 				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference);
-				console.info(obj.geometry.spatialReference);
+				//console.info(point);
 				//me.map.centerAndZoom(point, 12);
 				me.map.centerAt(point);
+				
+				var symbol = null;
+				var option = null;
+				
+				var coreMap = GetCoreMap();
+				if(clickValue == "start"){
+					symbol = coreMap.reachLayerAdmin_v3.startSymbol;
+					option = "STARTPOINT";
+				}
+				if(clickValue == "end"){
+					symbol = coreMap.reachLayerAdmin_v3.endSymbol;
+					option = "ENDPOINT";
+				}
+				
+				if(clickValue == "start" || clickValue == "end"){
+					require(["esri/graphic"], function(Graphic){
+						var graphic = new Graphic(point, symbol);
+				 		console.info(graphic);
+				 		// 그래픽 배열 추가
+						coreMap.reachLayerAdmin_v3.drawGraphic(option, graphic, "pointGrpLayer");
+					});
+				}
 				
 				//console.info(me.moveGraphicLayer);
 				
