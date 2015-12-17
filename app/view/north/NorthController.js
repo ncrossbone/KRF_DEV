@@ -21,6 +21,18 @@ Ext.define('KRF_DEV.view.north.NorthController', {
         }
     },
     
+    // 배경맵 on/off
+    onClickBaseLayer: function(obj, el, evt){
+    	// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		if(currCtl.btnOnOff == "on"){
+			GetCoreMap().baseMap.setVisibility(true);
+		}
+		else{
+			GetCoreMap().baseMap.setVisibility(false);
+		}
+    },
+    
     // 리치 버튼 클릭
 	onClickReachLayer: function(obj, el, evt){
 		
@@ -31,11 +43,15 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var currCtl = SetBtnOnOff(el.id);
 		var me = GetCoreMap();
 		
-		if(me.reachLayerAdmin.reachLineGraphics != null && me.reachLayerAdmin.reachLineGraphics != undefined){
-			if(currCtl.btnOnOff == "on")
-				me.reachLayerAdmin.reachLineGraphics.setVisibility(true);
-			else
-				me.reachLayerAdmin.reachLineGraphics.setVisibility(false);
+		if(me.reachLayerAdmin_v3.lineGrpLayer != null && me.reachLayerAdmin_v3.lineGrpLayer != undefined){
+			if(currCtl.btnOnOff == "on"){
+				//me.reachLayerAdmin.reachLineGraphics.setVisibility(true);
+				me.reachLayerAdmin_v3.lineGrpLayer.setVisibility(true);
+			}
+			else{
+				//me.reachLayerAdmin.reachLineGraphics.setVisibility(false);
+				me.reachLayerAdmin_v3.lineGrpLayer.setVisibility(false);
+			}
 		}
 		
 	},
@@ -50,11 +66,16 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var currCtl = SetBtnOnOff(el.id);
 		var me = GetCoreMap();
 		
-		if(me.reachLayerAdmin.reachAreaGraphics != null && me.reachLayerAdmin.reachAreaGraphics != undefined){
-			if(currCtl.btnOnOff == "on")
-				me.reachLayerAdmin.reachAreaGraphics.setVisibility(true);
-			else
-				me.reachLayerAdmin.reachAreaGraphics.setVisibility(false);
+		//if(me.reachLayerAdmin.reachAreaGraphics != null && me.reachLayerAdmin.reachAreaGraphics != undefined){
+		if(me.reachLayerAdmin_v3.areaGrpLayer != null && me.reachLayerAdmin_v3.areaGrpLayer != undefined){
+			if(currCtl.btnOnOff == "on"){
+				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(true);
+				me.reachLayerAdmin_v3.areaGrpLayer.setVisibility(true);
+			}
+			else{
+				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(false);
+				me.reachLayerAdmin_v3.areaGrpLayer.setVisibility(false);
+			}
 		}
 		
 	},

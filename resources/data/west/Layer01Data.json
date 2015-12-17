@@ -309,7 +309,7 @@
 		"text": "중권역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"leaf": true,
-		"checked": false
+		"checked": true
 	}, {
 		"id": "56",
 		"text": "소권역",

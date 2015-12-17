@@ -13,8 +13,10 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	dynamicLayerAdmin:null,
 	fullExtent:null,
 	initialExtent:null,
+	preExtent: null,
 	layerInfo: null,
 	printTask:null,
+	baseMap: null,
 	
 	initComponent: function() {
 		this.on('render', this.mapRendered, this);
@@ -44,7 +46,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
-        	me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map); // 리치노드, 리치라인, 집수구역 레이어
+        	//me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map); // v2
+        	me.reachLayerAdmin_v3 = Ext.create('KRF_DEV.view.map.ReachLayerAdmin_v3', me.map); // v3
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
@@ -61,6 +64,10 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
             	//me.printTask  = new KRF_DEV.view.map.task.CustomPrintTask();
             	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", _arcServiceUrl);
             });
+        	
+        	// Extent Change Event
+    		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
+        	
 		}, 1);
     },
     
@@ -98,6 +105,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		          ]
 		      });
 		      
+		      me.tileInfo = this.tileInfo;
+		      
 		      this.fullExtent = new esri.geometry.Extent({
 		    	  xmin: 12928905.446270483,
 		    	  ymin: 3309091.461517964,
@@ -108,7 +117,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		          }
 		      });
 		      
-		      me.initialExtent = this.initialExtent = new esri.geometry.Extent({
+		      me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
 		    	  xmin: 12928905.446270483,
 		    	  ymin: 3309091.461517964,
 		    	  xmax: 15766818.698435722,
@@ -132,8 +141,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		    	return "http://xdworld.vworld.kr:8080/2d/Base/201301/" + level + "/" + col + "/" + row + ".png";
 		    }	
 		  });
-		var baseMap = new CustomMapsLayer();
-		this.map.addLayer(baseMap);
+		me.baseMap = new CustomMapsLayer();
+		this.map.addLayer(me.baseMap);
 	},
 	
 	extentMove:function(extent, level){
@@ -215,5 +224,42 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 			});
 		},function(error){
 		});
+	},
+	
+	onExtentChange: function(extent, a, b, obj){
+		
+		var me = GetCoreMap();
+		
+		if(me.preExtent != extent){
+			
+			var popCtl = Ext.getCmp("popSiteInfo");
+			
+			if(popCtl != undefined){
+				
+				if(popCtl.isMove == true){
+					var x = me.preExtent.getCenter().x - extent.getCenter().x;
+					var y = me.preExtent.getCenter().y - extent.getCenter().y;
+					var resolution = obj.resolution;
+					
+					var xOffset = x / resolution;
+					var yOffset = y / resolution;
+					
+					var popX = popCtl.getX();
+					var popY = popCtl.getY();
+					
+					//console.info(popX);
+					//console.info(popY);
+					
+					popCtl.setX(popX + xOffset);
+					popCtl.setY(popY - yOffset);
+				}
+				else{
+					popCtl.isMove = true;
+				}
+			}
+			
+			me.preExtent = extent;
+		}
+		
 	}
 });

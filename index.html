@@ -12,6 +12,7 @@
 <link rel="stylesheet" href="./resources/css/layer.css">
 <link rel="stylesheet"
 	href="http://js.arcgis.com/3.13/esri/css/esri.css">
+	<!-- <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css"> -->
 
 <script>
 	(function() {
@@ -345,13 +346,16 @@
         
         /*20151208-위치찾기*/
         table.dj_result { width: 100%; border-bottom: 1px dashed #d5d5d5; } 
-        table.dj_result> tbody> tr> th { width: 25px; } 
-		table.dj_result> tbody> tr> td { font-size: 12px; color: #555; text-indent: 5px; } 
-		table.dj_result> tbody> tr> td span { font-weight: bold; color: #000; } 
+        table.dj_result> tbody> tr> th { width: 25px;} 
+		table.dj_result> tbody> tr> td { font-size: 12px; color: #555; text-indent: 5px; }
+		table.dj_result> tbody> tr> td span { font-size: 12px; color: #0066FF; text-indent: 5px; text-decoration:underline; } 
+		/* table.dj_result> tbody> tr> td span { font-weight: bold; color: #000; } */ 
+		
 		
 		.dj_result_info {
 			width: 290px;	
-			margin-top: 10px;	
+			margin-top: 10px;
+			margin-left: 11px;
 		}
 		
 		.dj_reach_list_title {
@@ -380,13 +384,50 @@
 		
 		/* 시작위치 */
 		.dj_stextfield .x-form-trigger-wrap-default{
-		    border: 1px solid #f5bf32;
+		    border: 2px solid #f5bf32;
 		}
 		
 		/* 끝위치 */
 		.dj_etextfield .x-form-trigger-wrap-default{
-			border: 1px solid #3eaf0e;
+			border: 2px solid #3eaf0e;
 		}
+		
+		.dj_toolbarNm #reachNameToolbar-innerCt {
+			width: 208px !important;
+			height: 31px !important; 
+			background: url('./resources/images/popup/txtFieldBg.png');
+			position: absolute;
+			left: 2px;
+		}
+		
+		/* 시작위치 */
+		.dj_stoptextfield .x-form-trigger-wrap-default {
+		    border: 2px solid #f5bf32;
+		    width: 92px; 
+		    margin: 0px auto;
+		}
+		
+		.dj_spottextfield2 .x-form-item {
+			top: 3px !important;
+		}
+		
+		.dj_spottextfield2 .x-form-text-default{
+			padding: 2px 0px 1px 0px;
+			min-height: 16px;
+			text-align: center;
+			font-size: 12px;
+			
+		}
+		
+		/* 끝위치 */
+		.dj_etoptextfield .x-form-trigger-wrap-default{
+			border: 2px solid #3eaf0e;
+			width: 92px; 
+		    /*height: 22px;*/
+		    margin: 0px auto;
+		}
+		
+		
 			
 	</style>
 

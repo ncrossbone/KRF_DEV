@@ -1,6 +1,7 @@
 var _testUrl = null;
 var _serviceUrl = null;
 var _mapServiceUrl = null; // 리치 맵 서비스
+var _mapServiceUrl_v3 = null; // 리치 맵 서비스 v3
 var _mapServiceUrl_reachtest = null; // 시연용 테스트 맵 서비스
 var _mapServiceUrl_dim = null; // dim처리 맵 서비스
 var _reachFlowLayerId = null; // 리치흐름 레이어 아이디
@@ -44,6 +45,7 @@ var store = Ext.create('Ext.data.Store', {
 store.load(function(a, b, c) {
 	this.each(function(record, cnt, totCnt) {
 		_mapServiceUrl = record.data.reachServiceUrl;
+		_mapServiceUrl_v3 = record.data.reachServiceUrl_v3;
 		_mapServiceUrl_reachtest = record.data.reachTestServiceUrl;
 		_mapServiceUrl_dim = record.data.dimServiceUrl;
 		_reachFlowLayerId = record.data.reachFlowLayerId;
@@ -146,7 +148,7 @@ Ext.application({
 
 			var me = GetCoreMap();
 
-			console.info(searchText);
+			//console.info(searchText);
 
 			// 검샋시 다른 더튼값 초기화
 			var cmbArea1 = Ext.getCmp("cmbArea1");
@@ -156,20 +158,28 @@ Ext.application({
 			var cmbWater2 = Ext.getCmp("cmbWater2");
 			var cmbWater3 = Ext.getCmp("cmbWater3");
 			var txtSearch = Ext.getCmp("textSearchText");
+			
+			var textSearchText_Start = Ext.getCmp("textSearchText_Start");
+			var textSearchText_End = Ext.getCmp("textSearchText_End");
 
 			if (searchText == 'waterSearch') {// 수계검색시 행정구역 초기화
 				cmbArea1.setValue("");
 				cmbArea2.setValue("");
 				cmbArea3.setValue("");
 				txtSearch.setValue("");
-				me.reachLayerAdmin.amCD_temp = "";
+
+				textSearchText_Start.setValue("");
+				textSearchText_End.setValue("");
+				//me.reachLayerAdmin.amCD_temp = "";
 			} else if (searchText == 'admSearch') {// 행정구역검색시 수계
 				// 초기화
 				cmbWater1.setValue("");
 				cmbWater2.setValue("");
 				cmbWater3.setValue("");
 				txtSearch.setValue("");
-				me.reachLayerAdmin.amCD_temp = "";
+				textSearchText_Start.setValue("");
+				textSearchText_End.setValue("");
+				//me.reachLayerAdmin.amCD_temp = "";
 			} else if (searchText == "nameSearch") {// 명칭찾기시 수계 행정구역
 				// 초기화
 				cmbArea1.setValue("");
@@ -178,16 +188,25 @@ Ext.application({
 				cmbWater1.setValue("");
 				cmbWater2.setValue("");
 				cmbWater3.setValue("");
-				me.reachLayerAdmin.amCD_temp = "";
+				textSearchText_Start.setValue("");
+				textSearchText_End.setValue("");
+				//me.reachLayerAdmin.amCD_temp = "";
+			} else if("SEnameSearch"){
+				cmbArea1.setValue("");
+				cmbArea2.setValue("");
+				cmbArea3.setValue("");
+				cmbWater1.setValue("");
+				cmbWater2.setValue("");
+				cmbWater3.setValue("");
+				txtSearch.setValue("");
 			} else {
-				me.reachLayerAdmin.amCD_temp = searchText;
+				//me.reachLayerAdmin.amCD_temp = searchText;
 			}
 
 			// console.info(searchText);
 			listWinCtl = Ext.getCmp("siteListWindow");
 			if (listWinCtl == undefined)
-				listWinCtl = Ext
-						.create('KRF_DEV.view.east.SiteListWindow');
+				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
 
 			listWinCtl.show();
 			// alert("dd");
@@ -196,8 +215,7 @@ Ext.application({
 			store.searchType = searchText;
 			store.load();
 
-			var listWinX = Ext.getBody().getViewSize().width
-					- listWinCtl.width;
+			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
 			var listWinY = 98;
 
 			listWinCtl.setX(listWinX);
@@ -216,7 +234,9 @@ Ext.application({
 			if (listWinCtl != undefined)
 				listWinCtl.close();
 
+
 			listWinCtl = Ext.getCmp("siteListWindow_reach");
+
 			if (listWinCtl != undefined)
 				listWinCtl.close();
 
@@ -313,20 +333,28 @@ Ext.application({
 		 */
 
 		Ext.ShowReachToolbar = function(evtArgs, el) {
-
+			
+			var rNameToolbar = Ext.getCmp("ReachNameToolbar");
 			var rToolbar = Ext.getCmp("reachToolbar");
-			// console.info(rToolbar);
-			if (rToolbar == undefined) {
-				rToolbar = Ext
-						.create(
-								'KRF_DEV.view.center.ReachToolbar',
-								{
-									// region: 'north',
-									id : 'reachToolbar',
-									cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
-								});
+			
+			 console.info(rToolbar);
+				if (rToolbar == undefined) {
+					rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar',{
+										// region: 'north',
+										id : 'reachToolbar',
+										cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
+									});
+				
+				
 			}
-
+				
+			console.info(rNameToolbar);
+			if(rNameToolbar == undefined){
+				rNameToolbar = Ext.create('KRF_DEV.view.center.ReachNameToolbar');
+				rNameToolbar.show();
+			}
+			
+			
 			var cContainer = Ext.getCmp("center_container");
 			cContainer.add(rToolbar);
 
@@ -335,7 +363,9 @@ Ext.application({
 		Ext.HideReachToolbar = function() {
 			var cContainer = Ext.getCmp("center_container");
 			var rToolbar = Ext.getCmp("reachToolbar");
+			var rNameToolbar = Ext.getCmp("reachNameToolbar");
 			cContainer.remove(rToolbar, false);
+			rNameToolbar.close();
 		}
 	},
 	// session정보 없을 시 로그인 창 이동. 2015.11.27 hyeok

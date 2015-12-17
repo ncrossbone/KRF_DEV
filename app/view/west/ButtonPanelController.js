@@ -137,17 +137,21 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				//SetBtnOnOff("btnModeReach_center");
 			
 			/* 리치 레이어 켜기 */
+			/*
 	    	if(me.map.getLevel() < 11){
 	    		alert("리치모드는 11레벨 이상이어야 합니다.");
 	    		var btnNormal = Ext.getCmp("btnModeNomal");
 				this.onClickButton(evtArgs, btnNormal.el);
 	    		return;
 	    	}
+	    	*/
 	    	
 	    	var westContents = Ext.getCmp("searchAreaContents");
-			var btnName = Ext.getCmp("btnNameSearch");
-			if(btnName.btnOnOff == "on")
-				westContents.setActiveItem(3); // 명칭찾기 리치모드 인덱스
+	    	var btnName = Ext.getCmp("btnNameSearch");
+			if(btnName.btnOnOff == "off"){
+				btnName = SetBtnOnOff("btnNameSearch");
+			}
+			westContents.setActiveItem(3); // 명칭찾기 리치모드 인덱스
 	    	
 	    	// Dim 처리 서비스 레이어
 	    	var activeLayer = me.map.getLayer("ReachLayerAdminBackground");

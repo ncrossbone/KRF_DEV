@@ -18,7 +18,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	
 	listeners: {
 		load: function(store) {
-			console.info(store);
+			//console.info(store);
 			var a = Ext.getCmp("btnADMSelect");
 			
 			var nameInfo = Ext.getCmp("textSearchText");
@@ -41,62 +41,85 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//읍변동
 			var amdBtn3 = Ext.getCmp("cmbArea3");
 			
-			var start = Ext.getCmp("textSearchText_Start");
+			var startPoint = Ext.getCmp("textSearchText_Start");
+			var endPoint = Ext.getCmp("textSearchText_End");
 			
 			//console.info(start.rawValue);
 			//console.info("##");
 			//http://cetech.iptime.org:6080/arcgis/rest/services/Layer2/MapServer
 			//var queryTask = new esri.tasks.QueryTask('http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
 			//var queryTask = new esri.tasks.QueryTask('http://cetech.iptime.org:6080/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
-			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL
+			//var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL v2
+			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			
-			if(buttonInfo1.lastValue != null ){
-				console.log("수계찾기로검색");
-				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == ""){
+			if(buttonInfo1.lastValue != null){
+				//console.log("수계찾기로검색");
+				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == "" ){
 					query.where = "CAT_ID like '"+buttonInfo2.lastValue+"%'";
 				}else{
 					query.where = "CAT_ID like '"+buttonInfo3.lastValue+"%'";
 				}
-			}else if(buttonInfo1.lastValue == null && nameInfo.rawValue == ""){
-				console.log("행정구역찾기로검색");
-				/*if(amdBtn2.lastValue == null){
+
+			}else if(buttonInfo1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "" ){
+				//console.log("행정구역찾기로검색");
+				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn2.lastValue.substring(0,5)+"%'";
 				}else{    
 					query.where = "ADM_CD like '"+amdBtn3.lastValue.substring(0,7)+"%'";
-				}*/
-				query.where = "JIJUM_NM like '"+start.rawValue+"%'";
+
+				}
+				//query.where = "JIJUM_NM like '"+start.rawValue+"%'";
+			}else if(buttonInfo1.lastValue == "" && amdBtn1.lastValue == ""  && startPoint.rawValue == "" && endPoint.rawValue == "" ){
+				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
 			}else{
-				console.log("명칭찾기로검색");
-				//query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
-				query.where = "JIJUM_NM like '"+start.rawValue+"%'";
+				if(endPoint.rawValue == ""){
+					query.where = "JIJUM_NM like '"+startPoint.rawValue+"%'";
+				}else{
+					query.where = "JIJUM_NM like '"+endPoint.rawValue+"%'";
+				}
+
 			}
 			
 			if(store.searchType == "selectReach"){
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
 				
-				var reachBtn = Ext.getCmp("btnModeReach");
-				
-				//if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
+				if(me.reachLayerAdmin_v3.arrAreaGrp.length > 0){
+					var reachBtn = Ext.getCmp("btnModeReach");
 					
-					query.where = "CAT_ID IN ("; 
-					
-					for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
-						query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
-						//console.info(query.where);
-					}
-					
-					query.where = query.where.substring(0, query.where.length - 2);
-					query.where += ")";
-				//}
+					//if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
+						
+						query.where = "CAT_ID IN ("; 
+						
+						//for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
+							//query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
+							//console.info(query.where);
+						//}
+						for(var i = 0; i < me.reachLayerAdmin_v3.arrAreaGrp.length; i++){
+							query.where += "'" + me.reachLayerAdmin_v3.arrAreaGrp[i].grp.attributes.CAT_ID + "', ";
+							//console.info(query.where);
+						}
+						
+						query.where = query.where.substring(0, query.where.length - 2);
+						query.where += ")";
+					//}
+				}
+				else{
+					return;
+				}
 			}
 			
 			query.outFields = ["*"];
 			queryTask.execute(query, function(result){
+				
+				if(result.features.length == 0){
+					return;
+				}
+				
 				var jsonStr = " { \"id\": \"0\", \n";
 					jsonStr += "\"text\":  \"root\", \n";
 					jsonStr += "\"cls\": 'khLee-x-tree-node-text-bold', \n";
@@ -117,7 +140,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					var aa = "";
 					//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
 					//jsonStr += "\n	\"children\": [";
-					
+					//console.info(result.features);
 					
 					for(i = 0; i < result.features.length; i++){
 						if(result.features[i].attributes.GROUP_CODE != "E"){
@@ -203,7 +226,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
-				console.info(jsonData);
+				//console.info(jsonData);
 				store.setRootNode(jsonData);
 
 	        });

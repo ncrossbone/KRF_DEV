@@ -41,6 +41,22 @@ Ext.define('KRF_DEV.view.north.North', {
 		flex: 1
 	}, { 
 		xtype: 'image',
+		//id: 'btnReachLayer',
+		layerId: 'baseMap',
+		groupId: 'grpBase',
+    	title: '배경맵',
+    	width: 32,
+    	height: 32,
+    	listeners: { el: { click: 'onClickBaseLayer' } },
+    	btnOnOff: 'on',
+    	btnOnImg: './resources/images/button/btn_top_05_on.png',
+    	btnOffImg: './resources/images/button/btn_top_05_off.png',
+    	src: './resources/images/button/btn_top_05_on.png'
+    }, {
+    	xtype: 'container',
+    	width: 5
+    }, { 
+		xtype: 'image',
 		id: 'btnReachLayer',
 		layerId: '46',
 		groupId: 'grpReach',

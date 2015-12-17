@@ -23,6 +23,12 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 		if(!node.get('leaf')) {
 			this.checkAllChildren(node, checked);
 		}else{
+			if(checked == false){
+				var parentNode = node.parentNode;
+				if(parentNode != undefined){
+					parentNode.set('checked', false);
+				}
+			}
 			KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', this.getView().getChecked());
 		}
 	},

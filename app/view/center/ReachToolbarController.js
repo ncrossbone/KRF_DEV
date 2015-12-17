@@ -82,18 +82,16 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickAddReach: function(obj, el, evt){
 		
 		// 리치 선택 종료
-		GetCoreMap().reachLayerAdmin.drawEnd();
+		//GetCoreMap().reachLayerAdmin.drawEnd();
+		GetCoreMap().reachLayerAdmin_v3.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
 		if(currCtl.btnOnOff == "on"){
 			// 리치 선택 시작
-			GetCoreMap().reachLayerAdmin.pointDraw("ADD", el.id);
-		}
-		else{
-			// 리치 선택 종료
-			GetCoreMap().reachLayerAdmin.drawEnd();
+			//GetCoreMap().reachLayerAdmin.pointDraw("ADD", el.id);
+			GetCoreMap().reachLayerAdmin_v3.pointDraw("ADD", el.id); // v3
 		}
 		
 	},
@@ -102,18 +100,16 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickRemoveReach: function(obj, el, evt){
 		
 		// 리치 선택 종료
-		GetCoreMap().reachLayerAdmin.drawEnd();
+		//GetCoreMap().reachLayerAdmin.drawEnd();
+		GetCoreMap().reachLayerAdmin_v3.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
 		if(currCtl.btnOnOff == "on"){
 			// 리치 선택 시작
-			GetCoreMap().reachLayerAdmin.pointDraw("REMOVE", el.id);
-		}
-		else{
-			// 리치 선택 종료
-			GetCoreMap().reachLayerAdmin.drawEnd();
+			//GetCoreMap().reachLayerAdmin.pointDraw("REMOVE", el.id);
+			GetCoreMap().reachLayerAdmin_v3.pointDraw("REMOVE", el.id); // v3
 		}
 		
 	},
@@ -122,17 +118,14 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickStartReach: function(obj, el, evt){
 		
 		// 리치 선택 종료
-		GetCoreMap().reachLayerAdmin.drawEnd();
-		
+		//GetCoreMap().reachLayerAdmin.drawEnd();
+		GetCoreMap().reachLayerAdmin_v3.drawEnd();
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
 		if(currCtl.btnOnOff == "on"){
-			GetCoreMap().reachLayerAdmin.pointStartDraw("STARTPOINT", el.id);
-		}
-		else{
-			// 리치 선택 종료
-			GetCoreMap().reachLayerAdmin.drawEnd();
+			//GetCoreMap().reachLayerAdmin.pointStartDraw("STARTPOINT", el.id); // v2
+			GetCoreMap().reachLayerAdmin_v3.btnStartClick("STARTPOINT", el.id); // v3
 		}
 		
 	},
@@ -141,17 +134,15 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickEndReach: function(obj, el, evt){
 		
 		// 리치 선택 종료
-		GetCoreMap().reachLayerAdmin.drawEnd();
+		//GetCoreMap().reachLayerAdmin.drawEnd();
+		GetCoreMap().reachLayerAdmin_v3.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
 		if(currCtl.btnOnOff == "on"){
-			GetCoreMap().reachLayerAdmin.pointEndDraw("ENDPOINT", el.id);
-		}
-		else{
-			// 리치 선택 종료
-			GetCoreMap().reachLayerAdmin.drawEnd();
+			//GetCoreMap().reachLayerAdmin.pointEndDraw("ENDPOINT", el.id); // v2
+			GetCoreMap().reachLayerAdmin_v3.btnEndClick("ENDPOINT", el.id); // v3
 		}
 		
 	},
@@ -302,14 +293,12 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		var me = KRF_DEV.getApplication().coreMap;
 		
 		// 리치 선택 종료
-		me.reachLayerAdmin.drawEnd();
+		//me.reachLayerAdmin.drawEnd();
+		me.reachLayerAdmin_v3.drawEnd();
 		
 		if(currCtl.btnOnOff == "on"){
-			GetCoreMap().reachLayerAdmin.extentDraw("ADD", el.id);
-		}
-		else{
-			// 리치 선택 종료
-			GetCoreMap().reachLayerAdmin.drawEnd();
+			//GetCoreMap().reachLayerAdmin.extentDraw("ADD", el.id);
+			GetCoreMap().reachLayerAdmin_v3.pointDraw("EXTENT", el.id); // v3
 		}
 		
 	},
@@ -323,14 +312,12 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		var me = KRF_DEV.getApplication().coreMap;
 		
 		// 리치 선택 종료
-		me.reachLayerAdmin.drawEnd();
+		//me.reachLayerAdmin.drawEnd();
+		me.reachLayerAdmin_v3.drawEnd();
 		
 		if(currCtl.btnOnOff == "on"){
-			GetCoreMap().reachLayerAdmin.radiusDraw("ADD", el.id);
-		}
-		else{
-			// 리치 선택 종료
-			GetCoreMap().reachLayerAdmin.drawEnd();
+			//GetCoreMap().reachLayerAdmin.radiusDraw("ADD", el.id);
+			GetCoreMap().reachLayerAdmin_v3.pointDraw("CIRCLE", el.id); // v3
 		}
 		
 	},

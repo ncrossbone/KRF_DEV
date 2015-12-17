@@ -11,11 +11,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_List_Total', {
 	
 	layout: {
 		type: 'vbox'
-	},
-	items: [{
-		xtype: 'label',
-		html: '검색결과'
-		
-	}]
+	}
 
 });
