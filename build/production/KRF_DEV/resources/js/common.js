@@ -1325,6 +1325,11 @@ siteMovePoint = function(parentNodeId, nodeId){
 	console.info("~~");
 	console.info(parentNodeId);
 	console.info(nodeId);
+	
+	//console.info(this.map);
+	
+	
+	
 	var layerId = "";
 	if(parentNodeId == "Cat"){ // 집수구역
 		layerId = "48";
