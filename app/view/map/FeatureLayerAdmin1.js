@@ -40,7 +40,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     	
     	var me = this;
     	
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + layerId);
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerId);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};
@@ -474,9 +474,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					//me.map.removeLayer(obj);
 				}, 10000, this);
 				
-				var symbol = null;
-				var option = null;
-				
 				var coreMap = GetCoreMap();
 				
 				/* 사이트 정보 팝업 띄우기 */
@@ -497,7 +494,16 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				var yLen = extent.ymax - extent.ymin;
 				
 				var xPx = xLen / resolution / 2 - popWidth / 2;
+				xPx = xPx - (1920 - Ext.getBody().getWidth()) / 2;
 				var yPx = yLen / resolution / 2 - popHeight;
+				yPx = yPx - (979 - Ext.getBody().getHeight()) / 2;
+				
+				var westContainer = Ext.getCmp("west_container");
+				if(westContainer.collapsed != false){
+					xPx = xPx - 300;
+				}
+				console.info(xPx);
+				console.info(westContainer.collapsed);
 				
 				
 				
@@ -570,35 +576,42 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"</html>                                                                                                                                                                            "
 				}).show();
 				
-				
 				var btnNomal = Ext.getCmp("btnModeNomal");
 				if(btnNomal.btnOnOff == "on"){
 					var aEl = Ext.get('reachTable');
 					aEl.dom.hidden = true;
 				}
 				
-				if(clickValue == "start"){
-					symbol = coreMap.reachLayerAdmin_v3.startSymbol;
-					symbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
-					symbol.width = 48;
-					symbol.height = 38;
-					option = "STARTPOINT";
-				}
-				if(clickValue == "end"){
-					symbol = coreMap.reachLayerAdmin_v3.endSymbol;
-					symbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
-					symbol.width = 48;
-					symbol.height = 38;
-					option = "ENDPOINT";
-				}
-				
+
 				if(clickValue == "start" || clickValue == "end"){
-					require(["esri/graphic"], function(Graphic){
-						var graphic = new Graphic(point, symbol);
-				 		// 그래픽 그리기
-						coreMap.reachLayerAdmin_v3.drawGraphic(option, graphic, "pointGrpLayer");
-					});
 					
+					var option = "";
+					var btnId = "";
+					
+					if(clickValue == "start"){
+						// 심볼설정
+						coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
+						coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
+						coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
+						
+						option = "STARTPOINT";
+						btnId = "btnMenu04";
+					}
+					if(clickValue == "end"){
+						// 심볼설정
+						coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
+						coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
+						coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
+		    			
+						option = "ENDPOINT";
+						btnId = "btnMenu05";
+					}
+	    			
+					coreMap.reachLayerAdmin_v3.drawSymbol(option, point); // 심볼 그리기
+					var currCtl = Ext.getCmp(btnId);
+					if(currCtl != undefined && currCtl.btnOnOff == "on")
+						SetBtnOnOff(btnId);
+					coreMap.reachLayerAdmin_v3.runStartEnd(); // 검색 실행
 					closePopSiteInfo(); // 툴팁 닫기
 				}
 			});
@@ -618,7 +631,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			new dojo.Color([255,0,0,0.5])
 		);
     	
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + layerId);
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerId);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};
@@ -663,7 +676,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			5
 		);
     	
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + layerId);
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerId);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};

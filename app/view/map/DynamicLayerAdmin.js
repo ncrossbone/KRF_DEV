@@ -8,7 +8,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
         var me = this;
         me.map = map;
         
-        me.dynamicLayer1 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl);
+        me.dynamicLayer1 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3);
         //me.layer = dynamicLayer1;
 		me.dynamicLayer1.id = "DynamicLayer1"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer1.visible = true;

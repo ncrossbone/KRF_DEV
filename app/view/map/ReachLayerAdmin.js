@@ -97,7 +97,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         	/* 리치라인 피처 레이어 추가 */
         	var lineSelectionSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 255, 255]), 5);
         	
-        	me.reachLinelayer = new FeatureLayer(_mapServiceUrl + "/" + _reachLineLayerId, {
+        	me.reachLinelayer = new FeatureLayer(_mapServiceUrl_v3 + "/" + _reachLineLayerId, {
 	            //mode: FeatureLayer.MODE_ONDEMAND,
         		mode: FeatureLayer.MODE_SELECTION,
 	            outFields: ["*"]
@@ -134,7 +134,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			        				new Color([255, 255, 0, 0.3])
         							);
         	
-        	me.reachArealayer = new FeatureLayer(_mapServiceUrl + "/" + _reachAreaLayerId, {
+        	me.reachArealayer = new FeatureLayer(_mapServiceUrl_v3 + "/" + _reachAreaLayerId, {
 	            //mode: FeatureLayer.MODE_ONDEMAND,
         		mode: FeatureLayer.MODE_SELECTION,
 	            outFields: ["*"]
@@ -647,7 +647,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, QueryTask){
     		
-    		queryTask = new QueryTask(_mapServiceUrl + "/" + _reachLineLayerId);
+    		queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId);
     		query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];
@@ -888,7 +888,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/layers/FeatureLayer", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, FeatureLayer, QueryTask){
     		
     		//console.info(_mapServiceUrl + "/" + _reachAreaLayerId);
-    		var queryTask = new QueryTask(_mapServiceUrl + "/" + _reachAreaLayerId);
+    		var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId);
     		query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];

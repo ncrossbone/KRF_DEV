@@ -25,7 +25,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		me.map = map;
 		me.geometryService = geometryService;
 		
-		me.layer1Url = _mapServiceUrl; // 레이어 URL
+		me.layer1Url = _mapServiceUrl_v3; // 레이어 URL
 		
 		me.smpLineSymbol = new esri.symbol.SimpleLineSymbol(esri.symbol.SimpleLineSymbol.STYLE_SOLID, new dojo.Color([0,0,255,0.8]), 2);
 		me.simpleFillSymbol= new esri.symbol.SimpleFillSymbol(esri.symbol.SimpleFillSymbol.STYLE_SOLID, me.smpLineSymbol, new dojo.Color([0,0,255,0.1]));
@@ -176,7 +176,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
     	me.sourceGraphicLayer.clear();
 		me.targetGraphicLayer.clear();
 		me.highlightGraphicLayer.clear();
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + info.layerId);
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + info.layerId);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};
