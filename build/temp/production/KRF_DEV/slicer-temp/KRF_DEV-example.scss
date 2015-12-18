@@ -1,4 +1,4 @@
-$image-search-path: 'D:/_0010_Cetech_Workspace/_010_2015_Workspace/000_Git/KRF_DEV/build/production/KRF_DEV/resources';
+$image-search-path: 'D:/eclipse-gis/KRF/KRF_DEV/build/production/KRF_DEV/resources';
 $theme-name:  'ext-theme-neptune' !default;
 $include-ext-abstractcomponent: true;
 $include-ext-abstractcontainer: true;
@@ -1106,6 +1106,7 @@ $include-krf_dev-view-east-chartpanelcontroller: true;
 $include-krf_dev-view-east-chartpaneldate: true;
 $include-krf_dev-view-east-chartpaneldatecontroller: true;
 $include-krf_dev-view-east-favoritewindow: true;
+$include-krf_dev-view-east-favoritewindow_v3: true;
 $include-krf_dev-view-east-reachinfowindow: true;
 $include-krf_dev-view-east-siteinfopanel: true;
 $include-krf_dev-view-east-sitelistwindow: true;

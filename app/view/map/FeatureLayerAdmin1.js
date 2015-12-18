@@ -491,7 +491,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				var curLevel = coreMap.map.getLevel();
 				var resolution = coreMap.tileInfo.lods[curLevel].resolution;
 				var popWidth = 360;
-				var popHeight = 210;
+				var popHeight = 230;
 				var extent = coreMap.map.extent;
 				
 				var xLen = extent.xmax - extent.xmin;
@@ -508,6 +508,8 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				}
 				console.info(xPx);
 				console.info(westContainer.collapsed);
+				
+				
 				
 				Ext.create("Ext.window.Window", {
 					//renderTo: Ext.getBody(),
@@ -564,7 +566,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"    <ul>                                                                                                                                                                           "+
 						"    	<li style=\"float: left;\">                                                                                                                                                   "+
 						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
-						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResult('"+obj.attributes.CAT_ID+"');\" /></a>                                                                                                                  "+
+						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResult('"+jijum_Cd+"','','"+jijum_Name+"','grid_"+jijum_Cd+"','','"+parentChcek+"');\" /></a>                                                                                                                  "+
 						"        </li>                                                                                                                                                                   "+
 						"        <li style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
 						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'start' );\"  /></a>                                                                                                                "+

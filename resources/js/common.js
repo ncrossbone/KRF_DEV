@@ -486,8 +486,25 @@ ChangeTabIndex = function(tabIdx){
 }
 
 // 검색결과창 띄우기
-ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
+ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk){
+	console.info(parentIds);
 	
+	if(parentIds == ""){
+		parentIds = [{parentId : tooltipCk , siteId : siteIds}];
+	}
+	
+	if(tooltipCk != undefined){
+		siteIds = "'"+siteIds+"'";
+	}
+	
+	console.info("==================================");
+	console.info("siteIds::"+siteIds);
+	console.info("parentIds::"+parentIds);
+	console.info("titleText::"+titleText);
+	console.info("gridId::"+gridId);
+	console.info(test);
+	console.info(tooltipCk);
+	console.info("==================================");
 	// 리치검색 khLee 20151102 추가
 	if(siteIds == "CAT"){
 		ShowSearchResultReach();
@@ -647,8 +664,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.parentIds = parentIds;
 		}
 		
-		console.info(test);
-		console.info(grdCtl);
 		var hiddenF = "";
 		var hiddenT = "";
 		

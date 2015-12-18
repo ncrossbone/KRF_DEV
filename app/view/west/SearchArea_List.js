@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_List', {
 	id: 'searchAreaList',
 	
 	width: 300,
-	
+	//autoScroll: true,
 	layout: {
 		type: 'accordion'
 	}
