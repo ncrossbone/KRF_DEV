@@ -137,6 +137,22 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 								
 								self.favoriteInfo.push(saveObj);
 								localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
+								var info = JSON.stringify(self.favoriteInfo);
+								
+								//1. data params로 넘어가지 않는 문제.
+								//2. 넘어갈 시 clob 타입에 단순 횡으로 입력시 4000byte.
+								Ext.Ajax.request({
+									url : "./resources/jsp/FavoriteInfo.jsp",
+									method : "POST",
+									success : function(result, request) {
+										console.info(info);
+										Ext.Msg.alert("cc", "cc");
+									},
+									failure : function(result, request) {
+										Ext.Msg.alert("Failed", "Connection Failed");
+									},
+									params:{info:info}
+								});
 								self.gridStore.loadData(self.favoriteInfo);
 							}
 						}
