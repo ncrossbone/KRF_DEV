@@ -197,10 +197,15 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			//if(btn.btnOnOff == "off")
 				//SetBtnOnOff("btnModeNormal_center");
 			
+			
+			//일반모드 선택시 수계찾기로 이동
 			var westContents = Ext.getCmp("searchAreaContents");
-			var btnName = Ext.getCmp("btnNameSearch");
-			if(btnName.btnOnOff == "on")
-				westContents.setActiveItem(2); // 명칭찾기 일반모드 인덱스
+			var btnWater = Ext.getCmp("btnWaterSearch");
+			if(btnWater.btnOnOff == "off"){
+				btnName = SetBtnOnOff("btnWaterSearch");
+				westContents.setActiveItem(0); // 일반모드시 수계찾기로 바꿈
+			}
+				
 			
 			/* 전체 레이어 끄기 */
 	    	var activeLayer = me.map.getLayer("DynamicLayerAdmin_ReachTest");
