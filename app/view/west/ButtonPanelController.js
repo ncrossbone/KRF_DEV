@@ -96,7 +96,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 //						y: Ext.getBody().getViewSize().height - 295
 //						
 //					});
-			popCtl = Ext.create('KRF_DEV.view.east.FavoriteWindow');
+			popCtl = Ext.create('KRF_DEV.view.east.FavoriteWindow_v3');
 		}
 		
 		//console.info(popCtl.hidden);
