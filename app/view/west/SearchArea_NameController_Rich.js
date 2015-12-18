@@ -29,7 +29,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 			var where = "JIJUM_NM like '"+textSearchText_End.value+"%'";
 		}
 		
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL
 		var query = new esri.tasks.Query();
 		query.returnGeometry = false;
 		

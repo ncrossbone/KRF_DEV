@@ -69,6 +69,49 @@ Ext.define('KRF_DEV.view.west.West', {
     		xtype: 'west-searchArea'
     	}]
     }],
+    
+    listeners: {
+        resize: {
+            fn: function(el) {
+                console.info(el);
+            	var popCtl = Ext.getCmp("popSiteInfo");
+        		
+        		if(popCtl != undefined){
+        			popCtl.setX(popCtl.getX() - (300 - el.getWidth()));
+        		}
+            }
+        },
+        collapse: {
+        	fn: function(el){
+        		//console.info(el.getWidth());
+        		var popCtl = Ext.getCmp("popSiteInfo");
+        		
+        		if(popCtl != undefined){
+        			popCtl.setX(popCtl.getX() - 300);
+        		}
+        		
+        		var reachNameToolbar = Ext.getCmp("reachNameToolbar");
+        		if(reachNameToolbar != undefined){
+        			reachNameToolbar.setX(reachNameToolbar.getX() - 300);
+        		}
+        	}
+        },
+        expand: {
+        	fn: function(el){
+        		//console.info(el.getWidth());
+        		var popCtl = Ext.getCmp("popSiteInfo");
+        		
+        		if(popCtl != undefined){
+        			popCtl.setX(popCtl.getX() + 300);
+        		}
+        		
+        		var reachNameToolbar = Ext.getCmp("reachNameToolbar");
+        		if(reachNameToolbar != undefined){
+        			reachNameToolbar.setX(reachNameToolbar.getX() + 300);
+        		}
+        	}
+        }
+    },
 
     initComponent: function(){
     	this.callParent();
