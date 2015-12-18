@@ -57,7 +57,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
     cloneGraphicArr:function(arr){
     	var cArr = [];
     	for(var i=0; i<arr.length; i++){
-    		console.info(arr);
+    		console.info(arr[i]);
     		cArr.push(JSON.stringify(arr[i].toJson()));
     	}
     	return cArr;
