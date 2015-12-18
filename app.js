@@ -387,8 +387,8 @@ Ext.application({
 		console.info(sessionInfo.trim());
 		if (sessionInfo.trim() == "false") {
 
-		
-			Ext.create('KRF_DEV.view.main.LoginBack').show();
+			this.callParent();
+			//Ext.create('KRF_DEV.view.main.LoginBack').show();
 		} else {
 
 			this.callParent();

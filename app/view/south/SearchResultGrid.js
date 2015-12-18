@@ -112,7 +112,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				text: '레이어코드',
 				dataIndex: 'parentId',
 				hidden: true,
-				hideable: false, // filter Columns영역에 보이지 않기
+				hideable: true, // filter Columns영역에 보이지 않기
 				width: 0
 			}, {
 				text : 'BOD (㎎/L)',
@@ -711,7 +711,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				hidden: true,
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'CURR_DNT',
+					dataIndex: 'CURR_DTN',
 					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
@@ -728,7 +728,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'CHART_DNT',
+					dataIndex: 'CHART_DTN',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -2673,6 +2673,60 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 					text: '추이변화',
 					width: 80,
 					dataIndex: 'CHART_DEHP',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.000');
+							        	return yVal + " ㎎/L";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'DIOX (㎎/L)',
+				hidden: true,
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_DIOX',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.000');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_DIOX',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
