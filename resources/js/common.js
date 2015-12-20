@@ -190,7 +190,8 @@ ReachInfoBinding = function(objs){
 	var GEO_TRIB = objs[0].attributes.GEO_TRIB; // 하천차수
 	var RCH_LEN = objs[0].attributes.RCH_LEN; // 리치길이
 	var CUM_LEN = objs[0].attributes.CUM_LEN; // 누적거리
-	var CAT_AREA = objs[0].attributes.CAT_AREA; // 집수면적
+	//var CAT_AREA = objs[0].attributes.CAT_AREA; // 집수면적
+	var CUM_AREA = objs[0].attributes.CUM_AREA; // 집수면적
 	// 상류면적?
 	
 	// 리치 정보창 띄우기
@@ -207,7 +208,8 @@ ReachInfoBinding = function(objs){
 	if(Ext.getCmp("GEO_TRIB") != undefined) { Ext.getCmp("GEO_TRIB").setHtml(GEO_TRIB) };
 	if(Ext.getCmp("RCH_LEN") != undefined) { Ext.getCmp("RCH_LEN").setHtml(RCH_LEN) };
 	if(Ext.getCmp("CUM_LEN") != undefined) { Ext.getCmp("CUM_LEN").setHtml(CUM_LEN) };
-	if(Ext.getCmp("CAT_AREA") != undefined) { Ext.getCmp("CAT_AREA").setHtml(CAT_AREA) };
+	//if(Ext.getCmp("CAT_AREA") != undefined) { Ext.getCmp("CAT_AREA").setHtml(CAT_AREA) };
+	if(Ext.getCmp("CUM_AREA") != undefined) { Ext.getCmp("CUM_AREA").setHtml(CUM_AREA) };
 }
 
 
@@ -1017,8 +1019,11 @@ ShowSearchResultReach = function(catIds){
 //    		else{
 //    			rowData.push(0);
 //    		}
-    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
-    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
+//    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
+//    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
+    		//console.info(tmpGraphics[i].grp.attributes.CUM_AREA);
+    		rowData.push(tmpGraphics[i].grp.attributes.CUM_AREA);
+    		sumCatArea += tmpGraphics[i].grp.attributes.CUM_AREA;
     		rowData.push(tmpGraphics[i].grp.attributes.RIV_NM);
     		rowData.push(tmpGraphics[i].grp.attributes.CUM_LEN);
     		var geoTrib = tmpGraphics[i].grp.attributes.GEO_TRIB;
@@ -1144,7 +1149,8 @@ ShowSearchResultReach = function(catIds){
     		fields: [{name: 'RCH_ID', type: 'string'},
     		         {name: 'RCH_LEN', type: 'float'},
     		         {name: 'CAT_ID', type: 'string'},
-    		         {name: 'CAT_AREA', type: 'float'},
+//    		         {name: 'CAT_AREA', type: 'float'},
+    		         {name: 'CUM_AREA', type: 'float'},
     		         {name: 'RIV_NM', type: 'string'},
     		         {name: 'CUM_LEN', type: 'float'},
     		         {name: 'GEO_TRIB', type: 'string'}]
@@ -1181,8 +1187,10 @@ ShowSearchResultReach = function(catIds){
 		    		rowData.push(objLayer.features[i].attributes.RCH_LEN);
 		    		sumRchLen += objLayer.features[i].attributes.RCH_LEN;
 		    		rowData.push(objLayer.features[i].attributes.CAT_ID);
-		    		rowData.push(objLayer.features[i].attributes.CAT_AREA);
-		    		sumCatArea += objLayer.features[i].attributes.CAT_AREA;
+		    		//rowData.push(objLayer.features[i].attributes.CAT_AREA);
+		    		//sumCatArea += objLayer.features[i].attributes.CAT_AREA;
+		    		rowData.push(objLayer.features[i].attributes.CUM_AREA);
+		    		sumCatArea += objLayer.features[i].attributes.CUM_AREA;
 		    		rowData.push(objLayer.features[i].attributes.RIV_NM);
 		    		rowData.push(objLayer.features[i].attributes.CUM_LEN);
 		    		var geoTrib = objLayer.features[i].attributes.GEO_TRIB;
@@ -1210,7 +1218,8 @@ ShowSearchResultReach = function(catIds){
 	        		fields: [{name: 'RCH_ID', type: 'string'},
 	        		         {name: 'RCH_LEN', type: 'float'},
 	        		         {name: 'CAT_ID', type: 'string'},
-	        		         {name: 'CAT_AREA', type: 'float'},
+	        		         //{name: 'CAT_AREA', type: 'float'},
+	        		         {name: 'CUM_AREA', type: 'float'},
 	        		         {name: 'RIV_NM', type: 'string'},
 	        		         {name: 'CUM_LEN', type: 'float'},
 	        		         {name: 'GEO_TRIB', type: 'string'}]
@@ -1490,7 +1499,7 @@ setTooltipPoint = function(extent, obj){
 				*/
 				
 				var popWidth = 360;
-				var popHeight = 190;
+				var popHeight = 200;
 				
 				var resolution = obj.resolution;
 				
