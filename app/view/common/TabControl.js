@@ -213,6 +213,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 //				}
 				
 				var colArr = grid.getColumnManager().getColumns();
+				console.info(colArr);
 				var hItem = grid.getHeaderContainer().config.items;
 				var gItem = [];
 				for(var i=0; i<hItem.length; i++){
@@ -235,6 +236,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				console.info(dataArr);
 				for(var i=0; i<dataArr.length; i++){
 					datas.push(dataArr[i].data)
+					console.info(dataArr[i].data);
 				}
 				
 				var removeMem = []
@@ -268,6 +270,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 								}
 								headName.push(preText + colArr[i].text);
 								header.push(colArr[i].dataIndex);
+								console.info(colArr[i].dataIndex);
+								console.info("ㅅ"+i)
 							}
 						}
 					}
@@ -287,6 +291,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							}
 							headName.push(preText + colArr[i].text);
 							header.push(colArr[i].dataIndex);
+							console.info(colArr[i].dataIndex);
 						}
 					}
 				}

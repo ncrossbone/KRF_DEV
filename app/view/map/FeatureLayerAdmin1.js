@@ -37,8 +37,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     
     
     setSelectedPopSiteHandler: function(layerId, siteId){
-    	console.info("##");
-		
+    	
     	var me = this;
     	
 		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerId);
@@ -72,7 +71,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		queryTask.execute(query,  function(results){
 			
 			Ext.each(results.features, function(obj, index) {
-				console.info(obj);
 				//me.map.on("click", function(evt){
 				
 				
@@ -140,7 +138,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				//});
 				
 				
-//				me.movePopGraphicLayer.clear();
+				me.movePopGraphicLayer.clear();
 //				me.movePopGraphicLayer.id = "moveGraphicLayer" + siteId;
 //				
 //				if(me.map.getLevel() < 12)
@@ -241,7 +239,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     	}
     	
 		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerId);
-		console.info(queryTask);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.outSpatialReference = {"wkid":102100};
@@ -279,7 +276,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				var jijum_Cd = "";		//지점토드
 				var jijum_Gubun = "";
 				
-				console.info(jijum);
 				
 				//layer마다 column값이 달라 분기처리
 				if(layerId == "1"){
@@ -542,9 +538,10 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"<![endif]-->                                                                                                                                                                       "+
 						"<link href=\"./resources/css/BasicSet.css\" rel=\"stylesheet\" type=\"text/css\" />                                                                                                            "+
 						"<style type=\"text/css\">                                                                                                                                                          "+
-						"#toolTip { width: 360px; height: 230px; padding: 10px 15px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
+						"#toolTip { width: 370px; height: 230px; padding: 15px 15px 15px 10px; background: url(./resources/images/popup/Tooltip.png) no-repeat; position: relative; font-size: 12px; font-family:'NanumGothic'; }       "+
+						"#toolTip> a.close { width: 25px; height: 25px; background: #FFF url(./resources/images/button/btn_close.png) center center no-repeat; position: absolute; right: 15px; top: 15px; border: 1px solid #aaa; } "+
 						"#toolTip> h1 { font-family: 'malgunbd'; font-size: 20px; margin: 0px; padding: 0px; letter-spacing: -1px; }                                                                        "+
-						"#toolTip> dl { margin: 20px 0px 5px 0px; }                                                                                                                                         "+
+						"#toolTip> dl { margin: 30px 0px 5px 0px; }                                                                                                                                         "+
 						"#toolTip> dl:after { content:\"\"; clear:both; display:block; *zoom:1;}                                                                                                            "+
 						"#toolTip> dl dt { float: left; font-weight: bold; color: #000; }                                                                                                                   "+
 						"#toolTip> dl dd { margin: 0px; color: #434343; text-indent: 5px; }                                                                                                                 "+
@@ -555,20 +552,21 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"</head>                                                                                                                                                                            "+
 						"<body>                                                                                                                                                                             "+
 						"<div id=\"toolTip\">                                                                                                                                                               "+
-						"	<li style=\"float: left;\"><h1>"+jijum_Name+"</h1></li><li style=\"float: right;\"><a href\"#\"><img onClick=\"closePopSiteInfo();\" src=\"./resources/images/button/btn_close.png\" /></a></li>"+
-						"	<dl><br><br>                                                                                                                                                                              "+
+						"	<h1>"+jijum_Name+"</h1>"+
+						"   <a class=\"close\" onclick=\"closePopSiteInfo();\" href=\"#\"></a>" +
+						"<dl>                                                                                                                                                                              "+
 						"    	<dt>분류 :</dt>                                                                                                                                                               "+
 						"        <dd>"+jijum_Gubun+"</dd>                                                                                                                                             "+
 						"        <dt>주소 :</dt>                                                                                                                                                            "+
 						"        <dd>"+jijum_Addr+"</dd>                                                                                       "+
 						"    </dl>                                                                                                                                                                          "+
-						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
+						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"','"+parentChcek+"');\" /></a>"+
 						"    <ul>                                                                                                                                                                           "+
 						"    	<li style=\"float: left;\">                                                                                                                                                   "+
-						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+groupCd+"');\" /></a>                                                                                                                    "+
+						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+parentChcek+"');\" /></a>                                                                                                                    "+
 						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResult('"+jijum_Cd+"','','"+jijum_Name+"','grid_"+jijum_Cd+"','','"+parentChcek+"');\" /></a>                                                                                                                  "+
 						"        </li>                                                                                                                                                                   "+
-						"        <li style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
+						"        <li id =\"reachTable\"  style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
 						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'start' );\"  /></a>                                                                                                                "+
 						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_endSpot.gif\"   onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'end' );\"  /></a>                                                                                                               "+
 						"        </li>                                                                                                                                                                      "+
@@ -578,6 +576,13 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"</html>                                                                                                                                                                            "
 				}).show();
 				
+				var btnNomal = Ext.getCmp("btnModeNomal");
+				if(btnNomal.btnOnOff == "on"){
+					var aEl = Ext.get('reachTable');
+					aEl.dom.hidden = true;
+				}
+				
+
 				if(clickValue == "start" || clickValue == "end"){
 					
 					var option = "";

@@ -1466,6 +1466,73 @@ ResetButtonClick = function(){
 	
 }
 
+setTooltipPoint = function(extent, obj){
+	var me = GetCoreMap();
+	
+	if(me.preExtent != extent){
+		
+		var popCtl = Ext.getCmp("popSiteInfo");
+		
+		if(popCtl != undefined){
+			
+			if(popCtl.isMove == true){
+				
+				/*
+				var x = obj.geometry.x;
+				var y = obj.geometry.y;
+				
+				var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
+				var curLevel = me.map.getLevel();
+				var xOffset = tileInfo.lods[curLevel].resolution;
+				
+				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * xOffset);
+				y = y - ((979 - Ext.getBody().getHeight()) / 2 * xOffset);
+				*/
+				
+				var popWidth = 360;
+				var popHeight = 190;
+				
+				var resolution = obj.resolution;
+				
+//				var x = me.preExtent.getCenter().x - extent.getCenter().x;
+//				var y = me.preExtent.getCenter().y - extent.getCenter().y;
+//				var x = popCtl.point.x - extent.getCenter().x;
+//				var y = popCtl.point.x - extent.getCenter().y;
+				
+				var x = (extent.xmax - extent.xmin) - (extent.xmax - popCtl.point.x);
+				var y = (extent.ymax - extent.ymin) - (extent.ymax - popCtl.point.y);
+				console.info((1920 - Ext.getBody().getWidth()));
+				var xOffset = (x / resolution - popWidth / 2);
+				var yOffset = y / resolution;
+				yOffset = Ext.getBody().getHeight() - yOffset - popHeight;
+				//console.info(obj);
+				//if(me.preLevel != obj.level){
+					xOffset = xOffset - (1920 - Ext.getBody().getWidth()) / 2;
+					yOffset = yOffset + (979 - Ext.getBody().getHeight()) / 2;
+				//}
+				
+				var popX = popCtl.getX();
+				var popY = popCtl.getY();
+				
+				//console.info(popX);
+				//console.info(popY);
+				
+				//popCtl.setX(popX + xOffset);
+				popCtl.setX(xOffset);
+				//popCtl.setY(popY - yOffset);
+				popCtl.setY(yOffset);
+			}
+			else{
+				popCtl.isMove = true;
+			}
+		}
+		
+		me.preExtent = extent;
+		me.preResolution = obj.resolution;
+		me.preLevel = me.map.getLevel();
+	}
+}
+
 // 지점정보 툴팁 닫기
 closePopSiteInfo = function(){
 	var popCtl = Ext.getCmp("popSiteInfo");
@@ -1486,10 +1553,46 @@ Layer01OnOff = function(layerId){
 	}
 }
 
+runStartEnd = function(option){
+	
+	var coreMap = GetCoreMap();
+	
+	if(option == "start" || option == "end"){
+		
+		var option = "";
+		var btnId = "";
+		
+		if(option == "start"){
+			// 심볼설정
+			coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
+			coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
+			coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
+			
+			option = "STARTPOINT";
+			btnId = "btnMenu04";
+		}
+		if(option == "end"){
+			// 심볼설정
+			coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
+			coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
+			coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
+			
+			option = "ENDPOINT";
+			btnId = "btnMenu05";
+		}
+		
+		coreMap.reachLayerAdmin_v3.drawSymbol(option, point); // 심볼 그리기
+		var currCtl = Ext.getCmp(btnId);
+		if(currCtl != undefined && currCtl.btnOnOff == "on")
+			SetBtnOnOff(btnId);
+		coreMap.reachLayerAdmin_v3.runStartEnd(); // 검색 실행
+		closePopSiteInfo(); // 툴팁 닫기
+	}
+}
+
 // 시작지점 끝지점 값 셋팅
 SetStEdSiteName = function(option, value){
 	
-<<<<<<< HEAD
 	if(value != undefined && value != ""){
 		var reachNameToolbar = Ext.getCmp("reachNameToolbar");
 		var textSearchText_Start = Ext.getCmp("textSearchText_Start");
@@ -1503,18 +1606,5 @@ SetStEdSiteName = function(option, value){
 			reachNameToolbar.items.items[1].setValue(value);
 			textSearchText_End.setValue(value);
 		}
-=======
-	var reachNameToolbar = Ext.getCmp("reachNameToolbar");
-	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
-	var textSearchText_End = Ext.getCmp("textSearchText_End");
-	
-	if(option == "start"){
-		reachNameToolbar.items.items[0].setValue(value);
-		textSearchText_Start.setValue(value);
-	}
-	if(option == "end"){
-		reachNameToolbar.items.items[1].setValue(value);
-		textSearchText_End.setValue(value);
->>>>>>> 6de6ccb0d650e5d39913c4ef3c192c3483521d9f
 	}
 }
