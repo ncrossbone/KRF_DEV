@@ -152,6 +152,13 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				btnName = SetBtnOnOff("btnNameSearch");
 			}
 			westContents.setActiveItem(3); // 명칭찾기 리치모드 인덱스
+			
+			var aEl = Ext.get('reachTable');
+			if(aEl != null){
+				aEl.dom.hidden = false;
+			}
+			
+			
 	    	
 	    	// Dim 처리 서비스 레이어
 	    	var activeLayer = me.map.getLayer("ReachLayerAdminBackground");
@@ -205,6 +212,14 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				btnName = SetBtnOnOff("btnWaterSearch");
 				westContents.setActiveItem(0); // 일반모드시 수계찾기로 바꿈
 			}
+			
+			
+			var aEl = Ext.get('reachTable');
+			if(aEl != null){
+				aEl.dom.hidden = true;
+			}
+			
+			
 				
 			
 			/* 전체 레이어 끄기 */

@@ -39,7 +39,7 @@ Ext.define('KRF_DEV.store.west.SearchArea_ADM', {
 				if(idColumn == undefined || nameColumn == undefined || whereStr == undefined)
 					return;
 				
-				var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/" + store.layerId); // 레이어 URL
+				var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + store.layerId); // 레이어 URL
 				var query = new esri.tasks.Query();
 				query.returnGeometry = false;
 				query.where = whereStr;

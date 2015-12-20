@@ -18,8 +18,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 	
 	onTextSearch: function(button, eOpts){
 		
-		console.info(button.id);
-		console.info(eOpts);
 		var textSearchText_Start = Ext.getCmp("textSearchText_Start");
 		var textSearchText_End = Ext.getCmp("textSearchText_End");
 		
@@ -29,7 +27,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 			var where = "JIJUM_NM like '"+textSearchText_End.value+"%'";
 		}
 		
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL
+		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL
 		var query = new esri.tasks.Query();
 		query.returnGeometry = false;
 		
@@ -130,6 +128,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 							listCtl.addCls('dj_accordion');
 							listCtl.add({
 								xtype : 'panel',
+								autoScroll: true,
 								layout : {
 									type : 'vbox'
 								},
@@ -139,13 +138,13 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 								iconCls: 'layerIconSize '+layerId+''
 							});
 							
-							
+							console.info(layerCnt);
 							saveCnt += "_"+layerCnt;
 							guBunNm = result.features[i].attributes.LAYER_NM;
 							layerCnt = 0;
 							
 							
-						}else if(i == result.features.length -1 ){//마지막 카운트 구하기
+						}else if(i == result.features.length-1 ){//마지막 카운트 구하기
 							saveCnt += "_"+(layerCnt+1);
 						}
 						
@@ -203,7 +202,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		
 		var btnCtl = null;
 		var btn = Ext.getCmp("btnSearchText_Start");
-		console.info(btn);
 		var searchAreaContents_1 = Ext.getCmp("searchAreaContents_1");
 		
 		//var richSearch = Ext.create('KRF_DEV.store.east.SiteListWindow');

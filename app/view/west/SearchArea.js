@@ -6,6 +6,8 @@ Ext.define('KRF_DEV.view.west.SearchArea', {
 	extend: 'Ext.panel.Panel',
 
 	xtype: 'west-searchArea',
+
+	
 	
 	title: '위치 검색',
 	layout: {
@@ -13,7 +15,6 @@ Ext.define('KRF_DEV.view.west.SearchArea', {
 		align: 'stretch'
 	},
 
-	autoScroll: true,
 	items: [{
 		xtype: 'container',
 		layout: {

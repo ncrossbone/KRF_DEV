@@ -14,6 +14,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	fullExtent:null,
 	initialExtent:null,
 	preExtent: null,
+	preResolution: null,
+	preLevel: null,
 	layerInfo: null,
 	printTask:null,
 	baseMap: null,
@@ -231,38 +233,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	
 	onExtentChange: function(extent, a, b, obj){
 		
-		var me = GetCoreMap();
-		
-		if(me.preExtent != extent){
-			
-			var popCtl = Ext.getCmp("popSiteInfo");
-			
-			if(popCtl != undefined){
-				
-				if(popCtl.isMove == true){
-					var x = me.preExtent.getCenter().x - extent.getCenter().x;
-					var y = me.preExtent.getCenter().y - extent.getCenter().y;
-					var resolution = obj.resolution;
-					
-					var xOffset = x / resolution;
-					var yOffset = y / resolution;
-					
-					var popX = popCtl.getX();
-					var popY = popCtl.getY();
-					
-					//console.info(popX);
-					//console.info(popY);
-					
-					popCtl.setX(popX + xOffset);
-					popCtl.setY(popY - yOffset);
-				}
-				else{
-					popCtl.isMove = true;
-				}
-			}
-			
-			me.preExtent = extent;
-		}
+		setTooltipPoint(extent, obj);
 		
 	}
 });

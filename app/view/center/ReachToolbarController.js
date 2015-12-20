@@ -27,45 +27,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 				y: 170
 			});
 			
-			/*
-			popCtl = Ext.create("Ext.window.Window", {
-				
-						title: '스마트검색',
-						header: false,
-						id: 'popSmart',
-						cls: 'khLee-window-panel-header khLee-x-window-default ',
-						layout: {
-							type: 'absolute'
-						},
-						items: [{
-							xtype: 'image',
-							src: './resources/images/popup/20150812_smart.gif',
-							width: 307,
-							height: 257
-						}, {
-							xtype: 'image',
-							title: '닫기',
-							src: './resources/images/button/icon_close2.gif',
-							listeners: {
-								el: {
-						            click: function(){
-						            	var popCtl = Ext.getCmp("popSmart");
-										popCtl.hide();
-										SetBtnOnOff(el.id);
-						            }
-						        }
-							},
-							width: 10,
-							height: 10,
-							x: 277,
-							y: 10
-						}],
-						x: 390,
-						y: 170
-						
-					});
-					*/
-			
 		}
 		
 		// 팝업 이미지 show, hide
@@ -125,7 +86,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.pointStartDraw("STARTPOINT", el.id); // v2
-			GetCoreMap().reachLayerAdmin_v3.btnStartClick("STARTPOINT", el.id); // v3
+			GetCoreMap().reachLayerAdmin_v3.pointDraw("STARTPOINT", el.id); // v3
 		}
 		
 	},
@@ -142,7 +103,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.pointEndDraw("ENDPOINT", el.id); // v2
-			GetCoreMap().reachLayerAdmin_v3.btnEndClick("ENDPOINT", el.id); // v3
+			GetCoreMap().reachLayerAdmin_v3.pointDraw("ENDPOINT", el.id); // v3
 		}
 		
 	},

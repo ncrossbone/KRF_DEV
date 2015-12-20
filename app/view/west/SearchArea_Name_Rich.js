@@ -11,7 +11,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 	
 	title: '명칭으로 찾기',
 	
-	autoScroll: true,
 	
 	//bodyPadding: 10,
 	//border: 0,

@@ -29,13 +29,13 @@ try{
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
 	sql = " SELECT RN,RN_2, PT_NO, PT_NM, WMCYMD, CHART_DATE, WMYR, WMOD, WMWK, SEQ, WMDEP, CURR_BOD, CHART_BOD, CURR_DO, CHART_DO, CURR_COD, 												";
-	sql += " CHART_COD, CURR_TN, CHART_TN, CURR_TP, CHART_TP, CURR_TEMP, CHART_TEMP, CURR_PH, CHART_PH, CURR_SS, CHART_SS, CURR_CLOA, CHART_CLOA, CURR_TOC,       ";
+	sql += " CHART_COD, CURR_TN, CHART_TN, CURR_TP, CHART_TP, CURR_TEMP, CHART_TEMP, CURR_PH, CHART_PH, CURR_SS,CURR_SS_NEW, CHART_SS, CURR_CLOA, CHART_CLOA, CURR_TOC,       ";
 	sql += "  CHART_TOC, CURR_AMNT, CHART_AMNT, CURR_DTN, CHART_DTN, CURR_NO3N, CHART_NO3N, CURR_NH3N, CHART_NH3N, CURR_DTP, CHART_DTP, CURR_POP, CHART_POP,      ";
 	sql += "   CURR_TRANS, CHART_TRANS, CURR_ALGOL, CHART_ALGOL, CURR_TCOLI, CHART_TCOLI, CURR_ECOLI, CHART_ECOLI, CURR_ANTIMON, CHART_ANTIMON, CURR_PHENOL,      ";
 	sql += "    CHART_PHENOL, CURR_COL, CHART_COL, CURR_NHEX, CHART_NHEX, CURR_MN, CHART_MN, CURR_FE, CHART_FE, CURR_CD, CHART_CD, CURR_CN, CHART_CN, CURR_PB,    ";
 	sql += "    CHART_PB, CURR_CR6, CHART_CR6, CURR_CR, CHART_CR, CURR_AS, CHART_AS, CURR_HG, CHART_HG, CURR_CU, CHART_CU, CURR_ZN, CHART_ZN, CURR_FL, CHART_FL,  ";
 	sql += "    CURR_ABS, CHART_ABS, CURR_CL, CHART_CL, CURR_TCE, CHART_TCE, CURR_PCE, CHART_PCE, CURR_CCL4, CHART_CCL4, CURR_DCETH, CHART_DCETH, CURR_DCM,       ";
-	sql += "    CHART_DCM, CURR_BENZENE, CHART_BENZENE, CURR_CHCL3, CHART_CHCL3, CURR_OP, CHART_OP, CURR_PCB, CHART_PCB, CURR_DEHP, CHART_DEHP, CURR_HCHO,        ";
+	sql += "    CHART_DCM, CURR_BENZENE, CHART_BENZENE, CURR_CHCL3, CHART_CHCL3, CURR_OP, CHART_OP, CURR_PCB, CHART_PCB, CURR_DEHP , CHART_DEHP, CURR_DIOX, CHART_DIOX, CURR_HCHO,        ";
 	sql += "     CHART_HCHO, CURR_HCB, CHART_HCB                                                                                                                  ";
 	sql += "   FROM (                                                                                                                                             ";
 	sql += "         SELECT                                                                                                                                       ";
@@ -91,6 +91,9 @@ try{
 	sql += "     ELSE B.ITEM_PH                                                                                                     ";
 	sql += "   END AS CHART_PH ,                                                                                                    ";
 	sql += "   NVL(A.ITEM_SS, 888888888) AS CURR_SS ,                                                                                                     ";
+	sql += " CASE WHEN B.ITEM_SS = 999999999 THEN '정량한계미만'   ";
+	sql += "          ELSE NULL			";
+	sql += "          END CURR_SS_NEW,		";
 	sql += "   CASE                                                                                                                 ";
 	sql += "     WHEN B.ITEM_SS = '999999999' THEN 0                                                                                ";
 	sql += "     ELSE B.ITEM_SS                                                                                                     ";
@@ -295,6 +298,11 @@ try{
 	sql += "     WHEN B.ITEM_DEHP = '999999999' THEN 0                                                                              ";
 	sql += "     ELSE B.ITEM_DEHP                                                                                                   ";
 	sql += "   END AS CHART_DEHP ,                                                                                                  ";
+	sql += " NVL(A.ITEM_DIOX, 888888888) AS CURR_DIOX,        ";
+	sql += "   CASE                                                                                                                 ";
+	sql += "     WHEN B.ITEM_DIOX = '999999999' THEN 0                                                                              ";
+	sql += "     ELSE B.ITEM_DIOX                                                                                                   ";
+	sql += "   END AS CHART_DIOX ,                                                                                                  ";
 	sql += " NVL(A.ITEM_HCHO, 888888888) AS CURR_HCHO,        ";
 	sql += "   CASE                                                                                                                 ";
 	sql += "     WHEN B.ITEM_HCHO = '999999999' THEN 0                                                                              ";
@@ -527,6 +535,7 @@ try{
 	String CURR_PH = "";
 	JSONArray CHART_PH = new JSONArray();
 	String CURR_SS = "";
+	String CURR_SS_NEW = "";
 	JSONArray CHART_SS = new JSONArray();
 	String CURR_CLOA = "";
 	JSONArray CHART_CLOA = new JSONArray();
@@ -571,6 +580,7 @@ try{
 	String 	CURR_OP	 = "";
 	String 	CURR_PCB	 = "";
 	String 	CURR_DEHP	 = "";
+	String 	CURR_DIOX	 = "";
 	String 	CURR_HCHO	 = "";
 	String 	CURR_HCB	 = "";
 
@@ -611,7 +621,8 @@ try{
 	JSONArray 	CHART_CHCL3	 = new JSONArray();
 	JSONArray 	CHART_OP	 = new JSONArray();
 	JSONArray 	CHART_PCB	 = new JSONArray();
-	JSONArray 	CHART_DEHP	 = new JSONArray();
+	JSONArray 	CHART_DEHP	 = new JSONArray(); //
+	JSONArray 	CHART_DIOX	 = new JSONArray();
 	JSONArray 	CHART_HCHO	 = new JSONArray();
 	JSONArray 	CHART_HCB	 = new JSONArray();
 	
@@ -653,6 +664,7 @@ try{
 	  		jsonRecord.put("CURR_PH", CURR_PH);
 	  		jsonRecord.put("CHART_PH", CHART_PH); 
 	  		jsonRecord.put("CURR_SS", CURR_SS);
+	  		jsonRecord.put("CURR_SS_NEW", CURR_SS_NEW);
 	  		jsonRecord.put("CHART_SS", CHART_SS);
 	  		jsonRecord.put("CURR_CLOA", CURR_CLOA);
 	  		jsonRecord.put("CHART_CLOA", CHART_CLOA);
@@ -697,6 +709,7 @@ try{
 	  		jsonRecord.put("CURR_OP",CURR_OP);
 	  		jsonRecord.put("CURR_PCB",CURR_PCB);
 	  		jsonRecord.put("CURR_DEHP",CURR_DEHP);
+	  		jsonRecord.put("CURR_DIOX",CURR_DIOX);
 	  		jsonRecord.put("CURR_HCHO",CURR_HCHO);
 	  		jsonRecord.put("CURR_HCB",CURR_HCB);
 	  		jsonRecord.put("CHART_AMNT",CHART_AMNT);
@@ -737,6 +750,7 @@ try{
 	  		jsonRecord.put("CHART_OP",CHART_OP);
 	  		jsonRecord.put("CHART_PCB",CHART_PCB);
 	  		jsonRecord.put("CHART_DEHP",CHART_DEHP);
+	  		jsonRecord.put("CHART_DIOX",CHART_DIOX);
 	  		jsonRecord.put("CHART_HCHO",CHART_HCHO);
 	  		jsonRecord.put("CHART_HCB",CHART_HCB);
 	  		//System.out.println("CHART_BOD ||"+CHART_BOD);
@@ -791,6 +805,7 @@ try{
 		  	CHART_OP	 = new JSONArray();
 		  	CHART_PCB	 = new JSONArray();
 		  	CHART_DEHP	 = new JSONArray();
+		  	CHART_DIOX	 = new JSONArray();
 		  	CHART_HCHO	 = new JSONArray();
 		  	CHART_HCB	 = new JSONArray();
 		}
@@ -876,6 +891,7 @@ try{
   		//CHART_PH.add(rs.getString("CHART_PH")); 
   		
   		CURR_SS = rs.getString("CURR_SS");
+  		CURR_SS_NEW = rs.getString("CURR_SS_NEW");
   		Chart_Data_tmp = new JSONArray();
 		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 		Chart_Data_tmp.add(rs.getString("CHART_SS"));
@@ -1246,6 +1262,14 @@ try{
 		if(rs.getString("CHART_DEHP") != null){
 			CHART_DEHP.add(Chart_Data_tmp);	
 		}
+		
+		CURR_DIOX = rs.getString("CURR_DIOX");
+		Chart_Data_tmp = new JSONArray();
+		Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+		Chart_Data_tmp.add(rs.getString("CHART_DIOX"));
+		if(rs.getString("CHART_DIOX") != null){
+			CHART_DIOX.add(Chart_Data_tmp);	
+		}
 		//CHART_DEHP.add(Chart_Data_tmp);
 		
 		CURR_HCHO = rs.getString("CURR_HCHO");
@@ -1300,6 +1324,7 @@ try{
 		jsonRecord.put("CURR_PH", CURR_PH);
 		jsonRecord.put("CHART_PH", CHART_PH); 
 		jsonRecord.put("CURR_SS", CURR_SS);
+		jsonRecord.put("CURR_SS_NEW", CURR_SS_NEW);
 		jsonRecord.put("CHART_SS", CHART_SS);
 		jsonRecord.put("CURR_CLOA", CURR_CLOA);
 		jsonRecord.put("CHART_CLOA", CHART_CLOA);
@@ -1344,6 +1369,7 @@ try{
 		jsonRecord.put("CURR_OP",CURR_OP);
 		jsonRecord.put("CURR_PCB",CURR_PCB);
 		jsonRecord.put("CURR_DEHP",CURR_DEHP);
+		jsonRecord.put("CURR_DIOX",CURR_DIOX);
 		jsonRecord.put("CURR_HCHO",CURR_HCHO);
 		jsonRecord.put("CURR_HCB",CURR_HCB);
 		jsonRecord.put("CHART_AMNT",CHART_AMNT);
@@ -1384,6 +1410,7 @@ try{
 		jsonRecord.put("CHART_OP",CHART_OP);
 		jsonRecord.put("CHART_PCB",CHART_PCB);
 		jsonRecord.put("CHART_DEHP",CHART_DEHP);
+		jsonRecord.put("CHART_DIOX",CHART_DIOX);
 		jsonRecord.put("CHART_HCHO",CHART_HCHO);
 		jsonRecord.put("CHART_HCB",CHART_HCB);
 	}

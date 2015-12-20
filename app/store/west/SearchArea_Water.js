@@ -48,9 +48,8 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 					|| whereStr == undefined)
 				return;
 			// console.info(whereStr);
-			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + "/"
-					+ store.layerId); // 레이어 URL
-			console.info(_mapServiceUrl);
+			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + store.layerId); // 레이어 URL
+			//console.info(_mapServiceUrl);
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			query.where = whereStr;
