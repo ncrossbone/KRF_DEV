@@ -165,6 +165,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	favoriteExe:function(data){
+		console.info(data);
 		var me = this;
 		var extentJson = data.EXTENT;
 		var extent = new esri.geometry.Extent(extentJson);
@@ -172,27 +173,28 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		var reachLineGArr = data.reachLineGArr;
 		var reachAreaGArr = data.reachAreaGArr;
 		
-		me.reachLayerAdmin_v3.addLineGraphic(null);
-		me.reachLayerAdmin_v3.addAreaGraphic(null);
+		//me.reachLayerAdmin_v3.addLineGraphic(null);
+		//me.reachLayerAdmin_v3.addAreaGraphic(null);
 		
 		var deferred = me.map.setExtent(extent, true);
 		deferred.then(function(value){
 			var deferred2 = me.map.setLevel(level);
 			deferred2.then(function(value){
-				if(me.reachLayerAdmin_v3.reachLineGraphics){
-					me.reachLayerAdmin_v3.reachLineGraphics.clear();
+				if(me.reachLayerAdmin_v3.lineGrpLayer){
+					me.reachLayerAdmin_v3.lineGrpLayer.clear();
 					for(var i=0; i<reachLineGArr.length; i++){
-						me.reachLayerAdmin_v3.reachLineGraphics.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+						me.reachLayerAdmin_v3.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
-				if(me.reachLayerAdmin_v3.reachAreaGraphics){
-					me.reachLayerAdmin_v3.reachAreaGraphics.clear();
+				if(me.reachLayerAdmin_v3.areaGrpLayer){
+					me.reachLayerAdmin_v3.areaGrpLayer.clear();
 					for(var i=0; i<reachAreaGArr.length; i++){
-						me.reachLayerAdmin_v3.reachAreaGraphics.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
+						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
+				/*
 				me.reachLayerAdmin_v3.upRchGraphics = [];
 				me.reachLayerAdmin_v3.downRchGraphics = [];
 				me.reachLayerAdmin_v3.selRchGraphics = [];
@@ -213,12 +215,13 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 				for(var i=0; i<data.selAreaGraphics.length; i++){
 					me.reachLayerAdmin_v3.selAreaGraphics.push(new esri.Graphic(JSON.parse(data.selAreaGraphics[i])))
 				}
+				*/
 				//console.info(me.reachLayerAdmin.selAreaGraphics);
 				// 지점 목록 창 띄우기
         		Ext.ShowSiteListWindow("selectReach");
         		
         		// 검색결과 창 띄우기
-        		ShowSearchResultReach("");
+        		//ShowSearchResultReach("");
         		
 			},function(error2){
 			});
