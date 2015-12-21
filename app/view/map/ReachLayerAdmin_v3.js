@@ -18,6 +18,13 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 	arrEndGrp: [], // 끝위치 포인트 그래픽 배열
 	arrLineGrp: [], // 리치라인 그래픽 배열
 	arrAreaGrp: [], // 집수구역 그래픽 배열
+	
+	arrTmpRchId: [], // 검색된 리치 아이디 임시 배열
+	startRchId: "", // 시작위치 리치 아이디
+	endRchId: "", // 끝위치 리치 아이디
+	
+	isSearching: false, // 검색 실행 중 플래그
+	isDrawing: false, // 그리기 실행 플래그
 		
 	constructor: function(map) {
 		
@@ -103,24 +110,26 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     		
     		if(option == "STARTPOINT"){
     			// 심볼설정
-    			me.startSymbol.url = me.getStartSymbolUrl();
-    			me.startSymbol.width = 48;
-    			me.startSymbol.height = 38;
+    			//me.startSymbol.url = me.getStartSymbolUrl();
+    			//me.startSymbol.width = 48;
+    			//me.startSymbol.height = 38;
     			
     	    	// 커서 이미지 설정
-    			Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.startSymbol.url + ') 24 38,auto');
+    			//Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.startSymbol.url + ') 24 38,auto');
+    			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
     			
     			bundle.toolbars.draw.addPoint = "시작위치 리치라인을 클릭하세요.";
     			me.selectionToolbar.activate(Draw.POINT);
     		}
     		else if(option == "ENDPOINT"){
     			// 심볼설정
-    			me.endSymbol.url = me.getEndSymbolUrl();
-    			me.endSymbol.width = 48;
-    			me.endSymbol.height = 38;
+    			//me.endSymbol.url = me.getEndSymbolUrl();
+    			//me.endSymbol.width = 48;
+    			//me.endSymbol.height = 38;
     			
     	    	// 커서 이미지 설정
-    	    	Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.endSymbol.url + ') 24 38,auto');
+    	    	//Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.endSymbol.url + ') 24 38,auto');
+    			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
     	    	
     			bundle.toolbars.draw.addPoint = "끝위치 리치라인을 클릭하세요.";
     			me.selectionToolbar.activate(Draw.POINT);
@@ -238,6 +247,241 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	});
     },
     
+    // 조회된 리치 아이디가 배열에 존재하는지 체크
+    checkSearchRchId: function(rchId, option){
+    	
+    	var idx = -1;
+    	
+    	 // 검색 실행 플래그 - 실행중
+    	if(me.isSearching == true){
+    		
+	    	for(var i = 0; i < me.arrTmpRchId.length; i++){
+	    		
+	    		if(rchId == me.arrTmpRchId[i]){
+	    			idx = i;
+	    		}
+	    	}
+	    	
+	    	if(idx == -1){
+	    		// 리치아이디를 배열에 담아둔다.
+	    		me.arrTmpRchId.push(rchId);
+	    	}
+	    	else{
+	    		me.isSearching = false;  // 검색 실행 플래그 - 끝
+	    		me.arrTmpRchId = [];
+	    		option = "stopSearch";
+	    	}
+	    	
+	    	return option;
+    	}
+    },
+    
+    // 이벤트 발생 시 리치라인 조회.
+    searchLineWithEvent: function(drawEvt, option, startEnd){
+    	
+    	var me = this;
+    	
+    	me.isSearching = true; // 검색 실행 플래그 - 검색중
+    	
+    	require([
+    	         "esri/tasks/query",
+    	         "esri/tasks/QueryTask",
+    	         "esri/geometry/Point",
+    	         "esri/geometry/Extent"
+    	], function(Query, QueryTask, Point, Extent){
+    		
+			var queryTaskLine = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
+			var queryLine = new Query();
+			queryLine.returnGeometry = true;
+			queryLine.outFields = ["*"];
+			queryLine.geometry = drawEvt; // point로 조회
+			
+			// 이벤트가 포인트일때 픽셀 버퍼를 준다.
+			if(drawEvt.type == "point"){
+            	var centerPoint = new Point(drawEvt.x, drawEvt.y, drawEvt.spatialReference);
+            	var mapWidth = me.map.extent.getWidth();
+            	var pixelWidth = mapWidth/me.map.width;
+            	var tolerance = 10 * pixelWidth;
+            	var queryExtent = new Extent(1, 1, tolerance, tolerance, drawEvt.spatialReference);
+            	queryLine.geometry = queryExtent.centerAt(centerPoint);
+        	}
+			
+			queryTaskLine.execute(queryLine, function(featureSet){
+				
+				if(featureSet.features.length > 0){
+					me.execLineDraw(featureSet, option, startEnd);
+				}
+				else{
+					// 이벤트에 라인이 포함되지 않았으면 집수구역 조회
+					me.searchAreaWithEvent(drawEvt); // 이벤트로 집수구역 그리기
+				}
+			});
+    	});
+    },
+    
+    // 조건으로 리치라인 조회.
+    searchLineWithWhere: function(searchWhere, option, startEnd){
+    	
+    	var me = this;
+    	
+    	require([
+    	         "esri/tasks/query",
+    	         "esri/tasks/QueryTask",
+    	         "esri/geometry/Point",
+    	         "esri/geometry/Extent"
+    	], function(Query, QueryTask, Point, Extent){
+    		
+			var queryTaskLine = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
+			var queryLine = new Query();
+			queryLine.returnGeometry = true;
+			queryLine.outFields = ["*"];
+			queryLine.where = searchWhere; // 조건으로 조회
+			
+			queryTaskLine.execute(queryLine, function(featureSet){
+				
+				me.execLineDraw(featureSet, option, startEnd);
+			});
+    	});
+						
+    },
+    
+    // 라인 조회 및 그리기 실행
+    execLineDraw: function(featureSet, option, startEnd){
+    	
+    	if(featureSet.features.length > 0){
+			
+			for(var i = 0; i < featureSet.features.length; i++){
+				
+				var lineFeature = featureSet.features[i];
+				var RCH_ID = lineFeature.attributes.RCH_ID;
+				RCH_ID = RCH_ID.replace(/ /gi, ""); // 공백 제거
+				
+				if(RCH_ID != ""){
+					
+					if(startEnd == "start"){
+						me.startRchId = RCH_ID;
+					}
+					
+					if(startEnd == "end"){
+						me.endRchId = RCH_ID;
+					}
+					
+					// checkSearchRchId 함수 내부에서 option이 변경될 수 있으므로 아래 if문 바깥에서 체크하자..
+					if(option == "downSearch"){
+						// 리치아이디 체크해서 기 검색된 아이디가 있으면 stopSearch리턴
+						option = me.checkSearchRchId(RCH_ID, option);
+					}
+					
+					if(option == "downSearch"){
+						
+						var LD_RCH_ID = lineFeature.attributes.LD_RCH_ID;
+						LD_RCH_ID = LD_RCH_ID.replace(/ /gi, ""); // 공백 제거
+						var RD_RCH_ID = lineFeature.attributes.RD_RCH_ID;
+						RD_RCH_ID = RD_RCH_ID.replace(/ /gi, ""); // 공백 제거
+						
+						// 리치 그리기
+						lineFeature.setSymbol(me.downLineSymbol);
+						me.addGraphics(lineFeature, "lineGrpLayer");
+						
+						// 하류 좌측 유출 리치 조회
+						if(LD_RCH_ID != ""){
+							//Ext.defer(function(){
+								var lWhere = "RCH_ID = '" + LD_RCH_ID + "'";
+								console.info("lWhere: " + lWhere);
+								me.searchLineWithWhere(lWhere, option, "");
+							//}, 100, this);
+						}
+						
+						if(RD_RCH_ID != ""){
+							// 하류 우측 유출 리치 조회
+							//Ext.defer(function(){
+								var rWhere = "RCH_ID = '" + RD_RCH_ID + "'";
+								console.info("rWhere: " + rWhere);
+								me.searchLineWithWhere(rWhere, option, "");
+							//}, 100, this);
+						}
+					}
+					else if(option == "stopSearch"){
+						
+						me.isSearching = false;  // 검색 실행 플래그 - 끝
+						
+						//console.info("");
+						
+						// 리치 그리기
+						lineFeature.setSymbol(me.downLineSymbol);
+						me.addGraphics(lineFeature, "lineGrpLayer");
+						
+						me.isDrawing = true; // 그리기 실행 플래그 - 시작
+						
+						var LU_RCH_ID = lineFeature.attributes.LU_RCH_ID;
+						LU_RCH_ID = LU_RCH_ID.replace(/ /gi, ""); // 공백 제거
+						var RU_RCH_ID = lineFeature.attributes.RU_RCH_ID;
+						RU_RCH_ID = RU_RCH_ID.replace(/ /gi, ""); // 공백 제거
+						
+						// 상류 좌측 유출 리치 검색
+						if(LU_RCH_ID != "" && LU_RCH_ID != RCH_ID){
+								var lWhere = "RCH_ID = '" + LU_RCH_ID + "'";
+								console.info("lWhere: " + lWhere);
+								me.searchLineWithWhere(lWhere, "upDraw", "");
+						}
+						
+						// 상류 우측 유출 리치 검색
+						if(RU_RCH_ID != "" && RU_RCH_ID != RCH_ID){
+							var rWhere = "RCH_ID = '" + RU_RCH_ID + "'";
+							console.info("rWhere: " + rWhere);
+							me.searchLineWithWhere(rWhere, "upDraw", "");
+						}
+					}
+					else if(option == "upDraw"){
+						
+						// 리치 그리기
+						//lineFeature.setSymbol(me.selLineSymbol);
+						//me.addGraphics(lineFeature, "lineGrpLayer");
+						
+						if(RCH_ID != me.startRchId && RCH_ID != me.endRchId){
+							
+							var LU_RCH_ID = lineFeature.attributes.LU_RCH_ID;
+							LU_RCH_ID = LU_RCH_ID.replace(/ /gi, ""); // 공백 제거
+							var RU_RCH_ID = lineFeature.attributes.RU_RCH_ID;
+							RU_RCH_ID = RU_RCH_ID.replace(/ /gi, ""); // 공백 제거
+							
+							// 상류 좌측 유출 리치 검색
+							if(LU_RCH_ID != "" && LU_RCH_ID != RCH_ID){
+								var lWhere = "RCH_ID = '" + LU_RCH_ID + "'";
+								console.info("lWhere: " + lWhere);
+								me.searchLineWithWhere(lWhere, "upDraw", "");
+							}
+							
+							// 상류 우측 유출 리치 검색
+							if(RU_RCH_ID != "" && RU_RCH_ID != RCH_ID){
+								var rWhere = "RCH_ID = '" + RU_RCH_ID + "'";
+								console.info("rWhere: " + rWhere);
+								me.searchLineWithWhere(rWhere, "upDraw", "");
+							}
+							
+							//var catId = lineFeature.attributes.CAT_ID;
+							//me.drawAreaWithCatId(catId);
+						}
+					}
+				}
+			}
+		}
+		else{
+			
+			//console.info("해당 조건의 리치라인이 없습니다. 조건 : " + searchWhere);
+		}
+    },
+    
+    // 이벤트 발생 시 집수구역 조회.
+    searchAreaWithEvent: function(drawEvt){
+    	
+    },
+    
+    // 집수구역 아이디(CAT_ID)로 집수구역 조회.
+    searchAreaWithCatId: function(catId){
+    	
+    },
+    
     // 심볼그리기
     drawSymbol: function(option, evt){
     	var me = this;
@@ -311,6 +555,12 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 	    		queryArea.returnGeometry = true;
 	    		queryArea.outFields = ["*"];
 	    		queryArea.geometry = stLastGrp.geometry; // start point로 조회
+	    		
+	    		// khLee Test
+	    		me.searchLineWithEvent(stLastGrp.geometry, "downSearch", "start"); // 리치라인 그리기
+	    		me.searchLineWithEvent(edLastGrp.geometry, "downSearch", "end"); // 리치라인 그리기
+	        	return;
+	        	
 				//console.info(stLastGrp);
 	    		// 시작위치 집수구역 조회
 				queryTaskArea.execute(queryArea, function(featureSet){
@@ -623,6 +873,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    	var val = lineFeature.attributes.RCH_ID;
 				    	var idx = me.getGrpArrIdx(i, "RCH_ID", val, me.arrLineGrp);
 				    	
+				    	/*
 				    	var OBJECTID = lineFeature.attributes.OBJECTID;
 				    	console.info("OBJECTID: " + OBJECTID);
 				    	var Shape  = lineFeature.attributes.Shape ;
@@ -705,6 +956,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    	console.info("하류 우측 유출 리치 분할코드: " + RD_RCH_DID);
 				    	var CAT_DID  = lineFeature.attributes.CAT_DID ;
 				    	console.info("집수구역 분할코드: " + CAT_DID);
+				    	*/
 				    	
 				    	if(idx == -1){
 				    		me.addGraphics(lineFeature, "lineGrpLayer"); // 라인 그래픽 그리기
@@ -766,13 +1018,13 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 	        	me.map.addLayer(gLayer);
 	        	eval("me." + layerId + " = gLayer");
     		}
-    	
+    		//console.info(graphic);
     		if(graphic){
     			
     			gLayer.add(graphic);
     			
 				if(me.arrAreaGrp.length > 0){
-				
+				//console.info("dd");
 	    			// 지점 목록 창 띄우기
 	        		Ext.ShowSiteListWindow("selectReach");
 	        		// 검색결과 창 띄우기

@@ -31,6 +31,10 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
             }
         },
         afterrender: function(){
+        	
+        	//self.favoriteInfo = [];
+        	//localStorage['_waterFavoriteInfo_'] = [];
+        	
         	Date.prototype.yyyymmdd = function() {
     		   var yyyy = this.getFullYear().toString();
     		   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -39,16 +43,21 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
     		};
         	this.coreMap = GetCoreMap();
         	this.gridStore = this.down('gridpanel').getStore();
+        	
         	if(localStorage['_waterFavoriteInfo_']){
         		this.favoriteInfo = JSON.parse(localStorage['_waterFavoriteInfo_']);
+        		
         		for(var i=0; i<this.favoriteInfo.length; i++){
         			var obj = this.favoriteInfo[i];
         			delete obj.id;
         		}
+        		//console.info(this.favoriteInfo);
         		this.gridStore.loadData(this.favoriteInfo);
         	}else{
         		localStorage['_waterFavoriteInfo_'] = JSON.stringify([]);
+        		//localStorage['_waterFavoriteInfo_'] = [];
         		this.favoriteInfo = JSON.parse(localStorage['_waterFavoriteInfo_']);
+        		//this.favoriteInfo = localStorage['_waterFavoriteInfo_'];
         	}
         	require(["dojox/uuid/generateRandomUuid"], function() {});
         }
@@ -57,8 +66,10 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
     cloneGraphicArr:function(arr){
     	var cArr = [];
     	for(var i=0; i<arr.length; i++){
-    		console.info(arr[i]);
-    		cArr.push(JSON.stringify(arr[i].toJson()));
+    		cArr.push(JSON.stringify(arr[i]));
+    		//console.info(arr[i]);
+    		//cArr.push(arr[i]);
+    		//console.info(cArr);
     	}
     	return cArr;
     },
@@ -111,34 +122,46 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								var date = new Date();
 								
 								var reachLineGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3.reachLineGraphics){
-									var reachLineGraphicArr = self.coreMap.reachLayerAdmin_v3.reachLineGraphics.graphics;
+								if(self.coreMap.reachLayerAdmin_v3.lineGrpLayer){
+									var reachLineGraphicArr = self.coreMap.reachLayerAdmin_v3.lineGrpLayer.graphics;
 									for(var i=0; i<reachLineGraphicArr.length; i++){
 										reachLineGArr.push(JSON.stringify(reachLineGraphicArr[i].toJson()));
 									}
 								}
 								
 								var reachAreaGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3.reachAreaGraphics){
-									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin_v3.reachAreaGraphics.graphics;
+								if(self.coreMap.reachLayerAdmin_v3.areaGrpLayer){
+									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin_v3.areaGrpLayer.graphics;
 									for(var i=0; i<reachAreaGraphicArr.length; i++){
 										reachAreaGArr.push(JSON.stringify(reachAreaGraphicArr[i].toJson()));
+									}
+								}
+								
+								var pointGArr = [];
+								if(self.coreMap.reachLayerAdmin_v3.pointGrpLayer){
+									var pointGraphicArr = self.coreMap.reachLayerAdmin_v3.pointGrpLayer.graphics;
+									for(var i=0; i<pointGraphicArr.length; i++){
+										pointGArr.push(JSON.stringify(pointGraphicArr[i].toJson()));
 									}
 								}
 								
 								var yyyymmdd = date.yyyymmdd();
 								
 								var saveObj = {UID:dojo.dojox.uuid.generateRandomUuid(), NAME:val, DATE:yyyymmdd, EXTENT:extent.toJson(), LEVEL:level,
-										reachLineGArr:reachLineGArr, reachAreaGArr:reachAreaGArr,
-										upRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.arrStartGrp),
-										downRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.arrEndGrp),
-										selRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.arrLineGrp),
-										startRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.arrAreaGrp)};
+										reachLineGArr:reachLineGArr, reachAreaGArr:reachAreaGArr, pointGArr:pointGArr};
 								
+								//self.favoriteInfo = [];
 								self.favoriteInfo.push(saveObj);
+								console.info(self.favoriteInfo);
+								//console.info(self.favoriteInfo);
 								localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
+								//localStorage['_waterFavoriteInfo_'] = self.favoriteInfo;
+								//console.info(localStorage['_waterFavoriteInfo_']);
+								
+								/*
 								var info = JSON.stringify(self.favoriteInfo);
 								
+								alert("c");
 								//1. data params로 넘어가지 않는 문제.
 								//2. 넘어갈 시 clob 타입에 단순 횡으로 입력시 4000byte.
 								Ext.Ajax.request({
@@ -153,6 +176,8 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 									},
 									params:{info:info}
 								});
+								*/
+								
 								self.gridStore.loadData(self.favoriteInfo);
 							}
 						}
@@ -209,6 +234,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 									}
 									self.favoriteInfo = gridData;
 									localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
+									//localStorage['_waterFavoriteInfo_'] = self.favoriteInfo;
 									self.gridStore.loadData(self.favoriteInfo);
 								}
 							}
