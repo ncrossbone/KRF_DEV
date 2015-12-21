@@ -498,6 +498,14 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				var yPx = yLen / resolution / 2 - popHeight;
 				yPx = yPx - (979 - Ext.getBody().getHeight()) / 2;
 				
+				console.info("xLen::"+xLen);
+				console.info("yLen::"+yLen);
+				console.info("resolution:::"+resolution)
+				
+				console.info(xLen);
+				console.info(yLen);
+				console.info(xPx);
+				console.info(yPx);
 				var westContainer = Ext.getCmp("west_container");
 				if(westContainer.collapsed != false){
 					xPx = xPx - 300;
