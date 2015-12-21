@@ -621,7 +621,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     },
     
     // 집수구역 선택
-    setSelectedCatAreaHandler: function(layerId, catId){
+    setSelectedCatAreaHandler: function(layerId, catDId){
     	var me = this;
     	
     	// 집수구역 심볼 설정
@@ -637,14 +637,14 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
 		
-		query.where =  "CAT_ID='" + catId + "'";
+		query.where =  "CAT_DID='" + catDId + "'";
 		
 		queryTask.execute(query,  function(results){
 			
 			Ext.each(results.features, function(obj, index) {
 				
 				me.moveCatGraphicLayer.clear();
-				me.moveCatGraphicLayer.id = "moveCatGraphicLayer" + catId;
+				me.moveCatGraphicLayer.id = "moveCatGraphicLayer" + catDId;
 				
 				if(me.map.getLevel() < 12)
 					me.map.setLevel(12);
@@ -666,7 +666,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     },
     
     // 리치라인 선택
-    setSelectedRchLineHandler: function(layerId, catId){
+    setSelectedRchLineHandler: function(layerId, catDId){
     	var me = this;
     	
     	// 집수구역 심볼 설정
@@ -682,7 +682,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
 		
-		query.where =  "CAT_ID='" + catId + "'";
+		query.where =  "CAT_DID='" + catDId + "'";
 		
 		queryTask.execute(query,  function(results){
 			
@@ -690,7 +690,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			
 			Ext.each(results.features, function(obj, index) {
 				
-				me.moveRchGraphicLayer.id = "moveRchGraphicLayer" + catId;
+				me.moveRchGraphicLayer.id = "moveRchGraphicLayer" + catDId;
 				
 				if(me.map.getLevel() < 12)
 					me.map.setLevel(12);

@@ -204,6 +204,9 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			//if(btn.btnOnOff == "off")
 				//SetBtnOnOff("btnModeNormal_center");
 			
+			// 리치 선택 종료
+			//GetCoreMap().reachLayerAdmin.drawEnd();
+			GetCoreMap().reachLayerAdmin_v3.drawEnd();
 			
 			//일반모드 선택시 수계찾기로 이동
 			var westContents = Ext.getCmp("searchAreaContents");

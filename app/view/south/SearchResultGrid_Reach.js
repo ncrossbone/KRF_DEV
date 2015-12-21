@@ -43,15 +43,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 			
 			columns: [{
 				text      : '리치ID',
-				dataIndex : 'RCH_ID',
+				dataIndex : 'RCH_DID',
 				width: 100,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						//console.info(row);
-						var catId = row.record.data.CAT_ID;
+						var catDId = row.record.data.CAT_DID;
 						
-						siteMovePoint("Cat", catId);
+						siteMovePoint("Cat", catDId);
 					}
 				},
 				renderer: function(val, a, b, rowIdx, colIdx){
@@ -73,7 +73,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				}
 			}, {
 				text      : '집수구역ID',
-				dataIndex : 'CAT_ID',
+				dataIndex : 'CAT_DID',
 				width: 150,
 				filter: {type: 'numeric'}
 			}, { 

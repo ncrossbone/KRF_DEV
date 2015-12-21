@@ -120,7 +120,7 @@ ReachLayerOnOff = function(btnId, layerId){
 					query.returnGeometry = true;
 					query.outFields = ["*"];
 					
-					query.where = "CAT_ID IN (" + catIds + ")";
+					query.where = "CAT_DID IN (" + catIds + ")";
 					queryTask.execute(query, AreaLayerDraw);
 				});
 			}
@@ -167,7 +167,7 @@ AreaLayerDraw = function(featureSet){
     	var selectQuery = new Query();
     	
     	for(var i = 0; i < featureSet.features.length; i++){
-        	selectQuery.where = "CAT_ID = '" + featureSet.features[i].attributes.CAT_ID + "'";
+        	selectQuery.where = "CAT_DID = '" + featureSet.features[i].attributes.CAT_ID + "'";
         	me.reachLayerAdmin.reachArealayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_ADD); // 집수구역 셀렉트
     	}
 	});
@@ -179,7 +179,7 @@ ReachInfoBinding = function(objs){
 	if(objs == undefined || objs[0] == undefined)
 		return;
 	
-	var RCH_ID = objs[0].attributes.RCH_ID; // 리치코드
+	var RCH_DID = objs[0].attributes.RCH_DID; // 리치코드
 	var RIV_ID = objs[0].attributes.RIV_ID; // 하천코드
 	var RIV_NM = objs[0].attributes.RIV_NM; // 하천명
 	var SB_ID = objs[0].attributes.SB_ID; // 표준유역코드
@@ -197,7 +197,7 @@ ReachInfoBinding = function(objs){
 	// 리치 정보창 띄우기
 	var reachInfoCtl = ShowReachInfoWindow();
 	
-	if(Ext.getCmp("RCH_ID") != undefined) { Ext.getCmp("RCH_ID").setHtml(RCH_ID) };
+	if(Ext.getCmp("RCH_DID") != undefined) { Ext.getCmp("RCH_DID").setHtml(RCH_DID) };
 	if(Ext.getCmp("RIV_ID") != undefined) { Ext.getCmp("RIV_ID").setHtml(RIV_ID) };
 	if(Ext.getCmp("RIV_NM") != undefined) { Ext.getCmp("RIV_NM").setHtml(RIV_NM) };
 	if(Ext.getCmp("SB_ID") != undefined) { Ext.getCmp("SB_ID").setHtml(SB_ID) };
@@ -1007,10 +1007,10 @@ ShowSearchResultReach = function(catIds){
     	var tmpGraphics = rchMap.reachLayerAdmin_v3.arrLineGrp;
     	for(var i = 0; i < tmpGraphics.length; i++){
     		var rowData = [];
-    		rowData.push(tmpGraphics[i].grp.attributes.RCH_ID);
-    		rowData.push(tmpGraphics[i].grp.attributes.RCH_LEN);
-    		sumRchLen += tmpGraphics[i].grp.attributes.RCH_LEN;
-    		rowData.push(tmpGraphics[i].grp.attributes.CAT_ID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_DID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].attributes.CAT_DID);
 //    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
 //    		if(catIdx != -1){
 //	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
@@ -1022,11 +1022,11 @@ ShowSearchResultReach = function(catIds){
 //    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
 //    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
     		//console.info(tmpGraphics[i].grp.attributes.CUM_AREA);
-    		rowData.push(tmpGraphics[i].grp.attributes.CUM_AREA);
-    		sumCatArea += tmpGraphics[i].grp.attributes.CUM_AREA;
-    		rowData.push(tmpGraphics[i].grp.attributes.RIV_NM);
-    		rowData.push(tmpGraphics[i].grp.attributes.CUM_LEN);
-    		var geoTrib = tmpGraphics[i].grp.attributes.GEO_TRIB;
+    		rowData.push(tmpGraphics[i].attributes.CUM_AREA);
+    		sumCatArea += tmpGraphics[i].attributes.CUM_AREA;
+    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
     		if(geoTrib == "0")
     			rowData.push("본류");
     		else{
@@ -1146,9 +1146,9 @@ ShowSearchResultReach = function(catIds){
 		storeData.splice(0, 0, rowData);
     	
     	var store = new Ext.data.ArrayStore({
-    		fields: [{name: 'RCH_ID', type: 'string'},
+    		fields: [{name: 'RCH_DID', type: 'string'},
     		         {name: 'RCH_LEN', type: 'float'},
-    		         {name: 'CAT_ID', type: 'string'},
+    		         {name: 'CAT_DID', type: 'string'},
 //    		         {name: 'CAT_AREA', type: 'float'},
     		         {name: 'CUM_AREA', type: 'float'},
     		         {name: 'RIV_NM', type: 'string'},
@@ -1170,7 +1170,7 @@ ShowSearchResultReach = function(catIds){
 			catIds = "'" + catIds + "'";
 		}
 		
-		query.where = "CAT_ID IN (" + catIds + ")";
+		query.where = "CAT_DID IN (" + catIds + ")";
 		
 		query.outFields = ["*"];
 		console.info(query.where);
@@ -1183,10 +1183,10 @@ ShowSearchResultReach = function(catIds){
 					//var retVal = GetCatArea(objLayer.features[i].attributes.CAT_ID);
 					//console.info(retVal);
 					//console.info("after");
-					rowData.push(objLayer.features[i].attributes.RCH_ID);
+					rowData.push(objLayer.features[i].attributes.RCH_DID);
 		    		rowData.push(objLayer.features[i].attributes.RCH_LEN);
 		    		sumRchLen += objLayer.features[i].attributes.RCH_LEN;
-		    		rowData.push(objLayer.features[i].attributes.CAT_ID);
+		    		rowData.push(objLayer.features[i].attributes.CAT_DID);
 		    		//rowData.push(objLayer.features[i].attributes.CAT_AREA);
 		    		//sumCatArea += objLayer.features[i].attributes.CAT_AREA;
 		    		rowData.push(objLayer.features[i].attributes.CUM_AREA);
@@ -1215,9 +1215,9 @@ ShowSearchResultReach = function(catIds){
 				storeData.splice(0, 0, rowData);
 				
 				var store = new Ext.data.ArrayStore({
-	        		fields: [{name: 'RCH_ID', type: 'string'},
+	        		fields: [{name: 'RCH_DID', type: 'string'},
 	        		         {name: 'RCH_LEN', type: 'float'},
-	        		         {name: 'CAT_ID', type: 'string'},
+	        		         {name: 'CAT_DID', type: 'string'},
 	        		         //{name: 'CAT_AREA', type: 'float'},
 	        		         {name: 'CUM_AREA', type: 'float'},
 	        		         {name: 'RIV_NM', type: 'string'},
@@ -1233,13 +1233,13 @@ ShowSearchResultReach = function(catIds){
 	
 }
 
-GetCatArea = function(catId){
+GetCatArea = function(catDId){
 	
 	var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 레이어 URL
 	var query = new esri.tasks.Query();
 	query.returnGeometry = false;
 	
-	query.where = "CAT_ID IN '" + catId + "'";
+	query.where = "CAT_DID IN '" + catDId + "'";
 	
 	var test = "";
 	
@@ -1429,6 +1429,7 @@ OpenMenualPop = function(){
 ResetButtonClick = function(){
 	
 	var me = GetCoreMap();
+	
 	// 리치 선택 종료
 	//me.reachLayerAdmin.drawEnd();
 	me.reachLayerAdmin_v3.drawEnd();
@@ -1522,6 +1523,11 @@ setTooltipPoint = function(extent, obj){
 				
 				var popX = popCtl.getX();
 				var popY = popCtl.getY();
+				
+				//console.info(Ext.getCmp("west_container").collapsed);
+				if(Ext.getCmp("west_container").collapsed != false){
+					xOffset = xOffset - 300;
+				}
 				
 				//console.info(popX);
 				//console.info(popY);
