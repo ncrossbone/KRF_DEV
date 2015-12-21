@@ -1019,9 +1019,6 @@ ShowSearchResultReach = function(catIds){
 //    		else{
 //    			rowData.push(0);
 //    		}
-//    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
-//    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
-    		//console.info(tmpGraphics[i].grp.attributes.CUM_AREA);
     		rowData.push(tmpGraphics[i].attributes.CUM_AREA);
     		sumCatArea += tmpGraphics[i].attributes.CUM_AREA;
     		rowData.push(tmpGraphics[i].attributes.RIV_NM);

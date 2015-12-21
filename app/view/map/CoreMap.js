@@ -197,6 +197,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
+				/*
 				if(me.reachLayerAdmin_v3.pointGrpLayer){
 					me.reachLayerAdmin_v3.pointGrpLayer.clear();
 					for(var i=0; i<pointGArr.length; i++){
@@ -204,6 +205,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
+				*/
 				/*
 				me.reachLayerAdmin_v3.upRchGraphics = [];
 				me.reachLayerAdmin_v3.downRchGraphics = [];
@@ -228,7 +230,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 				*/
 				//console.info(me.reachLayerAdmin.selAreaGraphics);
 				// 지점 목록 창 띄우기
-        		Ext.ShowSiteListWindow("selectReach");
+        		//Ext.ShowSiteListWindow("selectReach");
         		
         		// 검색결과 창 띄우기
         		//ShowSearchResultReach("");
