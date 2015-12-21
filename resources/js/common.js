@@ -1002,8 +1002,8 @@ ShowSearchResultReach = function(catIds){
 //    		else{
 //    			rowData.push(0);
 //    		}
-    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
-    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
+    		rowData.push(tmpGraphics[i].grp.attributes.CUM_AREA);
+    		sumCatArea += tmpGraphics[i].grp.attributes.CUM_AREA;
     		rowData.push(tmpGraphics[i].grp.attributes.RIV_NM);
     		rowData.push(tmpGraphics[i].grp.attributes.CUM_LEN);
     		var geoTrib = tmpGraphics[i].grp.attributes.GEO_TRIB;
