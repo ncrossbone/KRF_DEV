@@ -486,7 +486,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				var curLevel = coreMap.map.getLevel();
 				var resolution = coreMap.tileInfo.lods[curLevel].resolution;
-				var popWidth = 360;
+				var popWidth = 370;
 				var popHeight = 215;
 				var extent = coreMap.map.extent;
 				

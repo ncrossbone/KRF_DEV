@@ -206,7 +206,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							jsonStr += "{\n";
 							jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
 							jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
-							jsonStr += "		\"catDId\": \"" + result.features[i].attributes.CAT_DID + "\",\n";
+							jsonStr += "		\"catDId\": \"" + result.features[i].attributes.CAT_ID + "\",\n";
 							jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
 							jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
 							jsonStr += "		\"leaf\": true,\n";
