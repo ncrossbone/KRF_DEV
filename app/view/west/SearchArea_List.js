@@ -7,9 +7,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_List', {
 	
 	xtype: 'west-searchArea-list',
 	id: 'searchAreaList',
-	
 	width: 300,
-	
+	cls: 'dj-searchAreaList',   //검색결과 body 부분에 css를 먹임
+	autoScroll: true,
 	layout: {
 		type: 'accordion'
 	}

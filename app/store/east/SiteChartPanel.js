@@ -106,6 +106,9 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			}
 			
 			// 로딩바 표시
+			
+			Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
+			Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
 			Ext.getCmp("siteCharttest").mask("loading", "loading...");
 			console.info(requestUrl);
 			Ext.Ajax.request({
@@ -147,7 +150,11 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 	        			Ext.getCmp("siteCharttest").unmask();
         			}
         			else{
-	        			Ext.getCmp("siteCharttest").mask("데이터가 존재하지 않습니다.", "noData");
+        				//Ext.getCmp("siteCharttest").removeCls("dj-mask-withimg");
+        				Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
+        				console.info(Ext.getCmp("siteCharttest").cls);
+	        			Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        			console.info(Ext.getCmp("siteCharttest"));
         			}
         			
         		},

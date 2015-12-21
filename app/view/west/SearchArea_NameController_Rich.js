@@ -18,8 +18,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 	
 	onTextSearch: function(button, eOpts){
 		
-		console.info(button.id);
-		console.info(eOpts);
 		var textSearchText_Start = Ext.getCmp("textSearchText_Start");
 		var textSearchText_End = Ext.getCmp("textSearchText_End");
 		
@@ -38,7 +36,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		query.outFields = ["*"];
 		queryTask.execute(query, function(result){
 			Ext.each(result, function(objLayer, idx, objLayers){
-				console.info(result);
+				
 				
 				var guBunNm = "";
 				
@@ -49,6 +47,8 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 				
 				 //var itemCnt = 0;
 				var layerCnt = 0;
+				
+				var saveCnt = [];
 				
 				var listCtl_Total = Ext.getCmp("searchAreaList_Total");
 				listCtl_Total.doLayout();
@@ -128,26 +128,25 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 							listCtl.addCls('dj_accordion');
 							listCtl.add({
 								xtype : 'panel',
+								autoScroll: true,
 								layout : {
 									type : 'vbox'
 								},
 								cls: 'dj_layer_nm',
-								title :  '&nbsp;' + result.features[i].attributes.LAYER_NM +'&nbsp; (' + layerCnt +')' ,
+								title :  '&nbsp;' + result.features[i].attributes.LAYER_NM +'&nbsp; (Count)' ,
 								layerCd : layerCode,
 								iconCls: 'layerIconSize '+layerId+''
 							});
 							
-
-							
-							
+							console.info(layerCnt);
+							saveCnt += "_"+layerCnt;
 							guBunNm = result.features[i].attributes.LAYER_NM;
-							//itemCnt++;
 							layerCnt = 0;
 							
 							
+						}else if(i == result.features.length-1 ){//마지막 카운트 구하기
+							saveCnt += "_"+(layerCnt+1);
 						}
-						//console.info(result.features[i].attributes);
-						
 						
 						//console.info(listCtl.);
 						var lstLength = listCtl.items.items.length;
@@ -182,6 +181,17 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 				listCtl.doLayout();
 				listCtl_Total.doLayout();
 				
+				var layerCount = [];
+				layerCount = saveCnt.split("_");
+				
+				//console.info(listCtl.items.items[0].title);
+				
+				for(Cnt = 0 ; Cnt < listCtl.items.items.length ; Cnt++){
+					
+					listCtl.items.items[Cnt].setTitle(listCtl.items.items[Cnt].title.replace("Count",layerCount[Cnt+2]));
+					
+				}
+				
 				//검색후 가장 처음값으로 이동
 				siteMovePoint(result.features[0].attributes.LAYER_CODE,result.features[0].attributes.JIJUM_CODE, 'addrLink');
 		
@@ -192,7 +202,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		
 		var btnCtl = null;
 		var btn = Ext.getCmp("btnSearchText_Start");
-		console.info(btn);
 		var searchAreaContents_1 = Ext.getCmp("searchAreaContents_1");
 		
 		//var richSearch = Ext.create('KRF_DEV.store.east.SiteListWindow');

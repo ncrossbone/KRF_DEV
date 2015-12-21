@@ -4,19 +4,19 @@
 Ext.define('KRF_DEV.view.west.SearchArea', {
 	
 	extend: 'Ext.panel.Panel',
-	
+
 	xtype: 'west-searchArea',
+
+	
 	
 	title: '위치 검색',
-	
 	layout: {
 		type: 'vbox',
 		align: 'stretch'
 	},
-	
+
 	items: [{
 		xtype: 'container',
-		autoScroll: true,
 		layout: {
 			type: 'fit',
 			align: 'center'

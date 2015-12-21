@@ -24,11 +24,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         {name: 'CURR_PH', type: 'number'},
         'CHART_PH',
         {name: 'CURR_SS', type: 'number'},
+        'CURR_SS_NEW',
         'CHART_SS',
         {name: 'CURR_CLOA', type: 'number'},
         'CHART_CLOA',
         {name: 'CURR_TOC', type: 'number'},
-        'CHART_TOC',
         'CHART_TOC',
         'CHART_AMNT',
         'CHART_DTN',
@@ -68,6 +68,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         'CHART_OP',
         'CHART_PCB',
         'CHART_DEHP',
+        'CHART_DIOX',
         'CHART_HCHO',
         'CHART_HCB',
         {name:'CURR_AMNT',type:'number'},
@@ -108,6 +109,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         {name:'CURR_OP',type:'number'},
         {name:'CURR_PCB',type:'number'},
         {name:'CURR_DEHP',type:'number'},
+        {name:'CURR_DIOX',type:'number'},
         {name:'CURR_HCHO',type:'number'},
         {name:'CURR_HCB',type:'number'}
     ],
@@ -209,6 +211,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         					jsonData.data[cnt].CHART_DCETH.splice(0, jsonData.data[cnt].CHART_DCETH.length - 5);
         					jsonData.data[cnt].CHART_DCM.splice(0, jsonData.data[cnt].CHART_DCM.length - 5);
         					jsonData.data[cnt].CHART_DEHP.splice(0, jsonData.data[cnt].CHART_DEHP.length - 5);
+        					jsonData.data[cnt].CHART_DIOX.splice(0, jsonData.data[cnt].CHART_DIOX.length - 5);
         					jsonData.data[cnt].CHART_DO.splice(0, jsonData.data[cnt].CHART_DO.length - 5);
         					jsonData.data[cnt].CHART_DTN.splice(0, jsonData.data[cnt].CHART_DTN.length - 5);
         					jsonData.data[cnt].CHART_DTP.splice(0, jsonData.data[cnt].CHART_DTP.length - 5);

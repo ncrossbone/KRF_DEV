@@ -110,16 +110,16 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 								var date = new Date();
 								
 								var reachLineGArr = [];
-								if(self.coreMap.reachLayerAdmin.reachLineGraphics){
-									var reachLineGraphicArr = self.coreMap.reachLayerAdmin.reachLineGraphics.graphics;
+								if(self.coreMap.reachLayerAdmin_v3.reachLineGraphics){
+									var reachLineGraphicArr = self.coreMap.reachLayerAdmin_v3.reachLineGraphics.graphics;
 									for(var i=0; i<reachLineGraphicArr.length; i++){
 										reachLineGArr.push(JSON.stringify(reachLineGraphicArr[i].toJson()));
 									}
 								}
 								
 								var reachAreaGArr = [];
-								if(self.coreMap.reachLayerAdmin.reachAreaGraphics){
-									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin.reachAreaGraphics.graphics;
+								if(self.coreMap.reachLayerAdmin_v3.reachAreaGraphics){
+									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin_v3.reachAreaGraphics.graphics;
 									for(var i=0; i<reachAreaGraphicArr.length; i++){
 										reachAreaGArr.push(JSON.stringify(reachAreaGraphicArr[i].toJson()));
 									}
@@ -129,14 +129,30 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 								
 								var saveObj = {UID:dojo.dojox.uuid.generateRandomUuid(), NAME:val, DATE:yyyymmdd, EXTENT:extent.toJson(), LEVEL:level,
 										reachLineGArr:reachLineGArr, reachAreaGArr:reachAreaGArr,
-										upRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin.upRchGraphics),
-										downRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin.downRchGraphics),
-										selRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin.selRchGraphics),
-										startRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin.startRchGraphics),
-										selAreaGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin.selAreaGraphics)};
+										upRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.upRchGraphics),
+										downRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.downRchGraphics),
+										selRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.selRchGraphics),
+										startRchGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.startRchGraphics),
+										selAreaGraphics: self.cloneGraphicArr(self.coreMap.reachLayerAdmin_v3.selAreaGraphics)};
 								
 								self.favoriteInfo.push(saveObj);
 								localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
+								var info = JSON.stringify(self.favoriteInfo);
+								
+								//1. data params로 넘어가지 않는 문제.
+								//2. 넘어갈 시 clob 타입에 단순 횡으로 입력시 4000byte.
+								Ext.Ajax.request({
+									url : "./resources/jsp/FavoriteInfo.jsp",
+									method : "POST",
+									success : function(result, request) {
+										console.info(result.responseText);
+										Ext.Msg.alert("cc", "cc");
+									},
+									failure : function(result, request) {
+										Ext.Msg.alert("Failed", "Connection Failed");
+									},
+									params:{info:info}
+								});
 								self.gridStore.loadData(self.favoriteInfo);
 							}
 						}

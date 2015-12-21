@@ -4,6 +4,8 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	dynamicLayer1:null,
 	dynamicLayer2:null,
 	
+	featureLayer71: null,
+	
 	constructor: function(map) {
         var me = this;
         me.map = map;
@@ -24,6 +26,14 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		me.map.addLayer(me.layer);
 		*/
 		
+		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
+			opacity: 0.5
+		});
+		console.info(me.featureLayer71);
+		me.featureLayer71.setVisibility(false);
+		me.map.addLayer(me.featureLayer71);
+		//console.info(_mapServiceUrl_v3 + "/73");
+		
 		KRF_DEV.getApplication().addListener('dynamicLayerOnOff', me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
     },
     
@@ -37,9 +47,18 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     		return;
     	}
     	var layers = [];
+    	
+    	//activeLayer.setOpacity(1);
+    	
     	Ext.each(selectInfo, function(selectObj, index, eObjs) {
     		if(!isNaN(selectObj.data.id)){
-    			layers.push(selectObj.data.id);
+    			if(selectObj.data.id == 71){
+    				me.featureLayer71.setVisibility(true);
+    			}
+    			else{
+    				me.featureLayer71.setVisibility(false);
+    				layers.push(selectObj.data.id);
+    			}
     		}
 			if(index==selectInfo.length-1){
 				activeLayer.setVisibleLayers(layers);

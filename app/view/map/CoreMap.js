@@ -167,60 +167,73 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	favoriteExe:function(data){
+		console.info(data);
 		var me = this;
 		var extentJson = data.EXTENT;
 		var extent = new esri.geometry.Extent(extentJson);
 		var level = data.LEVEL;
 		var reachLineGArr = data.reachLineGArr;
 		var reachAreaGArr = data.reachAreaGArr;
+		var pointGArr = data.pointGArr;
 		
-		me.reachLayerAdmin.addLineGraphic(null);
-		me.reachLayerAdmin.addAreaGraphic(null);
+		//me.reachLayerAdmin_v3.addLineGraphic(null);
+		//me.reachLayerAdmin_v3.addAreaGraphic(null);
 		
 		var deferred = me.map.setExtent(extent, true);
 		deferred.then(function(value){
 			var deferred2 = me.map.setLevel(level);
 			deferred2.then(function(value){
-				if(me.reachLayerAdmin.reachLineGraphics){
-					me.reachLayerAdmin.reachLineGraphics.clear();
+				if(me.reachLayerAdmin_v3.lineGrpLayer){
+					me.reachLayerAdmin_v3.lineGrpLayer.clear();
 					for(var i=0; i<reachLineGArr.length; i++){
-						me.reachLayerAdmin.reachLineGraphics.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+						me.reachLayerAdmin_v3.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
-				if(me.reachLayerAdmin.reachAreaGraphics){
-					me.reachLayerAdmin.reachAreaGraphics.clear();
+				if(me.reachLayerAdmin_v3.areaGrpLayer){
+					me.reachLayerAdmin_v3.areaGrpLayer.clear();
 					for(var i=0; i<reachAreaGArr.length; i++){
-						me.reachLayerAdmin.reachAreaGraphics.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
+						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
-				me.reachLayerAdmin.upRchGraphics = [];
-				me.reachLayerAdmin.downRchGraphics = [];
-				me.reachLayerAdmin.selRchGraphics = [];
-				me.reachLayerAdmin.startRchGraphics = [];
-				me.reachLayerAdmin.selAreaGraphics = [];
+				/*
+				if(me.reachLayerAdmin_v3.pointGrpLayer){
+					me.reachLayerAdmin_v3.pointGrpLayer.clear();
+					for(var i=0; i<pointGArr.length; i++){
+						me.reachLayerAdmin_v3.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
+						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+					}
+				}
+				*/
+				/*
+				me.reachLayerAdmin_v3.upRchGraphics = [];
+				me.reachLayerAdmin_v3.downRchGraphics = [];
+				me.reachLayerAdmin_v3.selRchGraphics = [];
+				me.reachLayerAdmin_v3.startRchGraphics = [];
+				me.reachLayerAdmin_v3.selAreaGraphics = [];
 				for(var i=0; i<data.upRchGraphics.length; i++){
-					me.reachLayerAdmin.upRchGraphics.push(new esri.Graphic(JSON.parse(data.upRchGraphics[i])))
+					me.reachLayerAdmin_v3.upRchGraphics.push(new esri.Graphic(JSON.parse(data.upRchGraphics[i])))
 				}
 				for(var i=0; i<data.downRchGraphics.length; i++){
-					me.reachLayerAdmin.downRchGraphics.push(new esri.Graphic(JSON.parse(data.downRchGraphics[i])))
+					me.reachLayerAdmin_v3.downRchGraphics.push(new esri.Graphic(JSON.parse(data.downRchGraphics[i])))
 				}
 				for(var i=0; i<data.selRchGraphics.length; i++){
-					me.reachLayerAdmin.selRchGraphics.push(new esri.Graphic(JSON.parse(data.selRchGraphics[i])))
+					me.reachLayerAdmin_v3.selRchGraphics.push(new esri.Graphic(JSON.parse(data.selRchGraphics[i])))
 				}
 				for(var i=0; i<data.startRchGraphics.length; i++){
-					me.reachLayerAdmin.startRchGraphics.push(new esri.Graphic(JSON.parse(data.startRchGraphics[i])))
+					me.reachLayerAdmin_v3.startRchGraphics.push(new esri.Graphic(JSON.parse(data.startRchGraphics[i])))
 				}
 				for(var i=0; i<data.selAreaGraphics.length; i++){
-					me.reachLayerAdmin.selAreaGraphics.push(new esri.Graphic(JSON.parse(data.selAreaGraphics[i])))
+					me.reachLayerAdmin_v3.selAreaGraphics.push(new esri.Graphic(JSON.parse(data.selAreaGraphics[i])))
 				}
+				*/
 				//console.info(me.reachLayerAdmin.selAreaGraphics);
 				// 지점 목록 창 띄우기
-        		Ext.ShowSiteListWindow("selectReach");
+        		//Ext.ShowSiteListWindow("selectReach");
         		
         		// 검색결과 창 띄우기
-        		ShowSearchResultReach("");
+        		//ShowSearchResultReach("");
         		
 			},function(error2){
 			});

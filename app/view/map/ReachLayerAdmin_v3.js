@@ -18,6 +18,14 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 	arrEndGrp: [], // 끝위치 포인트 그래픽 배열
 	arrLineGrp: [], // 리치라인 그래픽 배열
 	arrAreaGrp: [], // 집수구역 그래픽 배열
+	
+	arrTmpRchDId: [], // 검색된 리치 아이디 임시 배열
+	startRchDId: "", // 시작위치 리치 아이디
+	endRchDId: "", // 끝위치 리치 아이디
+	
+	isSearching: false, // 검색 실행 중 플래그
+	isStartDrawing: false, // 시작위치 까지 그리기 플래그
+	isEndDrawing: false, // 끝위치 까지 그리기 플래그
 		
 	constructor: function(map) {
 		
@@ -63,21 +71,21 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 			    "width": 20,
 			    "height": 28
 			});
-		});
-		
-		require(["esri/layers/GraphicsLayer"], function(GraphicsLayer){
 			
-    		me.areaGrpLayer = new GraphicsLayer();
-			me.areaGrpLayer.id = "areaGrpLayer";
-			me.map.addLayer(me.areaGrpLayer);
-			
-			me.lineGrpLayer = new GraphicsLayer();
-			me.lineGrpLayer.id = "lineGrpLayer";
-			me.map.addLayer(me.lineGrpLayer);
-			
-			me.pointGrpLayer = new GraphicsLayer();
-			me.pointGrpLayer.id = "pointGrpLayer";
-			me.map.addLayer(me.pointGrpLayer);
+			require(["esri/layers/GraphicsLayer"], function(GraphicsLayer){
+				
+	    		me.areaGrpLayer = new GraphicsLayer();
+				me.areaGrpLayer.id = "areaGrpLayer";
+				me.map.addLayer(me.areaGrpLayer);
+				
+				me.lineGrpLayer = new GraphicsLayer();
+				me.lineGrpLayer.id = "lineGrpLayer";
+				me.map.addLayer(me.lineGrpLayer);
+				
+				me.pointGrpLayer = new GraphicsLayer();
+				me.pointGrpLayer.id = "pointGrpLayer";
+				me.map.addLayer(me.pointGrpLayer);
+			});
 		});
     },
     
@@ -124,6 +132,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     			
     	    	// 커서 이미지 설정
     			Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.startSymbol.url + ') 24 38,auto');
+    			//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
     			
     			bundle.toolbars.draw.addPoint = "시작위치 리치라인을 클릭하세요.";
     			me.selectionToolbar.activate(Draw.POINT);
@@ -136,6 +145,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     			
     	    	// 커서 이미지 설정
     	    	Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.endSymbol.url + ') 24 38,auto');
+    			//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
     	    	
     			bundle.toolbars.draw.addPoint = "끝위치 리치라인을 클릭하세요.";
     			me.selectionToolbar.activate(Draw.POINT);
@@ -253,6 +263,37 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	});
     },
     
+    // 조회된 리치 아이디가 배열에 존재하는지 체크
+    checkSearchRchDId: function(rchDId, option){
+    	
+    	var me = this;
+    	
+    	var idx = -1;
+    	
+    	 // 검색 실행 플래그 - 실행중
+    	if(me.isSearching == true){
+    		
+	    	for(var i = 0; i < me.arrTmpRchDId.length; i++){
+	    		
+	    		if(rchDId == me.arrTmpRchDId[i]){
+	    			idx = i;
+	    		}
+	    	}
+	    	
+	    	if(idx == -1){
+	    		// 리치아이디를 배열에 담아둔다.
+	    		me.arrTmpRchDId.push(rchDId);
+	    	}
+	    	else{
+	    		me.isSearching = false;  // 검색 실행 플래그 - 끝
+	    		me.arrTmpRchDId = [];
+	    		option = "stopSearch";
+	    	}
+	    	
+	    	return option;
+    	}
+    },
+    
     // 심볼그리기
     drawSymbol: function(option, evt){
     	var me = this;
@@ -304,6 +345,22 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	});
     },
     
+    // 심볼 다시그리기
+    reDrawSymbol: function(){
+    	
+    	var me = this;
+    	me.pointGrpLayer.clear(); // 포인트 레이어 초기화
+    	return;
+    	
+    	for(var i = 0; i < me.arrStartGrp.length; i++){
+    		me.addGraphics(me.arrStartGrp[i], "pointGrpLayer"); // 레이어에 추가
+    	}
+    	
+    	for(var i = 0; i < me.arrEndGrp.length; i++){
+    		me.addGraphics(me.arrEndGrp[i], "pointGrpLayer"); // 레이어에 추가
+    	}
+    },
+    
     // 시작위치, 끝위치 리치검색 실행
     runStartEnd: function(){
     	var me = this;
@@ -311,7 +368,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	var stLength = me.arrStartGrp.length;
     	var edLength = me.arrEndGrp.length;
     	
+    	// 포인트 갯수가 같을 때 (마지막 포인트로) 검색 실행
     	if(stLength == edLength){
+    		
 	    	var stLastGrp = me.arrStartGrp[me.arrStartGrp.length - 1];
 	    	var edLastGrp = me.arrEndGrp[me.arrEndGrp.length - 1];
 	    	
@@ -546,7 +605,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
 					        		// 위치검색 선택영역 그래픽 삭제
-					        		corMap.searchLayerAdmin.sourceGraphicLayer.clear();
+					        		GetCoreMap().searchLayerAdmin.sourceGraphicLayer.clear();
 								}
 				    		}, 1000, this);
 						}
@@ -565,7 +624,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 							if(curRchDId != ruRchDId){
 								me.upDrawLineGrp(ruRchDId, stRchDId, edRchDId);
 							}
-							console.info("ing");
 						}
 					}
 				};
@@ -584,13 +642,13 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	         "esri/tasks/QueryTask",
     	         "esri/graphic"], function(SimpleLineSymbol, Color, Query, QueryTask, Graphic){
     		
-	    	var queryTaskArea = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId); // 리치라인 URL v3
+	    	var queryTaskArea = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId); // 집수구역 URL v3
 			var queryArea = new Query();
 			queryArea.returnGeometry = true;
 			queryArea.outFields = ["*"];
 			queryArea.where = "CAT_DID = '" + catDId + "'";
 			
-			// 리치라인 검색
+			// 집수구역 검색
 			queryTaskArea.execute(queryArea, function(featureSet){
 				
 				for(var i = 0; i < featureSet.features.length; i++){
@@ -603,7 +661,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    	if(idx == -1){
 				    		areaFeature.setSymbol(me.areaSymbol); // 집수구역 심볼 설정
 							me.addGraphics(areaFeature, "areaGrpLayer"); // 그래픽 그리기
-							me.arrAreaGrp.push({seq: i, grp: areaFeature}); // 집수구역 그래픽 배열 추가
+							me.arrAreaGrp.push(areaFeature); // 집수구역 그래픽 배열 추가
 				    	}
 					}
 				};
@@ -639,7 +697,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    	var idx = me.getGrpArrIdx(i, "CAT_DID", val, me.arrAreaGrp);
 				    	if(idx > -1){
 				    		//areaFeature.setSymbol(me.areaSymbol); // 집수구역 심볼 설정
-							me.removeGraphics(me.arrAreaGrp[idx].grp, "areaGrpLayer"); // 그래픽 삭제
+							me.removeGraphics(me.arrAreaGrp[idx], "areaGrpLayer"); // 그래픽 삭제
 							me.arrAreaGrp.splice(idx, 1); // 집수구역 그래픽 배열 삭제
 				    	}
 					}
@@ -675,10 +733,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 					if(lineFeature != undefined){
 				    	var val = lineFeature.attributes.RCH_DID;
 				    	var idx = me.getGrpArrIdx(i, "RCH_DID", val, me.arrLineGrp);
-
 				    	if(idx == -1){
 				    		me.addGraphics(lineFeature, "lineGrpLayer"); // 라인 그래픽 그리기
-				    		me.arrLineGrp.push({seq: i, grp: lineFeature}); // 라인 그래픽 배열 추가
+				    		me.arrLineGrp.push(lineFeature); // 라인 그래픽 배열 추가
 				    	}
 					}
 				};
@@ -713,7 +770,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    	var val = lineFeature.attributes.RCH_DID;
 				    	var idx = me.getGrpArrIdx(i, "RCH_DID", val, me.arrLineGrp);
 				    	if(idx > -1){
-							me.removeGraphics(me.arrLineGrp[idx].grp, "lineGrpLayer"); // 그래픽 삭제
+							me.removeGraphics(me.arrLineGrp[idx], "lineGrpLayer"); // 그래픽 삭제
 							me.arrLineGrp.splice(idx, 1); // 리치라인 그래픽 배열 삭제
 				    	}
 					}
@@ -736,14 +793,12 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 	        	me.map.addLayer(gLayer);
 	        	eval("me." + layerId + " = gLayer");
     		}
-    	
+    		//console.info(graphic);
     		if(graphic){
     			
     			gLayer.add(graphic);
-    			
     			/*
 				if(me.arrAreaGrp.length > 0){
-				
 	    			// 지점 목록 창 띄우기
 	        		Ext.ShowSiteListWindow("selectReach");
 	        		// 검색결과 창 띄우기
@@ -775,9 +830,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     	if(grpArr != null && grpArr != undefined){
 	    	for(var i = 0; i < grpArr.length; i++){
 	    		
-	    		var tmpSeq = grpArr[i].seq;
-	    		var tmpId = eval("grpArr[i].grp.attributes." + id);
-	    		if(tmpSeq == seq && tmpId == val){
+	    		var tmpId = eval("grpArr[i].attributes." + id);
+	    		if(tmpId == val){
 	    			return i;
 	    		}
 	    	}
@@ -802,26 +856,116 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     clearGraphicsLayer: function(mode){
     	
     	var me = this;
+    	// 중지 요청
+    	me.isStopRequest = true;
     	
-    	if(me.lineGrpLayer != null && me.lineGrpLayer != undefined){
-    		me.lineGrpLayer.clear(); // 리치라인 초기화
-    	}
-    	if(me.areaGrpLayer != null && me.areaGrpLayer != undefined){
-    		me.areaGrpLayer.clear(); // 집수구역 초기화
-    	}
-    	
-    	me.arrLineGrp = []; // 리치라인 그래픽 배열
-    	me.arrAreaGrp = []; // 집수구역 그래픽 배열
-    	
-    	// 초기화일 경우 시작위치, 끝위치 배열 삭제
-    	if(mode == "reset"){
-    		if(me.pointGrpLayer != null && me.pointGrpLayer != undefined){
-    			me.pointGrpLayer.clear(); // 포인트 레이어 초기화
-    		}
-    		me.arrStartGrp = []; // 시작위치 포인트 그래픽 배열
-        	me.arrEndGrp = []; // 끝위치 포인트 그래픽 배열
-    	}
+    	// 중지 요청 후 0.1초 후 실행
+    	Ext.defer(function(){
+    		
+    		if(me.lineGrpLayer != null && me.lineGrpLayer != undefined){
+        		me.lineGrpLayer.clear(); // 리치라인 초기화
+        	}
+        	if(me.areaGrpLayer != null && me.areaGrpLayer != undefined){
+        		me.areaGrpLayer.clear(); // 집수구역 초기화
+        	}
+        	
+        	me.arrLineGrp = []; // 리치라인 그래픽 배열
+        	me.arrAreaGrp = []; // 집수구역 그래픽 배열
+        	
+        	// 초기화일 경우 시작위치, 끝위치 배열 삭제
+        	if(mode == "reset"){
+        		if(me.pointGrpLayer != null && me.pointGrpLayer != undefined){
+        			me.pointGrpLayer.clear(); // 포인트 레이어 초기화
+        		}
+        		me.arrStartGrp = []; // 시작위치 포인트 그래픽 배열
+            	me.arrEndGrp = []; // 끝위치 포인트 그래픽 배열
+        	}
+    	}, 100, this);
     	
     }
     
 });
+/*
+var OBJECTID = lineFeature.attributes.OBJECTID;
+console.info("OBJECTID: " + OBJECTID);
+var Shape  = lineFeature.attributes.Shape ;
+console.info("Shape: " + Shape);
+var BRU_X = lineFeature.attributes.BRU_X;
+console.info("우상단 x좌표: " + BRU_X);
+var BRU_Y = lineFeature.attributes.BRU_Y;
+console.info("우상단 y좌표: " + BRU_Y);
+var BLL_X  = lineFeature.attributes.BLL_X ;
+console.info("좌하단 x좌표: " + BLL_X);
+var BLL_Y  = lineFeature.attributes.BLL_Y ;
+console.info("좌하단 y좌표: " + BLL_Y);
+var INODE_ID  = lineFeature.attributes.INODE_ID ;
+console.info("유입 노드 아이디: " + INODE_ID);
+var ONODE_ID  = lineFeature.attributes.ONODE_ID ;
+console.info("유출 노드 아이디: " + ONODE_ID);
+var RCH_ID  = lineFeature.attributes.RCH_ID ;
+console.info("리치 아이디: " + RCH_ID);
+var RIV_ID  = lineFeature.attributes.RIV_ID ;
+console.info("하천 코드: " + RIV_ID);
+var RIV_NM  = lineFeature.attributes.RIV_NM ;
+console.info("하천 명: " + RIV_NM);
+var RCH_LEN  = lineFeature.attributes.RCH_LEN ;
+console.info("리치 길이: " + RCH_LEN);
+var TOTAL_LEN  = lineFeature.attributes.TOTAL_LEN ;
+console.info("하천 연장 길이: " + TOTAL_LEN);
+var CUM_LEN  = lineFeature.attributes.CUM_LEN ;
+console.info("누적 리치 길이: " + CUM_LEN);
+var CAT_ID  = lineFeature.attributes.CAT_ID ;
+console.info("집수구역 코드: " + CAT_ID);
+var CUM_AREA  = lineFeature.attributes.CUM_AREA ;
+console.info("집수구역 누적 면적: " + CUM_AREA);
+var RCH_DID = lineFeature.attributes.RCH_DID;
+console.info("분할코드 아이디: " + RCH_DID);
+var RCH_SN  = lineFeature.attributes.RCH_SN ;
+console.info("순차코드: " + RCH_SN);
+var RCH_DIV  = lineFeature.attributes.RCH_DIV ;
+console.info("분할코드: " + RCH_DIV);
+var GEO_TRIB  = lineFeature.attributes.GEO_TRIB ;
+console.info("하천차수: " + GEO_TRIB);
+var O_FLAG  = lineFeature.attributes.O_FLAG ;
+console.info("독립 리치 식별: " + O_FLAG);
+var E_FLAG  = lineFeature.attributes.E_FLAG ;
+console.info("마지막 리치 식별: " + E_FLAG);
+var S_FLAG  = lineFeature.attributes.S_FLAG ;
+console.info("시작 리치 식별: " + S_FLAG);
+var DC_RIV_NM  = lineFeature.attributes.DC_RIV_NM ;
+console.info("하류 연결 하천명: " + DC_RIV_NM);
+var DC_RIV_ID  = lineFeature.attributes.DC_RIV_ID ;
+console.info("하류 연결 하천 코드: " + DC_RIV_ID);
+var INODE_DID  = lineFeature.attributes.INODE_DID ;
+console.info("유입노드 분할 코드: " + INODE_DID);
+var ONODE_DID  = lineFeature.attributes.ONODE_DID ;
+console.info("유출노드 분할 코드: " + ONODE_DID);
+var U_DIR  = lineFeature.attributes.U_DIR ;
+console.info("상류 유입 방향: " + U_DIR);
+var LU_RCH_ID  = lineFeature.attributes.LU_RCH_ID ;
+console.info("상류 좌측 유입 리치 아이디: " + LU_RCH_ID);
+var LU_RCH_DID  = lineFeature.attributes.LU_RCH_DID ;
+console.info("상류 좌측 유입 리치 분할코드: " + LU_RCH_DID);
+var RU_RCH_ID  = lineFeature.attributes.RU_RCH_ID ;
+console.info("상류 우측 유입 리치 아이디: " + RU_RCH_ID);
+var RU_RCH_DID  = lineFeature.attributes.RU_RCH_DID ;
+console.info("상류 우측 유입 리치 분할코드: " + RU_RCH_DID);
+var DI_DIR  = lineFeature.attributes.DI_DIR ;
+console.info("하류 유입 방향: " + DI_DIR);
+var DI_RCH_ID  = lineFeature.attributes.DI_RCH_ID ;
+console.info("하류 유입 리치 아이디: " + DI_RCH_ID);
+var DI_RCH_DID  = lineFeature.attributes.DI_RCH_DID ;
+console.info("하류 유입 리치 분할코드: " + DI_RCH_DID);
+var D_DIR  = lineFeature.attributes.D_DIR ;
+console.info("하류 유출 방향: " + D_DIR);
+var LD_RCH_ID  = lineFeature.attributes.LD_RCH_ID ;
+console.info("하류 좌측 유출 리치 아이디: " + LD_RCH_ID);
+var LD_RCH_DID  = lineFeature.attributes.LD_RCH_DID ;
+console.info("하류 좌측 유출 리치 분할코드: " + LD_RCH_DID);
+var RD_RCH_ID = lineFeature.attributes.RD_RCH_ID;
+console.info("하류 우측 유출 리치 아이디: " + RD_RCH_ID);
+var RD_RCH_DID  = lineFeature.attributes.RD_RCH_DID ;
+console.info("하류 우측 유출 리치 분할코드: " + RD_RCH_DID);
+var CAT_DID  = lineFeature.attributes.CAT_DID ;
+console.info("집수구역 분할코드: " + CAT_DID);
+*/
