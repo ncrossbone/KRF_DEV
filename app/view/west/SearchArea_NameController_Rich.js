@@ -37,6 +37,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		queryTask.execute(query, function(result){
 			Ext.each(result, function(objLayer, idx, objLayers){
 				
+				console.info(result);
 				
 				var guBunNm = "";
 				

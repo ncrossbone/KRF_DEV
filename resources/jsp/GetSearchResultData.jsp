@@ -399,7 +399,7 @@ try{
 		sql += "         AND    B.WMYR || B.WMOD <= '"+endYYYYMM+"'                                                          ";
 	}else{
 		sql += "         AND    B.WMYR || B.WMOD >= '201508'                                                          ";
-		sql += "         AND    B.WMYR || B.WMOD <= '201510'                                                          ";
+		sql += "         AND    B.WMYR || B.WMOD <= '201512'                                                          ";
 	}
 	
 	sql += "         AND    SUBSTR(A.PT_NO, 1, 7) IN ("+siteIds+")                                                  ";
