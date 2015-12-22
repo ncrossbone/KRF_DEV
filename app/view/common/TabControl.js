@@ -228,6 +228,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var datas = [];
 				
 				var dataArr = grid.getView().store.data.items
+				console.info(grid.getView());
 				if(!dataArr){
 					dataArr = store.data.map[1].value;
 					
@@ -243,8 +244,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				if(datas.length>0){
 					var data = datas[0];
 					for(var mem in data){
+						console.info(mem);
 						if(data[mem] instanceof Array){
 							removeMem.push(mem);
+							console.info(removeMem);
 						}
 					}
 					for(var i=0; i<colArr.length; i++){
@@ -252,6 +255,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var add = true;
 							for(var k=0; k<removeMem.length; k++){
 								if(removeMem[k]==colArr[i].dataIndex){
+									console.info(removeMem[k]);
+									console.info(colArr[i].dataIndex);
 									add = false;
 									break;
 								}
