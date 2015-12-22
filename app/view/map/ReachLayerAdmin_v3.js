@@ -656,7 +656,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 							
 							Ext.defer(function(){
 				    			if(me.arrAreaGrp.length > 0){
-									console.info("result");
 					    			// 지점 목록 창 띄우기
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
@@ -702,6 +701,17 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    		//areaFeature.setSymbol(me.areaSymbol); // 집수구역 심볼 설정
 							me.removeGraphics(me.arrAreaGrp[idx], "areaGrpLayer"); // 그래픽 삭제
 							me.arrAreaGrp.splice(idx, 1); // 집수구역 그래픽 배열 삭제
+							
+							Ext.defer(function(){
+				    			if(me.arrAreaGrp.length > 0){
+					    			// 지점 목록 창 띄우기
+					        		Ext.ShowSiteListWindow("selectReach");
+					        		// 검색결과 창 띄우기
+					        		ShowSearchResultReach("");
+					        		// 위치검색 선택영역 그래픽 삭제
+					        		GetCoreMap().searchLayerAdmin.sourceGraphicLayer.clear();
+								}
+				    		}, 1000, this);
 				    	}
 					}
 				};
