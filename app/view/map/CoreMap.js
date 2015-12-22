@@ -185,19 +185,21 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 			deferred2.then(function(value){
 				if(me.reachLayerAdmin_v3.lineGrpLayer){
 					me.reachLayerAdmin_v3.lineGrpLayer.clear();
+					me.reachLayerAdmin_v3.arrLineGrp = [];
 					for(var i=0; i<reachLineGArr.length; i++){
-						me.reachLayerAdmin_v3.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
-						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+						me.reachLayerAdmin_v3.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
+						me.reachLayerAdmin_v3.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
 					}
 				}
 				if(me.reachLayerAdmin_v3.areaGrpLayer){
 					me.reachLayerAdmin_v3.areaGrpLayer.clear();
+					me.reachLayerAdmin_v3.arrAreaGrp = [];
 					for(var i=0; i<reachAreaGArr.length; i++){
-						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
-						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
+						me.reachLayerAdmin_v3.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
 					}
 				}
-				/*
+				
 				if(me.reachLayerAdmin_v3.pointGrpLayer){
 					me.reachLayerAdmin_v3.pointGrpLayer.clear();
 					for(var i=0; i<pointGArr.length; i++){
@@ -205,7 +207,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
-				*/
+
 				/*
 				me.reachLayerAdmin_v3.upRchGraphics = [];
 				me.reachLayerAdmin_v3.downRchGraphics = [];
@@ -230,10 +232,10 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 				*/
 				//console.info(me.reachLayerAdmin.selAreaGraphics);
 				// 지점 목록 창 띄우기
-        		//Ext.ShowSiteListWindow("selectReach");
+        		Ext.ShowSiteListWindow("selectReach");
         		
         		// 검색결과 창 띄우기
-        		//ShowSearchResultReach("");
+        		ShowSearchResultReach("");
         		
 			},function(error2){
 			});

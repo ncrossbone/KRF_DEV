@@ -553,9 +553,9 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"#toolTip> dl:after { content:\"\"; clear:both; display:block; *zoom:1;}                                                                                                            "+
 						"#toolTip> dl dt { float: left; font-weight: bold; color: #000; }                                                                                                                   "+
 						"#toolTip> dl dd { margin: 0px; color: #434343; text-indent: 5px; }                                                                                                                 "+
-						"#toolTip> ul { width: 362px; position: absolute; left: 15px; top: 143px;}                                                                                                          "+
+						"#toolTip> ul { width: 362px; position: absolute; left: 15px; top: 143px; margin: 0px; padding: 0px; list-style: none; list-position: inside; }                                                                                                          "+
 						"#toolTip> ul> li { }                                                                                                                                                               "+
-						"#toolTip> ul> li> a { float: left; }                                                                                                                                               "+
+						"#toolTip> ul> li> a { float: left; }                                                                                                                                          "+
 						"</style>                                                                                                                                                                           "+
 						"</head>                                                                                                                                                                            "+
 						"<body>                                                                                                                                                                             "+

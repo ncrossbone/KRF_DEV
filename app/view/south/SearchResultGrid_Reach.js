@@ -68,10 +68,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				renderer: function(val, a, b, rowIdx, colIdx){
 					if(rowIdx == 0)
 						//return "<b>" + Ext.util.Format.number(val / 1000, '0.0') + "</b>";
-						return "<b>" + val + "</b>";
+						return "<b>" + Ext.util.Format.number(val, '0.0') + "</b>";
 					else
 						//return Ext.util.Format.number(val / 1000, '0.0');
-						return val;
+						return Ext.util.Format.number(val, '0.0');
 				}
 			}, {
 				text      : '집수구역ID',

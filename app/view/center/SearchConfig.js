@@ -17,7 +17,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		this.callParent();
 		console.info(this.items.items[0].items.items[1].items.items[0]);
 
-
+		// khLee 임시 - DB연결 해제
+		return;
 
 		//체크 박스 변수 저장
 		var upBon = Ext.getCmp('upBon');
@@ -190,7 +191,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					id:'downBon',
 					xtype: 'checkbox',
 					boxLabel: '하류',
-					checked: false,
+					checked: true,
 					handler: function(obj, checked){
 						var chkGroup1 = this.findParentByType("checkboxgroup");
 						var chkGroup1Items = chkGroup1.items.items;
@@ -211,7 +212,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 
 					xtype: 'checkbox',
 					boxLabel: '본류',
-					checked: false,
+					checked: true,
 					handler: function(obj, checked){
 						var chkGroup1 = this.findParentByType("checkboxgroup");
 						var chkGroup1Items = chkGroup1.items.items;
@@ -232,7 +233,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					id:'downJi',
 					xtype: 'checkbox',
 					boxLabel: '지류',
-					checked: false,
+					checked: true,
 					handler: function(obj, checked){
 						var chkGroup1 = this.findParentByType("checkboxgroup");
 						var chkGroup1Items = chkGroup1.items.items;
@@ -271,7 +272,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				items: [{
 					xtype: 'checkbox',
 					boxLabel: '해당중권역만',
-					checked: true,
+					checked: false,
 					inputValue: 'isAMDraw',
 					style: 'margin-right: 15px;'
 				}/*, {
