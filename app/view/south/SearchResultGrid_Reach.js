@@ -50,7 +50,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						//console.info(row);
 						var catDId = row.record.data.CAT_DID;
-						
+						console.info(catDId);
 						siteMovePoint("Cat", catDId);
 					}
 				},
