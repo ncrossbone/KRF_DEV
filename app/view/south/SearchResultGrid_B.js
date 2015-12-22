@@ -165,7 +165,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 					dataIndex: 'CURR_COD',
 					width: 100,
 					renderer: function(value){
+						console.info(value);
 						return Ext.util.Format.number(value, '0.0');
+						console.info(value);
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -183,10 +185,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 						    {
 							    formatX: function(xVal){
 							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	console.info("xVal::"+xVal);
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						        	console.info("yVal::"+yVal);
 						            return yVal;
 						        }
 						    }

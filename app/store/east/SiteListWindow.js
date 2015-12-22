@@ -44,6 +44,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			var startPoint = Ext.getCmp("textSearchText_Start");
 			var endPoint = Ext.getCmp("textSearchText_End");
 			
+			console.info("#################");
+			console.info(buttonInfo1.lastValue);
+			console.info(amdBtn1.lastValue);
+			console.info(nameInfo.rawValue);
+			console.info(startPoint.rawValue);
+			console.info(endPoint.rawValue);
+			console.info("#################");
+			
 			//console.info(start.rawValue);
 			//console.info("##");
 			//http://cetech.iptime.org:6080/arcgis/rest/services/Layer2/MapServer
@@ -55,15 +63,15 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			query.returnGeometry = false;
 			
 			if(buttonInfo1.lastValue != null){
-				//console.log("수계찾기로검색");
+				console.log("수계찾기로검색");
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == "" ){
 					query.where = "CAT_ID like '"+buttonInfo2.lastValue+"%'";
 				}else{
 					query.where = "CAT_ID like '"+buttonInfo3.lastValue+"%'";
 				}
 
-			}else if(buttonInfo1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "" ){
-				//console.log("행정구역찾기로검색");
+			}else if(buttonInfo1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "" && nameInfo.rawValue == "" ){
+				console.log("행정구역찾기로검색");
 				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
@@ -73,9 +81,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 				}
 				//query.where = "JIJUM_NM like '"+start.rawValue+"%'";
-			}else if(buttonInfo1.lastValue == "" && amdBtn1.lastValue == ""  && startPoint.rawValue == "" && endPoint.rawValue == "" ){
+			}else if(buttonInfo1.lastValue == null && amdBtn1.lastValue == null  && startPoint.rawValue == "" && endPoint.rawValue == "" ){
+				console.info("명칭으로 찾기");
 				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
 			}else{
+				console.info("리치모드 명칭으로 찾기");
 				if(endPoint.rawValue == ""){
 					query.where = "JIJUM_NM like '"+startPoint.rawValue+"%'";
 				}else{
