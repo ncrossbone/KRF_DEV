@@ -94,7 +94,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 					lnkCmbId: 'nameSearch_End',
 					//text: '검색'
 					cls: 'khLee-x-button-search',
-					handler: 'onClickSearch_Reach'
 				}]
 			}, {
 				xtye: 'container',
