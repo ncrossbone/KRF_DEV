@@ -193,6 +193,10 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 						listCtl.items.items[Cnt].setTitle(listCtl.items.items[Cnt].title.replace("undefined","1"));
 					}
 					
+					if(Cnt+1 == listCtl.items.items.length){
+						listCtl.items.items[Cnt].setTitle(listCtl.items.items[Cnt].title.replace("undefined","1"));
+					}
+					
 				}
 				
 				//검색후 가장 처음값으로 이동
