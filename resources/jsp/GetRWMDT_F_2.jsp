@@ -28,7 +28,7 @@ try{
 	String defaultChart = request.getParameter("defaultChart");
 	
 	String selectItem = request.getParameter("selectItem");  
-	
+	//직접이송량
 	sql = " WITH TMP_TBL AS (																																																																				";
 	sql += " SELECT RANK( ) OVER(PARTITION BY A.FACI_CD, ITEM_NAME                                                                                                    ";
 	sql += "         ORDER BY A.WORK_DT DESC) AS RN /* 순번 참고용 */                                                                                                 ";
@@ -56,7 +56,7 @@ try{
 	sql += "    AND A.IN_PL_TYPE = B.IN_PL_TYPE                                                                                                                       ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                                                           ";
 	if(defaultChart.equals("1")){
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201510'                                                                    ";
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'                                                                    ";
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startDate+"' AND '"+endDate+"'                                                                    ";
 	}

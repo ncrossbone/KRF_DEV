@@ -27,7 +27,7 @@ try{
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
-	
+	//√—¿Ãº€∑Æ
 sql = " SELECT 																																																" +
 " 		 A.FACI_CD                                                                                            " +
 " 	   , A.NO                                                                                                 " +

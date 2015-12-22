@@ -27,7 +27,7 @@ try{
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
-	
+	//방류유량
 sql = " SELECT 																																																						" +
 " 	      A.FACI_CD                                                                                                       " +
 "	      , A.NO /* 순번 참고용 */                                                                                          " +

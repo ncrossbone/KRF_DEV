@@ -29,6 +29,7 @@ try{
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
+	//관거이송량
 	sql = " SELECT A.FACI_CD  , A.NO /* 순번 참고용 */																																												" +
 "      , A.FACI_NM /* 처리시설명*/                                                                                    " +
 "      , A.WORK_DT AS WORK_DT_VAL    /* 운영일자*/                                                                    " +
