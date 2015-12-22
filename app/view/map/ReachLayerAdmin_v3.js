@@ -126,26 +126,26 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
     		
     		if(option == "STARTPOINT"){
     			// 심볼설정
-    			me.startSymbol.url = me.getStartSymbolUrl();
-    			me.startSymbol.width = 48;
-    			me.startSymbol.height = 38;
+    			//me.startSymbol.url = me.getStartSymbolUrl();
+    			//me.startSymbol.width = 48;
+    			//me.startSymbol.height = 38;
     			
     	    	// 커서 이미지 설정
-    			Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.startSymbol.url + ') 24 38,auto');
-    			//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+    			//Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.startSymbol.url + ') 24 38,auto');
+    			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
     			
     			bundle.toolbars.draw.addPoint = "시작위치 리치라인을 클릭하세요.";
     			me.selectionToolbar.activate(Draw.POINT);
     		}
     		else if(option == "ENDPOINT"){
     			// 심볼설정
-    			me.endSymbol.url = me.getEndSymbolUrl();
-    			me.endSymbol.width = 48;
-    			me.endSymbol.height = 38;
+    			//me.endSymbol.url = me.getEndSymbolUrl();
+    			//me.endSymbol.width = 48;
+    			//me.endSymbol.height = 38;
     			
     	    	// 커서 이미지 설정
-    	    	Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.endSymbol.url + ') 24 38,auto');
-    			//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
+    	    	//Ext.get('_mapDiv__gc').setStyle('cursor','url(' + me.endSymbol.url + ') 24 38,auto');
+    			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
     	    	
     			bundle.toolbars.draw.addPoint = "끝위치 리치라인을 클릭하세요.";
     			me.selectionToolbar.activate(Draw.POINT);
@@ -461,6 +461,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 												}
 												*/
 												
+												//var st_RCH_DID = stLineFeature.attributes.RCH_DID;
+												//var ed_RCH_DID = edLineFeature.attributes.RCH_DID;
+												
 												var st_RCH_DID = stLineFeature.attributes.RCH_DID;
 												var ed_RCH_DID = edLineFeature.attributes.RCH_DID;
 												
@@ -596,18 +599,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 							// 집수구역 그리기
 				    		var catDId = lineFeature.attributes.CAT_DID;
 				    		me.drawAreaGrp(catDId);
-				    		
-				    		Ext.defer(function(){
-				    			if(me.arrAreaGrp.length > 0){
-									console.info("result");
-					    			// 지점 목록 창 띄우기
-					        		Ext.ShowSiteListWindow("selectReach");
-					        		// 검색결과 창 띄우기
-					        		ShowSearchResultReach("");
-					        		// 위치검색 선택영역 그래픽 삭제
-					        		GetCoreMap().searchLayerAdmin.sourceGraphicLayer.clear();
-								}
-				    		}, 1000, this);
 						}
 			    		
 						// 검색 대상이 최초 시작위치(상류)보다 하류이고 최초 끝위치(하류)가 아닐때
@@ -662,6 +653,18 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    		areaFeature.setSymbol(me.areaSymbol); // 집수구역 심볼 설정
 							me.addGraphics(areaFeature, "areaGrpLayer"); // 그래픽 그리기
 							me.arrAreaGrp.push(areaFeature); // 집수구역 그래픽 배열 추가
+							
+							Ext.defer(function(){
+				    			if(me.arrAreaGrp.length > 0){
+									console.info("result");
+					    			// 지점 목록 창 띄우기
+					        		Ext.ShowSiteListWindow("selectReach");
+					        		// 검색결과 창 띄우기
+					        		ShowSearchResultReach("");
+					        		// 위치검색 선택영역 그래픽 삭제
+					        		GetCoreMap().searchLayerAdmin.sourceGraphicLayer.clear();
+								}
+				    		}, 1000, this);
 				    	}
 					}
 				};

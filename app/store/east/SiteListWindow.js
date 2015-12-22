@@ -100,7 +100,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							//console.info(query.where);
 						//}
 						for(var i = 0; i < me.reachLayerAdmin_v3.arrAreaGrp.length; i++){
-							query.where += "'" + me.reachLayerAdmin_v3.arrAreaGrp[i].attributes.CAT_DID.substring(0, 8) + "', ";
+							query.where += "'" + me.reachLayerAdmin_v3.arrAreaGrp[i].attributes.CAT_ID.substring(0, 8) + "', ";
 							//console.info(query.where);
 						}
 						

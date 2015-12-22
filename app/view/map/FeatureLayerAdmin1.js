@@ -598,18 +598,18 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					
 					if(clickValue == "start"){
 						// 심볼설정
-						coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
-						coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
-						coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
+						//coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
+						//coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
+						//coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
 						
 						option = "STARTPOINT";
 						btnId = "btnMenu04";
 					}
 					if(clickValue == "end"){
 						// 심볼설정
-						coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
-						coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
-						coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
+						//coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
+						//coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
+						//coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
 		    			
 						option = "ENDPOINT";
 						btnId = "btnMenu05";
@@ -645,7 +645,10 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
 		
-		query.where =  "CAT_DID='" + catDId + "'";
+		if(catDId.length == 10)
+			query.where =  "CAT_DID='" + catDId + "'";
+		if(catDId.length == 8)
+			query.where =  "CAT_ID='" + catDId + "'";
 		
 		queryTask.execute(query,  function(results){
 			
