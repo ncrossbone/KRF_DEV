@@ -71,7 +71,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			activeTab.mask("loading", "loading...");
+			Ext.getCmp("searchResultContainer_C_Id").removeCls("dj-mask-noneimg");
+			Ext.getCmp("searchResultContainer_C_Id").addCls("dj-mask-withimg");
+			Ext.getCmp("searchResultContainer_C_Id").mask("loading", "loading...");
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_C.jsp',
@@ -87,10 +89,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				store.setData(jsonData.data);
 	        			// 로딩바 숨김
-	        			activeTab.unmask();
+        				Ext.getCmp("searchResultContainer_C_Id").unmask();
         			}
         			else{
-        				activeTab.mask(jsonData.data[0].msg, "noData");
+        				Ext.getCmp("searchResultContainer_C_Id").addCls("dj-mask-noneimg");
+        				console.info(Ext.getCmp("searchResultContainer_C_Id").cls);
+	        			Ext.getCmp("searchResultContainer_C_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
         			}
         			
         		},
