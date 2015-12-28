@@ -167,7 +167,6 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	favoriteExe:function(data){
-		console.info(data);
 		var me = this;
 		var extentJson = data.EXTENT;
 		var extent = new esri.geometry.Extent(extentJson);

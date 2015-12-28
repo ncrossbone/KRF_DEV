@@ -89,7 +89,6 @@ function CreateWindow(params){
 					window.expand('', false);
 				
 				windowMode = "normal";
-				console.info(windowX);
 				window.setWidth(windowWidth);
 				window.setHeight(windowHeight);
 				window.setX(windowX);
@@ -109,7 +108,6 @@ function CreateWindow(params){
 				
 				windowMode = "maximize";
 				
-				console.info(this);
 				
 				window.expand('', false);
 				window.setWidth(center.getWidth());
@@ -163,16 +161,11 @@ function CreateWindow(params){
 	            }
 	        },
 	        resize : function(win,width,height,opt){
-                //console.log(width);
-                //console.log(height);
-	        	
-	        	//var grid = Ext.getCmp("grid-tab-2");grdPrototype
+                //var grid = Ext.getCmp("grid-tab-2");grdPrototype
                 var grid = Ext.getCmp("grdPrototype");
-	        	//console.info(grid);
 	        	if(grid != undefined){
 	        		grid.setHeight(height - 85);
 	        		grid.setWidth(width);
-	        		//console.log(height - 85);
 	        	}
 	        	/*
 	        	grid = Ext.getCmp("grid-tab-3");
@@ -181,7 +174,6 @@ function CreateWindow(params){
 	        		grid.setWidth(width);
 	        	}
 	        	
-	        	console.log(grid);
 	        	*/
 	        }
 	    }

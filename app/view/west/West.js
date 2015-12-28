@@ -56,7 +56,7 @@ Ext.define('KRF_DEV.view.west.West', {
     listeners: {
         resize: {
             fn: function(el) {
-                console.info(el);
+                //console.info(el);
             	var popCtl = Ext.getCmp("popSiteInfo");
         		
         		if(popCtl != undefined){

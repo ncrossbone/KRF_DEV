@@ -106,20 +106,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						click: function(){
 							var fName = Ext.getCmp("F_CHANGE");
 							var tabCtl = Ext.getCmp("searchResultTab");
-							console.info(tabCtl);
 							tabCtl = tabCtl.items.items[1];
 							var activeTab = tabCtl.getActiveTab();
-							//console.info(activeTab);
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
-							//console.info(gridCtl.id);
 							if(gridCtl.parentIds[0].parentId == undefined){
 								var parentId =  gridCtl.parentIds
 							}else{
 								var parentId = gridCtl.parentIds[0].parentId
 							}
-							//console.info(gridCtl.parentIds[0].parentId);
-							//console.info(gridCtl.siteIds);
 							
 							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 							
@@ -213,7 +208,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 //				}
 				
 				var colArr = grid.getColumnManager().getColumns();
-				console.info(colArr);
 				var hItem = grid.getHeaderContainer().config.items;
 				var gItem = [];
 				for(var i=0; i<hItem.length; i++){
@@ -228,35 +222,26 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var datas = [];
 				
 				var dataArr = grid.getView().store.data.items
-				console.info(grid.getView());
 				if(!dataArr){
 					dataArr = store.data.map[1].value;
 					
-					//console.info();
 				}
-				//console.info(dataArr);
 				for(var i=0; i<dataArr.length; i++){
 					// khLee 수정 값 변경
 					var strData = JSON.stringify(dataArr[i].data);
-					//console.info(strData);
 					strData = strData.replace(/888888888/gi, "\"\"");
 					strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
-					//console.info(strData);
 					var convertData = JSON.parse(strData);
-					//console.info(convertData);
 					//datas.push(dataArr[i].data);
 					datas.push(convertData);
-					//console.info(JSON.stringify(dataArr[i].data));
 				}
 				
 				var removeMem = []
 				if(datas.length>0){
 					var data = datas[0];
 					for(var mem in data){
-						console.info(mem);
 						if(data[mem] instanceof Array){
 							removeMem.push(mem);
-							console.info(removeMem);
 						}
 					}
 					
@@ -268,8 +253,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var add = true;
 							for(var k=0; k<removeMem.length; k++){
 								if(removeMem[k]==colArr[i].dataIndex){
-									console.info(removeMem[k]);
-									console.info(colArr[i].dataIndex);
 									add = false;
 									break;
 								}
@@ -288,8 +271,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 								}
 								headName.push(preText + colArr[i].text);
 								header.push(colArr[i].dataIndex);
-								console.info(colArr[i].dataIndex);
-								console.info("ㅅ"+i)
 							}
 						}
 					}
@@ -309,14 +290,12 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							}
 							headName.push(preText + colArr[i].text);
 							header.push(colArr[i].dataIndex);
-							console.info(colArr[i].dataIndex);
 						}
 					}
 				}
 				
 				//if(grid.download=='sleep'){
 					this.status = 'download';
-					console.info(datas);
 					$.post("./resources/jsp/excelDown.jsp", {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
 						//grid.download = 'download';
 						$('#__fileDownloadIframe__').remove();
@@ -345,7 +324,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 		listeners:{
 			'tabchange': function (tabPanel, tab){
-				console.info(tab.parentId);
 				if(tab.parentId != "F"){
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					hiddenGrid.setHidden(true);

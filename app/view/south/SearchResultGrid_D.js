@@ -43,7 +43,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 				me.setHeight(parentCtl.getHeight() - 110);
 				
 				parentCtl.on("resize", function(){
-					//console.info(parentCtl);
+					////console.info(parentCtl);
 					me.setWidth(parentCtl.getWidth() - 10);
 					me.setHeight(parentCtl.getHeight() - 110);
 				});
@@ -76,7 +76,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
-						//console.info(this.findParentByType("grid").parentIds);
+						////console.info(this.findParentByType("grid").parentIds);
 						var gridCtl = this.findParentByType("grid")
 						var parentIds = gridCtl.parentIds;
 						var siteId = row.record.data.PT_NO;

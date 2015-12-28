@@ -208,9 +208,9 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 				obj.setSymbol(me.simpleFillSymbol);
 	    		me.sourceGraphicLayer.add(obj);
 	    		var extent = esri.geometry.Polygon(obj.geometry).getExtent();
-	    		//console.info(extent.xmax - extent.xmin);
-	    		//console.info(extent.xmax/2 - extent.xmin/2);
-	    		//console.info(extent.ymax - extent.ymin);
+	    		////console.info(extent.xmax - extent.xmin);
+	    		////console.info(extent.xmax/2 - extent.xmin/2);
+	    		////console.info(extent.ymax - extent.ymin);
 	    		
 	    		//extent.xmin = extent.xmin + 20000;
 	    		//extent.xmax = extent.xmax + 20000;
@@ -224,7 +224,7 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		//extent.centerAt(me.map.extent.getCenter());
 	    		//me.map.centerAndZoom(extent.getCenter(), 11);
 	    		me.map.setExtent(extent, true);
-	    		console.info(me.map.getLevel());
+	    		//console.info(me.map.getLevel());
 	    		me.geometry = obj.geometry;
 	    		
 	    		me.spSearch();

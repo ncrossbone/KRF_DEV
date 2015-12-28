@@ -42,7 +42,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
 			endMonth = Ext.getCmp("cmbEndMonth").value;
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			console.info(firstSearch);
 			
 			var jsonData = "";
 			var arrData = [];

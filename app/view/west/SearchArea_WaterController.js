@@ -61,7 +61,7 @@ Ext
 
 						store.load(); // 데이터 로드
 						combo.reset();
-						// console.info(store);
+						// //console.info(store);
 						combo.setDisabled(false);
 
 						while (true) {
@@ -88,7 +88,7 @@ Ext
 						var searchLayerId = combo.layerId;
 						var searchText = combo.getValue();
 
-						// console.info(searchLayerId);
+						// //console.info(searchLayerId);
 
 						var idColumn, nameColumn, whereStr;
 
@@ -123,7 +123,7 @@ Ext
 											+ " > "
 											+ combo.rawValue);
 						}
-						// console.info(idColumn);
+						// //console.info(idColumn);
 						KRF_DEV.getApplication().fireEvent('areaSelect', {
 							idField : idColumn,
 							idValue : searchText,
@@ -132,7 +132,7 @@ Ext
 					},
 
 					onAreaSearch2 : function(a, b) {
-						console.info(a);
+						//console.info(a);
 					},
 
 					onWaterSelect : function(button, eOpts) {
@@ -181,7 +181,7 @@ Ext
 									store.buttonInfo = buttonInfo.lastValue;
 									store.buttonInfo2 = buttonInfo2.lastValue;
 									store.buttonInfo3 = buttonInfo3.lastValue;
-									console.info(store);
+									//console.info(store);
 									store.load();
 									treeResach.getView().refresh();
 									// return;

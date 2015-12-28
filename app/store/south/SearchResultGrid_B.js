@@ -42,7 +42,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 		load: function(store) {
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			console.info(firstSearch);
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -51,8 +50,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
 			
-			/*var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			console.info(firstSearch);*/
 			
 			var jsonData = "";
 			var arrData = [];
@@ -84,8 +81,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
         			}
         			else{
         				Ext.getCmp("searchResultContainer_B_Id").addCls("dj-mask-noneimg");
-        				console.info(Ext.getCmp("searchResultContainer_B_Id").cls);
-	        			Ext.getCmp("searchResultContainer_B_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+        				Ext.getCmp("searchResultContainer_B_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
         			}
         			
         		},

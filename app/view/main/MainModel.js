@@ -11,6 +11,5 @@ Ext.define('KRF_DEV.view.main.MainModel', {
     },
     
     initComponent: function(){
-    	console.info("mainModel");
     }
 });

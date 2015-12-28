@@ -25,7 +25,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin_ReachTest', {
     	//var me = KRF_DEV.getApplication().coreMap; // CoreMap에서 설정한 값으로 사용 가능
     	
     	var activeLayer = me.map.getLayer(me.layer.id);
-    	console.info(activeLayer.visibleLayers);
     	
     	//var visibleLayers = [12];
     	var visibleLayers = [];

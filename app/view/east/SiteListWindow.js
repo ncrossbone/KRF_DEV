@@ -128,7 +128,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             				var pNm = me.parentIds[0].parentId;
             				
             				pNm = pNm.substring(0,1);
-            				console.info(pNm);
             				
             				
             				// 검색결과창 띄우기
@@ -153,7 +152,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				var pNm = me.parentIds[0].parentId;
         				
         				pNm = pNm.substring(0,1);
-        				console.info(pNm);
         				
         				// 검색결과창 띄우기
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");

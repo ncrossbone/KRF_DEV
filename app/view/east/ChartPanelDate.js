@@ -20,9 +20,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	    	
 	    	var parentChk = KRF_DEV.getApplication().parentFlag;
 			var chartFlag_D = KRF_DEV.getApplication().chartFlag_D;
-			console.info(f_Chart);
-	    	console.info(parentChk);
-	    	if(parentChk == "F"){
+			if(parentChk == "F"){
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = false;
 	    		f_ChartText.hidden = false;

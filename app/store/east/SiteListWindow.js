@@ -18,7 +18,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	
 	listeners: {
 		load: function(store) {
-			//console.info(store);
 			var a = Ext.getCmp("btnADMSelect");
 			
 			var nameInfo = Ext.getCmp("textSearchText");
@@ -44,16 +43,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			var startPoint = Ext.getCmp("textSearchText_Start");
 			var endPoint = Ext.getCmp("textSearchText_End");
 			
-			console.info("#################");
-			console.info(buttonInfo1.lastValue);
-			console.info(amdBtn1.lastValue);
-			console.info(nameInfo.rawValue);
-			console.info(startPoint.rawValue);
-			console.info(endPoint.rawValue);
-			console.info("#################");
 			
-			//console.info(start.rawValue);
-			//console.info("##");
 			//http://cetech.iptime.org:6080/arcgis/rest/services/Layer2/MapServer
 			//var queryTask = new esri.tasks.QueryTask('http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
 			//var queryTask = new esri.tasks.QueryTask('http://cetech.iptime.org:6080/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
@@ -63,7 +53,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			query.returnGeometry = false;
 			
 			if(buttonInfo1.lastValue != null){
-				console.log("수계찾기로검색");
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == "" ){
 					query.where = "CAT_DID like '"+buttonInfo2.lastValue+"%'";
 				}else{
@@ -71,7 +60,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 
 			}else if(buttonInfo1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "" && nameInfo.rawValue == "" ){
-				console.log("행정구역찾기로검색");
 				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
@@ -82,10 +70,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 				//query.where = "JIJUM_NM like '"+start.rawValue+"%'";
 			}else if(buttonInfo1.lastValue == null && amdBtn1.lastValue == null  && startPoint.rawValue == "" && endPoint.rawValue == "" ){
-				console.info("명칭으로 찾기");
 				query.where = "JIJUM_NM like '"+nameInfo.rawValue+"%'";
 			}else{
-				console.info("리치모드 명칭으로 찾기");
 				if(endPoint.rawValue == ""){
 					query.where = "JIJUM_NM like '"+startPoint.rawValue+"%'";
 				}else{
@@ -101,17 +87,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				if(me.reachLayerAdmin_v3.arrAreaGrp.length > 0){
 					var reachBtn = Ext.getCmp("btnModeReach");
 					
-					//if(reachBtn.src.indexOf("_on") > -1 && me.reachLayerAdmin.selAreaGraphics.length > 0){
 						
 						query.where = "CAT_DID IN ("; 
 						
-						//for(var i = 0; i < me.reachLayerAdmin.selAreaGraphics.length; i++){
-							//query.where += "'" + me.reachLayerAdmin.selAreaGraphics[i].attributes.CAT_ID + "', ";
-							//console.info(query.where);
-						//}
 						for(var i = 0; i < me.reachLayerAdmin_v3.arrAreaGrp.length; i++){
 							query.where += "'" + me.reachLayerAdmin_v3.arrAreaGrp[i].attributes.CAT_DID + "', ";
-							//console.info(query.where);
 						}
 						
 						query.where = query.where.substring(0, query.where.length - 2);
@@ -122,11 +102,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					return;
 				}
 			}
-			console.info(query.where);
 			
 			query.outFields = ["*"];
 			queryTask.execute(query, function(result){
-				//console.info(query.where);	
 				if(result.features.length == 0){
 					return;
 				}
@@ -151,7 +129,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					var aa = "";
 					//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
 					//jsonStr += "\n	\"children\": [";
-					//console.info(result.features);
 					
 					for(i = 0; i < result.features.length; i++){
 						if(result.features[i].attributes.GROUP_CODE != "E"){
@@ -212,7 +189,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								preGubun = result.features[i].attributes.LAYER_CODE;
 								groupGubun = result.features[i].attributes.GROUP_CODE;
 							}
-							//console.info(result.features[i].attributes);
 							jsonStr += "{\n";
 							jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
 							jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
@@ -237,7 +213,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
-				//console.info(jsonData);
 				store.setRootNode(jsonData);
 
 	        });

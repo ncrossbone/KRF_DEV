@@ -99,7 +99,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			popCtl = Ext.create('KRF_DEV.view.east.FavoriteWindow_v3');
 		}
 		
-		//console.info(popCtl.hidden);
+		////console.info(popCtl.hidden);
 		if(popCtl.hidden == true)
 			popCtl.show();
 		else
@@ -112,7 +112,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		var me = KRF_DEV.getApplication().coreMap;
 		var currCtl = Ext.getCmp(el.id);
 		
-		//console.info(evtArgs);
+		////console.info(evtArgs);
 		
 		// 이미지 셋팅
 		//Ext.SetSrc(currCtl);
@@ -170,7 +170,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	if(activeLayer != undefined)
 	    		activeLayer.setVisibility(true);
 	    	
-	    	//console.info(activeLayer.visibleLayers);
+	    	////console.info(activeLayer.visibleLayers);
 	    	//var visibleLyaer = activeLayer.visibleLayers;
 	    	//activeLayer.setVisibleLayers([12]);
 	    	
@@ -258,10 +258,10 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			*/
 		}
 		
-		//console.info("dd");
+		////console.info("dd");
 		// 리치 툴바 스마트검색 버튼
 		if(el.id == "btnMenu01"){
-			//console.info("dd");
+			////console.info("dd");
 			// 이미지 셋팅, 이미지 변화 없게 할라구.. 시연 뒤에 삭제할 것..
 			Ext.SetSrc(currCtl);
 			
@@ -281,7 +281,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 							y: 170
 						});
 			}
-			console.info(ctl);
+			//console.info(ctl);
 			ctl.show();
 		}
 		
@@ -302,7 +302,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 			KRF_DEV.getApplication().fireEvent('pointDrawClick', "point", el.id, true);
 			
-			console.info(this.endBtnOnOff);
+			//console.info(this.endBtnOnOff);
 			
 			if(this.endBtnOnOff == "off"){
 				if(Ext.getCmp("btnMenu05").src.indexOf("_on") > -1)
