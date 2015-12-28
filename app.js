@@ -375,6 +375,7 @@ Ext.application({
 	},
 	// session정보 없을 시 로그인 창 이동. 2015.11.27 hyeok
 	constructor : function() {
+		/*
 		var sessionInfo = "";
 		Ext.Ajax.request({
 			
@@ -389,7 +390,7 @@ Ext.application({
 			}
 
 		});
-		console.info(sessionInfo.trim());
+		//console.info(sessionInfo.trim());
 		if (sessionInfo.trim() == "false") {
 
 			this.callParent();
@@ -398,5 +399,7 @@ Ext.application({
 
 			this.callParent();
 		}
+		*/
+		this.callParent();
 	}
 });

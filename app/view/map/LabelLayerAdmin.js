@@ -45,8 +45,9 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
 		Ext.Ajax.request({
     		url: './resources/jsp/GetLabelLayerAdmin.jsp',
     		async: true, // 비동기 = async: true, 동기 = async: false
+    		timeout: 120000, // timeout 2분
     		success : function(response, opts) {
-    			
+    			console.info(response);
     			jsonData = Ext.util.JSON.decode( response.responseText );
     			
     			//console.info(jsonData.bodDatas);
@@ -60,7 +61,10 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
     			
     		},
     		failure: function(form, action) {
-    			alert("오류가 발생하였습니다.");
+    			//console.info(form);
+    			//console.info(action);
+    			alert("라벨 데이터 조회 중 오류가 발생하였습니다.");
+    			//alert("dd");
     		}
     	});
 		
@@ -116,7 +120,8 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
 			var layerIds = ["1", "2"];
 			
 			for(var lCnt = 0; lCnt < layerIds.length; lCnt++){
-				var queryTask = new esri.tasks.QueryTask("http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer/" + layerIds[lCnt]);
+				//console.info(_mapServiceUrl_v3 + "/" + layerIds[lCnt]);
+				var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerIds[lCnt]);
 				var query = new esri.tasks.Query();
 				query.spatialRelationship = esri.tasks.Query.SPATIAL_REL_INTERSECTS;
 				query.returnGeometry = true;
@@ -124,22 +129,25 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
 				query.geometry = extent;
 				query.outFields = ["측정소코드"];
 				queryTask.execute(query,  function(results){
-					for(var i=0; i<results.features.length; i++){
-						var feature = results.features[i];
-						var result = JSLINQ(searchDatas)
-				    	 .Where(function (item) { 
-				    		 // if(feature.attributes.측정소코드 == item.attributes.PT_NO){ // 레이어에서 가져왔을때
-				    		 if(feature.attributes.측정소코드 == item.PT_NO){ // DB에서 가져왔을때
-				    			 return true;
-				    		 }
-				    	  })
-				    	 .ToArray();
-						if(result.length>0){
-				  			//var tsm = new esri.symbol.TextSymbol(result[0].attributes.VAL, me.font).setOffset(0, -22); // 레이어에서 가져왔을때
-							var tsm = new esri.symbol.TextSymbol(result[0].VAL, me.font).setOffset(0, -22); // DB에서 가져왔을때
-				  			tsm.color = new dojo.Color("#ff0000");
-				  			feature.setSymbol(tsm);
-				  			me.graphicsLayer.add(feature);
+					//console.info(searchDatas);
+					if(searchDatas != null){
+						for(var i=0; i<results.features.length; i++){
+							var feature = results.features[i];
+							var result = JSLINQ(searchDatas)
+					    	 .Where(function (item) { 
+					    		 // if(feature.attributes.측정소코드 == item.attributes.PT_NO){ // 레이어에서 가져왔을때
+					    		 if(feature.attributes.측정소코드 == item.PT_NO){ // DB에서 가져왔을때
+					    			 return true;
+					    		 }
+					    	  })
+					    	 .ToArray();
+							if(result.length>0){
+					  			//var tsm = new esri.symbol.TextSymbol(result[0].attributes.VAL, me.font).setOffset(0, -22); // 레이어에서 가져왔을때
+								var tsm = new esri.symbol.TextSymbol(result[0].VAL, me.font).setOffset(0, -22); // DB에서 가져왔을때
+					  			tsm.color = new dojo.Color("#ff0000");
+					  			feature.setSymbol(tsm);
+					  			me.graphicsLayer.add(feature);
+							}
 						}
 					}
 					
