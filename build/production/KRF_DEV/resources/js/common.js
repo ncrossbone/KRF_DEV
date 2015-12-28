@@ -167,7 +167,7 @@ AreaLayerDraw = function(featureSet){
     	var selectQuery = new Query();
     	
     	for(var i = 0; i < featureSet.features.length; i++){
-        	selectQuery.where = "CAT_DID = '" + featureSet.features[i].attributes.CAT_ID + "'";
+        	selectQuery.where = "CAT_DID = '" + featureSet.features[i].attributes.CAT_DID + "'";
         	me.reachLayerAdmin.reachArealayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_ADD); // 집수구역 셀렉트
     	}
 	});
