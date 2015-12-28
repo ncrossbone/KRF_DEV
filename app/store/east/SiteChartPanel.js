@@ -78,7 +78,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 					return;
 				}
 				if(selectYear == selectYear2){
-					if(recordMonth > recordMonth2){
+					if(selectMonth > selectMonth2){
 						alert("월선택이 잘못되었습니다.");
 						return;
 						
@@ -86,6 +86,11 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 				}
 				
 			}
+			
+			console.info(selectYear);
+			console.info(selectMonth);
+			console.info(selectYear2);
+			console.info(selectMonth2);
 			
 			
 			var recordId = "";

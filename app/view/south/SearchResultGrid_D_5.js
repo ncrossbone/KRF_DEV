@@ -12,6 +12,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_5', {
 	
 	items: [{
 		xtype: 'container',
+		id: 'searchResultContainer_D5_Id',
 		width: '100%',
 		height: '100%',
 		items: [{

@@ -115,8 +115,8 @@ try{
 	sql += "        )                                                                                                                   ";
 	sql += "  WHERE 1=1                                                                                                                 ";
 	if(defaultChart.equals("1")){
-		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '201410'                                                                                  ";
-		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '201510'                                                                                  ";
+		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '201510'                                                                                  ";
+		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '201512'                                                                                  ";
 	}else{
 		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '"+startDate+"'                                                                                  ";
 		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '"+endDate+"'                                                                                  ";

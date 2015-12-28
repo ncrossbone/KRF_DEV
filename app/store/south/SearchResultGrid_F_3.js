@@ -8,20 +8,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
         'WORK_DT_VAL',
         'WORK_DT_GRAPH',
         'IN_PL_TYPE',
-        {name: 'AMT_VAL', type: 'number'},
-        'AMT_GRAPH',
-        {name: 'BOD_VAL', type: 'number'},
-        'BOD_GRAPH',
-        {name: 'COD_VAL', type: 'number'},
-        'COD_GRAPH',
-        {name: 'SS_VAL', type: 'number'},
-        'SS_GRAPH',
-        {name: 'TN_VAL', type: 'number'},
-        'TN_GRAPH',
-        {name: 'TP_VAL', type: 'number'},
-        'TP_GRAPH',
-        {name: 'COLI_VAL', type: 'number'},
-        'COLI_GRAPH'
+        'AMT_VAL',
+        'BOD_VAL',
+        'COD_VAL',
+        'SS_VAL',
+        'TN_VAL',
+        'TP_VAL',
+        'COLI_VAL'
     ],
     
     siteId: '',
@@ -55,7 +48,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			activeTab.mask("loading", "loading...");
+			Ext.getCmp("searchResultContainer_F3_Id").removeCls("dj-mask-noneimg");
+			Ext.getCmp("searchResultContainer_F3_Id").addCls("dj-mask-withimg");
+			Ext.getCmp("searchResultContainer_F3_Id").mask("loading", "loading...");
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_F_3.jsp',
@@ -71,10 +66,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
         			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				store.setData(jsonData.data);
 	        			// 로딩바 숨김
-	        			activeTab.unmask();
+        				Ext.getCmp("searchResultContainer_F3_Id").unmask();
         			}
         			else{
-        				activeTab.mask(jsonData.data[0].msg, "noData");
+        				Ext.getCmp("searchResultContainer_F3_Id").addCls("dj-mask-noneimg");
+        				Ext.getCmp("searchResultContainer_F3_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
         			}
         			
         		},

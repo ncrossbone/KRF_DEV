@@ -12,6 +12,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 	
 	items: [{
 		xtype: 'container',
+		id: 'searchResultContainer_B_Id',
 		width: '100%',
 		height: '100%',
 		items: [{
@@ -408,7 +409,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'CURR_TOC',
+					dataIndex: 'CHART_TOC',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
