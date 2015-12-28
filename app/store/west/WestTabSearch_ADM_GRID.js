@@ -15,9 +15,7 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM_GRID', {
 	listeners: {
 		// beforeload, load, afterload
 		beforeload: function(store) {
-			//console.info(store.constructor);
 			//return;
-			//console.info(store);
 			// Ext.defer(function() { 
 			// defer : 미루다, 연기하다
 			// Ext.defer(function(){...}, 1000, this); // function 내 코드를 1초(1000ms)후에 실행한다.
@@ -26,7 +24,6 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM_GRID', {
 				
 				idColumn = "ADM_CD";
 				
-				//console.info(KRF_DEV.app.layer1Url);
 				store.layerId = "54";
 				
 				if(store.layerId == '53'){ nameColumn = "DO_NM"; whereStr = "1=1" }
@@ -46,10 +43,8 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM_GRID', {
 				var fieldNames = [];
 				queryTask.execute(query,  function(results){
 					Ext.each(results.fields, function(objField, index, objFields){
-						//console.info(objField.name);
 						fieldNames.push(objField.name);
 					});
-					//console.info(fieldNames);
 					this.fields = fieldNames;
 					
 					var data = results.features;
@@ -77,7 +72,6 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM_GRID', {
 		   				
 					});
 					
-					//console.info(receiveData);
 				});
 				/*
 				dojo.connect(queryTask, "onError", function(err) {

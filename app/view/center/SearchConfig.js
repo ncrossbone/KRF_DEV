@@ -67,8 +67,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 
 	initComponent: function(){
 		this.callParent();
-		//console.info(this.items.items[0].items.items[1].items.items[0]);
-
+		
 		// khLee 임시 - DB연결 해제
 		return;
 
@@ -409,8 +408,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
         		        		//async: true, // 비동기 = async: true, 동기 = async: false
         		        		//success : function(response, opts) {
 
-        		        			//console.info(response.responseText);
-
+        		        	
         		        		//},
         		        		//failure: function(form, action) {
         		        			//alert(form.responseText);

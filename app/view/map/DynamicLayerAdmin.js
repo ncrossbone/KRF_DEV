@@ -29,7 +29,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
 			opacity: 0.5
 		});
-		console.info(me.featureLayer71);
 		me.featureLayer71.setVisibility(false);
 		me.map.addLayer(me.featureLayer71);
 		//console.info(_mapServiceUrl_v3 + "/73");

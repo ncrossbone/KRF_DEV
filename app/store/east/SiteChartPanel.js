@@ -87,10 +87,6 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 				
 			}
 			
-			console.info(selectYear);
-			console.info(selectMonth);
-			console.info(selectYear2);
-			console.info(selectMonth2);
 			
 			
 			var recordId = "";
@@ -100,8 +96,6 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			
 			var jsonData = "";
 			
-			console.info(store.parentId);
-			console.info(org_D_firstID);
 			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
 				requestUrl = "./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			}else if(store.parentId == "F"){
@@ -115,7 +109,6 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			Ext.getCmp("siteCharttest").removeCls("dj-mask-noneimg");
 			Ext.getCmp("siteCharttest").addCls("dj-mask-withimg");
 			Ext.getCmp("siteCharttest").mask("loading", "loading...");
-			console.info(requestUrl);
 			Ext.Ajax.request({
         		url: requestUrl,    // To Which url you wanna POST.
         		params: {recordId: recordId
@@ -132,11 +125,9 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
         		if(store.parentId == "A"){	
-        			console.info(store.parentId);
         			for(var ndReplace = 0 ; ndReplace<jsonData.data.length ; ndReplace++){
         				
         				var itemValue = "ITEM_VALUE";
-        				console.info(jsonData.data[ndReplace].ITEM_VALUE);
         				if(jsonData.data[ndReplace].ITEM_VALUE == 999999999){
         					jsonData.data[ndReplace].ITEM_VALUE = 0;
         					jsonData.data[ndReplace].ITEM_VALUE_1 = "정량한계미만 ";
@@ -157,9 +148,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			else{
         				//Ext.getCmp("siteCharttest").removeCls("dj-mask-withimg");
         				Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
-        				console.info(Ext.getCmp("siteCharttest").cls);
-	        			Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-	        			console.info(Ext.getCmp("siteCharttest"));
+        				Ext.getCmp("siteCharttest").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
         			}
         			
         		},

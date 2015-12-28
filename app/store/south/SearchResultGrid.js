@@ -130,7 +130,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 		load: function(store, a, b, c, d, e) {
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			//console.info(firstSearch);
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -149,16 +148,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			var jsonData = "";
 			var arrData = [];
-			//console.info(store.parentIds);
-			//var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Please wait..."});
-			//myMask.show();
-			
-			//console.info(store);
-			//console.info(a);
-			//console.info(b);
-			//console.info(c);
-			//console.info(d);
-			//console.info(e);
 			
 			// 로딩바 표시
 			//Ext.getCmp("searchResultWindow").mask("loading", "loading...");
@@ -180,16 +169,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
-        			//console.info(response.responseText);
         			// JSON Object로 변경
-        			//console.info(response.responseText);
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			//console.info(response.responseText);
-        			//console.info(jsonData.data);
         			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				
         				for(var cnt = 0 ; cnt<jsonData.data.length ; cnt++){
-        					console.info(cnt);
         					//jsonData.data[cnt].CHART_BOD.length = 5;
         					//jsonData.data[cnt].CHART_BOD.splice(0, jsonData.data[cnt].CHART_BOD.length - 5);
         					jsonData.data[cnt].CHART_ABS.splice(0, jsonData.data[cnt].CHART_ABS.length - 5);
@@ -244,7 +228,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         					jsonData.data[cnt].CHART_TRANS.splice(0, jsonData.data[cnt].CHART_TRANS.length - 5);
         					jsonData.data[cnt].CHART_ZN.splice(0, jsonData.data[cnt].CHART_ZN.length - 5);
 
-//        					console.info(jsonData.data[cnt].CHART_BOD);
         				}
         				store.setData(jsonData.data);
 	        			// 로딩바 숨김
@@ -259,7 +242,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         		failure: function(form, action) {
         			// 로딩바 숨김
         			//Ext.getCmp("searchResultWindow").unmask();
-        			console.info(form);
         			activeTab.unmask();
         			alert("오류가 발생하였습니다.");
         		}

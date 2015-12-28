@@ -43,7 +43,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 				me.setHeight(parentCtl.getHeight() - 110);
 				
 				parentCtl.on("resize", function(){
-					//console.info(parentCtl);
+					////console.info(parentCtl);
 					me.setWidth(parentCtl.getWidth() - 10);
 					me.setHeight(parentCtl.getHeight() - 110);
 				});
@@ -62,7 +62,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
-						//console.info(this.findParentByType("grid").parentIds);
+						////console.info(this.findParentByType("grid").parentIds);
 						var gridCtl = this.findParentByType("grid");
 						var parentIds = gridCtl.parentIds;
 						var siteId = row.record.data.PT_NO;
@@ -166,9 +166,9 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 					dataIndex: 'CURR_COD',
 					width: 100,
 					renderer: function(value){
-						console.info(value);
+						//console.info(value);
 						return Ext.util.Format.number(value, '0.0');
-						console.info(value);
+						//console.info(value);
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -186,12 +186,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 						    {
 							    formatX: function(xVal){
 							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	console.info("xVal::"+xVal);
+							    	//console.info("xVal::"+xVal);
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						        	console.info("yVal::"+yVal);
+						        	//console.info("yVal::"+yVal);
 						            return yVal;
 						        }
 						    }

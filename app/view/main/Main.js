@@ -52,19 +52,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     
     initComponent: function(){
     	
-    	console.info("Ext.browser.is.Chrome : " + Ext.browser.is.Chrome);
- 		console.info("Ext.chromeVersion : " + Ext.chromeVersion);
- 		//console.info("Ext.isChrome : " + Ext.isChrome);
- 		console.info("Ext.browser.is.IE : " + Ext.browser.is.IE);
- 		console.info("Ext.ieVersion : " + Ext.ieVersion)
- 		//console.info("Ext.isIE : " + Ext.isIE);
- 		console.info("Ext.browser.is.Safari : " + Ext.browser.is.Safari);
- 		console.info("Ext.safariVersion : " + Ext.safariVersion);
- 		//console.info("Ext.isSafari : " + Ext.isSafari);
- 		console.info("Ext.browser.is.Gecko (Firefox) : " + Ext.browser.is.Gecko);
- 		console.info("Ext.firefoxVersion : " + Ext.firefoxVersion);
- 		//console.info("Ext.isGecko (Firefox) : " + Ext.isGecko);
- 		
+    	
  		//console.info(document.URL);
  		if(document.URL != "http://112.218.1.243:20003/KRF_IE/"){
 	 		//if(Ext.browser.is.Chrome == false){

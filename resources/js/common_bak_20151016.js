@@ -61,7 +61,7 @@ ShowReachInfoWindow = function(){
 	
 	reachWinCtl.show();
 	
-	//console.info(infoWinCtl.visible);
+	////console.info(infoWinCtl.visible);
 	
 	var reachWinX = Ext.getBody().getViewSize().width - reachWinCtl.width;
 	var reachWinY = Ext.getBody().getViewSize().height - reachWinCtl.height;
@@ -84,7 +84,7 @@ ReachLayerOnOff = function(btnId, layerId){
 	var me = GetCoreMap();
 	var graphics = me.reachLayerAdmin.reachLinelayer.getSelectedFeatures();
 	
-	//console.info(record);
+	////console.info(record);
 	if(currCtl.btnOnOff == "on"){
 		
 		if(layerId == "46"){
@@ -107,7 +107,7 @@ ReachLayerOnOff = function(btnId, layerId){
 				}
 				
 				catIds = catIds.substring(0, catIds.length - 2);
-				//console.info(catIds);
+				////console.info(catIds);
 				
 				require(["esri/tasks/query", "esri/tasks/QueryTask"], function(Query, QueryTask){
 					queryTask = new QueryTask(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/47");
@@ -148,7 +148,7 @@ ReachLayerOnOff = function(btnId, layerId){
 
 // 집수구역 레이어 그리기
 AreaLayerDraw = function(featureSet){
-	//console.info(featureSet);
+	////console.info(featureSet);
 	var me = GetCoreMap();
 	
 	require([
@@ -170,7 +170,7 @@ AreaLayerDraw = function(featureSet){
 
 // 리치정보 바인딩
 ReachInfoBinding = function(objs){
-	//console.info(objs);
+	////console.info(objs);
 	if(objs == undefined || objs[0] == undefined)
 		return;
 	
@@ -211,7 +211,7 @@ ReachInfoBinding = function(objs){
 ShowWindowSiteNChart = function(tabIdx, title, test){
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	//console.info(winCtl);
+	////console.info(winCtl);
 	if(winCtl == undefined){
 		winCtl = Ext.create('KRF_DEV.view.east.WindowSiteNChart',{
 			
@@ -224,28 +224,28 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	var winY = 98;
 	
 	var listCtl = Ext.getCmp("siteListWindow");
-	//console.info(listCtl);
+	////console.info(listCtl);
 	if(listCtl != undefined){
 		//var store = listCtl.getStore();
-		//console.info(store);
+		////console.info(store);
 		winY = listCtl.height + winY;
 	}
 	
 	winCtl.setX(winX);
 	winCtl.setY(winY);
 	
-	//console.info(title);
+	////console.info(title);
 	var chartCtl = Ext.getCmp("siteCharttest");
-	//console.info(chartCtl);
-	//console.info(chartCtl.axes);
-	//console.info(chartCtl.axes.items[0].axisBBox.y);
-	console.info(chartCtl.axes.items[0].labels);
-	console.info(chartCtl.axes.items[0].labels[2]);
-	console.info(chartCtl.axes.items[0].labels.length);
+	////console.info(chartCtl);
+	////console.info(chartCtl.axes);
+	////console.info(chartCtl.axes.items[0].axisBBox.y);
+	//console.info(chartCtl.axes.items[0].labels);
+	//console.info(chartCtl.axes.items[0].labels[2]);
+	//console.info(chartCtl.axes.items[0].labels.length);
 	//   "+ i + ","+chartCtl.axes.items[0].labels[i]+"," +"
 	var length = "[";
 	for(var i = 1 ; i < chartCtl.axes.items[0].labels.length ;i += 2){
-		//console.info(chartCtl.axes.items[0].labels[i])
+		////console.info(chartCtl.axes.items[0].labels[i])
 		if(i => chartCtl.axes.items[0].labels.length){
 			length +=  chartCtl.axes.items[0].labels[i];
 		}else{
@@ -256,10 +256,10 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 	length += "]";
 	
 	var aaa = chartCtl.axes.items[0];
-	//console.info(chartCtl.axes.items[0].labels);
-	//console.info(length);
+	////console.info(chartCtl.axes.items[0].labels);
+	////console.info(length);
 	//aaa.labels(length);
-	//console.info(chartCtl.axes.items[0].labels);
+	////console.info(chartCtl.axes.items[0].labels);
 	
 	
 	
@@ -294,7 +294,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test){
 HideWindowSiteNChart = function(){
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	//console.info(winCtl);
+	////console.info(winCtl);
 	if(winCtl != undefined)
 		winCtl.close();
 
@@ -353,12 +353,12 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	console.info(searchResultTab);
+	//console.info(searchResultTab);
 
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
-	//console.info(searchResultTab.items.items[1]);
+	////console.info(searchResultTab.items.items[1]);
 	
 	options = {
 			//id: "searchResultContainer",
@@ -374,11 +374,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	
 	
-	console.info(parentIds);
+	//console.info(parentIds);
 	if(parentIds != undefined){
 	var parentCheck = parentIds[0].parentId;
 	parentCheck = parentCheck.substring(0,1);
-	console.info(parentCheck);
+	//console.info(parentCheck);
 	}
 	
 	
@@ -402,8 +402,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
 		}
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
+		//console.info(grdCtl.parentIds)
+		//console.info(grdCtl.siteIds);
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
@@ -415,7 +415,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	
 	}else {
 		
-		console.info(test);
+		//console.info(test);
 		
 		if(grdContainer == null || grdContainer == undefined){
 			
@@ -438,10 +438,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 			grdCtl.parentIds = parentIds;
 		}
 		
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
+		//console.info(grdCtl.parentIds)
+		//console.info(grdCtl.siteIds);
 		
-		console.info(test);
+		//console.info(test);
 		if(test == "1"){
 			test = "";
 		}
@@ -461,7 +461,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test){
 	//store.load();
 	//grdCtl.setStore(store);
 	//alert("ss");
-	//console.info(store.data);
+	////console.info(store.data);
 	
 }
 
@@ -600,7 +600,7 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 siteMovePoint = function(parentNodeId, nodeId){
 	
-	//console.info(parentNodeId);
+	////console.info(parentNodeId);
 	var layerId = "";
 	if(parentNodeId == "A001"){
 		layerId = "1"

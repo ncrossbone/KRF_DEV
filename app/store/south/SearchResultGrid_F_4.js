@@ -43,7 +43,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_4', {
 			
 			var jsonData = "";
 			var arrData = [];
-			//console.info(store.parentIds);
 			
 			// 로딩바 표시
 			var winCtl = Ext.getCmp("searchResultWindow");

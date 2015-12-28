@@ -118,7 +118,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
         		//alert("clear");
         	});
         	*/
-        	console.info(me.reachLinelayer);
+        	//console.info(me.reachLinelayer);
         	me.map.addLayer(me.reachLinelayer);
         	/* 리치라인 피처 레이어 추가 끝 */
         	
@@ -172,7 +172,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     		me.selectionToolbar = new Draw(me.map, { showTooltips: true });
     		
     		on(me.map, "mouse-down", function(evt){
-    			console.info(evt);
+    			//console.info(evt);
     		});
 
             on(me.selectionToolbar, "DrawEnd", function (evt) {
@@ -189,7 +189,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			var isCollapsed = Ext.getCmp("west_container").collapsed;
     			if(isCollapsed != false)
     				leftWidth = 0;
-    			//console.info(evt);
+    			////console.info(evt);
     			var offset = (initWidth - leftWidth) * resolution;
     			
     			// 위에서 계산된 offset 적용
@@ -210,7 +210,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	            	var mapWidth = me.map.extent.getWidth();
 	            	var pixelWidth = mapWidth/me.map.width;
 	            	var tolerance = 10 * pixelWidth;
-	            	//console.info(pixelWidth)
+	            	////console.info(pixelWidth)
 	            	queryExtent = new Extent(1, 1, tolerance, tolerance, evt.spatialReference);
 	            	//queryExtent = new Extent(1, 1, 1.5, 1.5, evt.spatialReference);
 	            	selectQuery.geometry = queryExtent.centerAt(centerPoint);
@@ -218,7 +218,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
             	
             	// 전역변수 저장
             	me.featureSelectQuery = selectQuery;
-            	//console.info(selectQuery);
+            	////console.info(selectQuery);
             	
             	// FeatureLayer.SELECTION_NEW : 새로선택, FeatureLayer.SELECTION_ADD : 추가선택, FeatureLayer.SELECTION_SUBTRACT : 선택취소
             	// FeatureLayer 선택기능은 필요없으므로 SELECTION_SUBTRACT로 처리 (각 콜백함수에서 그래픽레이어 생성)
@@ -309,10 +309,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			}
 		}
 
-		console.info("me.isUpDraw : " + me.isUpDraw + ", me.isDownDraw : " + me.isDownDraw
+		/*console.info("me.isUpDraw : " + me.isUpDraw + ", me.isDownDraw : " + me.isDownDraw
 				+ ", me.isUpBonDraw : " + me.isUpBonDraw + ", me.isDownBonDraw : " + me.isDownBonDraw
 				+ ", me.isUpJiDraw : " + me.isUpJiDraw + ", me.isAMDraw : " + me.isAMDraw
-				+ ", me.isDownJiDraw : " + me.isDownJiDraw+ ", me.isDemDraw : " + me.isDemDraw);
+				+ ", me.isDownJiDraw : " + me.isDownJiDraw+ ", me.isDemDraw : " + me.isDemDraw);*/
     	
     },
     
@@ -433,9 +433,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     addAreaGraphic: function(featureSet){
     	
     	var me = GetCoreMap();
-    	//console.info(graphic);
+    	////console.info(graphic);
     	require(["esri/layers/GraphicsLayer"], function(GraphicsLayer){
-    		//console.info(me.reachLayerAdmin.reachAreaGraphics);
+    		////console.info(me.reachLayerAdmin.reachAreaGraphics);
     		if(me.reachLayerAdmin.reachAreaGraphics == null
     				|| me.reachLayerAdmin.reachAreaGraphics.graphics == undefined){
     			
@@ -482,7 +482,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	// 집수구역 그래픽 삭제
     	var arrIdx = this.getCatGraphicIndex(catId, me.reachLayerAdmin.selAreaGraphics);
-    	//console.info(catId);
+    	////console.info(catId);
     	if(arrIdx > -1){
 	    	
     		//var graphic = graphicArray[i].attributes.CAT_ID
@@ -511,7 +511,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 		me.reachLayerAdmin.drawEnd(); // 리치 선택 종료
 		me.reachLayerAdmin.clearGraphicsLayer("redraw"); // 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
 		
-		console.info(me.reachLayerAdmin.isDownDraw);
+		//console.info(me.reachLayerAdmin.isDownDraw);
 
 		if(me.reachLayerAdmin.startRchGraphics.length > 0){
 			for(var i = 0; i < me.reachLayerAdmin.startRchGraphics.length; i++){
@@ -535,7 +535,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	if(evt.length == 0){
     		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
-    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			////console.info(me.reachLayerAdmin.featureSelectQuery);
     			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.startAreaDraw);
     		});
     	}
@@ -546,7 +546,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			return;
     		}
     		
-    		//console.info(evt[0]);
+    		////console.info(evt[0]);
 	    	// khLee 검색 수정 테스트
 	    	//return;
     		
@@ -568,17 +568,17 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     
     addLineDraw: function(evt){
     	var me = GetCoreMap(); // this 사용하지 말자.
-    	console.info(evt);
+    	//console.info(evt);
     	if(evt.length == 0){
     		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
-    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			////console.info(me.reachLayerAdmin.featureSelectQuery);
     			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.addAreaDraw);
     		});
     	}
     	else{
 	    	var me = GetCoreMap();
 	    	
-	    	console.info(evt);
+	    	//console.info(evt);
 	    	for(var i = 0; i < evt.length; i++){
 	    		me.reachLayerAdmin.executeQuery(evt[i], "add");
 	    	}
@@ -587,7 +587,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     },
     
     addAreaDraw: function(features){
-    	//console.info(evt);
+    	////console.info(evt);
     	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask", "esri/layers/FeatureLayer"], function(SimpleLineSymbol, Color, Query, QueryTask, FeatureLayer){
     		
     		query = new Query();
@@ -640,10 +640,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	var me = this;
     	
-    	//console.info("선택리치아이디 : " + feature.attributes.RCH_ID); // 선택 리치아이디
-    	//console.info("상류우측유입아이디 : " + feature.attributes.RUP_RCH_ID);
-    	//console.info("상류좌측유입아이디 : " + feature.attributes.LUP_RCH_ID);
-    	//console.info("하류유출아이디 : " + feature.attributes.LOO_RCH_ID);
+    	////console.info("선택리치아이디 : " + feature.attributes.RCH_ID); // 선택 리치아이디
+    	////console.info("상류우측유입아이디 : " + feature.attributes.RUP_RCH_ID);
+    	////console.info("상류좌측유입아이디 : " + feature.attributes.LUP_RCH_ID);
+    	////console.info("하류유출아이디 : " + feature.attributes.LOO_RCH_ID);
     	
     	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, QueryTask){
     		
@@ -663,7 +663,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			if(me.isAMDraw == true){
 				// 시작위치로 설정된 집수구역 중권역 설정
 				AM_CD = catId.substring(0, 4);
-				//console.info(AM_CD);
+				////console.info(AM_CD);
 				AS_CD = ""; // 소권역은 공백
 			}
 			else{
@@ -671,10 +671,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 				AS_CD = "";
 			}
 			
-    		//console.info("대권역 : " + WS_CD);
-    		//console.info("중권역 : " + AM_CD);
-    		//console.info("소권역 : " + AS_CD);
-    		//console.info("법정동 : " + ADM_CD);
+    		////console.info("대권역 : " + WS_CD);
+    		////console.info("중권역 : " + AM_CD);
+    		////console.info("소권역 : " + AS_CD);
+    		////console.info("법정동 : " + ADM_CD);
 			
 			// 집수구역 그리기
 			me.currAreaDraw(feature);
@@ -887,7 +887,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/tasks/query", "esri/layers/FeatureLayer", "esri/tasks/QueryTask"], function(SimpleLineSymbol, Color, Query, FeatureLayer, QueryTask){
     		
-    		//console.info(_mapServiceUrl + "/" + _reachAreaLayerId);
+    		////console.info(_mapServiceUrl + "/" + _reachAreaLayerId);
     		var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId);
     		query = new Query();
 			query.returnGeometry = true;
@@ -954,7 +954,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     	
     	if(evt.length == 0){
     		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
-    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			////console.info(me.reachLayerAdmin.featureSelectQuery);
     			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.endAreaDraw);
     		});
     	}
@@ -965,7 +965,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     			return;
     		}
     		
-    		//console.info(evt[0]);
+    		////console.info(evt[0]);
 	    	// khLee 검색 수정 테스트
 	    	//return;
 	    	
@@ -992,13 +992,13 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     },
     
     removeLine: function(evt){
-    	//console.info("remove");
+    	////console.info("remove");
     	
     	var me = GetCoreMap(); // this 사용하지 말자.
-    	//console.info(evt);
+    	////console.info(evt);
     	if(evt.length == 0){
     		require(["esri/layers/FeatureLayer"], function(FeatureLayer){
-    			//console.info(me.reachLayerAdmin.featureSelectQuery);
+    			////console.info(me.reachLayerAdmin.featureSelectQuery);
     			me.reachLayerAdmin.reachArealayer.selectFeatures(me.reachLayerAdmin.featureSelectQuery, FeatureLayer.SELECTION_SUBTRACT, me.reachLayerAdmin.removeArea);
     		});
     	}
@@ -1011,7 +1011,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     },
     
     reachSelected: function(objs){
-    	//console.info(objs);
+    	////console.info(objs);
     	if(objs == undefined || objs[0] == undefined)
     		return;
     	
@@ -1105,7 +1105,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 	 		    "height": 28
 	 		});
 	 		
-	 		//console.info(geom);
+	 		////console.info(geom);
 	 		//me.map.graphics.add(new Graphic(geom, startSymbol));
 	 		me.reachLayerAdmin.addLineGraphic(new Graphic(geom, startSymbol));
 	 	});
@@ -1148,7 +1148,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 			    "height": 28
 			});
 	 		
-	 		//console.info(geom);
+	 		////console.info(geom);
 	 		//me.map.graphics.add(new Graphic(geom, endSymbol));
     		me.reachLayerAdmin.addLineGraphic(new Graphic(geom, endSymbol));
 	 	});
@@ -1216,7 +1216,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     
     drawEnd: function(){
     	me = this;
-    	//console.info(me.selectionToolbar);
+    	////console.info(me.selectionToolbar);
     	if(me.selectionToolbar != null){
 	    	me.selectionToolbar.deactivate();
 	    	me.map.enablePan();
@@ -1260,7 +1260,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
     				}
     				
     				_catIds = _catIds.substring(0, _catIds.length - 2);
-    				console.info(_catIds);
+    				//console.info(_catIds);
     				
     			}
     			

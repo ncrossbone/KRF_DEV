@@ -82,7 +82,6 @@ Ext.define('KRF_DEV.view.center.CenterController', {
     	if(activeLayer != undefined)
     		activeLayer.setVisibility(true);
     	
-    	//console.info(activeLayer.visibleLayers);
     	//var visibleLyaer = activeLayer.visibleLayers;
     	//activeLayer.setVisibleLayers([12]);
     	

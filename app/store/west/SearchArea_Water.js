@@ -18,11 +18,9 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 			// 1초(1000ms)후에 실행한다.
 
 			var idColumn, nameColumn, whereStr, pId;
-			// console.info(store);
 			idColumn = "";
 
-			// console.info(store.parentId);
-
+			
 			if (store.layerId == '54') {
 				idColumn = "WS_CD";
 				nameColumn = "대권역";
@@ -47,9 +45,7 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 			if (idColumn == undefined || nameColumn == undefined
 					|| whereStr == undefined)
 				return;
-			// console.info(whereStr);
 			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + store.layerId); // 레이어 URL
-			//console.info(_mapServiceUrl);
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			query.where = whereStr;
@@ -90,16 +86,14 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 						name : nameVal
 					});
 
-					// console.info(receiveData);
 					if (data.length == index + 1) {
 						store.setData(receiveData);
 					}
 
-					// console.info(store.data);
-
+					
 				});
 
-				// console.info(receiveData);
+
 			});
 			/*
 			 * dojo.connect(queryTask, "onError", function(err) { alert(err);

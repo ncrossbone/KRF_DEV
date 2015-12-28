@@ -21,7 +21,6 @@ Ext.define('KRF_DEV.store.west.Layer01Store', {
 		beforeload: function(store) {
 			//var storeData = this;
 	
-			//console.info(this);
 			// khLee 추후 동적 레이어 바인딩 고려..
 			return;
 			var queryTask = new esri.tasks.QueryTask('http://fireftp.iptime.org:6080/arcgis/rest/services/reach/MapServer/f=pjson'); // 레이어 URL
@@ -35,7 +34,6 @@ Ext.define('KRF_DEV.store.west.Layer01Store', {
 			
 			queryTask.execute(query,  function(results){
 				
-				//console.info(results.layers[0]);
 				//return;
 				
 				/* 트리 바인딩 구조 텍스트 만들기 */
@@ -78,14 +76,12 @@ Ext.define('KRF_DEV.store.west.Layer01Store', {
 				
 				jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
 				jsonStr += "]";
-				console.info(JSON.parse(jsonStr));
 				store.setData(JSON.parse(jsonStr));
 				
 				//return jsonStr;
 				
 			});
 			
-			//console.info(jsonStr);
 			//this.setData(Ext.JSON.decode(jsonStr));
 			
 			dojo.connect(queryTask, "onError", function(err) {

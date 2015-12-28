@@ -28,7 +28,6 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
 		query.where = "1=1";
 		query.outFields = ["*"];
 		queryTask.execute(query,  function(results){
-			console.info(results.features);
 			me.bodDatas = results.features;
 		});
 		

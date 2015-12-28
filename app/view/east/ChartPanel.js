@@ -72,7 +72,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 							var dateWinCtl = Ext.getCmp("datePanel1");
 							
 							
-							console.info(dateWinCtl);
 							if(dateWinCtl == undefined){
 								dateWinCtl = Ext.create("KRF_DEV.view.east.ChartPanelDate");
 							}
@@ -179,7 +178,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                	//console.info(storeItem);
 	                	if(storeItem.joined[0].parentId == "A"){
 			                	if(storeItem.get(series.series[0]._yField) == 0){
-			                		console.info(console.info(storeItem));
 			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField+"_1"));
 			                	}else{
 			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));

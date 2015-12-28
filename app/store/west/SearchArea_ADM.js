@@ -19,7 +19,6 @@ Ext.define('KRF_DEV.store.west.SearchArea_ADM', {
 			// Ext.defer(function() { 
 			// defer : 미루다, 연기하다
 			// Ext.defer(function(){...}, 1000, this); // function 내 코드를 1초(1000ms)후에 실행한다.
-			//console.info(store.layerId);
 			/*
 			if(store.parentADMCD == ""){
 				store.setData([]);

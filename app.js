@@ -36,7 +36,7 @@ var store = Ext.create('Ext.data.Store', {
 
 	listeners : {
 		beforeload : function(a, b, c) {
-			// console.info(this.data.record);
+			// //console.info(this.data.record);
 			_testUrl = "sss";
 		}
 	}
@@ -92,7 +92,7 @@ Ext.application({
 
 		/*
 		 * Ext.Ajax.on('beforerequest', function (con, opt) {
-		 * console.info(con); console.info(opt);
+		 * //console.info(con); //console.info(opt);
 		 * Ext.getBody().mask("loading", "loading..."); });
 		 * 
 		 * Ext.Ajax.on('success', function(){ Ext.getBody().unmask();
@@ -148,7 +148,7 @@ Ext.application({
 
 			var me = GetCoreMap();
 
-			console.info(searchText);
+			//console.info(searchText);
 
 			// 검샋시 다른 더튼값 초기화
 			var cmbArea1 = Ext.getCmp("cmbArea1");
@@ -203,7 +203,7 @@ Ext.application({
 				//me.reachLayerAdmin.amCD_temp = searchText;
 			}
 
-			// console.info(searchText);
+			// //console.info(searchText);
 			listWinCtl = Ext.getCmp("siteListWindow");
 			if (listWinCtl == undefined)
 				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
@@ -256,7 +256,7 @@ Ext.application({
 
 			infoWinCtl.show();
 
-			// console.info(infoWinCtl.visible);
+			// //console.info(infoWinCtl.visible);
 
 			var infoWinX = Ext.getBody().getViewSize().width
 					- infoWinCtl.width;
@@ -312,7 +312,7 @@ Ext.application({
 
 		/*
 		 * // 검색결과창 띄우기 Ext.ShowSearchResult = function(tabId, title){
-		 * //console.info(tabId); var tabCtl = Ext.getCmp(tabId);
+		 * ////console.info(tabId); var tabCtl = Ext.getCmp(tabId);
 		 * 
 		 * if(tabCtl == undefined){
 		 * Ext.create('KRF_DEV.view.common.Window', { params: { xtype:
@@ -338,7 +338,7 @@ Ext.application({
 			var rToolbar = Ext.getCmp("reachToolbar");
 			var sConfig = Ext.getCmp("searchConfig");
 			
-			 console.info(rToolbar);
+			 //console.info(rToolbar);
 				if (rToolbar == undefined) {
 					rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar',{
 										// region: 'north',
@@ -349,7 +349,7 @@ Ext.application({
 				
 			}
 				
-			//console.info(rNameToolbar);
+			////console.info(rNameToolbar);
 			if(rNameToolbar == undefined){
 				rNameToolbar = Ext.create('KRF_DEV.view.center.ReachNameToolbar');
 				rNameToolbar.show();

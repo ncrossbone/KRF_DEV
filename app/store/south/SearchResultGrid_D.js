@@ -153,7 +153,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
         		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
 
-        			//console.info(response.responseText);
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
