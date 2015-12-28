@@ -336,6 +336,7 @@ Ext.application({
 			
 			var rNameToolbar = Ext.getCmp("ReachNameToolbar");
 			var rToolbar = Ext.getCmp("reachToolbar");
+			var sConfig = Ext.getCmp("searchConfig");
 			
 			 console.info(rToolbar);
 				if (rToolbar == undefined) {
@@ -348,12 +349,16 @@ Ext.application({
 				
 			}
 				
-			console.info(rNameToolbar);
+			//console.info(rNameToolbar);
 			if(rNameToolbar == undefined){
 				rNameToolbar = Ext.create('KRF_DEV.view.center.ReachNameToolbar');
 				rNameToolbar.show();
 			}
 			
+			if(sConfig == undefined){
+				sConfig = Ext.create("KRF_DEV.view.center.SearchConfig");
+				sConfig.show();
+			}
 			
 			var cContainer = Ext.getCmp("center_container");
 			cContainer.add(rToolbar);

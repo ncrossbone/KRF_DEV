@@ -8,14 +8,66 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	id: 'searchConfig',
 	title: '검색설정',
 
-	width: 310,
-	height: 270,
+	width: 100,
+	height: 20,
+	
+	x: 387,
+	y: 172,
 
-	cls: 'khLee-window-panel-header khLee-x-window-default ',
+	style: 'border-style: none !important; background: url("./resources/images/popup/txtFieldBg.png") !important;',
+	
+	header: false,
+	layout: {
+		type: 'hbox',
+    	align: 'top',
+    	pack: 'middle'
+	},
+	
+	items: [{
+		xtype: 'checkbox',
+		boxLabel: '본류',
+		checked: true,
+		handler: function(obj, checked){
+			var chkGroup1 = this.findParentByType("checkboxgroup");
+			var chkGroup1Items = chkGroup1.items.items;
+			for(var i = 0; i < chkGroup1Items.length; i++){
+				if(chkGroup1Items[i].inputValue == "isUpDraw"){
+					chkGroup1Items[i].setValue(checked);
+				}
+				if(chkGroup1Items[i].inputValue == "isUpJiDraw"){
+					if(checked == false){
+						chkGroup1Items[i].setValue(checked);
+					}
+				}
+			}
+		},
+		inputValue: 'isBonDraw'
+		
+	}, {
+		xtype: 'checkbox',
+		boxLabel: '지류',
+		checked: true,
+		handler: function(obj, checked){
+			var chkGroup1 = this.findParentByType("checkboxgroup");
+			var chkGroup1Items = chkGroup1.items.items;
+			for(var i = 0; i < chkGroup1Items.length; i++){
+				if(chkGroup1Items[i].inputValue == "isUpDraw"){
+					chkGroup1Items[i].setValue(checked);
+				}
+				if(chkGroup1Items[i].inputValue == "isUpJiDraw"){
+					if(checked == false){
+						chkGroup1Items[i].setValue(checked);
+					}
+				}
+			}
+		},
+		inputValue: 'isJiDraw'
+		
+	}],
 
 	initComponent: function(){
 		this.callParent();
-		console.info(this.items.items[0].items.items[1].items.items[0]);
+		//console.info(this.items.items[0].items.items[1].items.items[0]);
 
 		// khLee 임시 - DB연결 해제
 		return;
@@ -93,6 +145,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 
 	},
 
+	/*
 	items: [{
 		xtype: 'container',
 		width: '100%',
@@ -275,13 +328,14 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					checked: false,
 					inputValue: 'isAMDraw',
 					style: 'margin-right: 15px;'
-				}/*, {
-            		xtype: 'checkbox',
-            		boxLabel: '댐이있는경우',
-            		checked: false,
-            		inputValue: 'isDemDraw',
-            		style: 'margin-right: 15px;'
-            	}*/]
+				}//, {
+            		//xtype: 'checkbox',
+            		//boxLabel: '댐이있는경우',
+            		//checked: false,
+            		//inputValue: 'isDemDraw',
+            		//style: 'margin-right: 15px;'
+            	//}
+				]
 			}]
 		}, {
 			xtype: 'container',
@@ -349,22 +403,20 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							var me = GetCoreMap();
 							me.reachLayerAdmin.startLineReDraw();
 
-							/*
-        					Ext.Ajax.request({
-        		        		url: './resources/jsp/SetSearchConfig.jsp',
-        		        		params: { chkGroup1Value: chkGroup1Value, chkGroup2Value: chkGroup2Value},
-        		        		async: true, // 비동기 = async: true, 동기 = async: false
-        		        		success : function(response, opts) {
+        					//Ext.Ajax.request({
+        		        		//url: './resources/jsp/SetSearchConfig.jsp',
+        		        		//params: { chkGroup1Value: chkGroup1Value, chkGroup2Value: chkGroup2Value},
+        		        		//async: true, // 비동기 = async: true, 동기 = async: false
+        		        		//success : function(response, opts) {
 
-        		        			console.info(response.responseText);
+        		        			//console.info(response.responseText);
 
-        		        		},
-        		        		failure: function(form, action) {
-        		        			alert(form.responseText);
-        		        			alert("오류가 발생하였습니다.");
-        		        		}
-        		        	});
-							 */
+        		        		//},
+        		        		//failure: function(form, action) {
+        		        			//alert(form.responseText);
+        		        			//alert("오류가 발생하였습니다.");
+        		        		//}
+        		        	//});
 
 						}
 					}
@@ -372,5 +424,6 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			}]
 		}]
 	}]
+	*/
 
 });

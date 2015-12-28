@@ -234,10 +234,19 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					//console.info();
 				}
-				console.info(dataArr);
+				//console.info(dataArr);
 				for(var i=0; i<dataArr.length; i++){
-					datas.push(dataArr[i].data)
-					console.info(dataArr[i].data);
+					// khLee 수정 값 변경
+					var strData = JSON.stringify(dataArr[i].data);
+					//console.info(strData);
+					strData = strData.replace(/888888888/gi, "\"\"");
+					strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+					//console.info(strData);
+					var convertData = JSON.parse(strData);
+					//console.info(convertData);
+					//datas.push(dataArr[i].data);
+					datas.push(convertData);
+					//console.info(JSON.stringify(dataArr[i].data));
 				}
 				
 				var removeMem = []
@@ -250,6 +259,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							console.info(removeMem);
 						}
 					}
+					
+					// khLee parentId (레이어코드) 제외
+					removeMem.push("parentId");
+					
 					for(var i=0; i<colArr.length; i++){
 						if(colArr[i].dataIndex!=""){
 							var add = true;
@@ -303,7 +316,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				
 				//if(grid.download=='sleep'){
 					this.status = 'download';
-					
+					console.info(datas);
 					$.post("./resources/jsp/excelDown.jsp", {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
 						//grid.download = 'download';
 						$('#__fileDownloadIframe__').remove();
