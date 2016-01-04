@@ -125,14 +125,16 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								if(self.coreMap.reachLayerAdmin_v3.lineGrpLayer){
 									var reachLineGraphicArr = self.coreMap.reachLayerAdmin_v3.lineGrpLayer.graphics;
 									for(var i=0; i<reachLineGraphicArr.length; i++){
+										console.info(reachLineGraphicArr[i].attributes.CAT_ID);
+										console.info(reachLineGraphicArr[i].attributes.RCH_ID);
 										reachLineGArr.push(JSON.stringify(reachLineGraphicArr[i].toJson()));
 									}
 								}
-								
 								var reachAreaGArr = [];
 								if(self.coreMap.reachLayerAdmin_v3.areaGrpLayer){
 									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin_v3.areaGrpLayer.graphics;
 									for(var i=0; i<reachAreaGraphicArr.length; i++){
+										//console.info(reachAreaGraphicArr[i].attributes.CAT_ID);
 										reachAreaGArr.push(JSON.stringify(reachAreaGraphicArr[i].toJson()));
 									}
 								}
@@ -141,6 +143,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								if(self.coreMap.reachLayerAdmin_v3.pointGrpLayer){
 									var pointGraphicArr = self.coreMap.reachLayerAdmin_v3.pointGrpLayer.graphics;
 									for(var i=0; i<pointGraphicArr.length; i++){
+										console.info(JSON.stringify(pointGraphicArr[i].toJson()));
 										pointGArr.push(JSON.stringify(pointGraphicArr[i].toJson()));
 									}
 								}
@@ -152,31 +155,25 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								
 								//self.favoriteInfo = [];
 								self.favoriteInfo.push(saveObj);
-								console.info(self.favoriteInfo);
+								//console.info(self.favoriteInfo);
 								//console.info(self.favoriteInfo);
 								localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
 								//localStorage['_waterFavoriteInfo_'] = self.favoriteInfo;
 								//console.info(localStorage['_waterFavoriteInfo_']);
-								
-								/*
-								var info = JSON.stringify(self.favoriteInfo);
-								
-								alert("c");
-								//1. data params로 넘어가지 않는 문제.
-								//2. 넘어갈 시 clob 타입에 단순 횡으로 입력시 4000byte.
 								Ext.Ajax.request({
 									url : "./resources/jsp/FavoriteInfo.jsp",
 									method : "POST",
 									success : function(result, request) {
-										console.info(result.responseText);
+										console.info(result.responseText.trim());
 										Ext.Msg.alert("cc", "cc");
 									},
 									failure : function(result, request) {
 										Ext.Msg.alert("Failed", "Connection Failed");
 									},
-									params:{info:info}
+									params:{UID:saveObj.UID.trim(),NAME:saveObj.NAME.trim(),DATE:saveObj.DATE.trim(),
+										EXTENT:JSON.stringify(saveObj.EXTENT).trim(),LEVEL:saveObj.LEVEL.toString().trim()}
 								});
-								*/
+								
 								
 								self.gridStore.loadData(self.favoriteInfo);
 							}

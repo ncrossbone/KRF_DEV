@@ -167,21 +167,20 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	favoriteExe:function(data){
-		console.info(data);
 		var me = this;
 		var extentJson = data.EXTENT;
 		var extent = new esri.geometry.Extent(extentJson);
 		var level = data.LEVEL;
 		var reachLineGArr = data.reachLineGArr;
 		var reachAreaGArr = data.reachAreaGArr;
-		
+		var pointGArr =data.pointGArr;
 		//me.reachLayerAdmin_v3.addLineGraphic(null);
 		//me.reachLayerAdmin_v3.addAreaGraphic(null);
-		
 		var deferred = me.map.setExtent(extent, true);
 		deferred.then(function(value){
 			var deferred2 = me.map.setLevel(level);
 			deferred2.then(function(value){
+				//못들어옴. 2015.12.23 hyeok(리치모드 시 들어옴)
 				if(me.reachLayerAdmin_v3.lineGrpLayer){
 					me.reachLayerAdmin_v3.lineGrpLayer.clear();
 					for(var i=0; i<reachLineGArr.length; i++){
@@ -193,6 +192,13 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 					me.reachLayerAdmin_v3.areaGrpLayer.clear();
 					for(var i=0; i<reachAreaGArr.length; i++){
 						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
+						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+					}
+				}
+				if(me.reachLayerAdmin_v3.pointGrpLayer){
+					me.reachLayerAdmin_v3.pointGrpLayer.clear();
+					for(var i=0; i<pointGArr.length; i++){
+						me.reachLayerAdmin_v3.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
