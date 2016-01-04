@@ -15,9 +15,9 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     		Ext.Msg.confirm(button.params.title, button.params.contents, 'onConfirm', this);
     },
     onConfirm: function (choice){
-    	console.log(choice);
+    	//console.log(choice);
     	if (choice === 'yes') {
-            console.log(choice);
+           // console.log(choice);
         }
     },
     
@@ -87,13 +87,13 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		
 		var me = GetCoreMap();
 		var activeLayer = me.map.getLayer("DynamicLayer1");
-    	console.info(activeLayer);
+    	o(activeLayer);
     	var layers = activeLayer.visibleLayers;
     	var visibleLayer = [];
     	activeLayer.setVisibleLayers([]);
     	
     	for(var i = 0; i < layers.length; i++){
-    		//console.info(layers[i]);
+    		//o(layers[i]);
 			if(layers[i] != 45 && layers[i] != 44){
 				visibleLayer.push(layers[i]);
 			}
@@ -104,7 +104,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	    	activeLayer.setVisibleLayers(visibleLayer);
 		}
 		else{
-			//console.info(visibleLayer);
+			//o(visibleLayer);
 			activeLayer.setVisibleLayers(visibleLayer);
 		}
 		

@@ -155,7 +155,10 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								
 								//self.favoriteInfo = [];
 								self.favoriteInfo.push(saveObj);
+<<<<<<< HEAD
 								//console.info(self.favoriteInfo);
+=======
+>>>>>>> 8621acbdd895049978670866b27cb844c71caeb9
 								//console.info(self.favoriteInfo);
 								localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
 								//localStorage['_waterFavoriteInfo_'] = self.favoriteInfo;

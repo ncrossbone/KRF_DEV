@@ -172,7 +172,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			
 		}
 		
-		//console.info(popCtl.hidden);
 		if(popCtl.hidden == true)
 			popCtl.show();
 		else
@@ -237,7 +236,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			
 		}
 		
-		//console.info(popCtl.hidden);
 		if(popCtl.hidden == true)
 			popCtl.show();
 		else

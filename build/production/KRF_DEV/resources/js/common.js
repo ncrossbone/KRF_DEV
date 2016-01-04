@@ -65,7 +65,7 @@ ShowReachInfoWindow = function(){
 	
 	reachWinCtl.show();
 	
-	//console.info(infoWinCtl.visible);
+	////console.info(infoWinCtl.visible);
 	
 	var reachWinX = Ext.getBody().getViewSize().width - reachWinCtl.width;
 	var reachWinY = Ext.getBody().getViewSize().height - reachWinCtl.height;
@@ -89,7 +89,7 @@ ReachLayerOnOff = function(btnId, layerId){
 	//var graphics = me.reachLayerAdmin.reachLinelayer.getSelectedFeatures();
 	var graphics = me.reachLayerAdmin_v3.lineGrpLayer.getSelectedFeatures();
 	
-	//console.info(record);
+	////console.info(record);
 	if(currCtl.btnOnOff == "on"){
 		
 		if(layerId == "46"){
@@ -112,7 +112,7 @@ ReachLayerOnOff = function(btnId, layerId){
 				}
 				
 				catIds = catIds.substring(0, catIds.length - 2);
-				//console.info(catIds);
+				////console.info(catIds);
 				
 				require(["esri/tasks/query", "esri/tasks/QueryTask"], function(Query, QueryTask){
 					queryTask = new QueryTask(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/47");
@@ -120,7 +120,7 @@ ReachLayerOnOff = function(btnId, layerId){
 					query.returnGeometry = true;
 					query.outFields = ["*"];
 					
-					query.where = "CAT_ID IN (" + catIds + ")";
+					query.where = "CAT_DID IN (" + catIds + ")";
 					queryTask.execute(query, AreaLayerDraw);
 				});
 			}
@@ -153,7 +153,7 @@ ReachLayerOnOff = function(btnId, layerId){
 
 // 집수구역 레이어 그리기
 AreaLayerDraw = function(featureSet){
-	//console.info(featureSet);
+	////console.info(featureSet);
 	var me = GetCoreMap();
 	
 	require([
@@ -167,7 +167,7 @@ AreaLayerDraw = function(featureSet){
     	var selectQuery = new Query();
     	
     	for(var i = 0; i < featureSet.features.length; i++){
-        	selectQuery.where = "CAT_ID = '" + featureSet.features[i].attributes.CAT_ID + "'";
+        	selectQuery.where = "CAT_DID = '" + featureSet.features[i].attributes.CAT_DID + "'";
         	me.reachLayerAdmin.reachArealayer.selectFeatures(selectQuery, FeatureLayer.SELECTION_ADD); // 집수구역 셀렉트
     	}
 	});
@@ -175,11 +175,11 @@ AreaLayerDraw = function(featureSet){
 
 // 리치정보 바인딩
 ReachInfoBinding = function(objs){
-	//console.info(objs);
+	////console.info(objs);
 	if(objs == undefined || objs[0] == undefined)
 		return;
 	
-	var RCH_ID = objs[0].attributes.RCH_ID; // 리치코드
+	var RCH_DID = objs[0].attributes.RCH_DID; // 리치코드
 	var RIV_ID = objs[0].attributes.RIV_ID; // 하천코드
 	var RIV_NM = objs[0].attributes.RIV_NM; // 하천명
 	var SB_ID = objs[0].attributes.SB_ID; // 표준유역코드
@@ -190,13 +190,14 @@ ReachInfoBinding = function(objs){
 	var GEO_TRIB = objs[0].attributes.GEO_TRIB; // 하천차수
 	var RCH_LEN = objs[0].attributes.RCH_LEN; // 리치길이
 	var CUM_LEN = objs[0].attributes.CUM_LEN; // 누적거리
-	var CAT_AREA = objs[0].attributes.CAT_AREA; // 집수면적
+	//var CAT_AREA = objs[0].attributes.CAT_AREA; // 집수면적
+	var CUM_AREA = objs[0].attributes.CUM_AREA; // 집수면적
 	// 상류면적?
 	
 	// 리치 정보창 띄우기
 	var reachInfoCtl = ShowReachInfoWindow();
 	
-	if(Ext.getCmp("RCH_ID") != undefined) { Ext.getCmp("RCH_ID").setHtml(RCH_ID) };
+	if(Ext.getCmp("RCH_DID") != undefined) { Ext.getCmp("RCH_DID").setHtml(RCH_DID) };
 	if(Ext.getCmp("RIV_ID") != undefined) { Ext.getCmp("RIV_ID").setHtml(RIV_ID) };
 	if(Ext.getCmp("RIV_NM") != undefined) { Ext.getCmp("RIV_NM").setHtml(RIV_NM) };
 	if(Ext.getCmp("SB_ID") != undefined) { Ext.getCmp("SB_ID").setHtml(SB_ID) };
@@ -207,7 +208,8 @@ ReachInfoBinding = function(objs){
 	if(Ext.getCmp("GEO_TRIB") != undefined) { Ext.getCmp("GEO_TRIB").setHtml(GEO_TRIB) };
 	if(Ext.getCmp("RCH_LEN") != undefined) { Ext.getCmp("RCH_LEN").setHtml(RCH_LEN) };
 	if(Ext.getCmp("CUM_LEN") != undefined) { Ext.getCmp("CUM_LEN").setHtml(CUM_LEN) };
-	if(Ext.getCmp("CAT_AREA") != undefined) { Ext.getCmp("CAT_AREA").setHtml(CAT_AREA) };
+	//if(Ext.getCmp("CAT_AREA") != undefined) { Ext.getCmp("CAT_AREA").setHtml(CAT_AREA) };
+	if(Ext.getCmp("CUM_AREA") != undefined) { Ext.getCmp("CUM_AREA").setHtml(CUM_AREA) };
 }
 
 
@@ -216,8 +218,8 @@ ReachInfoBinding = function(objs){
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	
 	var yFieldName = "";
-	console.info(parentId);
-	//console.info(tabIdx);
+	//console.info(parentId);
+	////console.info(tabIdx);
 	
 	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
 		var orgParentId = parentId
@@ -297,7 +299,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			series.setXField("WMCYMD");
 			yFieldName = "SWL";
 		}
-		console.info(yFieldName);
+		//console.info(yFieldName);
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
 		
@@ -328,7 +330,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		chartStore.load();
 	}
 	
-	console.info(yFieldName);
+	//console.info(yFieldName);
 	SetItemLabelText(yFieldName);
 
 }
@@ -337,7 +339,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 HideWindowSiteNChart = function(){
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	//console.info(winCtl);
+	////console.info(winCtl);
 	if(winCtl != undefined)
 		winCtl.close();
 	
@@ -354,7 +356,7 @@ SetItemLabelText = function(itemNm){
 		var selectItem = Ext.getCmp("selectItem");
 		itemNm = selectItem.lastValue;
 	}
-	console.info(itemNm);
+	//console.info(itemNm);
 	//var itemNm = "";
 	//var itemNm = "ITEM_VALUE";
 	
@@ -434,7 +436,7 @@ SetItemLabelText = function(itemNm){
 	
 	series.setYField("ITEM_VALUE");
 	axes.fields = "ITEM_VALUE";
-	console.info(itemNm)
+	//console.info(itemNm)
 	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
 	siteItemText.setText(itemNm);
 }
@@ -444,14 +446,14 @@ SetItemLabelText = function(itemNm){
 SetChartMaxData = function(store){
 	
 	var ITEM_VALUE = parseFloat(store.arrMax[0].ITEM_VALUE);
-	console.info(store);
+	//console.info(store);
 	
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes   = chartCtl.axes[0];
 	//var series = chartCtl.series[0];
 	//var s = series.getYField();
-	console.info(ITEM_VALUE);
+	//console.info(ITEM_VALUE);
 	axes.setMaximum(ITEM_VALUE);
 	
 		
@@ -487,7 +489,7 @@ ChangeTabIndex = function(tabIdx){
 
 // 검색결과창 띄우기
 ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk){
-	console.info(parentIds);
+	//console.info(parentIds);
 	
 	if(parentIds == ""){
 		parentIds = [{parentId : tooltipCk , siteId : siteIds}];
@@ -497,14 +499,14 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		siteIds = "'"+siteIds+"'";
 	}
 	
-	console.info("==================================");
-	console.info("siteIds::"+siteIds);
-	console.info("parentIds::"+parentIds);
-	console.info("titleText::"+titleText);
-	console.info("gridId::"+gridId);
-	console.info(test);
-	console.info(tooltipCk);
-	console.info("==================================");
+	//console.info("==================================");
+	//console.info("siteIds::"+siteIds);
+	//console.info("parentIds::"+parentIds);
+	//console.info("titleText::"+titleText);
+	//console.info("gridId::"+gridId);
+	//console.info(test);
+	//console.info(tooltipCk);
+	//console.info("==================================");
 	// 리치검색 khLee 20151102 추가
 	if(siteIds == "CAT"){
 		ShowSearchResultReach();
@@ -526,16 +528,16 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
-	console.info(searchResultWindow);
+	//console.info(searchResultWindow);
 	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
 	
-	console.info(siteIds);
-	console.info(parentIds);
-	console.info(gridId);
+	//console.info(siteIds);
+	//console.info(parentIds);
+	//console.info(gridId);
 	
 	//centerContainer.add(searchResultWindow.show()); // window 보이기
-	//console.info(gridId);
+	////console.info(gridId);
 	if(gridId == undefined)
 		return;
 	
@@ -546,15 +548,15 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	};
 	
 	var tabCtl = Ext.getCmp("searchResultTab");
-	//console.info(KRF_DEV.getApplication().btnFlag);
+	////console.info(KRF_DEV.getApplication().btnFlag);
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	//console.info(searchResultTab);
+	////console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
-	//console.info(searchResultTab.items.items[1]);
+	////console.info(searchResultTab.items.items[1]);
 	
 	var orgParentId = parentIds[0].parentId;
 	
@@ -587,11 +589,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 	
-	console.info(parentCheck);
+	//console.info(parentCheck);
 	
 	if(parentCheck == "A"){	
 		
-		//console.info(sYearCtl.setValue("2013"));
+		////console.info(sYearCtl.setValue("2013"));
 		//환경기초시설 검색값 히든처리
 		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
@@ -611,8 +613,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
 		}
-		//console.info(grdCtl.parentIds)
-		//console.info(grdCtl.siteIds);
+		////console.info(grdCtl.parentIds)
+		////console.info(grdCtl.siteIds);
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
@@ -646,7 +648,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
-		//console.info(grdContainer);
+		////console.info(grdContainer);
 		
 		
 		var ResultGrid_F = Ext.getCmp(gridId + "_container");
@@ -685,7 +687,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			}
 			
 			
-			console.info("1");
+			//console.info("1");
 			//DISCHARGE_AMT_PHYS_VAL.hideable = false;
 			/*PIPE_NUM.hideable = true;
 			PIPE_TYPE.hideable = true;
@@ -734,7 +736,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 		}
 		
-		console.info(test);
+		//console.info(test);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
 			siteIds: grdCtl.siteIds,
@@ -768,8 +770,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			grdCtl.parentIds = parentIds;
 		}
 		
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
+		//console.info(grdCtl.parentIds)
+		//console.info(grdCtl.siteIds);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
 			siteIds: grdCtl.siteIds,
@@ -812,8 +814,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			grdCtl.parentIds = parentIds;
 		}
 		
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
+		//console.info(grdCtl.parentIds)
+		//console.info(grdCtl.siteIds);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_C", {
 			siteIds: grdCtl.siteIds,
@@ -826,7 +828,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	}else if(parentCheck == "D"){
 
-		console.info(orgParentId);
+		//console.info(orgParentId);
 		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
@@ -855,10 +857,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		console.info(grdCtl);
-		console.info(grdCtl.parentIds);
-		console.info(parentIds);
-		console.info(orgParentId);
+		//console.info(grdCtl);
+		//console.info(grdCtl.parentIds);
+		//console.info(parentIds);
+		//console.info(orgParentId);
 		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
@@ -872,8 +874,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			orgParentId = parentIds;
 		}
 		
-		console.info(grdCtl.parentIds)
-		console.info(grdCtl.siteIds);
+		//console.info(grdCtl.parentIds)
+		//console.info(grdCtl.siteIds);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_D", {
 			siteIds: grdCtl.siteIds,
@@ -933,7 +935,7 @@ GetTabControl = function(options){
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
-	console.info(catIds);
+	//console.info(catIds);
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -963,7 +965,7 @@ ShowSearchResultReach = function(catIds){
 	var tabCtl = Ext.getCmp("searchResultTab");
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	//console.info(searchResultTab);
+	////console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -1005,10 +1007,10 @@ ShowSearchResultReach = function(catIds){
     	var tmpGraphics = rchMap.reachLayerAdmin_v3.arrLineGrp;
     	for(var i = 0; i < tmpGraphics.length; i++){
     		var rowData = [];
-    		rowData.push(tmpGraphics[i].grp.attributes.RCH_ID);
-    		rowData.push(tmpGraphics[i].grp.attributes.RCH_LEN);
-    		sumRchLen += tmpGraphics[i].grp.attributes.RCH_LEN;
-    		rowData.push(tmpGraphics[i].grp.attributes.CAT_ID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_DID);
+    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
+    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
+    		rowData.push(tmpGraphics[i].attributes.CAT_DID);
 //    		var catIdx = rchMap.reachLayerAdmin.getCatGraphicIndex(tmpGraphics[i].attributes.CAT_ID, rchMap.reachLayerAdmin.selAreaGraphics);
 //    		if(catIdx != -1){
 //	    		var catArea = rchMap.reachLayerAdmin.selAreaGraphics[catIdx].attributes.AREA;
@@ -1017,11 +1019,11 @@ ShowSearchResultReach = function(catIds){
 //    		else{
 //    			rowData.push(0);
 //    		}
-    		rowData.push(tmpGraphics[i].grp.attributes.CAT_AREA);
-    		sumCatArea += tmpGraphics[i].grp.attributes.CAT_AREA;
-    		rowData.push(tmpGraphics[i].grp.attributes.RIV_NM);
-    		rowData.push(tmpGraphics[i].grp.attributes.CUM_LEN);
-    		var geoTrib = tmpGraphics[i].grp.attributes.GEO_TRIB;
+    		rowData.push(tmpGraphics[i].attributes.CUM_AREA);
+    		sumCatArea += tmpGraphics[i].attributes.CUM_AREA;
+    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
+    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
+    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
     		if(geoTrib == "0")
     			rowData.push("본류");
     		else{
@@ -1063,7 +1065,7 @@ ShowSearchResultReach = function(catIds){
     	}
     	*/
     	
-    	//console.info(tmpGraphics);
+    	////console.info(tmpGraphics);
     	
     	/*
     	// 하류 데이터
@@ -1141,10 +1143,11 @@ ShowSearchResultReach = function(catIds){
 		storeData.splice(0, 0, rowData);
     	
     	var store = new Ext.data.ArrayStore({
-    		fields: [{name: 'RCH_ID', type: 'string'},
+    		fields: [{name: 'RCH_DID', type: 'string'},
     		         {name: 'RCH_LEN', type: 'float'},
-    		         {name: 'CAT_ID', type: 'string'},
-    		         {name: 'CAT_AREA', type: 'float'},
+    		         {name: 'CAT_DID', type: 'string'},
+//    		         {name: 'CAT_AREA', type: 'float'},
+    		         {name: 'CUM_AREA', type: 'float'},
     		         {name: 'RIV_NM', type: 'string'},
     		         {name: 'CUM_LEN', type: 'float'},
     		         {name: 'GEO_TRIB', type: 'string'}]
@@ -1155,7 +1158,7 @@ ShowSearchResultReach = function(catIds){
 	else{ // 정보창에서 넘어왔을때
 		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachLineLayerId); // 레이어 URL
 		
-		console.info(queryTask);
+		//console.info(queryTask);
 		var query = new esri.tasks.Query();
 		query.returnGeometry = false;
 		
@@ -1164,10 +1167,10 @@ ShowSearchResultReach = function(catIds){
 			catIds = "'" + catIds + "'";
 		}
 		
-		query.where = "CAT_ID IN (" + catIds + ")";
+		query.where = "CAT_DID IN (" + catIds + ")";
 		
 		query.outFields = ["*"];
-		console.info(query.where);
+		//console.info(query.where);
 		queryTask.execute(query, function(result){
 			Ext.each(result, function(objLayer, idx, objLayers){
 				var sumRchLen = 0;
@@ -1175,14 +1178,16 @@ ShowSearchResultReach = function(catIds){
 				for(var i = 0; i < objLayer.features.length; i++){
 					var rowData = [];
 					//var retVal = GetCatArea(objLayer.features[i].attributes.CAT_ID);
-					//console.info(retVal);
-					//console.info("after");
-					rowData.push(objLayer.features[i].attributes.RCH_ID);
+					////console.info(retVal);
+					////console.info("after");
+					rowData.push(objLayer.features[i].attributes.RCH_DID);
 		    		rowData.push(objLayer.features[i].attributes.RCH_LEN);
 		    		sumRchLen += objLayer.features[i].attributes.RCH_LEN;
-		    		rowData.push(objLayer.features[i].attributes.CAT_ID);
-		    		rowData.push(objLayer.features[i].attributes.CAT_AREA);
-		    		sumCatArea += objLayer.features[i].attributes.CAT_AREA;
+		    		rowData.push(objLayer.features[i].attributes.CAT_DID);
+		    		//rowData.push(objLayer.features[i].attributes.CAT_AREA);
+		    		//sumCatArea += objLayer.features[i].attributes.CAT_AREA;
+		    		rowData.push(objLayer.features[i].attributes.CUM_AREA);
+		    		sumCatArea += objLayer.features[i].attributes.CUM_AREA;
 		    		rowData.push(objLayer.features[i].attributes.RIV_NM);
 		    		rowData.push(objLayer.features[i].attributes.CUM_LEN);
 		    		var geoTrib = objLayer.features[i].attributes.GEO_TRIB;
@@ -1207,10 +1212,11 @@ ShowSearchResultReach = function(catIds){
 				storeData.splice(0, 0, rowData);
 				
 				var store = new Ext.data.ArrayStore({
-	        		fields: [{name: 'RCH_ID', type: 'string'},
+	        		fields: [{name: 'RCH_DID', type: 'string'},
 	        		         {name: 'RCH_LEN', type: 'float'},
-	        		         {name: 'CAT_ID', type: 'string'},
-	        		         {name: 'CAT_AREA', type: 'float'},
+	        		         {name: 'CAT_DID', type: 'string'},
+	        		         //{name: 'CAT_AREA', type: 'float'},
+	        		         {name: 'CUM_AREA', type: 'float'},
 	        		         {name: 'RIV_NM', type: 'string'},
 	        		         {name: 'CUM_LEN', type: 'float'},
 	        		         {name: 'GEO_TRIB', type: 'string'}]
@@ -1224,13 +1230,13 @@ ShowSearchResultReach = function(catIds){
 	
 }
 
-GetCatArea = function(catId){
+GetCatArea = function(catDId){
 	
 	var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 레이어 URL
 	var query = new esri.tasks.Query();
 	query.returnGeometry = false;
 	
-	query.where = "CAT_ID IN '" + catId + "'";
+	query.where = "CAT_DID IN '" + catDId + "'";
 	
 	var test = "";
 	
@@ -1241,19 +1247,19 @@ GetCatArea = function(catId){
 		return featureSet;
 	});
 	
-	console.info("ddd");
+	//console.info("ddd");
 	
 	/*
 	for(var i = 0; i < 1000000; i++){
 		if(test == ""){
 			Ext.defer(function(){
-				console.info("fldskjfa");
+				//console.info("fldskjfa");
 			}, 1000, this);
 		}
 	}
 	*/
 	
-	console.info(test);
+	//console.info(test);
 	
 	return test;
 	
@@ -1420,6 +1426,7 @@ OpenMenualPop = function(){
 ResetButtonClick = function(){
 	
 	var me = GetCoreMap();
+	
 	// 리치 선택 종료
 	//me.reachLayerAdmin.drawEnd();
 	me.reachLayerAdmin_v3.drawEnd();
@@ -1490,7 +1497,7 @@ setTooltipPoint = function(extent, obj){
 				*/
 				
 				var popWidth = 360;
-				var popHeight = 190;
+				var popHeight = 200;
 				
 				var resolution = obj.resolution;
 				
@@ -1501,11 +1508,11 @@ setTooltipPoint = function(extent, obj){
 				
 				var x = (extent.xmax - extent.xmin) - (extent.xmax - popCtl.point.x);
 				var y = (extent.ymax - extent.ymin) - (extent.ymax - popCtl.point.y);
-				console.info((1920 - Ext.getBody().getWidth()));
+				//console.info((1920 - Ext.getBody().getWidth()));
 				var xOffset = (x / resolution - popWidth / 2);
 				var yOffset = y / resolution;
 				yOffset = Ext.getBody().getHeight() - yOffset - popHeight;
-				//console.info(obj);
+				////console.info(obj);
 				//if(me.preLevel != obj.level){
 					xOffset = xOffset - (1920 - Ext.getBody().getWidth()) / 2;
 					yOffset = yOffset + (979 - Ext.getBody().getHeight()) / 2;
@@ -1514,8 +1521,13 @@ setTooltipPoint = function(extent, obj){
 				var popX = popCtl.getX();
 				var popY = popCtl.getY();
 				
-				//console.info(popX);
-				//console.info(popY);
+				////console.info(Ext.getCmp("west_container").collapsed);
+				if(Ext.getCmp("west_container").collapsed != false){
+					xOffset = xOffset - 300;
+				}
+				
+				////console.info(popX);
+				////console.info(popY);
 				
 				//popCtl.setX(popX + xOffset);
 				popCtl.setX(xOffset);
@@ -1547,7 +1559,7 @@ Layer01OnOff = function(layerId){
 	var treeCtl = Ext.getCmp("layer01");
 	var node = treeCtl.getStore().getNodeById(layerId);
 	if(node.data.checked == false){
-		//console.info(node);
+		////console.info(node);
 		node.set("checked", true);
 		treeCtl.fireEvent('checkchange', node, true, null);
 	}

@@ -34,7 +34,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				me.setHeight(parentCtl.getHeight() - 110);
 				
 				parentCtl.on("resize", function(){
-					//console.info(parentCtl);
+					////console.info(parentCtl);
 					me.setWidth(parentCtl.getWidth() - 10);
 					me.setHeight(parentCtl.getHeight() - 110);
 				});
@@ -43,15 +43,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 			
 			columns: [{
 				text      : '리치ID',
-				dataIndex : 'RCH_ID',
+				dataIndex : 'RCH_DID',
 				width: 100,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}},
 				listeners: {
 					click: function(tblView, el, rowCnt, colCnt, row){
-						//console.info(row);
-						var catId = row.record.data.CAT_ID;
-						
-						siteMovePoint("Cat", catId);
+						////console.info(row);
+						var catDId = row.record.data.CAT_DID;
+						//console.info(catDId);
+						siteMovePoint("Cat", catDId);
 					}
 				},
 				renderer: function(val, a, b, rowIdx, colIdx){
@@ -67,18 +67,21 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				filter: {type: 'numeric'},
 				renderer: function(val, a, b, rowIdx, colIdx){
 					if(rowIdx == 0)
-						return "<b>" + Ext.util.Format.number(val / 1000, '0.0') + "</b>";
+						//return "<b>" + Ext.util.Format.number(val / 1000, '0.0') + "</b>";
+						return "<b>" + Ext.util.Format.number(val, '0.0') + "</b>";
 					else
-						return Ext.util.Format.number(val / 1000, '0.0');
+						//return Ext.util.Format.number(val / 1000, '0.0');
+						return Ext.util.Format.number(val, '0.0');
 				}
 			}, {
 				text      : '집수구역ID',
-				dataIndex : 'CAT_ID',
+				dataIndex : 'CAT_DID',
 				width: 150,
 				filter: {type: 'numeric'}
 			}, { 
 				text      : '집수구역면적 (㎥)',
-				dataIndex : 'CAT_AREA',
+				//dataIndex : 'CAT_AREA',
+				dataIndex : 'CUM_AREA',
 				width: 150,
 				filter: {type: 'numeric'},
 				renderer: function(val, a, b, rowIdx, colIdx){

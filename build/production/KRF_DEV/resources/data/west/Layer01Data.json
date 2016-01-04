@@ -46,14 +46,14 @@
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer6",
 		"leaf": true,
-		"checked": true
+		"checked": false
 	}, {
 		"id": "7",
 		"text": "보대표지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer7",
 		"leaf": true,
-		"checked": true
+		"checked": false
 	}]
 }, {
 	"id": "8",

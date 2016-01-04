@@ -198,7 +198,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
 		
-    	console.info(clickValue);
     	
     	var groupCd = "";
     	if((layerId>=0)&&(layerId<=7)){
@@ -487,7 +486,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				var curLevel = coreMap.map.getLevel();
 				var resolution = coreMap.tileInfo.lods[curLevel].resolution;
 				var popWidth = 370;
-				var popHeight = 230;
+				var popHeight = 215;
 				var extent = coreMap.map.extent;
 				
 				var xLen = extent.xmax - extent.xmin;
@@ -502,8 +501,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				if(westContainer.collapsed != false){
 					xPx = xPx - 300;
 				}
-				console.info(xPx);
-				console.info(westContainer.collapsed);
 				
 				
 				
@@ -545,9 +542,9 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"#toolTip> dl:after { content:\"\"; clear:both; display:block; *zoom:1;}                                                                                                            "+
 						"#toolTip> dl dt { float: left; font-weight: bold; color: #000; }                                                                                                                   "+
 						"#toolTip> dl dd { margin: 0px; color: #434343; text-indent: 5px; }                                                                                                                 "+
-						"#toolTip> ul { width: 362px; position: absolute; left: 15px; top: 143px;}                                                                                                          "+
+						"#toolTip> ul { width: 362px; position: absolute; left: 15px; top: 143px; margin: 0px; padding: 0px; list-style: none; list-position: inside; }                                                                                                          "+
 						"#toolTip> ul> li { }                                                                                                                                                               "+
-						"#toolTip> ul> li> a { float: left; }                                                                                                                                               "+
+						"#toolTip> ul> li> a { float: left; }                                                                                                                                          "+
 						"</style>                                                                                                                                                                           "+
 						"</head>                                                                                                                                                                            "+
 						"<body>                                                                                                                                                                             "+
@@ -590,18 +587,18 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					
 					if(clickValue == "start"){
 						// 심볼설정
-						coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
-						coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
-						coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
+						//coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
+						//coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
+						//coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
 						
 						option = "STARTPOINT";
 						btnId = "btnMenu04";
 					}
 					if(clickValue == "end"){
 						// 심볼설정
-						coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
-						coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
-						coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
+						//coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
+						//coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
+						//coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
 		    			
 						option = "ENDPOINT";
 						btnId = "btnMenu05";
@@ -621,7 +618,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     },
     
     // 집수구역 선택
-    setSelectedCatAreaHandler: function(layerId, catId){
+    setSelectedCatAreaHandler: function(layerId, catDId){
     	var me = this;
     	
     	// 집수구역 심볼 설정
@@ -637,14 +634,17 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
 		
-		query.where =  "CAT_ID='" + catId + "'";
+		if(catDId.length == 10)
+			query.where =  "CAT_DID='" + catDId + "'";
+		if(catDId.length == 8)
+			query.where =  "CAT_ID='" + catDId + "'";
 		
 		queryTask.execute(query,  function(results){
 			
 			Ext.each(results.features, function(obj, index) {
 				
 				me.moveCatGraphicLayer.clear();
-				me.moveCatGraphicLayer.id = "moveCatGraphicLayer" + catId;
+				me.moveCatGraphicLayer.id = "moveCatGraphicLayer" + catDId;
 				
 				if(me.map.getLevel() < 12)
 					me.map.setLevel(12);
@@ -666,7 +666,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     },
     
     // 리치라인 선택
-    setSelectedRchLineHandler: function(layerId, catId){
+    setSelectedRchLineHandler: function(layerId, catDId){
     	var me = this;
     	
     	// 집수구역 심볼 설정
@@ -682,7 +682,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
 		
-		query.where =  "CAT_ID='" + catId + "'";
+		query.where =  "CAT_DID='" + catDId + "'";
 		
 		queryTask.execute(query,  function(results){
 			
@@ -690,7 +690,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			
 			Ext.each(results.features, function(obj, index) {
 				
-				me.moveRchGraphicLayer.id = "moveRchGraphicLayer" + catId;
+				me.moveRchGraphicLayer.id = "moveRchGraphicLayer" + catDId;
 				
 				if(me.map.getLevel() < 12)
 					me.map.setLevel(12);

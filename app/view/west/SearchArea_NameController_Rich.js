@@ -11,7 +11,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		'#btnSearchText_End':{
 			click: 'onTextSearch'
 		},
-		'smartButton':{
+		'#smartButton':{
 			click: 'onClickSmart'
 		}
 	},
@@ -37,6 +37,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		queryTask.execute(query, function(result){
 			Ext.each(result, function(objLayer, idx, objLayers){
 				
+				//console.info(result);
 				
 				var guBunNm = "";
 				
@@ -138,7 +139,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 								iconCls: 'layerIconSize '+layerId+''
 							});
 							
-							console.info(layerCnt);
+							//console.info(layerCnt);
 							saveCnt += "_"+layerCnt;
 							guBunNm = result.features[i].attributes.LAYER_NM;
 							layerCnt = 0;
@@ -148,12 +149,12 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 							saveCnt += "_"+(layerCnt+1);
 						}
 						
-						//console.info(listCtl.);
+						////console.info(listCtl.);
 						var lstLength = listCtl.items.items.length;
 
 						for(j = 0 ;  j < lstLength ; j++){
-							/*console.info(listCtl.items.items[j].title);
-							console.info(result.features[i].attributes.LAYER_NM);*/
+							/*//console.info(listCtl.items.items[j].title);
+							//console.info(result.features[i].attributes.LAYER_NM);*/
 							if(listCtl.items.items[j].layerCd == layerCode){
 								listCtl.items.items[j].add({
 									xtype : 'label',
@@ -184,11 +185,18 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 				var layerCount = [];
 				layerCount = saveCnt.split("_");
 				
-				//console.info(listCtl.items.items[0].title);
+				////console.info(listCtl.items.items[0].title);
 				
 				for(Cnt = 0 ; Cnt < listCtl.items.items.length ; Cnt++){
 					
 					listCtl.items.items[Cnt].setTitle(listCtl.items.items[Cnt].title.replace("Count",layerCount[Cnt+2]));
+					if(Cnt+1 == listCtl.items.items.length){
+						listCtl.items.items[Cnt].setTitle(listCtl.items.items[Cnt].title.replace("undefined","1"));
+					}
+					
+					if(Cnt+1 == listCtl.items.items.length){
+						listCtl.items.items[Cnt].setTitle(listCtl.items.items[Cnt].title.replace("undefined","1"));
+					}
 					
 				}
 				
@@ -211,6 +219,17 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 			
 	},
 	onClickSmart : function(obj, el, evt){
+		
+		// khLee 임시 - 클릭시 리스트 초기화
+		var listCtl = Ext.getCmp("searchAreaList");
+		listCtl.removeAll();
+		listCtl.doLayout();
+		
+		var listCtl_Total = Ext.getCmp("searchAreaList_Total");
+		listCtl_Total.removeAll();
+		listCtl_Total.doLayout();
+		// khLee 임시 끝 - 클릭시 리스트 초기화
+		
 		// 검색설정 버튼 On/Off
 		var btnMenu01 = Ext.getCmp("btnMenu01");
 		var currCtl = SetBtnOnOff(btnMenu01.id);

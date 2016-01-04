@@ -126,7 +126,7 @@
 			
 		}
 	}catch(Exception e){
-		//out.println(e);
+		out.println(e);
 		e.printStackTrace();
 	}
 %>

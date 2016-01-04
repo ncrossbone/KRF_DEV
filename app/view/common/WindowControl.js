@@ -182,7 +182,6 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 		
 		this.tools = toolCtl;
 		
-		//console.info(this.tools);
 		
 		this.on("beforeclose", function(window){
 			//window.removeAll();
@@ -195,7 +194,6 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 	windowResize: function(){
 		
 		var parentCtl = Ext.getCmp("center_container");
-		//console.info(parentCtl);
 		this.setWidth(parentCtl.getWidth());
 		
 	}

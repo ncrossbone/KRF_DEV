@@ -106,20 +106,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						click: function(){
 							var fName = Ext.getCmp("F_CHANGE");
 							var tabCtl = Ext.getCmp("searchResultTab");
-							console.info(tabCtl);
 							tabCtl = tabCtl.items.items[1];
 							var activeTab = tabCtl.getActiveTab();
-							//console.info(activeTab);
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
-							//console.info(gridCtl.id);
 							if(gridCtl.parentIds[0].parentId == undefined){
 								var parentId =  gridCtl.parentIds
 							}else{
 								var parentId = gridCtl.parentIds[0].parentId
 							}
-							//console.info(gridCtl.parentIds[0].parentId);
-							//console.info(gridCtl.siteIds);
 							
 							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 							
@@ -213,7 +208,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 //				}
 				
 				var colArr = grid.getColumnManager().getColumns();
-				console.info(colArr);
 				var hItem = grid.getHeaderContainer().config.items;
 				var gItem = [];
 				for(var i=0; i<hItem.length; i++){
@@ -231,12 +225,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				if(!dataArr){
 					dataArr = store.data.map[1].value;
 					
-					//console.info();
 				}
-				console.info(dataArr);
 				for(var i=0; i<dataArr.length; i++){
-					datas.push(dataArr[i].data)
-					console.info(dataArr[i].data);
+					// khLee 수정 값 변경
+					var strData = JSON.stringify(dataArr[i].data);
+					strData = strData.replace(/888888888/gi, "\"\"");
+					strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+					var convertData = JSON.parse(strData);
+					//datas.push(dataArr[i].data);
+					datas.push(convertData);
 				}
 				
 				var removeMem = []
@@ -247,6 +244,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							removeMem.push(mem);
 						}
 					}
+					
+					// khLee parentId (레이어코드) 제외
+					removeMem.push("parentId");
+					
 					for(var i=0; i<colArr.length; i++){
 						if(colArr[i].dataIndex!=""){
 							var add = true;
@@ -270,8 +271,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 								}
 								headName.push(preText + colArr[i].text);
 								header.push(colArr[i].dataIndex);
-								console.info(colArr[i].dataIndex);
-								console.info("ㅅ"+i)
 							}
 						}
 					}
@@ -291,14 +290,12 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							}
 							headName.push(preText + colArr[i].text);
 							header.push(colArr[i].dataIndex);
-							console.info(colArr[i].dataIndex);
 						}
 					}
 				}
 				
 				//if(grid.download=='sleep'){
 					this.status = 'download';
-					
 					$.post("./resources/jsp/excelDown.jsp", {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
 						//grid.download = 'download';
 						$('#__fileDownloadIframe__').remove();
@@ -327,7 +324,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 		listeners:{
 			'tabchange': function (tabPanel, tab){
-				console.info(tab.parentId);
 				if(tab.parentId != "F"){
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					hiddenGrid.setHidden(true);

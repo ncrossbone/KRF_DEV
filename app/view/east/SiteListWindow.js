@@ -128,7 +128,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             				var pNm = me.parentIds[0].parentId;
             				
             				pNm = pNm.substring(0,1);
-            				console.info(pNm);
             				
             				
             				// 검색결과창 띄우기
@@ -153,7 +152,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				var pNm = me.parentIds[0].parentId;
         				
         				pNm = pNm.substring(0,1);
-        				console.info(pNm);
         				
         				// 검색결과창 띄우기
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
@@ -167,7 +165,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             width: 80,
             //xtype: 'templatecolumn',
             tooltip: '관련리치',
-            dataIndex: 'catId',
+            dataIndex: 'catDId',
             renderer: function(val){
             	var retVal = "";
             	if(val != undefined)
@@ -180,7 +178,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	click: function(a, b, rowIdx, colIdx, node, f){
 	            	if(node.record.data.leaf == true){
 						if(node.record.data.id != undefined){
-							var nodeId = node.record.data.catId;
+							var nodeId = node.record.data.catDId;
 							siteMovePoint("Cat", nodeId);
 						}
 					}
@@ -244,7 +242,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				me.catIds += ", ";
 			}
  
-			me.catIds += "'" + record.data.catId + "'";
+			me.catIds += "'" + record.data.catDId + "'";
 		}
     },
 	

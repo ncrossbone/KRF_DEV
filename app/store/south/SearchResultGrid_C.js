@@ -11,56 +11,31 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 			'WMCYMD_GRAPH',
 			'MCNT',
 			'JOSANAME',
-			{name: 'ITEM_DOW_VAL', type: 'number'},
-			'ITEM_DOW_GRAPH',
-			{name: 'ITEM_TEMP_VAL', type: 'number'},			
-			'ITEM_TEMP_GRAPH',
-			{name: 'ITEM_DO_VAL', type: 'number'},			
-			'ITEM_DO_GRAPH',
-			{name: 'ITEM_PH_VAL', type: 'number'},			
-			'ITEM_PH_GRAPH',
-			{name: 'ITEM_EC_VAL', type: 'number'},			
-			'ITEM_EC_GRAPH',
-			{name: 'ITEM_FSD_VAL', type: 'number'},			
-			'ITEM_FSD_GRAPH',
-			{name: 'ITEM_FST_VAL', type: 'number'},			
-			'ITEM_FST_GRAPH',
-			{name: 'ITEM_FCL_VAL', type: 'number'},			
-			'ITEM_FCL_GRAPH',
-			{name: 'ITEM_WTC_VAL', type: 'number'},			
-			'ITEM_WTC_GRAPH',
-			{name: 'ITEM_PCA_VAL', type: 'number'},			
-			'ITEM_PCA_GRAPH',
-			{name: 'ITEM_COD_VAL', type: 'number'},			
-			'ITEM_COD_GRAPH',
-			{name: 'ITEM_TOC_VAL', type: 'number'},			
-			'ITEM_TOC_GRAPH',
-			{name: 'ITEM_TN_VAL', type: 'number'},			
-			'ITEM_TN_GRAPH',
-			{name: 'ITEM_TP_VAL', type: 'number'},			
-			'ITEM_TP_GRAPH',
-			{name: 'ITEM_SRP_VAL', type: 'number'},			
-			'ITEM_SRP_GRAPH',
-			{name: 'ITEM_PB_VAL', type: 'number'},			
-			'ITEM_PB_GRAPH',
-			{name: 'ITEM_ZN_VAL', type: 'number'},			
-			'ITEM_ZN_GRAPH',
-			{name: 'ITEM_CU_VAL', type: 'number'},			
-			'ITEM_CU_GRAPH',
-			{name: 'ITEM_CR_VAL', type: 'number'},			
-			'ITEM_CR_GRAPH',
-			{name: 'ITEM_NI_VAL', type: 'number'},			
-			'ITEM_NI_GRAPH',
-			{name: 'ITEM_AS_VAL', type: 'number'},			
-			'ITEM_AS_GRAPH',
-			{name: 'ITEM_CD_VAL', type: 'number'},			
-			'ITEM_CD_GRAPH',
-			{name: 'ITEM_HG_VAL', type: 'number'},			
-			'ITEM_HG_GRAPH',
-			{name: 'ITEM_AL_VAL', type: 'number'},			
-			'ITEM_AL_GRAPH',
-			{name: 'ITEM_LI_VAL', type: 'number'},			
-			'ITEM_LI_GRAPH'
+			'ITEM_DOW_VAL',
+			'ITEM_TEMP_VAL',
+			'ITEM_DO_VAL',
+			'ITEM_PH_VAL',
+			'ITEM_EC_VAL',
+			'ITEM_FSD_VAL',
+			'ITEM_FST_VAL',
+			'ITEM_FCL_VAL',
+			'ITEM_WTC_VAL',
+			'ITEM_PCA_VAL',
+			'ITEM_COD_VAL',
+			'ITEM_TOC_VAL',
+			'ITEM_TN_VAL',
+			'ITEM_TP_VAL',
+			'ITEM_SRP_VAL',
+			'ITEM_PB_VAL',
+			'ITEM_ZN_VAL',
+			'ITEM_CU_VAL',
+			'ITEM_CR_VAL',
+			'ITEM_NI_VAL',
+			'ITEM_AS_VAL',
+			'ITEM_CD_VAL',
+			'ITEM_HG_VAL',
+			'ITEM_AL_VAL',
+			'ITEM_LI_VAL'
     ],
     
     siteId: '',
@@ -79,7 +54,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 		load: function(store) {
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			console.info(firstSearch);
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -96,7 +70,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			activeTab.mask("loading", "loading...");
+			Ext.getCmp("searchResultContainer_C_Id").removeCls("dj-mask-noneimg");
+			Ext.getCmp("searchResultContainer_C_Id").addCls("dj-mask-withimg");
+			Ext.getCmp("searchResultContainer_C_Id").mask("loading", "loading...");
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_C.jsp',
@@ -112,10 +88,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				store.setData(jsonData.data);
 	        			// 로딩바 숨김
-	        			activeTab.unmask();
+        				Ext.getCmp("searchResultContainer_C_Id").unmask();
         			}
         			else{
-        				activeTab.mask(jsonData.data[0].msg, "noData");
+        				Ext.getCmp("searchResultContainer_C_Id").addCls("dj-mask-noneimg");
+        				Ext.getCmp("searchResultContainer_C_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
         			}
         			
         		},

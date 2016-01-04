@@ -115,8 +115,8 @@ try{
 	sql += "        )                                                                                                                   ";
 	sql += "  WHERE 1=1                                                                                                                 ";
 	if(defaultChart.equals("1")){
-		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '201410'                                                                                  ";
-		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '201510'                                                                                  ";
+		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '201510'                                                                                  ";
+		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '201512'                                                                                  ";
 	}else{
 		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '"+startDate+"'                                                                                  ";
 		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '"+endDate+"'                                                                                  ";
@@ -124,14 +124,14 @@ try{
 	sql += "   AND FACT_CODE = '"+recordId+"'                                                                                                ";
 	sql += "   AND ITEM_NAME = '"+selectItem+"'                                                                                               ";
 	sql += "  AND ITEM_VALUE IS NOT NULL   ";
-	sql += "  ORDER BY WMCYMD )                                                                                                         ";
+	sql += "  ORDER BY ROWNUM DESC )                                                                                                         ";
 	sql += " SELECT RN, PT_NO, PT_NM, WAST_NO, WMCYMD, ITEM_NAME, ITEM_VALUE                                                            ";
 	sql += "   FROM (SELECT *                                                                                                           ";
 	sql += "           FROM TMP_TBL                                                                                                     ";
 	if(defaultChart.equals("1")){
 		sql += "          WHERE ROWNUM <= 10                                                                                                ";
 	}
-	sql += "          ORDER BY WMCYMD                                                                                                   ";
+	sql += "          ORDER BY ROWNUM DESC                                                                                                   ";
 	sql += "        )                                                                                                                   ";
 	sql += " UNION ALL                                                                                                                  ";
 	sql += " SELECT 9999 AS RN,                                                                                                          ";

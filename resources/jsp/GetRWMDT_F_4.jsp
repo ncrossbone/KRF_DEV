@@ -28,7 +28,7 @@ try{
 	String defaultChart = request.getParameter("defaultChart");
 	
 	String selectItem = request.getParameter("selectItem");
-	
+	//°ü°ÅÀÌ¼þ·®
 
 	sql = " WITH TMP_TBL AS (																																																																							";
 	sql += " SELECT RANK() OVER(PARTITION BY A.FACI_CD, A.PIPE_NUM, ITEM_NAME ORDER BY A.FACI_CD, A.PIPE_NUM, A.WORK_DT DESC) AS RN                                         ";
@@ -57,7 +57,7 @@ try{
 	sql += "    AND A.PIPE_NUM = B. PIPE_NUM                                                                                                                                ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                                                                 ";
 	if(defaultChart.equals("1")){
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201210' AND '201510'                                                                          ";
+		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'                                                                          ";
 	}else{
 		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startDate+"' AND '"+endDate+"'                                                                          ";
 	}

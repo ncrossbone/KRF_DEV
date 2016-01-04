@@ -173,7 +173,12 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		var level = data.LEVEL;
 		var reachLineGArr = data.reachLineGArr;
 		var reachAreaGArr = data.reachAreaGArr;
+<<<<<<< HEAD
 		var pointGArr =data.pointGArr;
+=======
+		var pointGArr = data.pointGArr;
+		
+>>>>>>> 8621acbdd895049978670866b27cb844c71caeb9
 		//me.reachLayerAdmin_v3.addLineGraphic(null);
 		//me.reachLayerAdmin_v3.addAreaGraphic(null);
 		var deferred = me.map.setExtent(extent, true);
@@ -183,18 +188,21 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 				//못들어옴. 2015.12.23 hyeok(리치모드 시 들어옴)
 				if(me.reachLayerAdmin_v3.lineGrpLayer){
 					me.reachLayerAdmin_v3.lineGrpLayer.clear();
+					me.reachLayerAdmin_v3.arrLineGrp = [];
 					for(var i=0; i<reachLineGArr.length; i++){
-						me.reachLayerAdmin_v3.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i])));
-						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+						me.reachLayerAdmin_v3.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
+						me.reachLayerAdmin_v3.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
 					}
 				}
 				if(me.reachLayerAdmin_v3.areaGrpLayer){
 					me.reachLayerAdmin_v3.areaGrpLayer.clear();
+					me.reachLayerAdmin_v3.arrAreaGrp = [];
 					for(var i=0; i<reachAreaGArr.length; i++){
-						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i])));
-						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
+						me.reachLayerAdmin_v3.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
 					}
 				}
+				
 				if(me.reachLayerAdmin_v3.pointGrpLayer){
 					me.reachLayerAdmin_v3.pointGrpLayer.clear();
 					for(var i=0; i<pointGArr.length; i++){
@@ -202,6 +210,17 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
+<<<<<<< HEAD
+				if(me.reachLayerAdmin_v3.pointGrpLayer){
+					me.reachLayerAdmin_v3.pointGrpLayer.clear();
+					for(var i=0; i<pointGArr.length; i++){
+						me.reachLayerAdmin_v3.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
+						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+					}
+				}
+=======
+
+>>>>>>> 8621acbdd895049978670866b27cb844c71caeb9
 				/*
 				me.reachLayerAdmin_v3.upRchGraphics = [];
 				me.reachLayerAdmin_v3.downRchGraphics = [];
@@ -229,7 +248,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         		Ext.ShowSiteListWindow("selectReach");
         		
         		// 검색결과 창 띄우기
-        		//ShowSearchResultReach("");
+        		ShowSearchResultReach("");
         		
 			},function(error2){
 			});

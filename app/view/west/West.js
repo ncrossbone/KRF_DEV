@@ -29,23 +29,6 @@ Ext.define('KRF_DEV.view.west.West', {
     //placeholderCollapseHideMode: Ext.Element.OFFSETS,
     placeholder: new Object(undefined), // 패널 닫혔을때 제목 없애기..
     
-    listeners: {
-    	collapse: function(){
-    		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_open.png' />";
-    		
-    		var windowCtl = Ext.getCmp("searchResultWindow");
-    		if(windowCtl != undefined)
-    			windowCtl.windowResize();
-    	},
-    	expand: function(){
-    		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
-    		
-    		var windowCtl = Ext.getCmp("searchResultWindow");
-    		if(windowCtl != undefined)
-    			windowCtl.windowResize();
-    	}
-    },
-    
     cls: 'khLee-x-body khLee-x-spliter-collapse',
     
     layout: {
@@ -73,7 +56,7 @@ Ext.define('KRF_DEV.view.west.West', {
     listeners: {
         resize: {
             fn: function(el) {
-                console.info(el);
+                //console.info(el);
             	var popCtl = Ext.getCmp("popSiteInfo");
         		
         		if(popCtl != undefined){
@@ -83,7 +66,13 @@ Ext.define('KRF_DEV.view.west.West', {
         },
         collapse: {
         	fn: function(el){
-        		//console.info(el.getWidth());
+
+        		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_open.png' />";
+        		
+        		var windowCtl = Ext.getCmp("searchResultWindow");
+        		if(windowCtl != undefined)
+        			windowCtl.windowResize();
+        		
         		var popCtl = Ext.getCmp("popSiteInfo");
         		
         		if(popCtl != undefined){
@@ -98,7 +87,13 @@ Ext.define('KRF_DEV.view.west.West', {
         },
         expand: {
         	fn: function(el){
-        		//console.info(el.getWidth());
+
+        		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
+        		
+        		var windowCtl = Ext.getCmp("searchResultWindow");
+        		if(windowCtl != undefined)
+        			windowCtl.windowResize();
+        		
         		var popCtl = Ext.getCmp("popSiteInfo");
         		
         		if(popCtl != undefined){

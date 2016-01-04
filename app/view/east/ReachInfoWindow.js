@@ -41,7 +41,7 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				//padding: '2 5 2 5' // 'top right bottom left'
 			},{
 				xtype: 'container',
-				id: 'RCH_ID',
+				id: 'RCH_DID',
 				//html: '10160508',
 				html: ' ',
 				//width: 85,
