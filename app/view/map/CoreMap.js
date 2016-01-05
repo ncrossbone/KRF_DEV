@@ -173,12 +173,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		var level = data.LEVEL;
 		var reachLineGArr = data.reachLineGArr;
 		var reachAreaGArr = data.reachAreaGArr;
-<<<<<<< HEAD
 		var pointGArr =data.pointGArr;
-=======
-		var pointGArr = data.pointGArr;
-		
->>>>>>> 8621acbdd895049978670866b27cb844c71caeb9
 		//me.reachLayerAdmin_v3.addLineGraphic(null);
 		//me.reachLayerAdmin_v3.addAreaGraphic(null);
 		var deferred = me.map.setExtent(extent, true);
@@ -210,17 +205,6 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
-<<<<<<< HEAD
-				if(me.reachLayerAdmin_v3.pointGrpLayer){
-					me.reachLayerAdmin_v3.pointGrpLayer.clear();
-					for(var i=0; i<pointGArr.length; i++){
-						me.reachLayerAdmin_v3.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
-						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
-					}
-				}
-=======
-
->>>>>>> 8621acbdd895049978670866b27cb844c71caeb9
 				/*
 				me.reachLayerAdmin_v3.upRchGraphics = [];
 				me.reachLayerAdmin_v3.downRchGraphics = [];
