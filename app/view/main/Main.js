@@ -34,7 +34,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     		xtype: 'container',
     		id: 'cont_container',
     		layout: {
-    			type: 'border',
+    			type: 'border'
     		},
     		height: '100%',
     		items: [{
@@ -52,8 +52,6 @@ Ext.define('KRF_DEV.view.main.Main', {
     
     initComponent: function(){
     	
-    	
- 		//console.info(document.URL);
  		if(document.URL != "http://112.218.1.243:20003/KRF_IE/"){
 	 		//if(Ext.browser.is.Chrome == false){
 	 		if(Ext.browser.is.IE == true){

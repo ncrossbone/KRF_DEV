@@ -26,7 +26,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 		items: [{
 			xtype: 'container',
 			layout: {
-				type: 'hbox',
+				type: 'hbox'
 			},
 			width: "100%",
 			items: [{

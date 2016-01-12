@@ -1,4 +1,4 @@
-$image-search-path: 'D:/eclipse-gis/KRF/KRF_DEV/build/production/KRF_DEV/resources';
+$image-search-path: 'D:/_0010_Cetech_Workspace/_010_2015_Workspace/000_Git/KRF_DEV/build/production/KRF_DEV/resources';
 $theme-name:  'ext-theme-neptune' !default;
 $include-ext-abstractcomponent: true;
 $include-ext-abstractcontainer: true;
@@ -1126,6 +1126,7 @@ $include-krf_dev-view-map-maptoolbar: true;
 $include-krf_dev-view-map-reachlayeradmin: true;
 $include-krf_dev-view-map-reachlayeradminbackground: true;
 $include-krf_dev-view-map-reachlayeradmin_v3: true;
+$include-krf_dev-view-map-reachlayeradmin_v3_new: true;
 $include-krf_dev-view-map-searchlayeradmin: true;
 $include-krf_dev-view-north-north: true;
 $include-krf_dev-view-north-northcontroller: true;

@@ -39,7 +39,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name', {
 			items: [{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				items: [{
 					id: 'nameSearch',
@@ -61,15 +61,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name', {
 					xtype: 'button',
 					lnkCmbId: 'nameSearch',
 					//text: '검색'
-					cls: 'khLee-x-button-search',
-					/*handler: function(){
-						//console.info(Ext.getCmp("imgContents").hidden);
-						if(Ext.getCmp("imgContents").hidden == true)
-							Ext.getCmp("imgContents").show();
-						else
-							Ext.getCmp("imgContents").hide();
-						//console.info(Ext.getCmp("imgContents").hidden);
-					}*/
+					cls: 'khLee-x-button-search'
 				}]
 			}]
 		}]

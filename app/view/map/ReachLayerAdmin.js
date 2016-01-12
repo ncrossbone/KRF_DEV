@@ -34,7 +34,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin', {
 		
 		var me = this;
 		
-		require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/symbols/SimpleFillSymbol",], function (SimpleLineSymbol, Color, SimpleFillSymbol) {
+		require(["esri/symbols/SimpleLineSymbol", "esri/Color", "esri/symbols/SimpleFillSymbol"], function (SimpleLineSymbol, Color, SimpleFillSymbol) {
 			
 			me.selLineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 255, 255]), 5);
 			me.upLineSymbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);

@@ -7,7 +7,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
              'WMCYMD',
              'ITEM_NAME',
              {name: 'ITEM_VALUE', type: 'float'},
-             'ITEM_VALUE_1', //정량한계 미만처리를 위한 copy 컬럼
+             'ITEM_VALUE_1' //정량한계 미만처리를 위한 copy 컬럼
     ],
     
 

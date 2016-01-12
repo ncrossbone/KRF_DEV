@@ -86,14 +86,14 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 			{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				height:20
 			},
 			{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				items: [{
 					
@@ -104,7 +104,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 					labelAlign: 'right',
 					labelPad: 10,
 					//width: 200,
-					editable: true,
+					editable: true
 					
 				}, {
 					xtype: 'container',
@@ -122,36 +122,53 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								var date = new Date();
 								
 								var reachLineGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3.lineGrpLayer){
-									var reachLineGraphicArr = self.coreMap.reachLayerAdmin_v3.lineGrpLayer.graphics;
+								if(self.coreMap.reachLayerAdmin_v3_New.lineGrpLayer){
+									var reachLineGraphicArr = self.coreMap.reachLayerAdmin_v3_New.lineGrpLayer.graphics;
 									for(var i=0; i<reachLineGraphicArr.length; i++){
-										console.info(reachLineGraphicArr[i].attributes.CAT_ID);
-										console.info(reachLineGraphicArr[i].attributes.RCH_ID);
 										reachLineGArr.push(JSON.stringify(reachLineGraphicArr[i].toJson()));
 									}
 								}
+								
 								var reachAreaGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3.areaGrpLayer){
-									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin_v3.areaGrpLayer.graphics;
+								if(self.coreMap.reachLayerAdmin_v3_New.areaGrpLayer){
+									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin_v3_New.areaGrpLayer.graphics;
 									for(var i=0; i<reachAreaGraphicArr.length; i++){
-										//console.info(reachAreaGraphicArr[i].attributes.CAT_ID);
 										reachAreaGArr.push(JSON.stringify(reachAreaGraphicArr[i].toJson()));
 									}
 								}
 								
 								var pointGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3.pointGrpLayer){
-									var pointGraphicArr = self.coreMap.reachLayerAdmin_v3.pointGrpLayer.graphics;
+								if(self.coreMap.reachLayerAdmin_v3_New.pointGrpLayer){
+									var pointGraphicArr = self.coreMap.reachLayerAdmin_v3_New.pointGrpLayer.graphics;
 									for(var i=0; i<pointGraphicArr.length; i++){
-										console.info(JSON.stringify(pointGraphicArr[i].toJson()));
 										pointGArr.push(JSON.stringify(pointGraphicArr[i].toJson()));
+									}
+								}
+								
+								var symbolGArr = [];
+								if(self.coreMap.reachLayerAdmin_v3_New.symbolGrpLayer){
+									var symbolGraphicArr = self.coreMap.reachLayerAdmin_v3_New.symbolGrpLayer.graphics;
+									for(var i=0; i<symbolGraphicArr.length; i++){
+										symbolGArr.push(JSON.stringify(symbolGraphicArr[i].toJson()));
+									}
+								}
+								
+								var downLineGArr = [];
+								if(self.coreMap.reachLayerAdmin_v3_New.downLineLayer){
+									var downGraphicArr = self.coreMap.reachLayerAdmin_v3_New.downLineLayer.graphics;
+									for(var i=0; i<downGraphicArr.length; i++){
+										downLineGArr.push(JSON.stringify(downGraphicArr[i].toJson()));
 									}
 								}
 								
 								var yyyymmdd = date.yyyymmdd();
 								
 								var saveObj = {UID:dojo.dojox.uuid.generateRandomUuid(), NAME:val, DATE:yyyymmdd, EXTENT:extent.toJson(), LEVEL:level,
-										reachLineGArr:reachLineGArr, reachAreaGArr:reachAreaGArr, pointGArr:pointGArr};
+										reachLineGArr:reachLineGArr,
+										reachAreaGArr:reachAreaGArr,
+										pointGArr:pointGArr,
+										symbolGArr:symbolGArr,
+										downLineGArr:downLineGArr};
 								
 								//self.favoriteInfo = [];
 								self.favoriteInfo.push(saveObj);
@@ -159,31 +176,37 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								localStorage['_waterFavoriteInfo_'] = JSON.stringify(self.favoriteInfo);
 								//localStorage['_waterFavoriteInfo_'] = self.favoriteInfo;
 								//console.info(localStorage['_waterFavoriteInfo_']);
+								
+								/*
+								var info = JSON.stringify(self.favoriteInfo);
+								
+								alert("c");
+								//1. data params로 넘어가지 않는 문제.
+								//2. 넘어갈 시 clob 타입에 단순 횡으로 입력시 4000byte.
 								Ext.Ajax.request({
 									url : "./resources/jsp/FavoriteInfo.jsp",
 									method : "POST",
 									success : function(result, request) {
-										console.info(result.responseText.trim());
+										console.info(result.responseText);
 										Ext.Msg.alert("cc", "cc");
 									},
 									failure : function(result, request) {
 										Ext.Msg.alert("Failed", "Connection Failed");
 									},
-									params:{UID:saveObj.UID.trim(),NAME:saveObj.NAME.trim(),DATE:saveObj.DATE.trim(),
-										EXTENT:JSON.stringify(saveObj.EXTENT).trim(),LEVEL:saveObj.LEVEL.toString().trim()}
+									params:{info:info}
 								});
-								
+								*/
 								
 								self.gridStore.loadData(self.favoriteInfo);
 							}
 						}
-					},
+					}
 				}]
 			},
 			{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				height:20
 			},
@@ -247,7 +270,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 //									self.coreMap.extentMove(extent, level);
 									self.coreMap.favoriteExe(grid.selection.data);
 								}
-							},
+							}
 					    }
 				    ]
 				}]

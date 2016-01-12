@@ -53,57 +53,34 @@ Ext.define('KRF_DEV.view.west.West', {
     	}]
     }],
     
+    preWidth: 300,
+    
     listeners: {
         resize: {
             fn: function(el) {
-                //console.info(el);
-            	var popCtl = Ext.getCmp("popSiteInfo");
-        		
-        		if(popCtl != undefined){
-        			popCtl.setX(popCtl.getX() - (300 - el.getWidth()));
-        		}
+            	
+            	// 컨트롤 XY 셋팅
+            	SetWestCollapseXY("resize");
             }
         },
         collapse: {
         	fn: function(el){
-
-        		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_open.png' />";
         		
-        		var windowCtl = Ext.getCmp("searchResultWindow");
-        		if(windowCtl != undefined)
-        			windowCtl.windowResize();
-        		
-        		var popCtl = Ext.getCmp("popSiteInfo");
-        		
-        		if(popCtl != undefined){
-        			popCtl.setX(popCtl.getX() - 300);
-        		}
-        		
-        		var reachNameToolbar = Ext.getCmp("reachNameToolbar");
-        		if(reachNameToolbar != undefined){
-        			reachNameToolbar.setX(reachNameToolbar.getX() - 300);
-        		}
+        		var coreMap = GetCoreMap();
+            	console.info(coreMap.map.extent.getCenter());
+            	
+        		// 컨트롤 XY 셋팅
+        		SetWestCollapseXY("collapse");
         	}
         },
         expand: {
         	fn: function(el){
-
-        		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
         		
-        		var windowCtl = Ext.getCmp("searchResultWindow");
-        		if(windowCtl != undefined)
-        			windowCtl.windowResize();
-        		
-        		var popCtl = Ext.getCmp("popSiteInfo");
-        		
-        		if(popCtl != undefined){
-        			popCtl.setX(popCtl.getX() + 300);
-        		}
-        		
-        		var reachNameToolbar = Ext.getCmp("reachNameToolbar");
-        		if(reachNameToolbar != undefined){
-        			reachNameToolbar.setX(reachNameToolbar.getX() + 300);
-        		}
+        		var coreMap = GetCoreMap();
+            	console.info(coreMap.map.extent.getCenter());
+            	
+        		// 컨트롤 XY 셋팅
+        		SetWestCollapseXY("expand");
         	}
         }
     },

@@ -3,7 +3,7 @@
 <%@ page import="java.util.*,java.text.*"%>
 <%@page import="oracle.jdbc.OraclePreparedStatement"%>
 
-<%-- <%
+<%
 Object info = request.getParameter("info");
 
 try {
@@ -33,15 +33,6 @@ try {
 	System.out.println(sql);
 	out.print("error");
 }
-%> --%>
-<%
-String UID = request.getParameter("UID");
-String NAME = request.getParameter("NAME");
-String DATE = request.getParameter("DATE");
-String EXTENT = request.getParameter("EXTENT");
-String LEVEL = request.getParameter("LEVEL");
-Object USERID = session.getAttribute("id");
-out.print(USERID+":"+UID+":"+NAME+":"+DATE+":"+EXTENT+":"+LEVEL);
 %>
 
 <%@ include file="dbClose.jsp"%>

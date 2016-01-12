@@ -220,6 +220,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 	},
 	onClickSmart : function(obj, el, evt){
 		
+		/*
 		// khLee 임시 - 클릭시 리스트 초기화
 		var listCtl = Ext.getCmp("searchAreaList");
 		listCtl.removeAll();
@@ -229,6 +230,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		listCtl_Total.removeAll();
 		listCtl_Total.doLayout();
 		// khLee 임시 끝 - 클릭시 리스트 초기화
+		*/
 		
 		// 검색설정 버튼 On/Off
 		var btnMenu01 = Ext.getCmp("btnMenu01");

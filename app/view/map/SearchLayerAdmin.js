@@ -242,7 +242,8 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 		});
 		
 		dojo.connect(queryTask, "onError", function(err) {
-			console.info(err);
+			//console.info(err);
+			alert("오류가 발생하였습니다.")
 		});
     },
     

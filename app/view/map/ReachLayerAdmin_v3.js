@@ -374,6 +374,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 	    	var stLastGrp = me.arrStartGrp[me.arrStartGrp.length - 1];
 	    	var edLastGrp = me.arrEndGrp[me.arrEndGrp.length - 1];
 	    	
+	    	var isBonDraw = false;
+	    	var isJiDraw = false;
+	    	
 	    	require(["esri/symbols/SimpleLineSymbol",
 	    	         "esri/Color",
 	    	         "esri/tasks/query",
@@ -421,6 +424,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 									for(var k = 0; k < featureSet.features.length; k++){
 										
 										var stLineFeature = featureSet.features[k];
+										var stGeoTrib = stLineFeature.attributes.GEO_TRIB;
 										
 										//queryLine.where = "CAT_ID = '" + edCatId + "'";
 										queryLine.where = "CAT_DID = '" + ed_CAT_DID + "'";
@@ -439,30 +443,25 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 											for(var l = 0; l < featureSet.features.length; l++){
 												
 												var edLineFeature = featureSet.features[l];
+												var edGeoTrib = edLineFeature.attributes.GEO_TRIB;
 												
-												/*
-												// 끝위치 하천명 셋팅
-												var rivNm = edLineFeature.attributes.RIV_NM;
-												if(rivNm != undefined && rivNm != ""){
-													SetStEdSiteName("end", rivNm);
+												// 검색설정 체크
+												confInfo = localStorage['_searchConfigInfo_'];
+												if(confInfo != undefined && confInfo != null){
+													var jsonConf = JSON.parse(confInfo);
+													if(jsonConf.isJiDraw == false && (stGeoTrib != 0 && edGeoTrib != 0)){
+														
+														var stSymbol = me.arrStartGrp[me.arrStartGrp.length - 1];
+														var edSymbol = me.arrEndGrp[me.arrEndGrp.length - 1];
+														
+														me.removeGraphics(stSymbol, "pointGrpLayer"); // 레이어 그래픽 삭제
+														me.removeGraphics(edSymbol, "pointGrpLayer"); // 레이어 그래픽 삭제
+														
+														alert("검색설정에 지류가 선택되지 않았습니다.");
+														
+														return;
+													}
 												}
-												*/
-												
-												//var stRchId = stLineFeature.attributes.RCH_ID;
-												//var edRchId = edLineFeature.attributes.RCH_ID;
-												/*
-												// 시작위치가 상류일때
-												if(stRchId < edRchId){
-													me.downStartLine(stRchId, stRchId, edRchId);
-												}
-												// 끝위치가 상류일때
-												if(edRchId < stRchId){
-													me.downStartLine(edRchId, edRchId, stRchId);
-												}
-												*/
-												
-												//var st_RCH_DID = stLineFeature.attributes.RCH_DID;
-												//var ed_RCH_DID = edLineFeature.attributes.RCH_DID;
 												
 												var st_RCH_DID = stLineFeature.attributes.RCH_DID;
 												var ed_RCH_DID = edLineFeature.attributes.RCH_DID;
@@ -535,15 +534,35 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 				    	// 시작위치, 끝위치 사이의 최하위 하류일때 그래픽 그리고 거기부터 상류로 검색
 				    	else{
 
-				    		//if(curRchDId > stRchDId){
-					    		// 하류 라인 그리기
-					    		me.drawLineGrp(curRchDId, me.upLineSymbol);
-					    		
-					    		// 집수구역 그리기
-					    		var catDId = lineFeature.attributes.CAT_DID;
-					    		me.drawAreaGrp(catDId);
-				    		//}
-				    		
+				    		// 검색설정 체크
+							confInfo = localStorage['_searchConfigInfo_'];
+							if(confInfo != undefined && confInfo != null){
+								var jsonConf = JSON.parse(confInfo);
+								
+								// 지류검색이 아닐때
+								if(jsonConf.isJiDraw == false){
+									
+									var geoTrib = lineFeature.attributes.GEO_TRIB;
+									
+									// 본류만 그리기
+									if(geoTrib == 0){
+							    		// 하류 라인 그리기
+							    		me.drawLineGrp(curRchDId, me.upLineSymbol);
+							    		
+							    		// 집수구역 그리기
+							    		var catDId = lineFeature.attributes.CAT_DID;
+							    		me.drawAreaGrp(catDId);
+									}
+								}
+								else{
+									// 하류 라인 그리기
+						    		me.drawLineGrp(curRchDId, me.upLineSymbol);
+						    		
+						    		// 집수구역 그리기
+						    		var catDId = lineFeature.attributes.CAT_DID;
+						    		me.drawAreaGrp(catDId);
+								}
+							}
 				    		var luRchDId = lineFeature.attributes.LU_RCH_DID; // 상류 좌측 유입 ID
 				    		// RCH_ID, LU_RCH_ID 같은놈이 있는거 같아서 조건 (같으면 무한루프)
 							if(curRchDId != luRchDId){
@@ -593,12 +612,36 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3', {
 					if(lineFeature != undefined){
 						
 						if(curRchDId >= stRchDId){
-							// 상류 라인 그리기
-							me.drawLineGrp(curRchDId, me.upLineSymbol);
 							
-							// 집수구역 그리기
-				    		var catDId = lineFeature.attributes.CAT_DID;
-				    		me.drawAreaGrp(catDId);
+							// 검색설정 체크
+							confInfo = localStorage['_searchConfigInfo_'];
+							if(confInfo != undefined && confInfo != null){
+								var jsonConf = JSON.parse(confInfo);
+								
+								// 지류검색이 아닐때
+								if(jsonConf.isJiDraw == false){
+									
+									var geoTrib = lineFeature.attributes.GEO_TRIB;
+									
+									// 본류만 그리기
+									if(geoTrib == 0){
+										// 상류 라인 그리기
+										me.drawLineGrp(curRchDId, me.upLineSymbol);
+										
+										// 집수구역 그리기
+							    		var catDId = lineFeature.attributes.CAT_DID;
+							    		me.drawAreaGrp(catDId);
+									}
+								}
+								else{
+									// 상류 라인 그리기
+									me.drawLineGrp(curRchDId, me.upLineSymbol);
+									
+									// 집수구역 그리기
+						    		var catDId = lineFeature.attributes.CAT_DID;
+						    		me.drawAreaGrp(catDId);
+								}
+							}
 						}
 			    		
 						// 검색 대상이 최초 시작위치(상류)보다 하류이고 최초 끝위치(하류)가 아닐때

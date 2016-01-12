@@ -33,7 +33,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 		items: [{
 			xtype: 'container',
 			layout: {
-				type: 'hbox',
+				type: 'hbox'
 			},
 			items: [{
 				id: 'cmbArea1',
@@ -70,7 +70,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 		}, {
 			xtype: 'container',
 			layout: {
-				type: 'hbox',
+				type: 'hbox'
 			},
 			items: [{
 				id: 'cmbArea2',
@@ -108,7 +108,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADM', {
 		}, {
 			xtype: 'container',
 			layout: {
-				type: 'hbox',
+				type: 'hbox'
 			},
 			items: [{
 				id: 'cmbArea3',

@@ -159,7 +159,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
                 	//}
             	}
             	
-            },
+            }
         }, {
             text: '관련리치',
             width: 80,
