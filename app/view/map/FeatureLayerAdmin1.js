@@ -37,7 +37,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     
     
     setSelectedPopSiteHandler: function(layerId, siteId){
-    	//alert("aa");
+    	
     	var me = this;
     	
 		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + "/" + layerId);
@@ -198,7 +198,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
 		
-    	//alert("bb");
+    	
     	var groupCd = "";
     	if((layerId>=0)&&(layerId<=7)){
     		groupCd = "A";
@@ -594,7 +594,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     // 집수구역 선택
     setSelectedCatAreaHandler: function(layerId, catDId){
     	var me = this;
-    	alert("cc");
+    	
     	// 집수구역 심볼 설정
 		var selectedSymbol = new esri.symbol.SimpleFillSymbol(
 			esri.symbol.SimpleFillSymbol.STYLE_SOLID,
@@ -642,7 +642,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     // 리치라인 선택
     setSelectedRchLineHandler: function(layerId, catDId){
     	var me = this;
-    	alert("dd");
+    	
     	// 집수구역 심볼 설정
 		var selectedSymbol = new esri.symbol.SimpleLineSymbol(
 			esri.symbol.SimpleLineSymbol.STYLE_SOLID,

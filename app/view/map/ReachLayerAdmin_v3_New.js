@@ -163,8 +163,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			}
 			
 			on(me.selectionToolbar, "DrawEnd", function (evt) {
-				//console.info(evt);
-				evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
+
+				if(location.host != "10.101.95.14"){
+					// 실서버는 적용 안해도 됨.
+					evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
+				}
 				
 				if(symbol != null && symbol != undefined)
 					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
