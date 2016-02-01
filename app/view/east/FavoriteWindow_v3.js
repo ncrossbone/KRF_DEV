@@ -164,7 +164,6 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 									method : "POST",
 									success : function(result, request) {
 										console.info(result.responseText.trim());
-										Ext.Msg.alert("cc", "cc");
 									},
 									failure : function(result, request) {
 										Ext.Msg.alert("Failed", "Connection Failed");
