@@ -6,6 +6,8 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 	extend: 'Ext.panel.Panel',
 	
 	xtype: 'west-searchArea_Name_Rich',
+	
+	id: 'westSearchAreaNameRich',
 
 	controller: 'searchArea_NameController_Rich',
 	
@@ -39,7 +41,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 			items: [{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				items: [{
 					id: 'nameSearch_Rich',
@@ -53,7 +55,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 					cls: 'dj_stextfield',
 					displayField: 'name',
 					valueField: 'id',
-					width: 120,
+					width: 120
 				}, {
 					xtype: 'container',
 					width: 10
@@ -62,7 +64,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 					xtype: 'button',
 					lnkCmbId: 'nameSearch',
 					//text: '검색'
-					cls: 'khLee-x-button-search',
+					cls: 'khLee-x-button-search'
 				}]
 			},{
 				xtype: 'container',
@@ -70,7 +72,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 			},{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				items: [{
 					id: 'nameSearch_End',
@@ -84,7 +86,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 					cls: 'dj_etextfield',
 					displayField: 'name',
 					valueField: 'id',
-					width: 120,
+					width: 120
 				}, {
 					xtype: 'container',
 					width: 10
@@ -93,7 +95,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 					xtype: 'button',
 					lnkCmbId: 'nameSearch_End',
 					//text: '검색'
-					cls: 'khLee-x-button-search',
+					cls: 'khLee-x-button-search'
 				}]
 			}, {
 				xtye: 'container',

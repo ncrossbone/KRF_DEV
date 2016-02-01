@@ -139,7 +139,7 @@ try{
 
 <div class="boardArea">
 	<div class="fullFrame H20">
-        <select class="W100 fl" id="boardType" onchange="javascript:getListByBoard(this.value);" >
+        <select style="display:none;" class="W100 fl" id="boardType" onchange="javascript:getListByBoard(this.value);">
             <option value="1" <%if(boardTypeVal.equals("1")) {%>selected="selected"<%} %>>Q &amp; A</option>
             <option value="2" <%if(boardTypeVal.equals("2")) {%>selected="selected"<%} %>>공지사항</option>
         </select>

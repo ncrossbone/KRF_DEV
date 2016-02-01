@@ -423,22 +423,9 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					textSearchText_End.setValue(jijum_Name);
 					//console.info("end");
 				}
-					
-				var x = obj.geometry.x;
-				var y = obj.geometry.y;
 				
-				var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
-				var curLevel = me.map.getLevel();
-				var xOffset = tileInfo.lods[curLevel].resolution;
-				
-				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * xOffset);
-				y = y - ((979 - Ext.getBody().getHeight()) / 2 * xOffset);
-
 				me.moveGraphicLayer.clear();
 				me.moveGraphicLayer.id = "moveGraphicLayer" + siteId;
-				
-				if(me.map.getLevel() < 12)
-					me.map.setLevel(12);
 				
 				if(clickValue == "none"){
 					var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
@@ -460,50 +447,30 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					me.moveGraphicLayer.add(obj);
 				}
 				
-				/*var x = obj.geometry.x;
-				var y = obj.geometry.y;*/
-				var point = new esri.geometry.Point(x, y, obj.geometry.spatialReference);
-				//console.info(point);
-				//me.map.centerAndZoom(point, 12);
-				me.map.centerAt(point);
-				
 				// 10초뒤 레이어(이미지) 제거
 				Ext.defer(function(){
 					me.moveGraphicLayer.clear();
 					//me.map.removeLayer(obj);
 				}, 10000, this);
 				
-				var coreMap = GetCoreMap();
+				// 지점 포인트 정보
+				var point = new esri.geometry.Point(obj.geometry.x, obj.geometry.y, obj.geometry.spatialReference);
+				
+				// 센터 이동
+				centerAtWithOffset(obj.geometry.x, obj.geometry.y, obj.geometry.spatialReference);
+				
+				var popWidth = 370;
+				var popHeight = 230;
 				
 				/* 사이트 정보 팝업 띄우기 */
 				var popCtl = Ext.getCmp("popSiteInfo");
 				
 				// 팝업 띄워져있으면 닫기
 				if(popCtl != undefined){
+					
 					popCtl.close();
 				}
-				
-				var curLevel = coreMap.map.getLevel();
-				var resolution = coreMap.tileInfo.lods[curLevel].resolution;
-				var popWidth = 370;
-				var popHeight = 215;
-				var extent = coreMap.map.extent;
-				
-				var xLen = extent.xmax - extent.xmin;
-				var yLen = extent.ymax - extent.ymin;
-				
-				var xPx = xLen / resolution / 2 - popWidth / 2;
-				xPx = xPx - (1920 - Ext.getBody().getWidth()) / 2;
-				var yPx = yLen / resolution / 2 - popHeight;
-				yPx = yPx - (979 - Ext.getBody().getHeight()) / 2;
-				
-				var westContainer = Ext.getCmp("west_container");
-				if(westContainer.collapsed != false){
-					xPx = xPx - 300;
-				}
-				
-				
-				
+				//console.info(xyObj);
 				Ext.create("Ext.window.Window", {
 					//renderTo: Ext.getBody(),
 					header: false,
@@ -511,11 +478,11 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					shadow: false,
 					//frame: true,
 					plain: true, // 요게 있어야 background: transparent 먹음..
-					point: point, // 팝업 포인트 정보
-					width: popWidth,
-					height: popHeight,
-					x: xPx,
-					y: yPx,
+					point: point, // 지점 포인트 정보
+					width: 360,
+					height: 215,
+					//x: xyObj.x,
+					//y: xyObj.y,
 					isMove: false,
 					//style: ' background: transparent none !important; height: 500px;',
 					style: 'border-style: none !important; background: transparent none !important; height: 700px;',
@@ -573,17 +540,21 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"</html>                                                                                                                                                                            "
 				}).show();
 				
+				// 툴팁 XY 셋팅
+				setTooltipXY();
+				
 				var btnNomal = Ext.getCmp("btnModeNomal");
 				if(btnNomal.btnOnOff == "on"){
 					var aEl = Ext.get('reachTable');
 					aEl.dom.hidden = true;
 				}
 				
-
 				if(clickValue == "start" || clickValue == "end"){
 					
+					var coreMap = GetCoreMap();
 					var option = "";
 					var btnId = "";
+					var symbol = null;
 					
 					if(clickValue == "start"){
 						// 심볼설정
@@ -591,8 +562,8 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						//coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
 						//coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
 						
-						option = "STARTPOINT";
 						btnId = "btnMenu04";
+						symbol = coreMap.reachLayerAdmin_v3_New.startSymbol;
 					}
 					if(clickValue == "end"){
 						// 심볼설정
@@ -600,15 +571,18 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						//coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
 						//coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
 		    			
-						option = "ENDPOINT";
 						btnId = "btnMenu05";
+						symbol = coreMap.reachLayerAdmin_v3_New.endSymbol;
 					}
-	    			
-					coreMap.reachLayerAdmin_v3.drawSymbol(option, point); // 심볼 그리기
+
+					coreMap.reachLayerAdmin_v3_New.drawEnd(btnId);
+					coreMap.reachLayerAdmin_v3_New.drawSymbol(point, symbol, clickValue); // 심볼 그리기
+					coreMap.reachLayerAdmin_v3_New.selectNodeWithEvent(point, clickValue); // 라인 검색
+					
 					var currCtl = Ext.getCmp(btnId);
 					if(currCtl != undefined && currCtl.btnOnOff == "on")
 						SetBtnOnOff(btnId);
-					coreMap.reachLayerAdmin_v3.runStartEnd(); // 검색 실행
+					
 					closePopSiteInfo(); // 툴팁 닫기
 				}
 			});
@@ -646,15 +620,15 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				me.moveCatGraphicLayer.clear();
 				me.moveCatGraphicLayer.id = "moveCatGraphicLayer" + catDId;
 				
-				if(me.map.getLevel() < 12)
-					me.map.setLevel(12);
-				
 				obj.setSymbol(selectedSymbol);
 				me.moveCatGraphicLayer.add(obj);
 				
 				var extent = esri.geometry.Polygon(obj.geometry).getExtent();
-				//me.map.setExtent(extent, true);
-				me.map.centerAt(extent.getCenter());
+				//alert(extent);
+				//console.info(extent);
+				//me.map.centerAt(extent.getCenter());
+				// 센터 이동
+				centerAtWithOffset(extent.getCenter().x, extent.getCenter().y, extent.spatialReference);
 				
 				// 10초뒤 레이어(이미지) 제거
 				Ext.defer(function(){
@@ -691,9 +665,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			Ext.each(results.features, function(obj, index) {
 				
 				me.moveRchGraphicLayer.id = "moveRchGraphicLayer" + catDId;
-				
-				if(me.map.getLevel() < 12)
-					me.map.setLevel(12);
 				
 				obj.setSymbol(selectedSymbol);
 				me.moveRchGraphicLayer.add(obj);

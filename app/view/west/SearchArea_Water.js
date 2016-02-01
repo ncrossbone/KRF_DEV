@@ -36,7 +36,7 @@ Ext
 								{
 									xtype : 'container',
 									layout : {
-										type : 'hbox',
+										type : 'hbox'
 									},
 									items : [
 											{
@@ -79,7 +79,7 @@ Ext
 								{
 									xtype : 'container',
 									layout : {
-										type : 'hbox',
+										type : 'hbox'
 									},
 									items : [
 											{

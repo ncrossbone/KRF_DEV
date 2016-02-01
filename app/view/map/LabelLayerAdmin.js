@@ -44,9 +44,9 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
 		Ext.Ajax.request({
     		url: './resources/jsp/GetLabelLayerAdmin.jsp',
     		async: true, // 비동기 = async: true, 동기 = async: false
-    		timeout: 120000, // timeout 2분
+    		timeout: 300000, // timeout 5분
     		success : function(response, opts) {
-    			console.info(response);
+    			//console.info(response);
     			jsonData = Ext.util.JSON.decode( response.responseText );
     			
     			//console.info(jsonData.bodDatas);
@@ -62,7 +62,7 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
     		failure: function(form, action) {
     			//console.info(form);
     			//console.info(action);
-    			alert("라벨 데이터 조회 중 오류가 발생하였습니다.");
+    			//alert("라벨 데이터 조회 중 오류가 발생하였습니다.");
     			//alert("dd");
     		}
     	});
@@ -149,8 +149,12 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
 							}
 						}
 					}
+					else{
+						alert("데이터가 조회되지 않았습니다. 잠시 후 다시 시도해주세요.")
+					}
 					
 				});
+				
 				dojo.connect(queryTask, "onError", function(err) {
 					
 				});

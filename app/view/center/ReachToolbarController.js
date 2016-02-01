@@ -22,19 +22,17 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		if(popCtl == undefined){
 			
-			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig", {
-				x: 390,
-				y: 170
-			});
+			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig");
 			
 		}
 		
-		// 팝업 이미지 show, hide
+		// 팝업 이미지 show
 		if(currCtl.btnOnOff == "on"){
 			popCtl.show();
+			SetWestCollapseXY("show");
 		}
 		else{
-			popCtl.hide();
+			popCtl.close();
 		}
 		
 	},
@@ -44,7 +42,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
-		GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		GetCoreMap().reachLayerAdmin_v3_New.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
@@ -52,7 +51,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		if(currCtl.btnOnOff == "on"){
 			// 리치 선택 시작
 			//GetCoreMap().reachLayerAdmin.pointDraw("ADD", el.id);
-			GetCoreMap().reachLayerAdmin_v3.pointDraw("ADD", el.id); // v3
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("ADD", el.id); // v3
+			GetCoreMap().reachLayerAdmin_v3_New.startDraw("addPoint"); // v3
 		}
 		
 	},
@@ -62,7 +62,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
-		GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		GetCoreMap().reachLayerAdmin_v3_New.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
@@ -70,7 +70,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		if(currCtl.btnOnOff == "on"){
 			// 리치 선택 시작
 			//GetCoreMap().reachLayerAdmin.pointDraw("REMOVE", el.id);
-			GetCoreMap().reachLayerAdmin_v3.pointDraw("REMOVE", el.id); // v3
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("REMOVE", el.id); // v3
+			GetCoreMap().reachLayerAdmin_v3_New.startDraw("removePoint"); // v3
 		}
 		
 	},
@@ -78,15 +79,19 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
 		
+		var me = GetCoreMap().reachLayerAdmin_v3_New;
+		
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
-		GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		me.drawEnd();
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.pointStartDraw("STARTPOINT", el.id); // v2
-			GetCoreMap().reachLayerAdmin_v3.pointDraw("STARTPOINT", el.id); // v3
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("STARTPOINT", el.id); // v3
+			me.onClickStartPoint(); // v3 New
 		}
 		
 	},
@@ -94,16 +99,19 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 끝위치 버튼 클릭
 	onClickEndReach: function(obj, el, evt){
 		
+		var me = GetCoreMap().reachLayerAdmin_v3_New;
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
-		GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		me.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.pointEndDraw("ENDPOINT", el.id); // v2
-			GetCoreMap().reachLayerAdmin_v3.pointDraw("ENDPOINT", el.id); // v3
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("ENDPOINT", el.id); // v3
+			me.onClickEndPoint(); // v3 New
 		}
 		
 	},
@@ -253,11 +261,13 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 리치 선택 종료
 		//me.reachLayerAdmin.drawEnd();
-		me.reachLayerAdmin_v3.drawEnd();
+		//me.reachLayerAdmin_v3.drawEnd();
+		me.reachLayerAdmin_v3_New.drawEnd();
 		
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.extentDraw("ADD", el.id);
-			GetCoreMap().reachLayerAdmin_v3.pointDraw("EXTENT", el.id); // v3
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("EXTENT", el.id); // v3
+			GetCoreMap().reachLayerAdmin_v3_New.startDraw("extent"); // v3
 		}
 		
 	},
@@ -272,11 +282,13 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 리치 선택 종료
 		//me.reachLayerAdmin.drawEnd();
-		me.reachLayerAdmin_v3.drawEnd();
+		//me.reachLayerAdmin_v3.drawEnd();
+		me.reachLayerAdmin_v3_New.drawEnd();
 		
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.radiusDraw("ADD", el.id);
-			GetCoreMap().reachLayerAdmin_v3.pointDraw("CIRCLE", el.id); // v3
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("CIRCLE", el.id); // v3
+			GetCoreMap().reachLayerAdmin_v3_New.startDraw("circle"); // v3
 		}
 		
 	},

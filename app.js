@@ -357,7 +357,7 @@ Ext.application({
 			
 			if(sConfig == undefined){
 				sConfig = Ext.create("KRF_DEV.view.center.SearchConfig");
-				sConfig.show();
+				//sConfig.show();
 			}
 			
 			var cContainer = Ext.getCmp("center_container");
@@ -369,8 +369,12 @@ Ext.application({
 			var cContainer = Ext.getCmp("center_container");
 			var rToolbar = Ext.getCmp("reachToolbar");
 			var rNameToolbar = Ext.getCmp("reachNameToolbar");
+			var sConfig = Ext.getCmp("searchConfig");
 			cContainer.remove(rToolbar, false);
-			rNameToolbar.close();
+			if(rNameToolbar != undefined && rNameToolbar != null)
+				rNameToolbar.close();
+			if(sConfig != undefined && sConfig != null)
+				sConfig.close();
 		}
 	},
 	// session정보 없을 시 로그인 창 이동. 2015.11.27 hyeok
@@ -402,4 +406,17 @@ Ext.application({
 		*/
 		this.callParent();
 	}
+});
+
+Ext.on('resize', function(){
+	
+	var northContainer = Ext.getCmp("north_container");
+	var westBtnCtl = Ext.getCmp("searchAreaButton");
+	var westNameRch = Ext.getCmp("westSearchAreaNameRich");
+	var westTotal = Ext.getCmp("searchAreaList_Total");
+	
+	var listHeight = Ext.getBody().getHeight() - northContainer.getHeight() - westBtnCtl.getHeight() - westNameRch.getHeight() - westTotal.getHeight();
+	var searchAreaList = Ext.getCmp("searchAreaList");
+	searchAreaList.setHeight(listHeight);
+	//alert("resize");
 });

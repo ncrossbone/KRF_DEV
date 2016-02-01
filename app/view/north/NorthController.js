@@ -43,14 +43,14 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var currCtl = SetBtnOnOff(el.id);
 		var me = GetCoreMap();
 		
-		if(me.reachLayerAdmin_v3.lineGrpLayer != null && me.reachLayerAdmin_v3.lineGrpLayer != undefined){
+		if(me.reachLayerAdmin_v3_New.lineGrpLayer != null && me.reachLayerAdmin_v3_New.lineGrpLayer != undefined){
 			if(currCtl.btnOnOff == "on"){
 				//me.reachLayerAdmin.reachLineGraphics.setVisibility(true);
-				me.reachLayerAdmin_v3.lineGrpLayer.setVisibility(true);
+				me.reachLayerAdmin_v3_New.lineGrpLayer.setVisibility(true);
 			}
 			else{
 				//me.reachLayerAdmin.reachLineGraphics.setVisibility(false);
-				me.reachLayerAdmin_v3.lineGrpLayer.setVisibility(false);
+				me.reachLayerAdmin_v3_New.lineGrpLayer.setVisibility(false);
 			}
 		}
 		
@@ -67,14 +67,14 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var me = GetCoreMap();
 		
 		//if(me.reachLayerAdmin.reachAreaGraphics != null && me.reachLayerAdmin.reachAreaGraphics != undefined){
-		if(me.reachLayerAdmin_v3.areaGrpLayer != null && me.reachLayerAdmin_v3.areaGrpLayer != undefined){
+		if(me.reachLayerAdmin_v3_New.areaGrpLayer != null && me.reachLayerAdmin_v3_New.areaGrpLayer != undefined){
 			if(currCtl.btnOnOff == "on"){
 				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(true);
-				me.reachLayerAdmin_v3.areaGrpLayer.setVisibility(true);
+				me.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
 			}
 			else{
 				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(false);
-				me.reachLayerAdmin_v3.areaGrpLayer.setVisibility(false);
+				me.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
 			}
 		}
 		
@@ -87,7 +87,6 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		
 		var me = GetCoreMap();
 		var activeLayer = me.map.getLayer("DynamicLayer1");
-    	o(activeLayer);
     	var layers = activeLayer.visibleLayers;
     	var visibleLayer = [];
     	activeLayer.setVisibleLayers([]);

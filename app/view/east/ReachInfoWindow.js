@@ -37,8 +37,7 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				style: 'background-color: #256ecb; color: white;',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'RCH_DID',
@@ -46,16 +45,14 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				html: ' ',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}, {
 				xtype: 'container',
 				html: '하천명',
 				style: 'background-color: #256ecb; color: white;',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'RIV_NM',
@@ -63,9 +60,7 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				html: '',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}]
 		}, {
 			xtype: 'container',
@@ -76,36 +71,26 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				xtype: 'container',
 				html: '표준유역명',
 				style: 'background-color: #256ecb; color: white;',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'SB_NM',
-				//html: '경안천하류',
 				html: '',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}, {
 				xtype: 'container',
 				html: '연결하천명',
 				style: 'background-color: #256ecb; color: white;',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'LO_RIV_NM',
-				//html: '경안천',
 				html: '',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}]
 		}, {
 			xtype: 'container',
@@ -116,36 +101,26 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				xtype: 'container',
 				html: '순차번호',
 				style: 'background-color: #256ecb; color: white;',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'SN',
-				//html: '2',
 				html: '',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}, {
 				xtype: 'container',
 				html: '하천차수',
 				style: 'background-color: #256ecb; color: white;',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'GEO_TRIB',
-				//html: '2',
 				html: '',
-				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}]
 		}, {
 			xtype: 'container',
@@ -158,8 +133,7 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				style: 'background-color: #256ecb; color: white;',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'RCH_LEN',
@@ -167,16 +141,14 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				html: '',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}, {
 				xtype: 'container',
 				html: '누적거리(m)',
 				style: 'background-color: #256ecb; color: white;',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'CUM_LEN',
@@ -184,8 +156,7 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				html: '',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}]
 		}, {
 			xtype: 'container',
@@ -198,8 +169,7 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				style: 'background-color: #256ecb; color: white;',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				id: 'CAT_AREA',
@@ -207,24 +177,21 @@ Ext.define('KRF_DEV.view.east.ReachInfoWindow', {
 				html: '',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}, {
 				xtype: 'container',
 				html: '상류면적(㎡)',
 				style: 'background-color: #256ecb; color: white;',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-title',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-title'
 			},{
 				xtype: 'container',
 				//html: '345966.0',
 				html: '',
 				//width: 85,
 				flex: 1,
-				cls: 'khLee-infowin-cont',
-				//padding: '2 5 2 5' // 'top right bottom left'
+				cls: 'khLee-infowin-cont'
 			}]
 		}]
 	}]

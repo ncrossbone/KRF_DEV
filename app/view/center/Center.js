@@ -92,7 +92,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 		height: 1000,
 		x: -378,
 		y: -80
-	}],
+	}]
 	
 	
 	

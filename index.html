@@ -23,7 +23,7 @@
 		var baseUrl = 'http://' + window.location.hostname + ':'
 				+ window.location.port + ctxPath;
 		window.baseUrl = baseUrl;
-		console.info(window.baseUrl);
+		//console.info(window.baseUrl);
 		dojoConfig = {
 			packages : [ {
 				name : "KRF_DEV",
@@ -402,6 +402,15 @@
 			background: url('./resources/images/popup/txtFieldBg.png');
 			position: absolute;
 			left: 2px;
+		}
+		
+		.dj_toolbarConf {
+			border-style: none !important;
+			box-shadow: 0px 0px 0px #777;
+			width: 99px !important;
+			height: 27px !important; 
+			background: url('./resources/images/popup/confBoxBg.png') !important;
+			position: absolute;
 		}
 		
 		/* 시작위치 */

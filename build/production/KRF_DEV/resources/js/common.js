@@ -87,7 +87,7 @@ ReachLayerOnOff = function(btnId, layerId){
 	
 	var me = GetCoreMap();
 	//var graphics = me.reachLayerAdmin.reachLinelayer.getSelectedFeatures();
-	var graphics = me.reachLayerAdmin_v3.lineGrpLayer.getSelectedFeatures();
+	var graphics = me.reachLayerAdmin_v3_New.lineGrpLayer.getSelectedFeatures();
 	
 	////console.info(record);
 	if(currCtl.btnOnOff == "on"){
@@ -1004,7 +1004,7 @@ ShowSearchResultReach = function(catIds){
     	
     	// 상류 데이터
     	//var tmpGraphics = rchMap.reachLayerAdmin.upRchGraphics;
-    	var tmpGraphics = rchMap.reachLayerAdmin_v3.arrLineGrp;
+    	var tmpGraphics = rchMap.reachLayerAdmin_v3_New.arrLineGrp;
     	for(var i = 0; i < tmpGraphics.length; i++){
     		var rowData = [];
     		rowData.push(tmpGraphics[i].attributes.RCH_DID);
@@ -1429,10 +1429,12 @@ ResetButtonClick = function(){
 	
 	// 리치 선택 종료
 	//me.reachLayerAdmin.drawEnd();
-	me.reachLayerAdmin_v3.drawEnd();
+	//me.reachLayerAdmin_v3_New.drawEnd();
+	me.reachLayerAdmin_v3_New.drawEnd();
 	// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
 	//me.reachLayerAdmin.clearGraphicsLayer("reset");
-	me.reachLayerAdmin_v3.clearGraphicsLayer("reset");
+	//me.reachLayerAdmin_v3_New.clearGraphicsLayer("reset");
+	me.reachLayerAdmin_v3_New.clearGraphicsLayer();
 	
 	Ext.HideSiteListWindow();
 	HideWindowSiteNChart();
@@ -1473,87 +1475,6 @@ ResetButtonClick = function(){
 	
 }
 
-setTooltipPoint = function(extent, obj){
-	var me = GetCoreMap();
-	
-	if(me.preExtent != extent){
-		
-		var popCtl = Ext.getCmp("popSiteInfo");
-		
-		if(popCtl != undefined){
-			
-			if(popCtl.isMove == true){
-				
-				/*
-				var x = obj.geometry.x;
-				var y = obj.geometry.y;
-				
-				var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
-				var curLevel = me.map.getLevel();
-				var xOffset = tileInfo.lods[curLevel].resolution;
-				
-				x = x + ((1920 - Ext.getBody().getWidth()) / 2 * xOffset);
-				y = y - ((979 - Ext.getBody().getHeight()) / 2 * xOffset);
-				*/
-				
-				var popWidth = 360;
-				var popHeight = 200;
-				
-				var resolution = obj.resolution;
-				
-//				var x = me.preExtent.getCenter().x - extent.getCenter().x;
-//				var y = me.preExtent.getCenter().y - extent.getCenter().y;
-//				var x = popCtl.point.x - extent.getCenter().x;
-//				var y = popCtl.point.x - extent.getCenter().y;
-				
-				var x = (extent.xmax - extent.xmin) - (extent.xmax - popCtl.point.x);
-				var y = (extent.ymax - extent.ymin) - (extent.ymax - popCtl.point.y);
-				//console.info((1920 - Ext.getBody().getWidth()));
-				var xOffset = (x / resolution - popWidth / 2);
-				var yOffset = y / resolution;
-				yOffset = Ext.getBody().getHeight() - yOffset - popHeight;
-				////console.info(obj);
-				//if(me.preLevel != obj.level){
-					xOffset = xOffset - (1920 - Ext.getBody().getWidth()) / 2;
-					yOffset = yOffset + (979 - Ext.getBody().getHeight()) / 2;
-				//}
-				
-				var popX = popCtl.getX();
-				var popY = popCtl.getY();
-				
-				////console.info(Ext.getCmp("west_container").collapsed);
-				if(Ext.getCmp("west_container").collapsed != false){
-					xOffset = xOffset - 300;
-				}
-				
-				////console.info(popX);
-				////console.info(popY);
-				
-				//popCtl.setX(popX + xOffset);
-				popCtl.setX(xOffset);
-				//popCtl.setY(popY - yOffset);
-				popCtl.setY(yOffset);
-			}
-			else{
-				popCtl.isMove = true;
-			}
-		}
-		
-		me.preExtent = extent;
-		me.preResolution = obj.resolution;
-		me.preLevel = me.map.getLevel();
-	}
-}
-
-// 지점정보 툴팁 닫기
-closePopSiteInfo = function(){
-	var popCtl = Ext.getCmp("popSiteInfo");
-	
-	if(popCtl != undefined){
-		popCtl.close();
-	}
-}
-
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId){
 	var treeCtl = Ext.getCmp("layer01");
@@ -1576,28 +1497,28 @@ runStartEnd = function(option){
 		
 		if(option == "start"){
 			// 심볼설정
-			coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
-			coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
-			coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
+			coreMap.reachLayerAdmin_v3_New.startSymbol.url = coreMap.reachLayerAdmin_v3_New.getStartSymbolUrl();
+			coreMap.reachLayerAdmin_v3_New.startSymbol.width = 48;
+			coreMap.reachLayerAdmin_v3_New.startSymbol.height = 38;
 			
 			option = "STARTPOINT";
 			btnId = "btnMenu04";
 		}
 		if(option == "end"){
 			// 심볼설정
-			coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
-			coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
-			coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
+			coreMap.reachLayerAdmin_v3_New.endSymbol.url = coreMap.reachLayerAdmin_v3_New.getEndSymbolUrl();
+			coreMap.reachLayerAdmin_v3_New.endSymbol.width = 48;
+			coreMap.reachLayerAdmin_v3_New.endSymbol.height = 38;
 			
 			option = "ENDPOINT";
 			btnId = "btnMenu05";
 		}
 		
-		coreMap.reachLayerAdmin_v3.drawSymbol(option, point); // 심볼 그리기
+		coreMap.reachLayerAdmin_v3_New.drawSymbol(option, point); // 심볼 그리기
 		var currCtl = Ext.getCmp(btnId);
 		if(currCtl != undefined && currCtl.btnOnOff == "on")
 			SetBtnOnOff(btnId);
-		coreMap.reachLayerAdmin_v3.runStartEnd(); // 검색 실행
+		coreMap.reachLayerAdmin_v3_New.runStartEnd(); // 검색 실행
 		closePopSiteInfo(); // 툴팁 닫기
 	}
 }
@@ -1618,5 +1539,159 @@ SetStEdSiteName = function(option, value){
 			reachNameToolbar.items.items[1].setValue(value);
 			textSearchText_End.setValue(value);
 		}
+	}
+}
+
+//시작지점 끝지점 값 초기화
+ResetStEdSiteName = function(){
+	
+	var reachNameToolbar = Ext.getCmp("reachNameToolbar");
+	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
+	var textSearchText_End = Ext.getCmp("textSearchText_End");
+	
+	reachNameToolbar.items.items[0].setValue("");
+	textSearchText_Start.setValue("");
+
+	reachNameToolbar.items.items[1].setValue("");
+	textSearchText_End.setValue("");
+}
+
+var westPreWidth = 0;
+
+// 좌측 숨기거나 펼때 컨트롤 XY 셋팅
+SetWestCollapseXY = function(option){
+	
+	// west_container, west_buttonpanel
+	var westContainer = Ext.getCmp("west_container");
+	var westWidth = westContainer.getWidth();
+	var initWidth = westContainer.initWidth;
+	var offsetWidth = westWidth;
+
+	if(option == "show"){
+		
+		offsetWidth = westWidth - initWidth;
+	}
+	
+	if(option == "resize"){
+
+		if(westPreWidth != westWidth){
+			
+			offsetWidth = westWidth - westPreWidth;
+			westPreWidth = westWidth;
+		}
+	}
+	
+	if(westContainer.collapsed == false){
+		
+		// 숨기기 버튼 셋팅
+		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_close.png' />";
+		offsetWidth = 0 + offsetWidth; // 플러스
+	}
+	else{
+		
+		// 보이기 버튼 셋팅
+		Ext.get("west_container-splitter-collapseEl").dom.innerHTML = "<img src='./resources/images/button/btn_arrow_open.png' />";
+		offsetWidth = 0 - offsetWidth; // 마이너스
+	}
+	
+	var sConfig = Ext.getCmp("searchConfig");
+	
+	if(sConfig != undefined){
+		
+		if(sConfig.hidden == false){
+			
+			sConfig.setX(sConfig.getX() + offsetWidth);
+		}
+	}
+	
+	if(option != "show"){
+		
+		var reachNameToolbar = Ext.getCmp("reachNameToolbar");
+		
+		if(reachNameToolbar != undefined){
+			
+			reachNameToolbar.setX(reachNameToolbar.getX() + offsetWidth);
+		}
+		
+		// 툴팁 XY 셋팅
+		setTooltipXY();
+	}
+}
+
+// offset 적용한 센터이동
+centerAtWithOffset = function(x, y, spatialReferrence){
+	
+	var coreMap = GetCoreMap();
+	
+	var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
+	var curLevel = coreMap.map.getLevel();
+	
+	if(coreMap.map.getLevel() < 12){
+		coreMap.map.setLevel(12);
+		curLevel = 12;
+	}
+	
+	var reachToolHeight = 0;
+	if(Ext.getCmp("reachToolbar") != undefined)
+		reachToolHeight = Ext.getCmp("reachToolbar").getHeight();
+	var resolution = tileInfo.lods[curLevel].resolution;
+	var xoffset = (1920 - Ext.getBody().getWidth()) / 2 * resolution;
+	var yoffset = (1080 - Ext.getBody().getHeight()) / 2 * resolution;
+	
+	x = x + xoffset;
+	y = y - yoffset + (reachToolHeight * resolution);
+	
+	var point = new esri.geometry.Point(x, y, spatialReferrence);
+	
+	coreMap.map.centerAt(point);
+}
+
+// 툴팁 XY 셋팅
+setTooltipXY = function(){
+	
+	var me = GetCoreMap();
+	
+	var popCtl = Ext.getCmp("popSiteInfo");
+	
+	if(popCtl != undefined && popCtl != null){
+		
+		var curLevel = me.map.getLevel();
+		var resolution = me.tileInfo.lods[curLevel].resolution;
+		var extent = me.map.extent;
+		
+		var siteX = popCtl.point.x;
+		var siteY = popCtl.point.y;
+		
+		var xPx = ((extent.xmax - extent.xmin) - (extent.xmax - siteX)) / resolution;
+		var yPx = ((extent.ymax - extent.ymin) - (siteY - extent.ymin)) / resolution;
+		
+		var popWidth = popCtl.getWidth();
+		var popHeight = popCtl.getHeight();
+		
+		xPx = xPx - popWidth / 2;
+		yPx = yPx - popHeight;
+		
+		var westContainer = Ext.getCmp("west_container");
+		
+		if(westContainer.collapsed != false){
+			
+			xPx = xPx - westContainer.initWidth;
+		}
+		else{
+			
+			xPx = xPx - (westContainer.initWidth - westContainer.getWidth());
+		}
+		
+		popCtl.setX(xPx);
+		popCtl.setY(yPx);
+	}
+}
+
+//지점정보 툴팁 닫기
+closePopSiteInfo = function(){
+	var popCtl = Ext.getCmp("popSiteInfo");
+	
+	if(popCtl != undefined){
+		popCtl.close();
 	}
 }

@@ -84,14 +84,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
 				
-				if(me.reachLayerAdmin_v3.arrAreaGrp.length > 0){
+				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
 					var reachBtn = Ext.getCmp("btnModeReach");
 					
 						
 						query.where = "CAT_DID IN ("; 
 						
-						for(var i = 0; i < me.reachLayerAdmin_v3.arrAreaGrp.length; i++){
-							query.where += "'" + me.reachLayerAdmin_v3.arrAreaGrp[i].attributes.CAT_DID + "', ";
+						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 						}
 						
 						query.where = query.where.substring(0, query.where.length - 2);

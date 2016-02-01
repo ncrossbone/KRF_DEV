@@ -74,14 +74,14 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 			{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				height:20
 			},
 			{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				items: [{
 					
@@ -92,7 +92,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 					labelAlign: 'right',
 					labelPad: 10,
 					//width: 200,
-					editable: true,
+					editable: true
 					
 				}, {
 					xtype: 'container',
@@ -155,13 +155,13 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 								self.gridStore.loadData(self.favoriteInfo);
 							}
 						}
-					},
+					}
 				}]
 			},
 			{
 				xtype: 'container',
 				layout: {
-					type: 'hbox',
+					type: 'hbox'
 				},
 				height:20
 			},
@@ -224,7 +224,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 //									self.coreMap.extentMove(extent, level);
 									self.coreMap.favoriteExe(grid.selection.data);
 								}
-							},
+							}
 					    }
 				    ]
 				}]

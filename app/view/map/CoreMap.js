@@ -49,7 +49,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
         	//me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map); // v2
-        	me.reachLayerAdmin_v3 = Ext.create('KRF_DEV.view.map.ReachLayerAdmin_v3', me.map); // v3
+        	//me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.reachLayerAdmin_v3_New', me.map); // v3
+        	me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.ReachLayerAdmin_v3_New', me.map); // v3 New
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
@@ -173,58 +174,78 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		var level = data.LEVEL;
 		var reachLineGArr = data.reachLineGArr;
 		var reachAreaGArr = data.reachAreaGArr;
-		var pointGArr =data.pointGArr;
-		//me.reachLayerAdmin_v3.addLineGraphic(null);
-		//me.reachLayerAdmin_v3.addAreaGraphic(null);
+		var pointGArr = data.pointGArr;
+		var symbolGArr = data.symbolGArr;
+		var downLineGArr = data.downLineGArr;
+		
+		//me.reachLayerAdmin_v3_New.addLineGraphic(null);
+		//me.reachLayerAdmin_v3_New.addAreaGraphic(null);
+		
 		var deferred = me.map.setExtent(extent, true);
 		deferred.then(function(value){
 			var deferred2 = me.map.setLevel(level);
 			deferred2.then(function(value){
-				//못들어옴. 2015.12.23 hyeok(리치모드 시 들어옴)
-				if(me.reachLayerAdmin_v3.lineGrpLayer){
-					me.reachLayerAdmin_v3.lineGrpLayer.clear();
-					me.reachLayerAdmin_v3.arrLineGrp = [];
+				if(me.reachLayerAdmin_v3_New.lineGrpLayer){
+					me.reachLayerAdmin_v3_New.lineGrpLayer.clear();
+					me.reachLayerAdmin_v3_New.arrLineGrp = [];
 					for(var i=0; i<reachLineGArr.length; i++){
-						me.reachLayerAdmin_v3.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
-						me.reachLayerAdmin_v3.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
+						me.reachLayerAdmin_v3_New.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
+						me.reachLayerAdmin_v3_New.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
 					}
 				}
-				if(me.reachLayerAdmin_v3.areaGrpLayer){
-					me.reachLayerAdmin_v3.areaGrpLayer.clear();
-					me.reachLayerAdmin_v3.arrAreaGrp = [];
+				if(me.reachLayerAdmin_v3_New.areaGrpLayer){
+					me.reachLayerAdmin_v3_New.areaGrpLayer.clear();
+					me.reachLayerAdmin_v3_New.arrAreaGrp = [];
 					for(var i=0; i<reachAreaGArr.length; i++){
-						me.reachLayerAdmin_v3.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
-						me.reachLayerAdmin_v3.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
+						me.reachLayerAdmin_v3_New.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
+						me.reachLayerAdmin_v3_New.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
 					}
 				}
 				
-				if(me.reachLayerAdmin_v3.pointGrpLayer){
-					me.reachLayerAdmin_v3.pointGrpLayer.clear();
+				if(me.reachLayerAdmin_v3_New.pointGrpLayer){
+					me.reachLayerAdmin_v3_New.pointGrpLayer.clear();
 					for(var i=0; i<pointGArr.length; i++){
-						me.reachLayerAdmin_v3.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
+						me.reachLayerAdmin_v3_New.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
+				
+				if(me.reachLayerAdmin_v3_New.symbolGrpLayer){
+					me.reachLayerAdmin_v3_New.symbolGrpLayer.clear();
+					for(var i=0; i<symbolGArr.length; i++){
+						me.reachLayerAdmin_v3_New.symbolGrpLayer.add(new esri.Graphic(JSON.parse(symbolGArr[i])));
+						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+					}
+				}
+				
+				if(me.reachLayerAdmin_v3_New.downLineLayer){
+					me.reachLayerAdmin_v3_New.downLineLayer.clear();
+					for(var i=0; i<downLineGArr.length; i++){
+						me.reachLayerAdmin_v3_New.downLineLayer.add(new esri.Graphic(JSON.parse(downLineGArr[i])));
+						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
+					}
+				}
+
 				/*
-				me.reachLayerAdmin_v3.upRchGraphics = [];
-				me.reachLayerAdmin_v3.downRchGraphics = [];
-				me.reachLayerAdmin_v3.selRchGraphics = [];
-				me.reachLayerAdmin_v3.startRchGraphics = [];
-				me.reachLayerAdmin_v3.selAreaGraphics = [];
+				me.reachLayerAdmin_v3_New.upRchGraphics = [];
+				me.reachLayerAdmin_v3_New.downRchGraphics = [];
+				me.reachLayerAdmin_v3_New.selRchGraphics = [];
+				me.reachLayerAdmin_v3_New.startRchGraphics = [];
+				me.reachLayerAdmin_v3_New.selAreaGraphics = [];
 				for(var i=0; i<data.upRchGraphics.length; i++){
-					me.reachLayerAdmin_v3.upRchGraphics.push(new esri.Graphic(JSON.parse(data.upRchGraphics[i])))
+					me.reachLayerAdmin_v3_New.upRchGraphics.push(new esri.Graphic(JSON.parse(data.upRchGraphics[i])))
 				}
 				for(var i=0; i<data.downRchGraphics.length; i++){
-					me.reachLayerAdmin_v3.downRchGraphics.push(new esri.Graphic(JSON.parse(data.downRchGraphics[i])))
+					me.reachLayerAdmin_v3_New.downRchGraphics.push(new esri.Graphic(JSON.parse(data.downRchGraphics[i])))
 				}
 				for(var i=0; i<data.selRchGraphics.length; i++){
-					me.reachLayerAdmin_v3.selRchGraphics.push(new esri.Graphic(JSON.parse(data.selRchGraphics[i])))
+					me.reachLayerAdmin_v3_New.selRchGraphics.push(new esri.Graphic(JSON.parse(data.selRchGraphics[i])))
 				}
 				for(var i=0; i<data.startRchGraphics.length; i++){
-					me.reachLayerAdmin_v3.startRchGraphics.push(new esri.Graphic(JSON.parse(data.startRchGraphics[i])))
+					me.reachLayerAdmin_v3_New.startRchGraphics.push(new esri.Graphic(JSON.parse(data.startRchGraphics[i])))
 				}
 				for(var i=0; i<data.selAreaGraphics.length; i++){
-					me.reachLayerAdmin_v3.selAreaGraphics.push(new esri.Graphic(JSON.parse(data.selAreaGraphics[i])))
+					me.reachLayerAdmin_v3_New.selAreaGraphics.push(new esri.Graphic(JSON.parse(data.selAreaGraphics[i])))
 				}
 				*/
 				//console.info(me.reachLayerAdmin.selAreaGraphics);
@@ -240,9 +261,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		});
 	},
 	
-	onExtentChange: function(extent, a, b, obj){
-		
-		setTooltipPoint(extent, obj);
-		
+	onExtentChange: function(extent, a, b, obj, c){
+
+		// 툴팁 XY 셋팅
+		setTooltipXY();
 	}
 });

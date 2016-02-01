@@ -217,13 +217,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow_Reach', {
             handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
             	Ext.ShowSearchResult("grid-tab-3", "info 검색결과");
                 //Ext.Msg.alert('Editing' + (record.get('done') ? ' completed task' : '') , record.get('task'));
-            },
-            // Only leaf level tasks may be edited
-            /*
-            isDisabled: function(view, rowIdx, colIdx, item, record) {
-                return !record.data.leaf;
             }
-            */
         }]
 	}],
 	listeners:{
