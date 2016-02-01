@@ -7,6 +7,8 @@ Ext.define('KRF_DEV.view.west.SearchArea_Button', {
 	
 	xtype: 'west-searchArea_Button',
 	
+	id: "searchAreaButton",
+	
 	title: '검색조건 버튼',
 	
 	/* 사이즈 지정 */

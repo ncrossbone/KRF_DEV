@@ -6,6 +6,8 @@ Ext.define('KRF_DEV.view.west.SearchArea_Name_Rich', {
 	extend: 'Ext.panel.Panel',
 	
 	xtype: 'west-searchArea_Name_Rich',
+	
+	id: 'westSearchAreaNameRich',
 
 	controller: 'searchArea_NameController_Rich',
 	

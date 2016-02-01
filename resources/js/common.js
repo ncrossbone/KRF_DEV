@@ -1630,7 +1630,7 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 		coreMap.map.setLevel(12);
 		curLevel = 12;
 	}
-	
+	//alert(x);
 	var reachToolHeight = 0;
 	if(Ext.getCmp("reachToolbar") != undefined)
 		reachToolHeight = Ext.getCmp("reachToolbar").getHeight();
@@ -1642,7 +1642,7 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 	y = y - yoffset + (reachToolHeight * resolution);
 	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
-	
+	//console.info(xoffset);
 	coreMap.map.centerAt(point);
 }
 

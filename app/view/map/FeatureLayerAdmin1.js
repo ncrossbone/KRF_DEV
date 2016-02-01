@@ -620,15 +620,15 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				me.moveCatGraphicLayer.clear();
 				me.moveCatGraphicLayer.id = "moveCatGraphicLayer" + catDId;
 				
-				if(me.map.getLevel() < 12)
-					me.map.setLevel(12);
-				
 				obj.setSymbol(selectedSymbol);
 				me.moveCatGraphicLayer.add(obj);
 				
 				var extent = esri.geometry.Polygon(obj.geometry).getExtent();
-				//me.map.setExtent(extent, true);
-				me.map.centerAt(extent.getCenter());
+				//alert(extent);
+				//console.info(extent);
+				//me.map.centerAt(extent.getCenter());
+				// 센터 이동
+				centerAtWithOffset(extent.getCenter().x, extent.getCenter().y, extent.spatialReference);
 				
 				// 10초뒤 레이어(이미지) 제거
 				Ext.defer(function(){
@@ -665,9 +665,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			Ext.each(results.features, function(obj, index) {
 				
 				me.moveRchGraphicLayer.id = "moveRchGraphicLayer" + catDId;
-				
-				if(me.map.getLevel() < 12)
-					me.map.setLevel(12);
 				
 				obj.setSymbol(selectedSymbol);
 				me.moveRchGraphicLayer.add(obj);
