@@ -5,7 +5,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 	
 	xtype: 'searchResultReach',
 	
-	id: 'searchResultReach',
+	id: 'searchResultReach_container',
 	
 	height: '100%',
 	width: '100%',

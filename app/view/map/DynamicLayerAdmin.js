@@ -4,34 +4,34 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	dynamicLayer1:null,
 	dynamicLayer2:null,
 	
-	featureLayer71: null,
+	fLayers: [63, 65, 71, 72, 73, 74, 75, 76, 80], // 투명도 주기위한 레이어 아이디
 	
 	constructor: function(map) {
         var me = this;
         me.map = map;
         
         me.dynamicLayer1 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3);
-        //me.layer = dynamicLayer1;
 		me.dynamicLayer1.id = "DynamicLayer1"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer1.visible = true;
-		//me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
-		//me.layer.setVisibleLayers([53]); // 테스트
+		//me.dynamicLayer1.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayer1);
 		
-		/*
-		dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(KRF_DEV.app.arcServiceUrl + "/rest/services/Layer2/MapServer");
-		me.layer = dynamicLayer2;
-		me.layer.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
-		me.layer.visible = true;
-		me.map.addLayer(me.layer);
-		*/
-		
-		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
-			opacity: 0.5
-		});
-		me.featureLayer71.setVisibility(false);
-		me.map.addLayer(me.featureLayer71);
-		//console.info(_mapServiceUrl_v3 + "/73");
+		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3_2);
+        //me.layer = dynamicLayer1;
+		me.dynamicLayer2.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
+		me.dynamicLayer2.visible = true;
+		me.dynamicLayer2.opacity = 0.5;
+		//me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
+		//me.layer.setVisibleLayers([53]); // 테스트
+		me.dynamicLayer2.setVisibleLayers([-1]);
+		me.map.addLayer(me.dynamicLayer2);
+			
+//		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
+//			opacity: 0.5
+//		});
+//		
+//		me.featureLayer71.setVisibility(false);
+//		me.map.addLayer(me.featureLayer71);
 		
 		KRF_DEV.getApplication().addListener('dynamicLayerOnOff', me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
     },
@@ -39,29 +39,44 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     // 레이어 on/off 핸들러 정의
     dynamicLayerOnOffHandler: function(selectInfo){
     	var me = this;
-    	var activeLayer = me.dynamicLayer1;
+    	
+    	var layers1 = [-1];
+    	var layers2 = [-1];
     	
     	if(selectInfo.length==0){
-    		activeLayer.setVisibleLayers([]);
+    		me.dynamicLayer1.setVisibleLayers(layers1);
+    		me.dynamicLayer2.setVisibleLayers(layers2);
     		return;
     	}
-    	var layers = [];
-    	
-    	//activeLayer.setOpacity(1);
     	
     	Ext.each(selectInfo, function(selectObj, index, eObjs) {
-    		if(!isNaN(selectObj.data.id)){
-    			if(selectObj.data.id == 71){
-    				me.featureLayer71.setVisibility(true);
-    			}
-    			else{
-    				me.featureLayer71.setVisibility(false);
-    				layers.push(selectObj.data.id);
-    			}
+    		
+    		var layer2Idx = me.getLayerIdx(selectObj.data.id);
+    		
+    		if(layer2Idx > -1){
+    			
+    			layers2.push(selectObj.data.id);
     		}
-			if(index==selectInfo.length-1){
-				activeLayer.setVisibleLayers(layers);
-			}
+    		else{
+    			
+    			layers1.push(selectObj.data.id);
+    		}
 		});
+    	
+    	me.dynamicLayer1.setVisibleLayers(layers1);
+    	me.dynamicLayer2.setVisibleLayers(layers2);
+    },
+    
+    getLayerIdx: function(layerId){
+    	
+    	for(var i = 0; i < this.fLayers.length; i++){
+    		
+    		if(layerId == this.fLayers[i]){
+    			
+    			return i;
+    		}
+    	}
+    	
+    	return -1;
     }
 });

@@ -1,6 +1,7 @@
 [{
 	"reachServiceUrl" : "http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer", // 리치 서비스 v2
 	"reachServiceUrl_v3" : "http://112.218.1.243:20002/arcgis/rest/services/reach_V3/MapServer", // 리치 서비스 v3
+	"reachServiceUrl_v3_2" : "http://112.218.1.243:20002/arcgis/rest/services/reach_V3_2/MapServer", // 리치 서비스 v3 (투명도적용)
 	"reachServiceUrl_bak" : "http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer", // 리치 서비스
 	"reachTestServiceUrl" : "http://112.218.1.243:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
 	"reachTestServiceUrl_bak" : "http://112.218.1.243:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스

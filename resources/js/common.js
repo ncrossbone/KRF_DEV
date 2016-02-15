@@ -1230,6 +1230,19 @@ ShowSearchResultReach = function(catIds){
 	
 }
 
+ReachSelectedFocus = function(catId){
+	
+	var rchGridContainer = Ext.getCmp("searchResultReach_container");
+	var gridCtl = rchGridContainer.items.items[0];
+	gridCtl = gridCtl.items.items[0];
+	//console.info(gridCtl.getSelectionModel().getSelection()[0].get(''))
+	
+	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
+	//console.info(rowIdx);
+	gridCtl.getSelectionModel().select(rowIdx);
+	gridCtl.getView().getRow(rowIdx).scrollIntoView();
+}
+
 GetCatArea = function(catDId){
 	
 	var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 레이어 URL

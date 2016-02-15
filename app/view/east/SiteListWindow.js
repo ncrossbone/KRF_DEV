@@ -37,12 +37,13 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             dataIndex: 'text',
             locked: true,
             listeners: {
-            	click: function(a, b, rowIdx, colIdx, node, f){
+            	click: function(grid, rowIndex, colIndex, actionItem, node, record, row){
 	            	if(node.record.data.leaf == true){
 						if(node.record.data.id != undefined){
-							var nodeId = node.record.data.id;
-							var parentNodeId = node.record.data.parentId;
-							siteMovePoint(parentNodeId, nodeId);
+
+							// 집수구역, 지점 이동, 리치정보 하이라이트
+							var me = this.up("window");
+							me.moveCommon(record);
 						}
 					}
 	            }
@@ -56,12 +57,16 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             align: 'center',
             icon: './resources/images/button/icon_branch.gif',
             iconCls: ' khLee-x-default-btn', // 앞에 한칸 띄워야 함!!
-            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+            handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
             	var test = record.data.text;
             	var chkText = record.id;
             	var parentId = record.data.parentId;
-            	//parentId = record.data.parentId.substring(0,1);
+            	
             	ShowWindowSiteNChart(1, chkText, test, parentId);
+            	
+            	// 집수구역, 지점 이동, 리치정보 하이라이트
+				var me = this.up("window");
+				me.moveCommon(record);
             },
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {
@@ -76,12 +81,16 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             align: 'center',
             icon: './resources/images/button/icon_chart.gif',
             iconCls: ' khLee-x-default-btn',
-            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+            handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
             	var test = record.data.text;
             	var chkText = record.id;
             	var parentId = record.data.parentId;
-            	//parentId = record.data.parentId.substring(0,1);
+            	
             	ShowWindowSiteNChart(0, chkText, test, parentId);
+            	
+            	// 집수구역, 지점 이동, 리치정보 하이라이트
+				var me = this.up("window");
+				me.moveCommon(record);
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
                 return !record.data.leaf;
@@ -94,7 +103,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             align: 'center',
             icon: './resources/images/button/icon_seah.gif',
             iconCls: ' khLee-x-serch-btn', // 앞에 한칸 띄워야 함!!
-            handler: function(grid, rowIndex, colIndex, actionItem, event, record, row) {
+            handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
             	//Ext.ShowSearchResult("grid-tab-2", "하천수");
             	KRF_DEV.getApplication().btnFlag = "noDate";
             	var treeCtl = Ext.getCmp("siteListTree");
@@ -102,12 +111,9 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	var parentId = "";
             	//var gridId = "grid_" + record.data.id;
             	
-            	var me = this.findParentByType("window");
-            	//console.info(grid.getStore());
-            	// 집수구역 아이디 셋팅
-            	me.setCatIds(record, true);
-            	// 리치정보 보이기
-            	ShowSearchResultReach(me.catIds);
+            	// 집수구역, 지점 이동, 리치정보 하이라이트
+				var me = this.up("window");
+				me.moveCommon(record);
             	
             	if(record.id.length == 1){
             		var childRecord = record.childNodes;
@@ -175,11 +181,13 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             align: 'center',/*
             hidden: true*/
             listeners: {
-            	click: function(a, b, rowIdx, colIdx, node, f){
-	            	if(node.record.data.leaf == true){
-						if(node.record.data.id != undefined){
-							var nodeId = node.record.data.catDId;
-							siteMovePoint("Cat", nodeId);
+            	click: function(grid, rowIndex, colIndex, actionItem, node, record, row){
+	            	if(record.data.leaf == true){
+						if(record.data.id != undefined){
+							
+							// 집수구역, 지점 이동, 리치정보 하이라이트
+							var me = this.up("window");
+							me.moveCommon(record);
 						}
 					}
 	            }
@@ -221,6 +229,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     setCatIds: function(record, isInit){
     	var me = this;
     	var childRecords = undefined;
+    	//console.info(record);
     	
     	if(isInit == true){
     		me.catIds = "";
@@ -231,6 +240,14 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     	else{
     		childRecords = record.childNodes;
     	}
+    	
+    	/*
+    	if(isInit == true){
+    		me.catIds = "";
+    	}
+    	
+    	childRecords = record.childNodes;
+    	*/
     	
     	if(childRecords != undefined && childRecords.length > 0){
 			for(var i = 0; i < childRecords.length; i++){
@@ -265,5 +282,27 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		});
 		this.callParent();
 		
+	},
+	
+	moveCommon: function(record){
+		
+		var me = this;
+		
+		// 집수구역 이동
+		var nodeId = record.data.catDId;
+		siteMovePoint("Cat", nodeId);
+		
+		// 지점이동
+		nodeId = record.data.id;
+		var parentNodeId = record.data.parentId;
+		siteMovePoint(parentNodeId, nodeId);
+		
+		// 리치정보 띄우기
+		me.setCatIds(record, true);
+		ShowSearchResultReach(me.catIds);
+		
+		Ext.defer(function(){
+			ReachSelectedFocus(record.data.catDId);
+		}, 1000, this);
 	}
 });
