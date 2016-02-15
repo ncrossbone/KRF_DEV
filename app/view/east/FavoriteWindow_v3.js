@@ -187,8 +187,6 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 									url : "./resources/jsp/FavoriteInfo.jsp",
 									method : "POST",
 									success : function(result, request) {
-										console.info(result.responseText);
-										Ext.Msg.alert("cc", "cc");
 									},
 									failure : function(result, request) {
 										Ext.Msg.alert("Failed", "Connection Failed");
