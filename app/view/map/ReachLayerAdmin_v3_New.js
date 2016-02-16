@@ -153,18 +153,22 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			}
 			
 			if(drawOption == "extent"){
-				bundle.toolbars.draw.addPoint = "선택할 영역 드래그.";
+				bundle.toolbars.draw.freehand = "선택할 영역 드래그.";
 				me.selectionToolbar.activate(Draw.EXTENT);
 			}
 			
 			if(drawOption == "circle"){
-				bundle.toolbars.draw.addPoint = "선택할 영역 드래그.";
+				bundle.toolbars.draw.addShape = "선택할 영역 드래그.";
 				me.selectionToolbar.activate(Draw.CIRCLE);
 			}
 			
+			//console.dir(bundle);
+			
 			on(me.selectionToolbar, "DrawEnd", function (evt) {
 
-				if(location.host != "10.101.95.14"){
+				//if(location.host != "10.101.95.14"){
+				if(_isOffsetPoint == true){
+					//console.info(_isOffsetPoint);
 					// 실서버는 적용 안해도 됨.
 					evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
 				}
@@ -1021,14 +1025,42 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			leftWidth = 0;
 		
 		var offset = (initWidth - leftWidth) * resolution;
-		
+		//console.info(evt);
 		// 위에서 계산된 offset 적용
 		if(evt.x != undefined)
 			evt.x = evt.x + offset;
+		
 		if(evt.xmin != undefined)
 			evt.xmin = evt.xmin + offset;
 		if(evt.xmax != undefined)
 			evt.xmax = evt.xmax + offset;
+		
+		if(evt.cache != undefined){
+			
+			if(evt.cache.extent != undefined){
+				
+				evt.cache.extent.xmax = evt.cache.extent.xmax + offset;
+				evt.cache.extent.xmin = evt.cache.extent.xmin + offset;
+			}
+		}
+		
+		return evt;
+		
+		if(evt.rings != undefined){
+			
+			for(var i = 0; evt.rings.length; i++){
+				
+				var points = evt.rings[i];
+				//console.info(points);
+				if(points != undefined){
+					
+					for(var j = 0; j < points.length; j++){
+						console.info(points[j][0]);
+						//points[j][0] = points[j][0] + offset;
+					}
+				}
+			}
+		}
 		
 		return evt;
     },

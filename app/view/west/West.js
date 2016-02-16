@@ -67,7 +67,7 @@ Ext.define('KRF_DEV.view.west.West', {
         	fn: function(el){
         		
         		var coreMap = GetCoreMap();
-            	console.info(coreMap.map.extent.getCenter());
+            	//console.info(coreMap.map.extent.getCenter());
             	
         		// 컨트롤 XY 셋팅
         		SetWestCollapseXY("collapse");
@@ -77,7 +77,7 @@ Ext.define('KRF_DEV.view.west.West', {
         	fn: function(el){
         		
         		var coreMap = GetCoreMap();
-            	console.info(coreMap.map.extent.getCenter());
+            	//console.info(coreMap.map.extent.getCenter());
             	
         		// 컨트롤 XY 셋팅
         		SetWestCollapseXY("expand");

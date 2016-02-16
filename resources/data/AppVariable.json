@@ -19,5 +19,6 @@
 	"areaAMLayerId" : "55", // 중권역 레이어 아이디
 	"areaASLayerId" : "56", // 소권역 레이어 아이디
 	"siteInfoLayerId" : "85", // 레이어별 지점정보 레이어 아이디
-	"arcServiceUrl":"http://112.218.1.243:20002/arcgis"
+	"arcServiceUrl":"http://112.218.1.243:20002/arcgis",
+	"isOffsetPoint": true // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
 }]
