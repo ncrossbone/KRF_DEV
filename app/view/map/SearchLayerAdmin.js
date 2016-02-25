@@ -171,6 +171,9 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
     	}
     },
     
+    showCnt: 0,
+    tmrObj: null,
+    
     areaSelectHandler: function(info){
     	var me = this;
     	me.sourceGraphicLayer.clear();
@@ -209,19 +212,38 @@ Ext.define('KRF_DEV.view.map.SearchLayerAdmin', {
 	    		me.sourceGraphicLayer.add(obj);
 	    		var extent = esri.geometry.Polygon(obj.geometry).getExtent();
 	    		
-	    		//me.map.setExtent(extent, true);
+	    		me.showCnt = 0; // 타이머 카운트 초기화
+	    		if(me.tmrObj != null){
+	    			// 타이머 중지
+	    			clearInterval(me.tmrObj);
+	    		}
+	    		
+	    		//setExtentWithOffset(extent, me);
+	    		me.map.setExtent(extent, true);
 	    		// 센터 이동
-				centerAtWithOffset(extent.getCenter().x, extent.getCenter().y, extent.spatialReference);
+				//centerAtWithOffset(extent.getCenter().x, extent.getCenter().y, extent.spatialReference);
 				
 	    		me.geometry = obj.geometry;
 	    		me.spSearch();
 	    		
-	    		// 5초 후 그래픽 삭제
-	    		Ext.defer(function(){
-	    			me.sourceGraphicLayer.clear();
-	    			me.targetGraphicLayer.clear();
-	    			me.highlightGraphicLayer.clear();
-	    		}, 5000, this);
+	    		// 타이머 돌리기 1초
+	    		me.tmrObj = setInterval(chkCnt = function(){
+	    			
+	    			me.showCnt += 1;
+	    			
+	    			// 5초 뒤 그래픽 삭제
+	    			if(me.showCnt > 5){
+	    				
+	    				//console.info(showCnt);
+	    				me.sourceGraphicLayer.clear();
+	    				me.targetGraphicLayer.clear();
+	    				me.highlightGraphicLayer.clear();
+	    				
+	    				// 타이머 중지
+	    				clearInterval(me.tmrObj);
+	    			}
+	    				
+	    		}, 1000);
 			});
 		});
 		

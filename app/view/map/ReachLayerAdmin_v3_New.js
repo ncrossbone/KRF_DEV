@@ -128,6 +128,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	         "dojo/i18n!esri/nls/jsapi"], function(Draw, on, bundle){
 			
 			me.selectionToolbar = new Draw(me.map, { showTooltips: true });
+			console.info(me.selectionToolbar);
 			var symbol = null;
 			
 			if(drawOption == "startPoint"){
