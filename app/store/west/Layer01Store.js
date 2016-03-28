@@ -55,7 +55,7 @@ Ext.define('KRF_DEV.store.west.Layer01Store', {
 							for(i = 0; i < objLayer.subLayerIds.length; i++){
 								jsonStr += "{\n";
 								jsonStr += "		\"id\": \"" + objLayers[objLayer.subLayerIds[i]].id + "\",\n";
-								jsonStr += "		\"text\": \"" + objLayers[objLayer.subLayerIds[i]].name + "\",\n";
+								jsonStr += "		\"text\": \"" + objLayers[objLayer.subLayerIds[i]].name + "1\",\n";
 								jsonStr += "		\"leaf\": true,\n";
 								jsonStr += "		\"checked\": false\n";
 								jsonStr += "	}, ";

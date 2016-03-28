@@ -639,12 +639,25 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		//cmbStartMonth.setValue("2015");
 		//cmbEndYear.setValue("2015");
 		//cmbEndMonth.setValue("2015");
-		
+		console.info(test);
+		var searchFNm = "";
+		if(test != ""){
+			if(test == "2"){
+				searchFNm = "_2";
+			}else if(test == "3"){
+				searchFNm = "_3";
+			}else if(test == "4"){
+				searchFNm = "_4";
+			}else{
+				searchFNm = "";
+			}
+		}
 		//환경기초시설 검색값 히든처리
 		//hiddenGrid.setHidden(false);
+		
 		if(grdContainer == null || grdContainer == undefined){
 			
-			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F"+searchFNm+"", options);
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -672,7 +685,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
 		
 		//0~2 , 11~16 공통
-		if(test == "" ||test == "1" || test == "관거이송량"){
+		/*if(test == "" ||test == "1" || test == "관거이송량"){
 			test = "";
 			var arrayF = ['3','4','13','14','27','28','29'];
 			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
@@ -689,11 +702,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 			//console.info("1");
 			//DISCHARGE_AMT_PHYS_VAL.hideable = false;
-			/*PIPE_NUM.hideable = true;
+			PIPE_NUM.hideable = true;
 			PIPE_TYPE.hideable = true;
 			AMT_VAL.hideable = true;
 			BYPASS_AMT_VAL.hideable = true;
-			CONNECT_FACI_NM.hideable = true;*/
+			CONNECT_FACI_NM.hideable = true;
 			
 			
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
@@ -734,7 +747,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
 			}
 			
-		}
+		}*/
 		
 		//console.info(test);
 		
@@ -1230,6 +1243,19 @@ ShowSearchResultReach = function(catIds){
 	
 }
 
+ReachSelectedFocus = function(catId){
+	
+	var rchGridContainer = Ext.getCmp("searchResultReach_container");
+	var gridCtl = rchGridContainer.items.items[0];
+	gridCtl = gridCtl.items.items[0];
+	//console.info(gridCtl.getSelectionModel().getSelection()[0].get(''))
+	
+	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
+	//console.info(rowIdx);
+	gridCtl.getSelectionModel().select(rowIdx);
+	gridCtl.getView().getRow(rowIdx).scrollIntoView();
+}
+
 GetCatArea = function(catDId){
 	
 	var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 레이어 URL
@@ -1630,7 +1656,7 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 		coreMap.map.setLevel(12);
 		curLevel = 12;
 	}
-	
+	//alert(x);
 	var reachToolHeight = 0;
 	if(Ext.getCmp("reachToolbar") != undefined)
 		reachToolHeight = Ext.getCmp("reachToolbar").getHeight();
@@ -1642,7 +1668,7 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 	y = y - yoffset + (reachToolHeight * resolution);
 	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
-	
+	//console.info(xoffset);
 	coreMap.map.centerAt(point);
 }
 
