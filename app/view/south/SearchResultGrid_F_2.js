@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 	
 	height: '100%',
 	width: '100%',
-	
+	//방유유량
 	items: [{
 		xtype: 'container',
 		id: 'searchResultContainer_F2_Id',

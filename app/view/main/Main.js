@@ -52,7 +52,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     
     initComponent: function(){
     	
- 		if(document.URL != "http://112.218.1.243:20003/KRF_IE/"){
+ 		if(document.URL != "http://112.217.167.122:20003/KRF_IE/"){
 	 		//if(Ext.browser.is.Chrome == false){
 	 		if(Ext.browser.is.IE == true){
 	 			Ext.create("Ext.window.Window", {

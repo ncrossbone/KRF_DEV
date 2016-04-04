@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_3', {
 	
 	height: '100%',
 	width: '100%',
-	
+	//직접이송량
 	items: [{
 		xtype: 'container',
 		id: 'searchResultContainer_F3_Id',

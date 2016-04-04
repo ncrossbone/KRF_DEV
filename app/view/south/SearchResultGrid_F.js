@@ -148,6 +148,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -188,6 +190,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -228,6 +232,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -268,6 +274,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -306,6 +314,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -345,6 +355,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -425,6 +437,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -465,6 +479,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -505,6 +521,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
@@ -547,6 +565,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 0,
+						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}

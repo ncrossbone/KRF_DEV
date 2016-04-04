@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
+Ext.define('KRF_DEV.store.south.SearchResultGrid_F', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     
@@ -7,14 +7,16 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
         'FACI_NM',
         'WORK_DT_VAL',
         'WORK_DT_GRAPH',
-        'IN_PL_TYPE',
+        'PIPE_TYPE',
         'AMT_VAL',
         'BOD_VAL',
         'COD_VAL',
         'SS_VAL',
         'TN_VAL',
         'TP_VAL',
-        'COLI_VAL'
+        'COLI_VAL',
+        'BYPASS_AMT_VAL',
+        'CONNECT_FACI_NM'
     ],
     
     siteId: '',
@@ -38,6 +40,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
 			startMonth = Ext.getCmp("cmbStartMonth").value;
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
+			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			
 			var jsonData = "";
@@ -48,12 +51,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
+			console.info(Ext.getCmp("searchResultContainer_F_Id"));
 			Ext.getCmp("searchResultContainer_F_Id").removeCls("dj-mask-noneimg");
 			Ext.getCmp("searchResultContainer_F_Id").addCls("dj-mask-withimg");
 			Ext.getCmp("searchResultContainer_F_Id").mask("loading", "loading...");
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetSearchResultData_F_3.jsp',
+        		url: './resources/jsp/GetSearchResultData_F_1.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
@@ -70,7 +74,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
         			}
         			else{
         				Ext.getCmp("searchResultContainer_F_Id").addCls("dj-mask-noneimg");
-        				Ext.getCmp("searchResultContainer_F_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        			Ext.getCmp("searchResultContainer_F_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
         			}
         			
         		},

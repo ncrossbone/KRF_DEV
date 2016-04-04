@@ -670,6 +670,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		
 		var hiddenF = "";
 		var hiddenT = "";
+		var pointArray = "";
+		var pointValue = "";
 		
 		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
 		
@@ -678,7 +680,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			test = "";
 			var arrayF = ['3','4','13','14','27','28','29'];
 			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
-			
+			var point = ['14','16','18','20','22','24','26','28'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
@@ -688,26 +690,67 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
 			}
 			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 13.2;
+				}else if(point[pointArray] == 16){
+					pointValue = 17.6;
+				}else if(point[pointArray] == 18){
+					pointValue = 9.9;
+				}else if(point[pointArray] == 20){
+					pointValue = 418.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 110.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 49.5;
+				}else if(point[pointArray] == 26){
+					pointValue = 5.5;
+				}else{
+					pointValue = 33.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
+			}
 			
-			//console.info("1");
-			//DISCHARGE_AMT_PHYS_VAL.hideable = false;
-			/*PIPE_NUM.hideable = true;
-			PIPE_TYPE.hideable = true;
-			AMT_VAL.hideable = true;
-			BYPASS_AMT_VAL.hideable = true;
-			CONNECT_FACI_NM.hideable = true;*/
 			
 			
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
 			
 			var arrayT = ['3','4','5','13','14','27','28','29'];
 			var arrayF = ['6','7','8','9','10','11','12','30','31'];
+			var point = ['8','10','12','16','18','20','22','24','26'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
 			}
 			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 8){
+					pointValue = 4094.2;
+				}else if(point[pointArray] == 10){
+					pointValue = 4094.2;
+				}else if(point[pointArray] == 12){
+					pointValue = 12744.6;
+				}else if(point[pointArray] == 16){
+					pointValue = 10.1;
+				}else if(point[pointArray] == 18){
+					pointValue = 20.7;
+				}else if(point[pointArray] == 20){
+					pointValue = 9.4;
+				}else if(point[pointArray] == 22){
+					pointValue = 22.6;
+				}else if(point[pointArray] == 24){
+					pointValue = 2.0;
+				}else if(point[pointArray] == 26){
+					pointValue = 462.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 			
@@ -715,12 +758,34 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 			var arrayT = ['3','4','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['5','13','14'];
+			var point = ['14','16','18','20','22','24','26'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
 			}
 			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 385.0;
+				}else if(point[pointArray] == 16){
+					pointValue = 19384.2;
+				}else if(point[pointArray] == 18){
+					pointValue = 11194.7;
+				}else if(point[pointArray] == 20){
+					pointValue = 19690.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 3993.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 534.6;
+				}else if(point[pointArray] == 26){
+					pointValue = 184800.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 			
@@ -728,12 +793,34 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 			var arrayT = ['4','5','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['3','13','14'];
+			var point = ['14','16','18','20','22','24','26'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
 			}
 			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 385.0;
+				}else if(point[pointArray] == 16){
+					pointValue = 19384.2;
+				}else if(point[pointArray] == 18){
+					pointValue = 11194.7;
+				}else if(point[pointArray] == 20){
+					pointValue = 19690.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 3993.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 534.6;
+				}else if(point[pointArray] == 26){
+					pointValue = 184800.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 		}

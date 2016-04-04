@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_4', {
 	
 	height: '100%',
 	width: '100%',
-	
+	//총유입량
 	items: [{
 		xtype: 'container',
 		id: 'searchResultContainer_F4_Id',
