@@ -302,7 +302,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		ShowSearchResultReach(me.catIds);
 		
 		Ext.defer(function(){
-			ReachSelectedFocus(record.data.catDId);
+			//ReachSelectedFocus(record.data.catDId);
 		}, 1000, this);
 	}
 });

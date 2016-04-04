@@ -577,6 +577,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	var tab = searchResultTab.items.items[1];
 	
+	//console.info(tab);
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
 	
@@ -607,6 +608,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		//console.info(parentIds);
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
@@ -987,7 +989,7 @@ ShowSearchResultReach = function(catIds){
 		//tab.add(grdContainer);
 		tab.insert(0, grdContainer);
 	}
-	
+	//console.info(catIds);
 	tab.setActiveTab("searchResultReach_container");
 	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1232,11 +1234,15 @@ ShowSearchResultReach = function(catIds){
 
 ReachSelectedFocus = function(catId){
 	
+	if(catId == undefined || catId == null || catId == ""){
+		return;
+	}
+	
 	var rchGridContainer = Ext.getCmp("searchResultReach_container");
 	var gridCtl = rchGridContainer.items.items[0];
 	gridCtl = gridCtl.items.items[0];
 	//console.info(gridCtl.getSelectionModel().getSelection()[0].get(''))
-	
+	//console.info(catId);
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
 	//console.info(rowIdx);
 	gridCtl.getSelectionModel().select(rowIdx);
@@ -1371,7 +1377,14 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
+	
+	//console.info(nodeId);
+	if(nodeId == undefined || nodeId == null || nodeId == ""){
+		return;
+	}
+	
 	var layerId = "";
+	
 	if(parentNodeId == "Cat"){ // 집수구역
 		layerId = "48";
 		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
@@ -1426,7 +1439,6 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	
 	// 피처 레이어 생성/갱신
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
-	//KRF_DEV.getApplication().fireEvent('siteMovePoint', layerId, nodeId);
 	
 	// 주제도 레이어 키기
 	Layer01OnOff(layerId);
@@ -1490,6 +1502,12 @@ ResetButtonClick = function(){
 
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId){
+	
+	//console.info(layerId);
+	if(layerId == undefined || layerId == null || layerId == ""){
+		return;
+	}
+	
 	var treeCtl = Ext.getCmp("layer01");
 	var node = treeCtl.getStore().getNodeById(layerId);
 	if(node.data.checked == false){
