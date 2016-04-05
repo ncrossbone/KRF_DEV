@@ -85,13 +85,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 	},
 	
 	items: [{
-		xtype: 'app-map-coreMap',
-		//id: 'map_container',
-		//region: 'center',
-		width: 2200,
-		height: 1000,
-		x: -378,
-		y: -80
+		xtype: 'app-map-coreMap'
 	}]
 	
 	

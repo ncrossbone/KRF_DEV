@@ -1759,6 +1759,10 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 	x = x + xoffset;
 	y = y - yoffset + (reachToolHeight * resolution);
 	
+	// 2016-04-05 추가
+	x = x + (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+	y = y - (50 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
+	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
 	//console.info(xoffset);
 	coreMap.map.centerAt(point);
@@ -1768,6 +1772,9 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 setTooltipXY = function(){
 	
 	var me = GetCoreMap();
+	
+	if(me != undefined)
+		me.setX(9); // 좌측 패널 resize, collapse, expand시 맵 left 고정 2016-04-05
 	
 	var popCtl = Ext.getCmp("popSiteInfo");
 	
@@ -1789,6 +1796,7 @@ setTooltipXY = function(){
 		xPx = xPx - popWidth / 2;
 		yPx = yPx - popHeight;
 		
+		/* 상단 map left 고정으로인해 필요없게 되었음.. 2016-04-05
 		var westContainer = Ext.getCmp("west_container");
 		
 		if(westContainer.collapsed != false){
@@ -1799,6 +1807,7 @@ setTooltipXY = function(){
 			
 			xPx = xPx - (westContainer.initWidth - westContainer.getWidth());
 		}
+		*/
 		
 		popCtl.setX(xPx);
 		popCtl.setY(yPx);
