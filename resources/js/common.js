@@ -575,6 +575,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	var tab = searchResultTab.items.items[1];
 	
+	//console.info(tab);
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
 	
@@ -601,6 +602,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		tab.setActiveTab(gridId + "_container");
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		//console.info(parentIds);
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
@@ -1068,7 +1070,7 @@ ShowSearchResultReach = function(catIds){
 		//tab.add(grdContainer);
 		tab.insert(0, grdContainer);
 	}
-	
+	//console.info(catIds);
 	tab.setActiveTab("searchResultReach_container");
 	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1313,11 +1315,15 @@ ShowSearchResultReach = function(catIds){
 
 ReachSelectedFocus = function(catId){
 	
+	if(catId == undefined || catId == null || catId == ""){
+		return;
+	}
+	
 	var rchGridContainer = Ext.getCmp("searchResultReach_container");
 	var gridCtl = rchGridContainer.items.items[0];
 	gridCtl = gridCtl.items.items[0];
 	//console.info(gridCtl.getSelectionModel().getSelection()[0].get(''))
-	
+	//console.info(catId);
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
 	//console.info(rowIdx);
 	gridCtl.getSelectionModel().select(rowIdx);
@@ -1452,7 +1458,14 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
+	
+	//console.info(nodeId);
+	if(nodeId == undefined || nodeId == null || nodeId == ""){
+		return;
+	}
+	
 	var layerId = "";
+	
 	if(parentNodeId == "Cat"){ // 집수구역
 		layerId = "48";
 		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
@@ -1507,7 +1520,6 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	
 	// 피처 레이어 생성/갱신
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
-	//KRF_DEV.getApplication().fireEvent('siteMovePoint', layerId, nodeId);
 	
 	// 주제도 레이어 키기
 	Layer01OnOff(layerId);
@@ -1571,6 +1583,12 @@ ResetButtonClick = function(){
 
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId){
+	
+	//console.info(layerId);
+	if(layerId == undefined || layerId == null || layerId == ""){
+		return;
+	}
+	
 	var treeCtl = Ext.getCmp("layer01");
 	var node = treeCtl.getStore().getNodeById(layerId);
 	if(node.data.checked == false){
@@ -1735,6 +1753,10 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 	x = x + xoffset;
 	y = y - yoffset + (reachToolHeight * resolution);
 	
+	// 2016-04-05 추가
+	x = x + (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+	y = y - (50 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
+	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
 	//console.info(xoffset);
 	coreMap.map.centerAt(point);
@@ -1744,6 +1766,9 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 setTooltipXY = function(){
 	
 	var me = GetCoreMap();
+	
+	if(me != undefined)
+		me.setX(9); // 좌측 패널 resize, collapse, expand시 맵 left 고정 2016-04-05
 	
 	var popCtl = Ext.getCmp("popSiteInfo");
 	
@@ -1765,6 +1790,7 @@ setTooltipXY = function(){
 		xPx = xPx - popWidth / 2;
 		yPx = yPx - popHeight;
 		
+		/* 상단 map left 고정으로인해 필요없게 되었음.. 2016-04-05
 		var westContainer = Ext.getCmp("west_container");
 		
 		if(westContainer.collapsed != false){
@@ -1775,6 +1801,7 @@ setTooltipXY = function(){
 			
 			xPx = xPx - (westContainer.initWidth - westContainer.getWidth());
 		}
+		*/
 		
 		popCtl.setX(xPx);
 		popCtl.setY(yPx);

@@ -128,7 +128,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	         "dojo/i18n!esri/nls/jsapi"], function(Draw, on, bundle){
 			
 			me.selectionToolbar = new Draw(me.map, { showTooltips: true });
-			console.info(me.selectionToolbar);
+			//console.info(me.selectionToolbar);
 			var symbol = null;
 			
 			if(drawOption == "startPoint"){
@@ -167,12 +167,14 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			on(me.selectionToolbar, "DrawEnd", function (evt) {
 
+				/* draw extention offset 2016-04-05 주석 - map left 고정시키면서 필요없어짐..
 				//if(location.host != "10.101.95.14"){
 				if(_isOffsetPoint == true){
 					//console.info(_isOffsetPoint);
 					// 실서버는 적용 안해도 됨.
-					evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
+					//evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
 				}
+				*/
 				
 				if(symbol != null && symbol != undefined)
 					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
@@ -797,6 +799,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     },
     
     tmpSearchCnt: 0, // 검색 카운트 체크용
+    afterChkCnt: 0, // 목록창, 결과창 띄운 후 체크 카운트
     
     // 검색 종료 체크
     isStopCheck: function(){
@@ -824,12 +827,32 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		        		
 		        		// 검색결과 창 띄우기
 		        		ShowSearchResultReach("");
+		        		
+		        		// 1초 단위 타이머
+		        		var timer = setInterval(afterChk = function(){
+		        			
+		        			me.afterChkCnt++;
+		        			
+		        			// 타이머 작동 20초 뒤 타이머 종료
+		        			if(me.afterChkCnt == 20){
+		        				
+		        				clearInterval(timer);
+		        				me.afterChkCnt = 0;
+		        			}
+		        			
+		        			// 결과 창 띄운 후 20초간 검색 카운트에 변화 있으면 재귀호출
+		        			if(me.searchCnt != me.tmpSearchCnt){
+			        			
+		        				clearInterval(timer);
+			        			me.isStopCheck();
+			        		}
+		        		}, 1000);
 					}
 					else{
 						
 						me.isStopCheck();
 					}
-				}, 1000, this);
+				}, 100, this);
 			}
 			else{
 				

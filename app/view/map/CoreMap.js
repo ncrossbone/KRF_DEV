@@ -20,6 +20,11 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	printTask:null,
 	baseMap: null,
 	
+	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
+	height: 1100,
+	x: -378,
+	y: -80,
+	
 	initComponent: function() {
 		this.on('render', this.mapRendered, this);
 		this.callParent();
