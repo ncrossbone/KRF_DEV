@@ -90,6 +90,43 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				id :  'chartName',
 				labelWidth: 60,
 				labelAlign: 'right'
+			},{
+
+				xtype: 'image',
+				id: 'btnImageDown',
+				listeners: {
+					el: {
+						click: function(obj, el, evt){
+							
+							var siteCharttest = Ext.getCmp('siteCharttest');
+							
+							siteCharttest.download({
+		                        filename: "Chart"+selectName.innerText+""
+		                    })
+							
+						}
+					}
+				},
+				
+				/*handler: function(btn, e, eOpts) {
+					var selectName = Ext.getCmp('selectName').text;
+					var selectItemName = Ext.getCmp('selectItemName').text;
+					
+					var siteCharttest = Ext.getCmp('siteCharttest');
+					
+					siteCharttest.download({
+                        filename: "Chart1231"+selectName+""
+                    })
+                    
+					console.info(btn.up('panel').down("cartesian"));
+                    btn.up('panel').down("cartesian").download({
+                        filename: "Chart1"+selectName+""
+                    })
+                },*/
+				width: 34,
+				height: 21,
+				src: './resources/images/button/btn_save.gif'
+			
 			}]
 		},  {
 	        //xtype: 'chart',

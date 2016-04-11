@@ -7,6 +7,14 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController', {
 	control:{
 		'#btnSearchText':{
 			click: 'onTextSearch'
+		},
+	//specialkey
+		'#textSearchText':{
+			specialkey: function(f,e){
+				if(e.getKey() == e.ENTER){
+					this.onTextSearch();
+				}
+			}
 		}
 	},
 	
