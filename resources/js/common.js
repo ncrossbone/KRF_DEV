@@ -1822,3 +1822,13 @@ closePopSiteInfo = function(){
 		popCtl.close();
 	}
 }
+
+//좌측 패널 스크롤 생성
+setWestBodyScroll = function(){
+	
+	var height = Ext.getBody().getViewSize().height - 400;
+	
+	var bodyCtl = Ext.getCmp("searchAreaList").body;
+	bodyCtl.setStyle("height", height + "px");
+	bodyCtl.setStyle("overflow", "overlay");
+}

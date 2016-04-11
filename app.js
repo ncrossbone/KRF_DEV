@@ -414,13 +414,5 @@ Ext.application({
 
 Ext.on('resize', function(){
 	
-	var northContainer = Ext.getCmp("north_container");
-	var westBtnCtl = Ext.getCmp("searchAreaButton");
-	var westNameRch = Ext.getCmp("westSearchAreaNameRich");
-	var westTotal = Ext.getCmp("searchAreaList_Total");
 	
-	var listHeight = Ext.getBody().getHeight() - northContainer.getHeight() - westBtnCtl.getHeight() - westNameRch.getHeight() - westTotal.getHeight();
-	var searchAreaList = Ext.getCmp("searchAreaList");
-	searchAreaList.setHeight(listHeight);
-	//alert("resize");
 });

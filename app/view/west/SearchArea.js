@@ -47,6 +47,14 @@ Ext.define('KRF_DEV.view.west.SearchArea', {
 				xtype: 'west-searchArea-list'
 			}]
 		}]
-	}]
+	}],
+	
+	listeners: {
+		
+		resize: function(){
 
+			// 좌측 패널 스크롤 생성
+			setWestBodyScroll();
+		}
+	}
 });
