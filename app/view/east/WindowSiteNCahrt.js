@@ -4,7 +4,8 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
     
     requires : [
 	            
-	    		'Ext.chart.*'
+	    		'Ext.chart.*',
+	    		'Ext.window.MessageBox'
 	    		],
 	    		
     id: 'windowSiteNChart',

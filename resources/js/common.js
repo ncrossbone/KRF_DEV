@@ -489,7 +489,6 @@ ChangeTabIndex = function(tabIdx){
 
 // 검색결과창 띄우기
 ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk){
-	//console.info(parentIds);
 	
 	if(parentIds == ""){
 		parentIds = [{parentId : tooltipCk , siteId : siteIds}];
@@ -551,7 +550,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	////console.info(KRF_DEV.getApplication().btnFlag);
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	////console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -590,8 +588,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 	
-	//console.info(parentCheck);
-	
 	if(parentCheck == "A"){	
 		
 		////console.info(sYearCtl.setValue("2013"));
@@ -603,9 +599,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
-		
 		tab.setActiveTab(gridId + "_container");
-		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
 		//console.info(parentIds);
