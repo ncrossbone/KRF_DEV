@@ -489,7 +489,6 @@ ChangeTabIndex = function(tabIdx){
 
 // 검색결과창 띄우기
 ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk){
-	//console.info(parentIds);
 	
 	if(parentIds == ""){
 		parentIds = [{parentId : tooltipCk , siteId : siteIds}];
@@ -551,7 +550,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	////console.info(KRF_DEV.getApplication().btnFlag);
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	////console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -577,6 +575,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	var tab = searchResultTab.items.items[1];
 	
+	//console.info(tab);
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
 	
@@ -589,8 +588,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 	
-	//console.info(parentCheck);
-	
 	if(parentCheck == "A"){	
 		
 		////console.info(sYearCtl.setValue("2013"));
@@ -602,11 +599,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
-		
 		tab.setActiveTab(gridId + "_container");
-		
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		//console.info(parentIds);
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
@@ -639,25 +635,12 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		//cmbStartMonth.setValue("2015");
 		//cmbEndYear.setValue("2015");
 		//cmbEndMonth.setValue("2015");
-		console.info(test);
-		var searchFNm = "";
-		if(test != ""){
-			if(test == "2"){
-				searchFNm = "_2";
-			}else if(test == "3"){
-				searchFNm = "_3";
-			}else if(test == "4"){
-				searchFNm = "_4";
-			}else{
-				searchFNm = "";
-			}
-		}
+		
 		//환경기초시설 검색값 히든처리
 		//hiddenGrid.setHidden(false);
-		
 		if(grdContainer == null || grdContainer == undefined){
 			
-			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F"+searchFNm+"", options);
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -681,15 +664,17 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		
 		var hiddenF = "";
 		var hiddenT = "";
+		var pointArray = "";
+		var pointValue = "";
 		
 		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
 		
 		//0~2 , 11~16 공통
-		/*if(test == "" ||test == "1" || test == "관거이송량"){
+		if(test == "" ||test == "1" || test == "관거이송량"){
 			test = "";
 			var arrayF = ['3','4','13','14','27','28','29'];
 			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
-			
+			var point = ['14','16','18','20','22','24','26','28'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
@@ -699,26 +684,67 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
 			}
 			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 13.2;
+				}else if(point[pointArray] == 16){
+					pointValue = 17.6;
+				}else if(point[pointArray] == 18){
+					pointValue = 9.9;
+				}else if(point[pointArray] == 20){
+					pointValue = 418.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 110.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 49.5;
+				}else if(point[pointArray] == 26){
+					pointValue = 5.5;
+				}else{
+					pointValue = 33.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
+			}
 			
-			//console.info("1");
-			//DISCHARGE_AMT_PHYS_VAL.hideable = false;
-			PIPE_NUM.hideable = true;
-			PIPE_TYPE.hideable = true;
-			AMT_VAL.hideable = true;
-			BYPASS_AMT_VAL.hideable = true;
-			CONNECT_FACI_NM.hideable = true;
 			
 			
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
 			
 			var arrayT = ['3','4','5','13','14','27','28','29'];
 			var arrayF = ['6','7','8','9','10','11','12','30','31'];
+			var point = ['8','10','12','16','18','20','22','24','26'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
 			}
 			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 8){
+					pointValue = 4094.2;
+				}else if(point[pointArray] == 10){
+					pointValue = 4094.2;
+				}else if(point[pointArray] == 12){
+					pointValue = 12744.6;
+				}else if(point[pointArray] == 16){
+					pointValue = 10.1;
+				}else if(point[pointArray] == 18){
+					pointValue = 20.7;
+				}else if(point[pointArray] == 20){
+					pointValue = 9.4;
+				}else if(point[pointArray] == 22){
+					pointValue = 22.6;
+				}else if(point[pointArray] == 24){
+					pointValue = 2.0;
+				}else if(point[pointArray] == 26){
+					pointValue = 462.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 			
@@ -726,12 +752,34 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 			var arrayT = ['3','4','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['5','13','14'];
+			var point = ['14','16','18','20','22','24','26'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
 			}
 			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 385.0;
+				}else if(point[pointArray] == 16){
+					pointValue = 19384.2;
+				}else if(point[pointArray] == 18){
+					pointValue = 11194.7;
+				}else if(point[pointArray] == 20){
+					pointValue = 19690.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 3993.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 534.6;
+				}else if(point[pointArray] == 26){
+					pointValue = 184800.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 			
@@ -739,6 +787,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 			var arrayT = ['4','5','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['3','13','14'];
+			var point = ['14','16','18','20','22','24','26'];
 			
 			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
 				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
@@ -747,7 +796,28 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
 			}
 			
-		}*/
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 385.0;
+				}else if(point[pointArray] == 16){
+					pointValue = 19384.2;
+				}else if(point[pointArray] == 18){
+					pointValue = 11194.7;
+				}else if(point[pointArray] == 20){
+					pointValue = 19690.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 3993.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 534.6;
+				}else if(point[pointArray] == 26){
+					pointValue = 184800.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
+			}
+			
+		}
 		
 		//console.info(test);
 		
@@ -1000,7 +1070,7 @@ ShowSearchResultReach = function(catIds){
 		//tab.add(grdContainer);
 		tab.insert(0, grdContainer);
 	}
-	
+	//console.info(catIds);
 	tab.setActiveTab("searchResultReach_container");
 	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1245,11 +1315,15 @@ ShowSearchResultReach = function(catIds){
 
 ReachSelectedFocus = function(catId){
 	
+	if(catId == undefined || catId == null || catId == ""){
+		return;
+	}
+	
 	var rchGridContainer = Ext.getCmp("searchResultReach_container");
 	var gridCtl = rchGridContainer.items.items[0];
 	gridCtl = gridCtl.items.items[0];
 	//console.info(gridCtl.getSelectionModel().getSelection()[0].get(''))
-	
+	//console.info(catId);
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
 	//console.info(rowIdx);
 	gridCtl.getSelectionModel().select(rowIdx);
@@ -1384,7 +1458,14 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
+	
+	//console.info(nodeId);
+	if(nodeId == undefined || nodeId == null || nodeId == ""){
+		return;
+	}
+	
 	var layerId = "";
+	
 	if(parentNodeId == "Cat"){ // 집수구역
 		layerId = "48";
 		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
@@ -1439,7 +1520,6 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	
 	// 피처 레이어 생성/갱신
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
-	//KRF_DEV.getApplication().fireEvent('siteMovePoint', layerId, nodeId);
 	
 	// 주제도 레이어 키기
 	Layer01OnOff(layerId);
@@ -1503,6 +1583,12 @@ ResetButtonClick = function(){
 
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId){
+	
+	//console.info(layerId);
+	if(layerId == undefined || layerId == null || layerId == ""){
+		return;
+	}
+	
 	var treeCtl = Ext.getCmp("layer01");
 	var node = treeCtl.getStore().getNodeById(layerId);
 	if(node.data.checked == false){
@@ -1667,6 +1753,10 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 	x = x + xoffset;
 	y = y - yoffset + (reachToolHeight * resolution);
 	
+	// 2016-04-05 추가
+	x = x + (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+	y = y - (50 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
+	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
 	//console.info(xoffset);
 	coreMap.map.centerAt(point);
@@ -1676,6 +1766,9 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 setTooltipXY = function(){
 	
 	var me = GetCoreMap();
+	
+	if(me != undefined)
+		me.setX(9); // 좌측 패널 resize, collapse, expand시 맵 left 고정 2016-04-05
 	
 	var popCtl = Ext.getCmp("popSiteInfo");
 	
@@ -1697,6 +1790,7 @@ setTooltipXY = function(){
 		xPx = xPx - popWidth / 2;
 		yPx = yPx - popHeight;
 		
+		/* 상단 map left 고정으로인해 필요없게 되었음.. 2016-04-05
 		var westContainer = Ext.getCmp("west_container");
 		
 		if(westContainer.collapsed != false){
@@ -1707,6 +1801,7 @@ setTooltipXY = function(){
 			
 			xPx = xPx - (westContainer.initWidth - westContainer.getWidth());
 		}
+		*/
 		
 		popCtl.setX(xPx);
 		popCtl.setY(yPx);
@@ -1720,4 +1815,14 @@ closePopSiteInfo = function(){
 	if(popCtl != undefined){
 		popCtl.close();
 	}
+}
+
+//좌측 패널 스크롤 생성
+setWestBodyScroll = function(){
+	
+	var height = Ext.getBody().getViewSize().height - 400;
+	
+	var bodyCtl = Ext.getCmp("searchAreaList").body;
+	bodyCtl.setStyle("height", height + "px");
+	bodyCtl.setStyle("overflow", "overlay");
 }

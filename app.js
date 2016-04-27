@@ -21,6 +21,7 @@ var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
 
+
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
 
@@ -413,6 +414,24 @@ Ext.application({
 });
 
 Ext.on('resize', function(){
+	var loadWidth = window.outerWidth;
+	var loadHeight = window.outerHeight;
+	var siteListWindow = Ext.getCmp('siteListWindow');
+	var searchResultWindow = Ext.getCmp('searchResultWindow');
+	var setX;
+	var setY;
+
+	if(siteListWindow!=undefined){
+		setX = loadWidth - siteListWindow.width;
+		siteListWindow.setPosition(setX,98);
+	}
+	
+	if(searchResultWindow!=undefined){
+		setY = loadHeight - searchResultWindow.height - 120;
+		searchResultWindow.setPosition(0,setY);
+        searchResultWindow.setWidth(setX+65);
+	}
+	
 	
 	
 });

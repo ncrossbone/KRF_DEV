@@ -17,7 +17,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	layout: {
 		type: 'fit'
 	},
-	
 	width: 450,
 	height: 305,
 
