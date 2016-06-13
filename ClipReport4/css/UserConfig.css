@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+/* 
+사용자 정의 css 파일입니다.
+기본적으로 제공하는 css 파일의 내용을 복사하여 오버라이딩 하여 사용합니다.
+*/
+
+/*예제 뷰어 메뉴*/
+/*
+.report_menu_div {
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 65px;
+	overflow: visible;
+	background-color: red;
+	background-position: 5px 50%;
+	background-repeat: no-repeat;
+	-webkit-user-select: none; 
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-ms-user-select: none;
+}
+*/
