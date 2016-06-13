@@ -116,9 +116,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		      me.tileInfo = this.tileInfo;
 		      
 		      this.fullExtent = new esri.geometry.Extent({
-		    	  xmin: 12928905.446270483,
+		    	  xmin: 13051204.69152676,
 		    	  ymin: 3309091.461517964,
-		    	  xmax: 15766818.698435722,
+		    	  xmax: 15889117.943692,
 		    	  ymax: 5341704.9176768325,
 		          spatialReference: {
 		        	  wkid: 102100
@@ -126,9 +126,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		      });
 		      
 		      me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
-		    	  xmin: 12928905.446270483,
+		    	  xmin: 13051204.69152676,
 		    	  ymin: 3309091.461517964,
-		    	  xmax: 15766818.698435722,
+		    	  xmax: 15889117.943692,
 		    	  ymax: 5341704.9176768325,
 		          spatialReference: {
 		        	  wkid: 102100

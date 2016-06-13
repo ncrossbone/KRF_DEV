@@ -129,7 +129,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 							listCtl.addCls('dj_accordion');
 							listCtl.add({
 								xtype : 'panel',
-								autoScroll: true,
+								//autoScroll: true,
 								layout : {
 									type : 'vbox'
 								},
@@ -204,6 +204,9 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 				siteMovePoint(result.features[0].attributes.LAYER_CODE,result.features[0].attributes.JIJUM_CODE, 'addrLink');
 		
 			});
+			
+			// 좌측 패널 스크롤 생성
+			setWestBodyScroll();
 		});
 		
 		

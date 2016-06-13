@@ -43,13 +43,54 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     	var layers1 = [-1];
     	var layers2 = [-1];
     	
+    	var legendWindow65 = Ext.getCmp("legendwindow_65");
+    	if(legendWindow65 != undefined){
+    		legendWindow65.close();
+    	}
+    	
+    	var legendWindow63 = Ext.getCmp("legendwindow_63");
+    	if(legendWindow63 != undefined){
+    		legendWindow63.close();
+    	}
+    	
     	if(selectInfo.length==0){
     		me.dynamicLayer1.setVisibleLayers(layers1);
     		me.dynamicLayer2.setVisibleLayers(layers2);
     		return;
     	}
     	
+    	var initX = 385;
+    	var initY = Ext.getBody().getHeight();
+    	
     	Ext.each(selectInfo, function(selectObj, index, eObjs) {
+    		
+    		if(selectObj.data.id == "63"){
+    			
+    			Ext.create("KRF_DEV.view.map.LegendWindow", {
+    				
+    				id: "legendwindow_63",
+    				imgSrc: './resources/images/legend/standard02.png',
+    				imgWidth: 548,
+    				imgHeight: 329,
+    				x: initX,
+    				y: initY - 329
+    			}).show();
+    			
+    			initX = initX + 550;
+    		}
+    		
+    		if(selectObj.data.id == "65"){
+    			
+    			Ext.create("KRF_DEV.view.map.LegendWindow", {
+    				
+    				id: "legendwindow_65",
+    				imgSrc: './resources/images/legend/standard01.png',
+    				imgWidth: 209,
+    				imgHeight: 275,
+    				x: initX,
+    				y: initY - 275
+    			}).show();
+    		}
     		
     		var layer2Idx = me.getLayerIdx(selectObj.data.id);
     		
