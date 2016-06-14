@@ -115,6 +115,15 @@ Ext.define('KRF_DEV.view.main.Main', {
     	KRF_DEV.getApplication().contWestContainer = Ext.getCmp('west_container');
     	KRF_DEV.getApplication().contCenterContainer = Ext.getCmp('center_container');
     	
+    	/* >>>> khLee Drone 툴바 테스트 20160613 */
+    	var droneToolbar = Ext.create('KRF_DEV.view.center.drone.DroneToolbar',{
+			x: 5,
+			y: 400
+		});
+    	
+    	KRF_DEV.getApplication().contCenterContainer.add(droneToolbar);
+    	/* <<<< khLee Drone 툴바 테스트 20160613 */
+    	
     	//var contWestPlaceholder = Ext.get('west_container-placeholder');
     	//console.info(contWestPlaceholder);
     	
