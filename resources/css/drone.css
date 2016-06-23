@@ -1,0 +1,11 @@
+/* drone toolbar item z-index (extjs 기본 19000) */
+.drone-toolbar #droneToolbar {
+	position: relative !important;
+	z-index: 20000 !important;
+}
+
+/* combo item z-index (extjs 기본 19000) */
+.drone-combolist div[id*="cboDrone"] {
+	position: relative !important;
+	z-index: 30000 !important;
+}

@@ -6,6 +6,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     
     xtype: 'center-dronetoolbar',
     
+    id: "droneToolbar",
+    
     headerPosition: 'left',
     
     header: {
@@ -17,18 +19,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     
     bodyStyle: "padding: 0 !important; background-color: transparent;", // 백그라운드 투명
     
-    style: " z-index: 99999;", // 항상 위에..
-    
-    //draggable: true,
-    draggable: {
-    	onDrag: function(a, b, c, d, e){
-    		console.info(a);
-    		console.info(b);
-    		console.info(c);
-    		console.info(d);
-    		console.info(e);
-    	}
-    },
+    draggable: true,
     
     //width: 806,
     height: 80,
@@ -79,30 +70,97 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	headerPosition: 'left',
     	collapsed: true,
     	width: 14,
-    	items: [{
+    	items: [{ // 수계선택
         	xtype: "drone-vcombo",
-        	labelSrc: './resources/images/drone/label_01.png',
-        	id: "cboSelArea"
-        }, {
-        	xtype: "drone-vcombo",
-        	labelSrc: './resources/images/drone/label_02.png',
-        }, {
-        	xtype: "drone-vcombo",
-        	labelSrc: './resources/images/drone/label_03.png',
-        }, {
-        	xtype: "drone-vcombo",
-        	labelSrc: './resources/images/drone/label_04.png',
-        }, {
-        	xtype: "drone-vcombo",
-        	labelSrc: './resources/images/drone/label_05.png',
-        }, {
+        	id: "cboDroneArea", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	labelSrc: './resources/images/drone/label_01.png', // 라벨
+        	jsonUrl: "./resources/data/drone/LayerMapper.json",
+        	dataRoot: "area",
+        	fields: ["areaName", "areaValue"],
+        	displayField: "areaName",
+        	valueField: "areaValue",
+        	onChange: "onAreaChange",
+        	onItemClick: "onItemClickEmpty"
+        }, { // 지점목록
         	xtype: "drone-vcombo",
         	labelSrc: './resources/images/drone/label_06.png',
+        	id: "cboDroneSiteList" // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        }, { // 항공영상
+        	xtype: "drone-vcombo",
+        	id: "cboDroneDate", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	labelSrc: './resources/images/drone/label_02.png',
+        	jsonUrl: "./resources/data/drone/LayerMapper.json",
+        	dataRoot: "",
+        	fields: ["DroneLayerId", "DroneDate"],
+        	displayField: "DroneDate",
+        	valueField: "DroneLayerId",
+        	onChange: "onDroneDateChange",
+        	onItemClick: "onItemClickEmpty"
+        }, { // 클로로필a
+        	xtype: "drone-vcombo",
+        	id: "cboDroneChla", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	labelSrc: './resources/images/drone/label_03.png',
+        	jsonUrl: "./resources/data/drone/LayerMapper.json",
+        	dataRoot: "",
+        	fields: ["ChlaLayerId", "ChlaDate"],
+        	displayField: "ChlaDate",
+        	valueField: "ChlaLayerId",
+        	onChange: "onDroneChlaChange",
+        	onItemClick: "onItemClickEmpty"
+        }, { // 조류측정자료
+        	xtype: "drone-vcombo",
+        	id: "cboDroneWBSite", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	labelSrc: './resources/images/drone/label_04.png',
+        	jsonUrl: "./resources/data/drone/LayerMapper.json",
+        	dataRoot: "",
+        	fields: ["MeasureDate"],
+        	displayField: "MeasureDate",
+        	valueField: "MeasureDate",
+        	onChange: "onDroneWBSiteChange",
+        	onItemClick: "onItemClickEmpty"
+        }, { // 레이어선택
+        	xtype: "drone-vcombo",
+        	labelSrc: './resources/images/drone/label_05.png',
+        	id: "cboDroneLayer", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	jsonUrl: "./resources/data/drone/LayerMapper.json",
+        	dataRoot: "layer",
+        	fields: ["layerId", "layerName", "image1"],
+        	displayField: "layerName",
+        	valueField: "layerId",
+        	onChange: "onComboChangeEmpty",
+        	onItemClick: "onDroneLayerClick",
+            noCollapse: true // 콤보 리스트가 닫히지 않게 한다.
         }, {
         	xtype: 'image',
         	title: '초기화',
         	width: 23,
-        	src: './resources/images/drone/btn_reset.png'
+        	src: './resources/images/drone/btn_reset.png',
+        	listeners: {
+        		el: {
+	        		click: function(){
+	        			
+	        			var me = Ext.getCmp("droneToolbar");
+	        			
+	        			var cboDroneArea = Ext.getCmp("cboDroneArea");
+	        			me.initVComboBox(cboDroneArea);
+	        			
+	        			var cboDroneSiteList = Ext.getCmp("cboDroneSiteList");
+	        			me.initVComboBox(cboDroneSiteList);
+	        			
+	        			var cboDroneDate = Ext.getCmp("cboDroneDate");
+	        			me.initVComboBox(cboDroneDate);
+	        			
+	        			var cboDroneChla = Ext.getCmp("cboDroneChla");
+	        			me.initVComboBox(cboDroneChla);
+	        			
+	        			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
+	        			me.initVComboBox(cboDroneWBSite);
+	        			
+	        			var cboDroneLayer = Ext.getCmp("cboDroneLayer");
+	        			me.initVComboBox(cboDroneLayer);
+	        		}
+        		}
+        	}
         }]
     }],
     
@@ -118,7 +176,16 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	
     	totWidth += this.header.width;
     	this.width = totWidth;
+    },
+    
+    initVComboBox: function(comboCtl){
     	
-    	//console.info(Ext.getCmp("cboSelArea"));
+    	var x = 0;
+		var y = 14;
+		
+    	comboCtl.removeAll();
+    	comboCtl.x = x;
+    	comboCtl.y = y;
+    	comboCtl.initComponent();
     }
 });

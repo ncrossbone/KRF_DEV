@@ -1094,6 +1094,7 @@ $include-krf_dev-view-center-reachtoolbarcontroller: true;
 $include-krf_dev-view-center-searchconfig: true;
 $include-krf_dev-view-center-drone-dronetoolbar: true;
 $include-krf_dev-view-center-drone-vcombobox: true;
+$include-krf_dev-view-center-drone-vcomboboxcontroller: true;
 $include-krf_dev-view-common-grid: true;
 $include-krf_dev-view-common-grid_test: true;
 $include-krf_dev-view-common-maptoolbar: true;
