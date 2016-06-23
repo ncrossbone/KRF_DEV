@@ -141,21 +141,27 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
 	        			
 	        			var me = Ext.getCmp("droneToolbar");
 	        			
+	        			// 수계선택 초기화
 	        			var cboDroneArea = Ext.getCmp("cboDroneArea");
 	        			me.initVComboBox(cboDroneArea);
 	        			
+	        			// 지점목록 초기화
 	        			var cboDroneSiteList = Ext.getCmp("cboDroneSiteList");
 	        			me.initVComboBox(cboDroneSiteList);
 	        			
+	        			// 항공영상 초기화
 	        			var cboDroneDate = Ext.getCmp("cboDroneDate");
 	        			me.initVComboBox(cboDroneDate);
 	        			
+	        			// 클로로필a 초기화
 	        			var cboDroneChla = Ext.getCmp("cboDroneChla");
 	        			me.initVComboBox(cboDroneChla);
 	        			
+	        			// 조류측정자료 초기화
 	        			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
 	        			me.initVComboBox(cboDroneWBSite);
 	        			
+	        			// 레이어선택 초기화
 	        			var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 	        			me.initVComboBox(cboDroneLayer);
 	        		}
@@ -178,6 +184,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	this.width = totWidth;
     },
     
+    // VComboBox 초기화
     initVComboBox: function(comboCtl){
     	
     	var x = 0;
