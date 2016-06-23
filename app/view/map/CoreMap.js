@@ -51,6 +51,15 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.map.setLevel(8);
         	window.clearInterval(timerId);
         	
+        	me.dynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin1', me.map);
+        	me.droneDynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', me.map);
+        	me.droneDynamicLayerAdmin2 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', me.map);
+        	me.droneDynamicLayerAdmin3 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', me.map);
+        	me.droneDynamicLayerAdmin4 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', me.map);
+        	/*me.dynamicLayerAdmin2 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin2', me.map);
+        	me.dynamicLayerAdmin3 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin3', me.map);
+        	me.dynamicLayerAdmin4 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin4', me.map);*/
+        	
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
         	//me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map); // v2

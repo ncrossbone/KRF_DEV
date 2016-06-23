@@ -4,6 +4,10 @@ Ext
 				{
 
 					extend : 'Ext.app.ViewController',
+					
+					requires: [
+					  		'KRF_DEV.view.drone.LayerButton'
+					   	],
 
 					alias : 'controller.searchArea_WaterController',
 
@@ -40,10 +44,10 @@ Ext
 						this.setComboData(combo.id, "");
 
 					},
-
+					
 					// 콤보 체인지
 					onAreaChange : function(combo, record, eOpts) {
-
+						
 						if (combo.tarCmbId != undefined && combo.tarCmbId != "")
 							this.setComboData(combo.tarCmbId, record.data.id);
 

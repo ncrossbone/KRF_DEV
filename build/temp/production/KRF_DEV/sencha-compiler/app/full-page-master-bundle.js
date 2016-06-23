@@ -1,2 +1,2 @@
 // @tag full-page
-// @require F:\PARKHYEOK\ALL_WORKSPACES\KRF_WORKSPACE\KRF_DEV\app.js
+// @require D:\eclipse-gis\KRF\KRF_DEV\app.js

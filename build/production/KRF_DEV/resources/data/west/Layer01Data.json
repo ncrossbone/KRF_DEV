@@ -239,6 +239,7 @@
 		"id": "42",
 		"text": "비점조사지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer42",
 		"leaf": true,
 		"checked": false
 	}]
@@ -253,6 +254,7 @@
 		"id": "46",
 		"text": "리치노드",
 		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer46",
 		"leaf": true,
 		"checked": true
 	}, {
@@ -260,6 +262,7 @@
 		"text": "리치라인",
 		"layerBtnId": ["btnReachLayer"],
 		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer47",
 		"leaf": true,
 		"checked": true
 	}, {
@@ -267,7 +270,7 @@
 		"text": "집수구역",
 		"layerBtnId": ["btnAreaLayer"],
 		"cls": "khLee-x-tree-node-text-small-nounder",
-		"iconCls": "layerIconSize layer47",
+		"iconCls": "layerIconSize layer48",
 		"leaf": true,
 		"checked": false
 	}]
