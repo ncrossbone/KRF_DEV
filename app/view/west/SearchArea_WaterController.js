@@ -5,9 +5,6 @@ Ext
 
 					extend : 'Ext.app.ViewController',
 					
-					requires: [
-					  		'KRF_DEV.view.drone.LayerButton'
-					   	],
 
 					alias : 'controller.searchArea_WaterController',
 

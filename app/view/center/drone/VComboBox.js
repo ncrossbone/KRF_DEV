@@ -39,6 +39,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 		
 		var comboStore = me.getComboStore();
 		
+		
 		//console.info(comboStore);
 		
 		this.items = [{

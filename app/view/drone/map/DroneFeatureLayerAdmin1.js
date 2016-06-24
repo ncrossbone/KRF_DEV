@@ -4,7 +4,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 	dynamicLayer1:null,
 	dynamicLayer2:null,
 	
-	constructor: function(map) {
+	constructor: function(map,itemValue) {
         var me = this;
         me.map = map;
         //console.info(Ext.visibleLayers);
@@ -63,7 +63,6 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 			var siteCodes = "";
 			var measureDate = "";
 			var layerDate = "";
-			var cmbDrone1 = Ext.getCmp("cmbDrone1");
 			  
 			for(var i = 0; i < featureSet.featureSet.features.length; i++){
 				if(featureSet.featureSet.features[i].attributes != undefined){
@@ -75,30 +74,20 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 				siteCodes = siteCodes.substring(0, siteCodes.length - 2);
 			}
 			
-			//console.info(siteCodes);
-			/*console.info(KRF_DEV.getApplication().cmbDrone2);
-			console.info(KRF_DEV.getApplication().cmbDrone4);*/
 			
-			
-			if(cmbDrone1.value == null){
+			////////////
+			if(itemValue == null){
 				return;
 			}else{
-				if(cmbDrone1.value == "nakdongriver"){
-					measureDate = Ext.getCmp("cmbDrone4").value;
-					layerDate = Ext.getCmp("cmbDrone2").value;
+				if(itemValue.DroneDate != "" || itemValue.MeasureDate != ""){
+					layerDate = itemValue.DroneDate;
+					measureDate = itemValue.MeasureDate;
 					
-					if(measureDate == null || layerDate == null){
-						measureDate = "2015-10-1주";
-						layerDate = "2015-10-06";
-					}
 				}else{
 					return;
 				}
 				
 			}
-			
-			
-			
 			
 			
 				

@@ -4,7 +4,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
 	dynamicLayer1:null,
 	dynamicLayer2:null,
 	
-	constructor: function(map) {
+	constructor: function(map,itemValue) {
         var me = this;
         me.map = map;
         
@@ -68,7 +68,6 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
     					var siteCodes = "";
     					var measureDate = "";
     					var layerDate = "";
-    					var cmbDrone1 = Ext.getCmp('cmbDrone1');
     					for(var i = 0; i < featureSet.featureSet.features.length; i++){
     						if(featureSet.featureSet.features[i].attributes != undefined){
     							siteCodes += "'" + featureSet.featureSet.features[i].attributes.측정소코드 + "', ";
@@ -79,17 +78,21 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
     						siteCodes = siteCodes.substring(0, siteCodes.length - 2);
     					}
     					
-    					//alert(siteCodes);
     					
-    					/*measureDate = Ext.getCmp("cboDate2_Measure").value;
-    					layerDate = Ext.getCmp("cboDate2").value;*/
     					
-    					if(cmbDrone1.value == "northriver"){
-    						measureDate = Ext.getCmp("cmbDrone4").value;
-    						layerDate = Ext.getCmp("cmbDrone2").value;
-    					}else{
+    					if(itemValue == null){
     						return;
+    					}else{
+    						if(itemValue.DroneDate != "" || itemValue.MeasureDate != ""){
+    							layerDate = itemValue.DroneDate;
+    							measureDate = itemValue.MeasureDate;
+    							
+    						}else{
+    							return;
+    						}
+    						
     					}
+    					
     					//console.info(measureDate);
     					
     					var jsonData;

@@ -63,13 +63,7 @@ Ext.define('KRF_DEV.store.drone.FeatureStoreLayerAdmin3', {
 						
 						var jsonData = "";
 						jsonData = Ext.util.JSON.decode(jsonStr);
-						me.map.setData(jsonData.data);
-						for(var i = 0 ;  i < jsonData.data.length ; i++){
-							Ext.hanBoListStore.push(jsonData.data[i]);
-							Ext.hanBoListStores.push(jsonData.data[i].layerNm);
-						}
-						var cmbDrone5 = Ext.getCmp('cmbDrone5');
-						cmbDrone5.setStore(Ext.hanBoListStores);
+					
 				});
 				
 			    

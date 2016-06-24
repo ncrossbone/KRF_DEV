@@ -84,7 +84,12 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         }, { // 지점목록
         	xtype: "drone-vcombo",
         	labelSrc: './resources/images/drone/label_06.png',
-        	id: "cboDroneSiteList" // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	id: "cboDroneSiteList", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	fields: ["layerCd", "layerNm","level","tmX","tmY"],
+        	displayField: "layerNm",
+        	valueField: "layerCd",
+        	onChange: "onBoChange",
+        	onItemClick: "onItemClickEmpty"
         }, { // 항공영상
         	xtype: "drone-vcombo",
         	id: "cboDroneDate", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
@@ -129,6 +134,10 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	valueField: "layerId",
         	onChange: "onComboChangeEmpty",
         	onItemClick: "onDroneLayerClick",
+        	listeners: {
+        		render: function(a,b,c,d){
+        		}
+        	},
             noCollapse: true // 콤보 리스트가 닫히지 않게 한다.
         }, {
         	xtype: 'image',

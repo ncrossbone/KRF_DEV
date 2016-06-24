@@ -95,111 +95,6 @@ Ext.application({
 	],
 	launch : function() {
 		
-		
-		Ext.SetInitialExtent = function (mapDivId){
-    		var me = Ext.getCmp(mapDivId);
-    	    me.bodyHeight = Ext.getBody().getViewSize().height;
-    	    me.bodyWidth = Ext.getBody().getViewSize().height;
-    	    
-    	    var varXmin, varXmax, varYmin, varYmax;
-    	    
-    	    /*
-    	    if(me.bodyHeight > 860){
-    	    	varXmin = 14233033.286899231;
-    	    	varYmin = 4211145.200816164;
-    	    	varXmax = 14329343.94253859;
-    	    	varYmax = 4342616.889466718;
-    	    	
-    	  		me.level = 10;
-    	    }
-    	    else{
-    	    	varXmin = 14163475.591159808;
-    	    	varYmin = 4187602.5961043965;
-    	    	varXmax = 14356096.90243836;
-    	    	varYmax = 4355764.058331704;
-    	    	
-    	  		me.level = 9;
-    	    }
-    	    */
-    	    
-    	    if(mapDivId == "_mapDiv_1"){
-    	    	varXmin = 14183349.218513945;
-    	    	varYmin = 4199373.898460308;
-    	    	varXmax = 14375359.033566216;
-    	    	varYmax = 4354999.688048853;
-    	    	me.level = 10;
-    	    }
-    	    
-    	    if(mapDivId == "_mapDiv_2"){
-    	    	varXmin = 14064413.20250227;
-    	    	varYmin = 4463616.70524203;
-    	    	varXmax = 14256423.01755454;
-    	    	varYmax = 4619242.494830575;
-    	    	me.level = 10;
-    	    }
-    	    
-    	    if(mapDivId == "_mapDiv_3"){
-    	    	varXmin = 13877601.105373379;
-    	    	varYmin = 4247223.4781668065;
-    	    	varXmax = 14464637.482603252;
-    	    	varYmax = 4454520.698876104;
-    	    	me.level = 10;
-    	    }
-    	    
-    	    if(mapDivId == "_mapDiv_4"){
-    	    	varXmin = 14064413.20250227;
-    	    	varYmin = 4463616.70524203;
-    	    	varXmax = 14256423.01755454;
-    	    	varYmax = 4619242.494830575;
-    	    	me.level = 10;
-    	    }
-    	    
-    	    var s = "";
-    		s = "XMin: "+ varXmin + " "
-    		   +"YMin: " + varYmin + " "
-    		   +"XMax: " + varXmax + " "
-    		   +"YMax: " + varYmax;
-    		
-    		//console.info("win resize : " + s);
-    	    
-    		if(me.initialExtent == null){
-    		    me.initialExtent = this.initialExtent = new esri.geometry.Extent({
-    		  	  xmin: varXmin,
-    		  	  ymin: varYmin,
-    		  	  xmax: varXmax,
-    		  	  ymax: varYmax,
-    		        spatialReference: {
-    		      	  wkid: 102100
-    		        }
-    		    });
-    		    
-    		    me.preExtent = this.preExtent = new esri.geometry.Extent({
-  		    	  xmin: varXmin,
-  		    	  ymin: varYmin,
-  		    	  xmax: varXmax,
-  		    	  ymax: varYmax,
-  		          spatialReference: {
-  		        	  wkid: 102100
-  		          }
-  		      });
-    		    
-    		    // 아래 방식으로 하면 object 자체가 같아져 버리므로 예상대로 동작하지 않음
-    		    //me.preExtent = me.maxExtent = me.initialExtent;
-    		    //me.preExtent = me.initialExtent;
-    		}
-    	    
-    		//console.info(me.initialExtent.getCenter());
-    		//console.log("init center x : " + me.initialExtent.getCenter().x + "init center y : " + me.initialExtent.getCenter().y);
-    		
-    		var deferred = me.map.setExtent(me.initialExtent, true);
-			deferred.then(function(value){
-				me.map.centerAt(me.initialExtent.getCenter());
-				me.map.setLevel(me.level);
-			});
-    	}
-		
-		
-
 		/*
 		 * Ext.Ajax.on('beforerequest', function (con, opt) {
 		 * //console.info(con); //console.info(opt);
@@ -440,6 +335,7 @@ Ext.application({
 		
 		
 		
+		
 		/******* 레이어 정보 가져오기 *******/
 		// 표시될 레이어 전역 변수
 		Ext.visibleLayers = [];
@@ -540,181 +436,13 @@ Ext.application({
 		Ext.hangangChlDefaultValue = "선택하세요.";
 		Ext.hangangChlOnOffVar = "Ext.btn6OnOff"; // 금강 초분광(클로로필a) 버튼 On/Off 변수 명
 		Ext.hangangChlLegendImg = "";
-		
-		
-		
-		Ext.nakdongBoListStore = [];
-		Ext.northBoListStore = [];
-		Ext.hanBoListStore = [];
-		Ext.goldBoListStore = [];
-		
-		Ext.nakdongBoListStores = [];
-		Ext.northBoListStores = [];
-		Ext.hanBoListStores = [];
-		Ext.goldBoListStores = [];
-		
-		Ext.bolist = function(){
-			
-			var nakdongboListstore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin1");
-			var northgboListstore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin2");
-			var haboListstore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin3");
-			var goldboListstore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin4");
-			
-			var rivername = Ext.getCmp('cmbDrone1').value;
-			console.info(rivername);
-			if(rivername == "nakdongriver"){
-				nakdongboListstore.load();
-			}else if(rivername == "northriver"){
-				northgboListstore.load();
-			}else if(rivername == "hanriver"){
-				haboListstore.load();
-			}else{
-				goldboListstore.load();
-			}
-			
-			
-			
-			
-		}
-		
-		
-		
-		Ext.SetInitialExtent = function (mapDivId){
-			
-    		var me = Ext.getCmp("_mapDiv_");
-    		console.info(me);
-    	    me.bodyHeight = Ext.getBody().getViewSize().height;
-    	    me.bodyWidth = Ext.getBody().getViewSize().height;
-    	    
-    	    var varXmin, varXmax, varYmin, varYmax;
-    	    
-    	    /*
-    	    if(me.bodyHeight > 860){
-    	    	varXmin = 14233033.286899231;
-    	    	varYmin = 4211145.200816164;
-    	    	varXmax = 14329343.94253859;
-    	    	varYmax = 4342616.889466718;
-    	    	
-    	  		me.level = 10;
-    	    }
-    	    else{
-    	    	varXmin = 14163475.591159808;
-    	    	varYmin = 4187602.5961043965;
-    	    	varXmax = 14356096.90243836;
-    	    	varYmax = 4355764.058331704;
-    	    	
-    	  		me.level = 9;
-    	    }
-    	    */
-    	    if(mapDivId == "nakdongriver"){
-    	    	varXmin = 14183349.218513945;
-    	    	varYmin = 4199373.898460308;
-    	    	varXmax = 14375359.033566216;
-    	    	varYmax = 4354999.688048853;
-    	    	me.level = 10;
-    	    }
-    	    
-    	    if(mapDivId == "northriver"){
-    	    	varXmin = 14064413.20250227;
-    	    	varYmin = 4463616.70524203;
-    	    	varXmax = 14256423.01755454;
-    	    	varYmax = 4619242.494830575;
-    	    	me.level = 10;
-    	    }
-    	    
-    	    if(mapDivId == "hanriver"){
-    	    	varXmin = 14064413.20250227;
-    	    	varYmin = 4463616.70524203;
-    	    	varXmax = 14256423.01755454;
-    	    	varYmax = 4619242.494830575;
-    	    	me.level = 10;
-    	    	
-    	    }
-    	    
-    	    if(mapDivId == "goldriver"){
-    	    	varXmin = 13877601.105373379;
-    	    	varYmin = 4247223.4781668065;
-    	    	varXmax = 14464637.482603252;
-    	    	varYmax = 4454520.698876104;
-    	    	me.level = 10;
-    	    }
-    	    
-    	    var s = "";
-    		s = "XMin: "+ varXmin + " "
-    		   +"YMin: " + varYmin + " "
-    		   +"XMax: " + varXmax + " "
-    		   +"YMax: " + varYmax;
-    		
-    		//console.info("win resize : " + s);
-    	    
-    		
-    		    me.initialExtent = this.initialExtent = new esri.geometry.Extent({
-    		  	  xmin: varXmin,
-    		  	  ymin: varYmin,
-    		  	  xmax: varXmax,
-    		  	  ymax: varYmax,
-    		        spatialReference: {
-    		      	  wkid: 102100
-    		        }
-    		    });
-    		    
-    		    me.preExtent = this.preExtent = new esri.geometry.Extent({
-  		    	  xmin: varXmin,
-  		    	  ymin: varYmin,
-  		    	  xmax: varXmax,
-  		    	  ymax: varYmax,
-  		          spatialReference: {
-  		        	  wkid: 102100
-  		          }
-  		      });
-    		    
-    		    // 아래 방식으로 하면 object 자체가 같아져 버리므로 예상대로 동작하지 않음
-    		    //me.preExtent = me.maxExtent = me.initialExtent;
-    		    //me.preExtent = me.initialExtent;
-    		
-    	    
-    		//console.info(me.initialExtent.getCenter());
-    		//console.log("init center x : " + me.initialExtent.getCenter().x + "init center y : " + me.initialExtent.getCenter().y);
-    		
-    		var deferred = me.map.setExtent(me.initialExtent, true);
-			deferred.then(function(value){
-				me.map.centerAt(me.initialExtent.getCenter());
-				me.map.setLevel(me.level);
-			});
-    	}
-		
-		Ext.setCenter = function(tmX,tmY){
-    		
-			
-			var mapCtl = Ext.getCmp('_mapDiv_');
-    		
-    		var point = new esri.geometry.Point({ "x": tmX, "y": tmY, " spatialReference": { " wkid": 102100} });
-    		mapCtl.map.centerAndZoom(point, 15);
-    		
-    		Ext.setLabelLayer();
-    		
-    	}
-		
-		Ext.setLabelLayer = function(){
-    		
-    		var mapCtl = Ext.getCmp('_mapDiv_');
-    		if(mapCtl.map != null && mapCtl.map != undefined){
-	    		var layer = mapCtl.map.getLayer("labels");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        		mapCtl.map.addLayer(layer);
-	        	}
-    		}
-    	}
-		
-		
+
 		var responseLayer = Ext.Ajax.request({
 			async: false, // 동기화
 		    url: './resources/data/LayerMapper.json'
 		});
 
 		var itemsLayer = Ext.decode(responseLayer.responseText);
-		
 
 		for(var i = 0; i < itemsLayer.length; i++){
 			if(itemsLayer[i].layerBtnId == "btn1"){
@@ -838,6 +566,7 @@ Ext.application({
 			if(itemsLayer[i].layerType == "항공"){
 				
 				if(itemsLayer[i].layerArea == "낙동강"){
+					
 					Ext.nakdongDroneLayerId.push(itemsLayer[i].layerId); // 항공영상 레이어 아이디
 					
 					// 항공영상 날짜
@@ -1048,67 +777,6 @@ Ext.application({
 				}
 			}
 		}
-		
-		
-		
-		
-		
-		Ext.setFeatureLayer = function(){
-			
-    		
-    		var mapCtl = Ext.getCmp('_mapDiv_');
-    		if(mapCtl != undefined && mapCtl.map != undefined && mapCtl.map != null){
-	        	var layer = mapCtl.map.getLayer("DroneFeatureLayer1");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	var layer = mapCtl.map.getLayer("labels");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', mapCtl.map);
-    		}
-        	
-        	var mapCtl = Ext.getCmp('_mapDiv_');
-        	if(mapCtl != undefined && mapCtl.map != undefined && mapCtl.map != null){
-	        	var layer = mapCtl.map.getLayer("DroneFeatureLayer2");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	var layer = mapCtl.map.getLayer("labels");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', mapCtl.map);
-        	}
-        	
-        	var mapCtl = Ext.getCmp('_mapDiv_');
-        	if(mapCtl != undefined && mapCtl.map != undefined && mapCtl.map != null){
-	        	var layer = mapCtl.map.getLayer("DroneFeatureLayer3");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	var layer = mapCtl.map.getLayer("labels");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', mapCtl.map);
-        	}
-        	
-        	var mapCtl = Ext.getCmp('_mapDiv_');
-        	if(mapCtl != undefined && mapCtl.map != undefined && mapCtl.map != null){
-	        	var layer = mapCtl.map.getLayer("DroneFeatureLayer4");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	var layer = mapCtl.map.getLayer("labels");
-	        	if(layer != undefined){
-	        		mapCtl.map.removeLayer(layer);
-	        	}
-	        	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', mapCtl.map);
-        	}
-    	}
-		
 		
 		
 		
