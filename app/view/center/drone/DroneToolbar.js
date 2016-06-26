@@ -135,6 +135,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	title: '초기화',
         	width: 23,
         	src: './resources/images/drone/btn_reset.png',
+        	style: "cursor: pointer;",
         	listeners: {
         		el: {
 	        		click: function(){
