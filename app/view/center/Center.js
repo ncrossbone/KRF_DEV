@@ -86,7 +86,34 @@ Ext.define('KEF_DEV.view.center.Center', {
 	
 	items: [{
 		xtype: 'app-map-coreMap'
-	}]
+	}/*, {
+		//title: '북한강',
+		//header: false,
+		id: 'northhan_map',
+		items: [{
+			xtype: 'app-map-coreMap-tab2',
+			width: '100%',
+			height: '100%'
+		}]
+	}, {
+		//title: '한강',
+		//header: false,
+		id: 'hangang_map',
+		items: [{
+			xtype: 'app-map-coreMap-tab4',
+			width: '100%',
+			height: '100%'
+		}]
+	}, {
+		//title: '금강',
+		//header: false,
+		id: 'geum_map',
+		items: [{
+			xtype: 'app-map-coreMap-tab3',
+			width: '100%',
+			height: '100%'
+		}]
+	}*/]
 	
 	
 	
