@@ -242,6 +242,14 @@
 		"layerOnOff": "off",
 		"image1": "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_01.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"visible": "false"
+	}, {
+		"id" : "reachLine",
+		"layerId": ["46", "47"],
+		"layerName": "리치라인",
+		"layerOnOff": "on",
+		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"image2": "&nbsp;<img src='./resources/images/button/btn_top_01_off.png' style='width: 19px; height: 19px; vertical-align: middle; margin-bottom: 0.25em;' />&nbsp;",
 		"visible": "true"
 	}, {
 		"layerId": "3",
@@ -273,7 +281,7 @@
 		"visible": "true"
 	}, {
 		"layerId": "Chla",
-		"layerName": "클로로필a",
+		"layerName": "Chl-a",
 		"layerOnOff": "off",
 		"image1": "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_06.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
