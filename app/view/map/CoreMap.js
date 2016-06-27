@@ -281,7 +281,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	onExtentChange: function(extent, a, b, obj, c){
-
+		
+		//console.info(extent);
+		
 		// 툴팁 XY 셋팅
 		setTooltipXY();
 	}
