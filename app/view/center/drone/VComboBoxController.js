@@ -449,85 +449,53 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	SetInitialExtent: function (areaNmae){
 		
 		var me = Ext.getCmp("_mapDiv_");
-		me.bodyHeight = Ext.getBody().getViewSize().height;
-	    me.bodyWidth = Ext.getBody().getViewSize().height;
 	    
-	    var varXmin, varXmax, varYmin, varYmax;
+	    var varXmin, varXmax, varYmin, varYmax, level;
 	    
-	   
 	    if(areaNmae == "R02"){
-	    	varXmin = 14183349.218513945;
-	    	varYmin = 4199373.898460308;
-	    	varXmax = 14375359.033566216;
-	    	varYmax = 4354999.688048853;
-	    	me.level = 10;
+	    	varXmin = 14162864.094933428;
+	    	varYmin = 4185768.1074254746;
+	    	varXmax = 14567980.344845016;
+	    	varYmax = 4353929.569652926;
+	    	level = 10;
 	    }
 	    
 	    if(areaNmae == "R01_1"){
-	    	varXmin = 14064413.20250227;
-	    	varYmin = 4463616.70524203;
-	    	varXmax = 14256423.01755454;
-	    	varYmax = 4619242.494830575;
-	    	me.level = 10;
+	    	varXmin = 14060591.785402454;
+	    	varYmin = 4442594.7852055635;
+	    	varXmax = 14465708.035314042;
+	    	varYmax = 4610756.247433016;
+	    	level = 10;
 	    }
 	    
 	    if(areaNmae == "R01_2"){
-	    	varXmin = 14064413.20250227;
-	    	varYmin = 4463616.70524203;
-	    	varXmax = 14256423.01755454;
-	    	varYmax = 4619242.494830575;
-	    	me.level = 10;
+	    	varXmin = 14005404.250980537;
+	    	varYmin = 4424402.772473685;
+	    	varXmax = 14410520.500892125;
+	    	varYmax = 4592564.234701138;
+	    	level = 10;
 	    	
 	    }
 	    
 	    if(areaNmae == "R04"){
-	    	varXmin = 13877601.105373379;
-	    	varYmin = 4247223.4781668065;
-	    	varXmax = 14464637.482603252;
-	    	varYmax = 4454520.698876104;
-	    	me.level = 10;
+	    	varXmin = 14033380.203332923;
+	    	varYmin = 4263426.390905042;
+	    	varXmax = 14438496.453244511;
+	    	varYmax = 4431587.853132495;
+	    	level = 10;
 	    }
 	    
-	    var s = "";
-		s = "XMin: "+ varXmin + " "
-		   +"YMin: " + varYmin + " "
-		   +"XMax: " + varXmax + " "
-		   +"YMax: " + varYmax;
-	    
+		var extent = new esri.geometry.Extent({
+			xmin: varXmin,
+			ymin: varYmin,
+			xmax: varXmax,
+			ymax: varYmax,
+	        spatialReference: {
+	      	  wkid: 102100
+	        }
+	    });
 		
-		me.initialExtent = this.initialExtent = new esri.geometry.Extent({
-		  	  xmin: varXmin,
-		  	  ymin: varYmin,
-		  	  xmax: varXmax,
-		  	  ymax: varYmax,
-		        spatialReference: {
-		      	  wkid: 102100
-		        }
-		    });
-		    
-		    me.preExtent = this.preExtent = new esri.geometry.Extent({
-		    	  xmin: varXmin,
-		    	  ymin: varYmin,
-		    	  xmax: varXmax,
-		    	  ymax: varYmax,
-		          spatialReference: {
-		        	  wkid: 102100
-		          }
-		      });
-		    
-		    // 아래 방식으로 하면 object 자체가 같아져 버리므로 예상대로 동작하지 않음
-		    //me.preExtent = me.maxExtent = me.initialExtent;
-		    //me.preExtent = me.initialExtent;
-		
-	    
-		//console.info(me.initialExtent.getCenter());
-		//console.log("init center x : " + me.initialExtent.getCenter().x + "init center y : " + me.initialExtent.getCenter().y);
-		
-		var deferred = me.map.setExtent(me.initialExtent, true);
-		deferred.then(function(value){
-			me.map.centerAt(me.initialExtent.getCenter());
-			me.map.setLevel(me.level);
-		});
+		me.map.centerAndZoom(extent.getCenter(), level);
 	},
 	
 	SetCenter: function(tmX,tmY){
