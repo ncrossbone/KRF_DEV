@@ -169,6 +169,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				console.info(KRF_DEV.getApplication().delValue);
 				this.layer.splice(this.layer.indexOf(KRF_DEV.getApplication().delValue),1);
 			}else if(layerNum == "Chla"){
+				
+			}else if(layerNum == "3"){
 				if(cboDroneArea.lastValue == "R02"){
 					activeLayer = me.map.getLayer("DroneFeatureLayer1");
 					activeLayer.setVisibility(false);
@@ -193,6 +195,12 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			if(layerNum == "Drone"){
 				this.layer.push(KRF_DEV.getApplication().delValue);
 			}else if(layerNum == "Chla"){
+				var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
+				console.info(cboDroneChla.getStore());
+				if(cboDroneChla.getStore().items[0].data.ChlaLayerId != ""){
+					this.layer.push(cboDroneChla.getStore().items[0].data.ChlaLayerId);
+				}
+			}else if(layerNum == "3"){
 				if(cboDroneArea.lastValue == "R02"){
 					activeLayer = me.map.getLayer("DroneFeatureLayer1");
 					activeLayer.setVisibility(true);

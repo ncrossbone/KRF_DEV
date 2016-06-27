@@ -170,7 +170,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', {
     	    			me.layer.id = "DroneFeatureLayer4";
     	    			//me.layer.visible = true;
     	    			me.map.addLayer(me.layer);
-    	    			me.layer.setVisibility(false);
+    	    			//me.layer.setVisibility(false);
     	    			// Feature Layer에 필드를 추가해야 라벨에서 사용 가능...
     	    			me.layer.fields.push({name: "emptyMsg", alias: "emptyMsg", type: "esriFieldTypeString"});
     	    			me.layer.fields.push({name: "WMCYMD", alias: "WMCYMD", type: "esriFieldTypeString"});
