@@ -246,6 +246,37 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	totWidth += this.header.width;
     	//console.info(totWidth);
     	this.width = totWidth;
+    	
+    	var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
+    	cboDroneArea.emptyText = "선택하세요";
+    	
+    	var cboDroneSiteList = Ext.getCmp("cboDroneSiteList").down("combo");
+    	cboDroneSiteList.emptyText = "선택하세요";
+    	
+    	var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
+		cboDroneDate.emptyText = "선택하세요";
+		
+		/* 클로로필a 바인딩 */
+		var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
+		cboDroneChla.emptyText = "선택하세요";
+		
+		/* 조류측정자료 바인딩 */
+		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
+		cboDroneWBSite.emptyText = "선택하세요";
+		
+		
+		/* 지점목록 바인딩 */
+		var cboDroneSiteList = Ext.getCmp("cboDroneSiteList").down("combo");
+		cboDroneSiteList.value = "선택하세요";
+		
+		
+		var cboDroneLayer =Ext.getCmp("cboDroneLayer").down("combo");
+		cboDroneLayer.emptyText = "선택하세요";
+    	
+    	
+    	
+    	
+    	
     },
     
     // VComboBox 초기화

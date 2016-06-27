@@ -168,7 +168,22 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', {
     	    			//me.layer.visible = true;
     	    			me.map.addLayer(me.layer);
     	    			
-    	    			//me.layer.setVisibility(false);
+    	    			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
+    	    			var layerStore = cboDroneLayer.getStore();
+    	    			var featureOnOff = "";
+    	    			
+    	    			layerStore.each(function(obj){
+    	    				if(obj.data.layerId == "3"){
+    	    					featureOnOff = obj.data.layerOnOff;
+    	    				}
+    	    				
+    	    				
+    	    			});
+    	    			console.info(featureOnOff);
+    	    			
+    	    			if(featureOnOff == "off"){
+    	    				me.layer.setVisibility(false);
+    	    			}
     	    			// Feature Layer에 필드를 추가해야 라벨에서 사용 가능...
     	    			me.layer.fields.push({name: "emptyMsg", alias: "emptyMsg", type: "esriFieldTypeString"});
     	    			me.layer.fields.push({name: "WMCYMD", alias: "WMCYMD", type: "esriFieldTypeString"});
