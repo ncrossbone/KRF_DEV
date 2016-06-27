@@ -90,16 +90,20 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			//이전 선택된 레이어 삭제하기 위해서 전역변수 설정  ** 수계를 변경하면 oldValue에 데이더가 남지 않음
 			KRF_DEV.getApplication().delValue = newValue;
 			
-			this.LayerVisibility();
+			
 			
 			
 			
 			// featurelayer on/off
 			this.SetFeatureLayer(dateValue);
 			
+			
+			this.LayerVisibility();
+		    
+			
+			
 		}
 	},
-	
 	/* 클로로필a Change Event */
 	onDroneChlaChange: function(item, newValue, oldValue, evt){
 		
@@ -147,7 +151,15 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		var layerNum = "";
 		layerNum = record.data.layerId;
-		console.info(this.layer);
+		
+		
+		var me = Ext.getCmp('_mapDiv_');
+		var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
+		var activeLayer= "";
+		
+		
+		
+		
 		
 		if(record.data.layerOnOff == "on"){
 			record.data.layerOnOff = "off";
@@ -157,7 +169,19 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				console.info(KRF_DEV.getApplication().delValue);
 				this.layer.splice(this.layer.indexOf(KRF_DEV.getApplication().delValue),1);
 			}else if(layerNum == "Chla"){
-				
+				if(cboDroneArea.lastValue == "R02"){
+					activeLayer = me.map.getLayer("DroneFeatureLayer1");
+					activeLayer.setVisibility(false);
+				}else if(cboDroneArea.lastValue == "R01_1"){
+					activeLayer = me.map.getLayer("DroneFeatureLayer2");
+					activeLayer.setVisibility(false);
+				}else if(cboDroneArea.lastValue == "R01_2"){
+					activeLayer = me.map.getLayer("DroneFeatureLayer3");
+					activeLayer.setVisibility(false);
+				}else{
+					activeLayer = me.map.getLayer("DroneFeatureLayer4");
+					activeLayer.setVisibility(false);
+				}
 			}else{
 				this.layer.splice(this.layer.indexOf(layerNum),1);
 			}
@@ -169,7 +193,19 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			if(layerNum == "Drone"){
 				this.layer.push(KRF_DEV.getApplication().delValue);
 			}else if(layerNum == "Chla"){
-				
+				if(cboDroneArea.lastValue == "R02"){
+					activeLayer = me.map.getLayer("DroneFeatureLayer1");
+					activeLayer.setVisibility(true);
+				}else if(cboDroneArea.lastValue == "R01_1"){
+					activeLayer = me.map.getLayer("DroneFeatureLayer2");
+					activeLayer.setVisibility(true);
+				}else if(cboDroneArea.lastValue == "R01_2"){
+					activeLayer = me.map.getLayer("DroneFeatureLayer3");
+					activeLayer.setVisibility(true);
+				}else{
+					activeLayer = me.map.getLayer("DroneFeatureLayer4");
+					activeLayer.setVisibility(true);
+				}
 			}else{
 				this.layer.push(record.data.layerId);
 			}
@@ -184,9 +220,13 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		store.insert(index, record);
 		
 		
-		
-		
 		this.LayerVisibility();
+		
+		
+		
+		
+		//console.info();
+		
 	},
 	
 	// Combo Item Click 시 아무것도 안하는 펑션..
@@ -243,6 +283,10 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		if(me.map == null){
 			return;
 		}
+		
+		
+		
+		
 		//맵 불러오기
 		var activeLayer = me.map.getLayer("DynamicLayer3");
 		
@@ -278,6 +322,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
             	}
             	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', mapCtl.map,itemValue);
     		}
+    		
+    		
+    		
+    		var activeLayer = mapCtl.map.getLayer("DroneFeatureLayer1");
+    		console.info(activeLayer);
     	}else if(cboDroneArea.lastValue == "R01_1"){//북한강 수계
     		var mapCtl = Ext.getCmp('_mapDiv_');
         	if(mapCtl != undefined && mapCtl.map != undefined && mapCtl.map != null){
@@ -318,7 +367,6 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
             	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', mapCtl.map,itemValue);
         	}
     	}
-    	
     	
 	},
 	

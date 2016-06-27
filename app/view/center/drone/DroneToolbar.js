@@ -148,6 +148,34 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         		el: {
 	        		click: function(){
 	        			
+	        			var me = Ext.getCmp('_mapDiv_');
+	        			if(me.map == null){
+	        				return;
+	        			}
+	        			
+	        			//맵 불러오기
+	        			var activeLayer = me.map.getLayer("DynamicLayer3");
+	        			activeLayer.setVisibility(false);
+	        			
+	        			activeLayer= "";
+	        			var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
+	        			console.info(cboDroneArea.lastValue);
+	        			if(cboDroneArea.lastValue == "R02"){
+	    					activeLayer = me.map.getLayer("DroneFeatureLayer1");
+	    					activeLayer.setVisibility(false);
+	    				}else if(cboDroneArea.lastValue == "R01_1"){
+	    					activeLayer = me.map.getLayer("DroneFeatureLayer2");
+	    					activeLayer.setVisibility(false);
+	    				}else if(cboDroneArea.lastValue == "R01_2"){
+	    					activeLayer = me.map.getLayer("DroneFeatureLayer3");
+	    					activeLayer.setVisibility(false);
+	    				}else{
+	    					activeLayer = me.map.getLayer("DroneFeatureLayer4");
+	    					activeLayer.setVisibility(false);
+	    				}
+	        			
+	        			
+	        			
 	        			var me = Ext.getCmp("droneToolbar");
 	        			
 	        			// 수계선택 초기화
@@ -173,6 +201,10 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
 	        			// 레이어선택 초기화
 	        			var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 	        			me.initVComboBox(cboDroneLayer);
+	        			
+	        			
+	        			
+	        			
 	        		}
         		}
         	}

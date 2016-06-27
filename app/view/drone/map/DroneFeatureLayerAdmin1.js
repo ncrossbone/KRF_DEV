@@ -8,7 +8,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
         var me = this;
         me.map = map;
         //console.info(Ext.visibleLayers);
-        var queryTask = new esri.tasks.QueryTask(Ext.mapServiceUrl + "/" + Ext.featureLayerId); // 레이어 URL
+        var queryTask = new esri.tasks.QueryTask("http://112.217.167.123:20002/arcgis/rest/services/drone_dev/MapServer/3"); // 레이어 URL
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.where = "수계코드 = 20";
@@ -192,6 +192,8 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 			me.layer.id = "DroneFeatureLayer1";
 			//me.layer.visible = true;
 			me.map.addLayer(me.layer);
+			
+			me.layer.setVisibility(false);
 			
 			// Feature Layer에 필드를 추가해야 라벨에서 사용 가능...
 			me.layer.fields.push({name: "emptyMsg", alias: "emptyMsg", type: "esriFieldTypeString"});
