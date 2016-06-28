@@ -332,7 +332,7 @@ Ext.application({
 			if(itemsApp[i].MapserviceUrl1 != undefined)
 				Ext.mapServiceUrl = itemsApp[i].MapserviceUrl1;
 		}
-		console.info(Ext.mapServiceUrl);
+		//console.info(Ext.mapServiceUrl);
 		
 		
 		

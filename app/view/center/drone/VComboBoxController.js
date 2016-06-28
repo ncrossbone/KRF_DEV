@@ -29,7 +29,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			activeLayer = me.map.getLayer("DroneFeatureLayer2");
 		}else if(cboDroneArea.lastValue == "R01_2"){
 			activeLayer = me.map.getLayer("DroneFeatureLayer3");
-		}else if(cboDroneArea.lastValue == "R04"){
+		}else {
 			activeLayer = me.map.getLayer("DroneFeatureLayer4");
 		}
 		
@@ -43,32 +43,25 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		// 수계선택 초기화
 		var cboDroneArea = Ext.getCmp("cboDroneArea");
 		me.initVComboBox(cboDroneArea);
-		cboDroneArea.emptyText = "선택하세요";
 		
 		// 지점목록 초기화
 		var cboDroneSiteList = Ext.getCmp("cboDroneSiteList");
 		me.initVComboBox(cboDroneSiteList);
-		cboDroneSiteList.emptyText = "선택하세요";
-		
 		// 항공영상 초기화
 		var cboDroneDate = Ext.getCmp("cboDroneDate");
 		me.initVComboBox(cboDroneDate);
-		cboDroneDate.emptyText = "선택하세요";
 		
 		// 클로로필a 초기화
 		var cboDroneChla = Ext.getCmp("cboDroneChla");
 		me.initVComboBox(cboDroneChla);
-		cboDroneChla.emptyText = "선택하세요";
 		
 		// 조류측정자료 초기화
 		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
 		me.initVComboBox(cboDroneWBSite);
-		cboDroneWBSite.emptyText = "선택하세요";
 		
 		// 레이어선택 초기화
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 		me.initVComboBox(cboDroneLayer);
-		cboDroneLayer.emptyText = "선택하세요";
 		
 		this.LayerVisibility();
 	
@@ -99,7 +92,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		/* 지점목록 바인딩 */
 		var cboDroneSiteList = Ext.getCmp("cboDroneSiteList").down("combo");
-		//cboDroneSiteList.value = "선택하세요";
+		cboDroneSiteList.value = "선택하세요";
 		
 		
 		var cboDroneLayer =Ext.getCmp("cboDroneLayer").down("combo");
@@ -118,7 +111,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		}else{
 			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin4");
 		}
-		
+		//console.info(siteListStore);
 		siteListStore.load();
 		cboDroneSiteList.setStore(siteListStore);
 		
@@ -137,6 +130,9 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			droneLayerId = store.data.items[0].data.DroneLayerId;
 			drone = store.data.items[0].data;
 			measureDate = store.data.items[0].data.MeasureDate;
+			console.info(droneLayerId);
+			console.info(drone);
+			console.info(measureDate);
 			/*for(var i = 0 ; i<store.data.items.length ; i++){
 				if(i == store.data.items.length-1){
 					droneLayerId = store.data.items[0].data.DroneLayerId;
@@ -384,7 +380,9 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
 			var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
+			var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
 			
+			//console.info(chlLegend);
 			var layers = [];
 			
 			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
@@ -430,6 +428,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			
 			//클로로필
 			if(chlOnOff == "on"){
+				//chlLegend.show();
 				if(cboDroneChla.value != null)
 					layers.push(cboDroneChla.value);
 			}

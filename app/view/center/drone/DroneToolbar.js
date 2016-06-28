@@ -236,6 +236,20 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         }]
     }],
     
+    initComponent: function(){
+    	
+    	this.callParent();
+    	
+    	var totWidth = 0;
+    	
+    	Ext.each(this.items.items, function(){
+    		totWidth += this.width;
+    	});
+    	
+    	totWidth += this.header.width;
+    	this.width = totWidth;
+	},
+    
     // VComboBox 초기화
     initVComboBox: function(comboCtl){
     	

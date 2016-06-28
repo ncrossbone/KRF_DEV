@@ -63,7 +63,8 @@ Ext.define('KRF_DEV.store.drone.FeatureStoreLayerAdmin3', {
 						
 						var jsonData = "";
 						jsonData = Ext.util.JSON.decode(jsonStr);
-					
+						me.map.setData(jsonData.data);
+						
 				});
 				
 			    
