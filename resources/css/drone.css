@@ -51,3 +51,8 @@
 	border: 1px solid #59657f;
 	border-left: 0px;
 }
+
+.dijitTooltipContainer {
+	background: #ffffff !important;
+	padding: 6px 8px;
+}

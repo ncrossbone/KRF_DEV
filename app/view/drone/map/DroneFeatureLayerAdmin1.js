@@ -206,7 +206,6 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 				
 				
 			});
-			console.info(featureOnOff);
 			
 			if(featureOnOff == "off"){
 				me.layer.setVisibility(false);

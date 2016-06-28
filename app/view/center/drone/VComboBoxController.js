@@ -7,7 +7,72 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	//기본 배열
 	layer: ["0","1","3","2","4","10","11","12","13"],
 	onlayer: [],
+	//초기화 버튼
+	onClickResetButton: function(){
+
+		var me = Ext.getCmp('_mapDiv_');
+		if(me.map == null){
+			return;
+		}
+		
+		//맵 불러오기
+		var activeLayer = me.map.getLayer("DynamicLayer3");
+		activeLayer.setVisibility(false);
+		
+		
+		activeLayer= "";
+		var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
+		
+		if(cboDroneArea.lastValue == "R02"){
+			activeLayer = me.map.getLayer("DroneFeatureLayer1");
+		}else if(cboDroneArea.lastValue == "R01_1"){
+			activeLayer = me.map.getLayer("DroneFeatureLayer2");
+		}else if(cboDroneArea.lastValue == "R01_2"){
+			activeLayer = me.map.getLayer("DroneFeatureLayer3");
+		}else if(cboDroneArea.lastValue == "R04"){
+			activeLayer = me.map.getLayer("DroneFeatureLayer4");
+		}
+		
+		if(activeLayer != undefined && activeLayer != null)
+			activeLayer.setVisibility(false);
+		
+		
+		
+		var me = Ext.getCmp("droneToolbar");
+		
+		// 수계선택 초기화
+		var cboDroneArea = Ext.getCmp("cboDroneArea");
+		me.initVComboBox(cboDroneArea);
+		cboDroneArea.emptyText = "선택하세요";
+		
+		// 지점목록 초기화
+		var cboDroneSiteList = Ext.getCmp("cboDroneSiteList");
+		me.initVComboBox(cboDroneSiteList);
+		cboDroneSiteList.emptyText = "선택하세요";
+		
+		// 항공영상 초기화
+		var cboDroneDate = Ext.getCmp("cboDroneDate");
+		me.initVComboBox(cboDroneDate);
+		cboDroneDate.emptyText = "선택하세요";
+		
+		// 클로로필a 초기화
+		var cboDroneChla = Ext.getCmp("cboDroneChla");
+		me.initVComboBox(cboDroneChla);
+		cboDroneChla.emptyText = "선택하세요";
+		
+		// 조류측정자료 초기화
+		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
+		me.initVComboBox(cboDroneWBSite);
+		cboDroneWBSite.emptyText = "선택하세요";
+		
+		// 레이어선택 초기화
+		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
+		me.initVComboBox(cboDroneLayer);
+		cboDroneLayer.emptyText = "선택하세요";
+		
+		this.LayerVisibility();
 	
+	},
 	// 수계선택 Change Event
 	onAreaChange: function(item, newValue, oldValue, evt){
 		
@@ -68,13 +133,17 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		Ext.defer(function(){
 			var store = cboDroneDate.getStore();
 			
-			for(var i = 0 ; i<store.data.items.length ; i++){
+			
+			droneLayerId = store.data.items[0].data.DroneLayerId;
+			drone = store.data.items[0].data;
+			measureDate = store.data.items[0].data.MeasureDate;
+			/*for(var i = 0 ; i<store.data.items.length ; i++){
 				if(i == store.data.items.length-1){
-					droneLayerId = store.data.items[i].data.DroneLayerId;
-					drone = store.data.items[i].data;
-					measureDate = store.data.items[i].data.MeasureDate;
+					droneLayerId = store.data.items[0].data.DroneLayerId;
+					drone = store.data.items[0].data;
+					measureDate = store.data.items[0].data.MeasureDate;
 				}
-			}
+			}*/
 			
 			me.defaultDate(droneLayerId,measureDate,drone);
 		}, 1);
@@ -185,7 +254,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		var me = Ext.getCmp('_mapDiv_');
 		var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
-		console.info(cboDroneArea);
+		
 		var activeLayer= "";
 		
 		if(record.data.layerOnOff == "on"){
@@ -218,17 +287,14 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				if(layerNum == "3"){
 					if(cboDroneArea.lastValue == "R02"){
 						activeLayer = me.map.getLayer("DroneFeatureLayer1");
-						activeLayer.setVisibility(true);
 					}else if(cboDroneArea.lastValue == "R01_1"){
 						activeLayer = me.map.getLayer("DroneFeatureLayer2");
-						activeLayer.setVisibility(true);
 					}else if(cboDroneArea.lastValue == "R01_2"){
 						activeLayer = me.map.getLayer("DroneFeatureLayer3");
-						activeLayer.setVisibility(true);
 					}else{
 						activeLayer = me.map.getLayer("DroneFeatureLayer4");
-						activeLayer.setVisibility(true);
 					}
+					activeLayer.setVisibility(true);
 				}
 
 			}	
@@ -302,80 +368,82 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	
 	LayerVisibility: function(){
 		
-		
 		var me = Ext.getCmp('_mapDiv_');
-		if(me.map == null){
-			return;
-		}
+		var meThis = this;
 		
-		//맵 불러오기
-		var activeLayer = me.map.getLayer("DynamicLayer3");
-		
-		if(this.layer.length > 0)
-			activeLayer.setVisibility(true);
-		else
-			activeLayer.setVisibility(false);
-		
-		var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
-		var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
-		
-		var layers = [];
-		
-		
-		
-		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
-		var layerStore = cboDroneLayer.getStore();
-		
-		var droneOnOff = "";
-		var chlOnOff = "";
-		var measureOnOff = "";
-		var wbSiteOnOff = "";
-		
-		
-		layerStore.each(function(obj){
-			if(obj.data.layerId == "Drone"){
-				droneOnOff = obj.data.layerOnOff;
+		Ext.defer(function(){
+			
+			if(me.map == null){
+				return;
 			}
-			else if(obj.data.layerId == "Chla"){
-				chlOnOff = obj.data.layerOnOff;
+			
+			//맵 불러오기
+			var activeLayer = me.map.getLayer("DynamicLayer3");
+			activeLayer.setVisibility(true);
+			
+			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
+			var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
+			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
+			
+			var layers = [];
+			
+			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
+			var layerStore = cboDroneLayer.getStore();
+			
+			var droneOnOff = "";
+			var chlOnOff = "";
+			var measureOnOff = "";
+			var wbSiteOnOff = "";
+			
+			//console.info(layerStore);
+			layerStore.each(function(obj){
+				
+				if(obj.data.layerId == "Drone"){
+					droneOnOff = obj.data.layerOnOff;
+				}
+				else if(obj.data.layerId == "Chla"){
+					chlOnOff = obj.data.layerOnOff;
+				}
+
+				else if(obj.data.id == "reachLine"){
+					
+					// 주제도 선택에 리치노드, 리치라인 On/Off
+					for(var i = 0; i < obj.data.layerId.length; i++){
+						Layer01OnOff(obj.data.layerId[i], obj.data.layerOnOff);
+					}
+				}
+				else{
+					if(cboDroneArea.getValue() != null && cboDroneArea.getValue() != ""){
+						if(obj.data.layerOnOff == "on"){
+							layers.push(obj.data.layerId);
+						}
+					}
+					
+				}
+			});
+			
+			//항공사진
+			if(droneOnOff == "on"){
+				if(cboDroneDate.value != null)
+					layers.push(cboDroneDate.value);
 			}
 
-			else if(obj.data.id == "reachLine"){
-				
-				// 주제도 선택에 리치노드, 리치라인 On/Off
-				for(var i = 0; i < obj.data.layerId.length; i++){
-					Layer01OnOff(obj.data.layerId[i], obj.data.layerOnOff);
-				}
+			//클로로필
+			if(chlOnOff == "on"){
+				if(cboDroneChla.value != null)
+					layers.push(cboDroneChla.value);
 			}
-			else{
-				if(obj.data.layerOnOff == "on"){
-					layers.push(obj.data.layerId);
-				}
+			
+			//측정지점
+			if(measureOnOff == "on"){
+				layers.push("3")
 			}
-		});
-		
-		//항공사진
-		if(droneOnOff == "on"){
-			if(cboDroneDate.value != null)
-				layers.push(cboDroneDate.value);
-		}
-		
-		//클로로필
-		if(chlOnOff == "on"){
-			if(cboDroneChla.value != null)
-				layers.push(cboDroneChla.value);
-		}
-		
-		//측정지점
-		if(measureOnOff == "on"){
-			layers.push("3");
-		}
-		
-		console.info(layers);
-		activeLayer.setVisibleLayers([-1]);
-		
-		if(layers.length > 0)
-			activeLayer.setVisibleLayers(layers);
+			
+			activeLayer.setVisibleLayers([-1]);
+			
+			if(layers.length > 0)
+				activeLayer.setVisibleLayers(layers);
+		}, 1);
 	},
 	
 	//featureLayer on / off

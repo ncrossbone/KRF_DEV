@@ -18,7 +18,7 @@ Ext.define('KRF_DEV.store.drone.FeatureStoreLayerAdmin2', {
 		load: function(map) {
 			var me = this;
 		    me.map = map;
-		    console.info();
+		    //console.info();
 		    //console.info("dd");
 		 // store에서 맵서비스 URL 가져오기
 	        var store = Ext.create('KRF_DEV.store.drone.AppVariable');

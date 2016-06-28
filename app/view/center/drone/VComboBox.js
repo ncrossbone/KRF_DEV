@@ -59,6 +59,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    		xtype: 'combo',
 	    		width: "100%",
 	    		height: me.comboHeight,
+				editable : false,
 	    		//store: ["<img src='./resources/images/drone/chk_off.png' /> test1", "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' /><img src='./resources/images/drone/layer_icon_04.png' style='vertical-align: middle; margin-bottom: 0.25em;' /> 클로로필a"],
 	    		store: comboStore,
 	    		listConfig: {
@@ -80,7 +81,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    			}
 	    		},
 	    		valueField: me.valueField,
-	    		displayField: me.displayField
+	    		displayField: me.displayField,
+	    		emptyText: "선택하세요"
 	    	}]
 	    }];
 	    
