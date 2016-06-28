@@ -68,13 +68,17 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		Ext.defer(function(){
 			var store = cboDroneDate.getStore();
 			
-			for(var i = 0 ; i<store.data.items.length ; i++){
+			
+			droneLayerId = store.data.items[0].data.DroneLayerId;
+			drone = store.data.items[0].data;
+			measureDate = store.data.items[0].data.MeasureDate;
+			/*for(var i = 0 ; i<store.data.items.length ; i++){
 				if(i == store.data.items.length-1){
-					droneLayerId = store.data.items[i].data.DroneLayerId;
-					drone = store.data.items[i].data;
-					measureDate = store.data.items[i].data.MeasureDate;
+					droneLayerId = store.data.items[0].data.DroneLayerId;
+					drone = store.data.items[0].data;
+					measureDate = store.data.items[0].data.MeasureDate;
 				}
-			}
+			}*/
 			
 			me.defaultDate(droneLayerId,measureDate,drone);
 		}, 1);
@@ -328,6 +332,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		var droneOnOff = "";
 		var chlOnOff = "";
+		var measureOnOff = "";
 		var wbSiteOnOff = "";
 		
 		
