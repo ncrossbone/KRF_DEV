@@ -347,28 +347,31 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			if(obj.data.layerId == "Drone"){
 				droneOnOff = obj.data.layerOnOff;
 			}
-			
-			if(obj.data.layerId == "Chla"){
+			else if(obj.data.layerId == "Chla"){
 				chlOnOff = obj.data.layerOnOff;
 			}
-			
-			if(obj.data.id == "reachLine"){
+			else if(obj.data.id == "reachLine"){
 				
 				// 주제도 선택에 리치노드, 리치라인 On/Off
 				for(var i = 0; i < obj.data.layerId.length; i++){
 					Layer01OnOff(obj.data.layerId[i], obj.data.layerOnOff);
 				}
 			}
+			else{
+				if(obj.data.layerOnOff == "on"){
+					layers.push(obj.data.layerId);
+				}
+			}
 		});
 		
 		if(droneOnOff == "on"){
 			if(cboDroneDate.value != null)
-				layers.push(cboDroneDate.value)
+				layers.push(cboDroneDate.value);
 		}
 		
 		if(chlOnOff == "on"){
 			if(cboDroneChla.value != null)
-				layers.push(cboDroneChla.value)
+				layers.push(cboDroneChla.value);
 		}
 		
 		activeLayer.setVisibleLayers([-1]);
