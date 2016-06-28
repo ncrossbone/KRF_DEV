@@ -231,7 +231,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 					}
 				}
 
-			
+			}	
 		}
 		
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
