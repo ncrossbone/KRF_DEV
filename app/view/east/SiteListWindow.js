@@ -299,7 +299,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		// 리치정보 띄우기
 		me.setCatIds(record, true);
 		ShowSearchResultReach(me.catIds);
-		
+		//alert(record.data.catDId);
 		Ext.defer(function(){
 			ReachSelectedFocus(record.data.catDId);
 		}, 1000, this);

@@ -17,7 +17,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 		items: [{
 			xtype: 'grid',
 			cls: 'khLee-x-column-header-text',
-			plugins: ['bufferedrenderer', 'gridfilters'],
+			//plugins: ['bufferedrenderer', 'gridfilters'],
+			plugins: ['gridfilters'], // bufferedrenderer 쓰면 그리드 스크롤링(gridCtl.getView().getRow(rowIdx).scrollIntoView();)이 잘 안먹음, rowindex가 높을때..(한강, 한강서울 검색확인) -- 임시
 			siteIds: "",
 			parentIds: [],
 			header: {
