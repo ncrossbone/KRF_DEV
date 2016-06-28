@@ -10,6 +10,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     
     headerPosition: 'left',
     
+    controller: 'VComboBoxController',
+    
     header: {
     	html: "<img src='./resources/images/drone/title.png' />",
 		width: 65,
@@ -168,8 +170,12 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	style: "cursor: pointer;",
         	listeners: {
         		el: {
+        			click: "onClickResetButton"
+        		}
+        	}
+        	/*listeners: {
+        		el: {
 	        		click: function(){
-	        			
 	        			var me = Ext.getCmp('_mapDiv_');
 	        			if(me.map == null){
 	        				return;
@@ -184,17 +190,16 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
 	        			console.info(cboDroneArea.lastValue);
 	        			if(cboDroneArea.lastValue == "R02"){
 	    					activeLayer = me.map.getLayer("DroneFeatureLayer1");
-	    					activeLayer.setVisibility(false);
 	    				}else if(cboDroneArea.lastValue == "R01_1"){
 	    					activeLayer = me.map.getLayer("DroneFeatureLayer2");
-	    					activeLayer.setVisibility(false);
 	    				}else if(cboDroneArea.lastValue == "R01_2"){
 	    					activeLayer = me.map.getLayer("DroneFeatureLayer3");
-	    					activeLayer.setVisibility(false);
 	    				}else{
 	    					activeLayer = me.map.getLayer("DroneFeatureLayer4");
-	    					activeLayer.setVisibility(false);
 	    				}
+	        			
+	        			if(activeLayer != undefined && activeLayer != null)
+	        				activeLayer.setVisibility(false);
 	        			
 	        			
 	        			
@@ -225,59 +230,11 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
 	        			me.initVComboBox(cboDroneLayer);
 	        			
 	        			
-	        			
-	        			
 	        		}
         		}
-        	}
+        	}*/
         }]
     }],
-    
-    initComponent: function(){
-    	
-    	this.callParent();
-    	
-    	var totWidth = 0;
-    	
-    	Ext.each(this.items.items, function(){
-    		totWidth += this.width;
-    	});
-    	
-    	totWidth += this.header.width;
-    	//console.info(totWidth);
-    	this.width = totWidth;
-    	
-    	var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
-    	cboDroneArea.emptyText = "선택하세요";
-    	
-    	var cboDroneSiteList = Ext.getCmp("cboDroneSiteList").down("combo");
-    	cboDroneSiteList.emptyText = "선택하세요";
-    	
-    	var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
-		cboDroneDate.emptyText = "선택하세요";
-		
-		/* 클로로필a 바인딩 */
-		var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
-		cboDroneChla.emptyText = "선택하세요";
-		
-		/* 조류측정자료 바인딩 */
-		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
-		cboDroneWBSite.emptyText = "선택하세요";
-		
-		
-		/* 지점목록 바인딩 */
-		var cboDroneSiteList = Ext.getCmp("cboDroneSiteList").down("combo");
-		cboDroneSiteList.value = "선택하세요";
-		
-		
-		var cboDroneLayer =Ext.getCmp("cboDroneLayer").down("combo");
-		cboDroneLayer.emptyText = "선택하세요";
-    	
-    	
-    	
-    	
-    	
-    },
     
     // VComboBox 초기화
     initVComboBox: function(comboCtl){

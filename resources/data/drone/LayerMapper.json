@@ -282,8 +282,8 @@
 	}, {
 		"layerId": "Chla",
 		"layerName": "Chl-a",
-		"layerOnOff": "off",
-		"image1": "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"layerOnOff": "on",
+		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_06.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "true"
 	}, {

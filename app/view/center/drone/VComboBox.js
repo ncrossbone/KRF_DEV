@@ -81,7 +81,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    			}
 	    		},
 	    		valueField: me.valueField,
-	    		displayField: me.displayField
+	    		displayField: me.displayField,
+	    		emptyText: "선택하세요"
 	    	}]
 	    }];
 	    
