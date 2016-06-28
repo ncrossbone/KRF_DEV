@@ -328,6 +328,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		var droneOnOff = "";
 		var chlOnOff = "";
+		var measureOnOff = "";
 		var wbSiteOnOff = "";
 		
 		
@@ -367,7 +368,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		//측정지점
 		if(measureOnOff == "on"){
-			layers.push("3")
+			layers.push("3");
 		}
 		
 		console.info(layers);
