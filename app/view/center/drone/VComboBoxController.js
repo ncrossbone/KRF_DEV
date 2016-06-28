@@ -382,7 +382,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
 			
-			//console.info(chlLegend);
+			if(chlLegend == undefined || chlLegend == null){
+				chlLegend = Ext.create('KRF_DEV.view.center.drone.LegendChl');
+			}
+			
+			console.info();
 			var layers = [];
 			
 			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
@@ -428,9 +432,16 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 
 			//클로로필
 			if(chlOnOff == "on"){
-				//chlLegend.show();
-				if(cboDroneChla.value != null)
+				
+				if(cboDroneChla.value != null){
+					chlLegend.show();
 					layers.push(cboDroneChla.value);
+				}else{
+					chlLegend.hide();
+				}
+					
+			}else{
+				chlLegend.hide();
 			}
 			
 			//측정지점
