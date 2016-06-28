@@ -31,7 +31,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             xtype: 'treecolumn', //this is so we know which column will show the tree
             text: '지점',
             //header: false,
-            width: 200,
+            width: 180,
             sortable: true,
             dataIndex: 'text',
             locked: true,
@@ -167,7 +167,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             }
         }, {
             text: '관련리치',
-            width: 80,
+            width: 95,
             //xtype: 'templatecolumn',
             tooltip: '관련리치',
             dataIndex: 'catDId',
@@ -301,7 +301,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		ShowSearchResultReach(me.catIds);
 		
 		Ext.defer(function(){
-			//ReachSelectedFocus(record.data.catDId);
+			ReachSelectedFocus(record.data.catDId);
 		}, 1000, this);
 	}
 });

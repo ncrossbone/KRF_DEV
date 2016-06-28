@@ -425,7 +425,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				if(cboDroneDate.value != null)
 					layers.push(cboDroneDate.value);
 			}
-			
+
 			//클로로필
 			if(chlOnOff == "on"){
 				//chlLegend.show();
