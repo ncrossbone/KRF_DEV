@@ -1079,7 +1079,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				if(points != undefined){
 					
 					for(var j = 0; j < points.length; j++){
-						console.info(points[j][0]);
+						//console.info(points[j][0]);
 						//points[j][0] = points[j][0] + offset;
 					}
 				}

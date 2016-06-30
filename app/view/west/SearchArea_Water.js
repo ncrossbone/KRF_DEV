@@ -181,7 +181,12 @@ Ext
 										// text: '선택',
 										cls : 'khLee-x-button-select'
 									} ]
-								} ]
+								}
+								,
+								{
+									xtype : 'container',
+									height : 7
+								}]
 					} ]
 
 				});

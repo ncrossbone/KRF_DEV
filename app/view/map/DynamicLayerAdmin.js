@@ -34,6 +34,16 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 //		me.map.addLayer(me.featureLayer71);
 		
 		KRF_DEV.getApplication().addListener('dynamicLayerOnOff', me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
+		KRF_DEV.getApplication().addListener('drondynamicLayerOnOff', me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
+    },
+    
+    // 레이어 on/off 핸들러 정의
+    drondynamicLayerOnOffHandler: function(selectInfo){
+    	
+    	
+    	
+    	
+    	
     },
     
     // 레이어 on/off 핸들러 정의

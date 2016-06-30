@@ -51,7 +51,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F', {
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			console.info(Ext.getCmp("searchResultContainer_F_Id"));
+			//console.info(Ext.getCmp("searchResultContainer_F_Id"));
 			Ext.getCmp("searchResultContainer_F_Id").removeCls("dj-mask-noneimg");
 			Ext.getCmp("searchResultContainer_F_Id").addCls("dj-mask-withimg");
 			Ext.getCmp("searchResultContainer_F_Id").mask("loading", "loading...");
