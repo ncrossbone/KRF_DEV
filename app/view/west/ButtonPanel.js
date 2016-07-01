@@ -40,30 +40,33 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
     
 	    this.items = [{
 	    	xtype: 'image',
-	    	id: 'btnLayer',
+	    	id: 'btnSearchArea',//btnSearchArea
 	    	groupId: 'group1',
+	    	title: '위치검색',//위치검색
+	    	style: 'left: 0px !important;',
+	    	width: this.itemWidth,
+	    	height: this.itemHeight-22,
+	    	//listeners: this.onClickListener,
+	    	btnOnOff: 'on',
+	    	btnOnImg: './resources/images/button/left_menu01_on.png',
+	    	btnOffImg: './resources/images/button/left_menu01_on.png',
+	    	//src: './resources/images/button/left_menu01_on.png'
+	    	src: './resources/images/button/left_menu01_on.png'
+	    }, {
+	    	xtype: 'image',
+	    	id: 'btnLayer',
+	    	groupId: 'group1',//onClickLayer
 	    	title: '주제도선택',
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
-	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
-	    	btnOnOff: 'on',
-	    	btnOnImg: './resources/images/button/left_menu01_on.png',
-	    	btnOffImg: './resources/images/button/left_menu01.png',
-	    	src: './resources/images/button/left_menu01.png'
-	    }, {
-	    	xtype: 'image',
-	    	id: 'btnSearchArea',
-	    	groupId: 'group1',
-	    	title: '위치검색',
-	    	style: 'left: 0px !important;',
-	    	width: this.itemWidth,
-	    	height: this.itemHeight,
-	    	listeners: this.onClickListener,
-	    	btnOnOff: 'on',
+	    	height: this.itemHeight-53,
+	    	//listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickLayer' } },
+	    	//listeners: { el: { click: 'onClickLayer' } },
+	    	btnOnOff: 'off',
 	    	btnOnImg: './resources/images/button/left_menu02_on.png',
 	    	btnOffImg: './resources/images/button/left_menu02.png',
-	    	src: './resources/images/button/left_menu02_on.png'
+	    	src: './resources/images/button/left_menu02.png'
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnSiteListWindow',
@@ -93,6 +96,20 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	btnOnImg: './resources/images/button/left_menu04_on.png',
 	    	btnOffImg: './resources/images/button/left_menu04.png',
 	    	src: './resources/images/button/left_menu04.png'
+	    }, {
+	    	xtype: 'image',
+	    	id: 'btnSearchDrone',
+	    	groupId: 'group6',
+	    	title: '검색결과',
+	    	style: 'left: 0px !important;',
+	    	width: this.itemWidth,
+	    	height: this.itemHeight,
+	    	//listeners: this.onClickListener,
+	    	listeners: { el: { click: 'onClickDrone' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/left_menu08_on.png',
+	    	btnOffImg: './resources/images/button/left_menu08.png',
+	    	src: './resources/images/button/left_menu08.png'
 	    }, '->', {
 	    	xtype: 'image',
 	    	id: 'btnModeNomal',
@@ -100,7 +117,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	title: '일반모드',
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
-	    	height: this.itemHeight,
+	    	height: this.itemHeight-5,
 	    	listeners: this.onClickListener,
 	    	btnOnOff: 'on',
 	    	btnOnImg: './resources/images/button/left_menu05_on.png',
@@ -113,7 +130,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	title: '리치모드',
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
-	    	height: this.itemHeight,
+	    	height: this.itemHeight+4,
 	    	listeners: this.onClickListener,
 	    	btnOnOff: 'off',
 	    	btnOnImg: './resources/images/button/left_menu06_on.png',

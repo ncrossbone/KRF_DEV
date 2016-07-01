@@ -6,6 +6,37 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	
 	endBtnOnOff: 'off',
 	
+	//btnSearchDrone
+	// 주제도 선택
+	onClickDrone: function(obj, el, evt){
+		// 버튼 On/Off
+
+		var currCtl = SetBtnOnOff(el.id);
+		var droneCtl = Ext.getCmp("droneToolbar");
+		//console.info(droneCtl);
+		
+		if(currCtl.btnOnOff == "on"){
+			droneCtl.show();
+		}else{
+			droneCtl.hide();
+		}
+	},
+	
+	
+	
+	// 주제도 선택
+	onClickLayer: function(obj, el, evt){
+		// 버튼 On/Off
+		//console.info(el.id);
+		var currCtl = SetBtnOnOff(el.id);
+		
+		if(currCtl.btnOnOff == "on"){
+			Ext.WestTabChange(0);
+		}else{
+			Ext.WestTabChange(1);
+		}
+	},
+	
 	// 정보창 클릭
 	onClickInfo: function(obj, el, evt){
 		// 버튼 On/Off
@@ -120,7 +151,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		var currCtl = SetBtnOnOff(el.id, "on");
 		
 		// 주제도선택
-		if(el.id == "btnLayer"){
+		/*if(el.id == "btnLayer"){
 			Ext.WestTabChange(0);
 		}
 		
@@ -128,7 +159,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		if(el.id == "btnSearchArea"){
 			Ext.WestTabChange(1);
 		}
-		
+		*/
 		// 리치모드 버튼
 		if(el.id == "btnModeReach" || el.id == "btnModeReach_center"){
 			
