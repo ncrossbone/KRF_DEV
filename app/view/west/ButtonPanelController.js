@@ -42,20 +42,38 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
-		if(currCtl.btnOnOff == "off"){
-			Ext.HideSiteListWindow(currCtl);
-			HideWindowSiteNChart();
+		//추가 160704 pdj
+		var listWinCtl = Ext.getCmp("siteListWindow");
+		var windowSiteNChart = Ext.getCmp("windowSiteNChart");
+		
+		if(listWinCtl != undefined){
+			if(currCtl.btnOnOff == "off"){
+				listWinCtl.hide();
+				if(windowSiteNChart != undefined){
+					windowSiteNChart.hide();
+				}	
+				/*Ext.HideSiteListWindow(currCtl);
+				HideWindowSiteNChart();*/
+			}
+			else{
+				listWinCtl.show();
+				
+				if(windowSiteNChart != undefined){
+					windowSiteNChart.show();
+				}
+					
+				//Ext.ShowSiteListWindow("test");
+			}
 		}
-		else{
-			Ext.ShowSiteListWindow("test");
-		}
+		
 	},
 	
 	// 검색결과창 클릭
 	onClickResult: function(obj, el, evt){
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
-		
+		//console.info(el.id);
+		var searchResultWindow = Ext.getCmp("searchResultWindow");
 		/*
 		if(currCtl.btnOnOff == "off"){
 			Ext.HideSearchResult();
@@ -64,20 +82,24 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.ShowSearchResult("grid-tab-2", "하천수");
 		}
 		*/
-		
-		if(currCtl.btnOnOff == "on"){
-			ShowSearchResult(_searchType);
+		if(searchResultWindow != undefined){
+			if(currCtl.btnOnOff == "on"){
+				//ShowSearchResult(_searchType);
+				searchResultWindow.show();
+			}
+			else{
+				//HideSearchResult();
+				searchResultWindow.hide();
+			}
 		}
-		else{
-			HideSearchResult();
-		}
+			
 		
 	},
 	
 	onClickFavorite: function(obj, el, evt){
 		
 		// 버튼 On/Off
-		//var currCtl = SetBtnOnOff(el.id);
+		var currCtl = SetBtnOnOff(el.id);
 		
 		var popSaveCtl = Ext.getCmp("popSave");
 		if(popSaveCtl != undefined)

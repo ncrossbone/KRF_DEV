@@ -184,6 +184,11 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	            	if(record.data.leaf == true){
 						if(record.data.id != undefined){
 							
+							currCtl = Ext.getCmp("btnSearchResult");
+	        				if(currCtl.btnOnOff == "off"){
+	        					SetBtnOnOff("btnSearchResult");
+	        				}
+							
 							// 집수구역, 지점 이동, 리치정보 하이라이트
 							var me = this.up("window");
 							me.moveCommon(record);
@@ -272,12 +277,23 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     },
     
     initComponent: function(){
+    	
+    	var me = this;
+    	
 		this.on("beforeclose", function windSitreNChartClose(){
 			var windowSiteNChart = Ext.getCmp("windowSiteNChart");
 			if(windowSiteNChart != undefined){
-				windowSiteNChart.close();
+				//windowSiteNChart.close();
+				windowSiteNChart.hide();
 			}
+			//btnSiteListWindow
 			
+			//160704 pdj x = hide
+			var currCtl = SetBtnOnOff("btnSiteListWindow");
+			me.hide();
+			
+			
+			return false;
 		});
 		this.callParent();
 		

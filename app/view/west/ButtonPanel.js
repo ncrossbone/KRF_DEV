@@ -146,7 +146,10 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	height: this.itemHeight,
 	    	listeners: { el: { click: 'onClickFavorite' } },
 	    	btnOnOff: 'off',
-	    	src: './resources/images/button/left_menu07.png'
+	    	btnOnOff: 'off',
+		    btnOnImg: './resources/images/button/left_menu07_on.png',
+		    btnOffImg: './resources/images/button/left_menu07.png',
+		    src: './resources/images/button/left_menu07.png'
 	    }];
 	    
 	    this.callParent();

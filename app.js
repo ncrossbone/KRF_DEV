@@ -210,8 +210,10 @@ Ext.application({
 
 			// //console.info(searchText);
 			listWinCtl = Ext.getCmp("siteListWindow");
-			if (listWinCtl == undefined)
+			//console.info(listWinCtl);
+			if (listWinCtl == undefined){
 				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
+			}	
 
 			listWinCtl.show();
 			// alert("dd");
@@ -235,15 +237,19 @@ Ext.application({
 		Ext.HideSiteListWindow = function(currCtl) {
 
 			listWinCtl = Ext.getCmp("siteListWindow");
+			//console.info(listWinCtl);
 
 			if (listWinCtl != undefined)
+				//listWinCtl.hide();
 				listWinCtl.close();
 
 
 			listWinCtl = Ext.getCmp("siteListWindow_reach");
 
 			if (listWinCtl != undefined)
+				//listWinCtl.hide();
 				listWinCtl.close();
+			
 
 			// 좌측 정보창 버튼 off
 			SetBtnOnOff("btnSiteListWindow", "off");
@@ -256,8 +262,7 @@ Ext.application({
 			infoWinCtl = Ext.getCmp("siteInfoWindow");
 
 			if (infoWinCtl == undefined)
-				infoWinCtl = Ext
-						.create('KRF_DEV.view.east.SiteInfoWindow');
+				infoWinCtl = Ext.create('KRF_DEV.view.east.SiteInfoWindow');
 
 			infoWinCtl.show();
 

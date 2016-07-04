@@ -341,11 +341,13 @@ HideWindowSiteNChart = function(){
 	var winCtl = Ext.getCmp("windowSiteNChart");
 	////console.info(winCtl);
 	if(winCtl != undefined)
-		winCtl.close();
+		//winCtl.close();
+		winCtl.hide();
 	
 	winCtl = Ext.getCmp("datePanel1");
 	if(winCtl != undefined)
-		winCtl.close();
+		//winCtl.close();
+		winCtl.hide();
 
 }
 
