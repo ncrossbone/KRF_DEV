@@ -173,6 +173,8 @@ Ext.define('KRF_DEV.view.main.Main', {
     		
     		droneCtl.setY(bodyHeight - droneToolHeight);
     	}
+    	//default 숨김
+    	droneCtl.hide();
     	/* Drone 툴바 위치 조절 끝 */
     }
 });
