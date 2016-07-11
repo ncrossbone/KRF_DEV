@@ -86,6 +86,7 @@ Ext.define('KEF_DEV.view.center.Center', {
 	
 	items: [{
 		xtype: 'app-map-coreMap'
+			
 	}/*, {
 		//title: '북한강',
 		//header: false,

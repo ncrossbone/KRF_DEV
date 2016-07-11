@@ -984,6 +984,8 @@ HideSearchResult = function(){
 		searchResultWindow.close();
 		//searchResultWindow.hide();
 	}
+	
+	SetBtnOnOff("btnSearchResult", "off");
 }
 
 // WindowControl 오브젝트 리턴
@@ -1682,10 +1684,12 @@ ResetStEdSiteName = function(){
 	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
 	var textSearchText_End = Ext.getCmp("textSearchText_End");
 	
-	reachNameToolbar.items.items[0].setValue("");
+	if(reachNameToolbar != undefined){
+		reachNameToolbar.items.items[0].setValue("");
+		reachNameToolbar.items.items[1].setValue("");
+	}
+	
 	textSearchText_Start.setValue("");
-
-	reachNameToolbar.items.items[1].setValue("");
 	textSearchText_End.setValue("");
 }
 
