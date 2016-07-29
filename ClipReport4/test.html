@@ -13,9 +13,27 @@
 <script type='text/javascript'>
 var urlPath = document.location.protocol + "//" + document.location.host;
 function html2xml(divPath) {
-	var report = "%root%/crf/CLIP.crf";
-	var oof = "<?xml version='1.0' encoding='utf-8'?><oof version='3.0'><document title='report' enable-thread='0'><file-list><file type='reb.root' communicationType='local' path='" + report + "'></file></file-list></document></oof>";
-    var report = createReport(urlPath + "/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
+	//var report = "%root%/crf/CLIP.crf";
+	var report = "D:\\_0010_Cetech_Workspace\\_000_Git\\KRF_DEV\\crf\\rptTest.crf";
+	var imgFieldName = "GIS_IMAGE";
+	var imgFieldPath = "D:\\_0010_Cetech_Workspace\\_000_Git\\KRF_DEV\\resources\\images\\symbol\\spot_01.png";
+	
+	var oof = 
+		"<?xml version='1.0' encoding='utf-8'?>\r\n"
+	  + "<oof version='3.0'>"
+	  + "	<document title='report' enable-thread='0'>"
+	  + "		<file-list>" // 리포트 파일 목록
+	  + "			<file type='reb.root' communicationType='local' path='" + report + "'>" // 리포트 파일 1
+	  + "				<field-list>" // 매개변수 필드 목록
+	  + "					<field name='" + imgFieldName + "'>" + imgFieldPath + "</field>" // 이미지 경로 필드
+	  + "				</field-list>" // 매개변수 필드 목록 끝
+	  + "			</file>" // 리포트 파일 1 끝
+	  + "		</file-list>" // 리포트 파일 목록 끝
+	  + "	</document>"
+	  + "</oof>";
+			
+			console.info(oof);
+    var report = createReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
     //리포트 뷰어의 옵션
     report.setSlidePage(true);
     //리포트 뷰어 실행

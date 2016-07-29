@@ -183,6 +183,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	
 	capture:function(){
 		var me = this;
+		alert("dd");
 		me.printTask.capture();
 	},
 	
