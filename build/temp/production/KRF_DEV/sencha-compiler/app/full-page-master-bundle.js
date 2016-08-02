@@ -1,2 +1,2 @@
 // @tag full-page
-// @require F:\PARKHYEOK\ALL_WORKSPACES\KRF_WORKSPACE\KRF_DEV\app.js
+// @require D:\_0010_Cetech_Workspace\_000_Git\KRF_DEV\app.js

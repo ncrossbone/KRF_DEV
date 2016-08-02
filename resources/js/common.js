@@ -341,11 +341,13 @@ HideWindowSiteNChart = function(){
 	var winCtl = Ext.getCmp("windowSiteNChart");
 	////console.info(winCtl);
 	if(winCtl != undefined)
-		winCtl.close();
+		//winCtl.close();
+		winCtl.hide();
 	
 	winCtl = Ext.getCmp("datePanel1");
 	if(winCtl != undefined)
-		winCtl.close();
+		//winCtl.close();
+		winCtl.hide();
 
 }
 
@@ -982,6 +984,8 @@ HideSearchResult = function(){
 		searchResultWindow.close();
 		//searchResultWindow.hide();
 	}
+	
+	SetBtnOnOff("btnSearchResult", "off");
 }
 
 // WindowControl 오브젝트 리턴
@@ -1522,7 +1526,7 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
 	
 	// 주제도 레이어 키기
-	Layer01OnOff(layerId);
+	Layer01OnOff(layerId, "on");
 }
 
 OpenMenualPop = function(){
@@ -1582,7 +1586,7 @@ ResetButtonClick = function(){
 }
 
 // 주제도 레이어 on/off
-Layer01OnOff = function(layerId){
+Layer01OnOff = function(layerId, onoff){
 	
 	//console.info(layerId);
 	if(layerId == undefined || layerId == null || layerId == ""){
@@ -1591,11 +1595,30 @@ Layer01OnOff = function(layerId){
 	
 	var treeCtl = Ext.getCmp("layer01");
 	var node = treeCtl.getStore().getNodeById(layerId);
-	if(node.data.checked == false){
-		////console.info(node);
+	
+	var isChecked = false;
+	
+	if(onoff == "on"){
+		node.set("checked", true);
+	}
+	else if(onoff == "off"){
+		node.set("checked", false);
+	}
+	else{
+		if(node.data.checked == false){
+			node.set("checked", true);
+		}
+		else{
+			node.set("checked", false);
+		}
+	}
+	
+	treeCtl.fireEvent('checkchange', node, node.data.checked, null);
+	
+	/*if(node.data.checked == false){
 		node.set("checked", true);
 		treeCtl.fireEvent('checkchange', node, true, null);
-	}
+	}*/
 }
 
 runStartEnd = function(option){
@@ -1661,10 +1684,12 @@ ResetStEdSiteName = function(){
 	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
 	var textSearchText_End = Ext.getCmp("textSearchText_End");
 	
-	reachNameToolbar.items.items[0].setValue("");
+	if(reachNameToolbar != undefined){
+		reachNameToolbar.items.items[0].setValue("");
+		reachNameToolbar.items.items[1].setValue("");
+	}
+	
 	textSearchText_Start.setValue("");
-
-	reachNameToolbar.items.items[1].setValue("");
 	textSearchText_End.setValue("");
 }
 

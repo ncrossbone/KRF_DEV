@@ -285,12 +285,12 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		//me.reachLayerAdmin_v3.drawEnd();
 		me.reachLayerAdmin_v3_New.drawEnd();
 		
+		//SetBtnOnOff("btnSearchResult");
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.radiusDraw("ADD", el.id);
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("CIRCLE", el.id); // v3
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("circle"); // v3
 		}
-		
 	},
 
 	onClickButton: function(btn, el, evt) {

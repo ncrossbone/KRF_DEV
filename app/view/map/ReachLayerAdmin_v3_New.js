@@ -1079,7 +1079,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				if(points != undefined){
 					
 					for(var j = 0; j < points.length; j++){
-						console.info(points[j][0]);
+						//console.info(points[j][0]);
 						//points[j][0] = points[j][0] + offset;
 					}
 				}
@@ -1224,6 +1224,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			// 해당 집수구역 조회, 그리기
 			me.selectAreaWithLine(graphic, "draw");
     	}
+    	
+    	//160705 pdj 그리기 완료후 검색결과 on
+    	SetBtnOnOff("btnSearchResult");
     },
     
     /* 라인 지우기 */

@@ -12,42 +12,48 @@ Ext.define('KRF_DEV.view.main.Main', {
     viewModel: {
         type: 'main'
     },
-
-    layout: {
-        type: 'vbox'
-    },
     
+    layout: {
+		type: "absolute"
+	},
+
     items: [{
-    	xtype: 'app-default-north',
-    	width: '100%',
-    	id: 'north_container',
-    	weight: 1
-    }, {
-    	xtype: 'container',
+    	xtype: "container",
     	layout: {
-    		type: 'hbox'
-    	},
-    	items: [{
-    		xtype: 'west-buttonpanel',
-    		id: 'west_buttonpanel'
-    	}, {
-    		xtype: 'container',
-    		id: 'cont_container',
-    		layout: {
-    			type: 'border'
-    		},
-    		height: '100%',
-    		items: [{
-    			xtype: 'app-default-west',
-    	        region: 'west',
-    	        id: 'west_container'
-    		}, {
-    	    	xtype: 'app-default-center',
-    	    	region: 'center',
-    	    	id: 'center_container'
-    	    }]
-    	}],
-    	weight: 2
+            type: 'vbox'
+        },
+        items: [{
+        	xtype: 'app-default-north',
+        	width: '100%',
+        	id: 'north_container',
+        	weight: 1
+        }, {
+        	xtype: 'container',
+        	layout: {
+        		type: 'hbox'
+        	},
+        	items: [{
+        		xtype: 'west-buttonpanel',
+        		id: 'west_buttonpanel'
+        	}, {
+        		xtype: 'container',
+        		id: 'cont_container',
+        		layout: {
+        			type: 'border'
+        		},
+        		height: '100%',
+        		items: [{
+        			xtype: 'app-default-west',
+        	        region: 'west',
+        	        id: 'west_container'
+        		}, {
+        	    	xtype: 'app-default-center',
+        	    	region: 'center',
+        	    	id: 'center_container'
+        	    }]
+        	}],
+        	weight: 2
+        }],
     }],
     
     initComponent: function(){
@@ -115,6 +121,15 @@ Ext.define('KRF_DEV.view.main.Main', {
     	KRF_DEV.getApplication().contWestContainer = Ext.getCmp('west_container');
     	KRF_DEV.getApplication().contCenterContainer = Ext.getCmp('center_container');
     	
+    	/* >>>> khLee Drone 툴바 추가 20160613 */
+    	var droneToolbar = Ext.create('KRF_DEV.view.center.drone.DroneToolbar', {
+    		x: 390,
+    		y: Ext.getBody().getHeight() / 2 - 8
+    	});
+    	this.add(droneToolbar);
+    	//KRF_DEV.getApplication().contCenterContainer.add(droneToolbar);
+    	/* <<<< khLee Drone 툴바 추가 20160613 */
+    	
     	//var contWestPlaceholder = Ext.get('west_container-placeholder');
     	//console.info(contWestPlaceholder);
     	
@@ -138,6 +153,28 @@ Ext.define('KRF_DEV.view.main.Main', {
     	contContainer.setWidth(Ext.getBody().getViewSize().width - westBtnContainer.width);
     	contContainer.setHeight(Ext.getBody().getViewSize().height - northContainer.height);
     	
+    	/* Drone 툴바 위치 조절 */
+    	var droneCtl = Ext.getCmp("droneToolbar");
+    	
+    	var droneToolX = droneCtl.x;
+    	var droneToolWidth = droneCtl.width;
+    	var bodyWidth = Ext.getBody().getWidth();
+    	
+    	if(droneToolX + droneToolWidth > bodyWidth){
+    		
+    		droneCtl.setX(bodyWidth - droneToolWidth);
+    	}
+    	
+    	var droneToolY = droneCtl.y;
+    	var droneToolHeight = droneCtl.height;
+    	var bodyHeight = Ext.getBody().getHeight();
+    	
+    	if(droneToolY + droneToolHeight > bodyHeight){
+    		
+    		droneCtl.setY(bodyHeight - droneToolHeight);
+    	}
+    	//default 숨김
+    	droneCtl.hide();
+    	/* Drone 툴바 위치 조절 끝 */
     }
-    
 });
