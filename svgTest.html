@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+</head>
+
+<body>
+  <svg id="svgOne" xmlns="http://www.w3.org/2000/svg" width="5000" height="3000"> 
+            <rect x="50" y="50"
+            width="50" height="50"
+            fill="yellow" 
+            />
+			<text x="60" y="70">Test</text>
+</svg>
+<script>
+
+    var svgns = "http://www.w3.org/2000/svg";
+for (var i = 0; i < 100; i++) {
+    var x = Math.random() * 5000,
+        y = Math.random() * 3000;
+
+    var rect = document.createElementNS(svgns, 'rect');
+    rect.setAttributeNS(null, 'x', x);
+    rect.setAttributeNS(null, 'y', y);
+    rect.setAttributeNS(null, 'height', '50');
+    rect.setAttributeNS(null, 'width', '50');
+    rect.setAttributeNS(null, 'fill', '#'+Math.round(0xffffff * Math.random()).toString(16));
+    document.getElementById('svgOne').appendChild(rect);
+	
+	var text = document.createElementNS(svgns, 'text');
+	text.setAttributeNS(null, "x", x + 10);
+	text.setAttributeNS(null, "y", y + 20);
+	var textNode = document.createTextNode("Test");
+	text.appendChild(textNode);
+	document.getElementById('svgOne').appendChild(text);
+}
+
+  </script>
+</body>
+
+</html>
