@@ -39,7 +39,36 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'container',
 		flex: 1
-	}, { 
+	}, {
+		xtype: 'button',
+    	text: '리포트',
+    	width: 69,
+    	height: 37,
+    	listeners: {
+    		el: {
+    			click: function(){
+    				
+    				var boardCtl = Ext.getCmp("clipButton");
+    				
+    				
+    				
+    				console.info(boardCtl);
+    				if (boardCtl == undefined){
+    					clipButton = Ext.create('KRF_DEV.view.map.ClipButton');
+    					var clipChart = Ext.getCmp("clipChart");
+    					console.info(clipChart);
+    				}
+    				
+    				boardCtl.show();
+    				
+    			}
+    		}
+    	},
+    	src: './resources/images/button/top_btn5_off.png'			
+	},{
+    	xtype: 'container',
+    	width: 5
+    }, { 
 		xtype: 'image',
 		//id: 'btnReachLayer',
 		layerId: 'baseMap',
