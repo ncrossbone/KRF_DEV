@@ -184,6 +184,13 @@ Ext.define('KRF_DEV.view.common.WindowControl', {
 		
 		
 		this.on("beforeclose", function(window){
+			
+			//160704 pdj 검색결과 hide
+			var currCtl = SetBtnOnOff("btnSearchResult");
+			
+			var searchResultWindow = Ext.getCmp("searchResultWindow");
+			searchResultWindow.hide();
+			return false;
 			//window.removeAll();
 			//me.removeAll();
 			//return;

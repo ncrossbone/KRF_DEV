@@ -43,7 +43,6 @@ Ext.define('KRF_DEV.view.map.LegendWindow', {
 		listeners: {
 			el: {
 				click: function(a, b, c, d, e, f, g, h, i){
-					
 					var closeCtl = Ext.getCmp(b.id);
 					closeCtl.up("window").close();
 				}

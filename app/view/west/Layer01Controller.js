@@ -17,7 +17,7 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 		
 		if(btnId == undefined || btnId == null){
 			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
-			this.setLinkBtn(btnId);
+			//this.setLinkBtn(btnId);
 		}
 		
 		if(!node.get('leaf')) {

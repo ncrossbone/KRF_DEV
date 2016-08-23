@@ -533,13 +533,18 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 								}
 							}
 							/** 검색설정(본류, 지류) 체크 끝 **/
-							
+							Ext.defer(function(){
+								
+								me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
+					    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
+					    		
+					    		// 검색 종료 체크
+					    		me.isStopCheck();
+								
+								me.defaultDate(droneLayerId,measureDate,drone);
+							}, 1);
 							// 상류 검색
-				    		me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
-				    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
 				    		
-				    		// 검색 종료 체크
-				    		me.isStopCheck();
 				    	}
 					}
 				});
@@ -1079,7 +1084,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				if(points != undefined){
 					
 					for(var j = 0; j < points.length; j++){
-						console.info(points[j][0]);
+						//console.info(points[j][0]);
 						//points[j][0] = points[j][0] + offset;
 					}
 				}
@@ -1224,6 +1229,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			// 해당 집수구역 조회, 그리기
 			me.selectAreaWithLine(graphic, "draw");
     	}
+    	
+    	//160705 pdj 그리기 완료후 검색결과 on
+    	SetBtnOnOff("btnSearchResult");
     },
     
     /* 라인 지우기 */
