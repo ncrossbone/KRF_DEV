@@ -76,6 +76,10 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
         	//me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin_ReachTest', me.map); // 시뮬레이션용 레이어 서비스
         	
+        	/* 레포트용 레이어 테스트 */
+        	//me.reportLayerTest = Ext.create('KRF_DEV.view.map.test.ReportLayerTest', me.map); // Dim처리 레이어
+        	/* 레포트용 레이어 테스트 끝 */
+        	
         	//dojo.require("esri.dijit.Scalebar");
         	//var scalebar = new esri.dijit.Scalebar({map:me.map, attachTo:"top-right"});
         	
