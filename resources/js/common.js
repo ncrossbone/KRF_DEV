@@ -1851,3 +1851,249 @@ setWestBodyScroll = function(){
 	bodyCtl.setStyle("height", height + "px");
 	bodyCtl.setStyle("overflow", "overlay");
 }
+
+// 이미지 정보 가져오기
+getImageInfos = function(obj, outObjInfos, callbackMethod){
+	
+	if(outObjInfos == null){
+		outObjInfos = [];
+	}
+	//console.info(obj);
+	var arrObj = [];
+	
+	if(obj[0] != undefined && obj[0] != null){
+		
+		arrObj = obj;
+	}
+	else{
+		
+		arrObj.push(obj);
+	}
+	
+	if(arrObj != undefined && arrObj != null && arrObj.length > 0){
+		
+		for(var i = 0; i < arrObj.length; i++){
+			
+			//console.info(arrObj[i].tagName.toUpperCase());
+			
+			/*if(i < 35){
+				continue;
+			}*/
+			
+			var objInfo = {};
+			
+			var imgObj = $("#" + arrObj[i].id);
+			
+			//console.info(imgObj.parent().css("opacity"));
+			//console.info(arrObj[i].id);
+			//if(arrObj[i].id.search("ReachLayerAdminBackground") != -1){
+				//console.info(arrObj[i].id.indexOf("ReachLayerAdminBackground"));
+				//console.info(imgObj.parent().css("opacity"));
+			//}
+
+			objInfo.width = imgObj.width();
+			objInfo.height = imgObj.height();
+			//objInfo.opacity = imgObj.css("opacity");
+			objInfo.opacity = imgObj.parent().css("opacity");
+			objInfo.translateX = 0;
+			objInfo.translateY = 0;
+			objInfo.src = imgObj[0].src;
+			objInfo.tagName = imgObj[0].tagName.toUpperCase();
+			objInfo.outerHTML = new XMLSerializer().serializeToString(imgObj[0]);
+			//console.info(obj.css("opacity"));
+			//console.info(objInfo.outerHTML);
+			
+			/*if(tagName == "IMG"){
+				
+				objInfo.src = imgObj[0].src;
+			}
+			else{
+				
+				var svgString = new XMLSerializer().serializeToString(imgObj[0]);
+				//console.info(svgString);
+				
+				// bota() : svg -> base64 encording
+				var imgsrc = 'data:image/svg+xml;base64,'+ btoa(svgString);
+				//console.info(imgsrc);
+				
+				objInfo.base64 = imgsrc;
+				objInfo.src = tagName;
+			}*/
+			
+			//console.info(imgObj.css('transform'));
+			//console.info(imgObj.css('-webkit-transform'));
+			//console.info(isNaN(parseInt(imgObj.css('left'))));
+			//console.info(imgObj.css('top'));
+			
+			if(imgObj.css('transform') != undefined && imgObj.css('transform') != null){
+				
+				var arr = imgObj.css('transform').split(",");
+				
+				if(arr.length > 11){
+					
+					objInfo.translateX = parseInt(arr[12]);
+					objInfo.translateY = parseInt(arr[13]);
+				}
+				else{
+					
+					objInfo.translateX = parseInt(arr[4]);
+					objInfo.translateY = parseInt(arr[5]);
+				}
+			}
+			else if(imgObj.css('-webkit-transform') != undefined && imgObj.css('-webkit-transform') != null){
+				
+				var arr = imgObj.css('-webkit-transform').split(",");
+				
+				objInfo.translateX = parseInt(arr[4]);
+				objInfo.translateY = parseInt(arr[5]);
+			}
+			
+			if(isNaN(parseInt(imgObj.css('left'))) == false && parseInt(imgObj.css('left')) != 0){
+				
+				objInfo.translateX = parseInt(imgObj.css('left').replace("px", ""));
+			}
+			
+			if(isNaN(parseInt(imgObj.css('top'))) == false && parseInt(imgObj.css('top')) != 0){
+				
+				objInfo.translateY = parseInt(imgObj.css('top').replace("px", ""));
+			}
+			
+			objInfo.translateX = 0;
+			objInfo.translateY = 0;
+			
+			console.info(objInfo);
+			outObjInfos.push(objInfo);
+		}
+		
+		var imgLoadCnt = 0;
+		
+		for(var i = 0; i < outObjInfos.length; i++){
+		
+			convertImgToBase64(outObjInfos[i], function(base64Img, outObjInfo){
+				
+				imgLoadCnt++;
+				
+				var base64Cnt = 1;
+				
+				for(var i = 0; i < outObjInfos.length; i++){
+
+					if(outObjInfos[i].base64 != undefined && outObjInfos[i].base64 != null){
+						
+						base64Cnt++;
+					}
+				}
+				
+				
+				
+				outObjInfo.base64 = base64Img;
+			});
+		}
+		
+		var tmpCnt = 0;
+		var eqlCnt = 0;
+		
+		var timerId = window.setInterval(function(){
+			
+			if(tmpCnt != imgLoadCnt){
+				
+				tmpCnt = imgLoadCnt;
+			}
+			else{
+				
+				eqlCnt++;
+				
+				if(eqlCnt > 15){
+					//console.info(outObjInfos);
+					callbackMethod.call(this, outObjInfos);
+					window.clearInterval(timerId);
+				}
+			}
+			
+			/*var base64Cnt = 0;
+			for(var i = 0; i < outObjInfos.length; i++){
+
+				if(outObjInfos[i].base64 != undefined && outObjInfos[i].base64 != null){
+					
+					base64Cnt++;
+				}
+			}
+			
+			if(base64Cnt == imgLoadCnt){
+
+				callbackMethod.call(this, outObjInfos, base64Cnt);
+				window.clearInterval(timerId);
+			}*/
+			
+		}, 100);
+	}
+	
+	//console.info(arrObjInfos);
+	//return arrObjInfos;
+}
+
+var imgLoadCnt = 0;
+
+convertImgToBase64 = function(outObjInfo, callbackMethod){
+	
+	if(outObjInfo.tagName == "IMG"){
+		
+		var canvas = document.createElement('CANVAS');
+		var ctx = canvas.getContext('2d');
+		
+		var img = new Image;
+		img.crossOrigin = 'Anonymous';
+		
+		img.onload = function(){
+			//console.info("dd");
+			imgLoadCnt++;
+			canvas.height = img.height;
+			canvas.width = img.width;
+			ctx.drawImage(img,0,0);
+			
+			var dataURL = canvas.toDataURL('image/png');
+			
+			callbackMethod.call(this, dataURL, outObjInfo);
+			
+			canvas = null; 
+		};
+		
+		img.src = "./resources/jsp/proxy.jsp?" + outObjInfo.src;
+	}
+	else if(outObjInfo.tagName == "SVG"){
+		
+		// bota() : svg -> base64 encording
+		var dataURL = 'data:image/svg+xml;base64,'+ btoa(outObjInfo.outerHTML);
+		//console.info(imgsrc);
+		
+		callbackMethod.call(this, dataURL, outObjInfo);
+	}
+}
+
+var chkoutObj = false;
+
+postCall = function(outObjInfos, width, height, fileName){
+	
+	var paramInfos = [];
+	
+	if(outObjInfos.length > 20){
+		chkoutObj = false;
+		paramInfos = outObjInfos.splice(0, 20);
+	}
+	else{
+		chkoutObj = true;
+		paramInfos = outObjInfos;
+	}
+
+	var obj = {width:width, height:height, fileName: fileName, imageInfos:JSON.stringify(paramInfos)};
+
+	$.post("./resources/jsp/_DivImgSave.jsp", obj, function(data){
+		
+		//console.info(data.fileName);
+		
+		if(chkoutObj == false){
+			postCall(outObjInfos, width, height, data.fileName);
+		}
+	},"json").error(function(e){
+		console.info(e);
+	});
+}

@@ -424,11 +424,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				query.outFields = ["*"];
 				query.where = "RCH_DID = '" + curRchDid + "'";
 				
-				//console.info(curRchDid);
+				//console.info(query);
 				
 				// 리치라인 조회
 				queryTask.execute(query, function(featureSet){
-					//console.info(featureSet.features);
+					
 					if(featureSet.features.length > 0){
 						
 						var feature = featureSet.features[0];
@@ -534,12 +534,15 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							}
 							/** 검색설정(본류, 지류) 체크 끝 **/
 							
-							// 상류 검색
-				    		me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
-				    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
-				    		
-				    		// 검색 종료 체크
-				    		me.isStopCheck();
+							Ext.defer(function(){
+								
+								// 상류 검색
+					    		me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
+					    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
+					    		
+					    		// 검색 종료 체크
+					    		me.isStopCheck();
+							}, 1);
 				    	}
 					}
 				});
@@ -577,6 +580,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			query.returnGeometry = true;
 			query.outFields = ["*"];
 			query.where = "RCH_DID = '" + curRchDid + "'";
+			
+			//console.info(_mapServiceUrl_v3 + "/" + _reachLineLayerId);
+			//console.info(query.where);
 			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
