@@ -69,10 +69,13 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		//if(me.reachLayerAdmin.reachAreaGraphics != null && me.reachLayerAdmin.reachAreaGraphics != undefined){
 		if(me.reachLayerAdmin_v3_New.areaGrpLayer != null && me.reachLayerAdmin_v3_New.areaGrpLayer != undefined){
 			if(currCtl.btnOnOff == "on"){
+				console.info("on");
 				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(true);
 				me.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+				//console.info(me.reachLayerAdmin_v3_New);
 			}
 			else{
+				console.info("off");
 				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(false);
 				me.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
 			}

@@ -13,6 +13,12 @@
 <script type='text/javascript'>
 var urlPath = document.location.protocol + "//" + document.location.host;
 function html2xml(divPath) {
+<<<<<<< HEAD
+	var report = "%root%/crf/CLIP.crf";
+	var oof = "<?xml version='1.0' encoding='utf-8'?><oof version='3.0'><document title='report' enable-thread='0'><file-list><file type='reb.root' communicationType='local' path='" + report + "'></file></file-list></document></oof>";
+    var report = createReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
+    console.info(report);
+=======
 	//var report = "%root%/crf/CLIP.crf";
 	var report = "D:\\_0010_Cetech_Workspace\\_000_Git\\KRF_DEV\\crf\\rptTest.crf";
 	var imgFieldName = "GIS_IMAGE";
@@ -34,6 +40,7 @@ function html2xml(divPath) {
 			
 			console.info(oof);
     var report = createReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
+>>>>>>> a5e361efd9077033ff22efff4029c8a561e10a1d
     //리포트 뷰어의 옵션
     report.setSlidePage(true);
     //리포트 뷰어 실행

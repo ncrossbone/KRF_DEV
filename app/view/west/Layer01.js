@@ -8,7 +8,8 @@ Ext.define('KRF_DEV.view.west.Layer01', {
 	id: 'westLayer01', // view.west.WestTabLayerController에서 사용
 	
 	requires: [
-		'KRF_DEV.view.west.Layer01Controller'
+		'KRF_DEV.view.west.Layer01Controller',
+		'Ext.slider.*'
 	],
 
 	title: 'KRF 레이어',

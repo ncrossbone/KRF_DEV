@@ -99,9 +99,12 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						click: function(obj, el, evt){
 							
 							var siteCharttest = Ext.getCmp('siteCharttest');
-							
+							//siteCharttest.download({
 							siteCharttest.download({
-		                        filename: "Chart"+selectName.innerText+""
+								type: 'image/svg+xml',
+								filename : 'image'
+								//type: 'image/png',
+		                        //filename: "Chart"+selectName.innerText+""
 		                    })
 							
 						}
