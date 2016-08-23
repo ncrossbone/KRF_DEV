@@ -18,7 +18,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     	//console.log(choice);
     	if (choice === 'yes') {
            // console.log(choice);
-        }
+        }//
     },
     
     // 배경맵 on/off
