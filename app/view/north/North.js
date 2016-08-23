@@ -142,7 +142,33 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn4_off.png'			
-	}, {
+	},{
+	xtype: 'image',
+	title: '공지사항',
+	width: 69,
+	height: 37,
+	listeners: {
+		el: {
+			click: function(){
+				
+				var boardCtl = Ext.getCmp("boardCLIP");
+				if(boardCtl == undefined){
+    				boardCtl = Ext.create("Ext.window.Window", {
+			    					id: "boardCLIP",
+			    					title: "공지사항",
+			    					width: 660,
+			    					height: 600,
+			    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./ClipReport4/test.jsp?boardType=2"></iframe>'
+			    				});
+				}
+				
+				boardCtl.show();
+				
+			}
+		}
+	},
+	src: './resources/images/button/top_btn4_off.png'			
+}, {
 		xtype: 'image',
     	title: 'Q&A',
     	width: 69,

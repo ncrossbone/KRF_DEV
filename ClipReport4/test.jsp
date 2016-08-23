@@ -4,14 +4,24 @@
 <%@page import="com.clipsoft.clipreport.server.service.ReportUtil"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-OOFDocument oof = OOFDocument.newOOF();
-OOFFile file = oof.addFile("crf.root", "%root%/crf/CLIP.crf");
+//이전 페이지 키값
+String param = request.getParameter("value");
 
+OOFDocument oof = OOFDocument.newOOF();
+
+//넘어갈 파라미터 값
+oof.addField("TEST",param);
+
+OOFFile file = oof.addFile("crf.root", "%root%/crf/chart_CLIP.crf");
+
+//파라미터로 검색하기 위해 필수
+oof.addConnectionData("*","oracle1");
 
 %><%@include file="Property.jsp"%><%
 //세션을 활용하여 리포트키들을 관리하지 않는 옵션
 //request.getSession().setAttribute("ClipReport-SessionList-Allow", false);
 String resultKey =  ReportUtil.createReport(request, oof, "false", "false", request.getRemoteAddr(), propertyPath);
+
 //oof 문서가 xml 일 경우 (oof.toString())
 //String resultKey =  ReportUtil.createReport(request, oof.toString(), "false", "false", "localhost", propertyPath);
 %>
@@ -29,10 +39,9 @@ String resultKey =  ReportUtil.createReport(request, oof, "false", "false", requ
 <script type='text/javascript' src='./js/UserConfig.js'></script>
 <script type='text/javascript'>
 var urlPath = document.location.protocol + "//" + document.location.host;
-	
+
 function html2xml(divPath){	
     var reportkey = "<%=resultKey%>";
-    console.info(reportkey);
 	var report = createImportJSPReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);
