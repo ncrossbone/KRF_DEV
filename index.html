@@ -16,6 +16,7 @@
 
 <script type="text/javascript" src="/ext/source/locale/ext-lang-ko.js" charset="utf-8"></script>
 <script>
+
 	(function() {
 		var offset = location.href.indexOf(location.host)
 				+ location.host.length;
@@ -43,6 +44,29 @@
 
 <!-- The line below must be kept intact for Sencha Cmd to build your application -->
 <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
+
+
+<script>
+	jQuery.ajax({
+	    url: "resources/jsp/sessionData.jsp",
+	    type: 'POST',
+	    //data: { ip: ip},
+	    //params: { ip: ip},
+	    //dataType: 'json',
+	    async: false,
+	    traditional: true,
+	    success: function (r) {
+	    	//console.info(r);
+	    	//alert("success");
+	    },
+	    error: function (xhr, status, error) {
+	    	console.info(xhr);
+	    	console.info(status);
+	    	console.info(error);
+	    }   
+	});
+</script>
+
 <style type="text/css">
 #west_container-splitter {
 	background-color: #ede5dc !important;

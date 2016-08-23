@@ -15,7 +15,8 @@ var urlPath = document.location.protocol + "//" + document.location.host;
 function html2xml(divPath) {
 	var report = "%root%/crf/CLIP.crf";
 	var oof = "<?xml version='1.0' encoding='utf-8'?><oof version='3.0'><document title='report' enable-thread='0'><file-list><file type='reb.root' communicationType='local' path='" + report + "'></file></file-list></document></oof>";
-    var report = createReport(urlPath + "/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
+    var report = createReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", oof, document.getElementById(divPath));
+    console.info(report);
     //리포트 뷰어의 옵션
     report.setSlidePage(true);
     //리포트 뷰어 실행

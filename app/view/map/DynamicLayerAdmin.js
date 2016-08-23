@@ -71,7 +71,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     	
     	var initX = 385;
     	var initY = Ext.getBody().getHeight();
-    	
     	Ext.each(selectInfo, function(selectObj, index, eObjs) {
     		
     		if(selectObj.data.id == "63"){

@@ -80,7 +80,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				width: 150,
 				filter: {type: 'numeric'}
 			}, { 
-				text      : '집수구역면적 (㎥)',
+				text      : '집수구역면적 (㎢)',
 				//dataIndex : 'CAT_AREA',
 				dataIndex : 'CUM_AREA',
 				width: 150,

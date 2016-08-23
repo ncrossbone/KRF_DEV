@@ -4,7 +4,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	xtype : 'east-sitelistindow',
 	
 	id: 'siteListWindow',
-	
 	//params: this.record,
 	
 	//title: '지점 목록',
@@ -24,6 +23,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		rootVisible:false,
+	    
 		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
 		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 		cls: 'khLee-x-grid-cell',
