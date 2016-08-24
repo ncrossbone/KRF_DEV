@@ -1787,3 +1787,8 @@ setWestBodyScroll = function(){
 	bodyCtl.setStyle("height", height + "px");
 	bodyCtl.setStyle("overflow", "overlay");
 }
+
+showCatTMMap = function(){
+	
+	alert("dd");
+}

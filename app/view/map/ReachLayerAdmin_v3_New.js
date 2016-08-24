@@ -541,7 +541,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					    		// 검색 종료 체크
 					    		me.isStopCheck();
 								
-								me.defaultDate(droneLayerId,measureDate,drone);
+								//me.defaultDate(droneLayerId,measureDate,drone);
 							}, 1);
 							// 상류 검색
 				    		

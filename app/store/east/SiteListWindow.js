@@ -17,7 +17,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	remoteSort: true,
 	
 	listeners: {
+		
 		load: function(store) {
+			
 			var a = Ext.getCmp("btnADMSelect");
 			
 			var nameInfo = Ext.getCmp("textSearchText");
@@ -91,6 +93,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						query.where = "CAT_DID IN ("; 
 						
 						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+							
+							//console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
 							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 						}
 						
@@ -104,118 +108,222 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			query.outFields = ["*"];
+			
 			queryTask.execute(query, function(result){
+				
+				var jsonStr = "{\n";
+				jsonStr += "	\"id\": \"0\", \n";
+				jsonStr += "	\"text\":  \"root\", \n";
+				jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold', \n";
+				jsonStr += "	\"checked\": true, \n";
+				jsonStr += "	\"expanded\": true, \n";
+				jsonStr += "	\"children\": [";
+				
+				// 부하량 Json String 가져오기 khLee 20160823 추가
+				var pollLoadString = store.getPollLoadString();
+				
 				if(result.features.length == 0){
+					
+					if(pollLoadString != ""){
+						
+						jsonStr += pollLoadString;
+						jsonStr += "]\n";
+						jsonStr += "}";
+						
+						var jsonData = "";
+						jsonData = Ext.util.JSON.decode(jsonStr);
+						store.setRootNode(jsonData);
+					}
+					
 					return;
 				}
-				
-				var jsonStr = " { \"id\": \"0\", \n";
-					jsonStr += "\"text\":  \"root\", \n";
-					jsonStr += "\"cls\": 'khLee-x-tree-node-text-bold', \n";
-					//jsonStr += "\"iconCls\": 'layerNoneImg', \n";
-					jsonStr += "\"checked\": true, \n";
-					jsonStr += "\"expanded\": true, \n";
-					jsonStr += "\"children\":  \n";
-				jsonStr += "[\n";
 
-				var groupCnt = 0;
-				var layerCnt = 0;
+				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) */
+				var arrGroupCodes = [];
 				
-				Ext.each(result, function(objLayer, idx, objLayers){
-
-					var preGubun = "";
-					var groupGubun ="";
-					var cnt = 0;
-					var aa = "";
-					//jsonStr += "	\"expanded\": false,\n"; // 펼치기..
-					//jsonStr += "\n	\"children\": [";
+				$.each(result.features, function(cnt, feature){
 					
-					for(i = 0; i < result.features.length; i++){
-						if(result.features[i].attributes.GROUP_CODE != "E"){
-							if(result.features[i].attributes.GROUP_CODE != groupGubun ){
-								
-								if(i != "0"){
-									aa = i;
-									jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-									jsonStr += "\n]}]}, ";
-									
-									jsonStr = jsonStr.replace("#groupCnt#", groupCnt); // 그룹 카운트 설정
-									groupCnt = 0; // 그룹 카운트 초기화
-								}
-								
-								var queryGroup = new esri.tasks.Query();
-								queryGroup.returnGeometry = false;
-								//var groupCnt = "0";
-								
-								jsonStr += "{	\"id\": \"" + result.features[i].attributes.GROUP_CODE + "\",\n";
-								jsonStr += "	\"text\": \"" + result.features[i].attributes.GROUP_NM + "(#groupCnt#)\",\n";
-								jsonStr += "	\"cls\": 'khLee-x-tree-node-text-bold',\n";
-								if(i == 0){
-									jsonStr += "	\"expanded\": true,\n";
-								}else{
-									jsonStr += "	\"expanded\": false,\n";
-								}
-								//jsonStr += "	\"expanded\": true,\n";
-								jsonStr += "	\"checked\": null,\n";
-								jsonStr += "	\"children\": [ \n";
-							
-							}
-							
-							if(result.features[i].attributes.LAYER_CODE != preGubun){
-								if(i > 0){
-									if(aa == i){
-										jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-									}else{
-										jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-										jsonStr += "\n]}, ";
-										cnt = i;
-									}
-	
-									jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
-									layerCnt = 0; // 레이어 카운트 초기화
-								}
-								
-								jsonStr += "{\n";
-								jsonStr += "	\"id\": \"" + result.features[i].attributes.LAYER_CODE + "\",\n";
-								jsonStr += "	\"text\": \"" + result.features[i].attributes.LAYER_NM + "(#layerCnt#)\",\n";
-								
-								if(i == 0 ){
-									jsonStr += "	\"expanded\": true,\n"; // 펼치기..
-								}else{
-									jsonStr += "	\"expanded\": false,\n"; // 펼치기..
-								}
-								
-								jsonStr += "	\"children\": [";
-								preGubun = result.features[i].attributes.LAYER_CODE;
-								groupGubun = result.features[i].attributes.GROUP_CODE;
-							}
-							jsonStr += "{\n";
-							jsonStr += "		\"id\": \"" + result.features[i].attributes.JIJUM_CODE + "\",\n";
-							jsonStr += "		\"text\": \"" + result.features[i].attributes.JIJUM_NM + "\",\n";
-							jsonStr += "		\"catDId\": \"" + result.features[i].attributes.CAT_DID + "\",\n";
-							jsonStr += "		\"cls\": \"khLee-x-tree-node-text-small\",\n";
-							jsonStr += "		\"iconCls\": \"layerNoneImg\",\n";
-							jsonStr += "		\"leaf\": true,\n";
-							jsonStr += "		\"checked\": null\n";
-							jsonStr += "	}, ";
-							
-							groupCnt++;
-							layerCnt++;
-						}
+					// "==="연산자 값과 타입이 정확하게 일치하는지 판단
+					if($.inArray(feature.attributes.GROUP_CODE, arrGroupCodes) === -1){
+						
+						arrGroupCodes.push(feature.attributes.GROUP_CODE);
 					}
 				});
 				
-				jsonStr = jsonStr.substring(0, jsonStr.length - 2); // 마지막에 "," 빼기
-				jsonStr += "]}]}]}";
+				//console.info(arrGroupCodes);
+				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
 				
-				jsonStr = jsonStr.replace("#groupCnt#", groupCnt); // 그룹 카운트 설정
-				jsonStr = jsonStr.replace("#layerCnt#", layerCnt); // 레이어 카운트 설정
+				// 그룹 코드 루프 시작
+				$.each(arrGroupCodes, function(cnt, groupCode){
+				
+					/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) */
+					var groupFeature = result.features.filter(function(feature){
+						
+						if(feature.attributes.GROUP_CODE === groupCode)
+							return feature;
+					});
+					
+					//console.info(groupFeature);
+					/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
+					
+					jsonStr += "{\n";
+					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
+					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + groupFeature.length + ")\",\n";
+					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+					if(cnt == 0){
+						jsonStr += "		\"expanded\": true,\n";
+					}else{
+						jsonStr += "		\"expanded\": false,\n";
+					}
+					jsonStr += "		\"checked\": null,\n";
+					jsonStr += "		\"children\": [";
+					
+					/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) */
+					var arrLayerCodes = [];
+					
+					$.each(groupFeature, function(cnt, feature){
+						
+						if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
+							
+							arrLayerCodes.push(feature.attributes.LAYER_CODE);
+						}
+					});
+					/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) 끝 */
+					
+					// 레이어 코드 루프 시작
+					$.each(arrLayerCodes, function(cnt, layerCode){
+						
+						var layerFeatures = groupFeature.filter(function(feature){
+							
+							if(feature.attributes.LAYER_CODE === layerCode){
+								
+								return feature;
+							}
+						});
+						
+						//console.info(layerFeatures);
+						
+						jsonStr += "{\n";
+						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
+						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerFeatures.length + ")\",\n";
+						if(cnt == 0 ){
+							jsonStr += "			\"expanded\": true,\n"; // 펼치기..
+						}else{
+							jsonStr += "			\"expanded\": false,\n"; // 펼치기..
+						}
+						jsonStr += "			\"children\": [";
+						
+						$.each(layerFeatures, function(cnt, layerFeature){
+							
+							jsonStr += "{\n";
+							jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+							jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+							jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+							jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+							jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+							jsonStr += "				\"leaf\": true,\n";
+							jsonStr += "				\"checked\": null\n";
+							jsonStr += "			}, ";
+						});
+						
+						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+						
+						jsonStr += "]\n";
+						jsonStr += "		}, ";
+					}); // 레이어 코드 루프 끝
+					
+					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+					
+					jsonStr += "]\n";
+					jsonStr += "	}, ";
+				}); // 그룹 코드 루프 끝
+				
+				if(pollLoadString != ""){
+					
+					jsonStr += pollLoadString;
+				}
+				else{
+					
+					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+				}
+				
+				jsonStr += "]\n";
+				jsonStr += "}";
+				
+				//console.info(jsonStr);
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				store.setRootNode(jsonData);
-
 	        });
 	  	}
-	}
+	},
+	
+	getPollLoadString: function(){
+		
+		//alert("dd");
+		//, {\"id\": \"Z001\", \"text\": \"부하량\", \"expanded\": false, \"children\": [{\"id\": \"111111111\", \"text\": \"111111111\", \"catDId\": \"111111111\", \"cls\": \"khLee-x-tree-node-text-small\", \"iconCls\": \"layerNoneImg\", \"leaf\": true, \"checked\": null}]}
+		var me = GetCoreMap();
+		
+		if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
+			
+			var pollLoadString = "{\n";
+			pollLoadString += "	\"id\": \"pollLoad\",\n";
+			pollLoadString += "	\"text\": \"부하량&nbsp;&nbsp<img onClick='showCatTMMap();' style='height:15px;cursor:pointer;' src='./resources/images/button/icon_seah.gif'/>\",\n";
+			pollLoadString += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+			pollLoadString += "	\"expanded\": false,\n";
+			pollLoadString += "	\"checked\": null,\n";
+			pollLoadString += "	\"infoBtnDisabled\": true,\n";
+			pollLoadString += "	\"chartBtnDisabled\": true,\n";
+			pollLoadString += "	\"srchBtnDisabled\": false,\n";
+			pollLoadString += "	\"children\": [{\n";
+			
+			pollLoadString += "		\"id\": \"pollLoadCat\",\n";
+			pollLoadString += "		\"text\": \"집수구역별(" + me.reachLayerAdmin_v3_New.arrAreaGrp.length + ")\",\n"; // 집수구역별 조회 개수 집어넣자.. 아래서..
+			pollLoadString += "		\"expanded\": false,\n";
+			pollLoadString += "		\"infoBtnDisabled\": true,\n";
+			pollLoadString += "		\"chartBtnDisabled\": true,\n";
+			pollLoadString += "		\"srchBtnDisabled\": true,\n";
+			pollLoadString += "		\"children\": [";
+			
+			pollLoadString += "#pollLoadChildString#"; // 조회된 집수구역 문자열 집어넣자.. 아래서..
+			
+			pollLoadString += "]\n";
+			
+			pollLoadString += "	}]\n";
+			pollLoadString += "}";
+			
+			var pollLoadChildString = "";
+			
+			for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+				
+				//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+				
+				pollLoadChildString += "{\n";
+				pollLoadChildString += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "\",\n";
+				pollLoadChildString += "			\"text\": \"" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "\",\n";
+				pollLoadChildString += "			\"catDId\": \"" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "\",\n";
+				pollLoadChildString += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+				pollLoadChildString += "			\"iconCls\": \"layerNoneImg\",\n";
+				pollLoadChildString += "			\"leaf\": true,\n";
+				pollLoadChildString += "			\"checked\": null,\n";
+				pollLoadChildString += "			\"infoBtnDisabled\": true,\n";
+				pollLoadChildString += "			\"chartBtnDisabled\": true,\n";
+				pollLoadChildString += "			\"srchBtnDisabled\": true,\n";
+				pollLoadChildString += "		}, ";
+			}
+			
+			pollLoadChildString = pollLoadChildString.substring(0, pollLoadChildString.length - 2);
+			
+			pollLoadString = pollLoadString.replace("#pollLoadChildString#", pollLoadChildString);
+			
+			//console.info(pollLoadString);
+			
+			return pollLoadString;
+		}
+		else{
+			
+			return "";
+		}
+	},
 });

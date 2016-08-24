@@ -69,7 +69,16 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             },
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {
-                return !record.data.leaf;
+            	
+            	//console.info(record.data.infoBtnDisabled);
+            	
+            	if(record.data.infoBtnDisabled != undefined){
+            		
+            		return record.data.infoBtnDisabled;
+            	}
+            	else{
+            		return !record.data.leaf;
+            	}
             }
         }, {
             text: '차트',
@@ -92,7 +101,14 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				me.moveCommon(record);
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
-                return !record.data.leaf;
+            	
+            	if(record.data.chartBtnDisabled != undefined){
+            		
+            		return record.data.chartBtnDisabled;
+            	}
+            	else{
+            		return !record.data.leaf;
+            	}
             }
         }, {
             text: '검색',
@@ -164,6 +180,13 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
                 	//}
             	}
             	
+            },
+            isDisabled: function(view, rowIdx, colIdx, item, record) {
+            	
+            	if(record.data.srchBtnDisabled != undefined){
+            		
+            		return record.data.srchBtnDisabled;
+            	}
             }
         }, {
             text: '관련리치',
