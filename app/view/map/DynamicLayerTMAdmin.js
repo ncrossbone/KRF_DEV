@@ -1,130 +1,200 @@
-Ext.define('KRF_DEV.view.map.DynamicLayerTMAdmin', {
+Ext.define("KRF_DEV.view.map.DynamicLayerTMAdmin", {
 	
 	map: null,
+	layer: null,
 	id: "DynamicLayerTMAdmin",
 	
-	constructor: function(catDids) {
+	constructor: function(map, inStrCatDids) {
 		
         var me = this;
         me.map = map;
         
-        me.dynamicLayer1 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3);
-		me.dynamicLayer1.id = "DynamicLayer1"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
-		me.dynamicLayer1.visible = true;
-		//me.dynamicLayer1.setVisibleLayers([-1]);
-		me.map.addLayer(me.dynamicLayer1);
+        me.layer = new esri.layers.FeatureLayer("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/2", {
+        	outFields: ["*"],
+        	showLabels: true
+        });
+        
+        me.layer.id = "DynamicLayerTMAdmin";
+        me.layer.visible = true;
+        
+        //me.layer.setVisibleLayers([2]);
+		//var layerDefs = [];
+		//layerDefs[2] = "CAT_DID IN (" + inStrCatDids + ")";
+		//me.layer.setLayerDefinitions(layerDefs);
+        
+        me.layer.setDefinitionExpression("CAT_DID IN (" + inStrCatDids + ")");
+		console.info(me.layer);
+		me.map.addLayer(me.layer);
 		
-		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3_2);
-        //me.layer = dynamicLayer1;
-		me.dynamicLayer2.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
-		me.dynamicLayer2.visible = true;
-		me.dynamicLayer2.opacity = 0.5;
-		//me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
-		//me.layer.setVisibleLayers([53]); // 테스트
-		me.dynamicLayer2.setVisibleLayers([-1]);
-		me.map.addLayer(me.dynamicLayer2);
+		console.info(me.layer.graphics);
+		
+		require([
+		         "dojo/ready", 
+		         "esri/Color",
+		         "dojo/_base/array",
+		         "esri/arcgis/utils",
+		         "esri/config",
+		         "esri/graphicsUtils",
+		         "esri/symbols/SimpleFillSymbol",
+		         "esri/graphic", 
+		         "esri/geometry/geometryEngine",
+		         "esri/layers/GraphicsLayer",
+		         "esri/tasks/QueryTask",
+                 "esri/tasks/query",
+                 "esri/symbols/SimpleLineSymbol",
+                 "esri/geometry/webMercatorUtils",
+                 "esri/dijit/analysis/DissolveBoundaries",
+                 "esri/geometry/Polyline"
+		     ], function(
+		         ready, 
+		         Color,
+		         array,
+		         arcgisUtils,
+		         config,
+		         graphicsUtils,
+		         SimpleFillSymbol,
+		         Graphic,
+		         geometryEngine,
+		         GraphicsLayer,
+		         QueryTask,
+                 Query,
+                 SimpleLineSymbol,
+                 webMercatorUtils,
+                 DissolveBoundaries,
+                 Polyline
+		     ) {
 			
-//		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
-//			opacity: 0.5
-//		});
-//		
-//		me.featureLayer71.setVisibility(false);
-//		me.map.addLayer(me.featureLayer71);
-		
-		KRF_DEV.getApplication().addListener('dynamicLayerOnOff', me.dynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
-		KRF_DEV.getApplication().addListener('drondynamicLayerOnOff', me.drondynamicLayerOnOffHandler, me); // 레이어 on/off 핸들러 추가
-    },
-    
-    // 레이어 on/off 핸들러 정의
-    drondynamicLayerOnOffHandler: function(selectInfo){
-    	
-    	
-    	
-    	
-    	
-    },
-    
-    // 레이어 on/off 핸들러 정의
-    dynamicLayerOnOffHandler: function(selectInfo){
-    	var me = this;
-    	
-    	var layers1 = [-1];
-    	var layers2 = [-1];
-    	
-    	var legendWindow65 = Ext.getCmp("legendwindow_65");
-    	if(legendWindow65 != undefined){
-    		legendWindow65.close();
-    	}
-    	
-    	var legendWindow63 = Ext.getCmp("legendwindow_63");
-    	if(legendWindow63 != undefined){
-    		legendWindow63.close();
-    	}
-    	
-    	if(selectInfo.length==0){
-    		me.dynamicLayer1.setVisibleLayers(layers1);
-    		me.dynamicLayer2.setVisibleLayers(layers2);
-    		return;
-    	}
-    	
-    	var initX = 385;
-    	var initY = Ext.getBody().getHeight();
-    	Ext.each(selectInfo, function(selectObj, index, eObjs) {
-    		
-    		if(selectObj.data.id == "63"){
-    			
-    			Ext.create("KRF_DEV.view.map.LegendWindow", {
-    				
-    				id: "legendwindow_63",
-    				imgSrc: './resources/images/legend/standard02.png',
-    				imgWidth: 548,
-    				imgHeight: 329,
-    				x: initX,
-    				y: initY - 329
-    			}).show();
-    			
-    			initX = initX + 550;
-    		}
-    		
-    		if(selectObj.data.id == "65"){
-    			
-    			Ext.create("KRF_DEV.view.map.LegendWindow", {
-    				
-    				id: "legendwindow_65",
-    				imgSrc: './resources/images/legend/standard01.png',
-    				imgWidth: 209,
-    				imgHeight: 275,
-    				x: initX,
-    				y: initY - 275
-    			}).show();
-    		}
-    		
-    		var layer2Idx = me.getLayerIdx(selectObj.data.id);
-    		
-    		if(layer2Idx > -1){
-    			
-    			layers2.push(selectObj.data.id);
-    		}
-    		else{
-    			
-    			layers1.push(selectObj.data.id);
-    		}
+			var featureLayer = me.layer;
+			var geometries = graphicsUtils.getGeometries(featureLayer.graphics);
+			var bufferedGeometries = geometryEngine.geodesicBuffer(geometries, [0], 9036, true);
+			
+			var symbol = new SimpleFillSymbol();
+	        symbol.setColor(new Color([255,100,100,0.5]));
+	        //symbol.setOutline(null);
+	        
+	        var graphicsLayerCat = new GraphicsLayer({opacity: 0.5});
+	        
+	        array.forEach(bufferedGeometries,function(geometry){
+	        	//console.info(geometry);
+	          //map.graphics.add(new Graphic(geometry,symbol));
+	        	graphicsLayerCat.add(new Graphic(geometry, symbol));
+	        	me.graphicsLayerCat = graphicsLayerCat;
+	        	me.map.addLayer(graphicsLayerCat);
+	        });
+	        
+	        //console.info(graphicsLayerCat);
+	        me.layer.setVisibility(false);
+	        
+	        var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/10");
+			
+			var query = new Query();
+            query.returnGeometry = true;
+            query.outFields = ["*"];
+            query.outSpatialReference = {
+              "wkid": 102100
+            };
+            
+            query.geometry = graphicsLayerCat.graphics[0].geometry;
+            query.spatialRelationship = Query.SPATIAL_REL_INTERSECTS;
+            queryTask.execute(query);
+            
+            var firstGraphic = null;
+            var arrGraphics = [];
+            var name = [];
+            queryTask.on("complete", function(evt){
+            	
+            	var features = evt.featureSet.features;
+            	
+            	for(var i = 0; i < features.length; i++){
+            		
+            		if($.inArray(evt.featureSet.features[i].attributes.단위유역명, name) === -1){
+            			name.push(evt.featureSet.features[i].attributes.단위유역명);
+            			firstGraphic = evt.featureSet.features[i];
+		                var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleFillSymbol.STYLE_SOLID, new Color([100, 255, 100]), 1), new Color([255, 0, 0, 0.20]));
+		                firstGraphic.setSymbol(symbol);
+		                //firstGraphic.setInfoTemplate(infoTemplate);
+		                arrGraphics.push(firstGraphic);
+		                //me.map.graphics.add(firstGraphic);
+            		};
+            	}
+            	
+            	//console.info(arrGraphics);
+            	
+            	var graphicsLayerTMDL = new GraphicsLayer({opacity: 0.5});
+            	
+            	for(var i = 0; i < arrGraphics.length; i++){
+	            	graphicsLayerTMDL.add(arrGraphics[i]);
+            	}
+            	
+            	me.graphicsLayerTMDL = graphicsLayerTMDL;
+            	me.map.addLayer(graphicsLayerTMDL);
+            	
+            	var geometries = graphicsUtils.getGeometries(me.graphicsLayerCat.graphics);
+            	var cutter = graphicsUtils.getGeometries(me.graphicsLayerTMDL.graphics);
+                //console.info(cutter);
+                
+                var cutObj = "";
+                
+                var graphicsLayerCut = new GraphicsLayer({opacity: 0.5});
+                
+                for(var i = 0; i < cutter.length; i++){
+                	
+                	//console.info(cutter[i].rings);
+	    			//var bufferedGeometries = geometryEngine.convexHull(geometries, false);
+                	
+                	var singlePathPolyline = new Polyline(cutter[i].rings);
+                	//console.info(singlePathPolyline);
+	                var bufferedGeometries = geometryEngine.cut(geometries[0], singlePathPolyline);
+	    			
+	    			//console.info(bufferedGeometries);
+	    			
+	    			array.forEach(bufferedGeometries,function(geometry){
+	    	        	//console.info(geometry);
+	    	            //map.graphics.add(new Graphic(geometry,symbol));
+	    				var symbol = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleFillSymbol.STYLE_SOLID, new Color([100, 255, 255]), 0.5), new Color([255, 255, 0, 0.5]));
+	    				graphicsLayerCut.add(new Graphic(geometry, symbol));
+	    	        });
+                }
+                
+                me.graphicsLayerCut = graphicsLayerCut;
+	        	me.map.addLayer(graphicsLayerCut);
+	        	
+	        	me.graphicsLayerCat.setVisibility(false);
+	        	me.graphicsLayerTMDL.setVisibility(false);
+	        	
+	        	console.info(me.graphicsLayerCut);
+	        	
+	        	var labelLayer = new GraphicsLayer({opacity: 1});
+	        	
+	        	for(var i = 0; i < me.graphicsLayerCut.graphics.length; i++){
+	        		
+	        		var centerPoint = null;
+	        		var graphic = me.graphicsLayerCut.graphics[i];
+	        		
+	        		switch(graphic.geometry.type){
+	        			case "point":
+	        				centerPoint = graphic.geometry;
+	        				break;
+	        			case "extent":
+	        				centerPoint = graphic.getCenter();
+	        				break;
+	        			default:
+	        				centerPoint = graphic.geometry.getExtent().getCenter();
+	        		}
+	        		
+	        		console.info(centerPoint);
+	        		
+	        		var textSymbol =  new esri.symbol.TextSymbol("Hello World" + i).setColor(
+	        				new esri.Color([128,0,0])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
+	        						new esri.symbol.Font("12pt").setWeight(esri.symbol.Font.WEIGHT_BOLD));
+	        		
+	        		var labelGraphic = new Graphic(centerPoint, textSymbol);
+	        		labelLayer.add(labelGraphic);
+	        	}
+	        	
+	        	me.labelLayer = labelLayer;
+	        	me.map.addLayer(labelLayer);
+            });
 		});
-    	
-    	me.dynamicLayer1.setVisibleLayers(layers1);
-    	me.dynamicLayer2.setVisibleLayers(layers2);
-    },
-    
-    getLayerIdx: function(layerId){
-    	
-    	for(var i = 0; i < this.fLayers.length; i++){
-    		
-    		if(layerId == this.fLayers[i]){
-    			
-    			return i;
-    		}
-    	}
-    	
-    	return -1;
     }
 });

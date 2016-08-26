@@ -1790,5 +1790,22 @@ setWestBodyScroll = function(){
 
 showCatTMMap = function(){
 	
-	alert("dd");
+	var coreMap = GetCoreMap();
+	var arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaGrp;
+	var inStrCatDids = "";
+	//console.info(coreMap.reachLayerAdmin_v3_New.arrAreaGrp);
+	for(var i = 0; i < arrAreaGrp.length; i++){
+		
+		inStrCatDids += "'" + arrAreaGrp[i].attributes.CAT_DID + "', ";
+	}
+	
+	if(inStrCatDids.length > 0){
+		
+		inStrCatDids = inStrCatDids.substring(0, inStrCatDids.length -2);
+	}
+	
+	//console.info(inStrCatDids);
+	
+	//coreMap.DynamicLayerTMAdmin = Ext.create("KRF_DEV.view.map.DynamicLayerTMAdmin_Intersects_test", coreMap.map, inStrCatDids);
+	coreMap.DynamicLayerTMAdmin = Ext.create("KRF_DEV.view.map.DynamicLayerTMAdmin", coreMap.map, inStrCatDids);
 }
