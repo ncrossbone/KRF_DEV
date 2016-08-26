@@ -20,6 +20,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	printTask:null,
 	baseMap: null,
 	
+	tmGraphicLayerCat: null, // 집수구역 단위 주제도 그래픽 레이어
+	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
+	
 	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
 	height: 1100,
 	x: -378,
