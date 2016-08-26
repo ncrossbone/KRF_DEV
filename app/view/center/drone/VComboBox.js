@@ -78,6 +78,10 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    				// 콤보 리스트가 닫히지 않게 한다.
 	    				if(me.noCollapse == true)
 	    					return false;
+	    			},
+	    			select: function(){
+
+	    				Ext.getCmp("cboDroneLayer").down("combo").expand();
 	    			}
 	    		},
 	    		valueField: me.valueField,
