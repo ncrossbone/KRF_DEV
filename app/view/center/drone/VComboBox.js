@@ -81,6 +81,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    			},
 	    			select: function(){
 
+	    				// 콤보 리스트 변경 시 레이어 선택 콤보 펼치기
 	    				Ext.getCmp("cboDroneLayer").down("combo").expand();
 	    			}
 	    		},

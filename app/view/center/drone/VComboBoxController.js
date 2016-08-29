@@ -432,6 +432,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				if(cboDroneChla.value != null){
 					chlLegend.show();
 					layers.push(cboDroneChla.value);
+					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
+    				Ext.getCmp("cboDroneLayer").down("combo").expand();
 				}else{
 					chlLegend.hide();
 				}
