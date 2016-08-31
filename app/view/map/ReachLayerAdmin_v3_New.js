@@ -266,6 +266,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
+			        		PollLoadSearchResult("");
 						}
 						else if(drawOption == "addPoint" || drawOption == "extent" || drawOption == "circle"){
 							// 라인 그린다
@@ -275,6 +276,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
+			        		PollLoadSearchResult("");
 						}
 					}
 					
@@ -361,7 +363,12 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							|| drawOption == "start" || drawOption == "end"){
 							//console.info("Dd");
 							// 하류 조회
-							me.selectDownLine(minRchDid, drawOption, 0);
+							Ext.defer(function(){
+								
+								me.selectDownLine(minRchDid, drawOption, 0);
+								
+							}, 1);
+							
 						}
 						else{
 							
@@ -375,6 +382,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
+					        		PollLoadSearchResult("");
 								}
 								else{
 									// 라인 그린다
@@ -384,6 +392,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
+					        		PollLoadSearchResult("");
 								}
 							}
 						}
@@ -541,7 +550,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					    		// 검색 종료 체크
 					    		me.isStopCheck();
 								
-								me.defaultDate(droneLayerId,measureDate,drone);
+								//me.defaultDate(droneLayerId,measureDate,drone);
 							}, 1);
 							// 상류 검색
 				    		
@@ -832,6 +841,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		        		
 		        		// 검색결과 창 띄우기
 		        		ShowSearchResultReach("");
+		        		PollLoadSearchResult("");
 		        		
 		        		// 1초 단위 타이머
 		        		var timer = setInterval(afterChk = function(){

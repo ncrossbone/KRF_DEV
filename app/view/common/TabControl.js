@@ -4,6 +4,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 	
 	xtype : 'common-tabcontrol',
 	
+	controller: 'tabControlController',
+	//controller: ['searchArea_ADMController','searchArea_WaterController'],
+	//controller: 'searchArea_ADMController',
+	
 	id: 'tabControl',
 	
 	//title: 'tab1',
@@ -21,6 +25,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		height: 30,
 		items: [{
 			xtype: 'container',
+			id: 'resultTab',
 			layout: {
 				type: 'hbox',
 				align: 'middle',
@@ -163,7 +168,301 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			
 					
 			}]
-		}, {
+		},{
+			xtype: 'container',
+			width: 10
+		}/*,{ //방유량 검색 조건 / 집수구역
+			xtype: 'container',
+			id: 'pollResultTab',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			//flex: 1,
+			height: 30,
+			items: [{
+				xtype: 'combo',
+				id: 'pollLoadSelect',
+				valueField: 'id',
+				displayField: 'name',
+				//id: 'cmbStartYear',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: '11', name: '집수구역으로 찾기'}
+						,{id: '22', name: '행정구역으로 찾기'}
+						,{id: '33', name: '수계로 찾기'}
+						,{id: '44', name: '총량단위유역으로 찾기'}]
+				}),
+				value: '집수구역으로 찾기',
+				width: 140,
+				height: 25,
+				listeners:{
+					change: function(combo, newVal, oldVal){
+						//var pollSearchTab = Ext.getCmp("pollSearchTab"); //방유량 집수구역별 검색조건
+						console.info(newVal);
+						var pollResultTab2 = Ext.getCmp("pollResultTab2"); //방유량 행정구역별 검색조건
+						var pollResultTab3 = Ext.getCmp("pollResultTab3"); //방유량 수계별 검색조건
+						//var pollResultTab4 = Ext.getCmp("pollResultTab4"); //방유량 총량단위유역별 검색조건
+						if(newVal == 11 || newVal == 44){
+							pollResultTab2.setHidden(true);
+							pollResultTab3.setHidden(true);
+							//pollResultTab4.setHidden(true);
+						}else if(newVal == 22){
+							pollResultTab2.setHidden(false);
+							pollResultTab3.setHidden(true);
+							//pollResultTab4.setHidden(true);
+						}else{
+						//}else if(newVal == 33){
+							pollResultTab2.setHidden(true);
+							pollResultTab3.setHidden(false);
+							//pollResultTab4.setHidden(true);
+						}
+					}
+				}
+			}]
+		},{
+			xtype: 'container',
+			width: 10
+		},{
+			 //방유량 검색 조건 / 행정구역별
+			xtype: 'container',
+			id: 'pollResultTab2',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items: [{
+				id: 'pollcmbArea1',
+				layerId: _admSidoLayerId,
+				xtype: 'combo',
+				tarCmbId: 'pollcmbArea2',
+				lnkBtnId: 'btnSearch1',
+				labelWidth: 60,
+				labelAlign: 'right',
+				labelPad: 10,
+				width: 120,
+				editable: false,
+				//labelSeparator: '', // Defaults to: ':'
+				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				displayField: 'name',
+				valueField: 'id'
+			}, {
+				xtype: 'container',
+				width: 10
+			},{
+				id: 'pollcmbArea2',
+				layerId: _admSigunguLayerId,
+				xtype: 'combo',
+				tarCmbId: 'pollcmbArea3',
+				lnkBtnId: 'btnSearch2',
+				labelWidth: 60,
+				labelAlign: 'right',
+				labelPad: 10,
+				width: 120,
+				editable: false,
+				//labelSeparator: '', // Defaults to: ':'
+				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				displayField: 'name',
+				valueField: 'id',
+				disabled: true
+			
+			},{
+				xtype: 'container',
+				width: 10
+			},{
+				id: 'pollcmbArea3',
+				layerId: _admDongLayerId,
+				xtype: 'combo',
+				tarCmbId: '',
+				lnkBtnId: 'btnSearch3',
+				labelWidth: 60,
+				labelAlign: 'right',
+				labelPad: 10,
+				width: 120,
+				editable: false,
+				//labelSeparator: '', // Defaults to: ':'
+				store: Ext.create('KRF_DEV.store.west.SearchArea_ADM'),
+				displayField: 'name',
+				valueField: 'id',
+				disabled: true
+			
+			}]
+		
+		},{
+			xtype: 'container',
+			width: 10
+		},{
+			 //방유량 검색 조건  /총량단위유역별
+			xtype: 'container',
+			id: 'pollResultTab3',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items:[{
+				id : 'pollcmbWater1',
+				layerId : '54',
+				xtype : 'combo',
+				tarCmbId : 'pollcmbWater2',
+				lnkBtnId : 'btnWater1',
+				labelWidth : 60,
+				labelAlign : 'right',
+				labelPad : 10,
+				width : 120,
+				editable : false,
+				// labelSeparator: '', //
+				// Defaults to: ':'
+				store : Ext.create('KRF_DEV.store.west.SearchArea_Water'),
+				displayField : 'name',
+				valueField : 'id'
+			},{
+				xtype: 'container',
+				width: 10
+			},{
+
+				id : 'pollcmbWater2',
+				layerId : '55',
+				xtype : 'combo',
+				tarCmbId : 'pollcmbWater3',
+				lnkBtnId : 'btnWater2',
+				labelWidth : 60,
+				labelAlign : 'right',
+				labelPad : 10,
+				width : 120,
+				editable : false,
+				// labelSeparator: '', //
+				// Defaults to: ':'
+				store : Ext.create('KRF_DEV.store.west.SearchArea_Water'),
+				displayField : 'name',
+				valueField : 'id',
+				disabled : true
+			
+			},{
+				xtype: 'container',
+				width: 10
+			},{
+
+				id : 'pollcmbWater3',
+				layerId : '56',
+				xtype : 'combo',
+				tarCmbId : '',
+				lnkBtnId : 'btnWater3',
+				labelWidth : 60,
+				labelAlign : 'right',
+				labelPad : 10,
+				width : 120,
+				editable : false,
+				// labelSeparator: '', //
+				// Defaults to: ':'
+				store : Ext
+						.create('KRF_DEV.store.west.SearchArea_Water'),
+				displayField : 'name',
+				valueField : 'id',
+				disabled : true
+			
+			}]
+		}*/,{
+			//방유량  (년도/검색)버튼
+			xtype: 'container',
+			id: 'pollSearchTab',
+			layout: {
+				type: 'hbox',
+				align: 'middle',
+				pack: 'left'
+			},
+			flex: 1,
+			height: 30,
+			items: [{
+				xtype: 'combo',
+				//id: 'cmbStartMonth',
+				store: ['', '2015', '2014', '2013', '2012', '2011', '2010'],
+				value: '2013',
+				width: 80,
+				height: 25
+			},  {
+				xtype: 'container',
+				width: 10
+			},{
+
+				xtype: 'image',
+				src: './resources/images/button/icon_seah.gif', //검색
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function(){
+							//pdj
+							/*var pollLoadSelect = Ext.getCmp("pollLoadSelect");
+							PollLoadSearchResult(pollLoadSelect.lastValue);*/
+							
+							PollLoadSearchResult();
+						}
+					}
+				}
+			
+			}, {
+				xtype: 'combo',
+				store: ['항목선택', 'BOD', 'DO', 'COD', 'T-N', 'T-P', '수온'],
+				value: '항목선택',
+				listeners: {
+					change: function(combo, newVal, oldVal){
+						
+					}
+				},
+				width: 100,
+				height: 25
+			},{
+
+				xtype: 'image',
+				src: './resources/images/button/btn_save.gif', //저장
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function(){
+							
+							SaveResultOnOff();
+						}
+					}
+				}
+			
+			},{
+
+				xtype: 'image',
+				src: './resources/images/button/btn_date.gif', //설정
+				width: 34,
+				height: 19,
+				style: 'cursor:pointer;border:0px !important;',
+				listeners: {
+					el: {
+						click: function(){
+							
+							
+							var PollListWindow = Ext.getCmp("PollListWindow");
+							if(PollListWindow == null){
+								PollListWindow = Ext.create('KRF_DEV.view.common.PollListWindow');
+							}
+							
+							
+							PollListWindow.show();
+
+						}
+					}
+				}
+			
+			}]
+		
+		
+		},{
 			xtype: 'image',
 			width: 48,
 			height: 14,
@@ -324,6 +623,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 		listeners:{
 			'tabchange': function (tabPanel, tab){
+				
+				//
 				if(tab.parentId != "F"){
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					hiddenGrid.setHidden(true);
@@ -331,6 +632,60 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					hiddenGrid.setHidden(false);
 				}
+				
+				
+				var resultTab = Ext.getCmp("resultTab"); 		 //일반 검색pollResultTab
+				var pollSearchTab = Ext.getCmp("pollSearchTab"); //방유량 (년도/검색)
+				
+				//방유량 or 일반검색시 tab change
+				if(tab.id == "searchResultPollLoad_container"){
+					resultTab.setHidden(true);		//일반 검색pollResultTab
+					pollSearchTab.setHidden(false);
+					
+				}else{
+					resultTab.setHidden(false);		//일반 검색pollResultTab
+					pollSearchTab.setHidden(true);	//방유량 (년도/검색)
+				}
+				
+				
+				
+				/*
+				var resultTab = Ext.getCmp("resultTab"); 		 //일반 검색pollResultTab
+				var pollResultTab = Ext.getCmp("pollResultTab"); //방유량 집수구역별 검색조건
+				var pollResultTab2 = Ext.getCmp("pollResultTab2"); //방유량 행정구역별 검색조건
+				var pollResultTab3 = Ext.getCmp("pollResultTab3"); //방유량 수계별 검색조건
+				//var pollResultTab4 = Ext.getCmp("pollResultTab4"); //방유량 총량단위유역별 검색조건
+				var pollLoadSelect = Ext.getCmp("pollLoadSelect"); //방유량 검색
+				
+				var pollSearchTab = Ext.getCmp("pollSearchTab"); //방유량 (년도/검색)
+				
+				//방유량 or 일반검색시 tab change
+				if(tab.id == "searchResultPollLoad_container"){
+					resultTab.setHidden(true);		//일반 검색pollResultTab
+					pollResultTab.setHidden(false);	//방유량 검색조건
+					pollSearchTab.setHidden(false);
+					//pollSearchTab.setHidden(false);	//방유량 (년도/검색)
+					if(pollLoadSelect.lastValue == "집수구역으로 찾기"){
+						pollResultTab2.setHidden(true);
+						pollResultTab3.setHidden(true);
+						//pollResultTab4.setHidden(true);
+					}
+				}else{
+					resultTab.setHidden(false);		//일반 검색pollResultTab
+					pollResultTab.setHidden(true);	//방유량구분 검색조건
+					pollResultTab2.setHidden(true);	//방유량 검색조건
+					pollResultTab3.setHidden(true);	//방유량 검색조건
+					//pollResultTab4.setHidden(true);	//방유량 검색조건
+					pollSearchTab.setHidden(true);	//방유량 (년도/검색)
+				}
+				
+				
+				
+				if(pollLoadSelect.lastValue == "집수구역으로 찾기"){
+					pollResultTab
+				}*/
+								
+				
 			}
 		}
 	}]

@@ -411,14 +411,16 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					jijum_Cd = jijum.시설코드;
 					jijum_Gubun =  "하수종말처리시설" ;
 				}
-				
+				console.info(reachNameToolbar);
 				//시작지점 끝지점 처리및 지점명 삽입
 				if(clickValue == "start"){
+					console.info("start");
 					reachNameToolbar.items.items[0].setValue(jijum_Name);
 					textSearchText_Start.setValue(jijum_Name);
 					//console.info("start");
 				}
 				if(clickValue == "end"){
+					console.info("end");
 					reachNameToolbar.items.items[1].setValue(jijum_Name);
 					textSearchText_End.setValue(jijum_Name);
 					//console.info("end");
