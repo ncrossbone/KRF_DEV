@@ -302,7 +302,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                 '<div>' +
                         '&nbsp;&nbsp;&nbsp;<svg width="24" height="24" version="1.1" xmlns="https://www.w3.org/2000/svg">' +
                         //'<path d="M 11 11 L 12 11 L 12 12 L 11 12 Z" data-classification="${classification}" />' +
-                        '<rect width="200" height="20" style="fill:${fill};" />' +
+                        '<rect width="200" height="20" range="${range}" class="tmLegendSymbol" style="fill:${fill};" />' +
                         '</svg>' +
                         '&nbsp;&nbsp;&nbsp;<span style="vertical-align:top;" range="${range}" class="tmLegendSymbol">${label}</span>' +
                         '</div>';
@@ -332,7 +332,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             	//console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var polySymbol = $(".polySymbol_" + range);
-            	console.info(polySymbol);
+            	
             	for(var i = 0; i < polySymbol.length; i++){
             		
             		polySymbol[i].setAttribute("opacity", me.mouseOverOpacity);
@@ -344,12 +344,27 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             	//console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var polySymbol = $(".polySymbol_" + range);
-            	console.info(polySymbol);
+            	
             	for(var i = 0; i < polySymbol.length; i++){
             		
             		polySymbol[i].setAttribute("opacity", me.initOpacity);
             	}
             });
+            
+            /*tmLegendSymbol.on("click", function(evt){
+            	
+            	//console.info(evt);
+            	var range = evt.target.getAttribute("range");
+            	var polySymbol = $(".polySymbol_" + range);
+            	
+            	for(var i = 0; i < polySymbol.length; i++){
+            		
+            		//polySymbol[i].setAttribute("stroke", "rgb(0, 150, 150)");
+            		//polySymbol[i].setAttribute("stroke-width", "5");
+            		//polySymbol[i].setAttribute("box-shadow", "0 0 5px 5px rgb(0, 0, 100)");
+            		//polySymbol[i].setAttribute("opacity", "1");
+            	}
+            });*/
     	});
     },
     
