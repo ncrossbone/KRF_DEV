@@ -75,7 +75,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    		listeners: {
 	    			change: me.onChange,
 	    			beforeselect: function(combo, record, index){
-	    				console.info(me.noCollapse);
+	    				//console.info(me.noCollapse);
 	    				// 콤보 리스트가 닫히지 않게 한다.
 	    				if(me.noCollapse == true)
 	    					return false;

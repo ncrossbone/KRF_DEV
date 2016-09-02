@@ -39,6 +39,63 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'container',
 		flex: 1
+	}, {
+		xtype: 'button',
+		text: '집수구역별주제도',
+		listeners: {
+			el: {
+				click: function(){
+					
+					tmCatLayerClear();
+					showCatTMLayer();
+				}
+			}
+		}
+	}, {
+		xtype: 'button',
+		text: 'Polygon On/Off',
+		listeners: {
+			el: {
+				click: function(){
+					
+					tmCatPolygonOnOff();
+				}
+			}
+		}
+	}, {
+		xtype: 'button',
+		text: 'Symbol On/Off',
+		listeners: {
+			el: {
+				click: function(){
+					
+					tmCatSymbolOnOff();
+				}
+			}
+		}
+	}, {
+		xtype: 'button',
+		text: 'Label On/Off',
+		listeners: {
+			el: {
+				click: function(){
+					
+					tmCatLabelOnOff();
+				}
+			}
+		}
+	}, {
+		xtype: 'button',
+		text: '집수구역별레이어Clear',
+		listeners: {
+			el: {
+				click: function(){
+					
+					//testD3();
+					tmCatLayerClear();
+				}
+			}
+		}
 	}, { 
 		xtype: 'image',
 		//id: 'btnReachLayer',
@@ -79,10 +136,10 @@ Ext.define('KRF_DEV.view.north.North', {
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
-    	btnOnOff: 'off',
+    	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	src: './resources/images/button/btn_top_02_off.png'
+    	src: './resources/images/button/btn_top_02_on.png'
     }, {
     	xtype: 'container',
     	width: 5

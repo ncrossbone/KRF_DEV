@@ -266,10 +266,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		var me = GetCoreMap();
 		
 		if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
-			
+			//showTmdlTMLayer
 			var pollLoadString = "{\n";
 			pollLoadString += "	\"id\": \"pollLoad\",\n";
-			pollLoadString += "	\"text\": \"부하량&nbsp;&nbsp<img onClick='showCatTMMap();' style='height:15px;cursor:pointer;' src='./resources/images/button/icon_seah.gif'/>\",\n";
+			pollLoadString += "	\"text\": \"부하량\",\n";
 			pollLoadString += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 			pollLoadString += "	\"expanded\": false,\n";
 			pollLoadString += "	\"checked\": null,\n";
