@@ -3,7 +3,7 @@ Ext.define('KRF_DEV.view.map.TMLegendWindow', {
 	extend : 'Ext.window.Window',
 	xtype : 'tmlegendwindow',
 	id: 'tmLegendWindow',
-	title: '범례 - 발생부하량 BOD 합계',
+	title: '범례',
 	
 	//cls: 'khLee-window-panel-header khLee-x-window-default ',
 	//bodyStyle: 'border: 0px;',
