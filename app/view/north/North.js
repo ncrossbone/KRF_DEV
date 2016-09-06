@@ -46,8 +46,8 @@ Ext.define('KRF_DEV.view.north.North', {
 			el: {
 				click: function(){
 					
-					tmCatLayerClear();
-					showCatTMLayer();
+					//showCatTMLayer();
+					var dd = getTest();
 				}
 			}
 		}

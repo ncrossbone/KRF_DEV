@@ -85,21 +85,37 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	
 	        	//console.info(tmCatFeatureSet);
 	        	
-	        	// 폴리곤 레이어 생성
-	        	me.tmGraphicLayerCat = new GraphicsLayer();
-	        	me.tmGraphicLayerCat.id = "tmGraphicLayerCat";
+	        	if(me.tmGraphicLayerCat == undefined || me.tmGraphicLayerCat == null){
+		        	// 폴리곤 레이어 생성
+		        	me.tmGraphicLayerCat = new GraphicsLayer();
+		        	me.tmGraphicLayerCat.id = "tmGraphicLayerCat";
+	        	}
 	        	
-	        	// 원형 심볼 레이어
-	        	me.circleGraphicLayer = new GraphicsLayer();
-	        	me.circleGraphicLayer.id = "circleGraphicLayer";
+	        	me.tmGraphicLayerCat.setVisibility(true);
 	        	
-	        	// 막대 심볼 레이어
-	        	me.barImgGraphicLayer = new GraphicsLayer();
-	        	me.barImgGraphicLayer.id = "barImgGraphicLayer";
+	        	if(me.circleGraphicLayer == undefined || me.circleGraphicLayer == null){
+		        	// 원형 심볼 레이어
+		        	me.circleGraphicLayer = new GraphicsLayer();
+		        	me.circleGraphicLayer.id = "circleGraphicLayer";
+	        	}
 	        	
-	        	// 라벨 레이어 생성
-	        	me.tmLabelLayerCat = new GraphicsLayer();
-	        	me.tmLabelLayerCat.id = "tmLabelLayerCat";
+	        	me.circleGraphicLayer.setVisibility(true);
+	        	
+	        	if(me.barImgGraphicLayer == undefined || me.barImgGraphicLayer == null){
+		        	// 막대 심볼 레이어
+		        	me.barImgGraphicLayer = new GraphicsLayer();
+		        	me.barImgGraphicLayer.id = "barImgGraphicLayer";
+	        	}
+	        	
+	        	me.barImgGraphicLayer.setVisibility(true);
+	        	
+	        	if(me.tmLabelLayerCat == undefined || me.tmLabelLayerCat == null){
+		        	// 라벨 레이어 생성
+		        	me.tmLabelLayerCat = new GraphicsLayer();
+		        	me.tmLabelLayerCat.id = "tmLabelLayerCat";
+	        	}
+	        	
+	        	me.tmLabelLayerCat.setVisibility(true);
 	        	
 	        	// 폴리곤 그래픽 심볼 생성
         		var tmCatFillSymbol = new SimpleFillSymbol(
@@ -135,7 +151,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		}
 	        	}
 	        	
-	        	console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
+	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
 	        	quantize = getQuantize(minVal, maxVal, range);
 	        	
@@ -264,7 +280,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	// 집수구역 부하량 폴리곤 레이어 추가
 	        	coreMap.map.addLayer(me.tmGraphicLayerCat);
 	        	
-	        	// 집수구역 부하량 원형 레이어 추가
+	        	// 집수구역 부하량 원형 레이어 추가 (사용안함)
 	        	me.circleGraphicLayer.setVisibility(false);
 	        	coreMap.map.addLayer(me.circleGraphicLayer);
 	        	
@@ -273,6 +289,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	
 	        	// 집수구역 부하량 라벨 레이어 추가
 	        	coreMap.map.addLayer(me.tmLabelLayerCat);
+	        	
+	        	// 집수구역 레이어 버튼 강제 클릭
+	        	$("#btnAreaLayer").click();
 	        	
 	        	/* 레전드 그리기 */
 	        	me.createLegend();
@@ -302,9 +321,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                 '<div>' +
                         '&nbsp;&nbsp;&nbsp;<svg width="24" height="24" version="1.1" xmlns="https://www.w3.org/2000/svg">' +
                         //'<path d="M 11 11 L 12 11 L 12 12 L 11 12 Z" data-classification="${classification}" />' +
-                        '<rect width="200" height="20" range="${range}" class="tmLegendSymbol" style="fill:${fill};" />' +
+                        '<rect width="200" height="20" range="${range}" class="tmLegendSymbol tmLegendSymbol_${range}" style="fill:${fill};" />' +
                         '</svg>' +
-                        '&nbsp;&nbsp;&nbsp;<span style="vertical-align:top;" range="${range}" class="tmLegendSymbol">${label}</span>' +
+                        '&nbsp;&nbsp;&nbsp;<span style="vertical-align:top;" range="${range}" class="tmLegendSymbol tmLegendSymbol_${range}">${label}</span>' +
                         '</div>';
 
         	var html = "", inverted, data, legend = dom.byId("tmLegend");
@@ -328,8 +347,10 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             var tmLegendSymbol = dojo.query("#tmLegend .tmLegendSymbol");
             
             tmLegendSymbol.on("mouseover", function(evt){
+            	console.info(evt);
+            	evt.target.setAttribute("stroke", "red");
+            	evt.target.setAttribute("stroke-width", "2");
             	
-            	//console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var polySymbol = $(".polySymbol_" + range);
             	

@@ -119,7 +119,124 @@ getQuantize = function(startValue, endValue, range){
 	//console.info(quantize);
 	//removeLanguageScript('./resources/js/d3.v3.min.js');
 	
+	/*this.test1 = "dd";
+	
+	var quantize = function(val){
+		
+		return val;
+	}*/
+	
 	return quantize;
+}
+
+var fTest = {
+	scale: {
+		quantize: function(){
+			
+			var quantizeObj = {
+				domain: function(stVal, edVal){
+					
+					var domainObj = {
+						range: function(rangeCnt){
+							
+							var arrMaxScale = [];
+							var diffVal = (edVal - stVal) / rangeCnt;
+							
+							for(var i = 0; i < rangeCnt; i++){
+								
+								var tmpVal = stVal + (diffVal * (i + 1));
+								arrMaxScale.push(tmpVal);
+							}
+							
+							this.valueRange = function(value){
+								
+								var retVal = -1;
+								
+								for(var i = 0; i < arrMaxScale.length; i++){
+									
+									if(value <= arrMaxScale[i]){
+										
+										if(retVal == -1){
+											
+											retVal = i;
+										}
+									}
+								}
+								
+								return retVal;
+							}
+							
+							this.rangeCnt = function(){
+								
+								return rangeCnt;
+							}
+							
+							this.invertExtent = function(range){
+								
+								var arrRetVal = [];
+								
+								if(range > arrMaxScale.length - 1){
+									
+									console.error("range가 범위를 벗어났습니다.");
+									return null;
+								}
+								
+								var stExt = null;
+								var edExt = null;
+								
+								if(range == 0){
+									stExt = stVal;
+								}
+								else{
+									stExt = arrMaxScale[range - 1];
+								}
+								
+								edExt = arrMaxScale[range];
+								
+								arrRetVal.push(arrMaxScale[range - 1]);
+								arrRetVal.push(arrMaxScale[range]);
+								
+								return range;
+							}
+								
+							return this;
+						}
+					}
+					
+					return domainObj;
+				}
+			}
+			
+			return quantizeObj;
+		}
+	}
+}
+
+getTest = function(){
+	
+	var test1 = fTest.scale.quantize().domain(12.9999, 101.483875).range(9);
+	console.info(test1.valueRange(12.99999999999));
+	console.info(test1.valueRange(100));
+	console.info(test1.rangeCnt());
+	console.info(test1.arrMaxScale());
+}
+
+catTMLayerOnOff = function(){
+	
+	var catTMOnOff = $("#catTMOnOff");
+	
+	if(catTMOnOff[0].src.indexOf("_on.") > 0){
+		
+		catTMOnOff[0].src = catTMOnOff[0].src.replace("_on.", "_off.");
+		// 주제도 레이어 보이기
+		showCatTMLayer();
+	}
+	else{
+		
+		catTMOnOff[0].src = catTMOnOff[0].src.replace("_off.", "_on.");
+		// 주제도 레이어 클리어
+		tmCatLayerClear();
+	}
 }
 
 // 집수구역별 주제도 보여주기
@@ -140,12 +257,16 @@ showCatTMLayer = function(){
 		inStrCatDids = inStrCatDids.substring(0, inStrCatDids.length -2);
 	}
 	
-	//console.info(inStrCatDids);
+	//console.info(coreMap.tmLayerAdmin);
+	//console.info(coreMap.tmLayerAdmin.tmGraphicLayerCat);
 	
-	coreMap.TMLayerAdmin = Ext.create("KRF_DEV.view.map.TMLayerAdmin");
-	//coreMap.DynamicLayerTMAdmin = Ext.create("KRF_DEV.view.map.DynamicLayerTMAdmin", coreMap.map, inStrCatDids);
+	if(coreMap.tmLayerAdmin == undefined || coreMap.tmLayerAdmin == null){
+		
+		coreMap.tmLayerAdmin = Ext.create("KRF_DEV.view.map.TMLayerAdmin");
+	}
+	
 	// 집수구역별 주제도 레이어 그리기 함수 호출
-	coreMap.TMLayerAdmin.drawTMCatLayer(inStrCatDids);
+	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids);
 }
 
 // 총량단위유역별 주제도 보여주기
@@ -357,9 +478,21 @@ tmCatLayerClear = function(){
 	
 	if(coreMap.tmLayerAdmin != undefined && coreMap.tmLayerAdmin.tmGraphicLayerCat != undefined){
 		
+		coreMap.tmLayerAdmin.tmGraphicLayerCat.setVisibility(false);
 		coreMap.tmLayerAdmin.tmGraphicLayerCat.clear();
+		
+		// 클리어시 setVisibility
+		coreMap.tmLayerAdmin.barImgGraphicLayer.setVisibility(false);
 		coreMap.tmLayerAdmin.barImgGraphicLayer.clear();
+		
+		coreMap.tmLayerAdmin.circleGraphicLayer.setVisibility(false);
 		coreMap.tmLayerAdmin.circleGraphicLayer.clear();
+		
+		coreMap.tmLayerAdmin.tmLabelLayerCat.setVisibility(false);
 		coreMap.tmLayerAdmin.tmLabelLayerCat.clear();
+		
+		// 집수구역 레이어 버튼 강제 클릭
+    	$("#btnAreaLayer").click();
+    	Ext.getCmp("tmLegendWindow").close();
 	}
 }
