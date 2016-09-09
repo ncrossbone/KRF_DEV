@@ -272,7 +272,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			pollLoadString += "	\"text\": \"<span style='vertical-align:top;'>부하량</span>";
 			pollLoadString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 			pollLoadString += " <a style='vertical-align:bottom;' href='javascript:catTMLayerOnOff();'>";
-			pollLoadString += " <img id='catTMOnOff' width='28' height='15' src='./resources/images/button/tmPollLoad_on.png' />";
+			pollLoadString += " <img id='catTMOnOff' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' />";
 			pollLoadString += " </a>";
 			pollLoadString += " </span>\",\n";
 			pollLoadString += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";

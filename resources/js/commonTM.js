@@ -139,22 +139,39 @@ var fTest = {
 					var domainObj = {
 						range: function(rangeCnt){
 							
-							var arrMaxScale = [];
+							var me = this;
+							
+							me.arrQuantize = [];
 							var diffVal = (edVal - stVal) / rangeCnt;
 							
 							for(var i = 0; i < rangeCnt; i++){
 								
-								var tmpVal = stVal + (diffVal * (i + 1));
-								arrMaxScale.push(tmpVal);
+								var minVal = 0;
+								
+								if(i == 0){
+									
+									minVal = Math.floor(stVal); // 내림
+								}
+								else{
+									
+									minVal = me.arrQuantize[i - 1].maxVal + 1;
+								}
+									
+								var maxVal = stVal + (diffVal * (i + 1));
+								maxVal = Math.ceil(maxVal); // 올림
+								
+								var quantizeObj = {minVal: minVal, maxVal: maxVal};
+								
+								me.arrQuantize.push(quantizeObj);
 							}
 							
 							this.valueRange = function(value){
 								
 								var retVal = -1;
 								
-								for(var i = 0; i < arrMaxScale.length; i++){
+								for(var i = 0; i < me.arrQuantize.length; i++){
 									
-									if(value <= arrMaxScale[i]){
+									if(value <= me.arrQuantize[i]){
 										
 										if(retVal == -1){
 											
@@ -166,16 +183,16 @@ var fTest = {
 								return retVal;
 							}
 							
-							this.rangeCnt = function(){
+							me.rangeCnt = function(){
 								
 								return rangeCnt;
 							}
 							
-							this.invertExtent = function(range){
+							me.invertExtent = function(range){
 								
 								var arrRetVal = [];
 								
-								if(range > arrMaxScale.length - 1){
+								if(range > arrQuantize.length - 1){
 									
 									console.error("range가 범위를 벗어났습니다.");
 									return null;
@@ -188,18 +205,18 @@ var fTest = {
 									stExt = stVal;
 								}
 								else{
-									stExt = arrMaxScale[range - 1];
+									stExt = arrQuantize[range - 1];
 								}
 								
-								edExt = arrMaxScale[range];
+								edExt = arrQuantize[range];
 								
-								arrRetVal.push(arrMaxScale[range - 1]);
-								arrRetVal.push(arrMaxScale[range]);
+								arrRetVal.push(arrQuantize[range - 1]);
+								arrRetVal.push(arrQuantize[range]);
 								
 								return range;
 							}
 								
-							return this;
+							return me;
 						}
 					}
 					
@@ -212,13 +229,234 @@ var fTest = {
 	}
 }
 
-getTest = function(){
+getQuantizeObj = function(minVal, maxVal, range){
 	
-	var test1 = fTest.scale.quantize().domain(12.9999, 101.483875).range(9);
-	console.info(test1.valueRange(12.99999999999));
+	var quantizeObj = fTest.scale.quantize().domain(minVal, maxVal).range(range);
+	/*console.info(test1.valueRange(12.99999999999));
 	console.info(test1.valueRange(100));
 	console.info(test1.rangeCnt());
-	console.info(test1.arrMaxScale());
+	console.info(test1.arrQuantize);*/
+	
+	return quantizeObj;
+}
+
+var tmQuantize = {
+	setOnlyOneFeature: function(features, attrName){
+		
+		features.sort(function(a, b){
+			
+			return eval("b.attributes." + attrName) - eval("a.attributes." + attrName);
+		});
+		
+		if(features.length <= 15){
+			
+			for(var i = 0; i < features.length; i++){
+				
+				//console.info(eval("features[i].attributes." + attrName));
+			}
+		}
+	},
+	setScale: function(featureSet, attrName){
+		
+		var features = featureSet.features;
+		
+		if(features.length <= 15){
+			
+			this.setOnlyOneFeature(features, attrName);
+		}
+		
+		var minVal = undefined;
+		var maxVal = undefined;
+		
+		/*if(featureSet.stVal != undefined){
+			
+			minVal = featureSet.stVal;
+		}
+		
+		if(featureSet.edVal != undefined){
+			
+			maxVal = featureSet.edVal;
+		}*/
+		
+		if(features != undefined){
+			
+			for(var i = 0; i < features.length; i++){
+				
+				var feature = features[i];
+				var quantizeVal = eval("feature.attributes." + attrName);
+				
+				// Min Value 셋팅
+				if(minVal == undefined || quantizeVal < minVal){
+					minVal = quantizeVal;
+				}
+				
+				// Max Value 셋팅
+				if(maxVal == undefined || quantizeVal > maxVal){
+					maxVal = quantizeVal;
+				}
+			}
+		}
+		
+		this.setQuantize = function(range){
+			
+			if(this.totRange == undefined){
+				
+				this.totRange = range;
+			}
+			
+			var arrQuantize = [];
+			
+			var diffVal = (maxVal - minVal) / range;
+			
+			for(var i = 0; i < range; i++){
+				
+				var stVal = 0;
+				var edVal = 0;
+				var curRange = i;
+				
+				if(featureSet.range != undefined){
+					
+					curRange = featureSet.range + "-" + i;
+				}
+				
+				if(i == 0){
+					
+					stVal = minVal;
+				}
+				else{
+					
+					stVal = arrQuantize[i - 1].edVal;
+				}
+				
+				if(i == range - 1){
+					edVal = maxVal;
+				}
+				else{
+					edVal = stVal + diffVal;
+				}
+				
+				stVal = Math.round(stVal);
+				edVal = Math.round(edVal);
+				
+				var obj = {stVal: stVal, edVal: edVal, range: curRange};
+				
+				arrQuantize.push(obj);
+			}
+			
+			this.setFeature = function(){
+				
+				for(var quanCnt = 0; quanCnt < arrQuantize.length; quanCnt++){
+					
+					if(arrQuantize[quanCnt].features == undefined){
+						
+						arrQuantize[quanCnt].features = [];
+					}
+					
+					var qStVal = arrQuantize[quanCnt].stVal;
+					var qEdVal = arrQuantize[quanCnt].edVal;
+					
+					for(var featureCnt = 0; featureCnt < features.length; featureCnt++){
+					
+						var feature = features[featureCnt];
+			    		var quantizeVal = Math.round(eval("feature.attributes." + attrName));
+						
+						if(quantizeVal >= qStVal && quantizeVal <= qEdVal){
+							
+							arrQuantize[quanCnt].features.push(feature);
+						}
+					}
+				}
+				
+				arrQuantize.sort(function(a, b){
+					
+					// return a.features.length - b.features.length; // ASC
+					return b.features.length - a.features.length; // DESC
+				});
+
+				if(this.quantizeObj.length < this.totRange){
+					
+					var zeroCnt = 0;
+					
+					for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+						
+						if(arrQuantize[reCnt].features.length > 0){
+							
+							var subRange = arrQuantize[reCnt].range;
+							
+							if(subRange.length > 2){
+								subRange = subRange.substring(0, subRange.length - 2);
+							}
+							
+							for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
+								
+								if(this.quantizeObj[objCnt].range == subRange){
+									console.info(subRange);
+									this.quantizeObj.splice(objCnt, 1);	
+								}
+							}
+							
+							/*arrQuantize[reCnt].features.sort(function(a, b){
+								
+								return eval("a.attributes." + attrName); - eval("b.attributes." + attrName); // ASC
+							});
+							
+							var tmpFeatures = arrQuantize[reCnt].features;
+							arrQuantize[reCnt].stVal = eval("tmpFeatures[0].attributes." + attrName);
+							arrQuantize[reCnt].edVal = eval("tmpFeatures[tmpFeatures.length - 1].attributes." + attrName);*/
+							
+							this.quantizeObj.push(arrQuantize[reCnt]);
+						}
+						else{
+							
+							zeroCnt++;
+						}
+					}
+					
+					for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+						
+						if(arrQuantize[reCnt].features.length > 1){
+							
+							if(zeroCnt > 0){
+								
+								this.setScale(arrQuantize[reCnt], attrName).setQuantize(2).setFeature();
+							}
+						}
+					}
+				}
+				
+				this.quantizeObj.sort(function(a, b){
+					
+					return a.stVal - b.stVal; // ASC
+				});
+				
+				for(var i = 0; i < this.quantizeObj.length; i++){
+					
+					this.quantizeObj[i].range = i;
+				}
+				
+				return this;
+			}
+			
+			return this;
+		}
+		
+		return this;
+	},
+	totRange: undefined,
+	quantizeObj: []
+}
+
+getQuantizeObj = function(featureSet, attrName, range){
+	
+	/*var minMaxObj = getMinMaxVal(features, attrName);
+	var quantizeObj = getQuantizeObj(minMaxObj.minVal, minMaxObj.maxVal, range);
+	var arrQuantize = sortQuantize(features, attrName, quantizeObj.arrQuantize);*/
+	
+	var quantize = tmQuantize.setScale(featureSet, attrName).setQuantize(range).setFeature();
+	//console.info(quantize.quantizeObj);
+	//console.info(quantize.quantizeObj.splice(1, 1));
+	
+	return quantize.quantizeObj;
 }
 
 catTMLayerOnOff = function(){
@@ -228,14 +466,14 @@ catTMLayerOnOff = function(){
 	if(catTMOnOff[0].src.indexOf("_on.") > 0){
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_on.", "_off.");
-		// 주제도 레이어 보이기
-		showCatTMLayer();
+		// 주제도 레이어 클리어
+		tmCatLayerClear();
 	}
 	else{
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_off.", "_on.");
-		// 주제도 레이어 클리어
-		tmCatLayerClear();
+		// 주제도 레이어 보이기
+		showCatTMLayer();
 	}
 }
 
@@ -302,26 +540,7 @@ getCatRangeColor = function(range){
 	
 	var color = "";
 	
-    /*switch(range){
-    
-        case 0:
-        	color = "#f5cb00";
-        	break;
-        case 1:
-        	color = "#f67682";
-        	break;
-        case 2:
-        	color = "#f75e64";
-        	break;
-        case 3:
-        	color = "#f72d3f";
-        	break;
-        case 4:
-        	color = "#F70019";
-        	break;
-    }*/
-	
-	switch(range){
+	/*switch(range){
     
 	    case 0:
 	    	color = "#FFFFCC";
@@ -347,7 +566,56 @@ getCatRangeColor = function(range){
 	    case 7:
 	    	color = "#B10026";
 	    	break;
-	}
+	}*/
+	
+	switch(range){
+    
+    case 0:
+    	color = "#FFFFCC";
+    	break;
+    case 1:
+    	color = "#FFF4B4";
+    	break;
+    case 2:
+    	color = "#FFEDA0";
+    	break;
+    case 3:
+    	color = "#FFE282";
+    	break;
+    case 4:
+    	color = "#FED976";
+    	break;
+    case 5:
+    	color = "#FED24C";
+    	break;
+    case 6:
+    	color = "#FEBE5A";
+    	break;
+    case 7:
+    	color = "#FEA043";
+    	break;
+    case 8:
+    	color = "#FD8D3C";
+    	break;
+    case 9:
+    	color = "#FD6E32";
+    	break;
+    case 10:
+    	color = "#FC4E2A";
+    	break;
+    case 11:
+    	color = "#F0322D";
+    	break;
+    case 12:
+    	color = "#E31A1C";
+    	break;
+    case 13:
+    	color = "#C80D32";
+    	break;
+    case 14:
+    	color = "#B10026";
+    	break;
+}
     
     return color;
 }
@@ -387,7 +655,7 @@ getCatRangeBarSrc = function(range){
 	return src;
 }
 
-// 집수구역별 해당 범위의 색상 가져오기
+// 집수구역별 해당 범위의 원 반지름 가져오기
 getCatRangeRadius = function(range){
 	
 	var radius = 0;
@@ -495,4 +763,18 @@ tmCatLayerClear = function(){
     	$("#btnAreaLayer").click();
     	Ext.getCmp("tmLegendWindow").close();
 	}
+}
+
+paddingLeft = function(padString, length, value){
+	
+	var retVal = "";
+	
+	for(var i = value.length; i < length; i++){
+		
+		retVal += padString;
+	}
+	
+	retVal += value;
+	
+	return retVal;
 }

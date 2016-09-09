@@ -6,6 +6,10 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	initOpacity: "0.4", // 기본 투명도
 	mouseOverOpacity: "0.8", // 마우스 오버시 투명도
 	
+	basicColor: "gray",
+	middleColor: "gray",
+	overColor: "transparent",
+	
 	constructor: function() {
 		
 		
@@ -129,9 +133,11 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
         		);
 	        	
 	        	var tmCatFeatures = tmCatFeatureSet.features;
+	        	
 	        	var minVal = 0;
 	        	var maxVal = 0;
-	        	var range = 8;
+	        	//var range = 8;
+	        	var range = 15;
 	        	
 	        	for(var i = 0; i < tmCatFeatures.length; i++){
 	        		
@@ -151,57 +157,68 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		}
 	        	}
 	        	
+	        	/* 범위, 값 매핑 오브젝트 생성 */
+	        	var quantizeObj = getQuantizeObj(tmCatFeatureSet, "GNR_BOD_SU", range);
+	        	//console.info(quantizeObj);
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
-	        	quantize = getQuantize(minVal, maxVal, range);
-	        	
-	        	for(var i = 0; i < tmCatFeatures.length; i++){
+	        	for(var range = 0; range < quantizeObj.length; range++){
 	        		
-	        		// 폴리곤 그래픽 지정
-	        		var tmCatGraphic = tmCatFeatures[i];
-	        		// 폴리곤 심볼 지정
-	        		tmCatGraphic.setSymbol(tmCatFillSymbol);
-	        		// 폴리곤 그래픽 추가
-	        		me.tmGraphicLayerCat.add(tmCatGraphic);
-	        		
-	        		/* 폴리곤 중심점 가져오기 */
-	        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
-	        		
-	        		// 발생부하량 BOD 합계
-	        		var gnrBodSu = tmCatGraphic.attributes.GNR_BOD_SU;
-	        		
-	        		// 라벨 텍스트 설정
-	        		var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
-	        		
-	        		// 텍스트 라벨 생성
-	        		var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
-	        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
-	        						new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
-	        		// 라벨 그래픽 생성
-	        		var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
-	        		// 집수구역 부하량 속성 데이터 카피
-	        		tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
-	        		me.tmLabelLayerCat.add(tmCatLabelGraphic);
-	        		
-	        		var range = quantize(gnrBodSu);
-	        		
-	        		var circle = new Circle({
-	        			center: centerPoint,
-	        			radius: getCatRangeRadius(range)
-	        		});
-	        		
-	        		// 원형 그래픽 생성
-	        		var cirCleGraphic = new Graphic(circle, tmCatFillSymbol);
-	        		// 집수구역 부하량 속성 데이터 카피
-	        		cirCleGraphic.attributes = tmCatGraphic.attributes;
-	        		me.circleGraphicLayer.add(cirCleGraphic);
-	        		
-	        		// 이미지 심볼 생성
-	        		var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(range), 25, 63).setOffset(0, 25);
-	        		var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
-	        		// 집수구역 부하량 속성 데이터 카피
-	        		barImgGraphic.attributes = tmCatGraphic.attributes;
-	        		me.barImgGraphicLayer.add(barImgGraphic);
+	        		tmCatFeatures = quantizeObj[range].features;
+	        		console.info(tmCatFeatures);
+		        	//quantize = getQuantize(minVal, maxVal, range);
+		        	
+		        	for(var i = 0; i < tmCatFeatures.length; i++){
+		        		
+		        		// 폴리곤 그래픽 지정
+		        		var tmCatGraphic = tmCatFeatures[i];
+		        		tmCatGraphic.attributes.range = range;
+		        		// 폴리곤 심볼 지정
+		        		tmCatGraphic.setSymbol(tmCatFillSymbol);
+		        		// 폴리곤 그래픽 추가
+		        		me.tmGraphicLayerCat.add(tmCatGraphic);
+		        		
+		        		/* 폴리곤 중심점 가져오기 */
+		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
+		        		
+		        		// 발생부하량 BOD 합계
+		        		var gnrBodSu = tmCatGraphic.attributes.GNR_BOD_SU;
+		        		
+		        		// 라벨 텍스트 설정
+		        		var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
+		        		
+		        		// 텍스트 라벨 생성
+		        		var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
+		        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
+		        						new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
+		        		// 라벨 그래픽 생성
+		        		var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
+		        		// 집수구역 부하량 속성 데이터 카피
+		        		tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
+		        		tmCatLabelGraphic.attributes.range = range;
+		        		me.tmLabelLayerCat.add(tmCatLabelGraphic);
+		        		
+		        		//var range = quantize(gnrBodSu);
+		        		
+		        		var circle = new Circle({
+		        			center: centerPoint,
+		        			radius: getCatRangeRadius(range)
+		        		});
+		        		
+		        		// 원형 그래픽 생성
+		        		var cirCleGraphic = new Graphic(circle, tmCatFillSymbol);
+		        		// 집수구역 부하량 속성 데이터 카피
+		        		cirCleGraphic.attributes = tmCatGraphic.attributes;
+		        		me.circleGraphicLayer.add(cirCleGraphic);
+		        		
+		        		// 이미지 심볼 생성
+		        		var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range/2 + 1)), 25, 63).setOffset(0, 25);
+		        		var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
+		        		// 집수구역 부하량 속성 데이터 카피
+		        		barImgGraphic.attributes = tmCatGraphic.attributes;
+		        		barImgGraphic.attributes.range = range;
+		        		me.barImgGraphicLayer.add(barImgGraphic);
+		        	}
 	        	}
 	        	
 	        	/* 폴리곤 그래픽 이벤트 */
@@ -209,11 +226,10 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		
 	        		//console.info(evt);
 	        		var attrs = evt.graphic.attributes,
-	        			GNR_BOD_SU = (attrs && attrs.GNR_BOD_SU) || undefined,
 	        			range;
 	        		
-                    range = quantize(GNR_BOD_SU);
-                    //console.info(range);
+                    range = attrs.range
+                    
                     // 집수구역별 부하량 폴리곤 그래픽 스타일 셋팅
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, getCatRangeColor(range));
                     
@@ -225,12 +241,23 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		
+	        		var labelSymbol = $("#labelSymbol_" + evt.graphic.attributes.CAT_DID);
+	        		labelSymbol[0].setAttribute("font-color", "blue");
+	            	
+	            	// 범례 스타일 설정
+	        		var range = evt.graphic.attributes.range;
+	        		me.setAttributeLegend("on", range);
 	        	});
 	        	
 	        	on(me.tmGraphicLayerCat, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		
+	            	// 범례 스타일 설정
+	        		var range = evt.graphic.attributes.range;
+	        		me.setAttributeLegend("off", range);
 	        	});
 	        	/* 폴리곤 그래픽 이벤트 끝 */
 	        	
@@ -239,26 +266,57 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		
+	        		// 범례 스타일 설정
+	        		var range = evt.graphic.attributes.range;
+	        		me.setAttributeLegend("on", range);
 	        	});
 	        	
 	        	on(me.barImgGraphicLayer, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		
+	        		// 범례 스타일 설정
+	        		var range = evt.graphic.attributes.range;
+	        		me.setAttributeLegend("off", range);
 	        	});
 	        	/* 이미지 그래픽 이벤트 끝 */
 	        	
 	        	/* 라벨 그래픽 이벤트 */
+	        	on(me.tmLabelLayerCat, "graphic-draw", function(evt){
+	        		
+	        		//console.info(evt);
+	        		var attrs = evt.graphic.attributes,
+	        			range;
+	        		
+                    range = attrs.range
+                    
+                    // 라벨 id 셋팅
+                    evt.node.setAttribute("id", "labelSymbol_" + attrs.CAT_DID);
+                    
+                    // 범례와 연계하기 위해 클래스 지정 (가상)
+                    evt.node.setAttribute("class", "labelSymbol_" + range);
+	        	});
+
 	        	on(me.tmLabelLayerCat, "mouse-over", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		
+	        		// 범례 스타일 설정
+	        		var range = evt.graphic.attributes.range;
+	        		me.setAttributeLegend("on", range);
 	        	});
 	        	
 	        	on(me.tmLabelLayerCat, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		
+	        		// 범례 스타일 설정
+	        		var range = evt.graphic.attributes.range;
+	        		me.setAttributeLegend("off", range);
 	        	});
 	        	/* 라벨 그래픽 이벤트 끝 */
 	        	
@@ -267,10 +325,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		
 	        		//console.info(evt);
 	        		var attrs = evt.graphic.attributes,
-	        			GNR_BOD_SU = (attrs && attrs.GNR_BOD_SU) || undefined,
 	        			range;
 	        		
-                    range = quantize(GNR_BOD_SU);
+                    range = attrs.range;
                     
                     // 집수구역별 부하량 원형 그래픽 스타일 셋팅
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, getCatRangeColor(range));
@@ -294,13 +351,13 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	$("#btnAreaLayer").click();
 	        	
 	        	/* 레전드 그리기 */
-	        	me.createLegend();
+	        	me.createLegend(quantizeObj);
 	        });
 		});
     },
     
     // 레전드 그리기
-    createLegend: function(){
+    createLegend: function(quantizeObj){
     	
     	var coreMap = GetCoreMap();
     	var me = this;
@@ -318,40 +375,77 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		 number){
     		
     		var swatchTemplate =
-                '<div>' +
-                        '&nbsp;&nbsp;&nbsp;<svg width="24" height="24" version="1.1" xmlns="https://www.w3.org/2000/svg">' +
-                        //'<path d="M 11 11 L 12 11 L 12 12 L 11 12 Z" data-classification="${classification}" />' +
-                        '<rect width="200" height="20" range="${range}" class="tmLegendSymbol tmLegendSymbol_${range}" style="fill:${fill};" />' +
+                '<div style="height:20px; width: 300px; border:1px solid transparent; padding-left: 10px;">' +
+                	'<div class="tmLegendSymbol_${range}" borderColor="${borderColor}" style="width:82px; height:20px; ${borderStyle} float: left;">' +
+                        '<svg width="80" height="18" version="1.1" xmlns="https://www.w3.org/2000/svg">' +
+                        	//'<path d="M 11 11 L 12 11 L 12 12 L 11 12 Z" data-classification="${classification}" />' +
+                        	'<rect width="80" height="18" range="${range}" class="tmLegendSymbol" style="fill:${fill};" />' +
                         '</svg>' +
-                        '&nbsp;&nbsp;&nbsp;<span style="vertical-align:top;" range="${range}" class="tmLegendSymbol tmLegendSymbol_${range}">${label}</span>' +
-                        '</div>';
+                    '</div>' +
+                    '<div style="width:10px; height:18px; float: left;">' +
+                    '</div>' +
+                    '<div range="${range}" class="tmLegendSymbol" style="width:100px; height:18px; border:1px solid transparent; float: left;">' +
+                    	'${label}' +
+                    '</div>'+
+                '</div>';
 
         	var html = "", inverted, data, legend = dom.byId("tmLegend");
         	
-            array.forEach(quantize.range(), function (range) {
-                
-                inverted = quantize.invertExtent(range);
+        	quantizeObj.sort(function(a, b){
+        		return b.range - a.range;
+        	});
+        	
+        	var chkCnt = 0;
+        	
+            array.forEach(quantizeObj, function (obj) {
+            	
+            	var fillColor = getCatRangeColor(obj.range);
+            	var borderStyle = "";
+            	var borderColor = "";
+            	
+            	chkCnt++;
+            	
+            	if(chkCnt % 2 != 0){
+            		
+            		borderColor = me.basicColor;
+            		borderStyle = "border:1px solid " + borderColor + ";";
+            	}
+            	else{
+            		borderColor = me.middleColor;
+            		borderStyle = "border:1px solid " + borderColor + ";";
+            	}
 
                 data = {
                 		
-                    label:number.format(inverted[0], { places:4 }) + " - " + number.format(inverted[1], { places:4 }),
-                    fill:getCatRangeColor(range),
-                    range:range
+                    //label:number.format(obj.stVal, { places:0 }) + " - " + number.format(obj.edVal, { places:0 }),
+                	label:paddingLeft("&nbsp;", 8, number.format(obj.edVal, { places:0 })) + " kg/일",
+                    fill:fillColor,
+                    range:obj.range,
+                    borderColor: borderColor,
+                    borderStyle: borderStyle
                 };
                 
                 html += esri.substitute(data, swatchTemplate);
             });
+            
+            var windowHeight = (quantizeObj.length * 20) + 55;
+            tmLegendWindow.setHeight(windowHeight);
+            
+            var windowY = Ext.getBody().getHeight() - tmLegendWindow.getHeight();
+            tmLegendWindow.setY(windowY);
             
             legend.innerHTML = legend.innerHTML + html;
             
             var tmLegendSymbol = dojo.query("#tmLegend .tmLegendSymbol");
             
             tmLegendSymbol.on("mouseover", function(evt){
-            	console.info(evt);
-            	evt.target.setAttribute("stroke", "red");
-            	evt.target.setAttribute("stroke-width", "2");
             	
             	var range = evt.target.getAttribute("range");
+            	
+            	// 범례 스타일 설정
+        		me.setAttributeLegend("on", range);
+            	
+            	// 폴리곤 투명도 조절
             	var polySymbol = $(".polySymbol_" + range);
             	
             	for(var i = 0; i < polySymbol.length; i++){
@@ -364,6 +458,11 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             	
             	//console.info(evt);
             	var range = evt.target.getAttribute("range");
+            	
+            	// 범례 스타일 설정
+        		me.setAttributeLegend("off", range);
+            	
+            	// 폴리곤 투명도 조절
             	var polySymbol = $(".polySymbol_" + range);
             	
             	for(var i = 0; i < polySymbol.length; i++){
@@ -387,6 +486,21 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             	}
             });*/
     	});
+    },
+    
+    setAttributeLegend: function(onOff, range){
+    	
+    	var me = this;
+    	
+    	var legendDiv = $("#tmLegend .tmLegendSymbol_" + range);
+    	var borderColor = legendDiv[0].getAttribute("borderColor");
+    	
+    	if(onOff == "on"){
+        	legendDiv[0].style.border = "1px solid " + me.overColor;
+    	}
+    	else{
+        	legendDiv[0].style.border = "1px solid " + borderColor;
+    	}
     },
     
     // 기본 스타일 셋팅

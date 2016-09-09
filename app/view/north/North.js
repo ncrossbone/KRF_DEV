@@ -46,8 +46,7 @@ Ext.define('KRF_DEV.view.north.North', {
 			el: {
 				click: function(){
 					
-					//showCatTMLayer();
-					var dd = getTest();
+					showCatTMLayer();
 				}
 			}
 		}

@@ -21,6 +21,6 @@ Ext.define('KRF_DEV.view.map.TMLegendWindow', {
 	items: [{
 		xtype: "panel",
 		id: "tmLegendPanel",
-		html: '<br><div id="tmLegend"></div>'
+		html: '<div id="tmLegend" style="padding-top: 4px;"></div>'
 	}]
 });
