@@ -263,11 +263,13 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
 				params= {pollYear: pollYear, catDid:store.catDid }
 			}else if(store.selectValue == 22){
 				url= './resources/jsp/GetSearchPollLoadResultData_Standard_Basin.jsp';
+				params= {pollYear: pollYear, catDid:store.catDid }
 			}else if( store.selectValue == 33 || store.selectValue == ""){ 
 				url= './resources/jsp/GetSearchPollLoadResultData_CAT.jsp';
+				params= {pollYear: pollYear, catDid:store.catDid }
 			}else{
-			//	console.info("?");
 				url= './resources/jsp/GetSearchPollLoadResultData_CAT_Detail.jsp';
+				params= {pollYear: pollYear, catDid:store.catDid }
 			}
 			
 			Ext.Ajax.request({

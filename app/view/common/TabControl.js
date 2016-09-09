@@ -194,7 +194,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						,{id: '33', name: '집수구역단위 보기'}
 						,{id: '44', name: '집수구역단위 상세보기'}]
 				}),
-				value: '총괄표',
+				value: '집수구역단위 보기',
 				width: 140,
 				height: 25
 			}]
@@ -359,7 +359,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			items: [{
 				xtype: 'combo',
 				id: 'pollYear',
-				store: ['2015', '2014', '2013', '2012', '2011', '2010'],
+				store: ['2013', '2012', '2011', '2010'],
 				value: '2013',
 				width: 80,
 				height: 25
