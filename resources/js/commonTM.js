@@ -542,10 +542,28 @@ paddingLeft = function(padString, length, value){
 
 //부하량 검색결과
 PollLoadSearchResult = function(value){
-		console.info(value);
+
+
+		var rchMap = GetCoreMap();
+		var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
+		
+		var catDid = [];
+		
+		if(tmpAreaGrp != null){
+			for(i = 0; i < tmpAreaGrp.length;i++){
+				catDid.push(tmpAreaGrp[i].attributes.CAT_DID);
+			}
+		}
+		
+		if(catDid.length == 0){
+			return;
+		}
+		
+		
+		
 	
 		if(value == ""){
-			value = "11";
+			value = "33";
 		}
 	
 		var options = {
@@ -579,26 +597,12 @@ PollLoadSearchResult = function(value){
 		var pollgrdCtl = pollgrdContainer.items.items[0]; // 그리드 컨테이너
 		pollgrdCtl = pollgrdCtl.items.items[0]; // 그리드 컨트롤
 		
-		
-		
-		var rchMap = GetCoreMap();
-    	var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
-    	
-    	console.info(tmpAreaGrp);
-    	var catDid = [];
-    	
-    	if(tmpAreaGrp != null){
-    		for(i = 0; i < tmpAreaGrp.length;i++){
-    			catDid.push(tmpAreaGrp[i].attributes.CAT_DID);
-    		}
-    	}
-    	
-		console.info(catDid);
-		
 		var pollstore = Ext.create("KRF_DEV.store.south.SearchPollLoadResultGrid",{
-				selectValue: value,
-				catDid: catDid
+			selectValue: value,
+			catDid: catDid
 		});
+		
+		
 		
 		pollgrdCtl.setStore(pollstore);
 		

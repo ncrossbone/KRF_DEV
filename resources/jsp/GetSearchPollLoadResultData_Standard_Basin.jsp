@@ -10,7 +10,7 @@
 */
 try{
 	
-	
+	Object[] catDid = request.getParameterValues("catDid");
 	//out.print(adm3);
 	
 	
@@ -47,7 +47,18 @@ sql += "             SELECT '7' AS NO, '¸Å¸³°è' AS GUBUN, WS_NM, WS_CD, AM_NM, A
 sql += "                  , GNR_BOD_LANDFILL, GNR_TN_LANDFILL, GNR_TP_LANDFILL, OUT_BOD_LANDFILL, OUT_TN_LANDFILL, OUT_TP_LANDFILL                                                    ";
 sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                    ";
 sql += "            )                                                                                                                                                                 ";
-sql += "      WHERE AM_CD = '1001'                                                                                                                                                    ";
+
+if(catDid.length != 0){
+	sql += "	  WHERE  CAT_DID IN    (  	";
+	for(int i=0;i<catDid.length;i++){
+		if(i == catDid.length-1){
+			sql += "	'"+catDid[i]+"' )			";
+		}else{
+			sql += "	'"+catDid[i]+"',			";
+		}
+		
+	}
+}
 sql += "      ORDER BY WS_CD, SW_CODE, CAT_DID, ADM_CD, NO                                                                                                                            ";
 sql += "     )                                                                                                                                                                        ";
 sql += " SELECT WS_NM, AM_NM, SW_NAME, GUBUN, GNR_BOD_SUM, GNR_TN_SUM, GNR_TP_SUM, OUT_BOD_SUM, OUT_TN_SUM, OUT_TP_SUM                                                                ";
