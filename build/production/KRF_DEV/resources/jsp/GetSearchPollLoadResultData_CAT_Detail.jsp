@@ -78,7 +78,7 @@ sql += "  ORDER BY NO_1, WS_CD, SW_CODE, CAT_DID, ADM_CD, NO_2                  
 	
 		
    //out.print(sql);
-   //System.out.println(sql);
+   System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
    

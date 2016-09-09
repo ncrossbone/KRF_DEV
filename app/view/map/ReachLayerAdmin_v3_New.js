@@ -266,7 +266,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
-			        		PollLoadSearchResult("");
+			        		//PollLoadSearchResult("");
 						}
 						else if(drawOption == "addPoint" || drawOption == "extent" || drawOption == "circle"){
 							// 라인 그린다
@@ -276,7 +276,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
-			        		PollLoadSearchResult("");
+			        		//PollLoadSearchResult("");
 						}
 					}
 					
@@ -377,7 +377,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
-					        		PollLoadSearchResult("");
+					        		//PollLoadSearchResult("");
 								}
 								else{
 									// 라인 그린다
@@ -387,7 +387,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
-					        		PollLoadSearchResult("");
+					        		//PollLoadSearchResult("");
 								}
 							}
 						}
@@ -836,7 +836,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		        		
 		        		// 검색결과 창 띄우기
 		        		ShowSearchResultReach("");
-		        		PollLoadSearchResult("");
+		        		//PollLoadSearchResult("");
 		        		
 		        		// 1초 단위 타이머
 		        		var timer = setInterval(afterChk = function(){
