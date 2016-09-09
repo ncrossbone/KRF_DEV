@@ -65,6 +65,7 @@ store.load(function(a, b, c) {
 		_siteInfoLayerId = record.data.siteInfoLayerId;
 		_arcServiceUrl = record.data.arcServiceUrl;
 		_isOffsetPoint = record.data.isOffsetPoint;
+		_MapserviceUrl1 = record.data.MapserviceUrl1;
 	});
 });
 

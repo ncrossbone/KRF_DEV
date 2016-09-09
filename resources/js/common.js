@@ -509,10 +509,14 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	//console.info(tooltipCk);
 	//console.info("==================================");
 	// 리치검색 khLee 20151102 추가
+	
 	if(siteIds == "CAT"){
+		
 		ShowSearchResultReach();
 		return;
 	}
+	
+	
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -1019,6 +1023,88 @@ GetTabControl = function(options){
 	
 }
 
+//방유량 검색결과
+PollLoadSearchResult = function(value){
+		console.info(value);
+	
+		if(value == ""){
+			value = "11";
+		}
+	
+		var options = {
+				id: 'searchResultTab',
+				//title: '결과탭1',
+				header: false
+		};
+		var searchResultTab = GetTabControl(options);
+		var tab = searchResultTab.items.items[1];
+		//2016-08-24 리치검색시 방유량 그리드 생성
+		var pollOptions = {
+				//id: "searchResultContainer",
+				id: "searchResultPollLoad_container",
+				title: '방유량',
+				autoResize: true
+		};
+		
+		//console.info(pollgrdContainer);
+		
+		var pollgrdContainer = undefined; //재검색 초기화
+		pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
+		
+		
+		if(pollgrdContainer == null || pollgrdContainer == undefined){
+			pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_Result", pollOptions);
+			tab.insert(1, pollgrdContainer);
+		}
+		tab.setActiveTab("searchResultPollLoad_container");
+		
+		
+		var pollgrdCtl = pollgrdContainer.items.items[0]; // 그리드 컨테이너
+		pollgrdCtl = pollgrdCtl.items.items[0]; // 그리드 컨트롤
+		
+		
+		
+		var rchMap = GetCoreMap();
+    	var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
+    	
+    	console.info(tmpAreaGrp);
+    	var catDid = [];
+    	
+    	if(tmpAreaGrp != null){
+    		for(i = 0; i < tmpAreaGrp.length;i++){
+    			catDid.push(tmpAreaGrp[i].attributes.CAT_DID);
+    		}
+    	}
+    	
+		console.info(catDid);
+		
+		var pollstore = Ext.create("KRF_DEV.store.south.SearchPollLoadResultGrid",{
+				selectValue: value,
+				catDid: catDid
+		});
+		
+		pollgrdCtl.setStore(pollstore);
+		
+		//hidden 처리
+		if(value == "11" || value == "22"){
+			pollgrdCtl.columns[3].setHidden(true);
+			pollgrdCtl.columns[4].setHidden(true);
+			pollgrdCtl.columns[5].setHidden(true);
+		}else if(value == "33"){
+			pollgrdCtl.columns[3].setHidden(false);
+			pollgrdCtl.columns[4].setHidden(true);
+			pollgrdCtl.columns[5].setHidden(true);
+		}else{
+			pollgrdCtl.columns[3].setHidden(false);
+			pollgrdCtl.columns[4].setHidden(false);
+			pollgrdCtl.columns[5].setHidden(false);
+		}
+		
+	
+}
+
+
+
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
@@ -1084,7 +1170,13 @@ ShowSearchResultReach = function(catIds){
 	//alert(catIds);
 	var storeData = [];
 	
+	
+	
+	
+	
+	
 	if(catIds == ""){ // 리치검색에서 넘어왔을때
+		
     	var rchMap = GetCoreMap();
     	var sumRchLen = 0;
     	var sumCatArea = 0;
@@ -1252,6 +1344,7 @@ ShowSearchResultReach = function(catIds){
 	}
 	
 }
+
 
 ReachSelectedFocus = function(catId){
 	

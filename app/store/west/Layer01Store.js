@@ -19,7 +19,6 @@ Ext.define('KRF_DEV.store.west.Layer01Store', {
 	listeners: {
 		// beforeload, load, afterload
 		beforeload: function(store) {
-			console.info(store);
 			//var storeData = this;
 	
 			// khLee 추후 동적 레이어 바인딩 고려..
