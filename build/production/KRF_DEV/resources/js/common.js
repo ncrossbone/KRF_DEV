@@ -1023,13 +1023,62 @@ GetTabControl = function(options){
 	
 }
 
+SaveResultOnOff = function(saveName){
+	var pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
+	
+	var pollgrdCtl = pollgrdContainer.items.items[0]; // 그리드 컨테이너
+	pollgrdCtl = pollgrdCtl.items.items[0];
+	
+	
+	var hiddenSaveValue = [];
+	console.info(pollgrdCtl.columns);
+	for(i = 0; i < pollgrdCtl.columns.length ; i++){
+	
+		hiddenSaveValue.push(pollgrdCtl.columns[i].hidden);
+		
+	}
+	
+	
+	console.info(saveName);
+	jQuery.ajax({
+	    url: "resources/jsp/saveColunmOnOff.jsp",
+	    type: 'GET',
+	    //data: { ip: ip},
+	    //params: saveName,
+	    data: {'data':hiddenSaveValue, 'saveName': saveName},
+	    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+	    //dataType: 'json',
+	    async: false,
+	    traditional: true,
+	    success: function (r) {
+	    	console.info(r);
+	    	//alert("success");
+	    },
+	    error: function (xhr, status, error) {
+	    	console.info(xhr);
+	    	console.info(status);
+	    	console.info(error);
+	    }   
+	})
+	
+	
+	var saveList = Ext.getCmp("saveList");
+	
+	var store = Ext.create('KRF_DEV.store.south.LoadList');
+	store.load();
+	saveList.setStore(store);
+	
+	
+}
+
 //방유량 검색결과
 PollLoadSearchResult = function(value){
+//PollLoadSearchResult = function(){
 		//console.info(value);
 	
-		if(value == ""){
+		/*if(value == ""){
 			value = "11";
-		}
+		}*/
 	
 		var options = {
 				id: 'searchResultTab',
@@ -1050,26 +1099,44 @@ PollLoadSearchResult = function(value){
 		var pollgrdContainer = null; //재검색 초기화
 		pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
 		
-		console.info(pollgrdContainer);
+		//console.info(pollgrdContainer);
 		
+		/*
+		11 : 총괄표                : SearchResultGrid_PollLoad_Total
+		22 : 표준유역단위 보기     : SearchResultGrid_PollLoad_Standard_Basin
+		33 : 집수구역단위 보기     : SearchResultGrid_PollLoad_CAT
+		44 : 집수구역단위 상세보기 : SearchResultGrid_PollLoad_CAT_Detail
+		*/
+		console.info(value);
 		
-		
-		/*if(pollgrdContainer == null || pollgrdContainer == undefined){
-			if(value == "11"){
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_CAT", pollOptions);
-			}else if(value == "22"){
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad", pollOptions);
-			}else if(value == "33"){
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_SW", pollOptions);
-			}else{
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_SMAT", pollOptions);
-			}
-			//pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad", pollOptions);
+		if(value == "11" ){
+			console.info("11here");
+			pollgrdContainer = null
+			pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_Total", pollOptions);
 			tab.insert(1, pollgrdContainer);
-		}*/
+		}else if(value == "22"){
+			console.info("22here");
+			pollgrdContainer = null
+			pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_Standard_Basin", pollOptions);
+			tab.insert(1, pollgrdContainer);
+		}else if(value == "33"|| value == ""){
+			console.info("33here");
+			pollgrdContainer = null
+			pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_CAT", pollOptions);
+			tab.insert(1, pollgrdContainer);
+		}else{
+			console.info("here?");
+			pollgrdContainer = null
+			pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_CAT_Detail", pollOptions);
+			tab.insert(1, pollgrdContainer);
+		}
+		//pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad", pollOptions);
 		
 		
-		pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_Result", pollOptions);
+		
+		
+		/*pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_Result", pollOptions);
+		tab.insert(1, pollgrdContainer);*/
 		tab.setActiveTab("searchResultPollLoad_container");
 		
 		
@@ -1078,21 +1145,13 @@ PollLoadSearchResult = function(value){
 		
 		
 		
-		
+		//var pollstore = Ext.create("KRF_DEV.store.south.SearchPollLoadResultGrid");
 		
 		var pollstore = Ext.create("KRF_DEV.store.south.SearchPollLoadResultGrid",{
 				selectValue: value				
 		});
 		
 		
-		
-		/*gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
-			siteIds: grdCtl.siteIds,
-			parentIds: grdCtl.parentIds,
-			firstSession: test
-		});*/
-		//console.info(pollstore);
-		//console.info(pollstore);
 		pollgrdCtl.setStore(pollstore);
 		
 	

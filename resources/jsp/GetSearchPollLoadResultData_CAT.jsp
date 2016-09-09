@@ -10,29 +10,76 @@
 */
 try{
 	
-	String division = request.getParameter("division");
-	
-	String adm1 = request.getParameter("adm1");
-	String adm2 = request.getParameter("adm2");
-	String adm3 = request.getParameter("adm3");
 	
 	//out.print(adm3);
 	
 	
-		sql = "select '' AS YYYY, '' AS CAT_DID, sum(FINAL_AREA) AS FINAL_AREA , sum(GNR_FLOW_SUM) AS GNR_FLOW_SUM , sum(GNR_BOD_SUM) AS GNR_BOD_SUM ,sum( GNR_TN_SUM) AS GNR_TN_SUM ,				";
-		sql += "   sum(GNR_TP_SUM) AS GNR_TP_SUM , sum(OUT_FLOW_SUM) AS OUT_FLOW_SUM ,   ";
-		sql += "   sum(OUT_BOD_SUM) AS OUT_BOD_SUM, sum(OUT_TN_SUM) AS OUT_TN_SUM ,sum( OUT_TP_SUM) AS OUT_TP_SUM                                             ";
-		sql += "   from POLLULANT_LOAD_FOR_CAT                                                                                                                ";
-		sql += "   where CAT_DID IN('1006080500','1006090100','1006080600','1006090300',                                                                      ";
-		sql += "   '1006090500','1006090200','1006090400','1006090400')                                                                                       ";
-		sql += "  union                                                                                                                                       ";
-		sql += "   select YYYY, CAT_DID,FINAL_AREA, GNR_FLOW_SUM , GNR_BOD_SUM , GNR_TN_SUM ,                                                                            ";
-		sql += "   GNR_TP_SUM ,  OUT_FLOW_SUM ,                                                                                   ";
-		sql += "   OUT_BOD_SUM , OUT_TN_SUM , OUT_TP_SUM                                                                                                      ";
-		sql += "   from POLLULANT_LOAD_FOR_CAT                                                                                                                ";
-		sql += "   where CAT_DID IN('1006080500','1006090100','1006080600','1006090300',                                                                      ";
-		sql += "   '1006090500','1006090200','1006090400','1006090400')                                                                                       ";
-		sql += " order by YYYY desc ";	
+		
+sql = " WITH POLLULANT_LOAD_FOR_CAT_TBL																																									";		
+sql += "   AS (                                                                                                                                                                                       ";
+sql += "     SELECT WS_CD, SW_CODE, ADM_CD, NO, WS_NM AS WS_NM, AM_NM, SW_NAME, CAT_DID, DO_NM||' '||CTY_NM||' '||DONG_NM||' '||RI_NM AS ADDR, PERCENTAGE, GUBUN                                               ";
+sql += "          , GNR_BOD_SUM,GNR_TN_SUM,GNR_TP_SUM,OUT_BOD_SUM,OUT_TN_SUM,OUT_TP_SUM                                                                                                               ";
+sql += "       FROM (                                                                                                                                                                                 ";
+sql += "             SELECT '1' AS NO, '소계' AS GUBUN, WS_NM, WS_CD, AM_NM, AM_CD, SW_NAME, SW_CODE, DO_NM, CTY_NM, DONG_NM, RI_NM, ADM_CD, CAT_DID, '' AS PERCENTAGE                      ";
+sql += "                  , GNR_BOD_SUM, GNR_TN_SUM, GNR_TP_SUM, OUT_BOD_SUM, OUT_TN_SUM, OUT_TP_SUM                                                                                                  ";
+sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                                    ";
+sql += "             UNION                                                                                                                                                                            ";
+sql += "             SELECT '2' AS NO, '생활계' AS GUBUN, WS_NM, WS_CD, AM_NM, AM_CD, SW_NAME, SW_CODE, DO_NM, CTY_NM, DONG_NM, RI_NM, ADM_CD, CAT_DID, '' AS PERCENTAGE                 ";
+sql += "                  , GNR_BOD_POP, GNR_TN_POP, GNR_TP_POP, OUT_BOD_POP, OUT_TN_POP, OUT_TP_POP                                                                                                  ";
+sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                                    ";
+sql += "             UNION                                                                                                                                                                            ";
+sql += "             SELECT '3' AS NO, '축산계' AS GUBUN, WS_NM, WS_CD, AM_NM, AM_CD, SW_NAME, SW_CODE, DO_NM, CTY_NM, DONG_NM, RI_NM, ADM_CD, CAT_DID, '' AS PERCENTAGE                   ";
+sql += "                  , GNR_BOD_ANI, GNR_TN_ANI, GNR_TP_ANI, OUT_BOD_ANI, OUT_TN_ANI, OUT_TP_ANI                                                                                                  ";
+sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                                    ";
+sql += "             UNION                                                                                                                                                                            ";
+sql += "             SELECT '4' AS NO, '산업계' AS GUBUN, WS_NM, WS_CD, AM_NM, AM_CD, SW_NAME, SW_CODE, DO_NM, CTY_NM, DONG_NM, RI_NM, ADM_CD, CAT_DID, '' AS PERCENTAGE                     ";
+sql += "                  , GNR_BOD_IND, GNR_TN_IND, GNR_TP_IND, OUT_BOD_IND, OUT_TN_IND, OUT_TP_IND                                                                                                  ";
+sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                                    ";
+sql += "             UNION                                                                                                                                                                            ";
+sql += "             SELECT '5' AS NO, '토지계' AS GUBUN, WS_NM, WS_CD, AM_NM, AM_CD, SW_NAME, SW_CODE, DO_NM, CTY_NM, DONG_NM, RI_NM, ADM_CD, CAT_DID, '' AS PERCENTAGE     ";
+sql += "                  , GNR_BOD_LAND, GNR_TN_LAND, GNR_TP_LAND, OUT_BOD_LAND, OUT_TN_LAND, OUT_TP_LAND                                                                                            ";
+sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                                    ";
+sql += "             UNION                                                                                                                                                                            ";
+sql += "             SELECT '6' AS NO, '양식계' AS GUBUN, WS_NM, WS_CD, AM_NM, AM_CD, SW_NAME, SW_CODE, DO_NM, CTY_NM, DONG_NM, RI_NM, ADM_CD, CAT_DID, '' AS PERCENTAGE   ";
+sql += "                  , GNR_BOD_FISH, GNR_TN_FISH, GNR_TP_FISH, OUT_BOD_FISH, OUT_TN_FISH, OUT_TP_FISH                                                                                            ";
+sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                                    ";
+sql += "             UNION                                                                                                                                                                            ";
+sql += "             SELECT '7' AS NO, '매립계' AS GUBUN, WS_NM, WS_CD, AM_NM, AM_CD, SW_NAME, SW_CODE, DO_NM, CTY_NM, DONG_NM, RI_NM, ADM_CD, CAT_DID, '' AS PERCENTAGE    ";
+sql += "                  , GNR_BOD_LANDFILL, GNR_TN_LANDFILL, GNR_TP_LANDFILL, OUT_BOD_LANDFILL, OUT_TN_LANDFILL, OUT_TP_LANDFILL                                                                    ";
+sql += "               FROM POLLULANT_LOAD_FOR_CAT                                                                                                                                                    ";
+sql += "            )                                                                                                                                                                                 ";
+sql += "      WHERE CAT_DID IN ('1006080500' ,'1001010101')                                                                                                                                                           ";
+sql += "      ORDER BY WS_CD, SW_CODE, CAT_DID, ADM_CD, NO                                                                                                                                            ";
+sql += "     )                                                                                                                                                                                        ";
+sql += " SELECT WS_NM, AM_NM, SW_NAME, CAT_DID, GUBUN, GNR_BOD_SUM, GNR_TN_SUM, GNR_TP_SUM, OUT_BOD_SUM, OUT_TN_SUM, OUT_TP_SUM                                                                       ";
+sql += "   FROM (                                                                                                                                                                                     ";
+sql += "         SELECT '1' AS NO_1                                                                                                                                                                   ";
+sql += "              , NO AS NO_2                                                                                                                                                                    ";
+sql += "              , '' AS WS_CD                                                                                                                                                                   ";
+sql += "              , '' AS SW_CODE                                                                                                                                                                 ";
+sql += "              , '' AS WS_NM, '' AS AM_NM, '' AS SW_NAME, '총계' AS CAT_DID, GUBUN                                                                                                             ";
+sql += "              , SUM(GNR_BOD_SUM) AS GNR_BOD_SUM                                                                                                                                               ";
+sql += "              , SUM(GNR_TN_SUM)  AS GNR_TN_SUM                                                                                                                                                ";
+sql += "              , SUM(GNR_TP_SUM)  AS GNR_TP_SUM                                                                                                                                                ";
+sql += "              , SUM(OUT_BOD_SUM) AS OUT_BOD_SUM                                                                                                                                               ";
+sql += "              , SUM(OUT_TN_SUM)  AS OUT_TN_SUM                                                                                                                                                ";
+sql += "              , SUM(OUT_TP_SUM)  AS OUT_TP_SUM                                                                                                                                                ";
+sql += "           FROM POLLULANT_LOAD_FOR_CAT_TBL                                                                                                                                                    ";
+sql += "          WHERE 1=1                                                                                                                                                                           ";
+sql += "          GROUP BY GUBUN, NO                                                                                                                                                                  ";
+sql += "         UNION                                                                                                                                                                                ";
+sql += "         SELECT '2', NO, WS_CD, SW_CODE, WS_NM, AM_NM, SW_NAME, CAT_DID, GUBUN                                                                                                                ";
+sql += "              , SUM(GNR_BOD_SUM) AS GNR_BOD_SUM                                                                                                                                               ";
+sql += "              , SUM(GNR_TN_SUM)  AS GNR_TN_SUM                                                                                                                                                ";
+sql += "              , SUM(GNR_TP_SUM)  AS GNR_TP_SUM                                                                                                                                                ";
+sql += "              , SUM(OUT_BOD_SUM) AS OUT_BOD_SUM                                                                                                                                               ";
+sql += "              , SUM(OUT_TN_SUM)  AS OUT_TN_SUM                                                                                                                                                ";
+sql += "              , SUM(OUT_TP_SUM)  AS OUT_TP_SUM                                                                                                                                                ";
+sql += "           FROM POLLULANT_LOAD_FOR_CAT_TBL                                                                                                                                                    ";
+sql += "          GROUP BY NO, WS_CD, SW_CODE, WS_NM, AM_NM, SW_NAME, CAT_DID, GUBUN                                                                                                                  ";
+sql += "        )                                                                                                                                                                                     ";
+sql += "  ORDER BY NO_1, WS_CD, SW_CODE, CAT_DID, NO_2                                                                                                                                                ";
+		
 	
 	
 		
@@ -48,16 +95,20 @@ try{
 	while(rs.next()) {
 		jsonRecord = new JSONObject();
 
-		jsonRecord.put("YYYY"	, rs.getString("YYYY"));
-  		jsonRecord.put("CAT_DID"	, rs.getString("CAT_DID"));//FINAL_AREA
-  		jsonRecord.put("FINAL_AREA"	, rs.getString("FINAL_AREA"));//FINAL_AREA
-  		jsonRecord.put("GNR_FLOW_SUM"	, rs.getString("GNR_FLOW_SUM"));
-  		jsonRecord.put("GNR_BOD_SUM" 	, rs.getString("GNR_BOD_SUM"));
-  		jsonRecord.put("GNR_TN_SUM" 	, rs.getString("GNR_TN_SUM"));
-  		jsonRecord.put("GNR_TP_SUM" 	, rs.getString("GNR_TP_SUM"));
-  		jsonRecord.put("OUT_FLOW_SUM" 	, rs.getString("OUT_FLOW_SUM"));
-  		jsonRecord.put("OUT_BOD_SUM" 	, rs.getString("OUT_BOD_SUM"));
-  		jsonRecord.put("OUT_TP_SUM" 	, rs.getString("OUT_TP_SUM"));
+		jsonRecord.put("WS_NM",rs.getString("WS_NM"));
+		jsonRecord.put("AM_NM",rs.getString("AM_NM"));
+		jsonRecord.put("SW_NAME",rs.getString("SW_NAME"));
+		jsonRecord.put("CAT_DID",rs.getString("CAT_DID"));
+		jsonRecord.put("GUBUN",rs.getString("GUBUN"));
+		jsonRecord.put("GNR_BOD_SUM",rs.getString("GNR_BOD_SUM"));
+		jsonRecord.put("GNR_TN_SUM",rs.getString("GNR_TN_SUM"));
+		jsonRecord.put("GNR_TP_SUM",rs.getString("GNR_TP_SUM"));
+		jsonRecord.put("OUT_BOD_SUM",rs.getString("OUT_BOD_SUM"));
+		jsonRecord.put("OUT_TN_SUM",rs.getString("OUT_TN_SUM"));
+		jsonRecord.put("OUT_TP_SUM",rs.getString("OUT_TP_SUM"));
+		
+		//jsonRecord.put("WS_NM",rs.getString("WS_NM"));
+		//jsonRecord.put("BASIN",rs.getString("BASIN"));
   		
   		
   		jsonArr.add(jsonRecord);

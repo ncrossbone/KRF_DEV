@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
+Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Total', {
 	
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
@@ -44,54 +44,39 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 			
 			columns: [{	 
 				text      : '대권역',
-				dataIndex : 'WS_NM',
+				dataIndex : '',
 				width: 150
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '중권역',
-				dataIndex : 'AM_NM',
+				dataIndex : '',
 				width: 150
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '표준유역',
-				dataIndex : 'SW_NAME',
-				width: 150
-				//filter: {type: 'numeric'}
-			},{	 
-				text      : '집수구역',
-				dataIndex : 'CAT_DID',
-				width: 150
-				//filter: {type: 'numeric'}
-			},{	 
-				text      : '법정동리',
-				dataIndex : 'ADDR',
-				width: 150
-				//filter: {type: 'numeric'}
-			},{	 
-				text      : '점유율',
-				dataIndex : 'PERCENTAGE',
+				dataIndex : '',
 				width: 150
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '구분',
-				dataIndex : 'GUBUN',
+				dataIndex : '',
 				width: 150
 				//filter: {type: 'numeric'}
 			},{
 				text : '발생',
 				columns: [{
 					text     : 'BOD',
-					dataIndex: 'GNR_BOD_SUM',
+					dataIndex: '',
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text     : 'TN',
-					dataIndex: 'GNR_TN_SUM',
+					dataIndex: '',
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text     : 'TP',
-					dataIndex: 'GNR_TP_SUM',
+					dataIndex: '',
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}]
@@ -101,17 +86,17 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 				text : '배출',
 				columns: [{
 					text     : 'BOD',
-					dataIndex: 'OUT_BOD_SUM',
+					dataIndex: '',
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text     : 'TN',
-					dataIndex: 'OUT_TN_SUMTN',
+					dataIndex: '',
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text     : 'TP',
-					dataIndex: 'OUT_TP_SUM',
+					dataIndex: '',
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}]

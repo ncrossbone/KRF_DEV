@@ -2,22 +2,15 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     /* {name: 'OUT_FLOW_SUM', type 'number'}*/
-    fields: [        
-	'YYYY                 ',
-	'ADM_CD               ',
-	'SW_CD'	,
-	'WS_NM'	,
-	'AM_CD'	,
-	'SW_NAME'	,
-	'CAT_DID '	,
-	'NM_FINAL '	,
-	'FINAL_AREA' ,
-	'DO_NM                ',
-	'CTY_NM               ',
-	'DONG_NM              ',
-	'RI_NM                ',
-	'UNIT_WATERSHED       ',
-	'SMALL_WATERSHED      ',
+    fields: [
+	'WS_NM', //대권역
+	'AM_NM',	//중권역
+	'SW_NAME',	//표준유역(소권역)
+	'CAT_DID',	//집수구역
+	'ADDR',	//법정동리
+	'PERCENTAGE',	//점유율
+	'GUBUN',	//구분
+	
 	{name: 'GNR_FLOW_SUM', type : 'number'},
 	{name:	'GNR_BOD_SUM',type:'number'},
 	{name:	'GNR_TN_SUM',type:'number'},
@@ -250,59 +243,37 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
     
     //buffered: true, // 버퍼드 스토어 지정
     pageSize: 100,
-
-	//remoteSort: true,
-	
-    selectValue: "",
-    
-    //부하량 구분
-	url: "",
-	params: "",
+    selectValue: '',
 	
 	listeners: {
 		load: function(store, a, b, c, d, e) {
 			
-			//부하량 구분
-			/*if(store.selectValue == 11 || store.selectValue == 44){
-				if(store.selectValue == 11){ //집수구역
-					url= './resources/jsp/GetSearchPollLoadResultData_CAT.jsp'; 
-					params = null;
-				}else{ //총량유역단위
-					url= './resources/jsp/GetSearchPollLoadResultData_SMAT.jsp'; 
-					params = null;
-				}
-				
-			}else if(store.selectValue == 22){ //행정구역
-				
-				var pollcmbArea1 = Ext.getCmp("pollcmbArea1");
-				var pollcmbArea2 = Ext.getCmp("pollcmbArea2");
-				var pollcmbArea3 = Ext.getCmp("pollcmbArea3");
-					console.info(pollcmbArea1.lastValue);
-					console.info(pollcmbArea2.lastValue);
-					console.info(pollcmbArea3.lastValue);
-				
-				url= './resources/jsp/GetSearchPollLoadResultData.jsp';
-				params = { division:store.selectValue, adm1: pollcmbArea1.lastValue, 
-						   adm2: pollcmbArea2.lastValue, adm3: pollcmbArea3.lastValue}
-			}else{ //수계
-				
-				var pollcmbWater1 = Ext.getCmp("pollcmbWater1");
-				var pollcmbWater2 = Ext.getCmp("pollcmbWater2");
-				var pollcmbWater3 = Ext.getCmp("pollcmbWater3");
-				
-				console.info(pollcmbWater1.lastValue);
-				console.info(pollcmbWater2.lastValue);
-				console.info(pollcmbWater3.lastValue);
-				
-				url= './resources/jsp/GetSearchPollLoadResultData_SW.jsp';
-				params = { division:store.selectValue , sw1: pollcmbWater1.lastValue,
-						   sw2: pollcmbWater2.lastValue, sw3: pollcmbWater3.lastValue};
-			}*/
+
+			/*
+			11 : 총괄표                : SearchResultGrid_PollLoad_Total
+			22 : 표준유역단위 보기     : SearchResultGrid_PollLoad_Standard_Basin
+			33 : 집수구역단위 보기     : SearchResultGrid_PollLoad_CAT
+			44 : 집수구역단위 상세보기 : SearchResultGrid_PollLoad_CAT_Detail
+			*/
+			
+			var pollYear = Ext.getCmp("pollYear").value;
+			
+			if(store.selectValue == 11 ){
+				url= './resources/jsp/GetSearchPollLoadResultData_Total.jsp';
+				params= {pollYear: pollYear, catDid:store.catDid }
+			}else if(store.selectValue == 22){
+				url= './resources/jsp/GetSearchPollLoadResultData_Standard_Basin.jsp';
+			}else if( store.selectValue == 33 || store.selectValue == ""){ 
+				url= './resources/jsp/GetSearchPollLoadResultData_CAT.jsp';
+			}else{
+			//	console.info("?");
+				url= './resources/jsp/GetSearchPollLoadResultData_CAT_Detail.jsp';
+			}
 			
 			Ext.Ajax.request({
         		//url: url,
-				url: './resources/jsp/GetSearchPollLoadResultData_Result.jsp',
-        		//params: params,
+				url: url,
+        		params: params,
         		//params: { adm1: WS_CD},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
@@ -310,7 +281,6 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
         			//console.info(response.responseText);
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			
         			store.setData(jsonData.data);
         			
         			

@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
+Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_CAT_Detail', {
 	
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',

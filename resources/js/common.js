@@ -1023,55 +1023,13 @@ GetTabControl = function(options){
 	
 }
 
-SaveResultOnOff = function(){
-	var pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
-	
-	var pollgrdCtl = pollgrdContainer.items.items[0]; // 그리드 컨테이너
-	pollgrdCtl = pollgrdCtl.items.items[0];
-	
-	
-	var hiddenSaveValue = [];
-	console.info(pollgrdCtl.columns);
-	for(i = 0; i < pollgrdCtl.columns.length ; i++){
-		//console.info(pollgrdCtl.columns[i].hidden);
-		hiddenSaveValue.push(pollgrdCtl.columns[i].hidden);
-		//hiddenSaveValue.push(pollgrdCtl.columns[i].hidden.toString());
-		//pointSet.push(_point.replace('x','"x"').replace('y','"y"'));
-	}
-	console.info(hiddenSaveValue);
-	//pollgrdCtl.columns[0].setHidden(true);
-	
-	
-	
-	jQuery.ajax({
-	    url: "resources/jsp/saveColunmOnOff.jsp",
-	    type: 'GET',
-	    //data: { ip: ip},
-	    //param: hiddenSaveValue,
-	    data: {'data':hiddenSaveValue},
-	    //dataType: 'json',
-	    async: false,
-	    traditional: true,
-	    success: function (r) {
-	    	console.info(r);
-	    	//alert("success");
-	    },
-	    error: function (xhr, status, error) {
-	    	console.info(xhr);
-	    	console.info(status);
-	    	console.info(error);
-	    }   
-	})
-}
-
 //방유량 검색결과
-//PollLoadSearchResult = function(value){
-PollLoadSearchResult = function(){
-		//console.info(value);
+PollLoadSearchResult = function(value){
+		console.info(value);
 	
-		/*if(value == ""){
+		if(value == ""){
 			value = "11";
-		}*/
+		}
 	
 		var options = {
 				id: 'searchResultTab',
@@ -1080,39 +1038,24 @@ PollLoadSearchResult = function(){
 		};
 		var searchResultTab = GetTabControl(options);
 		var tab = searchResultTab.items.items[1];
-		
 		//2016-08-24 리치검색시 방유량 그리드 생성
 		var pollOptions = {
 				//id: "searchResultContainer",
 				id: "searchResultPollLoad_container",
-				title: '부하량',
+				title: '방유량',
 				autoResize: true
 		};
 		
-		var pollgrdContainer = null; //재검색 초기화
-		pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
-		
 		//console.info(pollgrdContainer);
 		
+		var pollgrdContainer = undefined; //재검색 초기화
+		pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
 		
 		
-		/*if(pollgrdContainer == null || pollgrdContainer == undefined){
-			if(value == "11"){
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_CAT", pollOptions);
-			}else if(value == "22"){
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad", pollOptions);
-			}else if(value == "33"){
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_SW", pollOptions);
-			}else{
-				pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_SMAT", pollOptions);
-			}
-			//pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad", pollOptions);
+		if(pollgrdContainer == null || pollgrdContainer == undefined){
+			pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_Result", pollOptions);
 			tab.insert(1, pollgrdContainer);
-		}*/
-		
-		
-		pollgrdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_PollLoad_Result", pollOptions);
-		tab.insert(1, pollgrdContainer);
+		}
 		tab.setActiveTab("searchResultPollLoad_container");
 		
 		
@@ -1121,22 +1064,41 @@ PollLoadSearchResult = function(){
 		
 		
 		
-		var pollstore = Ext.create("KRF_DEV.store.south.SearchPollLoadResultGrid");
+		var rchMap = GetCoreMap();
+    	var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
+    	
+    	console.info(tmpAreaGrp);
+    	var catDid = [];
+    	
+    	if(tmpAreaGrp != null){
+    		for(i = 0; i < tmpAreaGrp.length;i++){
+    			catDid.push(tmpAreaGrp[i].attributes.CAT_DID);
+    		}
+    	}
+    	
+		console.info(catDid);
 		
-		/*var pollstore = Ext.create("KRF_DEV.store.south.SearchPollLoadResultGrid",{
-				selectValue: value				
-		});*/
+		var pollstore = Ext.create("KRF_DEV.store.south.SearchPollLoadResultGrid",{
+				selectValue: value,
+				catDid: catDid
+		});
 		
-		
-		
-		/*gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
-			siteIds: grdCtl.siteIds,
-			parentIds: grdCtl.parentIds,
-			firstSession: test
-		});*/
-		//console.info(pollstore);
-		//console.info(pollstore);
 		pollgrdCtl.setStore(pollstore);
+		
+		//hidden 처리
+		if(value == "11" || value == "22"){
+			pollgrdCtl.columns[3].setHidden(true);
+			pollgrdCtl.columns[4].setHidden(true);
+			pollgrdCtl.columns[5].setHidden(true);
+		}else if(value == "33"){
+			pollgrdCtl.columns[3].setHidden(false);
+			pollgrdCtl.columns[4].setHidden(true);
+			pollgrdCtl.columns[5].setHidden(true);
+		}else{
+			pollgrdCtl.columns[3].setHidden(false);
+			pollgrdCtl.columns[4].setHidden(false);
+			pollgrdCtl.columns[5].setHidden(false);
+		}
 		
 	
 }

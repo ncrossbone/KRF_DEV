@@ -363,12 +363,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							|| drawOption == "start" || drawOption == "end"){
 							//console.info("Dd");
 							// 하류 조회
-							Ext.defer(function(){
-								
-								me.selectDownLine(minRchDid, drawOption, 0);
-								
-							}, 1);
-							
+							me.selectDownLine(minRchDid, drawOption, 0);
 						}
 						else{
 							
