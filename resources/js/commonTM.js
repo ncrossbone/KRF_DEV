@@ -1,22 +1,79 @@
 /*
  * 주제도 표출 관련 공통 클래스 */
+
+// 단계(range)별 Feature셋팅 Obj
 var tmQuantize = {
+	// Object 초기화
+	setInitObj: function(){
+		
+		this.isOnlyOne = false;
+		this.totRange = undefined;
+		this.quantizeObj = []
+	},
+	// 각 단계(range)당 Feature 한개씩 셋팅
 	setOnlyOneFeature: function(features, attrName){
+		
+		// Object 초기화
+		this.setInitObj();
 		
 		features.sort(function(a, b){
 			
-			return eval("b.attributes." + attrName) - eval("a.attributes." + attrName);
+			return eval("a.attributes." + attrName) - eval("b.attributes." + attrName);
 		});
 		
 		if(features.length <= 15){
 			
+			var quanCnt = -1;
+			var arrQuantize = [];
+			var preVal = undefined;
+			
 			for(var i = 0; i < features.length; i++){
 				
-				//console.info(eval("features[i].attributes." + attrName));
+				var feature = features[i];
+				
+				var stVal = edVal = Math.round(eval("feature.attributes." + attrName));
+				
+				if(preVal != stVal){
+					
+					quanCnt += 1;
+					
+					var curRange = quanCnt;
+					var obj = {stVal: stVal, edVal: edVal, range: curRange};
+					
+					arrQuantize.push(obj);
+					//console.info(quanCnt);
+					//console.info(arrQuantize[quanCnt]);
+					if(arrQuantize[quanCnt].features == undefined){
+						
+						arrQuantize[quanCnt].features = [];
+					}
+					
+					preVal = stVal;
+				}
+				
+				arrQuantize[quanCnt].features.push(feature);
 			}
+			
+			for(var quanCnt = 0; quanCnt < arrQuantize.length; quanCnt++){
+				
+				this.quantizeObj.push(arrQuantize[quanCnt]);
+			}
+			
+			this.totRange = arrQuantize.length;
+			this.isOnlyOne = true;
+			
+			//console.info(this.quantizeObj);
 		}
 	},
-	setScale: function(featureSet, attrName){
+	// Minimum, Maximum 셋팅 (featureSet, attrName:값 속성명, [isReCall: 재귀호출 여부])
+	setScale: function(featureSet, attrName, isReCall){
+		//console.info(isReCall);
+		// 재귀 호출 아닐때
+		if(isReCall != true){
+			
+			// Object 초기화
+			this.setInitObj();
+		}
 		
 		var features = featureSet.features;
 		
@@ -27,171 +84,173 @@ var tmQuantize = {
 		
 		var minVal = undefined;
 		var maxVal = undefined;
-		
-		/*if(featureSet.stVal != undefined){
+
+		if(this.isOnlyOne == false){
 			
-			minVal = featureSet.stVal;
-		}
-		
-		if(featureSet.edVal != undefined){
-			
-			maxVal = featureSet.edVal;
-		}*/
-		
-		if(features != undefined){
-			
-			for(var i = 0; i < features.length; i++){
+			if(features != undefined){
 				
-				var feature = features[i];
-				var quantizeVal = eval("feature.attributes." + attrName);
-				
-				// Min Value 셋팅
-				if(minVal == undefined || quantizeVal < minVal){
-					minVal = quantizeVal;
-				}
-				
-				// Max Value 셋팅
-				if(maxVal == undefined || quantizeVal > maxVal){
-					maxVal = quantizeVal;
+				for(var i = 0; i < features.length; i++){
+					
+					var feature = features[i];
+					var quantizeVal = eval("feature.attributes." + attrName);
+					
+					// Min Value 셋팅
+					if(minVal == undefined || quantizeVal < minVal){
+						minVal = quantizeVal;
+					}
+					
+					// Max Value 셋팅
+					if(maxVal == undefined || quantizeVal > maxVal){
+						maxVal = quantizeVal;
+					}
 				}
 			}
 		}
 		
+		// 단계 나누기
 		this.setQuantize = function(range){
 			
-			if(this.totRange == undefined){
+			if(this.isOnlyOne == false){
 				
-				this.totRange = range;
+				if(this.totRange == undefined){
+					
+					this.totRange = range;
+				}
+				
+				var arrQuantize = [];
+				
+				var diffVal = (maxVal - minVal) / range;
+				
+				for(var i = 0; i < range; i++){
+					
+					var stVal = 0;
+					var edVal = 0;
+					var curRange = i;
+					
+					if(featureSet.range != undefined){
+						
+						curRange = featureSet.range + "-" + i;
+					}
+					
+					if(i == 0){
+						
+						stVal = minVal;
+					}
+					else{
+						
+						stVal = arrQuantize[i - 1].edVal;
+					}
+					
+					if(i == range - 1){
+						edVal = maxVal;
+					}
+					else{
+						edVal = stVal + diffVal;
+					}
+					
+					stVal = Math.round(stVal);
+					edVal = Math.round(edVal);
+					
+					var obj = {stVal: stVal, edVal: edVal, range: curRange};
+					
+					arrQuantize.push(obj);
+				}
 			}
-			
-			var arrQuantize = [];
-			
-			var diffVal = (maxVal - minVal) / range;
-			
-			for(var i = 0; i < range; i++){
 				
-				var stVal = 0;
-				var edVal = 0;
-				var curRange = i;
-				
-				if(featureSet.range != undefined){
-					
-					curRange = featureSet.range + "-" + i;
-				}
-				
-				if(i == 0){
-					
-					stVal = minVal;
-				}
-				else{
-					
-					stVal = arrQuantize[i - 1].edVal;
-				}
-				
-				if(i == range - 1){
-					edVal = maxVal;
-				}
-				else{
-					edVal = stVal + diffVal;
-				}
-				
-				stVal = Math.round(stVal);
-				edVal = Math.round(edVal);
-				
-				var obj = {stVal: stVal, edVal: edVal, range: curRange};
-				
-				arrQuantize.push(obj);
-			}
-			
+				// 각 단계에 Feature 셋팅
 			this.setFeature = function(){
 				
-				for(var quanCnt = 0; quanCnt < arrQuantize.length; quanCnt++){
+				if(this.isOnlyOne == false){
 					
-					if(arrQuantize[quanCnt].features == undefined){
+					for(var quanCnt = 0; quanCnt < arrQuantize.length; quanCnt++){
 						
-						arrQuantize[quanCnt].features = [];
-					}
-					
-					var qStVal = arrQuantize[quanCnt].stVal;
-					var qEdVal = arrQuantize[quanCnt].edVal;
-					
-					for(var featureCnt = 0; featureCnt < features.length; featureCnt++){
-					
-						var feature = features[featureCnt];
-			    		var quantizeVal = Math.round(eval("feature.attributes." + attrName));
-						
-						if(quantizeVal >= qStVal && quantizeVal <= qEdVal){
+						if(arrQuantize[quanCnt].features == undefined){
 							
-							arrQuantize[quanCnt].features.push(feature);
+							arrQuantize[quanCnt].features = [];
+						}
+						
+						var qStVal = arrQuantize[quanCnt].stVal;
+						var qEdVal = arrQuantize[quanCnt].edVal;
+						
+						for(var featureCnt = 0; featureCnt < features.length; featureCnt++){
+						
+							var feature = features[featureCnt];
+				    		var quantizeVal = Math.round(eval("feature.attributes." + attrName));
+							
+							if(quantizeVal >= qStVal && quantizeVal <= qEdVal){
+								
+								arrQuantize[quanCnt].features.push(feature);
+							}
 						}
 					}
-				}
-				
-				arrQuantize.sort(function(a, b){
 					
-					// return a.features.length - b.features.length; // ASC
-					return b.features.length - a.features.length; // DESC
-				});
-
-				if(this.quantizeObj.length < this.totRange){
-					
-					var zeroCnt = 0;
-					
-					for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+					arrQuantize.sort(function(a, b){
 						
-						if(arrQuantize[reCnt].features.length > 0){
+						// return a.features.length - b.features.length; // ASC
+						return b.features.length - a.features.length; // DESC
+					});
+	
+					if(this.quantizeObj.length < this.totRange){
+						
+						var zeroCnt = 0;
+						
+						for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
 							
-							var subRange = arrQuantize[reCnt].range;
-							
-							if(subRange.length > 2){
-								subRange = subRange.substring(0, subRange.length - 2);
-							}
-							
-							for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
+							if(arrQuantize[reCnt].features.length > 0){
 								
-								if(this.quantizeObj[objCnt].range == subRange){
-									console.info(subRange);
-									this.quantizeObj.splice(objCnt, 1);	
+								var subRange = arrQuantize[reCnt].range;
+								
+								if(subRange.length > 2){
+									subRange = subRange.substring(0, subRange.length - 2);
+								}
+								
+								for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
+									
+									if(this.quantizeObj[objCnt].range == subRange){
+										console.info(subRange);
+										this.quantizeObj.splice(objCnt, 1);	
+									}
+								}
+								
+								/*arrQuantize[reCnt].features.sort(function(a, b){
+									
+									return eval("a.attributes." + attrName); - eval("b.attributes." + attrName); // ASC
+								});
+								
+								var tmpFeatures = arrQuantize[reCnt].features;
+								arrQuantize[reCnt].stVal = eval("tmpFeatures[0].attributes." + attrName);
+								arrQuantize[reCnt].edVal = eval("tmpFeatures[tmpFeatures.length - 1].attributes." + attrName);*/
+								
+								this.quantizeObj.push(arrQuantize[reCnt]);
+							}
+							else{
+								
+								zeroCnt++;
+							}
+						}
+						
+						for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+							
+							if(arrQuantize[reCnt].features.length > 1){
+								
+								if(zeroCnt > 0){
+									
+									// 재귀 호출 단계 재분배
+									this.setScale(arrQuantize[reCnt], attrName, true).setQuantize(2).setFeature();
 								}
 							}
-							
-							/*arrQuantize[reCnt].features.sort(function(a, b){
-								
-								return eval("a.attributes." + attrName); - eval("b.attributes." + attrName); // ASC
-							});
-							
-							var tmpFeatures = arrQuantize[reCnt].features;
-							arrQuantize[reCnt].stVal = eval("tmpFeatures[0].attributes." + attrName);
-							arrQuantize[reCnt].edVal = eval("tmpFeatures[tmpFeatures.length - 1].attributes." + attrName);*/
-							
-							this.quantizeObj.push(arrQuantize[reCnt]);
-						}
-						else{
-							
-							zeroCnt++;
 						}
 					}
 					
-					for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+					this.quantizeObj.sort(function(a, b){
 						
-						if(arrQuantize[reCnt].features.length > 1){
-							
-							if(zeroCnt > 0){
-								
-								this.setScale(arrQuantize[reCnt], attrName).setQuantize(2).setFeature();
-							}
-						}
+						return a.stVal - b.stVal; // ASC
+					});
+					
+					for(var i = 0; i < this.quantizeObj.length; i++){
+						
+						this.quantizeObj[i].range = i;
 					}
-				}
-				
-				this.quantizeObj.sort(function(a, b){
-					
-					return a.stVal - b.stVal; // ASC
-				});
-				
-				for(var i = 0; i < this.quantizeObj.length; i++){
-					
-					this.quantizeObj[i].range = i;
 				}
 				
 				return this;
@@ -202,6 +261,7 @@ var tmQuantize = {
 		
 		return this;
 	},
+	isOnlyOne: false,
 	totRange: undefined,
 	quantizeObj: []
 }

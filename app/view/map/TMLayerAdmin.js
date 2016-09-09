@@ -165,7 +165,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	for(var range = 0; range < quantizeObj.length; range++){
 	        		
 	        		tmCatFeatures = quantizeObj[range].features;
-	        		console.info(tmCatFeatures);
+	        		//console.info(tmCatFeatures);
 		        	//quantize = getQuantize(minVal, maxVal, range);
 		        	
 		        	for(var i = 0; i < tmCatFeatures.length; i++){
