@@ -8,7 +8,7 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
 	'SW_NAME',	//표준유역(소권역)
 	'CAT_DID',	//집수구역
 	'ADDR',	//법정동리
-	'PERCENTAGE',	//점유율
+	{name: 'PERCENTAGE', type : 'number'}, //점유율
 	'GUBUN',	//구분
 	
 	{name: 'GNR_FLOW_SUM', type : 'number'},

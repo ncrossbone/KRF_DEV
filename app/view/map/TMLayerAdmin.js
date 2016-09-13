@@ -133,6 +133,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
         		);
 	        	
 	        	var tmCatFeatures = tmCatFeatureSet.features;
+	        	console.info(tmCatFeatures);
 	        	
 	        	var minVal = 0;
 	        	var maxVal = 0;
@@ -158,14 +159,17 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	}
 	        	
 	        	/* 범위, 값 매핑 오브젝트 생성 */
-	        	var quantizeObj = getQuantizeObj(tmCatFeatureSet, "GNR_BOD_SU", range);
-	        	//console.info(quantizeObj);
+	        	var quantizeObj = "";
+	        	console.info(tmCatFeatureSet);
+	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, "GNR_BOD_SU", range);
+	        	console.info(quantizeObj);
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
 	        	for(var range = 0; range < quantizeObj.length; range++){
 	        		
+	        		//tmCatFeatures == null;
 	        		tmCatFeatures = quantizeObj[range].features;
-	        		console.info(tmCatFeatures);
+	        		//console.info(tmCatFeatures);
 		        	//quantize = getQuantize(minVal, maxVal, range);
 		        	
 		        	for(var i = 0; i < tmCatFeatures.length; i++){

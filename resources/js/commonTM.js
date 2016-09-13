@@ -308,6 +308,7 @@ var tmQuantize = {
 			
 			var diffVal = (maxVal - minVal) / range;
 			
+			//console.info(range);
 			for(var i = 0; i < range; i++){
 				
 				var stVal = 0;
@@ -338,7 +339,8 @@ var tmQuantize = {
 				stVal = Math.round(stVal);
 				edVal = Math.round(edVal);
 				
-				var obj = {stVal: stVal, edVal: edVal, range: curRange};
+				var obj = "";
+				obj = {stVal: stVal, edVal: edVal, range: curRange};
 				
 				arrQuantize.push(obj);
 			}
@@ -390,7 +392,7 @@ var tmQuantize = {
 							for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
 								
 								if(this.quantizeObj[objCnt].range == subRange){
-									console.info(subRange);
+
 									this.quantizeObj.splice(objCnt, 1);	
 								}
 							}
@@ -451,8 +453,8 @@ getQuantizeObj = function(featureSet, attrName, range){
 	/*var minMaxObj = getMinMaxVal(features, attrName);
 	var quantizeObj = getQuantizeObj(minMaxObj.minVal, minMaxObj.maxVal, range);
 	var arrQuantize = sortQuantize(features, attrName, quantizeObj.arrQuantize);*/
-	
-	var quantize = tmQuantize.setScale(featureSet, attrName).setQuantize(range).setFeature();
+	var quantize ="";
+	quantize = tmQuantize.setScale(featureSet, attrName).setQuantize(range).setFeature();
 	//console.info(quantize.quantizeObj);
 	//console.info(quantize.quantizeObj.splice(1, 1));
 	
@@ -461,20 +463,25 @@ getQuantizeObj = function(featureSet, attrName, range){
 
 catTMLayerOnOff = function(){
 	
+	
 	var catTMOnOff = $("#catTMOnOff");
+	//console.info(catTMOnOff);
 	
 	if(catTMOnOff[0].src.indexOf("_on.") > 0){
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_on.", "_off.");
 		// 주제도 레이어 클리어
 		tmCatLayerClear();
+		
+		//console.info(this.tmGraphicLayerCat.id);
+		
 	}
 	else{
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_off.", "_on.");
 		// 주제도 레이어 보이기
 		showCatTMLayer();
-		PollLoadSearchResult("");
+		//PollLoadSearchResult("");
 	}
 }
 
@@ -803,7 +810,7 @@ PollLoadSearchResult = function(value){
 		
 	
 		if(value == ""){
-			value = "33";
+			value = "11";
 		}
 	
 		var options = {
@@ -847,18 +854,26 @@ PollLoadSearchResult = function(value){
 		pollgrdCtl.setStore(pollstore);
 		
 		//hidden 처리
-		if(value == "11" || value == "22"){
+		if(value == "11" ){
 			pollgrdCtl.columns[3].setHidden(true);
 			pollgrdCtl.columns[4].setHidden(true);
 			pollgrdCtl.columns[5].setHidden(true);
+			pollgrdCtl.columns[6].setHidden(true);
+		}else if(value == "22"){
+			pollgrdCtl.columns[3].setHidden(true);
+			pollgrdCtl.columns[4].setHidden(true);
+			pollgrdCtl.columns[5].setHidden(true);
+			pollgrdCtl.columns[6].setHidden(false);
 		}else if(value == "33"){
 			pollgrdCtl.columns[3].setHidden(false);
 			pollgrdCtl.columns[4].setHidden(true);
 			pollgrdCtl.columns[5].setHidden(true);
+			pollgrdCtl.columns[6].setHidden(false);
 		}else{
 			pollgrdCtl.columns[3].setHidden(false);
 			pollgrdCtl.columns[4].setHidden(false);
 			pollgrdCtl.columns[5].setHidden(false);
+			pollgrdCtl.columns[6].setHidden(false);
 		}
 		
 	

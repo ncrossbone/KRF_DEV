@@ -71,7 +71,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_CAT_Detail', {
 				text      : '점유율',
 				dataIndex : 'PERCENTAGE',
 				width: 150
-				//filter: {type: 'numeric'}
 			},{	 
 				text      : '구분',
 				dataIndex : 'GUBUN',
