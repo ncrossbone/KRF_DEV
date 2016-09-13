@@ -282,16 +282,26 @@ getQuantizeObj = function(featureSet, attrName, range){
 catTMLayerOnOff = function(){
 	
 	var catTMOnOff = $("#catTMOnOff");
-	
+	//var btnArea = $("#btnAreaLayer");
+	var btnArea = Ext.getCmp("btnAreaLayer");
+//console.info(btnArea.btnOnOff);
 	if(catTMOnOff[0].src.indexOf("_on.") > 0){
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_on.", "_off.");
+		if(btnArea.btnOnOff == "off"){
+			// 집수구역 레이어 버튼 강제 클릭
+			btnArea.fireEvent('click');
+		}
 		// 주제도 레이어 클리어
 		tmCatLayerClear();
 	}
 	else{
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_off.", "_on.");
+		if(btnArea.btnOnOff == "on"){
+			// 집수구역 레이어 버튼 강제 클릭
+			btnArea.fireEvent('click');
+		}
 		// 주제도 레이어 보이기
 		showCatTMLayer();
 		PollLoadSearchResult("");
@@ -580,9 +590,10 @@ tmCatLayerClear = function(){
 		coreMap.tmLayerAdmin.tmLabelLayerCat.setVisibility(false);
 		coreMap.tmLayerAdmin.tmLabelLayerCat.clear();
 		
-		// 집수구역 레이어 버튼 강제 클릭
-    	$("#btnAreaLayer").click();
-    	Ext.getCmp("tmLegendWindow").close();
+		var legendWindow = Ext.getCmp("tmLegendWindow");
+		if(legendWindow != undefined){
+			legendWindow.close();
+		}
 	}
 }
 

@@ -260,7 +260,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	},
 	
 	getPollLoadString: function(){
-		
+		//console.info("dd");
 		//alert("dd");
 		//, {\"id\": \"Z001\", \"text\": \"부하량\", \"expanded\": false, \"children\": [{\"id\": \"111111111\", \"text\": \"111111111\", \"catDId\": \"111111111\", \"cls\": \"khLee-x-tree-node-text-small\", \"iconCls\": \"layerNoneImg\", \"leaf\": true, \"checked\": null}]}
 		var me = GetCoreMap();
@@ -271,7 +271,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			pollLoadString += "	\"id\": \"pollLoad\",\n";
 			pollLoadString += "	\"text\": \"<span style='vertical-align:top;'>부하량</span>";
 			pollLoadString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
-			pollLoadString += " <a style='vertical-align:bottom;' href='javascript:catTMLayerOnOff();'>";
+			pollLoadString += " <a style='vertical-align:bottom;' href='#' onClick='catTMLayerOnOff();'>";
 			pollLoadString += " <img id='catTMOnOff' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' />";
 			pollLoadString += " </a>";
 			pollLoadString += " </span>\",\n";

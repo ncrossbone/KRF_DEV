@@ -493,13 +493,17 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     	var me = this;
     	
     	var legendDiv = $("#tmLegend .tmLegendSymbol_" + range);
-    	var borderColor = legendDiv[0].getAttribute("borderColor");
     	
-    	if(onOff == "on"){
-        	legendDiv[0].style.border = "1px solid " + me.overColor;
-    	}
-    	else{
-        	legendDiv[0].style.border = "1px solid " + borderColor;
+    	if(legendDiv[0] != undefined){
+    		
+	    	var borderColor = legendDiv[0].getAttribute("borderColor");
+	    	
+	    	if(onOff == "on"){
+	        	legendDiv[0].style.border = "1px solid " + me.overColor;
+	    	}
+	    	else{
+	        	legendDiv[0].style.border = "1px solid " + borderColor;
+	    	}
     	}
     },
     
