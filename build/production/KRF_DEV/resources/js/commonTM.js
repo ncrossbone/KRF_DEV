@@ -222,8 +222,6 @@ getQuantizeObj = function(featureSet, attrName, range){
 
 catTMLayerOnOff = function(){
 	
-	var pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue");
-	
 	var catTMOnOff = $("#catTMOnOff");
 	//console.info(catTMOnOff);
 	
@@ -233,7 +231,6 @@ catTMLayerOnOff = function(){
 		// 주제도 레이어 클리어
 		tmCatLayerClear();
 		//console.info(this.tmGraphicLayerCat.id);
-		pollMapSetValue.hide();
 		
 	}
 	else{
@@ -242,7 +239,6 @@ catTMLayerOnOff = function(){
 		// 주제도 레이어 보이기
 		showCatTMLayer();
 		//PollLoadSearchResult("");
-		pollMapSetValue.show();
 	}
 }
 
