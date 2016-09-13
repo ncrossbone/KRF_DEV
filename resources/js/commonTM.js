@@ -452,7 +452,7 @@ getQuantizeObj = function(featureSet, attrName, range){
 	/*var minMaxObj = getMinMaxVal(features, attrName);
 	var quantizeObj = getQuantizeObj(minMaxObj.minVal, minMaxObj.maxVal, range);
 	var arrQuantize = sortQuantize(features, attrName, quantizeObj.arrQuantize);*/
-	var quantize = = tmQuantize.setScale(featureSet, attrName).setQuantize(range).setFeature();
+	var quantize = tmQuantize.setScale(featureSet, attrName).setQuantize(range).setFeature();
 	//console.info(quantize.quantizeObj);
 	//console.info(quantize.quantizeObj.splice(1, 1));
 	
