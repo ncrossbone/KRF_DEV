@@ -33,6 +33,7 @@ if(catDid.length != 0){
 		
 	}
 }
+
 sql += "      ORDER BY WS_CD, SW_CODE, CAT_DID, ADM_CD, NO                                                                                                                ";
 sql += "     )                                                                                                                                                            ";
 sql += " SELECT WS_NM, AM_NM, SW_NAME, GUBUN, GNR_BOD_SUM, GNR_TN_SUM, GNR_TP_SUM, OUT_BOD_SUM, OUT_TN_SUM, OUT_TP_SUM                                                    ";

@@ -222,41 +222,23 @@ getQuantizeObj = function(featureSet, attrName, range){
 
 catTMLayerOnOff = function(){
 	
-	var pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue");
-	
 	var catTMOnOff = $("#catTMOnOff");
-<<<<<<< HEAD
-	//var btnArea = $("#btnAreaLayer");
-	var btnArea = Ext.getCmp("btnAreaLayer");
-//console.info(btnArea.btnOnOff);
-=======
 	//console.info(catTMOnOff);
 	
->>>>>>> pollLoad_Test
 	if(catTMOnOff[0].src.indexOf("_on.") > 0){
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_on.", "_off.");
-		if(btnArea.btnOnOff == "off"){
-			// 집수구역 레이어 버튼 강제 클릭
-			btnArea.fireEvent('click');
-		}
 		// 주제도 레이어 클리어
 		tmCatLayerClear();
 		//console.info(this.tmGraphicLayerCat.id);
-		pollMapSetValue.hide();
 		
 	}
 	else{
 		
 		catTMOnOff[0].src = catTMOnOff[0].src.replace("_off.", "_on.");
-		if(btnArea.btnOnOff == "on"){
-			// 집수구역 레이어 버튼 강제 클릭
-			btnArea.fireEvent('click');
-		}
 		// 주제도 레이어 보이기
 		showCatTMLayer();
 		//PollLoadSearchResult("");
-		pollMapSetValue.show();
 	}
 }
 
@@ -542,10 +524,9 @@ tmCatLayerClear = function(){
 		coreMap.tmLayerAdmin.tmLabelLayerCat.setVisibility(false);
 		coreMap.tmLayerAdmin.tmLabelLayerCat.clear();
 		
-		var legendWindow = Ext.getCmp("tmLegendWindow");
-		if(legendWindow != undefined){
-			legendWindow.close();
-		}
+		// 집수구역 레이어 버튼 강제 클릭
+    	$("#btnAreaLayer").click();
+    	Ext.getCmp("tmLegendWindow").close();
 	}
 }
 

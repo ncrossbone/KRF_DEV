@@ -194,8 +194,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						,{id: '33', name: '집수구역단위 보기'}
 						,{id: '44', name: '집수구역단위 상세보기'}]
 				}),
-				value: '집수구역단위 보기',
-				width: 140,
+				value: '총괄표',
+				width: 170,
 				height: 25
 			}]
 		},{
