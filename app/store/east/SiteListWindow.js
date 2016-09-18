@@ -266,7 +266,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		var me = GetCoreMap();
 		
 		if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
-			//showTmdlTMLayer
+			
 			var pollLoadString = "{\n";
 			pollLoadString += "	\"id\": \"pollLoad\",\n";
 			pollLoadString += "	\"text\": \"<span style='vertical-align:top;'>부하량</span>";

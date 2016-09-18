@@ -1534,6 +1534,8 @@ ResetButtonClick = function(){
 	var txtBox = Ext.getCmp("textSearchText");
 	txtBox.setValue("");
 	
+	// 주제도 레이어 off
+	catTMLayerOnOff("off");
 }
 
 // 주제도 레이어 on/off

@@ -133,36 +133,14 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
         		);
 	        	
 	        	var tmCatFeatures = tmCatFeatureSet.features;
-	        	console.info(tmCatFeatures);
 	        	
-	        	var minVal = 0;
-	        	var maxVal = 0;
-	        	//var range = 8;
 	        	var range = 15;
-	        	
-	        	for(var i = 0; i < tmCatFeatures.length; i++){
-	        		
-	        		var tmCatGraphic = tmCatFeatures[i];
-	        		
-	        		// 발생부하량 BOD 합계
-	        		var gnrBodSu = tmCatGraphic.attributes.GNR_BOD_SU;
-	        		
-	        		// Max Value 셋팅
-	        		if(gnrBodSu > maxVal || i == 0){
-	        			maxVal = gnrBodSu;
-	        		}
-	        		
-	        		// Min Value 셋팅
-	        		if(gnrBodSu < minVal || i == 0){
-	        			minVal = gnrBodSu;
-	        		}
-	        	}
 	        	
 	        	/* 범위, 값 매핑 오브젝트 생성 */
 	        	var quantizeObj = "";
-	        	console.info(tmCatFeatureSet);
+	        	
 	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, "GNR_BOD_SU", range);
-	        	console.info(quantizeObj);
+	        	
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
 	        	for(var range = 0; range < quantizeObj.length; range++){
@@ -350,9 +328,6 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	
 	        	// 집수구역 부하량 라벨 레이어 추가
 	        	coreMap.map.addLayer(me.tmLabelLayerCat);
-	        	
-	        	// 집수구역 레이어 버튼 강제 클릭
-	        	$("#btnAreaLayer").click();
 	        	
 	        	/* 레전드 그리기 */
 	        	me.createLegend(quantizeObj);
