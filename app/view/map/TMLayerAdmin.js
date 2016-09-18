@@ -87,7 +87,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        
 	        queryTask.execute(query, function(tmCatFeatureSet){
 	        	
-	        	//console.info(tmCatFeatureSet);
+	        	console.info(tmCatFeatureSet);
 	        	
 	        	if(me.tmGraphicLayerCat == undefined || me.tmGraphicLayerCat == null){
 		        	// 폴리곤 레이어 생성

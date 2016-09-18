@@ -12,9 +12,6 @@ var tmQuantize = {
 	// 각 단계(range)당 Feature 한개씩 셋팅
 	setOnlyOneFeature: function(features, attrName){
 		
-		// Object 초기화
-		this.setInitObj();
-		
 		features.sort(function(a, b){
 			
 			return eval("a.attributes." + attrName) - eval("b.attributes." + attrName);
@@ -67,19 +64,19 @@ var tmQuantize = {
 	},
 	// Minimum, Maximum 셋팅 (featureSet, attrName:값 속성명, [isReCall: 재귀호출 여부])
 	setScale: function(featureSet, attrName, isReCall){
-		//console.info(isReCall);
+		
+		var features = featureSet.features;
+		
 		// 재귀 호출 아닐때
 		if(isReCall != true){
 			
 			// Object 초기화
 			this.setInitObj();
-		}
-		
-		var features = featureSet.features;
-		
-		if(features.length <= 15){
 			
-			this.setOnlyOneFeature(features, attrName);
+			if(features.length <= 15){
+				
+				this.setOnlyOneFeature(features, attrName);
+			}
 		}
 		
 		var minVal = undefined;
@@ -109,7 +106,7 @@ var tmQuantize = {
 		
 		// 단계 나누기
 		this.setQuantize = function(range){
-			
+			console.info(this.isOnlyOne);
 			if(this.isOnlyOne == false){
 				
 				if(this.totRange == undefined){
@@ -126,7 +123,7 @@ var tmQuantize = {
 					var stVal = 0;
 					var edVal = 0;
 					var curRange = i;
-					
+					//console.info(featureSet.range);
 					if(featureSet.range != undefined){
 						
 						curRange = featureSet.range + "-" + i;
@@ -150,7 +147,7 @@ var tmQuantize = {
 					
 					stVal = Math.round(stVal);
 					edVal = Math.round(edVal);
-					
+					//console.info(curRange);
 					var obj = {stVal: stVal, edVal: edVal, range: curRange};
 					
 					arrQuantize.push(obj);
@@ -189,7 +186,7 @@ var tmQuantize = {
 						// return a.features.length - b.features.length; // ASC
 						return b.features.length - a.features.length; // DESC
 					});
-	
+					
 					if(this.quantizeObj.length < this.totRange){
 						
 						var zeroCnt = 0;
@@ -199,11 +196,11 @@ var tmQuantize = {
 							if(arrQuantize[reCnt].features.length > 0){
 								
 								var subRange = arrQuantize[reCnt].range;
-								
+								console.info(subRange);
 								if(subRange.length > 2){
 									subRange = subRange.substring(0, subRange.length - 2);
 								}
-								
+								console.info(subRange);
 								for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
 									
 									if(this.quantizeObj[objCnt].range == subRange){
@@ -220,7 +217,7 @@ var tmQuantize = {
 								var tmpFeatures = arrQuantize[reCnt].features;
 								arrQuantize[reCnt].stVal = eval("tmpFeatures[0].attributes." + attrName);
 								arrQuantize[reCnt].edVal = eval("tmpFeatures[tmpFeatures.length - 1].attributes." + attrName);*/
-								
+								//console.info(arrQuantize[reCnt]);
 								this.quantizeObj.push(arrQuantize[reCnt]);
 							}
 							else{
@@ -234,7 +231,7 @@ var tmQuantize = {
 							if(arrQuantize[reCnt].features.length > 1){
 								
 								if(zeroCnt > 0){
-									
+									//console.info(arrQuantize[reCnt]);
 									// 재귀 호출 단계 재분배
 									this.setScale(arrQuantize[reCnt], attrName, true).setQuantize(2).setFeature();
 								}
@@ -272,7 +269,7 @@ getQuantizeObj = function(featureSet, attrName, range){
 	var quantizeObj = getQuantizeObj(minMaxObj.minVal, minMaxObj.maxVal, range);
 	var arrQuantize = sortQuantize(features, attrName, quantizeObj.arrQuantize);*/
 	var quantize = tmQuantize.setScale(featureSet, attrName).setQuantize(range).setFeature();
-	//console.info(quantize.quantizeObj);
+	console.info(quantize.quantizeObj);
 	//console.info(quantize.quantizeObj.splice(1, 1));
 	
 	return quantize.quantizeObj;
@@ -347,7 +344,7 @@ showCatTMLayer = function(){
 		
 		coreMap.tmLayerAdmin = Ext.create("KRF_DEV.view.map.TMLayerAdmin");
 	}
-	
+	console.info(inStrCatDids);
 	// 집수구역별 주제도 레이어 그리기 함수 호출
 	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids);
 }
