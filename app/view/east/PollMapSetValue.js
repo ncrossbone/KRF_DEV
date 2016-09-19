@@ -17,13 +17,13 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 		type: 'fit'
 	},
 	
-	width: 285,
+	width: 260,
 	height: 165,
 	
 	items:[{
     	xtype: 'container',
-    	y: 5,
-    	x: 5,
+    	y: 10,
+    	x: 10,
     	layout: {
     		type: 'vbox',
     		align: 'left',
@@ -38,7 +38,8 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
         	},
         	items: [{
 				xtype: 'label',
-				text: '기 간 : '
+				text: '기   간  : ',
+				width: 50
 			},{
 				xtype: 'combo',
 				id : 'setPollYear',
@@ -48,9 +49,6 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 				//labelAlign: 'right',
 				width: 65,
 				height: 25
-			},{
-				xtype: 'label',
-				text: ' 년'
 			}]
     	},{
 			xtype: 'container',
@@ -68,7 +66,8 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 					
 	        	},{
 					xtype: 'label',
-					text: '항 목 : '
+					text: '항   목  : ',
+					width: 50
 				},{
 					xtype: 'combo',
 					id : 'setPollItems',
@@ -98,12 +97,12 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
     			xtype: 'container',
 	        	layout: {
 	        		type: 'hbox',
-	        		align: 'middle',
+	        		align: 'right',
 	        		pack: 'middle'
         		},
 	        	items: [{
 					xtype: 'container',
-					width: 80
+					width: 160
 				},{
 					xtype: 'image',
 					width: 34,
@@ -117,11 +116,19 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 							}
 						}
 					}
+				}, {
+					xtype: 'container',
+					width: 5
+				},{
+					xtype: 'image',
+					width: 34,
+					height: 19,
+					src: './resources/images/button/icon_remark.gif'
 				}]
     		}]
 		},{
 			xtype: 'container',
-			height: 20
+			height: 10
 		},{
 			xtype: 'container',
 			//background-color: 'black' , 
@@ -132,12 +139,15 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
         	},
         	items:[{
         		xtype: 'label',
-				text: '투명도 100%'
+				text: '투명도 0%'
+			}, {
+				xtype: 'container',
+				width: 5
 			},{
     			xtype: 'slider',
     			hideLabel: true,
     	        useTips: false,
-    	        width: 104,
+    	        width: 125,
     	        value:40,
     	        increment: 10,
     	        minValue: 0,
@@ -167,16 +177,11 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
     	    	}
     	        	
     		},{
-        		xtype: 'label',
-				text: '0%'
-			},{
 				xtype: 'container',
-				flex: 1
+				width: 5
 			},{
-				xtype: 'image',
-				width: 34,
-				height: 19,
-				src: './resources/images/button/icon_remark.gif'
+        		xtype: 'label',
+				text: '100%'
 			}]
 
     		
