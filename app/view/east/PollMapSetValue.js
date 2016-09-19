@@ -17,12 +17,12 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 		type: 'fit'
 	},
 	
-	width: 280,
-	height: 135,
+	width: 285,
+	height: 165,
 	
 	items:[{
     	xtype: 'container',
-    	y: 15,
+    	y: 5,
     	x: 5,
     	layout: {
     		type: 'vbox',
@@ -38,7 +38,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
         	},
         	items: [{
 				xtype: 'label',
-				text: '기 간'
+				text: '기 간 : '
 			},{
 				xtype: 'combo',
 				id : 'setPollYear',
@@ -50,7 +50,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 				height: 25
 			},{
 				xtype: 'label',
-				text: '년'
+				text: ' 년'
 			}]
     	},{
 			xtype: 'container',
@@ -64,12 +64,11 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 	        		pack: 'middle'
 	        	},
 	        	items: [{
-					xtype: 'container',
-					width: 10
+					xtype: 'container'
 					
 	        	},{
 					xtype: 'label',
-					text: '항목'
+					text: '항 목 : '
 				},{
 					xtype: 'combo',
 					id : 'setPollItems',
@@ -93,7 +92,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 	    	}]
     	},{
 			xtype: 'container',
-			height: 5
+			height: 10
 		},{
     		items:[{
     			xtype: 'container',
@@ -120,6 +119,68 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 					}
 				}]
     		}]
+		},{
+			xtype: 'container',
+			height: 20
+		},{
+			xtype: 'container',
+			//background-color: 'black' , 
+        	layout: {
+        		type: 'hbox',
+        		align: 'left',
+        		pack: 'left'
+        	},
+        	items:[{
+        		xtype: 'label',
+				text: '투명도 100%'
+			},{
+    			xtype: 'slider',
+    			hideLabel: true,
+    	        useTips: false,
+    	        width: 104,
+    	        value:40,
+    	        increment: 10,
+    	        minValue: 0,
+    	        maxValue: 100,
+    	        listeners: {
+    	    		change: function(slider, thumb, oldValue, newValue) {
+    	    			
+    	    			
+    	    			var rchMap = GetCoreMap();
+    	    			var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
+    	    			var catDid = [];
+    	    			
+    	    			if(tmpAreaGrp != null){
+    	    				for(i = 0; i < tmpAreaGrp.length;i++){
+    	    					
+    	    					var polySymbol = $("#polySymbol_" + tmpAreaGrp[i].attributes.CAT_DID);
+    	    	        		polySymbol[0].setAttribute("opacity", thumb*0.01);
+    	    	        		
+    	    	        		var labelSymbol = $("#labelSymbol_" + tmpAreaGrp[i].attributes.CAT_DID);
+    	    	        		labelSymbol[0].setAttribute("opacity", thumb*0.01);
+    	    	        		
+    	    					
+    	    				}
+    	    			}
+    	    			 
+    	    		}
+    	    	}
+    	        	
+    		},{
+        		xtype: 'label',
+				text: '0%'
+			},{
+				xtype: 'container',
+				flex: 1
+			},{
+				xtype: 'image',
+				width: 34,
+				height: 19,
+				src: './resources/images/button/icon_remark.gif'
+			}]
+
+    		
+		
 		}]
     }]
 

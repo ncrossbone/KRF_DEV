@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdminBackground', {
         me.map = map;
         
         me.layer = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_dim, {
-        	"opacity": 0.4
+        	"opacity": 0.6
         });
         
         me.layer.id = "ReachLayerAdminBackground"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..

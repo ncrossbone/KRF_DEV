@@ -45,6 +45,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 			columns: [{	 
 				text      : '대권역',
 				dataIndex : 'WS_NM',
+				
 				autoSizeColumn: true
 				//filter: {type: 'numeric'}
 			},{	 
@@ -70,7 +71,16 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 			},{	 
 				text      : '점유율',
 				dataIndex : 'PERCENTAGE',
-				autoSizeColumn: true
+				autoSizeColumn: true,
+				renderer: function(value,b,c,d){
+					if(c.data.ADDR == "총계"){
+						return value = "";
+					}else{
+						console.info("else");
+						return Ext.util.Format.number(value, '0.00');
+					}
+					
+				}
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '구분',
@@ -83,17 +93,29 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 					text     : 'BOD',
 					dataIndex: 'GNR_BOD_SUM',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					align:'right',
+					filter: {type: 'numeric'/*, fields: {}*/},
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0000');
+					}
 				}, {
 					text     : 'TN',
 					dataIndex: 'GNR_TN_SUM',
+					align:'right',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: {type: 'numeric'/*, fields: {}*/},
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0000');
+					}
 				}, {
 					text     : 'TP',
 					dataIndex: 'GNR_TP_SUM',
+					align:'right',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: {type: 'numeric'/*, fields: {}*/},
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0000');
+					}
 				}]
 			
 				
@@ -102,18 +124,30 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 				columns: [{
 					text     : 'BOD',
 					dataIndex: 'OUT_BOD_SUM',
+					align:'right',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: {type: 'numeric'/*, fields: {}*/},
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0000');
+					}
 				}, {
 					text     : 'TN',
 					dataIndex: 'OUT_TN_SUM',
+					align:'right',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: {type: 'numeric'/*, fields: {}*/},
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0000');
+					}
 				}, {
 					text     : 'TP',
 					dataIndex: 'OUT_TP_SUM',
+					align:'right',
 					width: 100,
-					filter: {type: 'numeric'/*, fields: {}*/}
+					filter: {type: 'numeric'/*, fields: {}*/},
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0000');
+					}
 				}]
 			}],
 			

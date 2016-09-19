@@ -289,7 +289,6 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	});
 
 	        	on(me.tmLabelLayerCat, "mouse-over", function(evt){
-	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
 	        		
