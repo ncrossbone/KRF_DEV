@@ -77,7 +77,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                 		 dom,
                 		 domClass){
 			
-			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/2");
+			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/1");
 			
 			var query = new Query();
 	        query.returnGeometry = true;

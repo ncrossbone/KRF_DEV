@@ -276,7 +276,6 @@ getQuantizeObj = function(featureSet, attrName, range){
 }
 
 catTMLayerOnOff = function(onOff, layerId){
-	console.info(onOff);
 	
 	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
 	if(pollMapSetValue == undefined){
