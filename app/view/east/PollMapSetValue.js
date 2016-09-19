@@ -86,7 +86,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 							,{id: '8', name: '배출TN합계'}
 							,{id: '9', name: '배출TP합계'}]
 					}),
-					value: '발생BOD합계',
+					value: '2',
 					width: 185,
 					height: 25
 				}]
@@ -122,13 +122,14 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 								var setPollItems = Ext.getCmp("setPollItems");
 								alert("기간 :: "+ setPollYear.value);
 								alert("항목 :: "+ setPollItems.value);
+								console.info(setPollItems);
 								
 								var setItems = [];
 								setItems.push(setPollYear.value);
 								setItems.push(setPollItems.value);
 								console.info(setItems);
 								
-								showCatTMLayer(setItems);
+								catTMLayerOnOff("on",setItems);
 								
 								
 							}

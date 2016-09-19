@@ -21,7 +21,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     	var me = this;
     	var coreMap = GetCoreMap();
         
-    	console.info(me);
+    	
     	
         /* Definition FeatureLayer 생성 */
 		/*coreMap.tmLayerCat = new esri.layers.FeatureLayer("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/2", {
