@@ -275,7 +275,7 @@ getQuantizeObj = function(featureSet, attrName, range){
 	return quantize.quantizeObj;
 }
 
-catTMLayerOnOff = function(onOff){
+catTMLayerOnOff = function(onOff, layerId){
 	
 	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
 	if(pollMapSetValue == undefined){
@@ -317,13 +317,13 @@ catTMLayerOnOff = function(onOff){
 		// 주제도 레이어 클리어
 		tmCatLayerClear();
 		// 주제도 레이어 보이기
-		showCatTMLayer();
+		showCatTMLayer(layerId);
 	}
 }
 
 // 집수구역별 주제도 보여주기
-showCatTMLayer = function(setItems){
-	console.info(setItems);
+showCatTMLayer = function(layerId){
+	console.info(layerId);
 	var coreMap = GetCoreMap();
 	
 	var arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaGrp;
@@ -348,7 +348,7 @@ showCatTMLayer = function(setItems){
 	}
 	console.info(inStrCatDids);
 	// 집수구역별 주제도 레이어 그리기 함수 호출
-	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids,setItems);
+	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids,layerId);
 }
 
 // 총량단위유역별 주제도 보여주기
