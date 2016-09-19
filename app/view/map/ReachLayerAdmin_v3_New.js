@@ -803,7 +803,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 						
 	    				// 우측 상류 검색 (재귀호출)
 	    				var ruRchDid = feature.attributes.RU_RCH_DID;
-	    				console.info(ruRchDid);
+	    				//console.info(ruRchDid);
 						me.selectUpLine(ruRchDid, dnGeoTrib, drawOption, cnt);
     				}
 				}
