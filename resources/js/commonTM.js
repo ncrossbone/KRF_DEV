@@ -284,40 +284,45 @@ catTMLayerOnOff = function(onOff, layerId){
 		});
 	}
 	
-	var cboTMSelect = pollMapSetValue.down("combo");
+	var cboTMSelect = Ext.getCmp("setPollItems");
 	console.info(cboTMSelect);
 	
 	var catTMOnOff = $("#catTMOnOff");
 	var corMap = GetCoreMap();
-	var imgSrc = catTMOnOff[0].src;
+	//console.info(catTMOnOff[0]);
 	
-	if(imgSrc.indexOf("_on.") > -1 || onOff == "off"){
+	if(catTMOnOff[0] != undefined){
+	
+		var imgSrc = catTMOnOff[0].src;
 		
-		pollMapSetValue.hide();
-		
-		// 집수구역 버튼 Off
-		var currCtl = SetBtnOnOff("btnAreaLayer", "on");
-		corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
-		
-		catTMOnOff[0].src = imgSrc.replace("_on.", "_off.");
-		
-		// 주제도 레이어 클리어
-		tmCatLayerClear();
-	}
-	else if(imgSrc.indexOf("_off.") > -1 || onOff == "on"){
-		
-		pollMapSetValue.show();
-		
-		// 집수구역 버튼 Off
-		var currCtl = SetBtnOnOff("btnAreaLayer", "off");
-		corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
-		
-		catTMOnOff[0].src = imgSrc.replace("_off.", "_on.");
-		
-		// 주제도 레이어 클리어
-		tmCatLayerClear();
-		// 주제도 레이어 보이기
-		showCatTMLayer(layerId);
+		if(imgSrc.indexOf("_on.") > -1 || onOff == "off"){
+			
+			pollMapSetValue.hide();
+			
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+			
+			catTMOnOff[0].src = imgSrc.replace("_on.", "_off.");
+			
+			// 주제도 레이어 클리어
+			tmCatLayerClear();
+		}
+		else if(imgSrc.indexOf("_off.") > -1 || onOff == "on"){
+			
+			pollMapSetValue.show();
+			
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "off");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+			
+			catTMOnOff[0].src = imgSrc.replace("_off.", "_on.");
+			
+			// 주제도 레이어 클리어
+			tmCatLayerClear();
+			// 주제도 레이어 보이기
+			showCatTMLayer(layerId);
+		}
 	}
 }
 
