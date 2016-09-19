@@ -77,16 +77,16 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 					displayField: 'name',
 					store: Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
-						data: [{id: '1', name: '발생유량합계'}
-							    ,{id: '2', name: '발생BOD합계'}
-						    ,{id: '3', name: '발생TN합계'}
-							,{id: '4', name: '발생TP합계'}
-							,{id: '6', name: '배출유량합계'}
-							,{id: '7', name: '배출BOD합계'}
-							,{id: '8', name: '배출TN합계'}
-							,{id: '9', name: '배출TP합계'}]
+						data: [{id: 'GNR_FLOW_S', name: '발생유량합계'}
+							    ,{id: 'GNR_BOD_SU', name: '발생BOD합계'}
+						    ,{id: 'GNR_TN_S', name: '발생TN합계'}
+							,{id: 'GNR_TP_S', name: '발생TP합계'}
+							,{id: 'OUT_FLOW_S', name: '배출유량합계'}
+							,{id: 'OUT_BOD_S', name: '배출BOD합계'}
+							,{id: 'OUT_TN_S', name: '배출TN합계'}
+							,{id: 'OUT_TP_S', name: '배출TP합계'}]
 					}),
-					value: '2',
+					value: 'GNR_BOD_SU',
 					width: 185,
 					height: 25
 				}]
@@ -114,24 +114,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 						el:{
 							click: function(){
 								
-								tmCatLayerClear();  //주제도 레이어 클리어
-								
-								//showCatTMLayer(); //부하량 on
-								
-								var setPollYear = Ext.getCmp("setPollYear");
-								var setPollItems = Ext.getCmp("setPollItems");
-								alert("기간 :: "+ setPollYear.value);
-								alert("항목 :: "+ setPollItems.value);
-								console.info(setPollItems);
-								
-								var setItems = [];
-								setItems.push(setPollYear.value);
-								setItems.push(setPollItems.value);
-								console.info(setItems);
-								
-								catTMLayerOnOff("on",setItems);
-								
-								
+								catTMLayerOnOff("on");
 							}
 						}
 					}

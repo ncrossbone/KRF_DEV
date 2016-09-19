@@ -275,8 +275,7 @@ getQuantizeObj = function(featureSet, attrName, range){
 	return quantize.quantizeObj;
 }
 
-catTMLayerOnOff = function(onOff, layerId){
-	console.info(onOff);
+catTMLayerOnOff = function(onOff){
 	
 	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
 	if(pollMapSetValue == undefined){
@@ -285,50 +284,59 @@ catTMLayerOnOff = function(onOff, layerId){
 		});
 	}
 	
+	var cboTMYear = Ext.getCmp("setPollYear");
+	var year = cboTMYear.value;
+	var cboTMSelect = Ext.getCmp("setPollItems");
+	var colName = cboTMSelect.value;
+	
 	var catTMOnOff = $("#catTMOnOff");
 	var corMap = GetCoreMap();
-	var imgSrc = catTMOnOff[0].src;
+	//console.info(catTMOnOff[0]);
 	
-	console.info(imgSrc);
-	if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
+	if(catTMOnOff[0] != undefined){
+	
+		var imgSrc = catTMOnOff[0].src;
 		
-		// 집수구역 버튼 Off
-		var currCtl = SetBtnOnOff("btnAreaLayer", "on");
-		corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
-		
-		catTMOnOff[0].src = imgSrc.replace("_on.", "_off.");
-		
-		// 주제도 레이어 클리어
-		tmCatLayerClear();
-		//console.info(this.tmGraphicLayerCat.id);
-		pollMapSetValue.hide();
-		
-	}
-	else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
-		
-		// 집수구역 버튼 Off
-		var currCtl = SetBtnOnOff("btnAreaLayer", "off");
-		corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
-		
-		catTMOnOff[0].src = imgSrc.replace("_off.", "_on.");
-		
-		// 주제도 레이어 클리어
-		tmCatLayerClear();
-		// 주제도 레이어 보이기
-		showCatTMLayer(layerId);
-		//PollLoadSearchResult("");
-		pollMapSetValue.show();
+		if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
+			
+			pollMapSetValue.hide();
+			
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+			
+			catTMOnOff[0].src = imgSrc.replace("_on.", "_off.");
+			
+			// 주제도 레이어 클리어
+			tmCatLayerClear();
+			//console.info(this.tmGraphicLayerCat.id);
+		}
+		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
+			
+			pollMapSetValue.show();
+			
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "off");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+			
+			catTMOnOff[0].src = imgSrc.replace("_off.", "_on.");
+			
+			// 주제도 레이어 클리어
+			tmCatLayerClear();
+			// 주제도 레이어 보이기
+			showCatTMLayer(year, colName);
+		}
 	}
 }
 
 // 집수구역별 주제도 보여주기
-showCatTMLayer = function(layerId){
-	console.info(layerId);
+showCatTMLayer = function(year, colName){
+	
 	var coreMap = GetCoreMap();
 	
 	var arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaGrp;
 	var inStrCatDids = "";
-	//console.info(coreMap.reachLayerAdmin_v3_New.arrAreaGrp);
+	
 	for(var i = 0; i < arrAreaGrp.length; i++){
 		
 		inStrCatDids += "'" + arrAreaGrp[i].attributes.CAT_DID + "', ";
@@ -339,16 +347,13 @@ showCatTMLayer = function(layerId){
 		inStrCatDids = inStrCatDids.substring(0, inStrCatDids.length -2);
 	}
 	
-	//console.info(coreMap.tmLayerAdmin);
-	//console.info(coreMap.tmLayerAdmin.tmGraphicLayerCat);
-	
 	if(coreMap.tmLayerAdmin == undefined || coreMap.tmLayerAdmin == null){
 		
 		coreMap.tmLayerAdmin = Ext.create("KRF_DEV.view.map.TMLayerAdmin");
 	}
-	console.info(inStrCatDids);
+	
 	// 집수구역별 주제도 레이어 그리기 함수 호출
-	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids,layerId);
+	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids, year, colName);
 }
 
 // 총량단위유역별 주제도 보여주기
