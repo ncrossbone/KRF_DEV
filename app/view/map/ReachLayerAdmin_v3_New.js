@@ -740,8 +740,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					// 현재 feature 하천 차수
 					var curGeoTrib = feature.attributes.GEO_TRIB;
 					
-					// 최하위노드의 지류인 놈들만 검색한다.
-					if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib <= dnGeoTrib){
+					// if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib <= dnGeoTrib){
+					// 본류이면서 시작위치 하류 배열, 끝위치 하류 배열에 속해있지 않으면 검색 종료 Draw종료
+					if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib == 0){
 						
 						isUpSearch = false;
 						isDraw = false;
