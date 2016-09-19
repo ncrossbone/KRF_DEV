@@ -106,7 +106,7 @@ var tmQuantize = {
 		
 		// 단계 나누기
 		this.setQuantize = function(range){
-			console.info(this.isOnlyOne);
+			//console.info(this.isOnlyOne);
 			if(this.isOnlyOne == false){
 				
 				if(this.totRange == undefined){
@@ -196,15 +196,15 @@ var tmQuantize = {
 							if(arrQuantize[reCnt].features.length > 0){
 								
 								var subRange = arrQuantize[reCnt].range;
-								console.info(subRange);
+								//console.info(subRange);
 								if(subRange.length > 2){
 									subRange = subRange.substring(0, subRange.length - 2);
 								}
-								console.info(subRange);
+								//console.info(subRange);
 								for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
 									
 									if(this.quantizeObj[objCnt].range == subRange){
-										console.info(subRange);
+										//console.info(subRange);
 										this.quantizeObj.splice(objCnt, 1);	
 									}
 								}
@@ -269,7 +269,7 @@ getQuantizeObj = function(featureSet, attrName, range){
 	var quantizeObj = getQuantizeObj(minMaxObj.minVal, minMaxObj.maxVal, range);
 	var arrQuantize = sortQuantize(features, attrName, quantizeObj.arrQuantize);*/
 	var quantize = tmQuantize.setScale(featureSet, attrName).setQuantize(range).setFeature();
-	console.info(quantize.quantizeObj);
+	//console.info(quantize.quantizeObj);
 	//console.info(quantize.quantizeObj.splice(1, 1));
 	
 	return quantize.quantizeObj;
