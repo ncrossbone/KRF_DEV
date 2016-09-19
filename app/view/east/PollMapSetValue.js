@@ -78,7 +78,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 					store: Ext.create('Ext.data.Store', {
 						fields: ['id', 'name'],
 						data: [{id: 'GNR_FLOW_S', name: '발생유량합계'}
-							    ,{id: 'GNR_BOD_SU', name: '발생BOD합계'}
+							    ,{id: 'GNR_BOD_S', name: '발생BOD합계'}
 						    ,{id: 'GNR_TN_S', name: '발생TN합계'}
 							,{id: 'GNR_TP_S', name: '발생TP합계'}
 							,{id: 'OUT_FLOW_S', name: '배출유량합계'}
@@ -86,7 +86,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 							,{id: 'OUT_TN_S', name: '배출TN합계'}
 							,{id: 'OUT_TP_S', name: '배출TP합계'}]
 					}),
-					value: 'GNR_BOD_SU',
+					value: 'GNR_BOD_S',
 					width: 185,
 					height: 25
 				}]
