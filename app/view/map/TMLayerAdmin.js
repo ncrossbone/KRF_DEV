@@ -16,11 +16,13 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     },
     
     // 집수구역별 부하량 주제도 그리기
-    drawTMCatLayer: function(inStrCatDids){
-    	
+    drawTMCatLayer: function(inStrCatDids,setItems){
+    	console.info(setItems);
     	var me = this;
     	var coreMap = GetCoreMap();
         
+    	console.info(me);
+    	
         /* Definition FeatureLayer 생성 */
 		/*coreMap.tmLayerCat = new esri.layers.FeatureLayer("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/2", {
         	outFields: ["*"]

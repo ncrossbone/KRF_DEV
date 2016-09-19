@@ -319,8 +319,8 @@ catTMLayerOnOff = function(onOff){
 }
 
 // 집수구역별 주제도 보여주기
-showCatTMLayer = function(){
-	
+showCatTMLayer = function(setItems){
+	console.info(setItems);
 	var coreMap = GetCoreMap();
 	
 	var arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaGrp;
@@ -345,7 +345,7 @@ showCatTMLayer = function(){
 	}
 	console.info(inStrCatDids);
 	// 집수구역별 주제도 레이어 그리기 함수 호출
-	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids);
+	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids,setItems);
 }
 
 // 총량단위유역별 주제도 보여주기
