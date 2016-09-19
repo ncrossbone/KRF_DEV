@@ -16,8 +16,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     },
     
     // 집수구역별 부하량 주제도 그리기
-    drawTMCatLayer: function(inStrCatDids,setItems){
-    	console.info(setItems);
+    drawTMCatLayer: function(inStrCatDids, year, colName){
+    	
     	var me = this;
     	var coreMap = GetCoreMap();
         
@@ -77,7 +77,14 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                 		 dom,
                 		 domClass){
 			
-			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/1");
+			var layerId = "1";
+			
+			if(year == "2013"){
+				
+				layerId = "1";
+			}
+			
+			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/" + layerId);
 			
 			var query = new Query();
 	        query.returnGeometry = true;
@@ -141,7 +148,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 범위, 값 매핑 오브젝트 생성 */
 	        	var quantizeObj = "";
 	        	
-	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, "GNR_BOD_SU", range);
+	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range);
 	        	
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
@@ -166,8 +173,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
 		        		// 발생부하량 BOD 합계
-		        		var gnrBodSu = tmCatGraphic.attributes.GNR_BOD_SU;
-		        		
+		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
+		        		console.info(colName);
 		        		// 라벨 텍스트 설정
 		        		var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
 		        		
