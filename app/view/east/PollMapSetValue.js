@@ -102,7 +102,7 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
         		},
 	        	items: [{
 					xtype: 'container',
-					width: 160
+					width: 194
 				},{
 					xtype: 'image',
 					width: 34,
@@ -116,14 +116,6 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 							}
 						}
 					}
-				}, {
-					xtype: 'container',
-					width: 5
-				},{
-					xtype: 'image',
-					width: 34,
-					height: 19,
-					src: './resources/images/button/icon_remark.gif'
 				}]
     		}]
 		},{
@@ -131,15 +123,23 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 			height: 10
 		},{
 			xtype: 'container',
-			//background-color: 'black' , 
         	layout: {
         		type: 'hbox',
         		align: 'left',
         		pack: 'left'
         	},
         	items:[{
+				xtype: 'image',
+				width: 34,
+				height: 10,
+				style: 'margin: 3px !important;',
+				src: './resources/images/button/opacity.png'
+			}, {
+				xtype: 'container',
+				width: 5
+			},{
         		xtype: 'label',
-				text: '투명도 0%'
+				text: '0%'
 			}, {
 				xtype: 'container',
 				width: 5
@@ -147,32 +147,18 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
     			xtype: 'slider',
     			hideLabel: true,
     	        useTips: false,
-    	        width: 125,
-    	        value:40,
+    	        width: 90,
+    	        value:100,
     	        increment: 10,
     	        minValue: 0,
     	        maxValue: 100,
     	        listeners: {
     	    		change: function(slider, thumb, oldValue, newValue) {
     	    			
+    	    			var coreMap = GetCoreMap();
     	    			
-    	    			var rchMap = GetCoreMap();
-    	    			var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
-    	    			var catDid = [];
-    	    			
-    	    			if(tmpAreaGrp != null){
-    	    				for(i = 0; i < tmpAreaGrp.length;i++){
-    	    					
-    	    					var polySymbol = $("#polySymbol_" + tmpAreaGrp[i].attributes.CAT_DID);
-    	    	        		polySymbol[0].setAttribute("opacity", thumb*0.01);
-    	    	        		
-    	    	        		var labelSymbol = $("#labelSymbol_" + tmpAreaGrp[i].attributes.CAT_DID);
-    	    	        		labelSymbol[0].setAttribute("opacity", thumb*0.01);
-    	    	        		
-    	    					
-    	    				}
-    	    			}
-    	    			 
+    	    			coreMap.tmLayerAdmin.tmGraphicLayerCat.setOpacity(thumb*0.01);
+						coreMap.tmLayerAdmin.tmLabelLayerCat.setOpacity(thumb*0.01);
     	    		}
     	    	}
     	        	
@@ -182,6 +168,29 @@ Ext.define('KRF_DEV.view.east.PollMapSetValue', {
 			},{
         		xtype: 'label',
 				text: '100%'
+			},{
+				xtype: 'container',
+				width: 5
+			},{
+				xtype: 'image',
+				width: 34,
+				height: 10,
+				style: 'margin: 3px !important;',
+				src: './resources/images/button/remark.png',
+				listeners:{
+					el:{
+						click: function(){
+							var tmLegendWindow = Ext.getCmp("tmLegendWindow");
+					    	// 레전드 윈도우 보이기
+							if(tmLegendWindow.hidden == true){
+								tmLegendWindow.setHidden(false);
+							}else{
+								tmLegendWindow.setHidden(true);
+							}
+					    	
+						}
+					}
+				}
 			}]
 
     		

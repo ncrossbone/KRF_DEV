@@ -280,7 +280,7 @@ catTMLayerOnOff = function(onOff){
 	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
 	if(pollMapSetValue == undefined){
 		pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue", {
-			x: Ext.getBody().getWidth() - 270
+			x: Ext.getBody().getWidth() - 261
 		});
 	}
 	

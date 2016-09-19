@@ -39,7 +39,7 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'container',
 		flex: 1
-	}, {
+	}/*, {
 		xtype: 'button',
 		text: '부하량 지도보기 설정',
 		listeners: {
@@ -49,7 +49,7 @@ Ext.define('KRF_DEV.view.north.North', {
 					var pollMapSetValue = Ext.getCmp("pollMapSetValue");
 					if(pollMapSetValue == undefined){
 						pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue", {
-							x: Ext.getBody().getWidth() - 300
+							x: Ext.getBody().getWidth() - 261
 						});
 					}
 					pollMapSetValue.show();
@@ -57,7 +57,7 @@ Ext.define('KRF_DEV.view.north.North', {
 				}
 			}
 		}
-	}/*, {
+	}, {
 		xtype: 'button',
 		text: '부하량 지도보기 설정',
 		listeners: {

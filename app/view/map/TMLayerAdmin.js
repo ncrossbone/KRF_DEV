@@ -201,7 +201,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		me.circleGraphicLayer.add(cirCleGraphic);
 		        		
 		        		// 이미지 심볼 생성
-		        		var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range/2 + 1)), 25, 63).setOffset(0, 25);
+		        		var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range/2)), 25, 63).setOffset(0, 25);
 		        		var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
 		        		// 집수구역 부하량 속성 데이터 카피
 		        		barImgGraphic.attributes = tmCatGraphic.attributes;
