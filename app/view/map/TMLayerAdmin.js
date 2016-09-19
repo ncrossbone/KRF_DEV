@@ -94,7 +94,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        
 	        queryTask.execute(query, function(tmCatFeatureSet){
 	        	
-	        	console.info(tmCatFeatureSet);
+	        	//console.info(tmCatFeatureSet);
 	        	
 	        	if(me.tmGraphicLayerCat == undefined || me.tmGraphicLayerCat == null){
 		        	// 폴리곤 레이어 생성
@@ -172,7 +172,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		
 		        		// 발생부하량 BOD 합계
 		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
-		        		console.info(colName);
+		        		//console.info(colName);
 		        		// 라벨 텍스트 설정
 		        		var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
 		        		

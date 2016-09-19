@@ -39,7 +39,7 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'container',
 		flex: 1
-	},  {
+	}/*, {
 		xtype: 'button',
 		text: '부하량 지도보기 설정',
 		listeners: {
@@ -113,7 +113,7 @@ Ext.define('KRF_DEV.view.north.North', {
 				}
 			}
 		}
-	}, { 
+	}*/, { 
 		xtype: 'image',
 		//id: 'btnReachLayer',
 		layerId: 'baseMap',
