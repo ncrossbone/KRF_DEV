@@ -41,6 +41,24 @@ Ext.define('KRF_DEV.view.north.North', {
 		flex: 1
 	}, {
 		xtype: 'button',
+		text: '부하량 지도보기 설정',
+		listeners: {
+			el: {
+				click: function(){
+					
+					var pollMapSetValue = Ext.getCmp("pollMapSetValue");
+					if(pollMapSetValue == undefined){
+						pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue", {
+							x: Ext.getBody().getWidth() - 300
+						});
+					}
+					
+					pollMapSetValue.show();
+				}
+			}
+		}
+	}, {
+		xtype: 'button',
 		text: '집수구역별주제도',
 		listeners: {
 			el: {
