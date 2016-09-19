@@ -276,6 +276,7 @@ getQuantizeObj = function(featureSet, attrName, range){
 }
 
 catTMLayerOnOff = function(onOff, layerId){
+	console.info(onOff);
 	
 	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
 	if(pollMapSetValue == undefined){
@@ -288,7 +289,8 @@ catTMLayerOnOff = function(onOff, layerId){
 	var corMap = GetCoreMap();
 	var imgSrc = catTMOnOff[0].src;
 	
-	if(imgSrc.indexOf("_on.") > -1 || onOff == "off"){
+	console.info(imgSrc);
+	if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
 		
 		// 집수구역 버튼 Off
 		var currCtl = SetBtnOnOff("btnAreaLayer", "on");
@@ -302,7 +304,7 @@ catTMLayerOnOff = function(onOff, layerId){
 		pollMapSetValue.hide();
 		
 	}
-	else if(imgSrc.indexOf("_off.") > -1 || onOff == "on"){
+	else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
 		
 		// 집수구역 버튼 Off
 		var currCtl = SetBtnOnOff("btnAreaLayer", "off");
