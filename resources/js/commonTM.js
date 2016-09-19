@@ -284,6 +284,9 @@ catTMLayerOnOff = function(onOff){
 		});
 	}
 	
+	var cboTMSelect = pollMapSetValue.down("combo");
+	console.info(cboTMSelect);
+	
 	var catTMOnOff = $("#catTMOnOff");
 	var corMap = GetCoreMap();
 	var imgSrc = catTMOnOff[0].src;
