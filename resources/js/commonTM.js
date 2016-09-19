@@ -290,6 +290,8 @@ catTMLayerOnOff = function(onOff){
 	
 	if(imgSrc.indexOf("_on.") > -1 || onOff == "off"){
 		
+		pollMapSetValue.hide();
+		
 		// 집수구역 버튼 Off
 		var currCtl = SetBtnOnOff("btnAreaLayer", "on");
 		corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
@@ -298,11 +300,10 @@ catTMLayerOnOff = function(onOff){
 		
 		// 주제도 레이어 클리어
 		tmCatLayerClear();
-		//console.info(this.tmGraphicLayerCat.id);
-		pollMapSetValue.hide();
-		
 	}
 	else if(imgSrc.indexOf("_off.") > -1 || onOff == "on"){
+		
+		pollMapSetValue.show();
 		
 		// 집수구역 버튼 Off
 		var currCtl = SetBtnOnOff("btnAreaLayer", "off");
@@ -314,8 +315,6 @@ catTMLayerOnOff = function(onOff){
 		tmCatLayerClear();
 		// 주제도 레이어 보이기
 		showCatTMLayer();
-		//PollLoadSearchResult("");
-		pollMapSetValue.show();
 	}
 }
 
