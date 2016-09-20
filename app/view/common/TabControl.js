@@ -194,7 +194,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						,{id: '33', name: '집수구역단위 보기'}
 						,{id: '44', name: '집수구역단위 상세보기'}]
 				}),
-				value: '총괄표',
+				value: '11',
 				width: 170,
 				height: 25
 			}]
@@ -606,6 +606,26 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 //				}
 				
 				var colArr = grid.getColumnManager().getColumns();
+				
+				
+				var tabpanels = Ext.getCmp("tabpanels");
+				console.info(tabpanels);
+				
+				if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
+					var value = Ext.getCmp("pollLoadSelect").value;
+					
+					if(value == "11" ){
+						colArr.splice(3,4);
+					}else if(value == "22"){
+						colArr.splice(3,3);
+					}else if(value == "33"){
+						colArr.splice(4,2);
+					}else{
+						colArr = colArr;
+					}
+				}
+				
+				
 				var hItem = grid.getHeaderContainer().config.items;
 				var gItem = [];
 				for(var i=0; i<hItem.length; i++){
@@ -645,7 +665,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					// khLee parentId (레이어코드) 제외
 					removeMem.push("parentId");
-					
+					console.info(colArr);
 					for(var i=0; i<colArr.length; i++){
 						if(colArr[i].dataIndex!=""){
 							var add = true;
@@ -654,7 +674,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 									add = false;
 									break;
 								}
+								
 							}
+							
 							if(add){
 								var preText = '';
 								for(var k=0; k<gItem.length; k++){
@@ -715,7 +737,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		}]
 	}, {
 		xtype: 'tabpanel',
-		//id: 'tabControl',
+		id: 'tabpanels',
 		//title: 'tab1',
 		style: 'background-color: #157fcb;',
 		//header: false
