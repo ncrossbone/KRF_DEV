@@ -101,7 +101,7 @@
 	 		out.println(gson.toJson(hashMap));
 		}else{
 			
-			
+			////
 			File file = new File("D:\\temp\\" + fileName);
 			FileInputStream fin = new FileInputStream(file);
 			int ifilesize = (int)file.length();
