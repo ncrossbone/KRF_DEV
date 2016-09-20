@@ -607,9 +607,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				
 				var colArr = grid.getColumnManager().getColumns();
 				
-				
+				//console.info(colArr);
 				var tabpanels = Ext.getCmp("tabpanels");
-				console.info(tabpanels);
+				//console.info(tabpanels);
 				
 				if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
 					var value = Ext.getCmp("pollLoadSelect").value;
@@ -665,7 +665,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					// khLee parentId (레이어코드) 제외
 					removeMem.push("parentId");
-					console.info(colArr);
+					//console.info(colArr);
 					for(var i=0; i<colArr.length; i++){
 						if(colArr[i].dataIndex!=""){
 							var add = true;
@@ -693,6 +693,11 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 								header.push(colArr[i].dataIndex);
 							}
 						}
+					}
+					//(kg/일)
+					for(var i = 0; i < headName.length; i++){
+						if(headName[i].indexOf("(kg/일)") > -1)
+							headName[i] = headName[i].replace("(kg/일)", "") + " (kg/일)";
 					}
 				}else{
 					for(var i=0; i<colArr.length; i++){

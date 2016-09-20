@@ -1700,7 +1700,14 @@ SetWestCollapseXY = function(option){
 		
 		if(reachNameToolbar != undefined){
 			
-			reachNameToolbar.setX(reachNameToolbar.getX() + offsetWidth);
+			//reachNameToolbar.setX(reachNameToolbar.getX() + offsetWidth);
+			//console.info(offsetWidth);
+			if(offsetWidth == 300){
+				reachNameToolbar.setX(486 - 300 + offsetWidth);
+			}
+			else{
+				reachNameToolbar.setX(486 - 300);
+			}
 		}
 		
 		// 툴팁 XY 셋팅
