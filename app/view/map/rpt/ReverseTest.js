@@ -167,8 +167,8 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 //		          
 //		          require(["esri/lang"], function(esriLang){
 //		        	 content = esriLang.substitute(obj.attributes,t);
-//		        	 console.info(obj);
-//		        	 console.info(obj.attributes);
+//		        	 //console.info(obj);
+//		        	 //console.info(obj.attributes);
 //		          });
 //				    
 //				//me.movePopGraphicLayer.add(obj);
@@ -411,19 +411,19 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					jijum_Cd = jijum.시설코드;
 					jijum_Gubun =  "하수종말처리시설" ;
 				}
-				console.info(reachNameToolbar);
+				////console.info(reachNameToolbar);
 				//시작지점 끝지점 처리및 지점명 삽입
 				if(clickValue == "start"){
-					console.info("start");
+					//console.info("start");
 					reachNameToolbar.items.items[0].setValue(jijum_Name);
 					textSearchText_Start.setValue(jijum_Name);
-					//console.info("start");
+					////console.info("start");
 				}
 				if(clickValue == "end"){
-					console.info("end");
+					//console.info("end");
 					reachNameToolbar.items.items[1].setValue(jijum_Name);
 					textSearchText_End.setValue(jijum_Name);
-					//console.info("end");
+					////console.info("end");
 				}
 				
 				me.moveGraphicLayer.clear();
@@ -472,7 +472,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					
 					popCtl.close();
 				}
-				//console.info(xyObj);
+				////console.info(xyObj);
 				Ext.create("Ext.window.Window", {
 					//renderTo: Ext.getBody(),
 					header: false,
@@ -627,7 +627,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				var extent = esri.geometry.Polygon(obj.geometry).getExtent();
 				//alert(extent);
-				//console.info(extent);
+				////console.info(extent);
 				//me.map.centerAt(extent.getCenter());
 				// 센터 이동
 				centerAtWithOffset(extent.getCenter().x, extent.getCenter().y, extent.spatialReference);

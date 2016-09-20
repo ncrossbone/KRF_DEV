@@ -150,7 +150,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             				
             				pNm = pNm.substring(0,1);
             				
-            				console.info(childRecord[i].data.text);
+            				//console.info(childRecord[i].data.text);
             				// 검색결과창 띄우기
             				ShowSearchResult(me.siteIds, me.parentIds, childRecord[i].data.text, gridId , "");
                     		
@@ -173,7 +173,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				var pNm = me.parentIds[0].parentId;
         				
         				pNm = pNm.substring(0,1);
-        				console.info(record.data.text);
+        				//console.info(record.data.text);
         				// 검색결과창 띄우기
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
         				
@@ -186,7 +186,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	}
             	
             	
-            	console.info(record);
+            	//console.info(record);
             	
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
