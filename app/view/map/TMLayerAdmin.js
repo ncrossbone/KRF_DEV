@@ -239,6 +239,25 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		me.setAttributeLegend("on", range);
 	        	});
 	        	
+	        	
+	        	//클릭 이벤트
+	        	on(me.tmGraphicLayerCat, "click", function(evt){
+	        		
+	        		console.info(evt.graphic.attributes.CAT_DID);
+	        		
+	        		var value = Ext.getCmp("pollLoadSelect").value;
+	        		
+	        		if(value == 11 || value == 22){
+	        			
+	        			
+	        			return;
+	        		}else{
+	        			PollSelectedFocus(evt.graphic.attributes.CAT_DID);
+	        		}
+	        		
+	        		
+	        	});
+	        	
 	        	on(me.tmGraphicLayerCat, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);

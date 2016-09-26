@@ -3,6 +3,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
 	
+	require: ['Ext.grid.plugin.BufferRenderer'],
+	
 	xtype: 'searchResultPollLoad',
 	
 	id: 'searchResultPollLoad_container',
@@ -56,7 +58,38 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 			},{	 
 				text      : '표준유역',
 				dataIndex : 'SW_NAME',
-				autoSizeColumn: true
+				autoSizeColumn: true,
+				listeners: {
+					click: function(tblView, el, rowCnt, colCnt, row){
+						
+						var value = Ext.getCmp("pollLoadSelect").value;
+						
+						
+		        		console.info(row.record.data.SW_NAME);
+		        		if(value == 11 || value == 22){
+		        			var swNm = row.record.data.SW_NAME;
+		        			console.info(value);
+		        			var catStore = null;
+		        			
+		        			catStore = Ext.create("KRF_DEV.store.south.PollLoad_Cat",{
+		        				swNm: swNm
+		        			});
+		        			catStore.load();
+		        			console.info(catStore);
+		        			return;
+							
+						}else{
+							var cat_did = row.record.data.CAT_DID;
+							console.info(cat_did);
+							
+							var polySymbol = $("#polySymbol_" + cat_did);
+			        		polySymbol[0].setAttribute("opacity", 0.8);
+						}
+						
+		        		
+		        		
+					}
+				}
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '집수구역',

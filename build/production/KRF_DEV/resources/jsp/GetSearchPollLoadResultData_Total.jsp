@@ -36,7 +36,7 @@ if(catDid.length != 0){
 
 sql += "      ORDER BY WS_CD, SW_CODE, CAT_DID, ADM_CD, NO                                                                                                                ";
 sql += "     )                                                                                                                                                            ";
-sql += " SELECT WS_NM, AM_NM, SW_NAME, GUBUN, GNR_BOD_SUM, GNR_TN_SUM, GNR_TP_SUM, OUT_BOD_SUM, OUT_TN_SUM, OUT_TP_SUM                                                    ";
+sql += " SELECT WS_NM, AM_NM, SW_NAME,CAT_DID, GUBUN, GNR_BOD_SUM, GNR_TN_SUM, GNR_TP_SUM, OUT_BOD_SUM, OUT_TN_SUM, OUT_TP_SUM                                                    ";
 sql += "   FROM (                                                                                                                                                         ";
 sql += "         SELECT '1' AS NO_1                                                                                                                                       ";
 sql += "              , NO AS NO_2                                                                                                                                        ";
@@ -45,6 +45,7 @@ sql += "              , '' AS SW_CODE                                           
 sql += "              , '' AS WS_NM                                                                                                                                       ";
 sql += "              , '' AS AM_NM                                                                                                                                       ";
 sql += "              , 'ÃÑ°è' AS SW_NAME                                                                                                                                 ";
+sql += "              , '' AS CAT_DID                                                                                                                                       ";
 sql += "              , GUBUN                                                                                                                                             ";
 sql += "              , SUM(GNR_BOD_SUM) AS GNR_BOD_SUM                                                                                                                   ";
 sql += "              , SUM(GNR_TN_SUM)  AS GNR_TN_SUM                                                                                                                    ";
@@ -56,7 +57,7 @@ sql += "           FROM POLLULANT_LOAD_FOR_CAT_TBL                              
 sql += "          WHERE 1=1                                                                                                                                               ";
 sql += "          GROUP BY GUBUN, NO                                                                                                                                      ";
 sql += "         UNION                                                                                                                                                    ";
-sql += "         SELECT '2', NO, WS_CD, SW_CODE, WS_NM, AM_NM, SW_NAME, GUBUN                                                                                             ";
+sql += "         SELECT '2', NO, WS_CD, SW_CODE, WS_NM, AM_NM, SW_NAME, CAT_DID, GUBUN                                                                                             ";
 sql += "              , SUM(GNR_BOD_SUM) AS GNR_BOD_SUM                                                                                                                   ";
 sql += "              , SUM(GNR_TN_SUM)  AS GNR_TN_SUM                                                                                                                    ";
 sql += "              , SUM(GNR_TP_SUM)  AS GNR_TP_SUM                                                                                                                    ";
@@ -64,7 +65,7 @@ sql += "              , SUM(OUT_BOD_SUM) AS OUT_BOD_SUM                         
 sql += "              , SUM(OUT_TN_SUM)  AS OUT_TN_SUM                                                                                                                    ";
 sql += "              , SUM(OUT_TP_SUM)  AS OUT_TP_SUM                                                                                                                    ";
 sql += "           FROM POLLULANT_LOAD_FOR_CAT_TBL                                                                                                                        ";
-sql += "          GROUP BY NO, WS_CD, SW_CODE, WS_NM, AM_NM, SW_NAME, GUBUN                                                                                               ";
+sql += "          GROUP BY NO, WS_CD, SW_CODE, WS_NM, AM_NM, SW_NAME,CAT_DID, GUBUN                                                                                               ";
 sql += "        )                                                                                                                                                         ";
 sql += "  ORDER BY NO_1, WS_CD, SW_CODE, NO_2                                                                                                                             ";
 	
@@ -84,6 +85,7 @@ sql += "  ORDER BY NO_1, WS_CD, SW_CODE, NO_2                                   
 		jsonRecord.put("WS_NM"	, rs.getString("WS_NM"));
   		jsonRecord.put("AM_NM"	, rs.getString("AM_NM"));
   		jsonRecord.put("SW_NAME"	, rs.getString("SW_NAME"));
+  		jsonRecord.put("CAT_DID"	, rs.getString("CAT_DID"));
   		jsonRecord.put("GUBUN" 	, rs.getString("GUBUN"));
   		jsonRecord.put("GNR_BOD_SUM" 	, rs.getString("GNR_BOD_SUM"));
   		jsonRecord.put("GNR_TN_SUM" 	, rs.getString("GNR_TN_SUM"));

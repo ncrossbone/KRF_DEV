@@ -1267,6 +1267,52 @@ ShowSearchResultReach = function(catIds){
 	
 }
 
+var vrow = "";
+
+PollSelectedFocus = function(catId){
+	console.info("catId ::"+catId)
+	if(catId == undefined || catId == null || catId == ""){
+		return;
+	}
+	
+	var PollLoadContainer = Ext.getCmp("searchResultPollLoad_container");
+	console.info(PollLoadContainer);
+	if(PollLoadContainer == undefined){
+		return;
+	}
+	
+
+	var value = Ext.getCmp("pollLoadSelect").value;
+	
+	if(value == 11 || value == 22){
+		return;
+	}else{
+		
+		var PollLoadContainer = PollLoadContainer.items.items[0];
+		PollLoadContainer = PollLoadContainer.items.items[0];
+		//var rowIdx = PollLoadContainer.getStore().find("CAT_DID", catId);
+		
+		var pollStore = PollLoadContainer.getStore();
+		
+		var row = "";
+		
+		for(i = 0 ; i <pollStore.data.items.length  ;i++){
+			if(pollStore.data.items[i].data.GUBUN == "소계"){
+				if(pollStore.data.items[i].data.CAT_DID == catId){
+					console.info(pollStore.data.items[i].data);
+					console.info(i);
+					row = i;
+				}
+			}
+		}
+		
+		PollLoadContainer.getView().bufferedRenderer.scrollTo(row, true);
+		PollLoadContainer.getSelectionModel().select(row);
+		
+	}
+	
+}
+
 
 ReachSelectedFocus = function(catId){
 	

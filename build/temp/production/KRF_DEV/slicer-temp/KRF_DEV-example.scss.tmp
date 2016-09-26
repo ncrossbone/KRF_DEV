@@ -1079,6 +1079,7 @@ $include-krf_dev-store-east-siteinfopanel: true;
 $include-krf_dev-store-east-sitelistwindow: true;
 $include-krf_dev-store-south-loadlist: true;
 $include-krf_dev-store-south-polllistwindow: true;
+$include-krf_dev-store-south-pollload_cat: true;
 $include-krf_dev-store-south-prototypegrid: true;
 $include-krf_dev-store-south-searchpollloadresultgrid: true;
 $include-krf_dev-store-south-searchresultgrid: true;

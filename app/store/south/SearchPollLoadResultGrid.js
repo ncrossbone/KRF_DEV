@@ -241,7 +241,8 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
     
     autoLoad: true,
     
-    //buffered: true, // 버퍼드 스토어 지정
+    buffered: true, // 버퍼드 스토어 지정
+    leadingBufferZone: 300,
     pageSize: 100,
     selectValue: '',
 	
