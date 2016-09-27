@@ -63,27 +63,57 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						
 						var value = Ext.getCmp("pollLoadSelect").value;
+						var coreMap = GetCoreMap();
+						var tmLayerAdmin = coreMap.tmLayerAdmin;
 						
+						console.info(coreMap);
 						
-		        		console.info(row.record.data.SW_NAME);
-		        		if(value == 11 || value == 22){
+		        		if(value == 11){
+		        			return;
+		        		}else if(value == 22){	
 		        			var swNm = row.record.data.SW_NAME;
-		        			console.info(value);
 		        			var catStore = null;
 		        			
-		        			catStore = Ext.create("KRF_DEV.store.south.PollLoad_Cat",{
-		        				swNm: swNm
-		        			});
-		        			catStore.load();
-		        			console.info(catStore);
-		        			return;
-							
+		        			var coreMap = GetCoreMap();
+		        			
+		        			var catDids = []; 
+		        			var catDids_All = [];
+		        			for(var i = 0; i < coreMap.tmLayerAdmin.tmGraphicLayerCat.graphics.length ;i++){
+		        				catDids_All.push(coreMap.tmLayerAdmin.tmGraphicLayerCat.graphics[i].attributes.CAT_DID);
+		        				if(coreMap.tmLayerAdmin.tmGraphicLayerCat.graphics[i].attributes.SB_NM == swNm){
+		        					catDids.push(coreMap.tmLayerAdmin.tmGraphicLayerCat.graphics[i].attributes.CAT_DID);
+		        				}
+		        			}
+		        			
+		        			
+		        			for(var k = 0; k < catDids_All.length;k++){
+		        				var polySymbol = $("#polySymbol_" + catDids_All[k]);
+				        		polySymbol[0].setAttribute("opacity", tmLayerAdmin.initOpacity);
+		        			}
+		        			
+		        			
+		        			for(var j = 0; j < catDids.length;j++){
+		        				var polySymbol = $("#polySymbol_" + catDids[j]);
+				        		polySymbol[0].setAttribute("opacity", tmLayerAdmin.mouseOverOpacity);
+		        			}
+		        			
 						}else{
 							var cat_did = row.record.data.CAT_DID;
-							console.info(cat_did);
+							
+							
+							var catDids_All = [];
+		        			for(var i = 0; i < coreMap.tmLayerAdmin.tmGraphicLayerCat.graphics.length ;i++){
+		        				catDids_All.push(coreMap.tmLayerAdmin.tmGraphicLayerCat.graphics[i].attributes.CAT_DID);
+		        			}
+							
+		        			for(var k = 0; k < catDids_All.length;k++){
+		        				var polySymbol = $("#polySymbol_" + catDids_All[k]);
+				        		polySymbol[0].setAttribute("opacity", tmLayerAdmin.initOpacity);
+		        			}
+							
 							
 							var polySymbol = $("#polySymbol_" + cat_did);
-			        		polySymbol[0].setAttribute("opacity", 0.8);
+			        		polySymbol[0].setAttribute("opacity", tmLayerAdmin.mouseOverOpacity);
 						}
 						
 		        		

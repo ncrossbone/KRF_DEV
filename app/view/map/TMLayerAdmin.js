@@ -3,8 +3,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	tmGraphicLayerCat: null,
 	tmLabelLayerCat: null,
 	
-	initOpacity: "0.4", // 기본 투명도
-	mouseOverOpacity: "0.8", // 마우스 오버시 투명도
+	initOpacity: "0.8", // 기본 투명도
+	mouseOverOpacity: "1", // 마우스 오버시 투명도
 	
 	basicColor: "gray",
 	middleColor: "gray",
