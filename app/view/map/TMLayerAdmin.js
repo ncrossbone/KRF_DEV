@@ -3,8 +3,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	tmGraphicLayerCat: null,
 	tmLabelLayerCat: null,
 	
-	initOpacity: "0.4", // 기본 투명도
-	mouseOverOpacity: "0.8", // 마우스 오버시 투명도
+	initOpacity: "1", // 기본 투명도
+	mouseOverOpacity: "0.4", // 마우스 오버시 투명도
+	mouseOverColor: "blue", // 마우스 오버시 색상
 	
 	basicColor: "gray",
 	middleColor: "gray",
@@ -161,7 +162,6 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		
 		        		// 폴리곤 그래픽 지정
 		        		var tmCatGraphic = tmCatFeatures[i];
-		        		tmCatGraphic.attributes.range = range;
 		        		// 폴리곤 심볼 지정
 		        		tmCatGraphic.setSymbol(tmCatFillSymbol);
 		        		// 폴리곤 그래픽 추가
@@ -174,7 +174,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
 		        		//console.info(colName);
 		        		// 라벨 텍스트 설정
-		        		var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
+		        		//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
+		        		var gnrBodSulabel = gnrBodSu + "kg/일";
 		        		
 		        		// 텍스트 라벨 생성
 		        		var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
@@ -184,7 +185,6 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
 		        		// 집수구역 부하량 속성 데이터 카피
 		        		tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
-		        		tmCatLabelGraphic.attributes.range = range;
 		        		me.tmLabelLayerCat.add(tmCatLabelGraphic);
 		        		
 		        		//var range = quantize(gnrBodSu);
@@ -205,7 +205,6 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
 		        		// 집수구역 부하량 속성 데이터 카피
 		        		barImgGraphic.attributes = tmCatGraphic.attributes;
-		        		barImgGraphic.attributes.range = range;
 		        		me.barImgGraphicLayer.add(barImgGraphic);
 		        	}
 	        	}
@@ -216,11 +215,11 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		//console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
-	        		
-                    range = attrs.range
+	        		//console.info(evt);
+                    range = attrs.range;
                     
                     // 집수구역별 부하량 폴리곤 그래픽 스타일 셋팅
-                    me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, getCatRangeColor(range));
+                    me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, attrs.color);
                     
                     // 범례와 연계하기 위해 클래스 지정 (가상)
                     evt.node.setAttribute("class", "polySymbol_" + range);
@@ -229,10 +228,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	on(me.tmGraphicLayerCat, "mouse-over", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-	        		polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
-	        		
-	        		var labelSymbol = $("#labelSymbol_" + evt.graphic.attributes.CAT_DID);
-	        		labelSymbol[0].setAttribute("font-color", "blue");
+	        		//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
 	            	
 	            	// 범례 스타일 설정
 	        		var range = evt.graphic.attributes.range;
@@ -242,7 +239,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	on(me.tmGraphicLayerCat, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-	        		polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		//polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		var attrs = evt.graphic.attributes;
+	        		me.setPolyFillColor(polySymbol[0], attrs.color);
 	        		
 	            	// 범례 스타일 설정
 	        		var range = evt.graphic.attributes.range;
@@ -254,7 +253,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	on(me.barImgGraphicLayer, "mouse-over", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-	        		polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
 	        		
 	        		// 범례 스타일 설정
 	        		var range = evt.graphic.attributes.range;
@@ -264,7 +264,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	on(me.barImgGraphicLayer, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-	        		polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		//polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		var attrs = evt.graphic.attributes;
+	        		me.setPolyFillColor(polySymbol[0], attrs.color);
 	        		
 	        		// 범례 스타일 설정
 	        		var range = evt.graphic.attributes.range;
@@ -290,7 +292,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 
 	        	on(me.tmLabelLayerCat, "mouse-over", function(evt){
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-	        		polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
+	        		me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
 	        		
 	        		// 범례 스타일 설정
 	        		var range = evt.graphic.attributes.range;
@@ -300,7 +303,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	on(me.tmLabelLayerCat, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
-	        		polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		//polySymbol[0].setAttribute("opacity", me.initOpacity);
+	        		var attrs = evt.graphic.attributes;
+	        		me.setPolyFillColor(polySymbol[0], attrs.color);
 	        		
 	        		// 범례 스타일 설정
 	        		var range = evt.graphic.attributes.range;
@@ -364,12 +369,12 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                 	'<div class="tmLegendSymbol_${range}" borderColor="${borderColor}" style="width:82px; height:20px; ${borderStyle} float: left;">' +
                         '<svg width="80" height="18" version="1.1" xmlns="https://www.w3.org/2000/svg">' +
                         	//'<path d="M 11 11 L 12 11 L 12 12 L 11 12 Z" data-classification="${classification}" />' +
-                        	'<rect width="80" height="18" range="${range}" class="tmLegendSymbol" style="fill:${fill};" />' +
+                        	'<rect width="80" height="18" range="${range}" fillcolor="${fillColor}" class="tmLegendSymbol" style="fill:${fill};" />' +
                         '</svg>' +
                     '</div>' +
                     '<div style="width:10px; height:18px; float: left;">' +
                     '</div>' +
-                    '<div range="${range}" class="tmLegendSymbol" style="width:100px; height:18px; border:1px solid transparent; float: left;">' +
+                    '<div range="${range}" fillcolor="${fillColor}" class="tmLegendSymbol" style="width:100px; height:18px; border:1px solid transparent; float: left;">' +
                     	'${label}' +
                     '</div>'+
                 '</div>';
@@ -383,34 +388,39 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
         	var chkCnt = 0;
         	
             array.forEach(quantizeObj, function (obj) {
-            	
-            	var fillColor = getCatRangeColor(obj.range);
-            	var borderStyle = "";
-            	var borderColor = "";
-            	
-            	chkCnt++;
-            	
-            	if(chkCnt % 2 != 0){
-            		
-            		borderColor = me.basicColor;
-            		borderStyle = "border:1px solid " + borderColor + ";";
-            	}
-            	else{
-            		borderColor = me.middleColor;
-            		borderStyle = "border:1px solid " + borderColor + ";";
-            	}
 
-                data = {
-                		
-                    //label:number.format(obj.stVal, { places:0 }) + " - " + number.format(obj.edVal, { places:0 }),
-                	label:paddingLeft("&nbsp;", 8, number.format(obj.edVal, { places:0 })) + " kg/일",
-                    fill:fillColor,
-                    range:obj.range,
-                    borderColor: borderColor,
-                    borderStyle: borderStyle
-                };
-                
-                html += esri.substitute(data, swatchTemplate);
+            	if(obj.features[0] != undefined){
+            		
+	            	var fillColor = obj.features[0].attributes.color;
+	            	var borderStyle = "";
+	            	var borderColor = "";
+	            	
+	            	chkCnt++;
+	            	
+	            	if(chkCnt % 2 != 0){
+	            		
+	            		borderColor = me.basicColor;
+	            		borderStyle = "border:1px solid " + borderColor + ";";
+	            	}
+	            	else{
+	            		borderColor = me.middleColor;
+	            		borderStyle = "border:1px solid " + borderColor + ";";
+	            	}
+	
+	                data = {
+	                		
+	                    //label:number.format(obj.stVal, { places:0 }) + " - " + number.format(obj.edVal, { places:0 }),
+	                	label:paddingLeft("&nbsp;", 8, number.format(obj.maxVal, { places:0 })) + " kg/일",
+	                	//label:obj.maxVal + " kg/일",
+	                    fill:fillColor,
+	                    fillColor: fillColor,
+	                    range:obj.range,
+	                    borderColor: borderColor,
+	                    borderStyle: borderStyle
+	                };
+	                
+	                html += esri.substitute(data, swatchTemplate);
+            	}
             });
             
             var windowHeight = (quantizeObj.length * 20) + 55;
@@ -435,7 +445,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             	
             	for(var i = 0; i < polySymbol.length; i++){
             		
-            		polySymbol[i].setAttribute("opacity", me.mouseOverOpacity);
+            		//polySymbol[i].setAttribute("opacity", me.mouseOverOpacity);
+            		me.setPolyFillColor(polySymbol[i], me.mouseOverColor);
             	}
             });
             
@@ -443,7 +454,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             	
             	//console.info(evt);
             	var range = evt.target.getAttribute("range");
-            	
+            	var fillColor = evt.target.getAttribute("fillcolor");
+            	//console.info(fillColor);
             	// 범례 스타일 설정
         		me.setAttributeLegend("off", range);
             	
@@ -452,7 +464,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             	
             	for(var i = 0; i < polySymbol.length; i++){
             		
-            		polySymbol[i].setAttribute("opacity", me.initOpacity);
+            		//polySymbol[i].setAttribute("opacity", me.initOpacity);
+	        		me.setPolyFillColor(polySymbol[i], fillColor);
             	}
             });
             
@@ -512,6 +525,15 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     		el.setAttribute("stroke-opacity", "1");
     		el.setAttribute("stroke-linecap", "round");
     		el.setAttribute("stroke-linejoin", "round");
+    	}
+    },
+    
+    // 폴리곤 필 칼라 셋팅
+    setPolyFillColor: function(el, color){
+    	
+    	if(el != undefined && el != null){
+    		
+    		el.setAttribute("fill", color);
     	}
     }
 });
