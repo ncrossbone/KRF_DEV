@@ -839,6 +839,7 @@ PollLoadSearchResult = function(value){
 		
 		var catDid = [];
 		
+		
 		if(tmpAreaGrp != null){
 			for(i = 0; i < tmpAreaGrp.length;i++){
 				catDid.push(tmpAreaGrp[i].attributes.CAT_DID);

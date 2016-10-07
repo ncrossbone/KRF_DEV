@@ -1,199 +1,253 @@
 /*
  * 주제도 표출 관련 공통 클래스 */
+// 단계(range)별 Feature셋팅 Obj
 var tmQuantize = {
+	// Object 초기화
+	setInitObj: function(){
+		
+		this.isOnlyOne = false;
+		this.totRange = undefined;
+		this.quantizeObj = []
+	},
+	// 각 단계(range)당 Feature 한개씩 셋팅
 	setOnlyOneFeature: function(features, attrName){
 		
 		features.sort(function(a, b){
 			
-			return eval("b.attributes." + attrName) - eval("a.attributes." + attrName);
+			return eval("a.attributes." + attrName) - eval("b.attributes." + attrName);
 		});
 		
 		if(features.length <= 15){
 			
-			for(var i = 0; i < features.length; i++){
-				
-				//console.info(eval("features[i].attributes." + attrName));
-			}
-		}
-	},
-	setScale: function(featureSet, attrName){
-		
-		var features = featureSet.features;
-		
-		if(features.length <= 15){
-			
-			this.setOnlyOneFeature(features, attrName);
-		}
-		
-		var minVal = undefined;
-		var maxVal = undefined;
-		
-		/*if(featureSet.stVal != undefined){
-			
-			minVal = featureSet.stVal;
-		}
-		
-		if(featureSet.edVal != undefined){
-			
-			maxVal = featureSet.edVal;
-		}*/
-		
-		if(features != undefined){
+			var quanCnt = -1;
+			var arrQuantize = [];
+			var preVal = undefined;
 			
 			for(var i = 0; i < features.length; i++){
 				
 				var feature = features[i];
-				var quantizeVal = eval("feature.attributes." + attrName);
 				
-				// Min Value 셋팅
-				if(minVal == undefined || quantizeVal < minVal){
-					minVal = quantizeVal;
-				}
+				var stVal = edVal = Math.round(eval("feature.attributes." + attrName));
 				
-				// Max Value 셋팅
-				if(maxVal == undefined || quantizeVal > maxVal){
-					maxVal = quantizeVal;
-				}
-			}
-		}
-		
-		this.setQuantize = function(range){
-			
-			if(this.totRange == undefined){
-				
-				this.totRange = range;
-			}
-			
-			var arrQuantize = [];
-			
-			var diffVal = (maxVal - minVal) / range;
-			
-			console.info(range);
-			for(var i = 0; i < range; i++){
-				
-				var stVal = 0;
-				var edVal = 0;
-				var curRange = i;
-				
-				if(featureSet.range != undefined){
+				if(preVal != stVal){
 					
-					curRange = featureSet.range + "-" + i;
-				}
-				
-				if(i == 0){
+					quanCnt += 1;
 					
-					stVal = minVal;
-				}
-				else{
+					var curRange = quanCnt;
 					
-					stVal = arrQuantize[i - 1].edVal;
-				}
-				
-				if(i == range - 1){
-					edVal = maxVal;
-				}
-				else{
-					edVal = stVal + diffVal;
-				}
-				
-				stVal = Math.round(stVal);
-				edVal = Math.round(edVal);
-				
-				var obj = {stVal: stVal, edVal: edVal, range: curRange};
-				console.info(obj);
-				
-				arrQuantize.push(obj);
-			}
-			
-			this.setFeature = function(){
-				
-				for(var quanCnt = 0; quanCnt < arrQuantize.length; quanCnt++){
+					var obj = {stVal: stVal, edVal: edVal, range: curRange};
 					
+					arrQuantize.push(obj);
+					//console.info(quanCnt);
+					//console.info(arrQuantize[quanCnt]);
 					if(arrQuantize[quanCnt].features == undefined){
 						
 						arrQuantize[quanCnt].features = [];
 					}
 					
-					var qStVal = arrQuantize[quanCnt].stVal;
-					var qEdVal = arrQuantize[quanCnt].edVal;
-					
-					for(var featureCnt = 0; featureCnt < features.length; featureCnt++){
-					
-						var feature = features[featureCnt];
-			    		var quantizeVal = Math.round(eval("feature.attributes." + attrName));
-						
-						if(quantizeVal >= qStVal && quantizeVal <= qEdVal){
-							
-							arrQuantize[quanCnt].features.push(feature);
-						}
-					}
+					preVal = stVal;
 				}
 				
-				arrQuantize.sort(function(a, b){
-					
-					// return a.features.length - b.features.length; // ASC
-					return b.features.length - a.features.length; // DESC
-				});
+				arrQuantize[quanCnt].features.push(feature);
+			}
+			
+			for(var quanCnt = 0; quanCnt < arrQuantize.length; quanCnt++){
+				
+				this.quantizeObj.push(arrQuantize[quanCnt]);
+			}
+			
+			this.totRange = arrQuantize.length;
+			this.isOnlyOne = true;
+			
+			//console.info(this.quantizeObj);
+		}
+	},
+	// Minimum, Maximum 셋팅 (featureSet, attrName:값 속성명, [isReCall: 재귀호출 여부])
+	setScale: function(featureSet, attrName, isReCall){
+		
+		var features = featureSet.features;
+		
+		// 재귀 호출 아닐때
+		if(isReCall != true){
+			
+			// Object 초기화
+			this.setInitObj();
+			
+			if(features.length <= 15){
+				
+				this.setOnlyOneFeature(features, attrName);
+			}
+		}
+		
+		var minVal = undefined;
+		var maxVal = undefined;
 
-				if(this.quantizeObj.length < this.totRange){
+		if(this.isOnlyOne == false){
+			
+			if(features != undefined){
+				
+				for(var i = 0; i < features.length; i++){
 					
-					var zeroCnt = 0;
+					var feature = features[i];
+					var quantizeVal = eval("feature.attributes." + attrName);
 					
-					for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+					// Min Value 셋팅
+					if(minVal == undefined || quantizeVal < minVal){
+						minVal = quantizeVal;
+					}
+					
+					// Max Value 셋팅
+					if(maxVal == undefined || quantizeVal > maxVal){
+						maxVal = quantizeVal;
+					}
+				}
+			}
+		}
+		
+		// 단계 나누기
+		this.setQuantize = function(range){
+			//console.info(this.isOnlyOne);
+			if(this.isOnlyOne == false){
+				
+				if(this.totRange == undefined){
+					
+					this.totRange = range;
+				}
+				
+				var arrQuantize = [];
+				
+				var diffVal = (maxVal - minVal) / range;
+				
+				for(var i = 0; i < range; i++){
+					
+					var stVal = 0;
+					var edVal = 0;
+					var curRange = i;
+					//console.info(featureSet.range);
+					if(featureSet.range != undefined){
 						
-						if(arrQuantize[reCnt].features.length > 0){
+						curRange = featureSet.range + "-" + i;
+					}
+					
+					if(i == 0){
+						
+						stVal = minVal;
+					}
+					else{
+						
+						stVal = arrQuantize[i - 1].edVal;
+					}
+					
+					if(i == range - 1){
+						edVal = maxVal;
+					}
+					else{
+						edVal = stVal + diffVal;
+					}
+					
+					stVal = Math.round(stVal);
+					edVal = Math.round(edVal);
+					//console.info(curRange);
+					var obj = {stVal: stVal, edVal: edVal, range: curRange};
+					
+					arrQuantize.push(obj);
+				}
+			}
+				
+				// 각 단계에 Feature 셋팅
+			this.setFeature = function(){
+				
+				if(this.isOnlyOne == false){
+					
+					for(var quanCnt = 0; quanCnt < arrQuantize.length; quanCnt++){
+						
+						if(arrQuantize[quanCnt].features == undefined){
 							
-							var subRange = arrQuantize[reCnt].range;
+							arrQuantize[quanCnt].features = [];
+						}
+						
+						var qStVal = arrQuantize[quanCnt].stVal;
+						var qEdVal = arrQuantize[quanCnt].edVal;
+						
+						for(var featureCnt = 0; featureCnt < features.length; featureCnt++){
+						
+							var feature = features[featureCnt];
+				    		var quantizeVal = Math.round(eval("feature.attributes." + attrName));
 							
-							if(subRange.length > 2){
-								subRange = subRange.substring(0, subRange.length - 2);
-							}
-							
-							for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
+							if(quantizeVal >= qStVal && quantizeVal <= qEdVal){
 								
-								if(this.quantizeObj[objCnt].range == subRange){
-									console.info(subRange);
-									this.quantizeObj.splice(objCnt, 1);	
+								arrQuantize[quanCnt].features.push(feature);
+							}
+						}
+					}
+					
+					arrQuantize.sort(function(a, b){
+						
+						// return a.features.length - b.features.length; // ASC
+						return b.features.length - a.features.length; // DESC
+					});
+					
+					if(this.quantizeObj.length < this.totRange){
+						
+						var zeroCnt = 0;
+						
+						for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+							
+							if(arrQuantize[reCnt].features.length > 0){
+								
+								var subRange = arrQuantize[reCnt].range;
+								//console.info(subRange);
+								if(subRange.length > 2){
+									subRange = subRange.substring(0, subRange.length - 2);
+								}
+								//console.info(subRange);
+								for(var objCnt = 0; objCnt < this.quantizeObj.length; objCnt++){
+									
+									if(this.quantizeObj[objCnt].range == subRange){
+										//console.info(subRange);
+										this.quantizeObj.splice(objCnt, 1);	
+									}
+								}
+								
+								/*arrQuantize[reCnt].features.sort(function(a, b){
+									
+									return eval("a.attributes." + attrName); - eval("b.attributes." + attrName); // ASC
+								});
+								
+								var tmpFeatures = arrQuantize[reCnt].features;
+								arrQuantize[reCnt].stVal = eval("tmpFeatures[0].attributes." + attrName);
+								arrQuantize[reCnt].edVal = eval("tmpFeatures[tmpFeatures.length - 1].attributes." + attrName);*/
+								//console.info(arrQuantize[reCnt]);
+								this.quantizeObj.push(arrQuantize[reCnt]);
+							}
+							else{
+								
+								zeroCnt++;
+							}
+						}
+						
+						for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+							
+							if(arrQuantize[reCnt].features.length > 1){
+								
+								if(zeroCnt > 0){
+									//console.info(arrQuantize[reCnt]);
+									// 재귀 호출 단계 재분배
+									this.setScale(arrQuantize[reCnt], attrName, true).setQuantize(2).setFeature();
 								}
 							}
-							
-							/*arrQuantize[reCnt].features.sort(function(a, b){
-								
-								return eval("a.attributes." + attrName); - eval("b.attributes." + attrName); // ASC
-							});
-							
-							var tmpFeatures = arrQuantize[reCnt].features;
-							arrQuantize[reCnt].stVal = eval("tmpFeatures[0].attributes." + attrName);
-							arrQuantize[reCnt].edVal = eval("tmpFeatures[tmpFeatures.length - 1].attributes." + attrName);*/
-							
-							this.quantizeObj.push(arrQuantize[reCnt]);
-						}
-						else{
-							
-							zeroCnt++;
 						}
 					}
 					
-					for(var reCnt = 0; reCnt < arrQuantize.length; reCnt++){
+					this.quantizeObj.sort(function(a, b){
 						
-						if(arrQuantize[reCnt].features.length > 1){
-							
-							if(zeroCnt > 0){
-								
-								this.setScale(arrQuantize[reCnt], attrName).setQuantize(2).setFeature();
-							}
-						}
+						return a.stVal - b.stVal; // ASC
+					});
+					
+					for(var i = 0; i < this.quantizeObj.length; i++){
+						
+						this.quantizeObj[i].range = i;
 					}
-				}
-				
-				this.quantizeObj.sort(function(a, b){
-					
-					return a.stVal - b.stVal; // ASC
-				});
-				
-				for(var i = 0; i < this.quantizeObj.length; i++){
-					
-					this.quantizeObj[i].range = i;
 				}
 				
 				return this;
@@ -204,6 +258,7 @@ var tmQuantize = {
 		
 		return this;
 	},
+	isOnlyOne: false,
 	totRange: undefined,
 	quantizeObj: []
 }
@@ -220,36 +275,68 @@ getQuantizeObj = function(featureSet, attrName, range){
 	return quantize.quantizeObj;
 }
 
-catTMLayerOnOff = function(){
+catTMLayerOnOff = function(onOff){
+	
+	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
+	if(pollMapSetValue == undefined){
+		pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue", {
+			x: Ext.getBody().getWidth() - 261
+		});
+	}
+	
+	var cboTMYear = Ext.getCmp("setPollYear");
+	var year = cboTMYear.value;
+	var cboTMSelect = Ext.getCmp("setPollItems");
+	var colName = cboTMSelect.value;
 	
 	var catTMOnOff = $("#catTMOnOff");
-	//console.info(catTMOnOff);
+	var corMap = GetCoreMap();
+	//console.info(catTMOnOff[0]);
 	
-	if(catTMOnOff[0].src.indexOf("_on.") > 0){
+	if(catTMOnOff[0] != undefined){
+	
+		var imgSrc = catTMOnOff[0].src;
 		
-		catTMOnOff[0].src = catTMOnOff[0].src.replace("_on.", "_off.");
-		// 주제도 레이어 클리어
-		tmCatLayerClear();
-		//console.info(this.tmGraphicLayerCat.id);
-		
-	}
-	else{
-		
-		catTMOnOff[0].src = catTMOnOff[0].src.replace("_off.", "_on.");
-		// 주제도 레이어 보이기
-		showCatTMLayer();
-		//PollLoadSearchResult("");
+		if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
+			
+			pollMapSetValue.hide();
+			
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+			
+			catTMOnOff[0].src = imgSrc.replace("_on.", "_off.");
+			
+			// 주제도 레이어 클리어
+			tmCatLayerClear();
+			//console.info(this.tmGraphicLayerCat.id);
+		}
+		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
+			
+			pollMapSetValue.show();
+			
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "off");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+			
+			catTMOnOff[0].src = imgSrc.replace("_off.", "_on.");
+			
+			// 주제도 레이어 클리어
+			tmCatLayerClear();
+			// 주제도 레이어 보이기
+			showCatTMLayer(year, colName);
+		}
 	}
 }
 
 // 집수구역별 주제도 보여주기
-showCatTMLayer = function(){
+showCatTMLayer = function(year, colName){
 	
 	var coreMap = GetCoreMap();
 	
 	var arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaGrp;
 	var inStrCatDids = "";
-	//console.info(coreMap.reachLayerAdmin_v3_New.arrAreaGrp);
+	
 	for(var i = 0; i < arrAreaGrp.length; i++){
 		
 		inStrCatDids += "'" + arrAreaGrp[i].attributes.CAT_DID + "', ";
@@ -260,16 +347,13 @@ showCatTMLayer = function(){
 		inStrCatDids = inStrCatDids.substring(0, inStrCatDids.length -2);
 	}
 	
-	//console.info(coreMap.tmLayerAdmin);
-	//console.info(coreMap.tmLayerAdmin.tmGraphicLayerCat);
-	
 	if(coreMap.tmLayerAdmin == undefined || coreMap.tmLayerAdmin == null){
 		
 		coreMap.tmLayerAdmin = Ext.create("KRF_DEV.view.map.TMLayerAdmin");
 	}
 	
 	// 집수구역별 주제도 레이어 그리기 함수 호출
-	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids);
+	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids, year, colName);
 }
 
 // 총량단위유역별 주제도 보여주기
@@ -524,9 +608,10 @@ tmCatLayerClear = function(){
 		coreMap.tmLayerAdmin.tmLabelLayerCat.setVisibility(false);
 		coreMap.tmLayerAdmin.tmLabelLayerCat.clear();
 		
-		// 집수구역 레이어 버튼 강제 클릭
-    	$("#btnAreaLayer").click();
-    	Ext.getCmp("tmLegendWindow").close();
+		var legendWindow = Ext.getCmp("tmLegendWindow");
+		if(legendWindow != undefined){
+			legendWindow.close();
+		}
 	}
 }
 
@@ -552,6 +637,7 @@ PollLoadSearchResult = function(value){
 		var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
 		
 		var catDid = [];
+		
 		
 		if(tmpAreaGrp != null){
 			for(i = 0; i < tmpAreaGrp.length;i++){
