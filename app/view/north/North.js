@@ -39,6 +39,37 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'container',
 		flex: 1
+	}, {
+		xtype: 'button',
+		text: '리포트 테스트',
+		listeners: {
+			el: {
+				click: function(){
+					
+					var coreMap = GetCoreMap();
+					var center = coreMap.map.extent.getCenter();
+					var level = coreMap.map.getLevel();
+					//console.info(coreMap.map.extent.getCenter());
+					//console.info(coreMap.map.getLevel());
+					
+					var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y;
+					window.open(url, "리포트 설정", "width=1200,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
+					
+					/*width : 팝업창 가로길이
+					height : 팝업창 세로길이
+					toolbar=no : 단축도구창(툴바) 표시안함
+					menubar=no : 메뉴창(메뉴바) 표시안함
+					location=no : 주소창 표시안함
+					scrollbars=no : 스크롤바 표시안함
+					status=no : 아래 상태바창 표시안함
+					resizable=no : 창변형 하지않음
+					fullscreen=no : 전체화면 하지않음
+					channelmode=yes : F11 키 기능이랑 같음
+					left=0 : 왼쪽에 창을 고정(ex. left=30 이런식으로 조절)
+					top=0 : 위쪽에 창을 고정(ex. top=100 이런식으로 조절)*/
+				}
+			}
+		}
 	}/*, {
 		xtype: 'button',
 		text: '부하량 지도보기 설정',
