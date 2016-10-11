@@ -49,10 +49,15 @@ Ext.define('KRF_DEV.view.north.North', {
 					var coreMap = GetCoreMap();
 					var center = coreMap.map.extent.getCenter();
 					var level = coreMap.map.getLevel();
+					var width = coreMap.getWidth();
+					var height = coreMap.getHeight();
+					//console.info(width);
+					//console.info(height);
 					//console.info(coreMap.map.extent.getCenter());
 					//console.info(coreMap.map.getLevel());
 					
-					var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y;
+					var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
+					"&w=" + width + "&h=" + height;
 					window.open(url, "리포트 설정", "width=1200,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
 					
 					/*width : 팝업창 가로길이

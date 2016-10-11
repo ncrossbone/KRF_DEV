@@ -22,7 +22,7 @@ Ext.define('KRF_DEV.report.store.east.ReportListWindow', {
 			
 			//require(["esri/tasks/QueryTask"], function(QueryTask){
 				
-				var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
+				/*var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
 				//var queryTask = new QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId);
 				var query = new esri.tasks.Query();
 				query.returnGeometry = false;
@@ -163,7 +163,7 @@ Ext.define('KRF_DEV.report.store.east.ReportListWindow', {
 					jsonData = Ext.util.JSON.decode(jsonStr);
 					store.setRootNode(jsonData);
 
-		        });
+		        });*/
 			//});
 			
 	  	}

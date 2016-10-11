@@ -1,8 +1,8 @@
-Ext.define('KRF_DEV.view.map.rptCoreMap', {
+Ext.define('Report.view.map.rptCoreMap', {
 	
 	extend: 'Ext.Component',
 	
-	xtype: 'app-report-rptcoremap',
+	xtype: 'rpt-map-rptCoreMap',
 	
 	id: '_rptMapDiv_',
 	
@@ -42,6 +42,9 @@ Ext.define('KRF_DEV.view.map.rptCoreMap', {
         	//console.info(x);
         	//console.info(y);
         	
+        	var resolution = me.tileInfo.lods[level].resolution;
+        	x = x - (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+        	
         	var point = new esri.geometry.Point({ "x": x, "y": y, "spatialReference": { "wkid": 102100} });
         	
         	me.map.setLevel(level);
@@ -66,7 +69,7 @@ Ext.define('KRF_DEV.view.map.rptCoreMap', {
 		      
 		      this.spatialReference = new esri.SpatialReference({wkid: 102100});
 		      
-		      this.tileInfo = new esri.layers.TileInfo({
+		      this.tileInfo = me.tileInfo = new esri.layers.TileInfo({
 		    	  
 		        rows: 256, cols: 256, dpi: 96,
 		        origin: {x: -20037508.342787, y: 20037508.342787},

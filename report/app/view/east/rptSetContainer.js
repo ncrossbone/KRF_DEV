@@ -1,10 +1,10 @@
-Ext.define('KRF_DEV.view.east.rptSetContainer', {
+Ext.define('Report.view.east.rptSetContainer', {
 
 	extend: 'Ext.container.Container',
 	
-	xtype : 'app-report-rptsetcontainer',
+	xtype : 'rpt-east-rptSetContainer',
 	
-	requires:['KRF_DEV.view.east.ReportSetting'],
+	requires:['Report.view.east.reportSetting'],
 	
 	id: 'rptSetContainer',
 	
@@ -18,7 +18,7 @@ Ext.define('KRF_DEV.view.east.rptSetContainer', {
 	//cls: 'khLee-window-panel-header khLee-x-window-default ',
 
 	items: [{
-		xtype: 'app-report-reportlist',
+		xtype: 'rpt-east-reportSetting',
 		id: 'panel1',
 		title: '상단 패널',
 		width: "100%",

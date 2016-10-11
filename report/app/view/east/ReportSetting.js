@@ -1,8 +1,10 @@
-Ext.define('KRF_DEV.view.east.ReportSetting', {
-	extend: 'Ext.panel.Panel',
-	requires:['KRF_DEV.store.east.ReportListWindow'],
+Ext.define('Report.view.east.reportSetting', {
 	
-	xtype : 'app-report-reportlist',
+	extend: 'Ext.panel.Panel',
+	
+	//requires:['KRF_DEV.store.east.ReportListWindow'],
+	
+	xtype : 'rpt-east-reportSetting',
 		
 	id: 'reportSetting',
 	
@@ -129,7 +131,7 @@ Ext.define('KRF_DEV.view.east.ReportSetting', {
     				rootVisible:false,
     			    
     				//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
-    				store: Ext.create('KRF_DEV.store.east.ReportListWindow'),
+    				//store: Ext.create('KRF_DEV.store.east.ReportListWindow'),
     				columns: [{
     		            xtype: 'treecolumn', //this is so we know which column will show the tree
     		            width: 380,

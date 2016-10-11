@@ -1,12 +1,12 @@
 Ext.application({
 	
-	name : 'KRF_DEV',
+	name : 'Report',
 	
-	appFolder: "./app",
+	//appFolder: "./app",
 	
 	launch : function() {
 		
-		Ext.create("KRF_DEV.view.main.rptExtViewMain", {
+		Ext.create("Report.view.main.rptExtViewMain", {
 			renderTo: Ext.getBody()
 		});
 	}
