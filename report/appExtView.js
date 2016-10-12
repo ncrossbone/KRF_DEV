@@ -1,6 +1,7 @@
 var _mapServiceUrl_Rpt = null; // 리포트 맵 서비스 URL
 var _mapServiceUrl_v3_2 = null; // 지점 맵 서비스 URL (면 투명도 셋팅 위함 및 지점 visible 레벨제한 없는거)
 var _baseMapUrl_vworld = null; // 배경맵 서비스 URL
+var _arcServiceUrl = null;
 
 var _WS_CD = null; // 대권역 코드
 var _WS_NM = null; // 대권역 명
@@ -39,6 +40,7 @@ store.load(function(a, b, c) {
 		_mapServiceUrl_Rpt = record.data.mapServiceUrl_Rpt;
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
 		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
+		_arcServiceUrl = record.data.arcServiceUrl;
 		
 		var selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
 		if(selWS != undefined && selWS != null & selWS.length > 0){

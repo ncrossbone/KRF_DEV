@@ -4,7 +4,10 @@ Ext.define('Report.view.east.rptSetContainer', {
 	
 	xtype : 'rpt-east-rptSetContainer',
 	
-	requires:['Report.view.east.reportSetting'],
+	requires:['Report.view.east.rptSetPeriod',
+	          'Report.view.east.rptSetItems',
+	          'Report.view.east.rptSetSiteAttr',
+	          'Report.view.east.rptSetSiteList'],
 	
 	id: 'rptSetContainer',
 	
@@ -15,19 +18,34 @@ Ext.define('Report.view.east.rptSetContainer', {
 		type: 'vbox'
 	},
 	
-	//cls: 'khLee-window-panel-header khLee-x-window-default ',
+	width: "100%",
+	height: 800,
+	
+	style: "margin-left: 10px; margin-top: 10px;",
 
 	items: [{
-		xtype: 'rpt-east-reportSetting',
-		id: 'panel1',
-		title: '상단 패널',
-		width: "100%",
-		height: 450
-	}/*, {
-		xtype: 'panel',
-		id: 'panel2',
-		title: '하단 패널',
-		width: "100%",
-		height: 450
-	}*/]
+		xtype: 'rpt-east-rptSetPeriod',
+		title: '기간'
+	}, {
+		xtype: 'rpt-east-rptSetItems',
+		title: '항목'
+	}, {
+		xtype: 'rpt-east-rptSetSiteAttr',
+		title: '지점속성'
+	}, {
+		xtype: 'rpt-east-rptSetSiteList',
+		title: '지점',
+		height: 600
+	}, {
+		xtype: 'button',
+		text: '리포트보기',
+		listeners: {
+			el: {
+				click: function(){
+					
+					Ext.getCmp("_rptMapDiv_").capture();
+				}
+			}
+		}
+	}]
 });

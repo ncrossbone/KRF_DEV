@@ -15,8 +15,8 @@ Ext.define('Report.view.east.reportSetting', {
 	layout: {
 		type: 'vbox'
 	},
-	width: 1172,
-	height: 650,
+	width: "100%",
+	height: "100%",
 
 	items: [{
     	xtype: 'container',
