@@ -17,8 +17,9 @@ Ext.define('Report.view.map.rptCoreMap', {
 		
         var me = this;   
         
+        // esri 스크립트 로드 될때까지 타이머
         var timerId = window.setInterval(function(){
-        	//console.info("aaa");
+        	
         	me.map = new esri.Map('_rptMapDiv_', {
     	     	isDoubleClickZoom:false,
     	     	isPan:false,
@@ -31,19 +32,25 @@ Ext.define('Report.view.map.rptCoreMap', {
     	 		autoResize: true
     		});
         	
+        	// 배경맵
         	me.baseMapInit();
-        	//console.info("ddd");
+        	
+        	// esri 스크립트 로드 됐을때 타이머 멈춤
         	window.clearInterval(timerId);
         	
+        	// 지점 레이어
+        	me.dimDynamicLayerAdmin = Ext.create('Report.view.map.siteDynamicLayerAdmin', me.map);
+    		
+        	// Dim처리 레이어
+        	me.dimDynamicLayerAdmin = Ext.create('Report.view.map.dimDynamicLayerAdmin', me.map);
+        	
+        	//alert(_mapServiceUrl_Rpt);
         	var level = location.search.split("l=")[1].split("&")[0];
         	var x = location.search.split("x=")[1].split("&")[0];
         	var y = location.search.split("y=")[1].split("&")[0];
-        	//console.info(level);
-        	//console.info(x);
-        	//console.info(y);
         	
         	var resolution = me.tileInfo.lods[level].resolution;
-        	x = x - (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+        	x = x - (370 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
         	
         	var point = new esri.geometry.Point({ "x": x, "y": y, "spatialReference": { "wkid": 102100} });
         	
@@ -115,15 +122,10 @@ Ext.define('Report.view.map.rptCoreMap', {
 		    },
 		    getTileUrl: function(level, row, col) {
 		    	
-		    	var newrow = row + (Math.pow(2, level) * 47);
-      			var newcol = col + (Math.pow(2, level) * 107);
+		    	var baseMapUrl = _baseMapUrl_vworld.replace(/#level#/gi, level).replace(/#row#/gi, row).replace(/#col#/gi, col);
+      			//console.info(baseMapUrl);
       			
-      			// http://10.101.95.129/Base/201411/11/11/1747/800.png
-      			// 토양지하수 베이스 맵 서비스 URL
-      			//return "http://10.101.95.129/Base/201411/" + level + "/" + level + "/" + col + "/" + row + ".png";
-      			// 테스트 서버 베이스 맵 서비스 URL
-      			//return "http://112.218.1.243:20080/2d/Base/201411/" + level + "/" + level + "/" + col + "/" + row + ".png";
-		    	return "http://xdworld.vworld.kr:8080/2d/Base/201301/" + level + "/" + col + "/" + row + ".png";
+		    	return baseMapUrl;
 		    }	
 		  });
 		

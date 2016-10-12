@@ -156,14 +156,11 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		      this.onLoad(this);
 		    },
 		    getTileUrl: function(level, row, col) {
-		    	var newrow = row + (Math.pow(2, level) * 47);
-      			var newcol = col + (Math.pow(2, level) * 107);
-      			// http://10.101.95.129/Base/201411/11/11/1747/800.png
-      			// 토양지하수 베이스 맵 서비스 URL
-      			//return "http://10.101.95.129/Base/201411/" + level + "/" + level + "/" + col + "/" + row + ".png";
-      			// 테스트 서버 베이스 맵 서비스 URL
-      			//return "http://112.218.1.243:20080/2d/Base/201411/" + level + "/" + level + "/" + col + "/" + row + ".png";
-		    	return "http://xdworld.vworld.kr:8080/2d/Base/201301/" + level + "/" + col + "/" + row + ".png";
+
+		    	var baseMapUrl = _baseMapUrl_vworld.replace(/#level#/gi, level).replace(/#row#/gi, row).replace(/#col#/gi, col);
+      			//console.info(baseMapUrl);
+      			
+		    	return baseMapUrl;
 		    }	
 		  });
 		me.baseMap = new CustomMapsLayer();
