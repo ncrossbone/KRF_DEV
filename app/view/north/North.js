@@ -41,6 +41,40 @@ Ext.define('KRF_DEV.view.north.North', {
 		flex: 1
 	}, {
 		xtype: 'button',
+    	text: 'Report',
+    	width: 69,
+    	height: 37,
+    	listeners: {
+    		el: {
+    			click: function(){
+    				
+    				/*var boardCtl = Ext.getCmp("clipButton");
+    				
+    				
+    				
+    				console.info(boardCtl);
+    				if (boardCtl == undefined){
+    					clipButton = Ext.create('KRF_DEV.view.map.ClipButton');
+    					var clipChart = Ext.getCmp("clipChart");
+    					console.info(clipChart);
+    				}
+    				boardCtl.show();*/
+    				//document.URL.substring(document.domain.length + 12, document.URL.lastIndexOf("/") + 1);
+    				var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
+    				var startYear = "2008";
+    				var endYear = "2010";
+
+    				window.open("./ClipReport4/test.jsp?paramCode=" + paramCode + "&startYear=" + startYear + "&endYear=" + endYear,"","width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+
+    			}
+    		}
+    	},
+    	src: './resources/images/button/top_btn5_off.png'
+	},{
+    	xtype: 'container',
+    	width: 5
+    }, {
+    	xtype: 'button',
 		text: '리포트 테스트',
 		listeners: {
 			el: {
@@ -75,99 +109,7 @@ Ext.define('KRF_DEV.view.north.North', {
 				}
 			}
 		}
-	}/*, {
-		xtype: 'button',
-		text: '부하량 지도보기 설정',
-		listeners: {
-			el: {
-				click: function(){
-					
-					var pollMapSetValue = Ext.getCmp("pollMapSetValue");
-					if(pollMapSetValue == undefined){
-						pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue", {
-							x: Ext.getBody().getWidth() - 261
-						});
-					}
-					pollMapSetValue.show();
-					
-				}
-			}
-		}
 	}, {
-		xtype: 'button',
-		text: '부하량 지도보기 설정',
-		listeners: {
-			el: {
-				click: function(){
-					
-					var pollMapSetValue = Ext.getCmp("pollMapSetValue");
-					if(pollMapSetValue == undefined){
-						pollMapSetValue =  Ext.create("KRF_DEV.view.east.PollMapSetValue", {
-							x: Ext.getBody().getWidth() - 300
-						});
-					}
-					pollMapSetValue.show();
-					
-				}
-			}
-		}
-	}, {
-		xtype: 'button',
-		text: '집수구역별주제도',
-		listeners: {
-			el: {
-				click: function(){
-					
-					showCatTMLayer();
-				}
-			}
-		}
-	}, {
-		xtype: 'button',
-		text: 'Polygon On/Off',
-		listeners: {
-			el: {
-				click: function(){
-					
-					tmCatPolygonOnOff();
-				}
-			}
-		}
-	}, {
-		xtype: 'button',
-		text: 'Symbol On/Off',
-		listeners: {
-			el: {
-				click: function(){
-					
-					tmCatSymbolOnOff();
-				}
-			}
-		}
-	}, {
-		xtype: 'button',
-		text: 'Label On/Off',
-		listeners: {
-			el: {
-				click: function(){
-					
-					tmCatLabelOnOff();
-				}
-			}
-		}
-	}, {
-		xtype: 'button',
-		text: '집수구역별레이어Clear',
-		listeners: {
-			el: {
-				click: function(){
-					
-					//testD3();
-					tmCatLayerClear();
-				}
-			}
-		}
-	}*/, { 
 		xtype: 'image',
 		//id: 'btnReachLayer',
 		layerId: 'baseMap',
@@ -270,7 +212,34 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn4_off.png'			
-	}, {
+	},/*{
+		//----확인 후 제거-----
+	xtype: 'image',
+	title: '공지사항',
+	width: 69,
+	height: 37,
+	listeners: {
+		el: {
+			click: function(){
+				
+				var boardCtl = Ext.getCmp("boardCLIP");
+				if(boardCtl == undefined){
+    				boardCtl = Ext.create("Ext.window.Window", {
+			    					id: "boardCLIP",
+			    					title: "공지사항",
+			    					width: 660,
+			    					height: 600,
+			    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./ClipReport4/test.jsp?boardType=2"></iframe>'
+			    				});
+				}
+				
+				boardCtl.show();
+				
+			}
+		}
+	},
+	src: './resources/images/button/top_btn4_off.png'			
+}, */{
 		xtype: 'image',
     	title: 'Q&A',
     	width: 69,

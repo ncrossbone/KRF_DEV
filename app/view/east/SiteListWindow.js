@@ -184,10 +184,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
                 		
                 	//}
             	}
-            	
-            	
-            	//console.info(record);
-            	
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
             	
