@@ -43,7 +43,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 			el: {
 				click: function(){
 					
-					Ext.getCmp("_rptMapDiv_").capture();
+					Ext.getCmp("_rptMapDiv_").report();
 				}
 			}
 		}

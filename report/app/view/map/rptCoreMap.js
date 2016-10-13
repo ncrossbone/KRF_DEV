@@ -56,10 +56,15 @@ Ext.define('Report.view.map.rptCoreMap', {
         	
         	me.map.setLevel(level);
         	me.map.centerAt(point);
+        	console.info("dd");
         	
-        	require(["KRF_DEV/app/view/map/task/CustomPrintTask"], function() {
-            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_rptMapDiv_", "../resources/jsp/CustomPrintTask.jsp", _arcServiceUrl);
-            });
+        	me.printTask = Ext.create("KRF_DEV.view.map.task.CustomPrintTask",
+        			me.map,
+        			"_rptMapDiv_",
+        			"../resources/jsp/CustomPrintTask.jsp",
+        			"../resources/jsp/proxy.jsp",
+        			_arcServiceUrl,
+        			"/resources/saveImgTemp/report");
         	
         	// Extent Change Event
     		/*dojo.connect(me.map, "onExtentChange", function(extent, a, b, obj, c){
@@ -67,7 +72,6 @@ Ext.define('Report.view.map.rptCoreMap', {
     		});*/
         }, 1);
     },
-    
     baseMapInit: function(){
     	
 		var me = this;
@@ -136,10 +140,10 @@ Ext.define('Report.view.map.rptCoreMap', {
 		me.baseMap = new CustomMapsLayer();
 		this.map.addLayer(me.baseMap);
 	},
-	capture:function(){
+	report:function(){
 		
 		var me = this;
-		alert("dd");
-		me.printTask.capture();
+		//alert("dd");
+		me.printTask.report();
 	}
 });

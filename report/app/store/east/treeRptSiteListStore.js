@@ -1,7 +1,7 @@
 Ext.define('Report.store.east.treeRptSiteListStore', {
 	
 	extend: 'Ext.data.TreeStore',
-
+	
 	searchType: '',
 	remoteSort: true,
 	
@@ -10,7 +10,7 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 		load: function(store) {
 			
 			var jsonStr = "{\n";
-			jsonStr += "	siteName: 'root',\n";
+			jsonStr += "	root: 'root',\n";
 			jsonStr += "	expanded: true,\n";
 			jsonStr += "	children: [{\n";
 			jsonStr += "		siteName: '하천수(10)',\n";
@@ -37,8 +37,6 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 			jsonStr += "		}]\n";
 			jsonStr += "	}]\n";
 			jsonStr += "}\n";
-			
-			console.info(jsonStr);
 			
 			var jsonData = "";
 			jsonData = Ext.util.JSON.decode(jsonStr);

@@ -87,7 +87,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	require(["KRF_DEV/view/map/task/CustomPrintTask"], function() {
             	//me.printTask  = new KRF_DEV.view.map.task.CustomPrintTask();
-            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", _arcServiceUrl);
+            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", "./resources/jsp/proxy.jsp", _arcServiceUrl, "/resources/saveImgTemp/capture");
             });
         	
         	// Extent Change Event
@@ -183,7 +183,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	
 	capture:function(){
 		var me = this;
-		alert("dd");
+		//alert("dd");
 		me.printTask.capture();
 	},
 	
