@@ -13,3 +13,4 @@ sass/
 build/
 resources/downloads/ChromeStandaloneSetup.exe
 app/view/map/task/CustomPrintTask.js.bak
+resources/saveImgTemp/
