@@ -197,7 +197,7 @@ Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
     },
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
-		
+		console.info("##");
     	
     	var groupCd = "";
     	if((layerId>=0)&&(layerId<=7)){
@@ -262,9 +262,9 @@ Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
 		else{
 			query.where = "측정소코드='" + siteId + "'";
 		}
-		
+		console.info("?");
 		queryTask.execute(query,  function(results){
-			
+			console.info("??");
 			Ext.each(results.features, function(obj, index) {
 				
 				

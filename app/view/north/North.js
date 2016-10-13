@@ -74,192 +74,42 @@ Ext.define('KRF_DEV.view.north.North', {
     	xtype: 'container',
     	width: 5
     }, {
-		text: '_DivImgSave',
+    	xtype: 'button',
+		text: '리포트 테스트',
 		listeners: {
 			el: {
 				click: function(){
 					
-					var mapDivId = "_mapDiv_";
+					var coreMap = GetCoreMap();
+					var center = coreMap.map.extent.getCenter();
+					var level = coreMap.map.getLevel();
+					var width = coreMap.getWidth();
+					var height = coreMap.getHeight();
+					//console.info(width);
+					//console.info(height);
+					//console.info(coreMap.map.extent.getCenter());
+					//console.info(coreMap.map.getLevel());
 					
-					var mapObj = $("#" + mapDivId);
-					var arrImg = $("#" + mapDivId + " img");
-					//var arrImg = document.querySelector("img");
-					var arrSvg = $("#" + mapDivId + " svg");
-					//var arrImg = document.querySelector("svg");
+					var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
+					"&w=" + width + "&h=" + height;
+					window.open(url, "리포트 설정", "width=1400,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
 					
-					var outObjInfos = [];
-					
-					//getImageInfos(arrImg, outObjInfos, function(outObjInfos){
-
-						getImageInfos(arrSvg, outObjInfos, function(outObjInfos){
-						
-							postCall(outObjInfos, mapObj.width(), mapObj.height(), null);
-						});
-					//});
-					
-					/*console.info(JSON.stringify(outObjInfos));
-					
-					var obj = {imageInfos:JSON.stringify(outObjInfos), width:mapObj.width(), height:mapObj.height()};
-
-					$.post("./resources/jsp/_DivImgSave.jsp", obj, function(data){
-						console.info(data);
-			   		},"json").error(function(e){
-			   			console.info(e);
-			   		});*/
+					/*width : 팝업창 가로길이
+					height : 팝업창 세로길이
+					toolbar=no : 단축도구창(툴바) 표시안함
+					menubar=no : 메뉴창(메뉴바) 표시안함
+					location=no : 주소창 표시안함
+					scrollbars=no : 스크롤바 표시안함
+					status=no : 아래 상태바창 표시안함
+					resizable=no : 창변형 하지않음
+					fullscreen=no : 전체화면 하지않음
+					channelmode=yes : F11 키 기능이랑 같음
+					left=0 : 왼쪽에 창을 고정(ex. left=30 이런식으로 조절)
+					top=0 : 위쪽에 창을 고정(ex. top=100 이런식으로 조절)*/
 				}
 			}
 		}
 	}, {
-		xtype: 'button',
-		text: 'CustomPrintTask',
-		listeners: {
-			el: {
-				click: function(){
-					
-					var me = GetCoreMap();
-					//console.info(me.mapDivId);
-					me.mapDivId = "_mapDiv_";
-					var svgInfo = $('#'+me.mapDivId+' svg').parent().html();
-					var layerIds = me.map.layerIds;
-					var imageInfos = [];
-					for(var i=0; i<layerIds.length; i++){	
-						if($('#'+me.mapDivId+'_'+layerIds[i]).css('display')=="none"){
-							continue;
-						}	
-						
-						var div = $('#'+me.mapDivId+'_'+layerIds[i]);
-						var pTranslateInfo = {};
-						
-						//if(isNaN(parseInt(div.css('left')))){
-							if(div.css('transform')){
-								var arr = div.css('transform').split(',');
-								if(arr.length>11){
-									pTranslateInfo.translateX = parseInt(arr[12]);
-									pTranslateInfo.translateY = parseInt(arr[13]);
-								}else{
-									pTranslateInfo.translateX = parseInt(arr[4]);
-									pTranslateInfo.translateY = parseInt(arr[5]);
-								}
-							}else if(div.css('-webkit-transform')){
-								var arr = div.css('-webkit-transform').split(',');
-								pTranslateInfo.translateX = parseInt(arr[4]);
-								pTranslateInfo.translateY = parseInt(arr[5]);
-							}
-						/*}else{
-							pTranslateInfo.translateX = parseInt(div.css('left'));
-							pTranslateInfo.translateY = parseInt(div.css('top'));
-						}*/
-						//alert("aa");
-							
-						var imgs = $('#'+me.mapDivId+'_'+layerIds[i]+' img');
-						for(var k=0; k<imgs.length; k++){
-							
-							var img = $(imgs[k]);
-							var info = {};
-							if(img.attr('src')){
-								info.src = img.attr('src');
-							}
-							info.width = img.width();
-							info.height = img.height();
-							info.opacity = img.parent().css('opacity');
-							
-							var translateInfo = null;
-							//if(isNaN(parseInt(img.css('left')))){
-								if(translateInfo = img.css('transform')){
-									var arr = translateInfo.split(',');
-									if(arr.length>11){
-										info.translateX = parseInt(arr[12]) + pTranslateInfo.translateX;
-										info.translateY = parseInt(arr[13]) + pTranslateInfo.translateY;
-									}else{
-										info.translateX = parseInt(arr[4]) + pTranslateInfo.translateX;
-										info.translateY = parseInt(arr[5]) + pTranslateInfo.translateY;
-									}
-								}else if(translateInfo = img.css('-webkit-transform')){
-									var arr = translateInfo.split(',');
-									info.translateX = parseInt(arr[4]) + pTranslateInfo.translateX;
-									info.translateY = parseInt(arr[5]) + pTranslateInfo.translateY;
-								}
-							/*}else{
-								info.translateX = parseInt(img.css('left')) + pTranslateInfo.translateX;
-								info.translateY = parseInt(img.css('top')) + pTranslateInfo.translateY;
-							}*/
-							var obj = info;
-							obj.src = "./resources/jsp/proxy.jsp?" + obj.src;
-							imageInfos.push(obj);
-						}
-					}
-					
-					var me = this;
-					var loadCnt = 0;
-					var imageInfosCnt = imageInfos.length;
-					for(var i=0; i<imageInfosCnt; i++){	
-						
-						var imageInfo = imageInfos[i];
-						var canvas = document.createElement('CANVAS');
-						var ctx = canvas.getContext('2d');
-						var img = new Image;
-						img.crossOrigin = 'Anonymous';
-						img.src = imageInfo.src;
-						
-						canvas.height = img.height;
-						canvas.width = img.width;
-						ctx.drawImage(img,0,0);
-						var dataURL = canvas.toDataURL('image/png');
-						console.info(dataURL);
-						var base64Img = dataURL;
-						
-						imageInfo.base64 = base64Img;
-						loadCnt++;
-						
-						canvas = null; 
-						
-						/*img.onload = function(){
-							
-							console.info("ss");
-							canvas.height = img.height;
-							canvas.width = img.width;
-							ctx.drawImage(img,0,0);
-							var dataURL = canvas.toDataURL('image/png');
-							
-							var base64Img = dataURL;
-							
-							imageInfo.base64 = base64Img;
-							loadCnt++;
-							
-							canvas = null; 
-						};*/
-						//img.src = imageInfo.src;
-					}
-					var timerId = window.setInterval(function(){
-						
-						//if(loadCnt == imageInfosCnt){
-//console.info($('#'+me.mapDivId).width);
-							var obj = {imageInfos:JSON.stringify(imageInfos), svgInfo:svgInfo, width:2100, height:1000, arcServiceUrl:me.arcServiceUrl, mode:"capture"};
-							//console.info(obj);
-							$.post("./resources/jsp/CustomPrintTask_New.jsp", obj, function(data){
-								/*if(mode=="print"){
-									var popup = window.open(data.url, 'newWindow', "width=1000,height=700");
-									//console.info(data.url);
-									popup.focus(); //required for IE
-									popup.print();
-								}else if(mode=="capture"){
-									$('#__fileDownloadIframe__').remove();
-									$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
-								}*/
-								
-								//me.onComplete("complete");
-								console.info("suc");
-					   		},"json").error(function(e){
-					   			console.info(e);
-					   		});
-							
-							window.clearInterval(timerId);
-						//}
-					}, 1000);
-				}
-			}
-		}
-	}, { 
 		xtype: 'image',
 		//id: 'btnReachLayer',
 		layerId: 'baseMap',
@@ -299,10 +149,10 @@ Ext.define('KRF_DEV.view.north.North', {
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
-    	btnOnOff: 'off',
+    	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	src: './resources/images/button/btn_top_02_off.png'
+    	src: './resources/images/button/btn_top_02_on.png'
     }, {
     	xtype: 'container',
     	width: 5

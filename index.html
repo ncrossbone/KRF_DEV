@@ -13,7 +13,6 @@
 <link rel="stylesheet" href="./resources/css/drone.css">
 <link rel="stylesheet" href="http://js.arcgis.com/3.13/esri/css/esri.css">
 <link rel="stylesheet" href="http://js.arcgis.com/3.13/dijit/themes/claro/claro.css">
-
 <script>
 
 	(function() {
@@ -36,10 +35,11 @@
 <script type="text/javascript" src="http://js.arcgis.com/3.13/"></script>
 <!-- 공통 스크립트 -->
 <script type="text/javascript" src="./resources/js/common.js"></script>
+<!-- 주제도 관련 공통 스크립트 -->
+<script type="text/javascript" src="./resources/js/commonTM.js"></script>
 
 <script type="text/javascript" src="./resources/lib/JSLINQ.js"></script>
-<script type="text/javascript"
-	src="./resources/lib/jquery/jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="./resources/lib/jquery/jquery-1.11.3.min.js"></script>
 
 <!-- The line below must be kept intact for Sencha Cmd to build your application -->
 <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
@@ -482,11 +482,25 @@
 			/*height: 630px !important;*/
 			overflow: overlay !important;
 		}
-			
+		
+		.x-grid-item-alt{
+			background-color: white !important;
+		}
+		
+		.pdj_subTotal{
+		    background-color: #feb24c !important;
+		}
+		
+		.pdj_total{
+		    font: bold 13px/15px helvetica,arial,verdana,sans-serif !important;
+		}
+		
+		.pdj_total_subTotal{
+			background-color: #feb24c !important;
+			font: bold 13px/15px helvetica,arial,verdana,sans-serif !important;
+		}		
 	</style>
-
 </head>
 <body class="drone-toolbar drone-combolist">
-<canvas id="imgCanvas"></canvas>
 </body>
 </html>

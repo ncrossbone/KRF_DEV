@@ -16,7 +16,6 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 			// defer : 미루다, 연기하다
 			// Ext.defer(function(){...}, 1000, this); // function 내 코드를
 			// 1초(1000ms)후에 실행한다.
-
 			var idColumn, nameColumn, whereStr, pId;
 			idColumn = "";
 
@@ -39,7 +38,6 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 
 			// if(store.layerId == '54' || store.layerId == '55'){ pId =
 			// store.parentId; }
-
 			// alert(store.layerId);
 			// id, name 셋팅이 안돼있으면 리턴
 			if (idColumn == undefined || nameColumn == undefined

@@ -92,7 +92,7 @@
 			
 			String randomId =  UUID.randomUUID().toString() + ".xls";
 			FileOutputStream outFile;
-			outFile = new FileOutputStream("D:\\temp\\" + randomId);
+			outFile = new FileOutputStream("c:\\temp\\" + randomId);
 			workbook.write(outFile);
 			outFile.close();
 			
@@ -101,8 +101,8 @@
 	 		out.println(gson.toJson(hashMap));
 		}else{
 			
-			
-			File file = new File("D:\\temp\\" + fileName);
+			////
+			File file = new File("c:\\temp\\" + fileName);
 			FileInputStream fin = new FileInputStream(file);
 			int ifilesize = (int)file.length();
 			byte b[] = new byte[ifilesize];

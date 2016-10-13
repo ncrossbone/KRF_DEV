@@ -35,6 +35,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			popCtl.close();
 		}
 		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
+		
 	},
 	
 	// 리치추가 버튼 클릭
@@ -55,6 +58,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("addPoint"); // v3
 		}
 		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	},
 	
 	// 구간제거 버튼 클릭
@@ -74,6 +79,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("removePoint"); // v3
 		}
 		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	},
 	
 	// 시작위치 버튼 클릭
@@ -114,6 +121,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			me.onClickEndPoint(); // v3 New
 		}
 		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	},
 	
 	// 초기화 버튼 클릭
@@ -185,6 +194,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		else
 			popCtl.hide();
 		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	},
 	
 	// 설정불러오기 버튼 클릭
@@ -249,6 +260,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		else
 			popCtl.hide();
 		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	},
 	
 	// 드래그 선택 버튼
@@ -270,6 +283,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("extent"); // v3
 		}
 		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	},
 	
 	// 반경 선택 버튼
@@ -291,6 +306,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("CIRCLE", el.id); // v3
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("circle"); // v3
 		}
+		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	},
 
 	onClickButton: function(btn, el, evt) {
@@ -345,5 +363,8 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			Ext.HideSiteInfoWindow();
 			Ext.HideChartResult();
 		}
+		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 	}
 });

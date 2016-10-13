@@ -5,6 +5,7 @@ var _mapServiceUrl_v3 = null; // 리치 맵 서비스 v3
 var _mapServiceUrl_v3_2 = null; // 리치 맵 서비스 v3 (투명도적용)
 var _mapServiceUrl_reachtest = null; // 시연용 테스트 맵 서비스
 var _mapServiceUrl_dim = null; // dim처리 맵 서비스
+var _baseMapUrl_vworld = null; // 배경맵 서비스 URL
 var _reachFlowLayerId = null; // 리치흐름 레이어 아이디
 var _reachNodeLayerId = null; // 리치노드 레이어 아이디
 var _reachLineLayerId = null; // 리치라인 레이어 아이디
@@ -51,6 +52,7 @@ store.load(function(a, b, c) {
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
 		_mapServiceUrl_reachtest = record.data.reachTestServiceUrl;
 		_mapServiceUrl_dim = record.data.dimServiceUrl;
+		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
 		_reachFlowLayerId = record.data.reachFlowLayerId;
 		_reachNodeLayerId = record.data.reachNodeLayerId;
 		_reachLineLayerId = record.data.reachLineLayerId;
@@ -65,6 +67,7 @@ store.load(function(a, b, c) {
 		_siteInfoLayerId = record.data.siteInfoLayerId;
 		_arcServiceUrl = record.data.arcServiceUrl;
 		_isOffsetPoint = record.data.isOffsetPoint;
+		_MapserviceUrl1 = record.data.MapserviceUrl1;
 	});
 });
 

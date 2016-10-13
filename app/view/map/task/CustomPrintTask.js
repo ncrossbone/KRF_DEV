@@ -2,13 +2,18 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 	map:null,
 	mapDivId:null,
 	printUrl:null,
+	arcServiceUrl:null,
+	proxyUrl:null,
+	imgSaveUrl: null,
 	
-	constructor:function(map, divId, url, arcServiceUrl) {
+	constructor:function(map, mapDivId, printUrl, proxyUrl, arcServiceUrl, imgSaveUrl) {
 		var me = this;
 		me.map = map;
-		me.mapDivId = divId;
-		me.printUrl = url;
-		me.arcServiceUrl = arcServiceUrl
+		me.mapDivId = mapDivId;
+		me.printUrl = printUrl;
+		me.arcServiceUrl = arcServiceUrl;
+		me.proxyUrl = proxyUrl;
+		me.imgSaveUrl = imgSaveUrl;
 	},
 	
 	onComplete:function(arg){
@@ -25,6 +30,11 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 		me.execute("capture");
 	},
 	
+	report: function(){
+		var me = this;
+		me.execute("report");
+	},
+	
 	execute:function(mode){
 		//alert("dd");
 		var me = this;
@@ -38,10 +48,13 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 			
 			var div = $('#'+me.mapDivId+'_'+layerIds[i]);
 			var pTranslateInfo = {};
-			
-			if(isNaN(parseInt(div.css('left')))){
+			/*console.info(div.css('left'));
+			console.info(div.css('transform'));
+			console.info(div.css('-webkit-transform').split(','));*/
+			//if(isNaN(parseInt(div.css('left')))){
 				if(div.css('transform')){
 					var arr = div.css('transform').split(',');
+					
 					if(arr.length>11){
 						pTranslateInfo.translateX = parseInt(arr[12]);
 						pTranslateInfo.translateY = parseInt(arr[13]);
@@ -54,21 +67,32 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					pTranslateInfo.translateX = parseInt(arr[4]);
 					pTranslateInfo.translateY = parseInt(arr[5]);
 				}
-			}else{
+				else{
+					pTranslateInfo.translateX = parseInt(div.css('left'));
+					pTranslateInfo.translateY = parseInt(div.css('top'));
+				}
+			/*}else{
 				pTranslateInfo.translateX = parseInt(div.css('left'));
 				pTranslateInfo.translateY = parseInt(div.css('top'));
-			}
+			}*/
 			
 			var imgs = $('#'+me.mapDivId+'_'+layerIds[i]+' img');
+			//console.info(imgs);
 			for(var k=0; k<imgs.length; k++){	
 				var obj = me.imageInfoExtract($(imgs[k]), pTranslateInfo);
-				obj.src = "./resources/jsp/proxy.jsp?" + obj.src;
+				obj.src = me.proxyUrl + "?" + obj.src;
 				imageInfos.push(obj);
 			}
 		}
-		
+		//console.info(imageInfos);
 		me.convertImgToBase64Exe(imageInfos, function(){
-			var obj = {imageInfos:JSON.stringify(imageInfos), svgInfo:svgInfo, width:$('#'+me.mapDivId).width(), height:$('#'+me.mapDivId).height(), arcServiceUrl:me.arcServiceUrl, mode:mode};
+			var obj = {imageInfos:JSON.stringify(imageInfos),
+					svgInfo:svgInfo,
+					width:$('#'+me.mapDivId).width(),
+					height:$('#'+me.mapDivId).height(),
+					arcServiceUrl:me.arcServiceUrl,
+					imgSaveUrl: me.imgSaveUrl,
+					mode:mode};
 //			$.post(esri.config.defaults.io.proxyUrl+'?'+me.printUrl, obj, function(data){
 //				if(mode=="print"){
 //					var popup = window.open(esri.config.defaults.io.proxyUrl+'?'+data.url, 'newWindow', "width=1000,height=700");
@@ -82,6 +106,9 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 //				me.onComplete("complete");
 //	   		},"json").error(function(){
 //	   		});
+			
+			console.info(obj);
+			
 			$.post(me.printUrl, obj, function(data){
 				if(mode=="print"){
 					var popup = window.open(data.url, 'newWindow', "width=1000,height=700");
@@ -92,12 +119,17 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					$('#__fileDownloadIframe__').remove();
 					$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
 				}
-				
+				else if(mode=="report"){
+					// 리포트 뷰어 호출 로직
+					console.info(data);
+				}
+				//console.info(data);
 				me.onComplete("complete");
 	   		},"json").error(function(e){
 	   			//alert(e)
+	   			console.info(e);
 	   		});
-		})
+		});
 	},
 	
 	imageInfoExtract:function(img, pTranslateInfo){
@@ -108,9 +140,11 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 		info.width = img.width();
 		info.height = img.height();
 		info.opacity = img.parent().css('opacity');
-		
+		/*console.info(img.css('left'));
+		console.info(img.css('transform'));
+		console.info(img.css('-webkit-transform'));*/
 		var translateInfo = null;
-		if(isNaN(parseInt(img.css('left')))){
+		//if(isNaN(parseInt(img.css('left')))){
 			if(translateInfo = img.css('transform')){
 				var arr = translateInfo.split(',');
 				if(arr.length>11){
@@ -125,10 +159,14 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				info.translateX = parseInt(arr[4]) + pTranslateInfo.translateX;
 				info.translateY = parseInt(arr[5]) + pTranslateInfo.translateY;
 			}
-		}else{
+			else{
+				info.translateX = parseInt(img.css('left')) + pTranslateInfo.translateX;
+				info.translateY = parseInt(img.css('top')) + pTranslateInfo.translateY;
+			}
+		/*}else{
 			info.translateX = parseInt(img.css('left')) + pTranslateInfo.translateX;
 			info.translateY = parseInt(img.css('top')) + pTranslateInfo.translateY;
-		}
+		}*/
 		return info;
 	},
 	

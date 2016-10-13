@@ -69,7 +69,16 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             },
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {
-                return !record.data.leaf;
+            	
+            	//console.info(record.data.infoBtnDisabled);
+            	
+            	if(record.data.infoBtnDisabled != undefined){
+            		
+            		return record.data.infoBtnDisabled;
+            	}
+            	else{
+            		return !record.data.leaf;
+            	}
             }
         }, {
             text: '차트',
@@ -92,7 +101,14 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				me.moveCommon(record);
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
-                return !record.data.leaf;
+            	
+            	if(record.data.chartBtnDisabled != undefined){
+            		
+            		return record.data.chartBtnDisabled;
+            	}
+            	else{
+            		return !record.data.leaf;
+            	}
             }
         }, {
             text: '검색',
@@ -109,11 +125,11 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	var siteIds = "";
             	var parentId = "";
             	//var gridId = "grid_" + record.data.id;
-            	
+            	//console.info(childRecord[i].data.text);
             	// 집수구역, 지점 이동, 리치정보 하이라이트
 				var me = this.up("window");
 				me.moveCommon(record);
-            	
+            	//PollLoadSearchResult
             	if(record.id.length == 1){
             		var childRecord = record.childNodes;
             		
@@ -134,7 +150,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             				
             				pNm = pNm.substring(0,1);
             				
-            				
+            				//console.info(childRecord[i].data.text);
             				// 검색결과창 띄우기
             				ShowSearchResult(me.siteIds, me.parentIds, childRecord[i].data.text, gridId , "");
                     		
@@ -157,14 +173,24 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				var pNm = me.parentIds[0].parentId;
         				
         				pNm = pNm.substring(0,1);
-        				
+        				//console.info(record.data.text);
         				// 검색결과창 띄우기
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
+        				
+        				//검색결과 "검색"시 부하량 표출
+        				if(record.id == "pollLoad"){
+        					PollLoadSearchResult("");
+        				}
                 		
                 	//}
             	}
+            },
+            isDisabled: function(view, rowIdx, colIdx, item, record) {
             	
-            	console.info(me.siteIds);
+            	if(record.data.srchBtnDisabled != undefined){
+            		
+            		return record.data.srchBtnDisabled;
+            	}
             }
         }, {
             text: '관련리치',

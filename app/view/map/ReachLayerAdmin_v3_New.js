@@ -266,6 +266,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
+			        		//PollLoadSearchResult("");
 						}
 						else if(drawOption == "addPoint" || drawOption == "extent" || drawOption == "circle"){
 							// 라인 그린다
@@ -275,6 +276,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
+			        		//PollLoadSearchResult("");
 						}
 					}
 					
@@ -361,7 +363,12 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							|| drawOption == "start" || drawOption == "end"){
 							//console.info("Dd");
 							// 하류 조회
-							me.selectDownLine(minRchDid, drawOption, 0);
+							Ext.defer(function(){
+								
+								me.selectDownLine(minRchDid, drawOption, 0);
+								
+							}, 1);
+							
 						}
 						else{
 							
@@ -375,6 +382,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
+					        		//PollLoadSearchResult("");
 								}
 								else{
 									// 라인 그린다
@@ -384,6 +392,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
+					        		//PollLoadSearchResult("");
 								}
 							}
 						}
@@ -443,8 +452,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							// 끝위치 하류 배열 push
 							me.arrEdDownLine.push(feature);
 						}
-						//console.info(me.arrStDownLine);
-						//console.info(me.arrEdDownLine);
+						
 						var stLength = me.arrStDownLine.length; // 시작위치 하류 배열 길이
 						var edLength = me.arrEdDownLine.length; // 끝위치 하류 배열 길이
 						var stSliceIdx = -1; // 시작위치 하류 배열 잘라낼 인덱스
@@ -542,7 +550,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					    		// 검색 종료 체크
 					    		me.isStopCheck();
 								
-								me.defaultDate(droneLayerId,measureDate,drone);
+								//me.defaultDate(droneLayerId,measureDate,drone);
 							}, 1);
 				    	}
 					}
@@ -737,8 +745,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					// 현재 feature 하천 차수
 					var curGeoTrib = feature.attributes.GEO_TRIB;
 					
-					// 최하위노드의 지류인 놈들만 검색한다.
-					if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib <= dnGeoTrib){
+					// if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib <= dnGeoTrib){
+					// 본류이면서 시작위치 하류 배열, 끝위치 하류 배열에 속해있지 않으면 검색 종료 Draw종료
+					if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib == 0){
 						
 						isUpSearch = false;
 						isDraw = false;
@@ -798,6 +807,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 						
 	    				// 우측 상류 검색 (재귀호출)
 	    				var ruRchDid = feature.attributes.RU_RCH_DID;
+	    				//console.info(ruRchDid);
 						me.selectUpLine(ruRchDid, dnGeoTrib, drawOption, cnt);
     				}
 				}
@@ -834,6 +844,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		        		
 		        		// 검색결과 창 띄우기
 		        		ShowSearchResultReach("");
+		        		//PollLoadSearchResult("");
 		        		
 		        		// 1초 단위 타이머
 		        		var timer = setInterval(afterChk = function(){
