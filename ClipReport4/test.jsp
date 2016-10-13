@@ -9,15 +9,17 @@
 String paramCode = request.getParameter("paramCode");
 String startYear = request.getParameter("startYear");
 String endYear = request.getParameter("endYear");
+String imgPath = request.getParameter("imgPath");
 
 
 OOFDocument oof = OOFDocument.newOOF();
 
-//System.out.println("-----------"+this.getClass().getResource("/").getPath());
+System.out.println("-----------"+imgPath);
 //넘어갈 파라미터 값
 oof.addField("PARAM_CODE",paramCode);
 oof.addField("START_YR",startYear);
 oof.addField("END_YR",endYear);
+oof.addField("IMG_PATH",imgPath);
 
 OOFFile file = oof.addFile("crf.root", "%root%/crf/report_Year3.crf");
 

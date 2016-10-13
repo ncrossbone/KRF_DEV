@@ -509,10 +509,14 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	//console.info(tooltipCk);
 	//console.info("==================================");
 	// 리치검색 khLee 20151102 추가
+	
 	if(siteIds == "CAT"){
+		
 		ShowSearchResultReach();
 		return;
 	}
+	
+	
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -1019,6 +1023,10 @@ GetTabControl = function(options){
 	
 }
 
+
+
+
+
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
@@ -1084,7 +1092,13 @@ ShowSearchResultReach = function(catIds){
 	//alert(catIds);
 	var storeData = [];
 	
+	
+	
+	
+	
+	
 	if(catIds == ""){ // 리치검색에서 넘어왔을때
+		
     	var rchMap = GetCoreMap();
     	var sumRchLen = 0;
     	var sumCatArea = 0;
@@ -1252,6 +1266,53 @@ ShowSearchResultReach = function(catIds){
 	}
 	
 }
+
+var vrow = "";
+
+PollSelectedFocus = function(catId){
+	console.info("catId ::"+catId)
+	if(catId == undefined || catId == null || catId == ""){
+		return;
+	}
+	
+	var PollLoadContainer = Ext.getCmp("searchResultPollLoad_container");
+	console.info(PollLoadContainer);
+	if(PollLoadContainer == undefined){
+		return;
+	}
+	
+
+	var value = Ext.getCmp("pollLoadSelect").value;
+	
+	if(value == 11 || value == 22){
+		return;
+	}else{
+		
+		var PollLoadContainer = PollLoadContainer.items.items[0];
+		PollLoadContainer = PollLoadContainer.items.items[0];
+		//var rowIdx = PollLoadContainer.getStore().find("CAT_DID", catId);
+		
+		var pollStore = PollLoadContainer.getStore();
+		
+		var row = "";
+		
+		for(i = 0 ; i <pollStore.data.items.length  ;i++){
+			if(pollStore.data.items[i].data.GUBUN == "소계"){
+				if(pollStore.data.items[i].data.CAT_DID == catId){
+					console.info(pollStore.data.items[i].data);
+					console.info(i);
+					row = i;
+				}
+			}
+		}
+		
+		PollLoadContainer.getView().bufferedRenderer.scrollTo(row, true);
+		PollLoadContainer.getSelectionModel().select(row);
+		
+	}
+	
+}
+
 
 ReachSelectedFocus = function(catId){
 	
@@ -1519,6 +1580,8 @@ ResetButtonClick = function(){
 	var txtBox = Ext.getCmp("textSearchText");
 	txtBox.setValue("");
 	
+	// 주제도 레이어 off
+	catTMLayerOnOff("off");
 }
 
 // 주제도 레이어 on/off
@@ -1683,7 +1746,14 @@ SetWestCollapseXY = function(option){
 		
 		if(reachNameToolbar != undefined){
 			
-			reachNameToolbar.setX(reachNameToolbar.getX() + offsetWidth);
+			//reachNameToolbar.setX(reachNameToolbar.getX() + offsetWidth);
+			//console.info(offsetWidth);
+			if(offsetWidth == 300){
+				reachNameToolbar.setX(486 - 300 + offsetWidth);
+			}
+			else{
+				reachNameToolbar.setX(486 - 300);
+			}
 		}
 		
 		// 툴팁 XY 셋팅
