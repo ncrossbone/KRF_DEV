@@ -48,92 +48,26 @@ Ext.define('KRF_DEV.view.map.ClipButton', {
 						src: './resources/images/button/arrow.gif'
 					},{
 						xtype: 'button',
-						text : '리포트',
+						text : '리포트1',
 						listeners:{
 							el:{
 								click: function(){
 									
-									var clipChart = Ext.getCmp('clipChart');
-									console.info(clipChart);
-									var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
-									chartStore.siteCD = "A";
-									chartStore.yFieldName = "1";
-									chartStore.parentId = "A";
-									chartStore.load();
-									clipChart.setStore(chartStore);
+//									var clipChart = Ext.getCmp('clipChart');
+//									console.info(clipChart);
+//									var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
+//									chartStore.siteCD = "A";
+//									chartStore.yFieldName = "1";
+//									chartStore.parentId = "A";
+//									chartStore.load();
+//									clipChart.setStore(chartStore);
 									
-									clipChart.setHidden(false);
+									//clipChart.setHidden(false);
 								}
 							}
 						}
 				}]
-		},{
-	        //xtype: 'chart',
-			xtype: 'cartesian',
-	        id: 'clipChart',
-	        hidden: true,
-	        //insetPadding: 30,
-	        innerPadding: {
-	             left: 30,
-	             right:30
-	        }, 
-	        width: 450,
-	        height: 250,
-	        padding: '10 0 0 0',
-	        style: {
-	            'background' : '#fff'
-	        },
-	        animate: true,
-	        shadow: false,
-	        insetPadding: 10,
-	       
-	        axes: [{
-	            type: 'numeric',
-	            position: 'left',
-	            grid: true,
-	            minimum: 0
-	            
-	        }, {
-	            type: 'category',
-	            position: 'bottom',
-	            grid: true,
-	            label: {
-	                rotate: {
-	                    degrees: -45
-	                }
-	            }
-	        }],
-	        series: [{
-	        	text: 'month',
-	            type: 'line',
-	            axis: 'left',
-	            xField: 'WMCYMD',
-	            yField: 'ITEM_VALUE',
-	            marker: true,
-	            tips: {
-	                trackMouse: true,
-	                style: 'background: #FFF',
-	                height: 40,
-	                showDelay: 0,
-	                dismissDelay: 0,
-	                hideDelay: 0,
-	                renderer: function(storeItem, item) {
-	                	var series = Ext.getCmp("siteCharttest");
-	                	
-	                 	if(storeItem.joined[0].parentId == "A"){
-			                	if(storeItem.get(series.series[0]._yField) == 0){
-			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField+"_1"));
-			                	}else{
-			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));
-			                	}
-	                	}else{
-	                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));
-	                	}
-	                	
-	                }
-	            }
-	        }]
-	    }]
+		}]
 	}]
 	
 });

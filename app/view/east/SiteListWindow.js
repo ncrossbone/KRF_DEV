@@ -164,6 +164,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
                 	//}
             	}
             	
+            	console.info(me.siteIds);
             }
         }, {
             text: '관련리치',

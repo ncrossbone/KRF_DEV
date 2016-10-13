@@ -41,14 +41,14 @@ Ext.define('KRF_DEV.view.north.North', {
 		flex: 1
 	}, {
 		xtype: 'button',
-    	text: '리포트',
+    	text: 'Report',
     	width: 69,
     	height: 37,
     	listeners: {
     		el: {
     			click: function(){
     				
-    				var boardCtl = Ext.getCmp("clipButton");
+    				/*var boardCtl = Ext.getCmp("clipButton");
     				
     				
     				
@@ -58,13 +58,18 @@ Ext.define('KRF_DEV.view.north.North', {
     					var clipChart = Ext.getCmp("clipChart");
     					console.info(clipChart);
     				}
-    				
-    				boardCtl.show();
-    				
+    				boardCtl.show();*/
+    				//document.URL.substring(document.domain.length + 12, document.URL.lastIndexOf("/") + 1);
+    				var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
+    				var startYear = "2008";
+    				var endYear = "2010";
+
+    				window.open("./ClipReport4/test.jsp?paramCode=" + paramCode + "&startYear=" + startYear + "&endYear=" + endYear,"","width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+
     			}
     		}
     	},
-    	src: './resources/images/button/top_btn5_off.png'			
+    	src: './resources/images/button/top_btn5_off.png'
 	},{
     	xtype: 'container',
     	width: 5
@@ -255,7 +260,6 @@ Ext.define('KRF_DEV.view.north.North', {
 			}
 		}
 	}, { 
->>>>>>> f865fae69c16d42e05795ceea3883c31aaba7d9c
 		xtype: 'image',
 		//id: 'btnReachLayer',
 		layerId: 'baseMap',
@@ -358,7 +362,8 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn4_off.png'			
-	},{
+	},/*{
+		//----확인 후 제거-----
 	xtype: 'image',
 	title: '공지사항',
 	width: 69,
@@ -384,7 +389,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		}
 	},
 	src: './resources/images/button/top_btn4_off.png'			
-}, {
+}, */{
 		xtype: 'image',
     	title: 'Q&A',
     	width: 69,
