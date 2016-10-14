@@ -14,6 +14,8 @@ Ext.define('Report.view.east.rptSetSiteList', {
 	
 	width: "100%",
 	
+	//siteIds: opener.Ext.getCmp("siteListWindow").siteIds,
+	
 	items: [{
 		xtype: "label",
 		text: "지",
@@ -33,13 +35,14 @@ Ext.define('Report.view.east.rptSetSiteList', {
 		xtype: "treepanel",
 		id: "treeRptSiteList",
 		rootVisible:false,
+		cls: 'khLee-x-grid-cell',
 		width: 330,
 		store: Ext.create('Report.store.east.treeRptSiteListStore'),
 		columns: [{
             xtype: 'treecolumn',
             text: "지점명",
-            align: "center",
-            width: 100,
+            align: "left",
+            width: 150,
             sortable: true,
             dataIndex: 'siteName',
             //dataIndex: 'text',
@@ -48,12 +51,12 @@ Ext.define('Report.view.east.rptSetSiteList', {
         }, {
             //xtype: 'treecolumn',
             text: "주소",
-            width: 130,
+            width: 180,
             sortable: true,
             dataIndex: 'siteAddr',
             checked: true,
             locked: true
-        }, {
+        }/*, {
             //xtype: 'treecolumn',
             text: "조사기관",
             width: 100,
@@ -61,6 +64,6 @@ Ext.define('Report.view.east.rptSetSiteList', {
             dataIndex: 'siteOrg',
             checked: true,
             locked: true
-        }]
+        }*/]
 	}]
 });

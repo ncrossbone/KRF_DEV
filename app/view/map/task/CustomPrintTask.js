@@ -30,15 +30,22 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 		me.execute("capture");
 	},
 	
-	report: function(){
+	report: function(paramCode, startYear, endYear){
+		
 		var me = this;
+		
+		me.paramCode = paramCode;
+		me.startYear = startYear;
+		me.endYear = endYear;
+		
 		//alert("dd");
 		me.execute("report");
 	},
 	
 	execute:function(mode){
-		//alert("dd");
+		
 		var me = this;
+		
 		var svgInfo = $('#'+me.mapDivId+' svg').parent().html();
 		var layerIds = me.map.layerIds;
 		var imageInfos = [];
@@ -122,14 +129,16 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				}
 				else if(mode=="report"){
 					// 리포트 뷰어 호출 로직
-					console.info(data);
+					//console.info(data);
 					
 					var imgPath = data.path;
-					var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
-    				var startYear = "2008";
-    				var endYear = "2010";
-    				
-    				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath + "&paramCode=" + paramCode + "&startYear=" + startYear + "&endYear=" + endYear,"","width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+
+    				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
+    						"&paramCode=" + me.paramCode +
+    						"&startYear=" + me.startYear +
+    						"&endYear=" + me.endYear,
+    						"",
+    						"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
 				}
 				//console.info(data);
 				me.onComplete("complete");
