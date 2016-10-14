@@ -128,7 +128,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
     				var startYear = "2008";
     				var endYear = "2010";
-
+    				
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath + "&paramCode=" + paramCode + "&startYear=" + startYear + "&endYear=" + endYear,"","width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
 				}
 				//console.info(data);

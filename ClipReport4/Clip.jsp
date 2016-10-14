@@ -27,10 +27,19 @@ if(null != passName){
 	else if("R02".equals(passName)){
 		Page page1 = new Page();
 		page1.doPost(request, response, propertyPath);
+		
+	/* 	String replaceImgPath = request.getParameter("replaceImgPath");
+		
+		String imgPath;
+		imgPath = replaceImgPath.replace(",","\\");
+		
+		File imgFile = new File(imgPath);
+		imgFile.delete(); */
 	}
 	else if("R03".equals(passName)){
 		PageCount pageCount = new PageCount();
 		pageCount.doPost(request, response, propertyPath);
+
 	}
 	else if("R04".equals(passName)){
 		DeleteReport deleteReport = new DeleteReport();
@@ -111,8 +120,9 @@ if(null != passName){
 	    }
 	    response.getWriter().append(sessionCookie.toString());
 	    response.getWriter().close();
+	    
+	    
 	}
-	
 	// Report
 }
 %>

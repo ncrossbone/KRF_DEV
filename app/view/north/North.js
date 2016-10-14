@@ -63,7 +63,7 @@ Ext.define('KRF_DEV.view.north.North', {
     				var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
     				var startYear = "2008";
     				var endYear = "2010";
-
+    				
     				window.open("./ClipReport4/test.jsp?paramCode=" + paramCode + "&startYear=" + startYear + "&endYear=" + endYear,"","width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
 
     			}

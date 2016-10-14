@@ -11,10 +11,10 @@ String startYear = request.getParameter("startYear");
 String endYear = request.getParameter("endYear");
 String imgPath = request.getParameter("imgPath");
 
+String replaceImgPath;
+replaceImgPath = imgPath.replace("\\",",");
 
 OOFDocument oof = OOFDocument.newOOF();
-
-System.out.println("-----------"+imgPath);
 //넘어갈 파라미터 값
 oof.addField("PARAM_CODE",paramCode);
 oof.addField("START_YR",startYear);
@@ -52,15 +52,29 @@ var urlPath = document.location.protocol + "//" + document.location.host;
 
 function html2xml(divPath){	
     var reportkey = "<%=resultKey%>";
-	var report = createImportJSPReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", reportkey, document.getElementById(divPath));
+    var replaceImgPath ="<%=replaceImgPath%>";
+    console.info(replaceImgPath);
+	var report = createImportJSPReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp?replaceImgPath=" + replaceImgPath, reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);
     report.view();
 }
 
+function noEvent() {
+    if (event.keyCode == 116) {
+        event.keyCode= 2;
+        return false;
+    }
+    else if(event.ctrlKey && (event.keyCode==78 || event.keyCode == 82))
+    {
+        return false;
+    }
+}
+document.onkeydown = noEvent;
+
 </script>
 </head>
-<body onload="html2xml('targetDiv1')">
+<body onload="html2xml('targetDiv1')"  oncontextmenu="return false">
 <div id='targetDiv1' style='position:absolute;top:0px;left:0px;right:0px;bottom:0px;'></div>
 </body>
 </html>
