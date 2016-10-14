@@ -140,10 +140,10 @@ Ext.define('Report.view.map.rptCoreMap', {
 		me.baseMap = new CustomMapsLayer();
 		this.map.addLayer(me.baseMap);
 	},
-	report:function(){
+	report:function(paramCode, startYear, endYear){
 		
 		var me = this;
 		//alert("dd");
-		me.printTask.report();
+		me.printTask.report(paramCode, startYear, endYear);
 	}
 });
