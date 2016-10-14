@@ -42,6 +42,34 @@ Ext.define('Report.view.map.dimDynamicLayerAdmin', {
 			visibleLayers = [0, 2];
 		}
 		
+		if(_ADM_SIDO_CD != null){
+			layerDefs[6] = "ADM_CD <> '" + _ADM_SIDO_CD + "'";
+			layerIds = [6];
+			visibleLayers = [5, 6];
+		}
+		
+		if(_ADM_SIGUNGU_CD != null){
+			layerDefs[7] = "ADM_CD <> '" + _ADM_SIGUNGU_CD + "'";
+			layerIds = [7];
+			visibleLayers = [5, 7];
+		}
+		
+		if(_ADM_DONGRI_CD != null){
+			layerDefs[8] = "ADM_CD <> '" + _ADM_DONGRI_CD + "'";
+			layerIds = [8];
+			visibleLayers = [5, 8];
+		}
+		
+		if(_CAT_DID != null){
+			layerDefs[4] = "CAT_DID NOT IN ("
+			for(var i = 0; i < _CAT_DID.length; i++){
+				layerDefs[4] += "'" + _CAT_DID[i].attributes.CAT_DID + "', ";
+			}
+			layerDefs[4] = layerDefs[4].substring(0, layerDefs[4].length - 2) + ")";
+			layerIds = [4];
+			visibleLayers = [0, 4];
+		}
+		
         var imageParameters = new esri.layers.ImageParameters();
         
         imageParameters.layerDefinitions = layerDefs;

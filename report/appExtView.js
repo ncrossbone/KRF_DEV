@@ -17,6 +17,8 @@ var _ADM_SIGUNGU_NM = null; // 시군구 명
 var _ADM_DONGRI_CD = null; // 읍면동 코드
 var _ADM_DONGRI_NM = null; // 읍면동 명
 
+var _CAT_DID = null; // 집수구역 ID
+
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
 
@@ -77,6 +79,8 @@ store.load(function(a, b, c) {
 			_ADM_DONGRI_CD = selDONGRI[0].data.id;
 			_ADM_DONGRI_NM = selDONGRI[0].data.name;
 		}
+		
+		_CAT_DID = opener.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 	});
 });
 
