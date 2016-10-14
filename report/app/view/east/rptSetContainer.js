@@ -64,13 +64,13 @@ Ext.define('Report.view.east.rptSetContainer', {
 						}
 						
 						paramCode = paramCode.substring(0, paramCode.length - 2);
-						//console.info(paramCode);
+						console.info(paramCode);
 						
 						//var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
 	    				var startYear = Ext.getCmp("cmbRptPeriodStYear").getValue();
-	    				//console.info(startYear);
+	    				console.info(startYear);
 	    				var endYear = Ext.getCmp("cmbRptPeriodEdYear").getValue();
-	    				//console.info(endYear);
+	    				console.info(endYear);
 	    				
 						Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
 					}

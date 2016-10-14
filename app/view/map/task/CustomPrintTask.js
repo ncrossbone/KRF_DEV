@@ -132,7 +132,10 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					//console.info(data);
 					
 					var imgPath = data.path;
-
+					console.info("imgPath=" + imgPath +
+						"&paramCode=" + me.paramCode +
+						"&startYear=" + me.startYear +
+						"&endYear=" + me.endYear);
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
     						"&paramCode=" + me.paramCode +
     						"&startYear=" + me.startYear +
