@@ -37,15 +37,45 @@ Ext.define('Report.view.east.rptSetContainer', {
 		title: '지점',
 		height: 600
 	}, {
-		xtype: 'button',
-		text: '리포트보기',
-		listeners: {
-			el: {
-				click: function(){
-					
-					Ext.getCmp("_rptMapDiv_").report();
+		xtype: 'container',
+		layout: {
+			type: 'fit'
+		},
+		items: [{
+			xtype: 'image',
+			src: '../resources/images/button/btn_report.png',
+			style: 'cursor: pointer;',
+			text: '리포트보기',
+			listeners: {
+				el: {
+					click: function(){
+						
+						var paramCode = "";
+						var listStore = Ext.getCmp("treeRptSiteList").getStore();
+						for(var i = 0; i < listStore.data.items.length; i++){
+							
+							if(listStore.data.items[i].data.leaf == true){
+								
+								if(listStore.data.items[i].data.checked == true){
+									
+									paramCode += "'" + listStore.data.items[i].data.id + "', ";
+								}
+							}
+						}
+						
+						paramCode = paramCode.substring(0, paramCode.length - 2);
+						//console.info(paramCode);
+						
+						//var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
+	    				var startYear = Ext.getCmp("cmbRptPeriodStYear").getValue();
+	    				//console.info(startYear);
+	    				var endYear = Ext.getCmp("cmbRptPeriodEdYear").getValue();
+	    				//console.info(endYear);
+	    				
+						Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
+					}
 				}
 			}
-		}
+		}]
 	}]
 });
