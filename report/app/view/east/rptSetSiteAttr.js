@@ -25,6 +25,12 @@ Ext.define('Report.view.east.rptSetSiteAttr', {
 		style: "margin-top: 4px; padding-right: 10px;"
 	}, {
 		xtype: "checkbox",
+		id: "chkRptAttr3",
+		boxLabel: "수질지점",
+		checked: true,
+		width: 80
+	}, {
+		xtype: "checkbox",
 		id: "chkRptAttr1",
 		boxLabel: "주요지점",
 		width: 80
@@ -32,11 +38,6 @@ Ext.define('Report.view.east.rptSetSiteAttr', {
 		xtype: "checkbox",
 		id: "chkRptAttr2",
 		boxLabel: "대표지점",
-		width: 80
-	}, {
-		xtype: "checkbox",
-		id: "chkRptAttr3",
-		boxLabel: "수질지점",
 		width: 80
 	}, {
 		xtype: "checkbox",

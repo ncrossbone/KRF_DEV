@@ -25,9 +25,9 @@ Ext.define('Report.view.main.rptExtViewMain', {
         }, {
         	xtype: 'panel',
         	title: '지점설정',
-        	width: 500,
+        	width: 450,
         	height: 900,
-        	style: 'margin-left: 10px;',
+        	//style: 'margin-left: 10px;',
         	items: [{
         		xtype: 'rpt-east-rptSetContainer'
         	}]

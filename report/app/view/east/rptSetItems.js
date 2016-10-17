@@ -33,11 +33,13 @@ Ext.define('Report.view.east.rptSetItems', {
 	}, {
 		xtype: "checkbox",
 		id: "chkRptItemBOD",
+		checked: true,
 		boxLabel: 'BOD',
 		width: 80
 	}, {
 		xtype: "checkbox",
 		id: "chkRptItemTP",
+		checked: true,
 		boxLabel: 'TP',
 		width: 80
 	}]
