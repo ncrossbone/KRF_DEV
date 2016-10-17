@@ -69,12 +69,12 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '하수처리인구',
-				dataIndex : 'UPOP_SUM',
+				dataIndex : 'SPOP_SUM',
 				width: 150
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '하수미처리인구',
-				dataIndex : 'SPOP_SUM',
+				dataIndex : 'UPOP_SUM',
 				width: 150
 				//filter: {type: 'numeric'}
 			},{	 
@@ -180,7 +180,7 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 						dataIndex: 'UPOP_A1_SUM'
 					},{ 
 						text     : '분류식',
-						colums:[{
+						columns:[{
 							text: '공공하수처리',
 							dataIndex: 'UPOP_A1_SEPARATE_WT_SUM'
 						},{
@@ -189,7 +189,7 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 						}]
 					},{ 
 						text     : '합류식',
-						colums:[{
+						columns:[{
 							text: '공공하수처리',
 							dataIndex: 'UPOP_A1_COMBINED_WT_SUM'
 						},{
@@ -231,7 +231,7 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 						dataIndex: 'SPOP_A1_SUM'
 					},{ 
 						text     : '분류식',
-						colums:[{
+						columns:[{
 							text: '공공하수처리',
 							dataIndex: 'SPOP_A1_SEPARATE_WT_SUM'
 						},{
@@ -240,7 +240,7 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 						}]
 					},{ 
 						text     : '합류식',
-						colums:[{
+						columns:[{
 							text: '공공하수처리',
 							dataIndex: 'SPOP_A1_COMBINED_WT_SUM'
 						},{

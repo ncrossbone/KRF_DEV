@@ -334,6 +334,7 @@ var tmQuantizeTest = {
 var percentile = {
 	rstFeatureSet: [],
 	quantile: function(array, percentile){
+		console.info(array);
 			
 		array.sort(function(a, b){
 			return a - b;
@@ -376,18 +377,12 @@ var percentile = {
 			arrPercentiles.push(percentile);
 		}
 		
-		if(kind == "pollution"){
-			for(var i = 0; i < coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0].length ;i ++){
-				var data = eval("coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][i].data."+attrPath);
-				arrValues.push(data);
-			}
-		}else{
-			for(var i = 0; i < arrFeatures.length; i++){
-				var data = eval("arrFeatures[i].attributes." + attrPath);
-				arrValues.push(data);
-			}
-		}
 		
+		console.info(attrPath);
+		for(var i = 0; i < arrFeatures.length; i++){
+			var data = eval("arrFeatures[i].attributes." + attrPath);
+			arrValues.push(data);
+		}
 		
 		var minVal = "0";
 		
@@ -399,37 +394,21 @@ var percentile = {
 			
 			var features = [];
 			
-			if(kind == "pollution"){
-				for(var i = 0; i < coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0].length ;i ++){
-					var data = eval("coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][i].data."+attrPath);
-					data = Number(data);
-					if(data >= curMinVal && data < curMaxVal){
-						arrFeatures[i].attributes.stVal = curMinVal;
-						arrFeatures[i].attributes.edVal = curMaxVal;
-						arrFeatures[i].attributes.color = getCatRangeColor(curRange);
-						arrFeatures[i].attributes.range = curRange;
-						
-						features.push(arrFeatures[i])
-					}
-				}
-			}else{
-				for(var i = 0; i < arrFeatures.length; i++){
-					
-					
-					var data = eval("arrFeatures[i].attributes." + attrPath);
-					if(data >= curMinVal && data < curMaxVal){
-						
-						arrFeatures[i].attributes.stVal = curMinVal;
-						arrFeatures[i].attributes.edVal = curMaxVal;
-						arrFeatures[i].attributes.color = getCatRangeColor(curRange);
-						arrFeatures[i].attributes.range = curRange;
-						
-						features.push(arrFeatures[i])
-					}
-				}
-			}
 			
-			minVal = curMaxVal;
+			for(var i = 0; i < arrFeatures.length; i++){
+				var data = eval("arrFeatures[i].attributes." + attrPath);
+				if(data >= curMinVal && data < curMaxVal){
+					
+					arrFeatures[i].attributes.stVal = curMinVal;
+					arrFeatures[i].attributes.edVal = curMaxVal;
+					arrFeatures[i].attributes.color = getCatRangeColor(curRange);
+					arrFeatures[i].attributes.range = curRange;
+					
+					features.push(arrFeatures[i]);
+				}
+				
+				minVal = curMaxVal;
+			}
 			
 			var fObj = {minVal: curMinVal, maxVal: curMaxVal, range: curRange, features: features};
 			me.rstFeatureSet.push(fObj);
@@ -483,7 +462,7 @@ getQuantizeObj = function(featureSet, attrName, range, kind){
 }
 
 pollutionLayerSelect = function(value , onOff){
-	
+	console.info(onOff);
 	pollutionLayerOnOff(onOff, value);
 }
 
@@ -1113,27 +1092,36 @@ PollutionSearchResult = function(value){
 	pollutiongrdCtl.setStore(pollutionstore);
 	
 	console.info(pollutiongrdCtl);
-	/*if(value == "11" ){
-		pollgrdCtl.columns[3].setHidden(true);
-		pollgrdCtl.columns[4].setHidden(true);
-		pollgrdCtl.columns[5].setHidden(true);
-		pollgrdCtl.columns[6].setHidden(true);
+	
+	
+	
+	for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+		pollutiongrdCtl.columns[k].setHidden(false);
+	}
+	
+	console.info(pollutiongrdCtl);
+	if(value == "11" ){
+		for(var i = 7; i <= 41 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+		
 	}else if(value == "22"){
-		pollgrdCtl.columns[3].setHidden(true);
-		pollgrdCtl.columns[4].setHidden(true);
-		pollgrdCtl.columns[5].setHidden(true);
-		pollgrdCtl.columns[6].setHidden(false);
+		for(var i = 4; i <= 12 ;i++){
+			console.info(i);
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
 	}else if(value == "33"){
-		pollgrdCtl.columns[3].setHidden(false);
-		pollgrdCtl.columns[4].setHidden(true);
-		pollgrdCtl.columns[5].setHidden(true);
-		pollgrdCtl.columns[6].setHidden(false);
+		for(var i = 4; i <= 6 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+		for(var i = 8; i <= 12 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
 	}else{
-		pollgrdCtl.columns[3].setHidden(false);
-		pollgrdCtl.columns[4].setHidden(false);
-		pollgrdCtl.columns[5].setHidden(false);
-		pollgrdCtl.columns[6].setHidden(false);
-	}*/
+		for(var i = 7; i <= 9 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+	}
 	
 	
 

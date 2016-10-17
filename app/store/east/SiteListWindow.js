@@ -365,10 +365,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		var me = GetCoreMap();
 		
 		
-		
-		
-		
-		
 		var store = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
 			async:false,
 			catDid : this.catDid

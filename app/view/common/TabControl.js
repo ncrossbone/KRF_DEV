@@ -290,7 +290,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				xtype: 'combo',
 				id: 'pollutionYear',
 				store: ['2013', '2012', '2011', '2010'],
-				value: '2013',
+				value: '2012',
 				width: 80,
 				height: 25
 			},  {

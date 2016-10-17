@@ -138,24 +138,23 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
         		);
 	        	
 	        	var tmCatFeatures = tmCatFeatureSet.features;
-	        	console.info(tmCatFeatures);
-	        	console.info(colName);
+	        	
 	        	var range = 15;
 	        	
 	        	/* 범위, 값 매핑 오브젝트 생성 */
 	        	var quantizeObj = "";
 	        	
 	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range, kind);
-	        	console.info(quantizeObj);
+	        	
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
 	        	for(var range = 0; range < quantizeObj.length; range++){
 	        		
 	        		//tmCatFeatures == null;
 	        		tmCatFeatures = quantizeObj[range].features;
-	        		console.info(tmCatFeatures);
+	        		
 		        	//quantize = getQuantize(minVal, maxVal, range);
-		        	console.info(tmCatFeatures.length);
+		        	
 		        	for(var i = 0; i < tmCatFeatures.length; i++){
 		        		
 		        		// 폴리곤 그래픽 지정
@@ -164,7 +163,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		tmCatGraphic.setSymbol(tmCatFillSymbol);
 		        		// 폴리곤 그래픽 추가
 		        		me.tmGraphicLayerCat.add(tmCatGraphic);
-		        		
+		        		console.info(tmCatGraphic);
 		        		/* 폴리곤 중심점 가져오기 */
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		

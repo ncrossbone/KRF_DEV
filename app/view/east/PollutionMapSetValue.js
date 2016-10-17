@@ -44,7 +44,7 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 				xtype: 'combo',
 				id : 'setPollutionYear',
 				store: ['', '2010', '2011', '2012', '2013'],
-				value: '2013',
+				value: '2012',
 				//labelWidth: 30,
 				//labelAlign: 'right',
 				width: 65,
@@ -197,7 +197,7 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 				fields: ['id', 'name'],
 				data: [{id: 'POP_SUM',  name: '총인구'}
 					  ,{id: 'UPOP_SUM', name: '하수처리인구'}
-					  ,{id: 'NPOP_SUM', name: '하수미처리인구'}]
+					  ,{id: 'SPOP_SUM', name: '하수미처리인구'}]
 			})
 			setPollutionItems.setValue("POP_SUM");
     	}else if(this.pollvalue == 4){

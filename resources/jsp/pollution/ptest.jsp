@@ -10,7 +10,7 @@
 */
 try{
 	
-	Object[] catDid = request.getParameterValues("catDid");
+	String catDid = request.getParameter("catDid");
 	
 	sql = " WITH TBL_PLA_POP_TOTAL AS (																																	                    ";
 	sql += "     SELECT YYYY                                                                               ";
@@ -55,17 +55,6 @@ try{
 	sql += "          , SPOP_A2_SEPTIC                                       ";
 	sql += "          , SPOP_A2_REMOVAL                                      ";
 	sql += "       FROM PLA_POP_TOTAL_FOR_CAT                                                                                 ";
-	sql += "       WHERE CAT_DID IN (                            ";
-	if(catDid.length != 0){
-		for(int i=0;i<catDid.length;i++){
-			if(i == catDid.length-1){
-				sql += "	'"+catDid[i]+"' )			";
-			}else{
-				sql += "	'"+catDid[i]+"',			";
-			}
-			
-		}
-	}
 	sql += "     )                                                                                                            ";
 	sql += " select YYYY                                                                                          ";
 	sql += "      , WS_NM                                                                                           ";
@@ -313,6 +302,8 @@ try{
 	sql += "              , SUM(SPOP_A2_REMOVAL) AS SPOP_A2_REMOVAL                                                           ";
 	sql += "           FROM TBL_PLA_POP_TOTAL                                                                                 ";
 	sql += "        )                                                                                                         ";
+	sql += "        where CAT_DID IN (                                ";
+	sql += catDid+" )";
 	sql += "  ORDER BY DECODE(SB_NM,'ÃÑ°è',1,2), SB_ID, DECODE(CAT_DID,'¼Ò°è',1,2), CAT_DID                                  ";
 
     
