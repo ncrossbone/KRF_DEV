@@ -50,7 +50,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04', {
 			
 			var jsonData = "";
 			var arrData = [];
-			console.info(store);
+			
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/pollution/PollutionSelect_02.jsp',

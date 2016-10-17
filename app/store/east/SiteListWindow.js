@@ -394,7 +394,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		
 		//생활계
 		me.reachLayerAdmin_v3_New.arrAreaPollution_01.push(store.data.items);
-		console.info(me.reachLayerAdmin_v3_New.arrAreaPollution);
+		
 		
 		
 		//토지계
@@ -410,9 +410,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				["07",me.reachLayerAdmin_v3_New.arrAreaPollution_07]);
 		
 		
-		
-		
-		console.info(me.reachLayerAdmin_v3_New.arrAreaPollution);
 		
 		
 		
@@ -477,7 +474,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 			}
 			
-			pollutionString += "	 , { \n";
+			/*pollutionString += "	 , { \n";
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length > 0){
 				pollutionString += "	\"id\": \"pollution_04\",\n";
@@ -527,7 +524,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				
 				
-			}
+			}*/
 			
 			pollutionString += "]}";
 			

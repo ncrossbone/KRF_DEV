@@ -63,18 +63,18 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 			}
 			
 			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/" + layerId);
-			console.info("1");
+			
 			var query = new Query();
 	        query.returnGeometry = true;
 	        query.outFields = ["*"];
 	        query.outSpatialReference = {
 	          "wkid": 102100
 	        };
-	        //console.info(inStrCatDids);
+	        
 	        query.where = "CAT_DID IN (" + inStrCatDids + ")";
 	        
 	        queryTask.execute(query, function(tmCatFeatureSet){
-	        	console.info("2");
+	        	
 	        	
 	        	if(me.pollutionGraphicLayerCat == undefined || me.pollutionGraphicLayerCat == null){
 		        	// 폴리곤 레이어 생성
@@ -105,7 +105,7 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 		        	me.pollutionLabelLayerCat = new GraphicsLayer();
 		        	me.pollutionLabelLayerCat.id = "pollutionLabelLayerCat";
 	        	}
-	        	console.info("3");
+	        	
 	        	me.pollutionLabelLayerCat.setVisibility(true);
 	        	
 	        	// 폴리곤 그래픽 심볼 생성
@@ -118,7 +118,7 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
         				),
         				new Color([255, 0, 0, 1])
         		);
-        		console.info("4");
+        		
 	        	var tmCatFeatures = tmCatFeatureSet.features;
 	        	var range = 15;
 	        	
@@ -126,17 +126,17 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        	var quantizeObj = "";
 	        	
 	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range, kind);
-	        	//console.info(quantizeObj);
-	        	////////console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
-	        	console.info("5");
+	        	
+	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
+	        	
 	        	for(var range = 0; range < quantizeObj.length; range++){
 	        		//tmCatFeatures == null;
 	        		tmCatFeatures = quantizeObj[range].features;
-	        		console.info("6");
-	        		//////console.info(tmCatFeatures);
+	        		
+	        		
 		        	//quantize = getQuantize(minVal, maxVal, range);
-		        	//console.info(tmCatFeatures.length);
-		        	for(var i = 0; i < tmCatFeatures.length; i++){console.info("7");
+		        	
+		        	for(var i = 0; i < tmCatFeatures.length; i++){
 		        		// 폴리곤 그래픽 지정
 		        		var tmCatGraphic = tmCatFeatures[i];
 		        		// 폴리곤 심볼 지정
@@ -149,13 +149,10 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 		        		
 		        		// 발생오염원 BOD 합계
 		        		var gnrBodSu = eval("coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][i].data."+colName);
-		        		//console.info(colName);
-		        		////console.info(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][i].data.POP_SUM);
-		        		////////console.info(colName);
 		        		// 라벨 텍스트 설정
-		        		//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
-		        		var gnrBodSulabel = gnrBodSu + "kg/일";
-		        		console.info("8");
+		        		//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "(명)";
+		        		var gnrBodSulabel = gnrBodSu + "(명)";
+		        		
 		        		// 텍스트 라벨 생성
 		        		var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
 		        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
@@ -167,7 +164,7 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 		        		me.pollutionLabelLayerCat.add(tmCatLabelGraphic);
 		        		
 		        		//var range = quantize(gnrBodSu);
-		        		console.info("9");
+		        		
 		        		var circle = new Circle({
 		        			center: centerPoint,
 		        			radius: getCatRangeRadius(range)
@@ -185,22 +182,20 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 		        		// 집수구역 오염원 속성 데이터 카피
 		        		barImgGraphic.attributes = tmCatGraphic.attributes;
 		        		me.pollutionbarImgGraphicLayer.add(barImgGraphic);
-		        		console.info("10");
+		        		
 		        	}
 	        	}
 	        	
 	        	/* 폴리곤 그래픽 이벤트 */
 	        	on(me.pollutionGraphicLayerCat, "graphic-draw", function(evt){
 	        		
-	        		////////console.info(evt);
+
 	        		var attrs = evt.graphic.attributes,
 	        			range;
-	        		////////console.info(evt);
-                    range = attrs.range;
-                    ////console.info(attrs)
+
+	        		range = attrs.range;
                     // 집수구역별 오염원 폴리곤 그래픽 스타일 셋팅
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, attrs.color);
-                    console.info(attrs.CAT_DID);
                     // 범례와 연계하기 위해 클래스 지정 (가상)
                     evt.node.setAttribute("class", "polySymbol_" + range);
 	        	});
@@ -276,7 +271,6 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        	/* 라벨 그래픽 이벤트 */
 	        	on(me.pollutionLabelLayerCat, "graphic-draw", function(evt){
 	        		
-	        		////////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
 	        		
@@ -315,7 +309,6 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        	/* 원형 그래픽 이벤트 */
 	        	on(me.circleGraphicLayer, "graphic-draw", function(evt){
 	        		
-	        		////////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
 	        		
@@ -409,8 +402,8 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	                data = {
 	                		
 	                    //label:number.format(obj.stVal, { places:0 }) + " - " + number.format(obj.edVal, { places:0 }),
-	                	label:paddingLeft("&nbsp;", 8, number.format(obj.maxVal, { places:0 })) + " kg/일",
-	                	//label:obj.maxVal + " kg/일",
+	                	label:paddingLeft("&nbsp;", 8, number.format(obj.maxVal, { places:0 })) + " (명)",
+	                	//label:obj.maxVal + " (명)",
 	                    fill:fillColor,
 	                    fillColor: fillColor,
 	                    range:obj.range,
@@ -451,10 +444,8 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
             
             tmLegendSymbol.on("mouseout", function(evt){
             	
-            	////////console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var fillColor = evt.target.getAttribute("fillcolor");
-            	////////console.info(fillColor);
             	// 범례 스타일 설정
         		me.setAttributeLegend("off", range);
             	

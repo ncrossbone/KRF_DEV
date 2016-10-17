@@ -100,7 +100,7 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 						el:{
 							click: function(){
 								
-								catTMLayerOnOff("on");
+								pollutionLayerSelect("01", "on");
 							}
 						}
 					}
@@ -191,7 +191,7 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
     	var setPollutionItems = Ext.getCmp("setPollutionItems");
     	
     	var store = "";
-    	console.info(this.pollvalue);
+    	
     	if(this.pollvalue == 1){
     		store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
@@ -207,7 +207,7 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 			})
 			setPollutionItems.setValue("AREA_SUM");
     	}
-    	console.info(setPollutionItems);
+    	
     	setPollutionItems.setStore(store);
     	
 	 }

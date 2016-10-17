@@ -59,8 +59,7 @@ var tmQuantizeTest = {
 				var obj = {stVal: stVal, edVal: edVal, range: curRange};
 				
 				arrQuantize.push(obj);
-				//////console.info(quanCnt);
-				//////console.info(arrQuantize[quanCnt]);
+				
 				if(arrQuantize[quanCnt].features == undefined){
 					
 					arrQuantize[quanCnt].features = [];
@@ -82,7 +81,6 @@ var tmQuantizeTest = {
 			this.quantizeObj.rstFeatureSet.push(arrQuantize[quanCnt]);
 		}
 		
-		//////console.info(this.quantizeObj.rstFeatureSet);
 	},
 	setOneMoreFeature: function(featureSet, attrName, oneMoreCnt, recursiveCnt){
 		
@@ -129,12 +127,8 @@ var tmQuantizeTest = {
 			}
 		}
 		else{
-			//////console.info(recursiveCnt);
 			var restCnt = oneMoreCnt % 8; // 나머지
 			var quotientCnt = this.Floor(oneMoreCnt / 8, 0); // 몫
-			////console.info(oneMoreCnt);
-			////console.info(restCnt);
-			////console.info(quotientCnt);
 			var plusCnt1 = 0;
 			
 			/*for(var i = 0; i < featureSet.length; i += plusCnt1){
@@ -154,14 +148,12 @@ var tmQuantizeTest = {
 			}*/
 		}
 		
-		////console.info(this.quantizeObj.rstFeatureSet);
 	},
 	setScale: function(featureSet, attrName){
 		
 		this.setRange = function(originRange){
 			
 			var range = originRange * this.quantizeObj.recursiveCnt; // 재귀 카운트 만큼 곱하기..
-			//////console.info(range);
 			
 			// 소수점 자릿수 설정 (digit: 자릿수, roundUpDown: 반올림[round] 올림[up] 내림[down])
 			this.setPointCipher = function(digit, roundUpDown){
@@ -218,7 +210,6 @@ var tmQuantizeTest = {
 					
 					// 피처 정렬
 					var features = this.getSortArray(featureSet.features, attrName, "DESC");
-					//////console.info(features);
 					for(var fCnt = 0; fCnt < this.quantizeObj.tmpFeatureSet.length; fCnt++){
 						
 						for(var oCnt = 0; oCnt < features.length; oCnt++){
@@ -232,13 +223,11 @@ var tmQuantizeTest = {
 							var featureSetF = this.quantizeObj.tmpFeatureSet[fCnt];
 
 							if(Number(attrValue) >= Number(featureSetF.minVal) && Number(attrValue) <= Number(featureSetF.maxVal)){
-								//////console.info(attrValue);
 								this.quantizeObj.tmpFeatureSet[fCnt].features.push(features[oCnt]);
 							}
 						}
 					}
 					
-					//////console.info(this.quantizeObj.featureSet);
 					
 					var zeroCnt = 0;
 					var oneMoreCnt = 0;
@@ -255,8 +244,6 @@ var tmQuantizeTest = {
 						}
 					}
 					
-					//////console.info(zeroCnt);
-					//////console.info(oneMoreCnt);
 					
 					var minRange = Math.round(originRange / 2);
 					var totFCnt = this.quantizeObj.originFeatures.length;
@@ -347,7 +334,6 @@ var tmQuantizeTest = {
 var percentile = {
 	rstFeatureSet: [],
 	quantile: function(array, percentile){
-		////console.info(array);
 			
 		array.sort(function(a, b){
 			return a - b;
@@ -369,7 +355,6 @@ var percentile = {
 		return result;
 	},
 	getPercentileObj: function(arrFeatures, attrPath, range, pos, kind){
-		////console.info(arrFeatures);
 		
 		var me = this;
 		me.rstFeatureSet = [];
@@ -391,7 +376,6 @@ var percentile = {
 			arrPercentiles.push(percentile);
 		}
 		
-		//console.info(attrPath);
 		if(kind == "pollution"){
 			for(var i = 0; i < coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0].length ;i ++){
 				var data = eval("coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][i].data."+attrPath);
@@ -403,7 +387,6 @@ var percentile = {
 				arrValues.push(data);
 			}
 		}
-		//console.info(arrValues);
 		
 		
 		var minVal = "0";
@@ -434,7 +417,6 @@ var percentile = {
 					
 					
 					var data = eval("arrFeatures[i].attributes." + attrPath);
-					//console.info(data);
 					if(data >= curMinVal && data < curMaxVal){
 						
 						arrFeatures[i].attributes.stVal = curMinVal;
@@ -447,15 +429,12 @@ var percentile = {
 				}
 			}
 			
-			////console.info(features);
 			minVal = curMaxVal;
 			
 			var fObj = {minVal: curMinVal, maxVal: curMaxVal, range: curRange, features: features};
-			//console.info(fObj);
 			me.rstFeatureSet.push(fObj);
 		});
 		
-		//////console.info(me.rstFeatureSet);
 		return this;
 	},
 	// 지정자리 반올림 (값, 자릿수)
@@ -503,9 +482,9 @@ getQuantizeObj = function(featureSet, attrName, range, kind){
 	return quantize.rstFeatureSet;
 }
 
-pollutionLayerSelect = function(value){
+pollutionLayerSelect = function(value , onOff){
 	
-	pollutionLayerOnOff(undefined, value);
+	pollutionLayerOnOff(onOff, value);
 }
 
 
@@ -544,7 +523,6 @@ pollutionLayerOnOff = function(onOff, value){
 			
 			// 주제도 레이어 클리어
 			pollutionCatLayerClear();
-			//////console.info(this.tmGraphicLayerCat.id);
 		}
 		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
 			
@@ -585,8 +563,6 @@ catTMLayerOnOff = function(onOff){
 	
 	var catTMOnOff = $("#catTMOnOff");
 	var corMap = GetCoreMap();
-	//////console.info(catTMOnOff[0]);
-	////console.info(catTMOnOff);
 	if(catTMOnOff[0] != undefined){
 	
 		var imgSrc = catTMOnOff[0].src;
@@ -603,7 +579,6 @@ catTMLayerOnOff = function(onOff){
 			
 			// 주제도 레이어 클리어
 			tmCatLayerClear();
-			//////console.info(this.tmGraphicLayerCat.id);
 		}
 		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
 			
@@ -670,7 +645,6 @@ showCatPollutionLayer = function(year, colName, value){
 	}
 	
 
-	////console.info(coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution);
 	
 	var inStrCatDids = "";
 	
@@ -869,7 +843,6 @@ getCatRangeRadius = function(range){
     
     var coreMap = GetCoreMap();
 	var mapLevel = coreMap.map.getLevel();
-	//////console.info(mapLevel);
 	
 	/*if(mapLevel <= 12){
 		
@@ -956,7 +929,6 @@ tmCatLayerClear = function(){
 pollutionCatLayerClear = function(){
 	
 	var coreMap = GetCoreMap();
-	////console.info(coreMap);
 	if(coreMap.pollutionLayerAdmin != undefined && coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat != undefined){
 		
 		coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.setVisibility(false);
@@ -1035,7 +1007,6 @@ PollLoadSearchResult = function(value){
 				autoResize: true
 		};
 		
-		//////console.info(pollgrdContainer);
 		
 		var pollgrdContainer = undefined; //재검색 초기화
 		pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
@@ -1133,7 +1104,6 @@ PollutionSearchResult = function(value){
 	
 	var pollutiongrdCtl = pollutiongrdContainer.items.items[0]; // 그리드 컨테이너
 	pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
-	//console.info(value);
 	var pollutionstore = Ext.create("KRF_DEV.store.east.PollutionResult_01",{
 		catDid : catDid,
 		selectValue: value
@@ -1142,6 +1112,28 @@ PollutionSearchResult = function(value){
 	
 	pollutiongrdCtl.setStore(pollutionstore);
 	
+	console.info(pollutiongrdCtl);
+	/*if(value == "11" ){
+		pollgrdCtl.columns[3].setHidden(true);
+		pollgrdCtl.columns[4].setHidden(true);
+		pollgrdCtl.columns[5].setHidden(true);
+		pollgrdCtl.columns[6].setHidden(true);
+	}else if(value == "22"){
+		pollgrdCtl.columns[3].setHidden(true);
+		pollgrdCtl.columns[4].setHidden(true);
+		pollgrdCtl.columns[5].setHidden(true);
+		pollgrdCtl.columns[6].setHidden(false);
+	}else if(value == "33"){
+		pollgrdCtl.columns[3].setHidden(false);
+		pollgrdCtl.columns[4].setHidden(true);
+		pollgrdCtl.columns[5].setHidden(true);
+		pollgrdCtl.columns[6].setHidden(false);
+	}else{
+		pollgrdCtl.columns[3].setHidden(false);
+		pollgrdCtl.columns[4].setHidden(false);
+		pollgrdCtl.columns[5].setHidden(false);
+		pollgrdCtl.columns[6].setHidden(false);
+	}*/
 	
 	
 
