@@ -35,7 +35,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 	}, {
 		xtype: 'rpt-east-rptSetSiteList',
 		title: '지점',
-		height: 600
+		height: 700
 	}, {
 		xtype: 'container',
 		layout: {
@@ -64,13 +64,23 @@ Ext.define('Report.view.east.rptSetContainer', {
 						}
 						
 						paramCode = paramCode.substring(0, paramCode.length - 2);
-						console.info(paramCode);
+						//console.info(paramCode);
 						
 						//var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
 	    				var startYear = Ext.getCmp("cmbRptPeriodStYear").getValue();
-	    				console.info(startYear);
+	    				//console.info(startYear);
 	    				var endYear = Ext.getCmp("cmbRptPeriodEdYear").getValue();
-	    				console.info(endYear);
+	    				//console.info(endYear);
+	    				
+	    				if(endYear < startYear){
+	    					alert("검색 종료년도가 시작년도보다 작습니다.");
+	    					return;
+	    				}
+	    				
+	    				if(endYear - startYear > 2){
+	    					alert("검색 기간은 3년을 초과할 수 없습니다.");
+	    					return;
+	    				}
 	    				
 						Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
 					}
