@@ -1,7 +1,7 @@
-Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
+Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	
-	tmGraphicLayerCat: null,
-	tmLabelLayerCat: null,
+	pollutionGraphicLayerCat: null,
+	pollutionLabelLayerCat: null,
 	
 	initOpacity: "1", // 기본 투명도
 	mouseOverOpacity: "0.4", // 마우스 오버시 투명도
@@ -16,34 +16,13 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		
     },
     
-    // 집수구역별 부하량 주제도 그리기
+    // 집수구역별 오염원 주제도 그리기
     drawTMCatLayer: function(inStrCatDids, year, colName, kind){
-    	console.info(kind)
+    	//console.info(kind);
+    	//////console.info("here");
     	var me = this;
     	var coreMap = GetCoreMap();
         
-        /* Definition FeatureLayer 생성 */
-		/*coreMap.tmLayerCat = new esri.layers.FeatureLayer("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/2", {
-        	outFields: ["*"]
-        });
-        
-		coreMap.tmLayerCat.id = "DynamicLayerTMAdmin_test";
-		coreMap.tmLayerCat.visible = true;
-        
-		coreMap.tmLayerCat.setDefinitionExpression("CAT_DID IN (" + inStrCatDids + ")");*/
-        /* Definition FeatureLayer 생성 끝 */
-        
-        /* Definition DynamicLayer 생성 */
-		/*coreMap.tmLayerCat = new esri.layers.ArcGISDynamicMapServiceLayer("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer", {
-        	outFields: ["*"]
-        });
-        
-		coreMap.tmLayerCat.setVisibleLayers([2]);
-		var tmLayerCatDefs = [];
-		tmLayerCatDefs[2] = "CAT_DID IN (" + inStrCatDids + ")";
-		coreMap.tmLayerCat.setLayerDefinitions(tmLayerCatDefs);*/
-        /* Definition DynamicLayer 생성 끝 */
-		
 		require([
 		         "esri/tasks/QueryTask",
                  "esri/tasks/query",
@@ -84,23 +63,26 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 			}
 			
 			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/" + layerId);
-			
+			console.info("1");
 			var query = new Query();
 	        query.returnGeometry = true;
 	        query.outFields = ["*"];
 	        query.outSpatialReference = {
 	          "wkid": 102100
 	        };
+	        //console.info(inStrCatDids);
 	        query.where = "CAT_DID IN (" + inStrCatDids + ")";
 	        
 	        queryTask.execute(query, function(tmCatFeatureSet){
-	        	if(me.tmGraphicLayerCat == undefined || me.tmGraphicLayerCat == null){
+	        	console.info("2");
+	        	
+	        	if(me.pollutionGraphicLayerCat == undefined || me.pollutionGraphicLayerCat == null){
 		        	// 폴리곤 레이어 생성
-		        	me.tmGraphicLayerCat = new GraphicsLayer();
-		        	me.tmGraphicLayerCat.id = "tmGraphicLayerCat";
+		        	me.pollutionGraphicLayerCat = new GraphicsLayer();
+		        	me.pollutionGraphicLayerCat.id = "pollutionGraphicLayerCat";
 	        	}
 	        	
-	        	me.tmGraphicLayerCat.setVisibility(true);
+	        	me.pollutionGraphicLayerCat.setVisibility(true);
 	        	
 	        	if(me.circleGraphicLayer == undefined || me.circleGraphicLayer == null){
 		        	// 원형 심볼 레이어
@@ -110,21 +92,21 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	
 	        	me.circleGraphicLayer.setVisibility(true);
 	        	
-	        	if(me.barImgGraphicLayer == undefined || me.barImgGraphicLayer == null){
+	        	if(me.pollutionbarImgGraphicLayer == undefined || me.pollutionbarImgGraphicLayer == null){
 		        	// 막대 심볼 레이어
-		        	me.barImgGraphicLayer = new GraphicsLayer();
-		        	me.barImgGraphicLayer.id = "barImgGraphicLayer";
+		        	me.pollutionbarImgGraphicLayer = new GraphicsLayer();
+		        	me.pollutionbarImgGraphicLayer.id = "pollutionbarImgGraphicLayer";
 	        	}
 	        	
-	        	me.barImgGraphicLayer.setVisibility(true);
+	        	me.pollutionbarImgGraphicLayer.setVisibility(true);
 	        	
-	        	if(me.tmLabelLayerCat == undefined || me.tmLabelLayerCat == null){
+	        	if(me.pollutionLabelLayerCat == undefined || me.pollutionLabelLayerCat == null){
 		        	// 라벨 레이어 생성
-		        	me.tmLabelLayerCat = new GraphicsLayer();
-		        	me.tmLabelLayerCat.id = "tmLabelLayerCat";
+		        	me.pollutionLabelLayerCat = new GraphicsLayer();
+		        	me.pollutionLabelLayerCat.id = "pollutionLabelLayerCat";
 	        	}
-	        	
-	        	me.tmLabelLayerCat.setVisibility(true);
+	        	console.info("3");
+	        	me.pollutionLabelLayerCat.setVisibility(true);
 	        	
 	        	// 폴리곤 그래픽 심볼 생성
         		var tmCatFillSymbol = new SimpleFillSymbol(
@@ -136,58 +118,56 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
         				),
         				new Color([255, 0, 0, 1])
         		);
-	        	
+        		console.info("4");
 	        	var tmCatFeatures = tmCatFeatureSet.features;
-	        	console.info(tmCatFeatures);
-	        	console.info(colName);
 	        	var range = 15;
 	        	
 	        	/* 범위, 값 매핑 오브젝트 생성 */
 	        	var quantizeObj = "";
 	        	
 	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range, kind);
-	        	console.info(quantizeObj);
-	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
-	        	
+	        	//console.info(quantizeObj);
+	        	////////console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
+	        	console.info("5");
 	        	for(var range = 0; range < quantizeObj.length; range++){
-	        		
 	        		//tmCatFeatures == null;
 	        		tmCatFeatures = quantizeObj[range].features;
-	        		console.info(tmCatFeatures);
+	        		console.info("6");
+	        		//////console.info(tmCatFeatures);
 		        	//quantize = getQuantize(minVal, maxVal, range);
-		        	console.info(tmCatFeatures.length);
-		        	for(var i = 0; i < tmCatFeatures.length; i++){
-		        		
+		        	//console.info(tmCatFeatures.length);
+		        	for(var i = 0; i < tmCatFeatures.length; i++){console.info("7");
 		        		// 폴리곤 그래픽 지정
 		        		var tmCatGraphic = tmCatFeatures[i];
 		        		// 폴리곤 심볼 지정
 		        		tmCatGraphic.setSymbol(tmCatFillSymbol);
 		        		// 폴리곤 그래픽 추가
-		        		me.tmGraphicLayerCat.add(tmCatGraphic);
+		        		me.pollutionGraphicLayerCat.add(tmCatGraphic);
 		        		
 		        		/* 폴리곤 중심점 가져오기 */
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
-		        		// 발생부하량 BOD 합계
-		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
+		        		// 발생오염원 BOD 합계
+		        		var gnrBodSu = eval("coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][i].data."+colName);
 		        		//console.info(colName);
+		        		////console.info(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][i].data.POP_SUM);
+		        		////////console.info(colName);
 		        		// 라벨 텍스트 설정
 		        		//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
 		        		var gnrBodSulabel = gnrBodSu + "kg/일";
-		        		
+		        		console.info("8");
 		        		// 텍스트 라벨 생성
 		        		var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
 		        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
 		        						new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
 		        		// 라벨 그래픽 생성
-		        		console.info(tmCatLabelSymbol);
 		        		var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
-		        		// 집수구역 부하량 속성 데이터 카피
+		        		// 집수구역 오염원 속성 데이터 카피
 		        		tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
-		        		me.tmLabelLayerCat.add(tmCatLabelGraphic);
+		        		me.pollutionLabelLayerCat.add(tmCatLabelGraphic);
 		        		
 		        		//var range = quantize(gnrBodSu);
-		        		
+		        		console.info("9");
 		        		var circle = new Circle({
 		        			center: centerPoint,
 		        			radius: getCatRangeRadius(range)
@@ -195,37 +175,37 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		
 		        		// 원형 그래픽 생성
 		        		var cirCleGraphic = new Graphic(circle, tmCatFillSymbol);
-		        		// 집수구역 부하량 속성 데이터 카피
+		        		// 집수구역 오염원 속성 데이터 카피
 		        		cirCleGraphic.attributes = tmCatGraphic.attributes;
 		        		me.circleGraphicLayer.add(cirCleGraphic);
 		        		
 		        		// 이미지 심볼 생성
 		        		var barImgSymbol = new PictureMarkerSymbol(getCatRangeBarSrc(Math.floor(range/2)), 25, 63).setOffset(0, 25);
 		        		var barImgGraphic = new Graphic(centerPoint, barImgSymbol);
-		        		// 집수구역 부하량 속성 데이터 카피
+		        		// 집수구역 오염원 속성 데이터 카피
 		        		barImgGraphic.attributes = tmCatGraphic.attributes;
-		        		me.barImgGraphicLayer.add(barImgGraphic);
+		        		me.pollutionbarImgGraphicLayer.add(barImgGraphic);
+		        		console.info("10");
 		        	}
 	        	}
 	        	
 	        	/* 폴리곤 그래픽 이벤트 */
-	        	on(me.tmGraphicLayerCat, "graphic-draw", function(evt){
+	        	on(me.pollutionGraphicLayerCat, "graphic-draw", function(evt){
 	        		
-	        		//console.info(evt);
+	        		////////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
-	        		//console.info(evt);
+	        		////////console.info(evt);
                     range = attrs.range;
-                    
-                    // 집수구역별 부하량 폴리곤 그래픽 스타일 셋팅
-                    console.info(attrs.CAT_DID);
+                    ////console.info(attrs)
+                    // 집수구역별 오염원 폴리곤 그래픽 스타일 셋팅
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, attrs.color);
-                    
+                    console.info(attrs.CAT_DID);
                     // 범례와 연계하기 위해 클래스 지정 (가상)
                     evt.node.setAttribute("class", "polySymbol_" + range);
 	        	});
 	        	
-	        	on(me.tmGraphicLayerCat, "mouse-over", function(evt){
+	        	on(me.pollutionGraphicLayerCat, "mouse-over", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
@@ -238,10 +218,10 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	
 	        	
 	        	//클릭 이벤트
-	        	on(me.tmGraphicLayerCat, "click", function(evt){
+	        	/*on(me.pollutionGraphicLayerCat, "click", function(evt){
 	        		
-	        		console.info(evt.graphic.attributes.CAT_DID);
-	        		
+	        		//////console.info(evt.graphic.attributes.CAT_DID);
+	        		////console.info(evt.graphic.attributes.CAT_DID);
 	        		var value = Ext.getCmp("pollLoadSelect").value;
 	        		
 	        		if(value == 11 || value == 22){
@@ -253,9 +233,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		}
 	        		
 	        		
-	        	});
+	        	});*/
 	        	
-	        	on(me.tmGraphicLayerCat, "mouse-out", function(evt){
+	        	on(me.pollutionGraphicLayerCat, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		//polySymbol[0].setAttribute("opacity", me.initOpacity);
@@ -269,7 +249,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 폴리곤 그래픽 이벤트 끝 */
 	        	
 	        	/* 이미지 그래픽 이벤트 */
-	        	on(me.barImgGraphicLayer, "mouse-over", function(evt){
+	        	on(me.pollutionbarImgGraphicLayer, "mouse-over", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
@@ -280,7 +260,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		me.setAttributeLegend("on", range);
 	        	});
 	        	
-	        	on(me.barImgGraphicLayer, "mouse-out", function(evt){
+	        	on(me.pollutionbarImgGraphicLayer, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		//polySymbol[0].setAttribute("opacity", me.initOpacity);
@@ -294,9 +274,9 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 이미지 그래픽 이벤트 끝 */
 	        	
 	        	/* 라벨 그래픽 이벤트 */
-	        	on(me.tmLabelLayerCat, "graphic-draw", function(evt){
+	        	on(me.pollutionLabelLayerCat, "graphic-draw", function(evt){
 	        		
-	        		//console.info(evt);
+	        		////////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
 	        		
@@ -309,7 +289,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                     evt.node.setAttribute("class", "labelSymbol_" + range);
 	        	});
 
-	        	on(me.tmLabelLayerCat, "mouse-over", function(evt){
+	        	on(me.pollutionLabelLayerCat, "mouse-over", function(evt){
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		//polySymbol[0].setAttribute("opacity", me.mouseOverOpacity);
 	        		me.setPolyFillColor(polySymbol[0], me.mouseOverColor);
@@ -319,7 +299,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		me.setAttributeLegend("on", range);
 	        	});
 	        	
-	        	on(me.tmLabelLayerCat, "mouse-out", function(evt){
+	        	on(me.pollutionLabelLayerCat, "mouse-out", function(evt){
 	        		
 	        		var polySymbol = $("#polySymbol_" + evt.graphic.attributes.CAT_DID);
 	        		//polySymbol[0].setAttribute("opacity", me.initOpacity);
@@ -335,29 +315,29 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 원형 그래픽 이벤트 */
 	        	on(me.circleGraphicLayer, "graphic-draw", function(evt){
 	        		
-	        		//console.info(evt);
+	        		////////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
 	        		
                     range = attrs.range;
                     
-                    // 집수구역별 부하량 원형 그래픽 스타일 셋팅
+                    // 집수구역별 오염원 원형 그래픽 스타일 셋팅
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, getCatRangeColor(range));
 	        	});
 	        	/* 원형 그래픽 이벤트 끝 */
 	        	
-	        	// 집수구역 부하량 폴리곤 레이어 추가
-	        	coreMap.map.addLayer(me.tmGraphicLayerCat);
+	        	// 집수구역 오염원 폴리곤 레이어 추가
+	        	coreMap.map.addLayer(me.pollutionGraphicLayerCat);
 	        	
-	        	// 집수구역 부하량 원형 레이어 추가 (사용안함)
+	        	// 집수구역 오염원 원형 레이어 추가 (사용안함)
 	        	me.circleGraphicLayer.setVisibility(false);
 	        	coreMap.map.addLayer(me.circleGraphicLayer);
 	        	
-	        	// 집수구역 부하량 이미지 레이어 추가
-	        	coreMap.map.addLayer(me.barImgGraphicLayer);
+	        	// 집수구역 오염원 이미지 레이어 추가
+	        	coreMap.map.addLayer(me.pollutionbarImgGraphicLayer);
 	        	
-	        	// 집수구역 부하량 라벨 레이어 추가
-	        	coreMap.map.addLayer(me.tmLabelLayerCat);
+	        	// 집수구역 오염원 라벨 레이어 추가
+	        	coreMap.map.addLayer(me.pollutionLabelLayerCat);
 	        	
 	        	/* 레전드 그리기 */
 	        	me.createLegend(quantizeObj);
@@ -471,10 +451,10 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             
             tmLegendSymbol.on("mouseout", function(evt){
             	
-            	//console.info(evt);
+            	////////console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var fillColor = evt.target.getAttribute("fillcolor");
-            	//console.info(fillColor);
+            	////////console.info(fillColor);
             	// 범례 스타일 설정
         		me.setAttributeLegend("off", range);
             	
@@ -490,7 +470,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             
             /*tmLegendSymbol.on("click", function(evt){
             	
-            	//console.info(evt);
+            	////////console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var polySymbol = $(".polySymbol_" + range);
             	

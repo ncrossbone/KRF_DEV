@@ -180,8 +180,12 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				//검색결과 "검색"시 부하량 표출
         				if(record.id == "pollLoad"){
         					PollLoadSearchResult("");
+        				}else if(record.id == "pollution_01"){
+        					PollutionSearchResult("");
         				}
                 		
+        				
+        				
                 	//}
             	}
             	
