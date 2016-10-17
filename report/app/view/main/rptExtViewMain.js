@@ -1,11 +1,11 @@
-Ext.define('KRF_DEV.view.main.rptExtViewMain', {
+Ext.define('Report.view.main.rptExtViewMain', {
 	
     extend: 'Ext.container.Container',
 
-    xtype: 'app-report-rptextviewmain',
+    xtype: 'rpt-main-rptExtViewMain',
     
-    requires:['KRF_DEV.view.map.rptCoreMap',
-              'KRF_DEV.view.east.rptSetContainer'],
+    requires:['Report.view.map.rptCoreMap',
+              'Report.view.east.rptSetContainer'],
     
     layout: {
 		type: "absolute"
@@ -19,13 +19,18 @@ Ext.define('KRF_DEV.view.main.rptExtViewMain', {
             type: 'hbox'
         },
         items: [{
-        	xtype: 'app-report-rptcoremap',
+        	xtype: 'rpt-map-rptCoreMap',
         	width: 900,
         	height: 900
         }, {
-        	xtype: 'app-report-rptsetcontainer',
-        	width: 300,
-        	height: 900
+        	xtype: 'panel',
+        	title: '지점설정',
+        	width: 500,
+        	height: 900,
+        	style: 'margin-left: 10px;',
+        	items: [{
+        		xtype: 'rpt-east-rptSetContainer'
+        	}]
         }]
     }]
 });
