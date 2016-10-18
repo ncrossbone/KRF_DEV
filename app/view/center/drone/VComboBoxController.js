@@ -29,8 +29,10 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			activeLayer = me.map.getLayer("DroneFeatureLayer2");
 		}else if(cboDroneArea.lastValue == "R01_2"){
 			activeLayer = me.map.getLayer("DroneFeatureLayer3");
-		}else {
+		}else if(cboDroneArea.lastValue == "R04"){
 			activeLayer = me.map.getLayer("DroneFeatureLayer4");
+		}else{
+			activeLayer = me.map.getLayer("DroneFeatureLayer5");
 		}
 		
 		if(activeLayer != undefined && activeLayer != null)
@@ -106,8 +108,10 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin2");
 		}else if(newValue == "R01_2"){
 			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin3");
-		}else{
+		}else if(newValue == "R04"){
 			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin4");
+		}else{
+			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin5");
 		}
 		//console.info(siteListStore);
 		siteListStore.load();
@@ -264,8 +268,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 					}else if(cboDroneArea.lastValue == "R01_2"){
 						activeLayer = me.map.getLayer("DroneFeatureLayer3");
 						activeLayer.setVisibility(false);
-					}else{
+					}else if(cboDroneArea.lastValue == "R04"){
 						activeLayer = me.map.getLayer("DroneFeatureLayer4");
+						activeLayer.setVisibility(false);
+					}else{
+						activeLayer = me.map.getLayer("DroneFeatureLayer5");
 						activeLayer.setVisibility(false);
 					}
 				}
@@ -283,12 +290,13 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 						activeLayer = me.map.getLayer("DroneFeatureLayer2");
 					}else if(cboDroneArea.lastValue == "R01_2"){
 						activeLayer = me.map.getLayer("DroneFeatureLayer3");
-					}else{
+					}else if(cboDroneArea.lastValue == "R04"){
 						activeLayer = me.map.getLayer("DroneFeatureLayer4");
+					}else{
+						activeLayer = me.map.getLayer("DroneFeatureLayer5");
 					}
 					activeLayer.setVisibility(true);
 				}
-
 			}	
 		}
 		
@@ -508,7 +516,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
             	}
             	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', mapCtl.map,itemValue);
         	}
-    	}else{// 금강 수계
+    	}else if(cboDroneArea.lastValue == "R04"){//금강
     		var mapCtl = Ext.getCmp('_mapDiv_');
         	if(mapCtl != undefined && mapCtl.map != undefined && mapCtl.map != null){
             	var layer = mapCtl.map.getLayer("DroneFeatureLayer4");
@@ -520,6 +528,19 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
             		mapCtl.map.removeLayer(layer);
             	}
             	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', mapCtl.map,itemValue);
+        	}
+    	}else{// 영산강 수계
+    		var mapCtl = Ext.getCmp('_mapDiv_');
+        	if(mapCtl != undefined && mapCtl.map != undefined && mapCtl.map != null){
+            	var layer = mapCtl.map.getLayer("DroneFeatureLayer5");
+            	if(layer != undefined){
+            		mapCtl.map.removeLayer(layer);
+            	}
+            	var layer = mapCtl.map.getLayer("labels");
+            	if(layer != undefined){
+            		mapCtl.map.removeLayer(layer);
+            	}
+            	mapCtl.featureLayerAdmin = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin5', mapCtl.map,itemValue);
         	}
     	}
     	
@@ -565,6 +586,16 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	    	level = 10;
 	    }
 	    
+	    //영산강
+	    if(areaNmae == "R05"){
+	    	varXmin=13957401.797217427;
+	    	varYmin=4066218.8579292106;
+	    	varXmax=14362518.047129015;
+	    	varYmax=4234380.320156664;
+	    	
+	    	level = 10;
+	    }
+	    
 		var extent = new esri.geometry.Extent({
 			xmin: varXmin,
 			ymin: varYmin,
@@ -574,6 +605,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	      	  wkid: 102100
 	        }
 	    });
+		
+		
 		
 		me.map.centerAndZoom(extent.getCenter(), level);
 	},
