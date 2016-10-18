@@ -10,3 +10,5 @@ senchaCMD_watch.bat
 ext/
 packages/
 sass/
+build/
+resources/saveImgTemp/
