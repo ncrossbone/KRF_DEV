@@ -1582,6 +1582,8 @@ ResetButtonClick = function(){
 	
 	// 주제도 레이어 off
 	catTMLayerOnOff("off");
+	
+	pollutionLayerOnOff("off","");
 }
 
 // 주제도 레이어 on/off

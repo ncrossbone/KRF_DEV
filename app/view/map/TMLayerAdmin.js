@@ -17,8 +17,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     },
     
     // 집수구역별 부하량 주제도 그리기
-    drawTMCatLayer: function(inStrCatDids, year, colName){
-    	
+    drawTMCatLayer: function(inStrCatDids, year, colName, kind){
+    	console.info(kind)
     	var me = this;
     	var coreMap = GetCoreMap();
         
@@ -94,9 +94,6 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        query.where = "CAT_DID IN (" + inStrCatDids + ")";
 	        
 	        queryTask.execute(query, function(tmCatFeatureSet){
-	        	
-	        	//console.info(tmCatFeatureSet);
-	        	
 	        	if(me.tmGraphicLayerCat == undefined || me.tmGraphicLayerCat == null){
 		        	// 폴리곤 레이어 생성
 		        	me.tmGraphicLayerCat = new GraphicsLayer();
@@ -147,7 +144,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 범위, 값 매핑 오브젝트 생성 */
 	        	var quantizeObj = "";
 	        	
-	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range);
+	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range, kind);
 	        	
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
@@ -155,7 +152,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        		
 	        		//tmCatFeatures == null;
 	        		tmCatFeatures = quantizeObj[range].features;
-	        		//console.info(tmCatFeatures);
+	        		
 		        	//quantize = getQuantize(minVal, maxVal, range);
 		        	
 		        	for(var i = 0; i < tmCatFeatures.length; i++){
@@ -166,7 +163,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		tmCatGraphic.setSymbol(tmCatFillSymbol);
 		        		// 폴리곤 그래픽 추가
 		        		me.tmGraphicLayerCat.add(tmCatGraphic);
-		        		
+		        		console.info(tmCatGraphic);
 		        		/* 폴리곤 중심점 가져오기 */
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
@@ -182,6 +179,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
 		        						new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
 		        		// 라벨 그래픽 생성
+		        		console.info(tmCatLabelSymbol);
 		        		var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
 		        		// 집수구역 부하량 속성 데이터 카피
 		        		tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
@@ -219,6 +217,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                     range = attrs.range;
                     
                     // 집수구역별 부하량 폴리곤 그래픽 스타일 셋팅
+                    console.info(attrs.CAT_DID);
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, attrs.color);
                     
                     // 범례와 연계하기 위해 클래스 지정 (가상)

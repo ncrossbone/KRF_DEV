@@ -59,8 +59,7 @@ var tmQuantizeTest = {
 				var obj = {stVal: stVal, edVal: edVal, range: curRange};
 				
 				arrQuantize.push(obj);
-				//console.info(quanCnt);
-				//console.info(arrQuantize[quanCnt]);
+				
 				if(arrQuantize[quanCnt].features == undefined){
 					
 					arrQuantize[quanCnt].features = [];
@@ -82,7 +81,6 @@ var tmQuantizeTest = {
 			this.quantizeObj.rstFeatureSet.push(arrQuantize[quanCnt]);
 		}
 		
-		//console.info(this.quantizeObj.rstFeatureSet);
 	},
 	setOneMoreFeature: function(featureSet, attrName, oneMoreCnt, recursiveCnt){
 		
@@ -129,12 +127,8 @@ var tmQuantizeTest = {
 			}
 		}
 		else{
-			//console.info(recursiveCnt);
 			var restCnt = oneMoreCnt % 8; // 나머지
 			var quotientCnt = this.Floor(oneMoreCnt / 8, 0); // 몫
-			console.info(oneMoreCnt);
-			console.info(restCnt);
-			console.info(quotientCnt);
 			var plusCnt1 = 0;
 			
 			/*for(var i = 0; i < featureSet.length; i += plusCnt1){
@@ -154,14 +148,12 @@ var tmQuantizeTest = {
 			}*/
 		}
 		
-		console.info(this.quantizeObj.rstFeatureSet);
 	},
 	setScale: function(featureSet, attrName){
 		
 		this.setRange = function(originRange){
 			
 			var range = originRange * this.quantizeObj.recursiveCnt; // 재귀 카운트 만큼 곱하기..
-			//console.info(range);
 			
 			// 소수점 자릿수 설정 (digit: 자릿수, roundUpDown: 반올림[round] 올림[up] 내림[down])
 			this.setPointCipher = function(digit, roundUpDown){
@@ -218,7 +210,6 @@ var tmQuantizeTest = {
 					
 					// 피처 정렬
 					var features = this.getSortArray(featureSet.features, attrName, "DESC");
-					//console.info(features);
 					for(var fCnt = 0; fCnt < this.quantizeObj.tmpFeatureSet.length; fCnt++){
 						
 						for(var oCnt = 0; oCnt < features.length; oCnt++){
@@ -232,13 +223,11 @@ var tmQuantizeTest = {
 							var featureSetF = this.quantizeObj.tmpFeatureSet[fCnt];
 
 							if(Number(attrValue) >= Number(featureSetF.minVal) && Number(attrValue) <= Number(featureSetF.maxVal)){
-								//console.info(attrValue);
 								this.quantizeObj.tmpFeatureSet[fCnt].features.push(features[oCnt]);
 							}
 						}
 					}
 					
-					//console.info(this.quantizeObj.featureSet);
 					
 					var zeroCnt = 0;
 					var oneMoreCnt = 0;
@@ -255,8 +244,6 @@ var tmQuantizeTest = {
 						}
 					}
 					
-					//console.info(zeroCnt);
-					//console.info(oneMoreCnt);
 					
 					var minRange = Math.round(originRange / 2);
 					var totFCnt = this.quantizeObj.originFeatures.length;
@@ -347,9 +334,9 @@ var tmQuantizeTest = {
 var percentile = {
 	rstFeatureSet: [],
 	quantile: function(array, percentile){
+		console.info(array);
 			
 		array.sort(function(a, b){
-			
 			return a - b;
 		});
 		
@@ -357,22 +344,22 @@ var percentile = {
 		
 		if(Math.floor(index) == index){
 			
-			result = array[index];
+			result = Number(array[index]);
 		}
 		else{
 			
 			var i = Math.floor(index);
 			var fraction = index - i;
-			result = array[i] + (array[i+1] - array[i]) * fraction;
+			result = Number(array[i]) + (Number(array[i+1]) - Number(array[i])) * fraction;
 		}
 		
 		return result;
 	},
-	getPercentileObj: function(arrFeatures, attrPath, range, pos){
+	getPercentileObj: function(arrFeatures, attrPath, range, pos, kind){
 		
 		var me = this;
 		me.rstFeatureSet = [];
-		
+		var coreMap = GetCoreMap();
 		var arrPercentiles = [];
 		var arrValues = [];
 		
@@ -380,7 +367,6 @@ var percentile = {
 		
 		for(var i = 0; i < range; i++){
 			
-			//console.info(Math.round((i + 1) * perRange));
 			var percentile = Math.round((i + 1) * perRange);
 			
 			if(i == range - 1){
@@ -391,8 +377,9 @@ var percentile = {
 			arrPercentiles.push(percentile);
 		}
 		
+		
+		console.info(attrPath);
 		for(var i = 0; i < arrFeatures.length; i++){
-			
 			var data = eval("arrFeatures[i].attributes." + attrPath);
 			arrValues.push(data);
 		}
@@ -407,10 +394,9 @@ var percentile = {
 			
 			var features = [];
 			
+			
 			for(var i = 0; i < arrFeatures.length; i++){
-				
 				var data = eval("arrFeatures[i].attributes." + attrPath);
-				
 				if(data >= curMinVal && data < curMaxVal){
 					
 					arrFeatures[i].attributes.stVal = curMinVal;
@@ -418,17 +404,16 @@ var percentile = {
 					arrFeatures[i].attributes.color = getCatRangeColor(curRange);
 					arrFeatures[i].attributes.range = curRange;
 					
-					features.push(arrFeatures[i])
+					features.push(arrFeatures[i]);
 				}
+				
+				minVal = curMaxVal;
 			}
-			
-			minVal = curMaxVal;
 			
 			var fObj = {minVal: curMinVal, maxVal: curMaxVal, range: curRange, features: features};
 			me.rstFeatureSet.push(fObj);
 		});
 		
-		//console.info(me.rstFeatureSet);
 		return this;
 	},
 	// 지정자리 반올림 (값, 자릿수)
@@ -465,16 +450,81 @@ var percentile = {
 	}
 }
 
-getQuantizeObj = function(featureSet, attrName, range){
+getQuantizeObj = function(featureSet, attrName, range, kind){
 	
-	var quantize = percentile.getPercentileObj(featureSet.features, attrName, range, 0);
-	
+	var quantize = percentile.getPercentileObj(featureSet.features, attrName, range, 0, kind);
+	////console.info(quantize);
 	/*var quantize = tmQuantizeTest.setScale(featureSet, attrName).setRange(range)
 	.setPointCipher(0, "round").setFeatures(featureSet);
 	
 	return quantize.quantizeObj.rstFeatureSet;*/
 	return quantize.rstFeatureSet;
 }
+
+pollutionLayerSelect = function(value , onOff){
+	console.info(onOff);
+	pollutionLayerOnOff(onOff, value);
+}
+
+
+pollutionLayerOnOff = function(onOff, value){
+	
+	var pollutionMapSetValue = Ext.getCmp("pollutionMapSetValue");
+	if(pollutionMapSetValue == undefined){
+		pollutionMapSetValue =  Ext.create("KRF_DEV.view.east.PollutionMapSetValue", {
+			x: Ext.getBody().getWidth() - 261,
+			pollvalue: value,
+			async: false		
+		});
+	}
+	
+	
+	var colName = Ext.getCmp("setPollutionItems").value;
+	
+	
+	
+	var catPollutionOnOff = $("#catPollutionOnOff");
+	var corMap = GetCoreMap();
+	
+	if(catPollutionOnOff[0] != undefined){
+	
+		var imgSrc = catPollutionOnOff[0].src;
+		
+		if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
+			
+			
+			pollutionMapSetValue.close();
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+			
+			catPollutionOnOff[0].src = imgSrc.replace("_on.", "_off.");
+			
+			// 주제도 레이어 클리어
+			pollutionCatLayerClear();
+		}
+		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
+			
+			
+			pollutionMapSetValue.show();
+			// 집수구역 버튼 Off
+			var currCtl = SetBtnOnOff("btnAreaLayer", "off");
+			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+			
+			catPollutionOnOff[0].src = imgSrc.replace("_off.", "_on.");
+			
+			// 주제도 레이어 클리어
+			pollutionCatLayerClear();
+			// 주제도 레이어 보이기
+			showCatPollutionLayer("", colName,value);
+		}
+	}
+	
+	
+	
+	
+}
+
 
 catTMLayerOnOff = function(onOff){
 	
@@ -492,8 +542,6 @@ catTMLayerOnOff = function(onOff){
 	
 	var catTMOnOff = $("#catTMOnOff");
 	var corMap = GetCoreMap();
-	//console.info(catTMOnOff[0]);
-	
 	if(catTMOnOff[0] != undefined){
 	
 		var imgSrc = catTMOnOff[0].src;
@@ -510,7 +558,6 @@ catTMLayerOnOff = function(onOff){
 			
 			// 주제도 레이어 클리어
 			tmCatLayerClear();
-			//console.info(this.tmGraphicLayerCat.id);
 		}
 		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
 			
@@ -554,8 +601,52 @@ showCatTMLayer = function(year, colName){
 	}
 	
 	// 집수구역별 주제도 레이어 그리기 함수 호출
-	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids, year, colName);
+	coreMap.tmLayerAdmin.drawTMCatLayer(inStrCatDids, year, colName, "pollLoad");
 }
+
+//집수구역별 주제도 보여주기
+showCatPollutionLayer = function(year, colName, value){
+	
+	var coreMap = GetCoreMap();
+	var arrAreaGrp = "";
+	
+	//현제 선택되어있는 오염원데이터
+	coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution = [];
+	
+	
+	if(coreMap.reachLayerAdmin_v3_New.arrAreaPollution.length > 0){
+		for(var a = 0; a < coreMap.reachLayerAdmin_v3_New.arrAreaPollution.length ;a++){
+			if(Number(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[a][0]) == value){
+				arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaPollution[a][1][0];
+				coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[a]);
+			}
+		}
+	}
+	
+
+	
+	var inStrCatDids = "";
+	
+	for(var i = 0; i < arrAreaGrp.length; i++){
+		
+		inStrCatDids += "'" + arrAreaGrp[i].data.CAT_DID + "', ";
+	}
+	
+	if(inStrCatDids.length > 0){
+		
+		inStrCatDids = inStrCatDids.substring(0, inStrCatDids.length -2);
+	}
+	
+	if(coreMap.pollutionLayerAdmin == undefined || coreMap.pollutionLayerAdmin == null){
+		
+		coreMap.pollutionLayerAdmin = Ext.create("KRF_DEV.view.map.PollutionLayerAdmin");
+	}
+	
+	coreMap.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, "2012" , colName, "pollution");
+}
+
+//집수구역별 주제도 보여주기
+
 
 // 총량단위유역별 주제도 보여주기
 showTmdlTMLayer = function(){
@@ -731,7 +822,6 @@ getCatRangeRadius = function(range){
     
     var coreMap = GetCoreMap();
 	var mapLevel = coreMap.map.getLevel();
-	//console.info(mapLevel);
 	
 	/*if(mapLevel <= 12){
 		
@@ -793,7 +883,6 @@ tmCatLabelOnOff = function(){
 tmCatLayerClear = function(){
 	
 	var coreMap = GetCoreMap();
-	
 	if(coreMap.tmLayerAdmin != undefined && coreMap.tmLayerAdmin.tmGraphicLayerCat != undefined){
 		
 		coreMap.tmLayerAdmin.tmGraphicLayerCat.setVisibility(false);
@@ -808,6 +897,31 @@ tmCatLayerClear = function(){
 		
 		coreMap.tmLayerAdmin.tmLabelLayerCat.setVisibility(false);
 		coreMap.tmLayerAdmin.tmLabelLayerCat.clear();
+		
+		var legendWindow = Ext.getCmp("tmLegendWindow");
+		if(legendWindow != undefined){
+			legendWindow.close();
+		}
+	}
+}
+
+pollutionCatLayerClear = function(){
+	
+	var coreMap = GetCoreMap();
+	if(coreMap.pollutionLayerAdmin != undefined && coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat != undefined){
+		
+		coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.setVisibility(false);
+		coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.clear();
+		
+		// 클리어시 setVisibility
+		coreMap.pollutionLayerAdmin.pollutionbarImgGraphicLayer.setVisibility(false);
+		coreMap.pollutionLayerAdmin.pollutionbarImgGraphicLayer.clear();
+		
+		coreMap.pollutionLayerAdmin.circleGraphicLayer.setVisibility(false);
+		coreMap.pollutionLayerAdmin.circleGraphicLayer.clear();
+		
+		coreMap.pollutionLayerAdmin.pollutionLabelLayerCat.setVisibility(false);
+		coreMap.pollutionLayerAdmin.pollutionLabelLayerCat.clear();
 		
 		var legendWindow = Ext.getCmp("tmLegendWindow");
 		if(legendWindow != undefined){
@@ -872,7 +986,6 @@ PollLoadSearchResult = function(value){
 				autoResize: true
 		};
 		
-		//console.info(pollgrdContainer);
 		
 		var pollgrdContainer = undefined; //재검색 초기화
 		pollgrdContainer = Ext.getCmp("searchResultPollLoad_container");
@@ -921,4 +1034,95 @@ PollLoadSearchResult = function(value){
 		}
 		
 	
+}
+
+
+
+PollutionSearchResult = function(value){
+	
+	
+	
+	
+	var coreMap = GetCoreMap();
+	
+	var catDid = [];
+	for(var i = 0 ; i < coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][1][0].length ;i++){
+		catDid.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][1][0][i].data.CAT_DID);
+	}
+	
+
+	if(value == ""){
+		value = "11";
+	}
+	
+	var options = {
+			id: 'searchResultTab',
+			//title: '결과탭1',
+			header: false
+	};
+	var searchResultTab = GetTabControl(options);
+	var tab = searchResultTab.items.items[1];
+	//2016-08-24 리치검색시 방유량 그리드 생성
+	var pollutionOptions = {
+			id: "searchResultPollution_01_container",
+			title: '생활계',
+			autoResize: true
+	};
+	
+	
+	var pollutiongrdContainer = undefined; //재검색 초기화
+	pollutiongrdContainer = Ext.getCmp("searchResultPollution_01_container");
+	
+	
+	if(pollutiongrdContainer == null || pollutiongrdContainer == undefined){
+		pollutiongrdContainer = Ext.create("KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01", pollutionOptions);
+		tab.insert(1, pollutiongrdContainer);
+	}
+	tab.setActiveTab("searchResultPollution_01_container");
+	
+	
+	var pollutiongrdCtl = pollutiongrdContainer.items.items[0]; // 그리드 컨테이너
+	pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
+	var pollutionstore = Ext.create("KRF_DEV.store.east.PollutionResult_01",{
+		catDid : catDid,
+		selectValue: value
+	});
+	pollutionstore.load();
+	
+	pollutiongrdCtl.setStore(pollutionstore);
+	
+	console.info(pollutiongrdCtl);
+	
+	
+	
+	for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+		pollutiongrdCtl.columns[k].setHidden(false);
+	}
+	
+	console.info(pollutiongrdCtl);
+	if(value == "11" ){
+		for(var i = 7; i <= 41 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+		
+	}else if(value == "22"){
+		for(var i = 4; i <= 12 ;i++){
+			console.info(i);
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+	}else if(value == "33"){
+		for(var i = 4; i <= 6 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+		for(var i = 8; i <= 12 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+	}else{
+		for(var i = 7; i <= 9 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+	}
+	
+	
+
 }
