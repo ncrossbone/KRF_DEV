@@ -289,7 +289,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		var me = GetCoreMap();
 		
 		
-		
+		var btnId = "catTMOnOff";
 		
 		if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
 			
