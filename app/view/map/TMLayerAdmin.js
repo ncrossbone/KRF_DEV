@@ -18,7 +18,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     
     // 집수구역별 부하량 주제도 그리기
     drawTMCatLayer: function(inStrCatDids, year, colName, kind){
-    	console.info(kind)
+    	//console.info(kind)
     	var me = this;
     	var coreMap = GetCoreMap();
         
@@ -172,7 +172,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		//console.info(colName);
 		        		// 라벨 텍스트 설정
 		        		//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
-		        		var gnrBodSulabel = gnrBodSu + "kg/일";
+		        		var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
 		        		
 		        		// 텍스트 라벨 생성
 		        		var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
@@ -369,7 +369,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     	
     	var coreMap = GetCoreMap();
     	var me = this;
-    	
+    	var test = Ext.getCmp("tmLegendWindow");
+    	console.info(test);
     	// 레전드 윈도우 생성
     	var tmLegendWindow = Ext.create("KRF_DEV.view.map.TMLegendWindow");
     	// 레전드 윈도우 보이기

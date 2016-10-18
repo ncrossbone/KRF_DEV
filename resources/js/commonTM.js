@@ -334,7 +334,6 @@ var tmQuantizeTest = {
 var percentile = {
 	rstFeatureSet: [],
 	quantile: function(array, percentile){
-		console.info(array);
 			
 		array.sort(function(a, b){
 			return a - b;
@@ -362,7 +361,7 @@ var percentile = {
 		var coreMap = GetCoreMap();
 		var arrPercentiles = [];
 		var arrValues = [];
-		
+		//console.info(pos);
 		var perRange = me.Round(100 / range, 1);
 		
 		for(var i = 0; i < range; i++){
@@ -394,11 +393,13 @@ var percentile = {
 			
 			var features = [];
 			
-			
 			for(var i = 0; i < arrFeatures.length; i++){
 				var data = eval("arrFeatures[i].attributes." + attrPath);
+				
+				if(index == range - 1){
+					curMaxVal = Number(curMaxVal) + 1;
+				}
 				if(data >= curMinVal && data < curMaxVal){
-					
 					arrFeatures[i].attributes.stVal = curMinVal;
 					arrFeatures[i].attributes.edVal = curMaxVal;
 					arrFeatures[i].attributes.color = getCatRangeColor(curRange);
@@ -462,7 +463,7 @@ getQuantizeObj = function(featureSet, attrName, range, kind){
 }
 
 pollutionLayerSelect = function(value , onOff){
-	console.info(onOff);
+	//console.info(onOff);
 	pollutionLayerOnOff(onOff, value);
 }
 
@@ -488,11 +489,16 @@ pollutionLayerOnOff = function(onOff, value){
 	
 	if(catPollutionOnOff[0] != undefined){
 	
+		// 주제도 레이어 클리어
+		pollutionCatLayerClear();
+		// 주제도 레이어 클리어
+		tmCatLayerClear();
+		
 		var imgSrc = catPollutionOnOff[0].src;
 		
 		if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
 			
-			
+			//console.info(pollutionMapSetValue);
 			pollutionMapSetValue.close();
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
@@ -500,11 +506,13 @@ pollutionLayerOnOff = function(onOff, value){
 			
 			catPollutionOnOff[0].src = imgSrc.replace("_on.", "_off.");
 			
-			// 주제도 레이어 클리어
-			pollutionCatLayerClear();
+			/*// 주제도 레이어 클리어
+			pollutionCatLayerClear();*/
 		}
 		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
 			
+			// 부하량 레이어 off
+			catTMLayerOnOff("off");
 			
 			pollutionMapSetValue.show();
 			// 집수구역 버튼 Off
@@ -513,8 +521,8 @@ pollutionLayerOnOff = function(onOff, value){
 			
 			catPollutionOnOff[0].src = imgSrc.replace("_off.", "_on.");
 			
-			// 주제도 레이어 클리어
-			pollutionCatLayerClear();
+			/*// 주제도 레이어 클리어
+			pollutionCatLayerClear();*/
 			// 주제도 레이어 보이기
 			showCatPollutionLayer("", colName,value);
 		}
@@ -544,11 +552,16 @@ catTMLayerOnOff = function(onOff){
 	var corMap = GetCoreMap();
 	if(catTMOnOff[0] != undefined){
 	
+		// 주제도 레이어 클리어
+		pollutionCatLayerClear();
+		// 주제도 레이어 클리어
+		tmCatLayerClear();
+		
 		var imgSrc = catTMOnOff[0].src;
 		
 		if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
 			
-			pollMapSetValue.hide();
+			pollMapSetValue.close();
 			
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
@@ -556,10 +569,12 @@ catTMLayerOnOff = function(onOff){
 			
 			catTMOnOff[0].src = imgSrc.replace("_on.", "_off.");
 			
-			// 주제도 레이어 클리어
-			tmCatLayerClear();
+			/*// 주제도 레이어 클리어
+			tmCatLayerClear();*/
 		}
 		else if((onOff == undefined && imgSrc.indexOf("_off.") > -1) || onOff == "on"){
+			
+			pollutionLayerOnOff("off", undefined)
 			
 			pollMapSetValue.show();
 			
@@ -569,8 +584,8 @@ catTMLayerOnOff = function(onOff){
 			
 			catTMOnOff[0].src = imgSrc.replace("_off.", "_on.");
 			
-			// 주제도 레이어 클리어
-			tmCatLayerClear();
+			/*// 주제도 레이어 클리어
+			tmCatLayerClear();*/
 			// 주제도 레이어 보이기
 			showCatTMLayer(year, colName);
 		}
@@ -608,7 +623,7 @@ showCatTMLayer = function(year, colName){
 showCatPollutionLayer = function(year, colName, value){
 	
 	var coreMap = GetCoreMap();
-	var arrAreaGrp = "";
+	var arrAreaGrp = [];
 	
 	//현제 선택되어있는 오염원데이터
 	coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution = [];
@@ -623,7 +638,7 @@ showCatPollutionLayer = function(year, colName, value){
 		}
 	}
 	
-
+console.info(arrAreaGrp);
 	
 	var inStrCatDids = "";
 	
@@ -641,7 +656,7 @@ showCatPollutionLayer = function(year, colName, value){
 		
 		coreMap.pollutionLayerAdmin = Ext.create("KRF_DEV.view.map.PollutionLayerAdmin");
 	}
-	
+	console.info(inStrCatDids);
 	coreMap.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, "2012" , colName, "pollution");
 }
 
@@ -899,6 +914,7 @@ tmCatLayerClear = function(){
 		coreMap.tmLayerAdmin.tmLabelLayerCat.clear();
 		
 		var legendWindow = Ext.getCmp("tmLegendWindow");
+		//console.info(legendWindow);
 		if(legendWindow != undefined){
 			legendWindow.close();
 		}
@@ -924,6 +940,7 @@ pollutionCatLayerClear = function(){
 		coreMap.pollutionLayerAdmin.pollutionLabelLayerCat.clear();
 		
 		var legendWindow = Ext.getCmp("tmLegendWindow");
+		//console.info(legendWindow);
 		if(legendWindow != undefined){
 			legendWindow.close();
 		}

@@ -81,7 +81,6 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	    		for(var i = 0; i < tmCatFeatureSet.features.length; i++){
 	    			for(var j = 0; j < store.data.items.length; j++){
 		    			if(tmCatFeatureSet.features[i].attributes.CAT_DID == store.data.items[j].data.CAT_DID){
-		    				
 		    				eval("tmCatFeatureSet.features[i].attributes."+colName +" = Number(store.data.items[j].data."+colName+")");
 		    						
 		    			}
@@ -137,13 +136,13 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        	/* 범위, 값 매핑 오브젝트 생성 */
 	        	var quantizeObj = "";
 	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range, kind);
+	        	console.info(quantizeObj);
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
-	        	
+	        	//console.info(quantizeObj);
 	        	for(var range = 0; range < quantizeObj.length; range++){
 	        		//tmCatFeatures == null;
 	        		tmCatFeatures = quantizeObj[range].features;
 		        	//quantize = getQuantize(minVal, maxVal, range);
-	        		
 		        	for(var i = 0; i < tmCatFeatures.length; i++){
 		        		// 폴리곤 그래픽 지정
 		        		var tmCatGraphic = tmCatFeatures[i];
@@ -200,7 +199,6 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        			range;
                     range = attrs.range;
                     
-                    console.info(attrs);
                     
                     /*
                     console.info(me.pollutionGraphicLayerCat);
