@@ -361,7 +361,12 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							|| drawOption == "start" || drawOption == "end"){
 							//console.info("Dd");
 							// 하류 조회
-							me.selectDownLine(minRchDid, drawOption, 0);
+							Ext.defer(function(){
+								
+								me.selectDownLine(minRchDid, drawOption, 0);
+								
+							}, 1);
+							
 						}
 						else{
 							
@@ -533,13 +538,18 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 								}
 							}
 							/** 검색설정(본류, 지류) 체크 끝 **/
-							
+							Ext.defer(function(){
+								
+								me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
+					    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
+					    		
+					    		// 검색 종료 체크
+					    		me.isStopCheck();
+								
+								me.defaultDate(droneLayerId,measureDate,drone);
+							}, 1);
 							// 상류 검색
-				    		me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
-				    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
 				    		
-				    		// 검색 종료 체크
-				    		me.isStopCheck();
 				    	}
 					}
 				});
@@ -730,8 +740,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					// 현재 feature 하천 차수
 					var curGeoTrib = feature.attributes.GEO_TRIB;
 					
-					// 최하위노드의 지류인 놈들만 검색한다.
-					if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib <= dnGeoTrib){
+					// if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib <= dnGeoTrib){
+					// 본류이면서 시작위치 하류 배열, 끝위치 하류 배열에 속해있지 않으면 검색 종료 Draw종료
+					if(cnt != 0 && stIdx == -1 && edIdx == -1 && curGeoTrib == 0){
 						
 						isUpSearch = false;
 						isDraw = false;
@@ -1079,7 +1090,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				if(points != undefined){
 					
 					for(var j = 0; j < points.length; j++){
-						console.info(points[j][0]);
+						//console.info(points[j][0]);
 						//points[j][0] = points[j][0] + offset;
 					}
 				}
@@ -1224,6 +1235,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			// 해당 집수구역 조회, 그리기
 			me.selectAreaWithLine(graphic, "draw");
     	}
+    	
+    	//160705 pdj 그리기 완료후 검색결과 on
+    	SetBtnOnOff("btnSearchResult");
     },
     
     /* 라인 지우기 */

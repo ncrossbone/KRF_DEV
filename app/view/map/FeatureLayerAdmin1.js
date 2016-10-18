@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
+Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
 	map:null, 
 	layerId: null,
 	siteId: null,

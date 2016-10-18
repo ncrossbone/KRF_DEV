@@ -20,7 +20,7 @@ var _nameLayerId = null; // 시도 레이어 아이디
 var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
-
+var _MapserviceUrl1 = null;
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
@@ -66,6 +66,7 @@ store.load(function(a, b, c) {
 		_siteInfoLayerId = record.data.siteInfoLayerId;
 		_arcServiceUrl = record.data.arcServiceUrl;
 		_isOffsetPoint = record.data.isOffsetPoint;
+		_MapserviceUrl1 = record.data.MapserviceUrl1;
 	});
 });
 
@@ -94,7 +95,7 @@ Ext.application({
 	 */
 	],
 	launch : function() {
-
+		
 		/*
 		 * Ext.Ajax.on('beforerequest', function (con, opt) {
 		 * //console.info(con); //console.info(opt);
@@ -210,8 +211,10 @@ Ext.application({
 
 			// //console.info(searchText);
 			listWinCtl = Ext.getCmp("siteListWindow");
-			if (listWinCtl == undefined)
+			//console.info(listWinCtl);
+			if (listWinCtl == undefined){
 				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
+			}	
 
 			listWinCtl.show();
 			// alert("dd");
@@ -235,15 +238,19 @@ Ext.application({
 		Ext.HideSiteListWindow = function(currCtl) {
 
 			listWinCtl = Ext.getCmp("siteListWindow");
+			//console.info(listWinCtl);
 
 			if (listWinCtl != undefined)
+				//listWinCtl.hide();
 				listWinCtl.close();
 
 
 			listWinCtl = Ext.getCmp("siteListWindow_reach");
 
 			if (listWinCtl != undefined)
+				//listWinCtl.hide();
 				listWinCtl.close();
+			
 
 			// 좌측 정보창 버튼 off
 			SetBtnOnOff("btnSiteListWindow", "off");
@@ -256,8 +263,7 @@ Ext.application({
 			infoWinCtl = Ext.getCmp("siteInfoWindow");
 
 			if (infoWinCtl == undefined)
-				infoWinCtl = Ext
-						.create('KRF_DEV.view.east.SiteInfoWindow');
+				infoWinCtl = Ext.create('KRF_DEV.view.east.SiteInfoWindow');
 
 			infoWinCtl.show();
 
@@ -314,6 +320,38 @@ Ext.application({
 				chartWinCtl.hide();
 
 		}
+		
+		
+		
+		Ext.mapServiceUrl = "";
+
+		var responseApp = Ext.Ajax.request({
+		    async: false, // 동기화
+		    url: './resources/data/AppVariable.json'
+		});
+
+		var itemsApp = Ext.decode(responseApp.responseText);
+		//console.info(itemsApp);
+
+		for(var i = 0; i < itemsApp.length; i++){
+			//console.info(itemsApp[i].MapserviceUrl5);
+			if(itemsApp[i].MapserviceUrl1 != undefined)
+				Ext.mapServiceUrl = itemsApp[i].MapserviceUrl1;
+		}
+		//console.info(Ext.mapServiceUrl);
+		
+		
+		
+		/******* 레이어 정보 가져오기 *******/
+		// 표시될 레이어 전역 변수
+		Ext.visibleLayers = [];
+		
+		Ext.featureLayerId = "3";
+
+		var responseLayer = Ext.Ajax.request({
+			async: false, // 동기화
+		    url: './resources/data/drone/LayerMapper.json'
+		});
 
 		/*
 		 * // 검색결과창 띄우기 Ext.ShowSearchResult = function(tabId, title){

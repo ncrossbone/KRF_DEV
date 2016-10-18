@@ -1432,7 +1432,7 @@ try{
    //out.print("success");
 }catch(Exception ex){
 	//throw;
-	System.out.println(ex);
+	
 	//System.out.println(sql);
 	out.print("error");
 } 

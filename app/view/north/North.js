@@ -79,10 +79,10 @@ Ext.define('KRF_DEV.view.north.North', {
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
-    	btnOnOff: 'on',
+    	btnOnOff: 'off',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	src: './resources/images/button/btn_top_02_on.png'
+    	src: './resources/images/button/btn_top_02_off.png'
     }, {
     	xtype: 'container',
     	width: 5
@@ -168,7 +168,7 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn5_off.png'			
-	}/*, {
+	},/*, {
 		xtype: 'image',
     	title: '인쇄',
     	width: 69,
