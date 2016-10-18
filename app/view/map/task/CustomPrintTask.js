@@ -49,7 +49,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 		var svgInfo = $('#'+me.mapDivId+' svg').parent().html();
 		var layerIds = me.map.layerIds;
 		var imageInfos = [];
-		for(var i=0; i<layerIds.length; i++){	
+		for(var i=0; i<layerIds.length; i++){
 			if($('#'+me.mapDivId+'_'+layerIds[i]).css('display')=="none"){
 				continue;
 			}	

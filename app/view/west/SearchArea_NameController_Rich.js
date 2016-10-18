@@ -13,6 +13,22 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		},
 		'#smartButton':{
 			click: 'onClickSmart'
+		},
+		
+		'#textSearchText_Start':{
+			specialkey: function(f,e){
+				if(e.getKey() == e.ENTER){
+					this.onTextSearch();
+				}
+			}
+		},
+		
+		'#textSearchText_End':{
+			specialkey: function(f,e){
+				if(e.getKey() == e.ENTER){
+					this.onTextSearch();
+				}
+			}
 		}
 	},
 	

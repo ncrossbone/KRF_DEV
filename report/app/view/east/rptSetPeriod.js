@@ -62,7 +62,8 @@ Ext.define('Report.view.east.rptSetPeriod', {
 	}, {
 		xtype: "label",
 		text: "년",
-		style: "margin-top: 4px; padding-left: 2px; padding-right: 5px;"
+		style: "margin-top: 4px; padding-left: 2px; padding-right: 5px;",
+		editable: false
 	}/*, {
 		xtype: "combo",
 		id: "cmbRptPeriodEdMonth",
