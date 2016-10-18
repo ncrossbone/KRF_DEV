@@ -110,6 +110,7 @@ if(null != passName){
 		svgExport.doPost(request, response);
 	}
 	else if ("S01".equals(passName)){
+		System.out.println("11111");
 		StringBuffer sessionCookie = new StringBuffer();
 	    Cookie[] cookies = request.getCookies();
 	    if(cookies != null) {

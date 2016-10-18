@@ -132,16 +132,16 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					//console.info(data);
 					
 					var imgPath = data.path;
-					console.info("imgPath=" + imgPath +
-						"&paramCode=" + me.paramCode +
-						"&startYear=" + me.startYear +
-						"&endYear=" + me.endYear);
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
     						"&paramCode=" + me.paramCode +
     						"&startYear=" + me.startYear +
     						"&endYear=" + me.endYear,
     						"",
     						"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+    				
+    				/*setTimeout(function(){
+    					me.imageDelete(imgPath);
+    				},6000);*/
 				}
 				//console.info(data);
 				me.onComplete("complete");
@@ -151,6 +151,22 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 	   		});
 		});
 	},
+	
+	/*imageDelete:function(imgPath){
+		Ext.Ajax.request({
+			//session out-hyeok
+			url : "../resources/jsp/ImgDelete.jsp",
+			async:true,						
+			method : "GET",
+			success : function(result, request) {
+				alert("1");
+			},
+			failure : function(result, request) {
+				Ext.Msg.alert("Failed", "Connection Failed");
+			}
+
+		});
+	},*/
 	
 	imageInfoExtract:function(img, pTranslateInfo){
 		var info = {};

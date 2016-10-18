@@ -21,7 +21,7 @@ oof.addField("START_YR",startYear);
 oof.addField("END_YR",endYear);
 oof.addField("IMG_PATH",imgPath);
 
-OOFFile file = oof.addFile("crf.root", "%root%/crf/report_Year3.crf");
+OOFFile file = oof.addFile("crf.root", "%root%/crf/Report_year_bak.crf");
 
 //파라미터로 검색하기 위해 필수
 oof.addConnectionData("*","oracle1");
@@ -42,7 +42,7 @@ String resultKey =  ReportUtil.createReport(request, oof, "false", "false", requ
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <link rel="stylesheet" type="text/css" href="./css/clipreport.css">
-<link rel="stylesheet" type="text/css" href="./css/UserConfig.css"	>
+<link rel="stylesheet" type="text/css" href="./css/UserConfig.css">
 <link rel="stylesheet" type="text/css" href="./css/font.css">
 <script type='text/javascript' src='./js/clipreport.js'></script>
 <script type='text/javascript' src='./js/jquery-1.11.1.js'></script>
@@ -54,10 +54,11 @@ function html2xml(divPath){
     var reportkey = "<%=resultKey%>";
     var replaceImgPath ="<%=replaceImgPath%>";
     console.info(replaceImgPath);
-	var report = createImportJSPReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp?replaceImgPath=" + replaceImgPath, reportkey, document.getElementById(divPath));
+	var report = createImportJSPReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);
     report.view();
+    
 }
 
 function noEvent() {
