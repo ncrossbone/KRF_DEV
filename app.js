@@ -21,6 +21,7 @@ var _nameLayerId = null; // 시도 레이어 아이디
 var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
+var _MapserviceUrl1 = null;
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
