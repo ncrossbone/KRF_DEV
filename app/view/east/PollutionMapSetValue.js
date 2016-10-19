@@ -145,8 +145,8 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
     	    			
     	    			var coreMap = GetCoreMap();
     	    			
-    	    			coreMap.tmLayerAdmin.tmGraphicLayerCat.setOpacity(thumb*0.01);
-						coreMap.tmLayerAdmin.tmLabelLayerCat.setOpacity(thumb*0.01);
+    	    			coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.setOpacity(thumb*0.01);
+						coreMap.pollutionLayerAdmin.pollutionLabelLayerCat.setOpacity(thumb*0.01);
     	    		}
     	    	}
     	        	

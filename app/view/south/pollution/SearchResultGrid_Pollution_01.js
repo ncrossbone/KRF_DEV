@@ -60,7 +60,72 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 			},{	 
 				text      : '표준유역',
 				dataIndex : 'SB_NM',
-				width: 150
+				width: 150,
+				listeners:{
+
+					click: function(tblView, el, rowCnt, colCnt, row){
+						
+						var value = Ext.getCmp("pollutionSelect").value;
+						console.info(value);
+						var coreMap = GetCoreMap();
+						var pollutionLayerAdmin = coreMap.pollutionLayerAdmin;
+						
+						
+		        		if(value == 11){
+		        			return;
+		        		}else if(value == 22){	
+		        			var swNm = row.record.data.SB_NM;
+		        			
+		        			var catStore = null;
+		        			
+		        			var coreMap = GetCoreMap();
+		        			
+		        			var catDids = []; 
+		        			var catDids_All = [];
+		        			for(var i = 0; i < coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.graphics.length ;i++){
+		        				catDids_All.push(coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.graphics[i].attributes.CAT_DID);
+		        				if(coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.graphics[i].attributes.SB_NM == swNm){
+		        					catDids.push(coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.graphics[i].attributes.CAT_DID);
+		        				}
+		        			}
+		        			
+		        			
+		        			for(var k = 0; k < catDids_All.length;k++){
+		        				var polySymbol = $("#polySymbol_" + catDids_All[k]);
+				        		polySymbol[0].setAttribute("opacity", pollutionLayerAdmin.initOpacity);
+		        			}
+		        			
+		        			
+		        			for(var j = 0; j < catDids.length;j++){
+		        				var polySymbol = $("#polySymbol_" + catDids[j]);
+				        		polySymbol[0].setAttribute("opacity", pollutionLayerAdmin.mouseOverOpacity);
+		        			}
+		        			
+						}else{
+							var cat_did = row.record.data.CAT_DID;
+							
+							
+							var catDids_All = [];
+		        			for(var i = 0; i < coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.graphics.length ;i++){
+		        				catDids_All.push(coreMap.pollutionLayerAdmin.pollutionGraphicLayerCat.graphics[i].attributes.CAT_DID);
+		        			}
+							
+		        			for(var k = 0; k < catDids_All.length;k++){
+		        				var polySymbol = $("#polySymbol_" + catDids_All[k]);
+				        		polySymbol[0].setAttribute("opacity", pollutionLayerAdmin.initOpacity);
+		        			}
+							
+							
+							var polySymbol = $("#polySymbol_" + cat_did);
+			        		polySymbol[0].setAttribute("opacity", pollutionLayerAdmin.mouseOverOpacity);
+						}
+						
+		        		
+		        		
+					}
+				
+				}
+					
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '총인구',
@@ -89,7 +154,7 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '점유율',
-				dataIndex : '',
+				dataIndex : 'FINAL_PERCENTAGE',
 				width: 150
 				//filter: {type: 'numeric'}
 			},{
@@ -123,7 +188,7 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					}
 				}]	
 			},{
-				text : '지점내역',
+				text : '지정내역',
 				columns: [{ 
 					text     : '종류',
 					dataIndex: 'REGION'
@@ -264,7 +329,28 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 						dataIndex: 'SPOP_A2_REMOVAL'
 					}]
 				}]	
-			}]
+			}],
+			
+			viewConfig: {
+				 getRowClass: function(record, rowIndex, rowParams, store) {
+					 //bold 13px/15px helvetica,arial,verdana,sans-serif
+					 if(record.data.SB_NM == "총계"){
+						 return 'pdj_total_subTotal';						 
+					 }
+					 if(record.data.CAT_DID == "소계"){
+						 //console.info(record);
+						 return 'pdj_total_subTotal';
+					 }
+					 if(record.data.ADDR == "총계"){
+						 return 'pdj_total_subTotal';
+					 }
+					 if(record.data.FINAL_PERCENTAGE == "소계"){
+						 return 'pdj_total_subTotal';
+					 }
+					 //pdj_total_subTotal
+					 
+				}
+			}
 		}]
 	}]
 });

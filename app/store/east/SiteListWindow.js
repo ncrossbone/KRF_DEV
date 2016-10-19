@@ -83,11 +83,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 			}
 			
+			
 			if(store.searchType == "selectReach"){
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
 				
 				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
+					this.catDid = [];
 					var reachBtn = Ext.getCmp("btnModeReach");
 					
 						
@@ -148,14 +150,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					if(pollutionString != ""){
 						
 						jsonStr += pollutionString;
-						jsonStr += "]\n";
-						jsonStr += "}";
 						
 						var jsonData = "";
 						jsonData = Ext.util.JSON.decode(jsonStr);
 						store.setRootNode(jsonData);
 					}
-					
 					return;
 				}
 
@@ -365,6 +364,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		var me = GetCoreMap();
 		
 		
+		if(this.catDid.length == 0){
+			return "";
+		}
+		
 		var store = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
 			async:false,
 			catDid : this.catDid
@@ -405,7 +408,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				["06",me.reachLayerAdmin_v3_New.arrAreaPollution_06],
 				["07",me.reachLayerAdmin_v3_New.arrAreaPollution_07]);
 		
-		
+		console.info(me.reachLayerAdmin_v3_New.arrAreaPollution_01);
 		
 		
 		

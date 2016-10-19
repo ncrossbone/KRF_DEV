@@ -72,9 +72,13 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        
 	        queryTask.execute(query, function(tmCatFeatureSet){
 	        	
-	        	var store = Ext.create('KRF_DEV.store.east.ptest',{
+	        	var tmpCatDids = inStrCatDids.replace(/'/g, "").split(", ");
+	        	//console.info(tmpCatDids);
+	        	
+	        	
+	        	var store = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
 	    			async:false,
-	    			catDid : inStrCatDids
+	    			catDid : tmpCatDids
 	    		});
 	    		store.load();
 	    		
@@ -243,15 +247,12 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        		
 	        		//////console.info(evt.graphic.attributes.CAT_DID);
 	        		console.info(evt.graphic.attributes.CAT_DID);
-	        		/*var value = Ext.getCmp("pollLoadSelect").value;
-	        		
+	        		var value = Ext.getCmp("pollutionSelect").value;
 	        		if(value == 11 || value == 22){
-	        			
-	        			
 	        			return;
 	        		}else{
 	        			PollSelectedFocus(evt.graphic.attributes.CAT_DID);
-	        		}*/
+	        		}
 	        		
 	        		
 	        	});

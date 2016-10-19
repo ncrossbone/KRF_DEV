@@ -1270,44 +1270,60 @@ ShowSearchResultReach = function(catIds){
 var vrow = "";
 
 PollSelectedFocus = function(catId){
-	console.info("catId ::"+catId)
+	console.info("catId ::"+catId);
 	if(catId == undefined || catId == null || catId == ""){
 		return;
 	}
 	
-	var PollLoadContainer = Ext.getCmp("searchResultPollLoad_container");
-	console.info(PollLoadContainer);
-	if(PollLoadContainer == undefined){
+	var tabpanels = Ext.getCmp("tabpanels");
+	console.info(tabpanels.activeTab);
+	
+	var container = "";
+	var value =	"";
+	
+	if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
+		container = Ext.getCmp("searchResultPollLoad_container");
+		value = Ext.getCmp("pollLoadSelect").value;
+	}else if(tabpanels.activeTab.id == "searchResultPollution_01_container"){
+		container = Ext.getCmp("searchResultPollution_01_container");
+		value = Ext.getCmp("pollutionSelect").value;
+	}
+	
+	if(container == undefined){
 		return;
 	}
 	
-
-	var value = Ext.getCmp("pollLoadSelect").value;
 	
 	if(value == 11 || value == 22){
 		return;
 	}else{
 		
-		var PollLoadContainer = PollLoadContainer.items.items[0];
-		PollLoadContainer = PollLoadContainer.items.items[0];
-		//var rowIdx = PollLoadContainer.getStore().find("CAT_DID", catId);
+		var container = container.items.items[0];
+		container = container.items.items[0];
 		
-		var pollStore = PollLoadContainer.getStore();
+		var pollStore = container.getStore();
+		console.info(pollStore);
 		
 		var row = "";
 		
 		for(i = 0 ; i <pollStore.data.items.length  ;i++){
-			if(pollStore.data.items[i].data.GUBUN == "소계"){
+			if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
+				if(pollStore.data.items[i].data.GUBUN == "소계"){
+					if(pollStore.data.items[i].data.CAT_DID == catId){
+						row = i;
+					}
+				}
+			}else if(tabpanels.activeTab.id == "searchResultPollution_01_container"){
 				if(pollStore.data.items[i].data.CAT_DID == catId){
-					console.info(pollStore.data.items[i].data);
-					console.info(i);
 					row = i;
 				}
 			}
+			
+			
 		}
 		
-		PollLoadContainer.getView().bufferedRenderer.scrollTo(row, true);
-		PollLoadContainer.getSelectionModel().select(row);
+		container.getView().bufferedRenderer.scrollTo(row, true);
+		container.getSelectionModel().select(row);
 		
 	}
 	

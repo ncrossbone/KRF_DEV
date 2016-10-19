@@ -1127,6 +1127,10 @@ PollutionSearchResult = function(value){
 			console.info(i);
 			pollutiongrdCtl.columns[i].setHidden(true);
 		}
+		pollutiongrdCtl.columns[14].setHidden(true);
+		pollutiongrdCtl.columns[16].setHidden(true);
+		pollutiongrdCtl.columns[19].setHidden(true);
+		
 	}else if(value == "33"){
 		for(var i = 4; i <= 6 ;i++){
 			pollutiongrdCtl.columns[i].setHidden(true);
@@ -1134,10 +1138,19 @@ PollutionSearchResult = function(value){
 		for(var i = 8; i <= 12 ;i++){
 			pollutiongrdCtl.columns[i].setHidden(true);
 		}
+		pollutiongrdCtl.columns[14].setHidden(true);
+		pollutiongrdCtl.columns[16].setHidden(true);
+		pollutiongrdCtl.columns[19].setHidden(true);
 	}else{
-		for(var i = 7; i <= 9 ;i++){
+		for(var i = 4; i <= 6 ;i++){
 			pollutiongrdCtl.columns[i].setHidden(true);
 		}
+		for(var i = 10; i <= 12 ;i++){
+			pollutiongrdCtl.columns[i].setHidden(true);
+		}
+		pollutiongrdCtl.columns[14].setHidden(true);
+		pollutiongrdCtl.columns[16].setHidden(true);
+		pollutiongrdCtl.columns[19].setHidden(true);
 	}
 	
 	

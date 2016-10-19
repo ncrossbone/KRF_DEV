@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.store.east.ptest', {
+Ext.define('KRF_DEV.store.east.PollutionResult_01_Catdid', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
@@ -54,7 +54,7 @@ Ext.define('KRF_DEV.store.east.ptest', {
 			
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/pollution/ptest.jsp',
+				url: './resources/jsp/pollution/PollutionSelect_01_Catdid.jsp',
         		params: { 
         			catDid: store.catDid
         		},
