@@ -23,7 +23,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		rootVisible:false,
-	    
 		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
 		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 		cls: 'khLee-x-grid-cell',
@@ -37,6 +36,9 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             locked: true,
             listeners: {
             	click: function(grid, rowIndex, colIndex, actionItem, node, record, row){
+            		//console.info(tmBtnId);
+            		//console.info($("#catTMOnOff"));
+            		
 	            	if(node.record.data.leaf == true){
 						if(node.record.data.id != undefined){
 

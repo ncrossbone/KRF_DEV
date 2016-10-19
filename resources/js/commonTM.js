@@ -533,7 +533,6 @@ pollutionLayerOnOff = function(onOff, value){
 	
 }
 
-
 catTMLayerOnOff = function(onOff){
 	
 	var pollMapSetValue = Ext.getCmp("pollMapSetValue");
