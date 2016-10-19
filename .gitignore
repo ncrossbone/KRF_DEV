@@ -11,6 +11,9 @@ ext/
 packages/
 sass/
 build/
+<<<<<<< HEAD
 resources/downloads/ChromeStandaloneSetup.exe
 app/view/map/task/CustomPrintTask.js.bak
+=======
+>>>>>>> development
 resources/saveImgTemp/
