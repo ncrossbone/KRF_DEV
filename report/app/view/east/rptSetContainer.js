@@ -21,21 +21,30 @@ Ext.define('Report.view.east.rptSetContainer', {
 	width: "100%",
 	height: 800,
 	
-	style: "margin-left: 10px; margin-top: 10px;",
+	style: "margin-left: 20px; margin-top: 20px;",
 
 	items: [{
 		xtype: 'rpt-east-rptSetPeriod',
 		title: '기간'
 	}, {
+		xtype: 'container',
+		height: 10
+	}, {
 		xtype: 'rpt-east-rptSetItems',
 		title: '항목'
+	}, {
+		xtype: 'container',
+		height: 10
 	}, {
 		xtype: 'rpt-east-rptSetSiteAttr',
 		title: '지점속성'
 	}, {
+		xtype: 'container',
+		height: 10
+	}, {
 		xtype: 'rpt-east-rptSetSiteList',
 		title: '지점',
-		height: 700
+		height: 650
 	}, {
 		xtype: 'container',
 		layout: {
