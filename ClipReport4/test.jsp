@@ -5,23 +5,24 @@
 <%@page import="com.clipsoft.clipreport.server.service.ReportUtil"%>
 <%@page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
-//이전 페이지 키값
 String paramCode = request.getParameter("paramCode");
 String startYear = request.getParameter("startYear");
 String endYear = request.getParameter("endYear");
 String imgPath = request.getParameter("imgPath");
 
+//경로 "\\" javascript에서 출력불가 "," 로 대체 ph
 String replaceImgPath;
 replaceImgPath = imgPath.replace("\\",",");
 
 OOFDocument oof = OOFDocument.newOOF();
+
 //넘어갈 파라미터 값
 oof.addField("PARAM_CODE",paramCode);
 oof.addField("START_YR",startYear);
 oof.addField("END_YR",endYear);
 oof.addField("IMG_PATH",imgPath);
 
-OOFFile file = oof.addFile("crf.root", "%root%/crf/Report_year_bak.crf");
+OOFFile file = oof.addFile("crf.root", "%root%/crf/Report_year.crf");
 
 //파라미터로 검색하기 위해 필수
 oof.addConnectionData("*","oracle1");
@@ -44,21 +45,81 @@ String resultKey =  ReportUtil.createReport(request, oof, "false", "false", requ
 <link rel="stylesheet" type="text/css" href="./css/clipreport.css">
 <link rel="stylesheet" type="text/css" href="./css/UserConfig.css">
 <link rel="stylesheet" type="text/css" href="./css/font.css">
+<script>
+
+var _imgPath = "<%=replaceImgPath%>";
+
+	//이미지 경로 "," -> "//"로 대체
+	//UserConfig.js 에서 호출
+	//2016.10.18 ph
+	function imgPathReplace() {
+
+		var replaceImgPath;
+		replaceImgPath = _imgPath.replace(/,/g, "\\");
+
+		return replaceImgPath;
+	}
+
+	//이미지 제거
+	//UserConfig.js 에서 호출
+	//2016.10.18 ph
+	function imgDelete(replaceImgPath) {
+
+		var svgPath = getSvgPngPath(replaceImgPath, "svg");
+		var pngPath = getSvgPngPath(replaceImgPath, "png");
+		
+		$.ajax({
+			type : "POST",
+			url : "../resources/jsp/ImgDelete.jsp",
+			data : {
+				resultParam : replaceImgPath,
+				svgParam : svgPath,
+				pngParam : pngPath
+			}
+		}).done(function(response) {
+		});
+
+	}
+	
+	// svg,png 경로 가져오기
+	// 2016.10.19 ph
+	function getSvgPngPath(replaceImgPath, condition) {
+
+		var splitReplaceImgPath = replaceImgPath.split("\\");
+		var splitName = splitReplaceImgPath[8].split("_");
+		var splitExt = splitName[1].split(".");
+		var path = "";
+
+		for (var i = 0; i < splitReplaceImgPath.length - 1; i++) {
+			path += splitReplaceImgPath[i] + "\\";
+		}
+
+		var result = path + "svg_" + splitExt[0];
+
+		if (condition == "svg") {
+			result += ".svg";
+		} else if (condition == "png") {
+			result += ".png";
+		}
+
+		return result;
+	}
+</script>
 <script type='text/javascript' src='./js/clipreport.js'></script>
 <script type='text/javascript' src='./js/jquery-1.11.1.js'></script>
 <script type='text/javascript' src='./js/UserConfig.js'></script>
 <script type='text/javascript'>
 var urlPath = document.location.protocol + "//" + document.location.host;
 
+
+
+
 function html2xml(divPath){	
     var reportkey = "<%=resultKey%>";
-    var replaceImgPath ="<%=replaceImgPath%>";
-    console.info(replaceImgPath);
 	var report = createImportJSPReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);
     report.view();
-    
 }
 
 function noEvent() {
