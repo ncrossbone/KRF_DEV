@@ -129,8 +129,6 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				}
 				else if(mode=="report"){
 					// 리포트 뷰어 호출 로직
-					//console.info(data);
-					
 					var imgPath = data.path;
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
     						"&paramCode=" + me.paramCode +
