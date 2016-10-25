@@ -19,9 +19,19 @@ Ext.define('Report.view.main.rptExtViewMain', {
             type: 'hbox'
         },
         items: [{
-        	xtype: 'rpt-map-rptCoreMap',
+        	xtype: "container",
+        	layout: {
+        		type: "fit",
+        		align: "middle",
+        		pack: "middle"
+        	},
         	width: 900,
-        	height: 900
+        	height: 900,
+        	items: [{
+        		xtype: 'rpt-map-rptCoreMap',
+            	width: 850,
+            	height: 850
+        	}]
         }, {
         	xtype: 'panel',
         	title: '지점설정',

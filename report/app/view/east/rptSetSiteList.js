@@ -40,7 +40,7 @@ Ext.define('Report.view.east.rptSetSiteList', {
 		id: "treeRptSiteList",
 		rootVisible:false,
 		cls: 'khLee-x-grid-cell',
-		width: 330,
+		width: 320,
 		store: Ext.create('Report.store.east.treeRptSiteListStore'),
 		controller: 'rptSetSiteListController',
 		columns: [{
