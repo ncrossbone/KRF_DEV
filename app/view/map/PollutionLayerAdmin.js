@@ -72,14 +72,20 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        
 	        queryTask.execute(query, function(tmCatFeatureSet){
 	        	
+	        	
+	        	
 	        	var tmpCatDids = inStrCatDids.replace(/'/g, "").split(", ");
-	        	//console.info(tmpCatDids);
-	        	
-	        	
-	        	var store = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
+	        	console.info(kind);
+	        	//각 계에 해당하는 store 생성
+	        	 var store = Ext.create('KRF_DEV.store.east.PollutionResult_0'+kind+'_Catdid',{
 	    			async:false,
 	    			catDid : tmpCatDids
 	    		});
+	        	
+	        	if(store == undefined){
+	        		return;
+	        	}
+	        	
 	    		store.load();
 	    		
 	    		for(var i = 0; i < tmCatFeatureSet.features.length; i++){
@@ -90,7 +96,22 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 		    			}
 	    			}
 	    		}
-	    			        	
+	    		
+	    		var unint = "";
+	    		if(colName == "POP_SUM" || colName == "UPOP_SUM" || colName == "SPOP_SUM"){
+	    			unint = "(명)";
+	    		}else if(colName == "LIVESTOCK_CNT"){
+	    			unint = "(마리)";
+	    		}else if(colName == "WUSE_W_SUM"){
+	    			unint = "(㎥/일)";
+	    		}else if(colName == "AREA_SUM" || colName == "AREA_REG_TOTAL" || colName == "AREA_INST_TOTAL"){
+	    			unint = "(㎡)";
+	    		}else if(colName == "FEED_AMT_TOTAL" || colName == "FISH_REG_TOTAL"){
+	    			unint = "(kg/년)";
+	    		}else if(colName == "PRODUCT_AMT" || colName == "DISCHARGE_AMT" || colName == "WW_AMT"){
+	    			unint = "(㎥/일)";
+	    		}
+	    		
 	        	if(me.pollutionGraphicLayerCat == undefined || me.pollutionGraphicLayerCat == null){
 		        	// 폴리곤 레이어 생성
 		        	me.pollutionGraphicLayerCat = new GraphicsLayer();
@@ -135,6 +156,7 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
         		);
         		
 	        	var tmCatFeatures = tmCatFeatureSet.features;
+	        	console.info(tmCatFeatureSet.features);
 	        	var range = 15;
 	        	
 	        	/* 범위, 값 매핑 오브젝트 생성 */
@@ -158,14 +180,11 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 		        		/* 폴리곤 중심점 가져오기 */
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
-		        		// 발생오염원 BOD 합계
-		        		//var gnrBodSu = eval("coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][i].data."+colName);
-		        		
 		        		
 		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
 		        		
 		        		
-		        		var gnrBodSulabel = gnrBodSu + "(명)";
+		        		var gnrBodSulabel = gnrBodSu + unint;
 		        		// 텍스트 라벨 생성
 		        		var tmCatLabelSymbol = new esri.symbol.TextSymbol(gnrBodSulabel).setColor(
 		        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
@@ -203,26 +222,6 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        			range;
                     range = attrs.range;
                     
-                    
-                    /*
-                    console.info(me.pollutionGraphicLayerCat);
-                    
-                    var color = "";
-                    var range = "";
-                    for(var i = 0 ; i < me.pollutionGraphicLayerCat.graphics.length; i++){
-                    	if(attrs.CAT_DID == me.pollutionGraphicLayerCat.graphics[i].attributes.CAT_DID){
-                    		color = me.pollutionGraphicLayerCat.graphics[i].attributes.color;
-                    		range = me.pollutionGraphicLayerCat.graphics[i].attributes.range;
-                    	}
-                    	
-                    }
-                    for(var j = 0 ; j < coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0].length ; j++ ){
-	        			if(attrs.CAT_DID == coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][j].data.CAT_DID){
-	        				
-	        				console.info(coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][j].data);
-	        			}
-	        		}
-                    console.info(coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution[0][1][0][j].data);*/
                     
                     // 집수구역별 오염원 폴리곤 그래픽 스타일 셋팅
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, attrs.color);
@@ -362,13 +361,13 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        	coreMap.map.addLayer(me.pollutionLabelLayerCat);
 	        	
 	        	/* 레전드 그리기 */
-	        	me.createLegend(quantizeObj);
+	        	me.createLegend(quantizeObj,unint);
 	        });
 		});
     },
     
     // 레전드 그리기
-    createLegend: function(quantizeObj){
+    createLegend: function(quantizeObj,unint){
     	
     	var coreMap = GetCoreMap();
     	var me = this;
@@ -414,7 +413,6 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
             		
 	            	var fillColor = obj.features[0].attributes.color;
 	            	var borderStyle = "";
-	            	var borderColor = "";
 	            	
 	            	chkCnt++;
 	            	
@@ -431,7 +429,7 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	                data = {
 	                		
 	                    //label:number.format(obj.stVal, { places:0 }) + " - " + number.format(obj.edVal, { places:0 }),
-	                	label:paddingLeft("&nbsp;", 8, number.format(obj.maxVal, { places:0 })) + " (명)",
+	                	label:paddingLeft("&nbsp;", 8, number.format(obj.maxVal, { places:0 }))+unint,
 	                	//label:obj.maxVal + " (명)",
 	                    fill:fillColor,
 	                    fillColor: fillColor,
