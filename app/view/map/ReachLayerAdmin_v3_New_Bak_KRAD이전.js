@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
+Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New_BeforeKRAD', {
 	
 	lineGrpLayer: null, // 리치라인 레이어
 	downLineLayer: null, // 하류 리치라인 레이어
@@ -177,14 +177,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				*/
 				
 				// khLee KRAD Test 2016/10/24
-				var rchIds = me.getRchIdWithEvent(evt);
-				
-				
-				console.info(rchIds);
-				showPopMenu();
-				
-				return;
-				// khLee KRAD Test 2016/10/24 End
+				//showPopMenu();
+				//return;
 				
 				if(symbol != null && symbol != undefined)
 					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
@@ -199,65 +193,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					me.drawEnd("btnMenu05"); // 그리기 종료
 				}
 				
-				// 이벤트로 리치 라인 조회
 				me.selectLineWithEvent(evt, drawOption);
 	        });
 		});
-    },
-    
-    /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
-     * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
-     * evt: 이벤트 */
-    getRchIdWithEvent: function(evt){
-    	
-    	var me = this;
-    	var coreMap = GetCoreMap();
-    	
-    	var rchIds = [];
-    	
-    	require(["esri/tasks/query",
-    	         "esri/tasks/QueryTask",
-    	         "esri/geometry/Point",
-    	         "esri/geometry/Extent"], function(Query, QueryTask, Point, Extent){
-    		
-	    	var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
-			var query = new Query();
-			query.returnGeometry = true;
-			query.outFields = ["*"];
-			
-			if(evt.type == "point"){
-				
-	        	var centerPoint = new Point(evt.x, evt.y, evt.spatialReference);
-	        	var mapWidth = coreMap.map.extent.getWidth();
-	        	var pixelWidth = mapWidth / coreMap.map.width;
-	        	var tolerance = 10 * pixelWidth;
-	        	
-	        	var queryExtent = new Extent(1, 1, tolerance, tolerance, evt.spatialReference);
-	        	query.geometry = queryExtent.centerAt(centerPoint);
-	    	}
-			else{
-				
-				query.geometry = evt;
-			}
-			
-			// 리치라인 조회
-			queryTask.execute(query, function(featureSet){
-				
-				if(featureSet.features.length > 0){
-					
-					for(var i = 0; i < featureSet.features.length; i++){
-						
-						rchIds.push(featureSet.features[i].attributes.RCH_ID);
-					}
-				}
-				else{
-					
-					
-				}
-				
-				return rchIds;
-			});
-    	});
     },
     
     /* 이벤트(클릭, 드래그 등)로 리치라인 조회 
