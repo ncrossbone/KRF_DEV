@@ -132,23 +132,27 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 			},{	 
 				text      : '집수구역',
 				dataIndex : 'CAT_DID',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '법정동리',
 				dataIndex : 'ADDR',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '점유율',
 				dataIndex : 'FINAL_PERCENTAGE',
 				width: 150,
-				filter: {type: 'numeric'}
+				filter: {type: 'numeric'},
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '업주명',
 				dataIndex : 'MANAGER',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '축종',
@@ -165,36 +169,42 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 				text      : '축사면적(㎡)',
 				dataIndex : 'LIVESTOCK_AREA',
 				width: 150,
-				filter: {type: 'numeric'}
+				filter: {type: 'numeric'},
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '법적규제 여부',
 				dataIndex : 'REGS',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '법적규제일',
 				dataIndex : 'REGS_DATE',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '방류선',
 				columns:[{	 
 					text      : '환경기초시설',
 					dataIndex : 'DISCHARGE_FACI_NM',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '행정구역코드',
 					dataIndex : 'DISCHARGE_ADM_CD',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '하천명',
 					dataIndex : 'DISCHARGE_RIVER_NM',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -204,21 +214,24 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 				columns:[{	 
 					text      : '처리방법',
 					dataIndex : 'INDIV_PURI_METHOD',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리량(톤/일)',
 					dataIndex : 'INDIV_PURI_AMT',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리비용(천원)',
 					dataIndex : 'INDIV_PURI_MONEY',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -228,21 +241,24 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 				columns:[{	 
 					text      : '처리공법',
 					dataIndex : 'INDIV_COMPOST_METHOD',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리량(톤/일)',
 					dataIndex : 'INDIV_COMPOST_AMT',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리비용(천원)',
 					dataIndex : 'INDIV_COMPOST_MONEY',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -252,21 +268,24 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 				columns:[{	 
 					text      : '처리공법',
 					dataIndex : 'INDIV_LIQUID_METHOD',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리량(톤/일)',
 					dataIndex : 'INDIV_LIQUID_AMT',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리비용(천원)',
 					dataIndex : 'INDIV_LIQUID_MONEY',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -276,33 +295,38 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 				columns:[{	 
 					text      : '차집유형',
 					dataIndex : 'ENTRUST_PUB_COLMETHOD',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '편입일자',
 					dataIndex : 'ENTRUST_PUB_DT',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '시설명',
 					dataIndex : 'ENTRUST_PUB_FACI_NM',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리량(톤/일)',
 					dataIndex : 'ENTRUST_PUB_AMT',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리비용(천원)',
 					dataIndex : 'ENTRUST_PUB_MONEY',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -313,14 +337,16 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 					text      : '처리량(톤/일)',
 					dataIndex : 'ENTRUST_REUSE_AMT',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리비용(천원)',
 					dataIndex : 'ENTRUST_REUSE_MONEY',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -331,14 +357,16 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 					text      : '처리량(톤/일)',
 					dataIndex : 'ENTRUST_SEA_AMT',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리비용(천원)',
 					dataIndex : 'ENTRUST_SEA_MONEY',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -349,7 +377,8 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 					text      : '처리량(톤/일)',
 					dataIndex : 'ENTRUST',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -359,21 +388,24 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 				columns:[{	 
 					text      : '처리방법',
 					dataIndex : 'ETC_METHOD',
-					width: 150
+					width: 150,
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리량(톤/일)',
 					dataIndex : 'ETC_AMT',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				},{	 
 					text      : '처리비용(천원)',
 					dataIndex : 'ETC_MONEY',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				
 				}]
@@ -381,28 +413,33 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_02', {
 			},{	 
 				text      : '기타',
 				dataIndex : 'ETC',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '무처리량(톤/일)',
 				dataIndex : 'NO_TRT_AMT',
 				width: 150,
-				filter: {type: 'numeric'}
+				filter: {type: 'numeric'},
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '고형축분뇨처리방법',
 				dataIndex : 'LEX_METHOD',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '기타축분뇨처리방법',
 				dataIndex : 'LEX_METHOD_ETC',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '살포지역용도',
 				dataIndex : 'SPRAY_LANDUSE',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			}],
 			

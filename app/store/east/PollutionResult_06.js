@@ -43,7 +43,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_06', {
 			var jsonData = "";
 			var url = ""
 			
-			if(store.selectValue == "11"){
+				if(store.selectValue == "11" || store.selectValue == ""){
 				url= './resources/jsp/pollution/PollutionSelect_06_01.jsp';
 			}else if(store.selectValue == "22"){
 				url= './resources/jsp/pollution/PollutionSelect_06_02.jsp';

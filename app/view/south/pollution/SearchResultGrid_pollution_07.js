@@ -132,48 +132,57 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_07', {
 			},{	 
 				text      : '집수구역',
 				dataIndex : 'CAT_DID',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '법정동리',
 				dataIndex : 'ADDR',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '점유율',
 				dataIndex : 'FINAL_PERCENTAGE',
 				width: 150,
-				filter: {type: 'numeric'}
+				filter: {type: 'numeric'},
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '관할기관명',
 				dataIndex : 'INST_NM',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '업소명',
 				dataIndex : 'IND_NM',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '대표자',
 				dataIndex : 'IND_OWNER',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '사업자등록번호',
 				dataIndex : 'IND_ID',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '기타수질오염원분류',
 				dataIndex : 'OT_NM',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '처리방법',
 				dataIndex : 'EH_NM',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '폐수방류량(㎥/일)',

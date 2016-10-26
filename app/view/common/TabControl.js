@@ -584,7 +584,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var pollutionSelect = Ext.getCmp("pollutionSelect");
 					
-					if(pollutiongrdCtl.store.selectValue == undefined){
+					if(pollutiongrdCtl.store.selectValue == undefined || pollutiongrdCtl.store.selectValue == ""){
 						pollutionSelect.setValue("11");
 					}else{
 						pollutionSelect.setValue(pollutiongrdCtl.store.selectValue);

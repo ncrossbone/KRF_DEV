@@ -255,30 +255,12 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm);
         				}else if(record.id = "pollution"){
         					
-        					console.info(record);
         					for(var i = 0 ; i < record.childNodes.length;i++){
-        						/*console.info(record.childNodes[i].data.id);
-        						console.info(record.childNodes[i].data.title);
-        						console.info(record.childNodes[i].data.storeNm);*/
         						PollutionSearchResult("",record.childNodes[i].data.id
         								,record.childNodes[i].data.title
         								,record.childNodes[i].data.storeNm);
-        					}
-        					
-        					/*for(var i = 1 ; i <= 7;i++){
-        						if(eval("coreMap.reachLayerAdmin_v3_New.arrAreaPollution_0"+i+"[0].length") != 0){
-        							
-        							
-        							
-        						}
-        						
-        					}*/
-        					
+        					}	
         				}
-                		
-        				
-        				
-                	//}
             	}
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
