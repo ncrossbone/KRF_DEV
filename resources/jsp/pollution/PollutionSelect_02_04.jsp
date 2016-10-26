@@ -332,6 +332,8 @@ rs = stmt.executeQuery(sql);
 		jsonRecord.put("MB_NM",rs.getString("MB_NM"));
 		jsonRecord.put("SB_NM",rs.getString("SB_NM"));
 		jsonRecord.put("CAT_DID",rs.getString("CAT_DID"));
+		jsonRecord.put("ADDR",rs.getString("ADDR"));
+		jsonRecord.put("FINAL_PERCENTAGE",rs.getString("FINAL_PERCENTAGE"));
 		jsonRecord.put("MANAGER",rs.getString("MANAGER"));
 		jsonRecord.put("LIVESTOCK_NM",rs.getString("LIVESTOCK_NM"));
 		jsonRecord.put("LIVESTOCK_CNT",rs.getString("LIVESTOCK_CNT"));

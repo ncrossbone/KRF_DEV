@@ -47,7 +47,7 @@ try{
 	sql += " 	     , MB_NM                                                                            ";
 	sql += " 	     , SB_NM                                                                            ";
 	sql += " 	     , CAT_DID                                                                          ";
-	sql += " 	     , addr                                                                             ";
+	sql += " 	     , ADDR                                                                             ";
 	sql += " 	     , FINAL_PERCENTAGE /* 점유율 */                                                    ";
 	sql += " 	     , INST_NM /* 관할기관명 */                                                         ";
 	sql += " 	     , IND_NM /* 업소명 */                                                              ";

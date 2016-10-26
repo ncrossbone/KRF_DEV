@@ -9,6 +9,8 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04', {
 			,'SB_NM'
 			,'CAT_DID'
 			,'TP_TYPE'
+			,'ADDR'
+			,'FINAL_PERCENTAGE'
 			,{name: 'AREA_SUM' ,type: 'number'}
 			
 			,{name: 'AREA_RICE' ,type: 'number'}
@@ -81,7 +83,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04', {
 			var jsonData = "";
 			var url = ""
 			
-			if(store.selectValue == "11"){
+				if(store.selectValue == "11" || store.selectValue == ""){
 				url= './resources/jsp/pollution/PollutionSelect_04_01.jsp';
 			}else if(store.selectValue == "22"){
 				url= './resources/jsp/pollution/PollutionSelect_04_02.jsp';
@@ -96,7 +98,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04', {
         		params: { 
         			catDid: store.catDid
         		},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			

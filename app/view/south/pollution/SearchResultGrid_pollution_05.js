@@ -9,6 +9,8 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 	
 	height: '100%',
 	width: '100%',
+	closable: true,
+	closeText: '×',
 	
 	items: [{
 		xtype: 'container',
@@ -130,18 +132,21 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 			},{	 
 				text      : '집수구역',
 				dataIndex : 'CAT_DID',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '법정동리',
 				dataIndex : 'ADDR',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '점유율',
 				dataIndex : 'FINAL_PERCENTAGE',
 				width: 150,
-				filter: {type: 'numeric'}
+				filter: {type: 'numeric'},
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '면허면적 합계',
@@ -173,25 +178,29 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 					text      : '면허면적(㎡)',
 					dataIndex : 'AREA_REG1',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '시설면적(㎡)',
 					dataIndex : 'AREA_INST1',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '사료사용량(㎏/년)',
 					dataIndex : 'FEED_AMT1',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '출고량(㎏/년)',
 					dataIndex : 'FISH_REG1',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				}]
 				//filter: {type: 'numeric'}
@@ -201,25 +210,29 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 					text      : '면허면적(㎡)',
 					dataIndex : 'AREA_REG3',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '시설면적(㎡)',
 					dataIndex : 'AREA_INST3',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '사료사용량(㎏/년)',
 					dataIndex : 'FEED_AMT3',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '출고량(㎏/년)',
 					dataIndex : 'FISH_REG3',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				}]
 				//filter: {type: 'numeric'}
@@ -229,25 +242,29 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 					text      : '면허면적(㎡)',
 					dataIndex : 'AREA_REG4',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '시설면적(㎡)',
 					dataIndex : 'AREA_INST4',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '사료사용량(㎏/년)',
 					dataIndex : 'FEED_AMT4',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '출고량(㎏/년)',
 					dataIndex : 'FISH_REG4',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				}]
 				//filter: {type: 'numeric'}
@@ -257,25 +274,29 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 					text      : '면허면적(㎡)',
 					dataIndex : 'AREA_REG5',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '시설면적(㎡)',
 					dataIndex : 'AREA_INST5',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '사료사용량(㎏/년)',
 					dataIndex : 'FEED_AMT5',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '출고량(㎏/년)',
 					dataIndex : 'FISH_REG5',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				}]
 				//filter: {type: 'numeric'}
@@ -285,25 +306,29 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 					text      : '면허면적(㎡)',
 					dataIndex : 'AREA_REG6',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '시설면적(㎡)',
 					dataIndex : 'AREA_INST6',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '사료사용량(㎏/년)',
 					dataIndex : 'FEED_AMT6',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '출고량(㎏/년)',
 					dataIndex : 'FISH_REG6',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				}]
 				//filter: {type: 'numeric'}
@@ -313,25 +338,29 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 					text      : '면허면적(㎡)',
 					dataIndex : 'AREA_REG2',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '시설면적(㎡)',
 					dataIndex : 'AREA_INST2',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '사료사용량(㎏/년)',
 					dataIndex : 'FEED_AMT2',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				},{	 
 					text      : '출고량(㎏/년)',
 					dataIndex : 'FISH_REG2',
 					width: 150,
-					filter: {type: 'numeric'}
+					filter: {type: 'numeric'},
+					hidden: true
 					//filter: {type: 'numeric'}
 				}]
 				//filter: {type: 'numeric'}
@@ -340,19 +369,9 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_05', {
 			viewConfig: {
 				 getRowClass: function(record, rowIndex, rowParams, store) {
 					 //bold 13px/15px helvetica,arial,verdana,sans-serif
-					 if(record.data.SB_NM == "총계"){
+					 if(record.data.SB_NM == "총계" || record.data.SB_NM == "소계" || record.data.CAT_DID == "소계"
+						 || record.data.ADDR == "총계" || record.data.ADDR == "소계"){
 						 return 'pdj_total_subTotal';						 
-					 }
-					 if(record.data.CAT_DID == "소계"){
-						 //console.info(record);
-						 return 'pdj_total_subTotal';
-					 }
-					 if(record.data.ADDR == "총계"){
-						 return 'pdj_total_subTotal';
-					 }
-					 
-					 if(record.data.ADDR == "소계"){
-						 return 'pdj_total_subTotal';
 					 }
 					 //pdj_total_subTotal
 					 

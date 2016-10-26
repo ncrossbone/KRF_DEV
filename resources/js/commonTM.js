@@ -1058,7 +1058,7 @@ PollLoadSearchResult = function(value){
 
 
 PollutionSearchResult = function(value,recordId,title,storeNm){
-	
+	console.info(value);
 	
 	var coreMap = GetCoreMap();
 	
@@ -1067,9 +1067,6 @@ PollutionSearchResult = function(value,recordId,title,storeNm){
 		catDid.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][1][0][i].data.CAT_DID);
 	}
 	
-	if(value == ""){
-		value = "11";
-	}
 	
 	
 	var options = {
@@ -1085,7 +1082,7 @@ PollutionSearchResult = function(value,recordId,title,storeNm){
 	
 	var pollutionOptions = {
 			id: "searchResult"+recordId+"_container",
-			title: title,
+			title: title+"　",
 			recordId:recordId,
 			storeNm:storeNm,
 			autoResize: true
@@ -1117,362 +1114,369 @@ PollutionSearchResult = function(value,recordId,title,storeNm){
 	pollutionstore.load();
 	
 	
-	if(recordId == "pollution_01"){
-		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-			pollutiongrdCtl.columns[k].setHidden(false);
-		}
-		
-		
-		if(value == "11" ){
-			for(var i = 7; i <= 41 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+	
+	if(value != ""){
+		if(recordId == "pollution_01"){
+			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+				pollutiongrdCtl.columns[k].setHidden(false);
 			}
 			
-		}else if(value == "22"){
-			for(var i = 4; i <= 12 ;i++){
+			
+			if(value == "11" ){
+				for(var i = 7; i <= 41 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
 				
-				pollutiongrdCtl.columns[i].setHidden(true);
+			}else if(value == "22"){
+				for(var i = 4; i <= 12 ;i++){
+					
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[14].setHidden(true);
+				pollutiongrdCtl.columns[16].setHidden(true);
+				pollutiongrdCtl.columns[19].setHidden(true);
+				
+			}else if(value == "33"){
+				for(var i = 4; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 8; i <= 12 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[14].setHidden(true);
+				pollutiongrdCtl.columns[16].setHidden(true);
+				pollutiongrdCtl.columns[19].setHidden(true);
+			}else{
+				for(var i = 4; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 10; i <= 12 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[14].setHidden(true);
+				pollutiongrdCtl.columns[16].setHidden(true);
+				pollutiongrdCtl.columns[19].setHidden(true);
 			}
-			pollutiongrdCtl.columns[14].setHidden(true);
-			pollutiongrdCtl.columns[16].setHidden(true);
-			pollutiongrdCtl.columns[19].setHidden(true);
-			
-		}else if(value == "33"){
-			for(var i = 4; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 8; i <= 12 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			pollutiongrdCtl.columns[14].setHidden(true);
-			pollutiongrdCtl.columns[16].setHidden(true);
-			pollutiongrdCtl.columns[19].setHidden(true);
-		}else{
-			for(var i = 4; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 10; i <= 12 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			pollutiongrdCtl.columns[14].setHidden(true);
-			pollutiongrdCtl.columns[16].setHidden(true);
-			pollutiongrdCtl.columns[19].setHidden(true);
-		}
-	}else if(recordId == "pollution_02"){
-		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-			pollutiongrdCtl.columns[k].setHidden(false);
-		}
-		
-		
-		if(value == "11" ){
-			
-			for(var i = 4; i <= 7 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+		}else if(recordId == "pollution_02"){
+			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+				pollutiongrdCtl.columns[k].setHidden(false);
 			}
 			
-			for(var i = 10; i <= 42 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+			
+			if(value == "11" ){
+				
+				for(var i = 4; i <= 7 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 10; i <= 42 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+			}else if(value == "22"){
+				for(var i = 4; i <= 7 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[10].setHidden(true);
+				for(var i = 12; i <= 16 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 18; i <= 19 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 21; i <= 22 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 24; i <= 27 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				pollutiongrdCtl.columns[29].setHidden(true);
+				pollutiongrdCtl.columns[31].setHidden(true);
+				pollutiongrdCtl.columns[33].setHidden(true);
+				pollutiongrdCtl.columns[35].setHidden(true);
+				pollutiongrdCtl.columns[37].setHidden(true);
+				pollutiongrdCtl.columns[38].setHidden(true);
+				pollutiongrdCtl.columns[42].setHidden(true);
+			}else if(value == "33"){
+				for(var i = 5; i <= 7 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[10].setHidden(true);
+				for(var i = 12; i <= 16 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 18; i <= 19 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 21; i <= 22 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 24; i <= 27 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				pollutiongrdCtl.columns[29].setHidden(true);
+				pollutiongrdCtl.columns[31].setHidden(true);
+				pollutiongrdCtl.columns[33].setHidden(true);
+				pollutiongrdCtl.columns[35].setHidden(true);
+				pollutiongrdCtl.columns[37].setHidden(true);
+				pollutiongrdCtl.columns[38].setHidden(true);
+				pollutiongrdCtl.columns[42].setHidden(true);
+			}else{
+				
+				pollutiongrdCtl.columns[7].setHidden(true);
+				pollutiongrdCtl.columns[10].setHidden(true);
+				for(var i = 12; i <= 16 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 18; i <= 19 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 21; i <= 22 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 24; i <= 27 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				pollutiongrdCtl.columns[29].setHidden(true);
+				pollutiongrdCtl.columns[31].setHidden(true);
+				pollutiongrdCtl.columns[33].setHidden(true);
+				pollutiongrdCtl.columns[35].setHidden(true);
+				pollutiongrdCtl.columns[37].setHidden(true);
+				pollutiongrdCtl.columns[38].setHidden(true);
+				pollutiongrdCtl.columns[42].setHidden(true);
+				
+			}
+		}else if(recordId == "pollution_03"){
+			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+				pollutiongrdCtl.columns[k].setHidden(false);
 			}
 			
-		}else if(value == "22"){
-			for(var i = 4; i <= 7 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+			
+			if(value == "11" ){
+				
+				for(var i = 4; i <= 14 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 16; i <= 70 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 72; i <= 174 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+			}else if(value == "22"){
+				for(var i = 4; i <= 14 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 16; i <= 70 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 78; i <= 174 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+			}else if(value == "33"){
+				for(var i = 5; i <= 14 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 16; i <= 70 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 78; i <= 174 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else{
+				for(var i = 7; i <= 14 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 16; i <= 70 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 78; i <= 174 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
 			}
-			pollutiongrdCtl.columns[10].setHidden(true);
-			for(var i = 12; i <= 16 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 18; i <= 19 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 21; i <= 22 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 24; i <= 27 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+		}else if(recordId == "pollution_04"){
+			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+				pollutiongrdCtl.columns[k].setHidden(false);
 			}
 			
-			pollutiongrdCtl.columns[29].setHidden(true);
-			pollutiongrdCtl.columns[31].setHidden(true);
-			pollutiongrdCtl.columns[33].setHidden(true);
-			pollutiongrdCtl.columns[35].setHidden(true);
-			pollutiongrdCtl.columns[37].setHidden(true);
-			pollutiongrdCtl.columns[38].setHidden(true);
-			pollutiongrdCtl.columns[42].setHidden(true);
-		}else if(value == "33"){
-			for(var i = 5; i <= 7 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+			
+			if(value == "11" ){
+				
+				for(var i = 4; i <= 8 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 9; i <= 37 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+			}else if(value == "22"){
+				
+				for(var i = 4; i <= 7 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+			}else if(value == "33"){
+				for(var i = 5; i <= 7 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else{
+				pollutiongrdCtl.columns[6].setHidden(true);
 			}
-			pollutiongrdCtl.columns[10].setHidden(true);
-			for(var i = 12; i <= 16 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 18; i <= 19 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 21; i <= 22 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 24; i <= 27 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+		}else if(recordId == "pollution_05"){
+			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+				pollutiongrdCtl.columns[k].setHidden(false);
 			}
 			
-			pollutiongrdCtl.columns[29].setHidden(true);
-			pollutiongrdCtl.columns[31].setHidden(true);
-			pollutiongrdCtl.columns[33].setHidden(true);
-			pollutiongrdCtl.columns[35].setHidden(true);
-			pollutiongrdCtl.columns[37].setHidden(true);
-			pollutiongrdCtl.columns[38].setHidden(true);
-			pollutiongrdCtl.columns[42].setHidden(true);
-		}else{
-			
-			pollutiongrdCtl.columns[7].setHidden(true);
-			pollutiongrdCtl.columns[10].setHidden(true);
-			for(var i = 12; i <= 16 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+			if(value == "11" ){
+				
+				for(var i = 4; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+				for(var i = 11; i <= 34 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				
+			}else if(value == "22"){
+				
+				for(var i = 4; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[11].setHidden(true);
+				for(var i = 13; i <= 15 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 17; i <= 19 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 21; i <= 23 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 25; i <= 27 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 29; i <= 31 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 33; i <= 34 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else if(value == "33"){
+				for(var i = 5; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[11].setHidden(true);
+				for(var i = 13; i <= 15 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 17; i <= 19 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 21; i <= 23 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 25; i <= 27 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 29; i <= 31 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 33; i <= 34 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else{
+				pollutiongrdCtl.columns[11].setHidden(true);
+				for(var i = 13; i <= 15 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 17; i <= 19 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 21; i <= 23 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 25; i <= 27 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 29; i <= 31 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 33; i <= 34 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
 			}
-			for(var i = 18; i <= 19 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 21; i <= 22 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 24; i <= 27 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			pollutiongrdCtl.columns[29].setHidden(true);
-			pollutiongrdCtl.columns[31].setHidden(true);
-			pollutiongrdCtl.columns[33].setHidden(true);
-			pollutiongrdCtl.columns[35].setHidden(true);
-			pollutiongrdCtl.columns[37].setHidden(true);
-			pollutiongrdCtl.columns[38].setHidden(true);
-			pollutiongrdCtl.columns[42].setHidden(true);
-			
-		}
-	}else if(recordId == "pollution_03"){
-		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-			pollutiongrdCtl.columns[k].setHidden(false);
-		}
-		
-		
-		if(value == "11" ){
-			
-			for(var i = 4; i <= 14 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			for(var i = 16; i <= 70 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			for(var i = 72; i <= 174 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-		}else if(value == "22"){
-			for(var i = 4; i <= 14 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			for(var i = 16; i <= 70 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			for(var i = 78; i <= 174 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-		}else if(value == "33"){
-			for(var i = 5; i <= 14 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			for(var i = 16; i <= 70 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			for(var i = 78; i <= 174 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else{
-			for(var i = 7; i <= 14 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-			for(var i = 16; i <= 70 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+		}else if(recordId == "pollution_06"){
+			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+				pollutiongrdCtl.columns[k].setHidden(false);
 			}
 			
-			for(var i = 78; i <= 174 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}
-	}else if(recordId == "pollution_04"){
-		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-			pollutiongrdCtl.columns[k].setHidden(false);
-		}
-		
-		
-		if(value == "11" ){
 			
-			for(var i = 4; i <= 8 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+			if(value == "11" ){
+				
+				for(var i = 4; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				pollutiongrdCtl.columns[8].setHidden(true);
+				for(var i = 11; i <= 18 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else if(value == "22"){
+				
+				for(var i = 4; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else if(value == "33"){
+				for(var i = 5; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else{
+				
 			}
-			for(var i = 8; i <= 37 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-		}else if(value == "22"){
-			
-			for(var i = 4; i <= 7 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			
-		}else if(value == "33"){
-			for(var i = 5; i <= 7 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else{
-			pollutiongrdCtl.columns[6].setHidden(true);
-		}
-	}else if(recordId == "pollution_05"){
-		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-			pollutiongrdCtl.columns[k].setHidden(false);
-		}
-		
-		
-		if(value == "11" ){
-			
-			for(var i = 4; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+		}else if(recordId == "pollution_07"){
+			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+				pollutiongrdCtl.columns[k].setHidden(false);
 			}
 			
-		}else if(value == "22"){
 			
-			for(var i = 4; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			pollutiongrdCtl.columns[11].setHidden(true);
-			for(var i = 13; i <= 15 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 17; i <= 19 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 21; i <= 23 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 25; i <= 27 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 29; i <= 31 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 33; i <= 34 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else if(value == "33"){
-			for(var i = 5; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			pollutiongrdCtl.columns[11].setHidden(true);
-			for(var i = 13; i <= 15 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 17; i <= 19 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 21; i <= 23 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 25; i <= 27 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 29; i <= 31 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 33; i <= 34 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else{
-			pollutiongrdCtl.columns[11].setHidden(true);
-			for(var i = 13; i <= 15 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 17; i <= 19 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 21; i <= 23 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 25; i <= 27 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 29; i <= 31 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 33; i <= 34 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}
-	}else if(recordId == "pollution_06"){
-		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-			pollutiongrdCtl.columns[k].setHidden(false);
-		}
-		
-		
-		if(value == "11" ){
-			
-			for(var i = 4; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			pollutiongrdCtl.columns[8].setHidden(true);
-			for(var i = 11; i <= 18 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else if(value == "22"){
-			
-			for(var i = 4; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else if(value == "33"){
-			for(var i = 5; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else{
-			
-		}
-	}else if(recordId == "pollution_07"){
-		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-			pollutiongrdCtl.columns[k].setHidden(false);
-		}
-		
-		
-		if(value == "11" ){
-			for(var i = 4; i <= 12 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else if(value == "22"){
-			for(var i = 4; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 9; i <= 11 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else if(value == "33"){
-			for(var i = 5; i <= 6 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-			for(var i = 9; i <= 11 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
-			}
-		}else{
-			for(var i = 9; i <= 11 ;i++){
-				pollutiongrdCtl.columns[i].setHidden(true);
+			if(value == "11" ){
+				for(var i = 4; i <= 12 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else if(value == "22"){
+				for(var i = 4; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 9; i <= 11 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else if(value == "33"){
+				for(var i = 5; i <= 6 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+				for(var i = 9; i <= 11 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
+			}else{
+				for(var i = 9; i <= 11 ;i++){
+					pollutiongrdCtl.columns[i].setHidden(true);
+				}
 			}
 		}
 	}
+	
 	
 
 }
