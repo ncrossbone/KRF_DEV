@@ -37,7 +37,7 @@ drawPointData = function(rchIds, extDataId, evt, drawOption){
 			
 			var symbol = new SimpleMarkerSymbol();
 			symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
-			symbol.setSize(20);
+			symbol.setSize(30);
 			symbol.setColor(new Color([0,255,0,1]));
 			
 			var coreMap = GetCoreMap();
