@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_03', {
              ,'SB_NM'
              ,'CAT_DID'
              ,'ADDR'/* 법정동리 */
-             ,{name:'FINAL_PERCENTAGE'  ,type: 'number'}
+             ,'FINAL_PERCENTAGE'
              /* 점유율 */
              ,'INST_CD'/* 관할기관 */
              ,'STOP_FLAG'/* 휴업 */
@@ -208,7 +208,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_03', {
         		params: { 
         			catDid: store.catDid
         		},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			

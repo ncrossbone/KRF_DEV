@@ -1085,7 +1085,7 @@ PollutionSearchResult = function(value,recordId,title,storeNm){
 	
 	var pollutionOptions = {
 			id: "searchResult"+recordId+"_container",
-			title: title,
+			title: title+"　",
 			recordId:recordId,
 			storeNm:storeNm,
 			autoResize: true
@@ -1319,7 +1319,7 @@ PollutionSearchResult = function(value,recordId,title,storeNm){
 			for(var i = 4; i <= 8 ;i++){
 				pollutiongrdCtl.columns[i].setHidden(true);
 			}
-			for(var i = 8; i <= 37 ;i++){
+			for(var i = 9; i <= 37 ;i++){
 				pollutiongrdCtl.columns[i].setHidden(true);
 			}
 			
@@ -1341,10 +1341,13 @@ PollutionSearchResult = function(value,recordId,title,storeNm){
 			pollutiongrdCtl.columns[k].setHidden(false);
 		}
 		
-		
 		if(value == "11" ){
 			
 			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 11; i <= 34 ;i++){
 				pollutiongrdCtl.columns[i].setHidden(true);
 			}
 			

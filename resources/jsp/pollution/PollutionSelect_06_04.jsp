@@ -18,7 +18,7 @@ try{
 	sql += "           , MB_NM       /* 중권역 */                                       ";
 	sql += "           , SB_NM       /* 소권역 */                                       ";
 	sql += "           , CAT_DID     /* 집수구역 */                                     ";
-	sql += "           , DO_NM||CTY_NM||DONG_NM||RI_NM as addr /* 법정동리 */           ";
+	sql += "           , DO_NM||CTY_NM||DONG_NM||RI_NM as ADDR /* 법정동리 */           ";
 	sql += "           , FACI_NM       /* 매립장명 */                                   ";
 	sql += "           , WORK_DT       /* 운영일자 */                                   ";
 	sql += "           , PRODUCT_AMT   /* 발생유량(㎥/일) */                            ";
@@ -52,7 +52,7 @@ try{
 	sql += "       , MB_NM            /* 중권역 */                                      ";
 	sql += "       , SB_NM            /* 소권역 */                                      ";
 	sql += "       , CAT_DID          /* 집수구역 */                                    ";
-	sql += "       , addr             /* 법정동리 */                                    ";
+	sql += "       , ADDR             /* 법정동리 */                                    ";
 	sql += "       , FINAL_PERCENTAGE /* 점유율 */                                      ";
 	sql += "       , FACI_NM          /* 매립장명 */                                    ";
 	sql += "       , WORK_DT          /* 운영일자 */                                    ";
@@ -72,7 +72,7 @@ try{
 	sql += "               , MB_NM       /* 중권역 */                                   ";
 	sql += "               , SB_NM       /* 소권역 */                                   ";
 	sql += "               , CAT_DID     /* 집수구역 */                                 ";
-	sql += "               , addr        /* 법정동리 */                                 ";
+	sql += "               , ADDR        /* 법정동리 */                                 ";
 	sql += "               , FINAL_PERCENTAGE  /* 점유율 */                             ";
 	sql += "               , FACI_NM       /* 매립장명 */                               ";
 	sql += "               , WORK_DT       /* 운영일자 */                               ";
@@ -118,7 +118,7 @@ try{
 	sql += "               , MB_NM       /* 중권역 */                                   ";
 	sql += "               , SB_NM       /* 소권역 */                                   ";
 	sql += "               , CAT_DID     /* 집수구역 */                                 ";
-	sql += "               , addr /* 법정동리 */                                        ";
+	sql += "               , ADDR /* 법정동리 */                                        ";
 	sql += "               , '소계' as FINAL_PERCENTAGE /* 점유율 */                    ";
 	sql += "               , ''       /* 매립장명 */                                    ";
 	sql += "               , ''       /* 운영일자 */                                    ";
@@ -159,6 +159,8 @@ rs = stmt.executeQuery(sql);
 		jsonRecord.put("WS_NM",rs.getString("WS_NM"));
 		jsonRecord.put("MB_NM",rs.getString("MB_NM"));
 		jsonRecord.put("SB_NM",rs.getString("SB_NM"));
+		jsonRecord.put("ADDR",rs.getString("ADDR"));
+		jsonRecord.put("FINAL_PERCENTAGE",rs.getString("FINAL_PERCENTAGE"));
 		jsonRecord.put("CAT_DID",rs.getString("CAT_DID"));
 		jsonRecord.put("FACI_NM",rs.getString("FACI_NM"));
 		jsonRecord.put("WORK_DT",rs.getString("WORK_DT"));

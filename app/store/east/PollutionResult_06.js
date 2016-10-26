@@ -1,24 +1,36 @@
 Ext.define('KRF_DEV.store.east.PollutionResult_06', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
-    //  {name:  type: 'number'},
+    //  ,{name: '' type: 'number'},
     fields: [
 			'YYYY'
 			,'WS_NM'
 			,'MB_NM'
 			,'SB_NM'
 			,'FACI_NM'
+			,'ADDR'
+			,{name: 'FINAL_PERCENTAGE' ,type: 'number'}
 			,'WORK_DT'
-			,'PRODUCT_AMT'
-			,'DISCHARGE_AMT'
-			,'PRODUCT_BOD'
-			,'PRODUCT_COD'
-			,'PRODUCT_TN'
-			,'PRODUCT_TP'
-			,'DISCHARGE_BOD'
-			,'DISCHARGE_COD'
-			,'DISCHARGE_TN'
-			,'DISCHARGE_TP'
+			,{name: 'PRODUCT_AMT' ,type: 'number'}
+			
+			,{name: 'DISCHARGE_AMT', type: 'number'}
+			
+			,{name: 'PRODUCT_BOD' ,type: 'number'}
+			
+			,{name: 'PRODUCT_COD' ,type: 'number'}
+			
+			,{name: 'PRODUCT_TN' ,type: 'number'}
+			
+			,{name: 'PRODUCT_TP' ,type: 'number'}
+			
+			,{name: 'DISCHARGE_BOD' ,type: 'number'}
+			
+			,{name: 'DISCHARGE_COD' ,type: 'number'}
+			
+			,{name: 'DISCHARGE_TN' ,type: 'number'}
+			
+			,{name: 'DISCHARGE_TP' ,type: 'number'}
+			
     ],
     
     remoteSort: true,	
@@ -46,7 +58,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_06', {
         		params: { 
         			catDid: store.catDid
         		},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			

@@ -577,6 +577,24 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				
 				
 				
+				var storevalue = Ext.getCmp(tab.id);
+				if(storevalue != undefined){
+					var pollutiongrdCtl = storevalue.items.items[0]; // 그리드 컨테이너
+					pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
+					
+					var pollutionSelect = Ext.getCmp("pollutionSelect");
+					
+					if(pollutiongrdCtl.store.selectValue == undefined){
+						pollutionSelect.setValue("11");
+					}else{
+						pollutionSelect.setValue(pollutiongrdCtl.store.selectValue);
+					}
+					
+					
+					
+				}
+				
+				
 				
 								
 				

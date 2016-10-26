@@ -9,6 +9,8 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_03', {
 	
 	height: '100%',
 	width: '100%',
+	closable: true,
+	closeText: '×',
 	
 	items: [{
 		xtype: 'container',
@@ -1080,19 +1082,9 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_03', {
 			viewConfig: {
 				 getRowClass: function(record, rowIndex, rowParams, store) {
 					 //bold 13px/15px helvetica,arial,verdana,sans-serif
-					 if(record.data.SB_NM == "총계"){
+					 if(record.data.SB_NM == "총계" || record.data.SB_NM == "소계" || record.data.CAT_DID == "소계"
+						 || record.data.ADDR == "총계" || record.data.ADDR == "소계"){
 						 return 'pdj_total_subTotal';						 
-					 }
-					 if(record.data.CAT_DID == "소계"){
-						 //console.info(record);
-						 return 'pdj_total_subTotal';
-					 }
-					 if(record.data.ADDR == "총계"){
-						 return 'pdj_total_subTotal';
-					 }
-					 
-					 if(record.data.ADDR == "소계"){
-						 return 'pdj_total_subTotal';
 					 }
 					 //pdj_total_subTotal
 					 

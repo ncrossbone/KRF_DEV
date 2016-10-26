@@ -31,7 +31,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_05', {
         		params: { 
         			catDid: store.catDid
         		},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			

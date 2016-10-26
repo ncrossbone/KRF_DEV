@@ -9,6 +9,8 @@ Ext.define('KRF_DEV.store.east.PollutionResult_02', {
 			,'SB_NM'
 			,'MANAGER'
 			,'LIVESTOCK_NM'
+			,'ADDR'
+			,'FINAL_PERCENTAGE'
 			,{name:'LIVESTOCK_CNT'  ,type: 'number'}
 			,{name:'LIVESTOCK_AREA'  ,type: 'number'}
 			,'REGS'
@@ -72,7 +74,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_02', {
         		params: { 
         			catDid: store.catDid
         		},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
