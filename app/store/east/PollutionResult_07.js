@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.store.east.PollutionResult_04_Catdid', {
+Ext.define('KRF_DEV.store.east.PollutionResult_07', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
@@ -8,37 +8,16 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04_Catdid', {
 			,'MB_NM'
 			,'SB_NM'
 			,'CAT_DID'
-			,'TP_TYPE'
-			,'AREA_SUM'
-			,'AREA_RICE'
-			,'AREA_FIELD'
-			,'AREA_FLUIT'
-			,'AREA_STOCKFARM'
-			,'AREA_FOREST'
-			,'AREA_SPA'
-			,'AREA_SALTFIELD'
-			,'AREA_PLATEAU'
-			,'AREA_FACTORY'
-			,'AREA_EDUCATION'
-			,'AREA_PARKING'
-			,'AREA_OILING'
-			,'AREA_WAREHOUSE'
-			,'AREA_ROAD'
-			,'AREA_RAILROAD'
-			,'AREA_RIVER'
-			,'AREA_EMBANKMENT'
-			,'AREA_WATERROAD'
-			,'AREA_WATERRANGE'
-			,'AREA_FISHFARM'
-			,'AREA_WATER'
-			,'AREA_PARK'
-			,'AREA_HEALTH'
-			,'AREA_AMUSEMENTPARK'
-			,'AREA_RELIGION'
-			,'AREA_HISTORICAL'
-			,'AREA_GRAVEYARD'
-			,'AREA_MIXED'
-			,'GOLF_RANGE'
+			,'ADDR'
+			,{name: 'FINAL_PERCENTAGE' ,type: 'number'}
+			,'INST_NM'
+			,'IND_NM'
+			,'IND_OWNER'
+			,'IND_ID'
+			,'OT_NM'
+			,'EH_NM'
+			,{name: 'WW_AMT' ,type: 'number'}
+			
     ],
     
     remoteSort: true,	
@@ -49,10 +28,20 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04_Catdid', {
 		load: function(store) {
 			
 			var jsonData = "";
-			var arrData = [];
+			var url = ""
+			
+			if(store.selectValue == "11"){
+				url= './resources/jsp/pollution/PollutionSelect_07_01.jsp';
+			}else if(store.selectValue == "22"){
+				url= './resources/jsp/pollution/PollutionSelect_07_02.jsp';
+			}else if(store.selectValue == "33"){
+				url= './resources/jsp/pollution/PollutionSelect_07_03.jsp';
+			}else{
+				url= './resources/jsp/pollution/PollutionSelect_07_04.jsp';
+			}
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/pollution/PollutionSelect_04_Catdid.jsp',
+        		url: url,
         		params: { 
         			catDid: store.catDid
         		},
@@ -62,10 +51,8 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04_Catdid', {
         			
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
-        			if(jsonData.data.length != 0){
+        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				store.setData(jsonData.data);
-        			}else{
-        				return;
         			}
         			
         		},

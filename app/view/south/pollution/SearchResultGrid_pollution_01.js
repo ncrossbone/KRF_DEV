@@ -1,15 +1,18 @@
-Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
+Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_01', {
 	
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
 	
-	xtype: 'searchResultGrid_Pollution_01',
+	xtype: 'searchResultGrid_pollution_01',
 	
-	id: 'searchResultPollution_01_container',
+	id: 'searchResultpollution_01_container',
 	
 	height: '100%',
 	width: '100%',
+	closable: true,
+	closeText: '　×',
 	
+		
 	items: [{
 		xtype: 'container',
 		width: '100%',
@@ -155,8 +158,8 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 			},{	 
 				text      : '점유율',
 				dataIndex : 'FINAL_PERCENTAGE',
-				width: 150
-				//filter: {type: 'numeric'}
+				width: 150,
+				filter: {type: 'numeric'}
 			},{
 				text : '면적',
 				columns: [{ 
@@ -164,28 +167,19 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					dataIndex: 'AREA_A1',
 					width: 100,
 					align:'right',
-					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					filter: {type: 'numeric'/*, fields: {}*/}
 				},{ 
 					text     : '하수미처리지역',
 					dataIndex: 'AREA_A2',
 					width: 100,
 					align:'right',
-					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					filter: {type: 'numeric'/*, fields: {}*/}
 				},{ 
 					text     : '계(㎢)',
 					dataIndex: 'AREA_SUM',
 					width: 100,
 					align:'right',
-					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					filter: {type: 'numeric'/*, fields: {}*/}
 				}]	
 			},{
 				text : '지정내역',
@@ -225,8 +219,8 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 			},{	 
 				text      : '인구총계',
 				dataIndex : 'POP_SUM',
-				width: 150
-				//filter: {type: 'numeric'}
+				width: 150,
+				filter: {type: 'numeric'}
 			},{
 				text : '시가지역',
 				columns: [{ 
@@ -234,48 +228,54 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					dataIndex: 'UPOP_SUM',
 					width: 100,
 					align:'right',
-					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					filter: {type: 'numeric'/*, fields: {}*/}
 				},{ 
 					text     : '하수처리지역',
 					columns: [{ 
 						text     : '소계',
-						dataIndex: 'UPOP_A1_SUM'
+						dataIndex: 'UPOP_A1_SUM',
+						filter: {type: 'numeric'}
 					},{ 
 						text     : '분류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'UPOP_A1_SEPARATE_WT_SUM'
+							dataIndex: 'UPOP_A1_SEPARATE_WT_SUM',
+							filter: {type: 'numeric'}
 						},{
 							text: '폐수종말',
-							dataIndex: 'UPOP_A1_SEPARATE_IT_SUM'
+							dataIndex: 'UPOP_A1_SEPARATE_IT_SUM',
+							filter: {type: 'numeric'}
 						}]
 					},{ 
 						text     : '합류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'UPOP_A1_COMBINED_WT_SUM'
+							dataIndex: 'UPOP_A1_COMBINED_WT_SUM',
+							filter: {type: 'numeric'}
 						},{
 							text: '폐수종말',
-							dataIndex: 'UPOP_A1_COMBINED_IT_SUM'
+							dataIndex: 'UPOP_A1_COMBINED_IT_SUM',
+							filter: {type: 'numeric'}
 						}]
 					}]
 				},{ 
 					text     : '하수미처리지역',
 					columns:[{
 						text: '소계',
-						dataIndex: 'UPOP_A2_SUM'
+						dataIndex: 'UPOP_A2_SUM',
+						filter: {type: 'numeric'}
 					},{
 						text: '오수',
-						dataIndex: 'UPOP_A2_SANITARY'
+						dataIndex: 'UPOP_A2_SANITARY',
+						filter: {type: 'numeric'}
 					},{
 						text: '정화조',
-						dataIndex: 'UPOP_A2_SEPTIC'
+						dataIndex: 'UPOP_A2_SEPTIC',
+						filter: {type: 'numeric'}
 					},{
 						text: '수거식',
-						dataIndex: 'UPOP_A2_REMOVAL'
+						dataIndex: 'UPOP_A2_REMOVAL',
+						filter: {type: 'numeric'}
 					}]
 				}]	
 			},{
@@ -285,48 +285,54 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					dataIndex: 'SPOP_SUM',
 					width: 100,
 					align:'right',
-					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					filter: {type: 'numeric'/*, fields: {}*/}
 				},{ 
 					text     : '하수처리지역',
 					columns: [{ 
 						text     : '소계',
-						dataIndex: 'SPOP_A1_SUM'
+						dataIndex: 'SPOP_A1_SUM',
+						filter: {type: 'numeric'}
 					},{ 
 						text     : '분류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'SPOP_A1_SEPARATE_WT_SUM'
+							dataIndex: 'SPOP_A1_SEPARATE_WT_SUM',
+							filter: {type: 'numeric'}
 						},{
 							text: '폐수종말',
-							dataIndex: 'SPOP_A1_SEPARATE_IT_SUM'
+							dataIndex: 'SPOP_A1_SEPARATE_IT_SUM',
+							filter: {type: 'numeric'}
 						}]
 					},{ 
 						text     : '합류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'SPOP_A1_COMBINED_WT_SUM'
+							dataIndex: 'SPOP_A1_COMBINED_WT_SUM',
+							filter: {type: 'numeric'}
 						},{
 							text: '폐수종말',
-							dataIndex: 'SPOP_A1_COMBINED_IT_SUM'
+							dataIndex: 'SPOP_A1_COMBINED_IT_SUM',
+							filter: {type: 'numeric'}
 						}]
 					}]
 				},{ 
 					text     : '하수미처리지역',
 					columns:[{
 						text: '소계',
-						dataIndex: 'SPOP_A2_SUM'
+						dataIndex: 'SPOP_A2_SUM',
+						filter: {type: 'numeric'}
 					},{
 						text: '오수',
-						dataIndex: 'SPOP_A2_SANITARY'
+						dataIndex: 'SPOP_A2_SANITARY',
+						filter: {type: 'numeric'}
 					},{
 						text: '정화조',
-						dataIndex: 'SPOP_A2_SEPTIC'
+						dataIndex: 'SPOP_A2_SEPTIC',
+						filter: {type: 'numeric'}
 					},{
 						text: '수거식',
-						dataIndex: 'SPOP_A2_REMOVAL'
+						dataIndex: 'SPOP_A2_REMOVAL',
+						filter: {type: 'numeric'}
 					}]
 				}]	
 			}],
@@ -344,7 +350,8 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					 if(record.data.ADDR == "총계"){
 						 return 'pdj_total_subTotal';
 					 }
-					 if(record.data.FINAL_PERCENTAGE == "소계"){
+					 
+					 if(record.data.ADDR == "소계"){
 						 return 'pdj_total_subTotal';
 					 }
 					 //pdj_total_subTotal
@@ -352,5 +359,16 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 				}
 			}
 		}]
-	}]
+	}],
+	initComponent: function(){
+    	
+    	var me = this;
+    	console.info(me);
+    	//me.tab.componentCls = 'pdj_result_close';
+    	//me.tab.closeEl.componentCls = 'pdj_result_close';
+    	
+    	
+		this.callParent();
+		
+	}
 });

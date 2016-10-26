@@ -200,12 +200,46 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 					  ,{id: 'SPOP_SUM', name: '하수미처리인구'}]
 			})
 			setPollutionItems.setValue("POP_SUM");
+    	}else if(this.pollvalue == 2){
+    		store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{id: 'LIVESTOCK_CNT',  name: '사육두수'}]
+			})
+			setPollutionItems.setValue("LIVESTOCK_CNT");
+    	}else if(this.pollvalue == 3){
+    		store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{id: 'WUSE_W_SUM',  name: '폐수발생량'}]
+			})
+			setPollutionItems.setValue("WUSE_W_SUM");
     	}else if(this.pollvalue == 4){
     		store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
 				data: [{id: 'AREA_SUM',  name: '토지이용면적 합계'}]
 			})
 			setPollutionItems.setValue("AREA_SUM");
+    	}else if(this.pollvalue == 5){
+    		store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{id: 'AREA_REG_TOTAL',  name: '면허면적 합계'}
+					  ,{id: 'AREA_INST_TOTAL',  name: '시설면적 합계'}
+					  ,{id: 'FEED_AMT_TOTAL',  name: '사료사용량 합계'}
+					  ,{id: 'FISH_REG_TOTAL',  name: '출고량 합계'}]
+			})
+			setPollutionItems.setValue("AREA_REG_TOTAL");
+    	}else if(this.pollvalue == 6){
+    		store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{id: 'PRODUCT_AMT',  name: '발생유량'}
+					  ,{id: 'DISCHARGE_AMT',  name: '뱡류유량'}]
+			})
+			setPollutionItems.setValue("PRODUCT_AMT");
+    	}else if(this.pollvalue == 7){
+    		store = Ext.create('Ext.data.Store', {
+				fields: ['id', 'name'],
+				data: [{id: 'WW_AMT',  name: '폐수방류량'}]
+			})
+			setPollutionItems.setValue("WW_AMT");
     	}
     	
     	setPollutionItems.setStore(store);

@@ -1,7 +1,7 @@
 Ext.define('KRF_DEV.store.east.PollutionResult_01', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
-    //  {name:  type: 'number'},
+    //  ,{name:''  ,type: 'number'}
     fields: [
 			'YYYY'
 			,'WS_NM'
@@ -9,10 +9,10 @@ Ext.define('KRF_DEV.store.east.PollutionResult_01', {
 			,'SB_NM'
 			,'CAT_DID'
 			,'ADDR'
-			,'FINAL_PERCENTAGE'
-			,'AREA_A1'
-			,'AREA_A2'
-			,'AREA_SUM'
+			,{name:'FINAL_PERCENTAGE'  ,type: 'number'}
+			,{name:'AREA_A1'  ,type: 'number'}
+			,{name:'AREA_A2'  ,type: 'number'}
+			,{name:'AREA_SUM'  ,type: 'number'}
 			,'REGION'
 			,'REGION_DATE'
 			,'U_A1_TP_CODE'
@@ -21,27 +21,27 @@ Ext.define('KRF_DEV.store.east.PollutionResult_01', {
 			,'U_A3_TP_CODE'
 			,'U_A3_TP_DATE'
 			,'U_A3_TP_NAME'
-			,'POP_SUM'
-			,'UPOP_SUM'
-			,'UPOP_A1_SUM'
-			,'UPOP_A1_SEPARATE_WT_SUM'
-			,'UPOP_A1_SEPARATE_IT_SUM'
-			,'UPOP_A1_COMBINED_WT_SUM'
-			,'UPOP_A1_COMBINED_IT_SUM'
-			,'UPOP_A2_SUM'
-			,'UPOP_A2_SANITARY'
-			,'UPOP_A2_SEPTIC'
-			,'UPOP_A2_REMOVAL'
-			,'SPOP_SUM'
-			,'SPOP_A1_SUM'
-			,'SPOP_A1_SEPARATE_WT_SUM'
-			,'SPOP_A1_SEPARATE_IT_SUM'
-			,'SPOP_A1_COMBINED_WT_SUM'
-			,'SPOP_A1_COMBINED_IT_SUM'
-			,'SPOP_A2_SUM'
-			,'SPOP_A2_SANITARY'
-			,'SPOP_A2_SEPTIC'
-			,'SPOP_A2_REMOVAL'
+			,{name:'POP_SUM'  ,type: 'number'}
+			,{name:'UPOP_SUM'  ,type: 'number'}
+			,{name:'UPOP_A1_SUM'  ,type: 'number'}
+			,{name:'UPOP_A1_SEPARATE_WT_SUM'  ,type: 'number'}
+			,{name:'UPOP_A1_SEPARATE_IT_SUM'  ,type: 'number'}
+			,{name:'UPOP_A1_COMBINED_WT_SUM'  ,type: 'number'}
+			,{name:'UPOP_A1_COMBINED_IT_SUM'  ,type: 'number'}
+			,{name:'UPOP_A2_SUM'  ,type: 'number'}
+			,{name:'UPOP_A2_SANITARY'  ,type: 'number'}
+			,{name:'UPOP_A2_SEPTIC'  ,type: 'number'}
+			,{name:'UPOP_A2_REMOVAL'  ,type: 'number'}
+			,{name:'SPOP_SUM'  ,type: 'number'}
+			,{name:'SPOP_A1_SUM'  ,type: 'number'}
+			,{name:'SPOP_A1_SEPARATE_WT_SUM'  ,type: 'number'}
+			,{name:'SPOP_A1_SEPARATE_IT_SUM'  ,type: 'number'}
+			,{name:'SPOP_A1_COMBINED_WT_SUM'  ,type: 'number'}
+			,{name:'SPOP_A1_COMBINED_IT_SUM'  ,type: 'number'}
+			,{name:'SPOP_A2_SUM'  ,type: 'number'}
+			,{name:'SPOP_A2_SANITARY'  ,type: 'number'}
+			,{name:'SPOP_A2_SEPTIC'  ,type: 'number'}
+			,{name:'SPOP_A2_REMOVAL'  ,type: 'number'}
     ],
     
     remoteSort: true,	

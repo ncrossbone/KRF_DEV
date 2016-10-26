@@ -376,8 +376,6 @@ var percentile = {
 			arrPercentiles.push(percentile);
 		}
 		
-		
-		console.info(attrPath);
 		for(var i = 0; i < arrFeatures.length; i++){
 			var data = eval("arrFeatures[i].attributes." + attrPath);
 			arrValues.push(data);
@@ -399,7 +397,9 @@ var percentile = {
 				if(index == range - 1){
 					curMaxVal = Number(curMaxVal) + 1;
 				}
+				
 				if(data >= curMinVal && data < curMaxVal){
+					
 					arrFeatures[i].attributes.stVal = curMinVal;
 					arrFeatures[i].attributes.edVal = curMaxVal;
 					arrFeatures[i].attributes.color = getCatRangeColor(curRange);
@@ -470,21 +470,21 @@ pollutionLayerSelect = function(value , onOff){
 
 pollutionLayerOnOff = function(onOff, value){
 	
-	var pollutionMapSetValue = Ext.getCmp("pollutionMapSetValue");
-	if(pollutionMapSetValue == undefined){
-		pollutionMapSetValue =  Ext.create("KRF_DEV.view.east.PollutionMapSetValue", {
-			x: Ext.getBody().getWidth() - 261,
-			pollvalue: value,
-			async: false		
-		});
-	}
 	
+	var pollutionMapSetValue = Ext.getCmp("pollutionMapSetValue");
+	if(pollutionMapSetValue != undefined){
+		pollutionMapSetValue.close();
+	}
+	pollutionMapSetValue =  Ext.create("KRF_DEV.view.east.PollutionMapSetValue", {
+		x: Ext.getBody().getWidth() - 261,
+		pollvalue: value,
+		async: false		
+	});
 	
 	var colName = Ext.getCmp("setPollutionItems").value;
 	
 	
-	
-	var catPollutionOnOff = $("#catPollutionOnOff");
+	var catPollutionOnOff = $("#catPollutionOnOff_0"+value);
 	var corMap = GetCoreMap();
 	
 	if(catPollutionOnOff[0] != undefined){
@@ -497,8 +497,8 @@ pollutionLayerOnOff = function(onOff, value){
 		var imgSrc = catPollutionOnOff[0].src;
 		
 		if((onOff == undefined && imgSrc.indexOf("_on.") > -1) || onOff == "off"){
-			
-			//console.info(pollutionMapSetValue);
+		
+		
 			pollutionMapSetValue.close();
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
@@ -513,6 +513,9 @@ pollutionLayerOnOff = function(onOff, value){
 			
 			// 부하량 레이어 off
 			catTMLayerOnOff("off");
+			for(var i = 1 ; i <= 7 ;i++){
+				$("#catPollutionOnOff_0"+i)[0].src = imgSrc.replace("_on.", "_off.");
+			}
 			
 			pollutionMapSetValue.show();
 			// 집수구역 버튼 Off
@@ -521,8 +524,6 @@ pollutionLayerOnOff = function(onOff, value){
 			
 			catPollutionOnOff[0].src = imgSrc.replace("_off.", "_on.");
 			
-			/*// 주제도 레이어 클리어
-			pollutionCatLayerClear();*/
 			// 주제도 레이어 보이기
 			showCatPollutionLayer("", colName,value);
 		}
@@ -577,6 +578,13 @@ catTMLayerOnOff = function(onOff){
 			
 			pollMapSetValue.show();
 			
+			if($("#catPollutionOnOff_0"+i)[0] != undefined){
+				for(var i = 1 ; i <= 7 ;i++){
+					$("#catPollutionOnOff_0"+i)[0].src = imgSrc.replace("_on.", "_off.");
+				}
+			}
+			
+			
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "off");
 			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
@@ -623,21 +631,16 @@ showCatPollutionLayer = function(year, colName, value){
 	
 	var coreMap = GetCoreMap();
 	var arrAreaGrp = [];
-	
-	//현제 선택되어있는 오염원데이터
-	coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution = [];
-	
+		
 	
 	if(coreMap.reachLayerAdmin_v3_New.arrAreaPollution.length > 0){
 		for(var a = 0; a < coreMap.reachLayerAdmin_v3_New.arrAreaPollution.length ;a++){
 			if(Number(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[a][0]) == value){
 				arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaPollution[a][1][0];
-				coreMap.reachLayerAdmin_v3_New.arrAreaSelectPollution.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[a]);
 			}
 		}
 	}
 	
-console.info(arrAreaGrp);
 	
 	var inStrCatDids = "";
 	
@@ -655,8 +658,8 @@ console.info(arrAreaGrp);
 		
 		coreMap.pollutionLayerAdmin = Ext.create("KRF_DEV.view.map.PollutionLayerAdmin");
 	}
-	console.info(inStrCatDids);
-	coreMap.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, "2012" , colName, "pollution");
+	
+	coreMap.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, "2012" , colName, value);
 }
 
 //집수구역별 주제도 보여주기
@@ -1054,9 +1057,7 @@ PollLoadSearchResult = function(value){
 
 
 
-PollutionSearchResult = function(value){
-	
-	
+PollutionSearchResult = function(value,recordId,title,storeNm){
 	
 	
 	var coreMap = GetCoreMap();
@@ -1066,10 +1067,10 @@ PollutionSearchResult = function(value){
 		catDid.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][1][0][i].data.CAT_DID);
 	}
 	
-
 	if(value == ""){
 		value = "11";
 	}
+	
 	
 	var options = {
 			id: 'searchResultTab',
@@ -1079,79 +1080,399 @@ PollutionSearchResult = function(value){
 	var searchResultTab = GetTabControl(options);
 	var tab = searchResultTab.items.items[1];
 	//2016-08-24 리치검색시 방유량 그리드 생성
+	
+	
+	
 	var pollutionOptions = {
-			id: "searchResultPollution_01_container",
-			title: '생활계',
+			id: "searchResult"+recordId+"_container",
+			title: title,
+			recordId:recordId,
+			storeNm:storeNm,
 			autoResize: true
 	};
 	
-	
 	var pollutiongrdContainer = undefined; //재검색 초기화
-	pollutiongrdContainer = Ext.getCmp("searchResultPollution_01_container");
-	
-	
+	pollutiongrdContainer = Ext.getCmp("searchResult"+recordId+"_container");
+
+
 	if(pollutiongrdContainer == null || pollutiongrdContainer == undefined){
-		pollutiongrdContainer = Ext.create("KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01", pollutionOptions);
+		pollutiongrdContainer = Ext.create("KRF_DEV.view.south.pollution.SearchResultGrid_"+recordId, pollutionOptions);
 		tab.insert(1, pollutiongrdContainer);
 	}
-	tab.setActiveTab("searchResultPollution_01_container");
+	tab.setActiveTab("searchResult"+recordId+"_container");
 	
 	
 	var pollutiongrdCtl = pollutiongrdContainer.items.items[0]; // 그리드 컨테이너
 	pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
-	var pollutionstore = Ext.create("KRF_DEV.store.east.PollutionResult_01",{
-		catDid : catDid,
-		selectValue: value
-	});
-	pollutionstore.load();
 	
+	
+	var	pollutionstore = Ext.create("KRF_DEV.store.east."+storeNm,{
+			catDid : catDid,
+			selectValue: value
+		});
+	
+
 	pollutiongrdCtl.setStore(pollutionstore);
 	
-	console.info(pollutiongrdCtl);
+	pollutionstore.load();
 	
 	
-	
-	for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
-		pollutiongrdCtl.columns[k].setHidden(false);
-	}
-	
-	console.info(pollutiongrdCtl);
-	if(value == "11" ){
-		for(var i = 7; i <= 41 ;i++){
-			pollutiongrdCtl.columns[i].setHidden(true);
+	if(recordId == "pollution_01"){
+		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+			pollutiongrdCtl.columns[k].setHidden(false);
 		}
 		
-	}else if(value == "22"){
-		for(var i = 4; i <= 12 ;i++){
-			console.info(i);
-			pollutiongrdCtl.columns[i].setHidden(true);
-		}
-		pollutiongrdCtl.columns[14].setHidden(true);
-		pollutiongrdCtl.columns[16].setHidden(true);
-		pollutiongrdCtl.columns[19].setHidden(true);
 		
-	}else if(value == "33"){
-		for(var i = 4; i <= 6 ;i++){
-			pollutiongrdCtl.columns[i].setHidden(true);
+		if(value == "11" ){
+			for(var i = 7; i <= 41 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+		}else if(value == "22"){
+			for(var i = 4; i <= 12 ;i++){
+				
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[14].setHidden(true);
+			pollutiongrdCtl.columns[16].setHidden(true);
+			pollutiongrdCtl.columns[19].setHidden(true);
+			
+		}else if(value == "33"){
+			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 8; i <= 12 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[14].setHidden(true);
+			pollutiongrdCtl.columns[16].setHidden(true);
+			pollutiongrdCtl.columns[19].setHidden(true);
+		}else{
+			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 10; i <= 12 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[14].setHidden(true);
+			pollutiongrdCtl.columns[16].setHidden(true);
+			pollutiongrdCtl.columns[19].setHidden(true);
 		}
-		for(var i = 8; i <= 12 ;i++){
-			pollutiongrdCtl.columns[i].setHidden(true);
+	}else if(recordId == "pollution_02"){
+		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+			pollutiongrdCtl.columns[k].setHidden(false);
 		}
-		pollutiongrdCtl.columns[14].setHidden(true);
-		pollutiongrdCtl.columns[16].setHidden(true);
-		pollutiongrdCtl.columns[19].setHidden(true);
-	}else{
-		for(var i = 4; i <= 6 ;i++){
-			pollutiongrdCtl.columns[i].setHidden(true);
+		
+		
+		if(value == "11" ){
+			
+			for(var i = 4; i <= 7 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 10; i <= 42 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+		}else if(value == "22"){
+			for(var i = 4; i <= 7 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[10].setHidden(true);
+			for(var i = 12; i <= 16 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 18; i <= 19 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 21; i <= 22 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 24; i <= 27 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			pollutiongrdCtl.columns[29].setHidden(true);
+			pollutiongrdCtl.columns[31].setHidden(true);
+			pollutiongrdCtl.columns[33].setHidden(true);
+			pollutiongrdCtl.columns[35].setHidden(true);
+			pollutiongrdCtl.columns[37].setHidden(true);
+			pollutiongrdCtl.columns[38].setHidden(true);
+			pollutiongrdCtl.columns[42].setHidden(true);
+		}else if(value == "33"){
+			for(var i = 5; i <= 7 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[10].setHidden(true);
+			for(var i = 12; i <= 16 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 18; i <= 19 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 21; i <= 22 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 24; i <= 27 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			pollutiongrdCtl.columns[29].setHidden(true);
+			pollutiongrdCtl.columns[31].setHidden(true);
+			pollutiongrdCtl.columns[33].setHidden(true);
+			pollutiongrdCtl.columns[35].setHidden(true);
+			pollutiongrdCtl.columns[37].setHidden(true);
+			pollutiongrdCtl.columns[38].setHidden(true);
+			pollutiongrdCtl.columns[42].setHidden(true);
+		}else{
+			
+			pollutiongrdCtl.columns[7].setHidden(true);
+			pollutiongrdCtl.columns[10].setHidden(true);
+			for(var i = 12; i <= 16 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 18; i <= 19 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 21; i <= 22 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 24; i <= 27 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			pollutiongrdCtl.columns[29].setHidden(true);
+			pollutiongrdCtl.columns[31].setHidden(true);
+			pollutiongrdCtl.columns[33].setHidden(true);
+			pollutiongrdCtl.columns[35].setHidden(true);
+			pollutiongrdCtl.columns[37].setHidden(true);
+			pollutiongrdCtl.columns[38].setHidden(true);
+			pollutiongrdCtl.columns[42].setHidden(true);
+			
 		}
-		for(var i = 10; i <= 12 ;i++){
-			pollutiongrdCtl.columns[i].setHidden(true);
+	}else if(recordId == "pollution_03"){
+		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+			pollutiongrdCtl.columns[k].setHidden(false);
 		}
-		pollutiongrdCtl.columns[14].setHidden(true);
-		pollutiongrdCtl.columns[16].setHidden(true);
-		pollutiongrdCtl.columns[19].setHidden(true);
+		
+		
+		if(value == "11" ){
+			
+			for(var i = 4; i <= 14 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 16; i <= 70 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 72; i <= 174 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+		}else if(value == "22"){
+			for(var i = 4; i <= 14 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 16; i <= 70 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 78; i <= 174 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+		}else if(value == "33"){
+			for(var i = 5; i <= 14 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 16; i <= 70 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 78; i <= 174 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else{
+			for(var i = 7; i <= 14 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 16; i <= 70 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+			for(var i = 78; i <= 174 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}
+	}else if(recordId == "pollution_04"){
+		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+			pollutiongrdCtl.columns[k].setHidden(false);
+		}
+		
+		
+		if(value == "11" ){
+			
+			for(var i = 4; i <= 8 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 8; i <= 37 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+		}else if(value == "22"){
+			
+			for(var i = 4; i <= 7 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+		}else if(value == "33"){
+			for(var i = 5; i <= 7 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else{
+			pollutiongrdCtl.columns[6].setHidden(true);
+		}
+	}else if(recordId == "pollution_05"){
+		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+			pollutiongrdCtl.columns[k].setHidden(false);
+		}
+		
+		
+		if(value == "11" ){
+			
+			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			
+		}else if(value == "22"){
+			
+			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[11].setHidden(true);
+			for(var i = 13; i <= 15 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 17; i <= 19 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 21; i <= 23 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 25; i <= 27 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 29; i <= 31 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 33; i <= 34 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else if(value == "33"){
+			for(var i = 5; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[11].setHidden(true);
+			for(var i = 13; i <= 15 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 17; i <= 19 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 21; i <= 23 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 25; i <= 27 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 29; i <= 31 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 33; i <= 34 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else{
+			pollutiongrdCtl.columns[11].setHidden(true);
+			for(var i = 13; i <= 15 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 17; i <= 19 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 21; i <= 23 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 25; i <= 27 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 29; i <= 31 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 33; i <= 34 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}
+	}else if(recordId == "pollution_06"){
+		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+			pollutiongrdCtl.columns[k].setHidden(false);
+		}
+		
+		
+		if(value == "11" ){
+			
+			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			pollutiongrdCtl.columns[8].setHidden(true);
+			for(var i = 11; i <= 18 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else if(value == "22"){
+			
+			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else if(value == "33"){
+			for(var i = 5; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else{
+			
+		}
+	}else if(recordId == "pollution_07"){
+		for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
+			pollutiongrdCtl.columns[k].setHidden(false);
+		}
+		
+		
+		if(value == "11" ){
+			for(var i = 4; i <= 12 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else if(value == "22"){
+			for(var i = 4; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 9; i <= 11 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else if(value == "33"){
+			for(var i = 5; i <= 6 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+			for(var i = 9; i <= 11 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}else{
+			for(var i = 9; i <= 11 ;i++){
+				pollutiongrdCtl.columns[i].setHidden(true);
+			}
+		}
 	}
-	
 	
 
 }

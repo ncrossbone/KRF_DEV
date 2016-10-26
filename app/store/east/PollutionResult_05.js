@@ -1,24 +1,9 @@
-Ext.define('KRF_DEV.store.east.PollutionResult_06', {
+Ext.define('KRF_DEV.store.east.PollutionResult_05', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
-    //  {name:  type: 'number'},
+    //  ,{name: '' type: 'number'}
     fields: [
-			'YYYY'
-			,'WS_NM'
-			,'MB_NM'
-			,'SB_NM'
-			,'FACI_NM'
-			,'WORK_DT'
-			,'PRODUCT_AMT'
-			,'DISCHARGE_AMT'
-			,'PRODUCT_BOD'
-			,'PRODUCT_COD'
-			,'PRODUCT_TN'
-			,'PRODUCT_TP'
-			,'DISCHARGE_BOD'
-			,'DISCHARGE_COD'
-			,'DISCHARGE_TN'
-			,'DISCHARGE_TP'
+			
     ],
     
     remoteSort: true,	
@@ -32,13 +17,13 @@ Ext.define('KRF_DEV.store.east.PollutionResult_06', {
 			var url = ""
 			
 			if(store.selectValue == "11"){
-				url= './resources/jsp/pollution/PollutionSelect_06_01.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_05_01.jsp';
 			}else if(store.selectValue == "22"){
-				url= './resources/jsp/pollution/PollutionSelect_06_02.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_05_02.jsp';
 			}else if(store.selectValue == "33"){
-				url= './resources/jsp/pollution/PollutionSelect_06_03.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_05_03.jsp';
 			}else{
-				url= './resources/jsp/pollution/PollutionSelect_06_04.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_05_04.jsp';
 			}
 			
 			Ext.Ajax.request({

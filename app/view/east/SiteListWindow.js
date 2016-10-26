@@ -240,11 +240,40 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				// 검색결과창 띄우기
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
         				
+        				var coreMap = GetCoreMap();
+        				
         				//검색결과 "검색"시 부하량 표출
         				if(record.id == "pollLoad"){
         					PollLoadSearchResult("");
-        				}else if(record.id == "pollution_01"){
-        					PollutionSearchResult("");
+        				}else if(record.id == "pollution_01"
+        						||record.id == "pollution_02"
+        						||record.id == "pollution_03"
+        						||record.id == "pollution_04"
+        						||record.id == "pollution_05"
+        						||record.id == "pollution_06"
+        						||record.id == "pollution_07"){
+        					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm);
+        				}else if(record.id = "pollution"){
+        					
+        					console.info(record);
+        					for(var i = 0 ; i < record.childNodes.length;i++){
+        						/*console.info(record.childNodes[i].data.id);
+        						console.info(record.childNodes[i].data.title);
+        						console.info(record.childNodes[i].data.storeNm);*/
+        						PollutionSearchResult("",record.childNodes[i].data.id
+        								,record.childNodes[i].data.title
+        								,record.childNodes[i].data.storeNm);
+        					}
+        					
+        					/*for(var i = 1 ; i <= 7;i++){
+        						if(eval("coreMap.reachLayerAdmin_v3_New.arrAreaPollution_0"+i+"[0].length") != 0){
+        							
+        							
+        							
+        						}
+        						
+        					}*/
+        					
         				}
                 		
         				

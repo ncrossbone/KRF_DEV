@@ -177,12 +177,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				*/
 				
 				// khLee KRAD Test 2016/10/24
-				var rchIds = me.getRchIdWithEvent(evt);
-				
-				
-				console.info(rchIds);
-				showPopMenu();
-				
+				me.getRchIdWithEvent(evt, drawOption);
 				return;
 				// khLee KRAD Test 2016/10/24 End
 				
@@ -205,10 +200,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		});
     },
     
+    /* khLee KRAD Test 20161025 추가 */
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
      * evt: 이벤트 */
-    getRchIdWithEvent: function(evt){
+    getRchIdWithEvent: function(evt, drawOption){
     	
     	var me = this;
     	var coreMap = GetCoreMap();
@@ -222,7 +218,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     		
 	    	var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
 			var query = new Query();
-			query.returnGeometry = true;
+			query.returnGeometry = false;
 			query.outFields = ["*"];
 			
 			if(evt.type == "point"){
@@ -240,7 +236,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				query.geometry = evt;
 			}
 			
-			// 리치라인 조회
+			// 이벤트로 리치라인 조회
 			queryTask.execute(query, function(featureSet){
 				
 				if(featureSet.features.length > 0){
@@ -248,14 +244,58 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					for(var i = 0; i < featureSet.features.length; i++){
 						
 						rchIds.push(featureSet.features[i].attributes.RCH_ID);
+						
+						/* KRAD 이벤트 그래픽 그리기 */
+						drawKRADEvtGrp(rchIds, evt, drawOption);
 					}
 				}
 				else{
 					
+					var areaQueryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId); // 집수구역 URL
+					var areaQuery = new Query();
+					areaQuery.returnGeometry = false;
+					areaQuery.outFields = ["*"];
+					areaQuery.geometry = query.geometry;
 					
+					// 이벤트로 집수구역 조회
+					areaQueryTask.execute(areaQuery, function(areaFS){
+						
+						if(areaFS.features.length > 0){
+							
+							var lineQueryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
+							var lineQuery = new Query();
+							lineQuery.returnGeometry = false;
+							lineQuery.outFields = ["*"];
+							lineQuery.where = "CAT_DID IN (";
+							
+							for(var i = 0; i < areaFS.features.length; i++){
+								
+								lineQuery.where += "'" + areaFS.features[i].attributes.CAT_DID + "', ";
+							}
+							
+							lineQuery.where = lineQuery.where.substring(0, lineQuery.where.length - 2) + ")";
+							
+							// 조건으로 리치라인 조회
+							lineQueryTask.execute(lineQuery, function(lineFS){
+								
+								if(lineFS.features.length > 0){
+									
+									for(var i = 0; i < lineFS.features.length; i++){
+										
+										rchIds.push(lineFS.features[i].attributes.RCH_ID);
+									}
+									
+									/* KRAD 이벤트 그래픽 그리기 */
+									drawKRADEvtGrp(rchIds, evt, drawOption);
+								}
+								else{
+									
+									alert("해당 구역에 리치라인을 찾을 수 없습니다.");
+								}
+							});
+						}
+					});
 				}
-				
-				return rchIds;
 			});
     	});
     },

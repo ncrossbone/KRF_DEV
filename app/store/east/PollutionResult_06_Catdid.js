@@ -1,44 +1,12 @@
-Ext.define('KRF_DEV.store.east.PollutionResult_04_Catdid', {
+Ext.define('KRF_DEV.store.east.PollutionResult_06_Catdid', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
     fields: [
-			'YYYY'
-			,'WS_NM'
-			,'MB_NM'
-			,'SB_NM'
-			,'CAT_DID'
-			,'TP_TYPE'
-			,'AREA_SUM'
-			,'AREA_RICE'
-			,'AREA_FIELD'
-			,'AREA_FLUIT'
-			,'AREA_STOCKFARM'
-			,'AREA_FOREST'
-			,'AREA_SPA'
-			,'AREA_SALTFIELD'
-			,'AREA_PLATEAU'
-			,'AREA_FACTORY'
-			,'AREA_EDUCATION'
-			,'AREA_PARKING'
-			,'AREA_OILING'
-			,'AREA_WAREHOUSE'
-			,'AREA_ROAD'
-			,'AREA_RAILROAD'
-			,'AREA_RIVER'
-			,'AREA_EMBANKMENT'
-			,'AREA_WATERROAD'
-			,'AREA_WATERRANGE'
-			,'AREA_FISHFARM'
-			,'AREA_WATER'
-			,'AREA_PARK'
-			,'AREA_HEALTH'
-			,'AREA_AMUSEMENTPARK'
-			,'AREA_RELIGION'
-			,'AREA_HISTORICAL'
-			,'AREA_GRAVEYARD'
-			,'AREA_MIXED'
-			,'GOLF_RANGE'
+             'YYYY'
+			,'CAT_DID' 
+			,'PRODUCT_AMT'
+			,'DISCHARGE_AMT'
     ],
     
     remoteSort: true,	
@@ -53,7 +21,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04_Catdid', {
 			
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/pollution/PollutionSelect_04_Catdid.jsp',
+        		url: './resources/jsp/pollution/PollutionSelect_06_Catdid.jsp',
         		params: { 
         			catDid: store.catDid
         		},
@@ -63,8 +31,10 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04_Catdid', {
         			
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
-        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+        			if(jsonData.data.length != 0){
         				store.setData(jsonData.data);
+        			}else{
+        				return;
         			}
         			
         		},
