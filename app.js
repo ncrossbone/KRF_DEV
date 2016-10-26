@@ -69,7 +69,62 @@ store.load(function(a, b, c) {
 		_arcServiceUrl = record.data.arcServiceUrl;
 		_isOffsetPoint = record.data.isOffsetPoint;
 		_MapserviceUrl1 = record.data.MapserviceUrl1;
+		_cursorX = "";
+		_cursorY = "";
+		
+		$(document).bind("click", function(event){
+			
+			_cursorX = event.pageX;
+			_cursorY = event.pageY;
+			
+			var str = "";
+	        str = "offsetX: " + (event.offsetX == undefined ? event.layerX : event.offsetX);
+	        str += ", offsetY: " + (event.offsetY == undefined ? event.layerY : event.offsetY);
+	        str += "<br/>screenX: " + event.screenX;
+	        str += ", screenY : " + event.screenY;
+	        str += "<br/>clientX : " + event.clientX;
+	        str += ", clientY : " + event.clientY;
+	        str += "<br/>pageX : " + event.pageX;
+	        str += ", pageY : " + event.pageY;
+	        
+			//console.info(str);
+			
+			/*offset: 이벤트가 걸려있는 DOM 객체를 기준으로 좌표를 출력한다.
+
+			layer: offset과 같음. 파폭에서 사용한다.
+
+			screen: 화면 출력 크기가 기준인 절대좌표. 브라우저를 움직여도 값은 같다.
+
+			client: 브라우저가 기준인 좌표. 브라우저 상에서 어느 지점에 위치하는지를 의미하기 때문에 스크롤해도 값은 변하지 않는다.
+
+			page: 문서가 기준인 좌표. client와 비슷하지만 문서 전체 크기가 기준이라 스크롤 시 값이 바뀐다.*/
+		});
 	});
+});
+
+var _kradInfo = null;
+
+var kradStore = Ext.create('Ext.data.Store', {
+	
+	autoLoad : true,
+	
+	fields : [{
+		name : 'kradServiceUrl'
+	}],
+	
+	proxy : {
+		type : 'ajax',
+		url : './resources/data/krad/kradLayerVar.json',
+		reader : {
+			type : 'json'
+		}
+	}
+});
+
+kradStore.load(function(a, b, c) {
+	
+	_kradInfo = a[0].data;
+	//console.info(_kradInfo);
 });
 
 /*
