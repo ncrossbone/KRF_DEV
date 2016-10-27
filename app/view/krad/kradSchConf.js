@@ -14,14 +14,12 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
 	//cls: 'dj_toolbarConf',
-	style: "border: 0px;",
+	style: "border: 1px;",
 	header: false,
 	
 	layout: {
 		type: 'accordion'
-	},
-
-	
+	},	
 	items:[{
 		xtype : 'panel',
 		//autoScroll: true,
@@ -39,7 +37,17 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 			items: [{
 				xtype: 'grid',
 				store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
-				columns: [{	 
+				columns: [{
+					text:'체크박스',
+					width: 50,
+					renderer:function(value){
+						value = 0;
+						if (value == "true") {
+							value = 1;
+						}
+						return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
+					}
+					},{	 
 					text      : '측정망명',
 					dataIndex : 'kradCommonNm',
 					width: 150
@@ -48,6 +56,59 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 						text:'버튼',
 						align:'center',
 						xtype:'actioncolumn',
+						width:50,
+						items:[{
+							xtype:'button',
+							text:'button',
+							handler: function(a,b,c,d){
+								var metaInfo = Ext.getCmp("kradMetaInfo");
+								if(metaInfo == undefined){
+									metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo");
+								}
+								metaInfo.show();
+							}
+						}]
+					}]
+				}]
+			}]
+		},{
+
+		xtype : 'panel',
+		//autoScroll: true,
+		layout : {
+			type : 'vbox'
+		},
+		cls: 'dj_layer_nm',
+		title :  '공통',
+		
+		items:[{
+			xtype: 'container',
+			width: '100%',
+			height: '100%',
+			//id: 'krad_grid',
+			items: [{
+				xtype: 'grid',
+				store : Ext.create('KRF_DEV.store.krad.krad_tmp2'),
+				columns: [{
+					text:'체크박스',
+					width: 50,
+					renderer:function(value){
+						value = 0;
+						if (value == "true") {
+							value = 1;
+						}
+						return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
+					}
+					},{	 
+					text      : '측정망명',
+					dataIndex : 'kradCommonNm',
+					width: 150
+					//filter: {type: 'numeric'}
+					},{	 
+						text:'사용자 지정',
+						align:'center',
+						xtype:'actioncolumn',
+						width:50,
 						items:[{
 							xtype:'button',
 							text:'button',
@@ -63,31 +124,6 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				}]
 			}]
 		}],
-			/*items:[{
-				xtype : 'panel',
-				//autoScroll: true,
-				layout : {
-					type : 'vbox'
-				},
-				cls: 'dj_layer_nm',
-				title :  '공통',
-				items:[{
-					xtype : 'checkbox',
-					boxLabel: '수질측정망_경안천_201605'
-				},{
-					xtype : 'checkbox',
-					boxLabel: '수질측정망_안양천_201605'
-				},{
-					xtype : 'checkbox',
-					boxLabel: '수질측정망_경안천_201605'
-				},{
-					xtype : 'checkbox',
-					boxLabel: '수질측정망_경안천_201605'
-				}]
-			}]
-	       
-			
-	}],*/
 	initComponent: function(){
 		
 		//store : Ext.create('KRF_DEV.store.krad.krad_tmp'),

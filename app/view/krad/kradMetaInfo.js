@@ -22,7 +22,7 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 	
 	items:[{
 		xtype : 'container',
-		width: '100%',
+		width: '400px',
 		height: '100%',
 		border: true,
 		items:[{
@@ -48,13 +48,16 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 					},
 					items:[{
 						xtype:'textfield',
-						fieldLabel:'도엽명'
+						fieldLabel:'도엽명',
+						width:'130px'
 					},{
 						xtype:'textfield',
-						fieldLabel:'도엽변호'
+						fieldLabel:'도엽변호',
+						width:'130px'
 					},{
 						xtype:'textfield',
-						fieldLabel:'축척'
+						fieldLabel:'축척',
+						width:'130px'
 					}]
 					
 				},{
@@ -96,13 +99,15 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 					items:[{
 						xtype:'textfield',
 						fieldLabel:'도엽명',
-						LabelStyle: 'width:30px',
+						width:'130px'
 					},{
 						xtype:'textfield',
-						fieldLabel:'도엽변호'
+						fieldLabel:'도엽변호',
+						width:'130px'
 					},{
 						xtype:'textfield',
-						fieldLabel:'축척'
+						fieldLabel:'축척',
+						width:'130px'
 					}]
 					
 				},{
