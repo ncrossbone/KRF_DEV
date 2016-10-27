@@ -37,7 +37,7 @@ drawPointData = function(rchIds, extDataId, evt, drawOption){
 			
 			var symbol = new SimpleMarkerSymbol();
 			symbol.setStyle(SimpleMarkerSymbol.STYLE_SQUARE);
-			symbol.setSize(30);
+			symbol.setSize(20);
 			symbol.setColor(new Color([0,255,0,1]));
 			
 			var coreMap = GetCoreMap();
@@ -180,7 +180,7 @@ drawLineEvent = function(rchIds, extDataId, evt, drawOption){
 				if(graphic.attributes.EVENT_ORDER % 2 == 0)
 					symbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 255, 0]), 5);
 				else
-					symbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 0, 255]), 5);
+					symbol = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 255]), 5);
 				
 				graphic.setSymbol(symbol);
 				
@@ -288,7 +288,7 @@ showKRADEvtPop = function(rchIds, evt, drawOption){
 		cursorY = bodyHeight - popHeight;
 	}
 	
-	var popupMenu = Ext.getCmp("kradPopMenu");
+	var popupMenu = Ext.getCmp("kradEvtPop");
 	if(popupMenu == undefined){
 		popupMenu = Ext.create("KRF_DEV.view.krad.kradEvtPop", {
 			width: popWidth,
@@ -304,7 +304,71 @@ showKRADEvtPop = function(rchIds, evt, drawOption){
 		popupMenu.setX(cursorX);
 		popupMenu.setY(cursorY);
 	}
+}
+
+drawKRADLayer = function(){
 	
-	//popupMenu.close();
-	popupMenu.show();
+	var coreMap = GetCoreMap();
+	
+	var kradPELayer = coreMap.map.getLayer("kradPELayer");
+	var kradStRchId = kradPELayer.ST_RCH_ID;
+	var kradEdRchId = kradPELayer.ED_RCH_ID;
+	
+	console.info(kradPELayer);
+	console.info(coreMap.reachLayerAdmin_v3_New.grpCommDownLine);
+	console.info(coreMap.reachLayerAdmin_v3_New.lineGrpLayer);
+	console.info(coreMap.reachLayerAdmin_v3_New.areaGrpLayer);
+	
+	var comDownRchId = coreMap.reachLayerAdmin_v3_New.grpCommDownLine.attributes.RCH_ID;
+	var reachLineGraphics = coreMap.reachLayerAdmin_v3_New.lineGrpLayer.graphics;
+	
+	for(var i = 0; i < reachLineGraphics.length; i++){
+		
+		var rchId = reachLineGraphics[i].attributes.RCH_ID;
+		if(rchId == kradStRchId || rchId == kradEdRchId){
+			
+			coreMap.reachLayerAdmin_v3_New.removeLine(reachLineGraphics[i], "lineGrpLayer");
+		}
+	}
+	
+	var kradLEGraphics = coreMap.map.getLayer("kradLELayer").graphics;
+	var kradAEGraphics = coreMap.map.getLayer("kradAELayer").graphics;
+	
+	// 시작위치 KRAD
+	if(kradPELayer.ST_RCH_ID == comDownRchId){
+	
+		for(var i = 0; i < kradLEGraphics.length; i++){
+		
+			if(kradLEGraphics[i].attributes.EVENT_ORDER <= kradPELayer.ST_EVENT_ORDER){
+				
+				coreMap.reachLayerAdmin_v3_New.addGraphics(kradLEGraphics[i], "lineGrpLayer");
+			}
+		}
+		
+		for(var i = 0; i < kradAEGraphics.length; i++){
+			
+			if(kradAEGraphics[i].attributes.EVENT_ORDER <= kradPELayer.ST_EVENT_ORDER){
+				
+				coreMap.reachLayerAdmin_v3_New.addGraphics(kradAEGraphics[i], "areaGrpLayer");
+			}
+		}
+	}
+	else{
+		
+		for(var i = 0; i < kradLEGraphics.length; i++){
+			
+			if(kradLEGraphics[i].attributes.EVENT_ORDER > kradPELayer.ST_EVENT_ORDER){
+				
+				coreMap.reachLayerAdmin_v3_New.addGraphics(kradLEGraphics[i], "lineGrpLayer");
+			}
+		}
+		
+		for(var i = 0; i < kradAEGraphics.length; i++){
+			
+			if(kradAEGraphics[i].attributes.EVENT_ORDER > kradPELayer.ST_EVENT_ORDER){
+				
+				coreMap.reachLayerAdmin_v3_New.addGraphics(kradAEGraphics[i], "areaGrpLayer");
+			}
+		}
+	}
 }
