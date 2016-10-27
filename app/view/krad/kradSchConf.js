@@ -10,42 +10,90 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 	height: 400,
 	
 	x: 387,
-	y: 200,
+	y: 226,
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
 	//cls: 'dj_toolbarConf',
 	style: "border: 0px;",
 	header: false,
-	layout: {
-		type: 'vbox',
-	},
 	
-	items: [{
-		xtype: 'checkbox',
-		boxLabel: 'KRAD',
-		checked: true,
-		height: 25,
-		style: "padding-left: 5px;"
-	}, {
-		title: '주제도 선택',
-		xtype: 'treepanel',
-		id: 'kradSchTree',
-		header: false,
-		scroll: false,
-		viewConfig: {
-			style: { overflow: 'auto', overflowX: 'hidden' }
-		},
-		store : Ext.create('KRF_DEV.store.west.Layer01Store'),
-		rootVisible: false,
-		useArrows: true,
-		bufferedRenderer: false,
-		width: "100%",
-		height: 375,
-		style: "padding-left: 10px;"
-	}],
+	layout: {
+		type: 'accordion'
+	},
 
+	
+	items:[{
+		xtype : 'panel',
+		//autoScroll: true,
+		layout : {
+			type : 'vbox'
+		},
+		cls: 'dj_layer_nm',
+		title :  '공통',
+		
+		items:[{
+			xtype: 'container',
+			width: '100%',
+			height: '100%',
+			//id: 'krad_grid',
+			items: [{
+				xtype: 'grid',
+				store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
+				columns: [{	 
+					text      : '측정망명',
+					dataIndex : 'kradCommonNm',
+					width: 150
+					//filter: {type: 'numeric'}
+					},{	 
+						text:'버튼',
+						align:'center',
+						xtype:'actioncolumn',
+						items:[{
+							xtype:'button',
+							text:'button',
+							handler: function(a,b,c,d){
+								var metaInfo = Ext.getCmp("kradMetaInfo");
+								if(metaInfo == undefined){
+									metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo");
+								}
+								metaInfo.show();
+							}
+						}]
+					}]
+				}]
+			}]
+		}],
+			/*items:[{
+				xtype : 'panel',
+				//autoScroll: true,
+				layout : {
+					type : 'vbox'
+				},
+				cls: 'dj_layer_nm',
+				title :  '공통',
+				items:[{
+					xtype : 'checkbox',
+					boxLabel: '수질측정망_경안천_201605'
+				},{
+					xtype : 'checkbox',
+					boxLabel: '수질측정망_안양천_201605'
+				},{
+					xtype : 'checkbox',
+					boxLabel: '수질측정망_경안천_201605'
+				},{
+					xtype : 'checkbox',
+					boxLabel: '수질측정망_경안천_201605'
+				}]
+			}]
+	       
+			
+	}],*/
 	initComponent: function(){
 		
+		//store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
+		
+		//localStorage['_kradGroupInfo_']
+		//[{id: kk, name: kk, checked: true}, {{id: kk, name: kk, checked: true}]
 		this.callParent();
 		
 		//console.info(localStorage['_searchConfigInfo_']);
