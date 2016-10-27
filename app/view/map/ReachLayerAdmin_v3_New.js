@@ -24,6 +24,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	arrStDownLine: [], // 시작위치 하류 배열
 	arrEdDownLine: [], // 끝위치 하류 배열
 	
+	grpCommDownLine: null, // 시작위치, 끝위치 공통 하류(만나는지점) 그래픽 오브젝트
+	
 	minStartRchDid: '', // 시작위치 라인 최상류 (시작위치 라인이 여러개일 수 있음)
 	minEndRchId: '', // 끝위치 라인 최상류 (끝위치 라인이 여러개일 수 있음) 
 	
@@ -176,10 +178,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				}
 				*/
 				
-				// khLee KRAD Test 2016/10/24
+				// khLee Test KRAD 20161024
+				console.info(evt);
 				me.getRchIdWithEvent(evt, drawOption);
 				return;
-				// khLee KRAD Test 2016/10/24 End
+				// khLee Test KRAD 20161024 End
 				
 				if(symbol != null && symbol != undefined)
 					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
@@ -576,6 +579,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 								// 시작위치 하류 배열, 끝위치 하류 배열에서 ID가 일치하는지 체크..
 								// 시작위치 하류, 끝위치 하류 만나는 지점..
 								if(stRchDid == edRchDid){
+
+									// 만나는 지점 그래픽 오브젝트 전역
+									me.grpCommDownLine = me.arrStDownLine[stIdx];
 									
 									stSliceIdx = stIdx;
 									edSliceIdx = edIdx;
@@ -951,6 +957,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		        		// 검색결과 창 띄우기
 		        		ShowSearchResultReach("");
 		        		//PollLoadSearchResult("");
+		        		
+		        		/* khLee Test 20161026 */
+		        		drawKRADLayer();
+		        		/* khLee Test 20161026 End */
 		        		
 		        		// 1초 단위 타이머
 		        		var timer = setInterval(afterChk = function(){
@@ -1339,7 +1349,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	if(isDraw == true){
     		
 	    	// 그래픽 그린다.
-	    	graphic.setSymbol(symbol);
+    		graphic.setSymbol(symbol);
 			me.addGraphics(graphic, layerId);
 			
 			// 배열에 넣기
