@@ -16,25 +16,29 @@ Ext.define('Report.view.east.rptSetPeriod', {
 	height: 25,
 	
 	items: [{
+		xtype:"image",
+		src:"../resources/images/button/blit_st_01.png",
+		style:"margin-top: 8px"
+	},{
 		xtype: "label",
 		text: "기",
-		style: "margin-top: 4px;"
+		style: "margin-top: 4px; margin-left: 10px; font-weight: bold;"
 	}, {
 		xtype: "container",
 		width: 26
 	}, {
 		xtype: "label",
 		text: "간",
-		style: "margin-top: 4px; padding-right: 10px;"
+		style: "margin-top: 4px; padding-right: 10px; font-weight: bold;"
 	}, {
 		xtype: "label",
-		text: ":",
+		text: "",
 		style: "margin-top: 4px; padding-right: 10px;"
-	}, {
+	},/* {
 		xtype: "label",
 		text: "월평균",
 		style: "margin-top: 4px; padding-right: 10px;"
-	}, {
+	},*/ {
 		xtype: "combo",
 		id: "cmbRptPeriodStYear",
 		width: 70,
