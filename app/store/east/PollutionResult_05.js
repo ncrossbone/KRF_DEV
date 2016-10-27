@@ -1,12 +1,9 @@
-Ext.define('KRF_DEV.store.east.PollutionResult_06_Catdid', {
+Ext.define('KRF_DEV.store.east.PollutionResult_05', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
-    //  {name:  type: 'number'},
+    //  ,{name: '' type: 'number'}
     fields: [
-             'YYYY'
-			,'CAT_DID' 
-			,'PRODUCT_AMT'
-			,'DISCHARGE_AMT'
+			
     ],
     
     remoteSort: true,	
@@ -17,24 +14,31 @@ Ext.define('KRF_DEV.store.east.PollutionResult_06_Catdid', {
 		load: function(store) {
 			
 			var jsonData = "";
-			var arrData = [];
+			var url = ""
 			
+			if(store.selectValue == "11" || store.selectValue == ""){
+				url= './resources/jsp/pollution/PollutionSelect_05_01.jsp';
+			}else if(store.selectValue == "22"){
+				url= './resources/jsp/pollution/PollutionSelect_05_02.jsp';
+			}else if(store.selectValue == "33"){
+				url= './resources/jsp/pollution/PollutionSelect_05_03.jsp';
+			}else{
+				url= './resources/jsp/pollution/PollutionSelect_05_04.jsp';
+			}
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/pollution/PollutionSelect_06_Catdid.jsp',
+        		url: url,
         		params: { 
         			catDid: store.catDid
         		},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
-        			if(jsonData.data.length != 0){
+        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
         				store.setData(jsonData.data);
-        			}else{
-        				return;
         			}
         			
         		},

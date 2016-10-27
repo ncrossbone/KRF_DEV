@@ -358,27 +358,64 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	},
 	
 	getPollutionString: function(){
-		//console.info("dd");
-		//alert("dd");
-		//, {\"id\": \"Z001\", \"text\": \"부하량\", \"expanded\": false, \"children\": [{\"id\": \"111111111\", \"text\": \"111111111\", \"catDId\": \"111111111\", \"cls\": \"khLee-x-tree-node-text-small\", \"iconCls\": \"layerNoneImg\", \"leaf\": true, \"checked\": null}]}
-		var me = GetCoreMap();
 		
+		var me = GetCoreMap();		
 		
 		if(this.catDid.length == 0){
 			return "";
 		}
 		
-		var store = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
+		//생활계
+		var store1 = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
 			async:false,
 			catDid : this.catDid
 		});
-		store.load();
+		store1.load();
 		
+		//축산계
+		var store2 = Ext.create('KRF_DEV.store.east.PollutionResult_02_Catdid',{
+			async:false,
+			catDid : this.catDid
+		});
+		store2.load();
+		
+		//산업계
+		var store3 = Ext.create('KRF_DEV.store.east.PollutionResult_03_Catdid',{
+			async:false,
+			catDid : this.catDid
+		});
+		store3.load();
+		
+		
+		//토지계
 		var store4 = Ext.create('KRF_DEV.store.east.PollutionResult_04_Catdid',{
 			async:false,
 			catDid : this.catDid
 		});
 		store4.load();
+		
+		//양식계
+		var store5 = Ext.create('KRF_DEV.store.east.PollutionResult_05_Catdid',{
+			async:false,
+			catDid : this.catDid
+		});
+		store5.load();
+		
+		//매립계
+		var store6 = Ext.create('KRF_DEV.store.east.PollutionResult_06_Catdid',{
+			async:false,
+			catDid : this.catDid
+		});
+		store6.load();
+		
+		
+		
+		//기타수질오염원
+		var store7 = Ext.create('KRF_DEV.store.east.PollutionResult_07_Catdid',{
+			async:false,
+			catDid : this.catDid
+		});
+		store7.load();
 		
 		
 		//전역변수 설정
@@ -391,14 +428,18 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		me.reachLayerAdmin_v3_New.arrAreaPollution_06 = [];
 		me.reachLayerAdmin_v3_New.arrAreaPollution_07 = [];
 		
-		//생활계
-		me.reachLayerAdmin_v3_New.arrAreaPollution_01.push(store.data.items);
 		
 		
-		
-		//토지계
+		me.reachLayerAdmin_v3_New.arrAreaPollution_01.push(store1.data.items);
+		me.reachLayerAdmin_v3_New.arrAreaPollution_02.push(store2.data.items);
+		me.reachLayerAdmin_v3_New.arrAreaPollution_03.push(store3.data.items);
 		me.reachLayerAdmin_v3_New.arrAreaPollution_04.push(store4.data.items);
+		me.reachLayerAdmin_v3_New.arrAreaPollution_05.push(store5.data.items);
+		me.reachLayerAdmin_v3_New.arrAreaPollution_06.push(store6.data.items);
+		me.reachLayerAdmin_v3_New.arrAreaPollution_07.push(store7.data.items);
 		
+		
+	
 		me.reachLayerAdmin_v3_New.arrAreaPollution.push(
 				["01",me.reachLayerAdmin_v3_New.arrAreaPollution_01],
 				["02",me.reachLayerAdmin_v3_New.arrAreaPollution_02],
@@ -408,7 +449,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				["06",me.reachLayerAdmin_v3_New.arrAreaPollution_06],
 				["07",me.reachLayerAdmin_v3_New.arrAreaPollution_07]);
 		
-		console.info(me.reachLayerAdmin_v3_New.arrAreaPollution_01);
 		
 		
 		
@@ -422,14 +462,19 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			pollutionString += "	\"infoBtnDisabled\": true,\n";
 			pollutionString += "	\"chartBtnDisabled\": true,\n";
 			pollutionString += "	\"srchBtnDisabled\": false,\n";
+			
+			
+			
 			pollutionString += "	\"children\": [{\n";
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length > 0){
 				pollutionString += "	\"id\": \"pollution_01\",\n";
+				pollutionString += "	\"title\": \"생활계\",\n";
+				pollutionString += "	\"storeNm\": \"PollutionResult_01\",\n";
 				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>생활계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(01);'>";
-				pollutionString += " <img id='catPollutionOnOff' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
+				pollutionString += " <img id='catPollutionOnOff_01' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
 				pollutionString += " </a>";
 				pollutionString += " </span>\",\n";
 				
@@ -465,22 +510,121 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				pollutionString = pollutionString.replace("#pollutionChildString#", pollutionChildString);
 				
-				pollutionString += "]\n";
 				
-				pollutionString += "	}\n";
-				
-				
+				pollutionString += " ]\n";
+				pollutionString += "}\n";
 				
 			}
 			
-			/*pollutionString += "	 , { \n";
+			if(me.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length > 0){
+				pollutionString += "	 , { \n";
+				pollutionString += "	\"id\": \"pollution_02\",\n";
+				pollutionString += "	\"title\": \"축산계\",\n";
+				pollutionString += "	\"storeNm\": \"PollutionResult_02\",\n";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>축산계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length + ")</span>";
+				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
+				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(02);'>";
+				pollutionString += " <img id='catPollutionOnOff_02' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
+				pollutionString += " </a>";
+				pollutionString += " </span>\",\n";
+				
+				pollutionString += "		\"expanded\": false,\n";
+				pollutionString += "		\"infoBtnDisabled\": true,\n";
+				pollutionString += "		\"chartBtnDisabled\": true,\n";
+				pollutionString += "		\"srchBtnDisabled\": false,\n";
+				pollutionString += "		\"children\": [";
+				
+				pollutionString += "#pollutionChild_02String#"; // 조회된 집수구역 문자열 집어넣자.. 아래서..
+				
+				var pollutionChild_02String = "";
+				
+				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length; i++){
+					
+					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					
+					pollutionChild_02String += "{\n";
+					pollutionChild_02String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_02[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_02String += "			\"text\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_02[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_02String += "			\"catDId\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_02[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_02String += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+					pollutionChild_02String += "			\"iconCls\": \"layerNoneImg\",\n";
+					pollutionChild_02String += "			\"leaf\": true,\n";
+					pollutionChild_02String += "			\"checked\": null,\n";
+					pollutionChild_02String += "			\"infoBtnDisabled\": true,\n";
+					pollutionChild_02String += "			\"chartBtnDisabled\": true,\n";
+					pollutionChild_02String += "			\"srchBtnDisabled\": true,\n";
+					pollutionChild_02String += "		}, ";
+				}
+				
+				pollutionChild_02String = pollutionChild_02String.substring(0, pollutionChild_02String.length - 2);
+				
+				pollutionString = pollutionString.replace("#pollutionChild_02String#", pollutionChild_02String);
+				
+				pollutionString += " ]\n";
+				pollutionString += "}\n";
+				
+			}
+			
+			
+			if(me.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length > 0){
+				pollutionString += "	 , { \n";
+				pollutionString += "	\"id\": \"pollution_03\",\n";
+				pollutionString += "	\"title\": \"산업계\",\n";
+				pollutionString += "	\"storeNm\": \"PollutionResult_03\",\n";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>산업계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length + ")</span>";
+				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
+				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(03);'>";
+				pollutionString += " <img id='catPollutionOnOff_03' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
+				pollutionString += " </a>";
+				pollutionString += " </span>\",\n";
+				
+				pollutionString += "		\"expanded\": false,\n";
+				pollutionString += "		\"infoBtnDisabled\": true,\n";
+				pollutionString += "		\"chartBtnDisabled\": true,\n";
+				pollutionString += "		\"srchBtnDisabled\": false,\n";
+				pollutionString += "		\"children\": [";
+				
+				pollutionString += "#pollutionChild_03String#"; // 조회된 집수구역 문자열 집어넣자.. 아래서..
+				
+				var pollutionChild_03String = "";
+				
+				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length; i++){
+					
+					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					
+					pollutionChild_03String += "{\n";
+					pollutionChild_03String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_03[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_03String += "			\"text\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_03[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_03String += "			\"catDId\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_03[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_03String += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+					pollutionChild_03String += "			\"iconCls\": \"layerNoneImg\",\n";
+					pollutionChild_03String += "			\"leaf\": true,\n";
+					pollutionChild_03String += "			\"checked\": null,\n";
+					pollutionChild_03String += "			\"infoBtnDisabled\": true,\n";
+					pollutionChild_03String += "			\"chartBtnDisabled\": true,\n";
+					pollutionChild_03String += "			\"srchBtnDisabled\": true,\n";
+					pollutionChild_03String += "		}, ";
+				}
+				
+				pollutionChild_03String = pollutionChild_03String.substring(0, pollutionChild_03String.length - 2);
+				
+				pollutionString = pollutionString.replace("#pollutionChild_03String#", pollutionChild_03String);
+				
+				pollutionString += " ]\n";
+				pollutionString += "}\n";
+				
+			}
+			
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length > 0){
+				pollutionString += "	 , { \n";
 				pollutionString += "	\"id\": \"pollution_04\",\n";
+				pollutionString += "	\"title\": \"토지계\",\n";
+				pollutionString += "	\"storeNm\": \"PollutionResult_04\",\n";
 				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>토지계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
 				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(04);'>";
-				pollutionString += " <img id='catPollutionOnOff' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
+				pollutionString += " <img id='catPollutionOnOff_04' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
 				pollutionString += " </a>";
 				pollutionString += " </span>\",\n";
 				
@@ -516,14 +660,158 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				pollutionString = pollutionString.replace("#pollutionChild_04String#", pollutionChild_04String);
 				
-				pollutionString += "]\n";
+				pollutionString += " ]\n";
+				pollutionString += "}\n";
 				
-				pollutionString += "	}\n";
+			}
+			
+			
+			if(me.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length > 0){
+				pollutionString += "	 , { \n";
+				pollutionString += "	\"id\": \"pollution_05\",\n";
+				pollutionString += "	\"title\": \"양식계\",\n";
+				pollutionString += "	\"storeNm\": \"PollutionResult_05\",\n";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>양식계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length + ")</span>";
+				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
+				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(05);'>";
+				pollutionString += " <img id='catPollutionOnOff_05' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
+				pollutionString += " </a>";
+				pollutionString += " </span>\",\n";
 				
+				pollutionString += "		\"expanded\": false,\n";
+				pollutionString += "		\"infoBtnDisabled\": true,\n";
+				pollutionString += "		\"chartBtnDisabled\": true,\n";
+				pollutionString += "		\"srchBtnDisabled\": false,\n";
+				pollutionString += "		\"children\": [";
 				
+				pollutionString += "#pollutionChild_05String#"; // 조회된 집수구역 문자열 집어넣자.. 아래서..
 				
+				var pollutionChild_05String = "";
 				
-			}*/
+				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length; i++){
+					
+					pollutionChild_05String += "{\n";
+					pollutionChild_05String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_05[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_05String += "			\"text\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_05[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_05String += "			\"catDId\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_05[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_05String += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+					pollutionChild_05String += "			\"iconCls\": \"layerNoneImg\",\n";
+					pollutionChild_05String += "			\"leaf\": true,\n";
+					pollutionChild_05String += "			\"checked\": null,\n";
+					pollutionChild_05String += "			\"infoBtnDisabled\": true,\n";
+					pollutionChild_05String += "			\"chartBtnDisabled\": true,\n";
+					pollutionChild_05String += "			\"srchBtnDisabled\": true,\n";
+					pollutionChild_05String += "		}, ";
+				}
+				
+				pollutionChild_05String = pollutionChild_05String.substring(0, pollutionChild_05String.length - 2);
+				
+				pollutionString = pollutionString.replace("#pollutionChild_05String#", pollutionChild_05String);
+				
+				pollutionString += " ]\n";
+				pollutionString += "}\n";
+				
+			}
+			
+			
+			if(me.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length > 0){
+				pollutionString += "	 , { \n";
+				pollutionString += "	\"id\": \"pollution_06\",\n";
+				pollutionString += "	\"title\": \"매립계\",\n";
+				pollutionString += "	\"storeNm\": \"PollutionResult_06\",\n";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>매립계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length + ")</span>";
+				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
+				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(06);'>";
+				pollutionString += " <img id='catPollutionOnOff_06' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
+				pollutionString += " </a>";
+				pollutionString += " </span>\",\n";
+				
+				pollutionString += "		\"expanded\": false,\n";
+				pollutionString += "		\"infoBtnDisabled\": true,\n";
+				pollutionString += "		\"chartBtnDisabled\": true,\n";
+				pollutionString += "		\"srchBtnDisabled\": false,\n";
+				pollutionString += "		\"children\": [";
+				
+				pollutionString += "#pollutionChild_06String#"; // 조회된 집수구역 문자열 집어넣자.. 아래서..
+				
+				var pollutionChild_06String = "";
+				
+				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length; i++){
+					
+					pollutionChild_06String += "{\n";
+					pollutionChild_06String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_06[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_06String += "			\"text\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_06[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_06String += "			\"catDId\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_06[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_06String += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+					pollutionChild_06String += "			\"iconCls\": \"layerNoneImg\",\n";
+					pollutionChild_06String += "			\"leaf\": true,\n";
+					pollutionChild_06String += "			\"checked\": null,\n";
+					pollutionChild_06String += "			\"infoBtnDisabled\": true,\n";
+					pollutionChild_06String += "			\"chartBtnDisabled\": true,\n";
+					pollutionChild_06String += "			\"srchBtnDisabled\": true,\n";
+					pollutionChild_06String += "		}, ";
+				}
+				
+				pollutionChild_06String = pollutionChild_06String.substring(0, pollutionChild_06String.length - 2);
+				
+				pollutionString = pollutionString.replace("#pollutionChild_06String#", pollutionChild_06String);
+				
+				pollutionString += " ]\n";
+				pollutionString += "}\n";
+				
+			}
+			
+			
+			if(me.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length > 0){
+				pollutionString += "	 , { \n";
+				pollutionString += "	\"id\": \"pollution_07\",\n";
+				pollutionString += "	\"title\": \"기타수질오염원\",\n";
+				pollutionString += "	\"storeNm\": \"PollutionResult_07\",\n";
+				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>기타수질오염원(" + me.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length + ")</span>";
+				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";
+				pollutionString += " <a style='vertical-align:bottom;' href='#' onClick='pollutionLayerSelect(07);'>";
+				pollutionString += " <img id='catPollutionOnOff_07' width='28' height='15' src='./resources/images/button/tmPollution_off.png' />";
+				pollutionString += " </a>";
+				pollutionString += " </span>\",\n";
+				
+				pollutionString += "		\"expanded\": false,\n";
+				pollutionString += "		\"infoBtnDisabled\": true,\n";
+				pollutionString += "		\"chartBtnDisabled\": true,\n";
+				pollutionString += "		\"srchBtnDisabled\": false,\n";
+				pollutionString += "		\"children\": [";
+				
+				pollutionString += "#pollutionChild_07String#"; // 조회된 집수구역 문자열 집어넣자.. 아래서..
+				
+				var pollutionChild_07String = "";
+				
+				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length; i++){
+					
+					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					
+					pollutionChild_07String += "{\n";
+					pollutionChild_07String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_07[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_07String += "			\"text\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_07[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_07String += "			\"catDId\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_07[0][i].data.CAT_DID + "\",\n";
+					pollutionChild_07String += "			\"cls\": \"khLee-x-tree-node-text-small\",\n";
+					pollutionChild_07String += "			\"iconCls\": \"layerNoneImg\",\n";
+					pollutionChild_07String += "			\"leaf\": true,\n";
+					pollutionChild_07String += "			\"checked\": null,\n";
+					pollutionChild_07String += "			\"infoBtnDisabled\": true,\n";
+					pollutionChild_07String += "			\"chartBtnDisabled\": true,\n";
+					pollutionChild_07String += "			\"srchBtnDisabled\": true,\n";
+					pollutionChild_07String += "		}, ";
+				}
+				
+				pollutionChild_07String = pollutionChild_07String.substring(0, pollutionChild_07String.length - 2);
+				
+				pollutionString = pollutionString.replace("#pollutionChild_07String#", pollutionChild_07String);
+				
+				pollutionString += " ]\n";
+				pollutionString += "}\n";
+				
+			}
+			
+			
 			
 			pollutionString += "]}";
 			

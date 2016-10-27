@@ -1,7 +1,7 @@
 Ext.define('KRF_DEV.store.east.PollutionResult_04', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
-    //  {name:  type: 'number'},
+    //  ,{name: '' ,type: 'number'}
     fields: [
 			'YYYY'
 			,'WS_NM'
@@ -9,36 +9,68 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04', {
 			,'SB_NM'
 			,'CAT_DID'
 			,'TP_TYPE'
-			,'AREA_SUM'
-			,'AREA_RICE'
-			,'AREA_FIELD'
-			,'AREA_FLUIT'
-			,'AREA_STOCKFARM'
-			,'AREA_FOREST'
-			,'AREA_SPA'
-			,'AREA_SALTFIELD'
-			,'AREA_PLATEAU'
-			,'AREA_FACTORY'
-			,'AREA_EDUCATION'
-			,'AREA_PARKING'
-			,'AREA_OILING'
-			,'AREA_WAREHOUSE'
-			,'AREA_ROAD'
-			,'AREA_RAILROAD'
-			,'AREA_RIVER'
-			,'AREA_EMBANKMENT'
-			,'AREA_WATERROAD'
-			,'AREA_WATERRANGE'
-			,'AREA_FISHFARM'
-			,'AREA_WATER'
-			,'AREA_PARK'
-			,'AREA_HEALTH'
-			,'AREA_AMUSEMENTPARK'
-			,'AREA_RELIGION'
-			,'AREA_HISTORICAL'
-			,'AREA_GRAVEYARD'
-			,'AREA_MIXED'
-			,'GOLF_RANGE'
+			,'ADDR'
+			,'FINAL_PERCENTAGE'
+			,{name: 'AREA_SUM' ,type: 'number'}
+			
+			,{name: 'AREA_RICE' ,type: 'number'}
+			
+			,{name: 'AREA_FIELD' ,type: 'number'}
+			
+			,{name: 'AREA_FLUIT' ,type: 'number'}
+			
+			,{name: 'AREA_STOCKFARM' ,type: 'number'}
+			
+			,{name: 'AREA_FOREST' ,type: 'number'}
+			
+			,{name: 'AREA_SPA' ,type: 'number'}
+			
+			,{name: 'AREA_SALTFIELD' ,type: 'number'}
+			
+			,{name: 'AREA_PLATEAU' ,type: 'number'}
+			
+			,{name: 'AREA_FACTORY' ,type: 'number'}
+			
+			,{name: 'AREA_EDUCATION' ,type: 'number'}
+			
+			,{name: 'AREA_PARKING' ,type: 'number'}
+			
+			,{name: 'AREA_OILING' ,type: 'number'}
+			
+			,{name: 'AREA_WAREHOUSE' ,type: 'number'}
+			
+			,{name: 'AREA_ROAD' ,type: 'number'}
+			
+			,{name: 'AREA_RAILROAD' ,type: 'number'}
+			
+			,{name: 'AREA_RIVER' ,type: 'number'}
+			
+			,{name: 'AREA_EMBANKMENT' ,type: 'number'}
+			
+			,{name: 'AREA_WATERROAD' ,type: 'number'}
+			
+			,{name: 'AREA_WATERRANGE' ,type: 'number'}
+			
+			,{name: 'AREA_FISHFARM' ,type: 'number'}
+			
+			,{name: 'AREA_WATER' ,type: 'number'}
+			
+			,{name: 'AREA_PARK' ,type: 'number'}
+			
+			,{name: 'AREA_HEALTH' ,type: 'number'}
+			
+			,{name: 'AREA_AMUSEMENTPARK' ,type: 'number'}
+			
+			,{name: 'AREA_RELIGION' ,type: 'number'}
+			
+			,{name: 'AREA_HISTORICAL' ,type: 'number'}
+			
+			,{name: 'AREA_GRAVEYARD' ,type: 'number'}
+			
+			,{name: 'AREA_MIXED' ,type: 'number'}
+			
+			,{name: 'GOLF_RANGE' ,type: 'number'}
+			
     ],
     
     remoteSort: true,	
@@ -49,15 +81,24 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04', {
 		load: function(store) {
 			
 			var jsonData = "";
-			var arrData = [];
+			var url = ""
 			
-			
+				if(store.selectValue == "11" || store.selectValue == ""){
+				url= './resources/jsp/pollution/PollutionSelect_04_01.jsp';
+			}else if(store.selectValue == "22"){
+				url= './resources/jsp/pollution/PollutionSelect_04_02.jsp';
+			}else if(store.selectValue == "33"){
+				url= './resources/jsp/pollution/PollutionSelect_04_03.jsp';
+			}else{
+				url= './resources/jsp/pollution/PollutionSelect_04_04.jsp';
+			}
+			console.info(url);
 			Ext.Ajax.request({
-        		url: './resources/jsp/pollution/PollutionSelect_02.jsp',
+        		url: url,
         		params: { 
         			catDid: store.catDid
         		},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			

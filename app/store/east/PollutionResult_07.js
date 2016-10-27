@@ -1,35 +1,22 @@
-Ext.define('KRF_DEV.store.east.PollutionResult_06', {
+Ext.define('KRF_DEV.store.east.PollutionResult_07', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
-    //  ,{name: '' type: 'number'},
+    //  {name:  type: 'number'},
     fields: [
 			'YYYY'
 			,'WS_NM'
 			,'MB_NM'
 			,'SB_NM'
-			,'FACI_NM'
+			,'CAT_DID'
 			,'ADDR'
-			,{name: 'FINAL_PERCENTAGE' ,type: 'number'}
-			,'WORK_DT'
-			,{name: 'PRODUCT_AMT' ,type: 'number'}
-			
-			,{name: 'DISCHARGE_AMT', type: 'number'}
-			
-			,{name: 'PRODUCT_BOD' ,type: 'number'}
-			
-			,{name: 'PRODUCT_COD' ,type: 'number'}
-			
-			,{name: 'PRODUCT_TN' ,type: 'number'}
-			
-			,{name: 'PRODUCT_TP' ,type: 'number'}
-			
-			,{name: 'DISCHARGE_BOD' ,type: 'number'}
-			
-			,{name: 'DISCHARGE_COD' ,type: 'number'}
-			
-			,{name: 'DISCHARGE_TN' ,type: 'number'}
-			
-			,{name: 'DISCHARGE_TP' ,type: 'number'}
+			,'FINAL_PERCENTAGE'
+			,'INST_NM'
+			,'IND_NM'
+			,'IND_OWNER'
+			,'IND_ID'
+			,'OT_NM'
+			,'EH_NM'
+			,{name: 'WW_AMT' ,type: 'number'}
 			
     ],
     
@@ -44,13 +31,13 @@ Ext.define('KRF_DEV.store.east.PollutionResult_06', {
 			var url = ""
 			
 				if(store.selectValue == "11" || store.selectValue == ""){
-				url= './resources/jsp/pollution/PollutionSelect_06_01.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_07_01.jsp';
 			}else if(store.selectValue == "22"){
-				url= './resources/jsp/pollution/PollutionSelect_06_02.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_07_02.jsp';
 			}else if(store.selectValue == "33"){
-				url= './resources/jsp/pollution/PollutionSelect_06_03.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_07_03.jsp';
 			}else{
-				url= './resources/jsp/pollution/PollutionSelect_06_04.jsp';
+				url= './resources/jsp/pollution/PollutionSelect_07_04.jsp';
 			}
 			
 			Ext.Ajax.request({

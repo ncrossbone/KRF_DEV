@@ -17,16 +17,18 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		
 		'#textSearchText_Start':{
 			specialkey: function(f,e){
+				var btnSearchText_Start = Ext.getCmp("btnSearchText_Start");
 				if(e.getKey() == e.ENTER){
-					this.onTextSearch();
+					this.onTextSearch(btnSearchText_Start,"");
 				}
 			}
 		},
 		
 		'#textSearchText_End':{
 			specialkey: function(f,e){
+				var btnSearchText_End = Ext.getCmp("btnSearchText_End");
 				if(e.getKey() == e.ENTER){
-					this.onTextSearch();
+					this.onTextSearch(btnSearchText_End,"");
 				}
 			}
 		}

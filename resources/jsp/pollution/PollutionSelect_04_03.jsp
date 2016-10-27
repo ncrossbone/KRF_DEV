@@ -12,7 +12,7 @@ try{
 	
 	Object[] catDid = request.getParameterValues("catDid");
 	
-	sql += " with tbl_PLA_LANDUSE as (																													";
+	sql = " with tbl_PLA_LANDUSE as (																													";
 	sql += "     select YYYY                                                                    ";
 	sql += "          , WS_NM                                                                   ";
 	sql += "          , MB_NM                                                                   ";
@@ -54,6 +54,17 @@ try{
 	sql += "          , AREA_MIXED                                                              ";
 	sql += "          , GOLF_RANGE                                                              ";
 	sql += "       from PLA_LANDUSE_FOR_CAT                                                     ";
+	if(catDid.length != 0){
+		sql += "        where CAT_DID IN (                                ";
+		for(int i=0;i<catDid.length;i++){
+			if(i == catDid.length-1){
+				sql += "	'"+catDid[i]+"' )			";
+			}else{
+				sql += "	'"+catDid[i]+"',			";
+			}
+			
+		}
+	}
 	sql += "     )                                                                              ";
 	sql += " select YYYY               /*조사년도*/                                             ";
 	sql += "      , WS_NM              /*대권역*/                                               ";
@@ -211,18 +222,7 @@ try{
 	sql += "           from tbl_PLA_LANDUSE                                                     ";
 	sql += "          group by YYYY, WS_NM, MB_NM, SB_NM, SB_ID, CAT_DID, TP_TYPE               ";
 	sql += "        )                                                                           ";
-	sql += "        where CAT_DID IN (                                ";
-	if(catDid.length != 0){
-		for(int i=0;i<catDid.length;i++){
-			if(i == catDid.length-1){
-				sql += "	'"+catDid[i]+"' )			";
-			}else{
-				sql += "	'"+catDid[i]+"',			";
-			}
-			
-		}
-	}
-	sql += "  ORDER BY DECODE(SB_NM,'총계',1,2), SB_ID, DECODE(CAT_DID,'소계',1,2), CAT_DID;    ";
+	sql += "  ORDER BY DECODE(SB_NM,'총계',1,2), SB_ID, DECODE(CAT_DID,'소계',1,2), CAT_DID    ";
 
     
 System.out.println(sql);

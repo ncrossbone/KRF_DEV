@@ -307,10 +307,16 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					el: {
 						click: function(){
 							
+							
+							
+							var tabCtl = Ext.getCmp("searchResultTab");
+							tabCtl = tabCtl.items.items[1];
+							var activeTab = tabCtl.getActiveTab();
+							console.info(activeTab);
+							
 							//pdj
 							var pollutionSelect = Ext.getCmp("pollutionSelect");
-							PollutionSearchResult(pollutionSelect.lastValue);
-							
+							PollutionSearchResult(pollutionSelect.lastValue,activeTab.recordId,activeTab.title,activeTab.storeNm);
 						}
 					}
 				}
@@ -505,7 +511,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		//title: 'tab1',
 		style: 'background-color: #157fcb;',
 		//header: false
+		//closable: true,
+	    
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
+		
 		listeners:{
 			'tabchange': function (tabPanel, tab){
 				
@@ -527,7 +536,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var pollutionResultTab = Ext.getCmp("pollutionResultTab"); //방유량 집수구역별 검색조건
 
 				
-				console.info(tab.id);
 				//부하량 or 일반검색시 tab change
 				if(tab.id == "searchResultPollLoad_container"){
 					resultTab.setHidden(true);		//일반 검색pollResultTab
@@ -537,7 +545,13 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					pollutionSearchTab.setHidden(true);
 					pollutionResultTab.setHidden(true);	//방유량 검색조건
 					
-				}else if(tab.id == "searchResultPollution_01_container"){
+				}else if(tab.id == "searchResultpollution_01_container"
+					||tab.id == "searchResultpollution_02_container"
+					||tab.id == "searchResultpollution_03_container"
+					||tab.id == "searchResultpollution_04_container"
+					||tab.id == "searchResultpollution_05_container"
+					||tab.id == "searchResultpollution_06_container"
+					||tab.id == "searchResultpollution_07_container"){
 					
 					//일반 검색
 					resultTab.setHidden(true);		
@@ -561,6 +575,24 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					pollutionResultTab.setHidden(true);	
 				}
 				
+				
+				
+				var storevalue = Ext.getCmp(tab.id);
+				if(storevalue != undefined){
+					var pollutiongrdCtl = storevalue.items.items[0]; // 그리드 컨테이너
+					pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
+					
+					var pollutionSelect = Ext.getCmp("pollutionSelect");
+					
+					if(pollutiongrdCtl.store.selectValue == undefined || pollutiongrdCtl.store.selectValue == ""){
+						pollutionSelect.setValue("11");
+					}else{
+						pollutionSelect.setValue(pollutiongrdCtl.store.selectValue);
+					}
+					
+					
+					
+				}
 				
 				
 				

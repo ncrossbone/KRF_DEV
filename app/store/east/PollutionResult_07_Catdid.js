@@ -1,45 +1,11 @@
-Ext.define('KRF_DEV.store.east.PollutionResult_01_Catdid', {
+Ext.define('KRF_DEV.store.east.PollutionResult_07_Catdid', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
     fields: [
-			'YYYY'
-			,'WS_NM'
-			,'MB_NM'
-			,'SB_NM'
-			,'CAT_DID'
-			,'AREA_A1'
-			,'AREA_A2'
-			,'AREA_SUM'
-			,'REGION'
-			,'REGION_DATE'
-			,'U_A1_TP_CODE'
-			,'U_A1_TP_DATE'
-			,'U_A1_TP_NAME'
-			,'U_A3_TP_CODE'
-			,'U_A3_TP_DATE'
-			,'U_A3_TP_NAME'
-			,'POP_SUM'
-			,'UPOP_SUM'
-			,'UPOP_A1_SUM'
-			,'UPOP_A1_SEPARATE_WT_SUM'
-			,'UPOP_A1_SEPARATE_IT_SUM'
-			,'UPOP_A1_COMBINED_WT_SUM'
-			,'UPOP_A1_COMBINED_IT_SUM'
-			,'UPOP_A2_SUM'
-			,'UPOP_A2_SANITARY'
-			,'UPOP_A2_SEPTIC'
-			,'UPOP_A2_REMOVAL'
-			,'SPOP_SUM'
-			,'SPOP_A1_SUM'
-			,'SPOP_A1_SEPARATE_WT_SUM'
-			,'SPOP_A1_SEPARATE_IT_SUM'
-			,'SPOP_A1_COMBINED_WT_SUM'
-			,'SPOP_A1_COMBINED_IT_SUM'
-			,'SPOP_A2_SUM'
-			,'SPOP_A2_SANITARY'
-			,'SPOP_A2_SEPTIC'
-			,'SPOP_A2_REMOVAL'
+             'YYYY'
+             ,'CAT_DID'
+             ,'WW_AMT'
     ],
     
     remoteSort: true,	
@@ -50,11 +16,10 @@ Ext.define('KRF_DEV.store.east.PollutionResult_01_Catdid', {
 		load: function(store) {
 			
 			var jsonData = "";
-			var arrData = [];
 			
 			
 			Ext.Ajax.request({
-				url: './resources/jsp/pollution/PollutionSelect_01_Catdid.jsp',
+				url: './resources/jsp/pollution/PollutionSelect_07_Catdid.jsp',
         		params: { 
         			catDid: store.catDid
         		},

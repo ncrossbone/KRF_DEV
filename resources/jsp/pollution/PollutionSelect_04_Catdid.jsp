@@ -211,8 +211,8 @@ try{
 	sql += "           from tbl_PLA_LANDUSE                                                     ";
 	sql += "          group by YYYY, WS_NM, MB_NM, SB_NM, SB_ID, CAT_DID, TP_TYPE               ";
 	sql += "        )                                                                           ";
-	sql += "        where CAT_DID IN (                                ";
 	if(catDid.length != 0){
+		sql += "        where CAT_DID IN (                                ";
 		for(int i=0;i<catDid.length;i++){
 			if(i == catDid.length-1){
 				sql += "	'"+catDid[i]+"' )			";

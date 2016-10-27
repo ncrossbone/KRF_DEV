@@ -1,15 +1,18 @@
-Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
+Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_01', {
 	
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
 	
-	xtype: 'searchResultGrid_Pollution_01',
+	xtype: 'searchResultGrid_pollution_01',
 	
-	id: 'searchResultPollution_01_container',
+	id: 'searchResultpollution_01_container',
 	
 	height: '100%',
 	width: '100%',
+	closable: true,
+	closeText: '×',
 	
+		
 	items: [{
 		xtype: 'container',
 		width: '100%',
@@ -145,18 +148,21 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 			},{	 
 				text      : '집수구역',
 				dataIndex : 'CAT_DID',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '법정동리',
 				dataIndex : 'ADDR',
-				width: 150
+				width: 150,
+				hidden: true
 				//filter: {type: 'numeric'}
 			},{	 
 				text      : '점유율',
 				dataIndex : 'FINAL_PERCENTAGE',
-				width: 150
-				//filter: {type: 'numeric'}
+				width: 150,
+				filter: {type: 'numeric'},
+				hidden: true
 			},{
 				text : '면적',
 				columns: [{ 
@@ -165,68 +171,70 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					width: 100,
 					align:'right',
 					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					hidden: true
 				},{ 
 					text     : '하수미처리지역',
 					dataIndex: 'AREA_A2',
 					width: 100,
 					align:'right',
 					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					hidden: true
 				},{ 
 					text     : '계(㎢)',
 					dataIndex: 'AREA_SUM',
 					width: 100,
 					align:'right',
 					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					hidden: true
 				}]	
 			},{
 				text : '지정내역',
 				columns: [{ 
 					text     : '종류',
-					dataIndex: 'REGION'
+					dataIndex: 'REGION',
+					hidden: true
 				},{ 
 					text     : '편입일자',
-					dataIndex: 'REGION_DATE'
+					dataIndex: 'REGION_DATE',
+					hidden: true
 				}]	
 			},{
 				text : '하수처리시설',
 				columns: [{ 
 					text     : '코드',
-					dataIndex: 'U_A1_TP_CODE'
+					dataIndex: 'U_A1_TP_CODE',
+					hidden: true
 				},{ 
 					text     : '편입일자',
-					dataIndex: 'U_A1_TP_DATE'
+					dataIndex: 'U_A1_TP_DATE',
+					hidden: true
 				},{ 
 					text     : '시설명',
-					dataIndex: 'U_A1_TP_NAME'
+					dataIndex: 'U_A1_TP_NAME',
+					hidden: true
 				}]	
 			},{
 				text : '분뇨처리시설',
 				columns: [{ 
 					text     : '코드',
-					dataIndex: 'U_A3_TP_CODE'
+					dataIndex: 'U_A3_TP_CODE',
+					hidden: true
 				},{ 
 					text     : '편입일자',
-					dataIndex: 'U_A3_TP_DATE'
+					dataIndex: 'U_A3_TP_DATE',
+					hidden: true
 				},{ 
 					text     : '시설명',
 					dataIndex: 'U_A3_TP_NAME',
 					width: 100,
-					align:'right'
+					align:'right',
+					hidden: true
 				}]	
 			},{	 
 				text      : '인구총계',
 				dataIndex : 'POP_SUM',
-				width: 150
-				//filter: {type: 'numeric'}
+				width: 150,
+				filter: {type: 'numeric'}
 			},{
 				text : '시가지역',
 				columns: [{ 
@@ -234,48 +242,63 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					dataIndex: 'UPOP_SUM',
 					width: 100,
 					align:'right',
-					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					filter: {type: 'numeric'/*, fields: {}*/}
 				},{ 
 					text     : '하수처리지역',
 					columns: [{ 
 						text     : '소계',
-						dataIndex: 'UPOP_A1_SUM'
+						dataIndex: 'UPOP_A1_SUM',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{ 
 						text     : '분류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'UPOP_A1_SEPARATE_WT_SUM'
+							dataIndex: 'UPOP_A1_SEPARATE_WT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						},{
 							text: '폐수종말',
-							dataIndex: 'UPOP_A1_SEPARATE_IT_SUM'
+							dataIndex: 'UPOP_A1_SEPARATE_IT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						}]
 					},{ 
 						text     : '합류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'UPOP_A1_COMBINED_WT_SUM'
+							dataIndex: 'UPOP_A1_COMBINED_WT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						},{
 							text: '폐수종말',
-							dataIndex: 'UPOP_A1_COMBINED_IT_SUM'
+							dataIndex: 'UPOP_A1_COMBINED_IT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						}]
 					}]
 				},{ 
 					text     : '하수미처리지역',
 					columns:[{
 						text: '소계',
-						dataIndex: 'UPOP_A2_SUM'
+						dataIndex: 'UPOP_A2_SUM',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{
 						text: '오수',
-						dataIndex: 'UPOP_A2_SANITARY'
+						dataIndex: 'UPOP_A2_SANITARY',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{
 						text: '정화조',
-						dataIndex: 'UPOP_A2_SEPTIC'
+						dataIndex: 'UPOP_A2_SEPTIC',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{
 						text: '수거식',
-						dataIndex: 'UPOP_A2_REMOVAL'
+						dataIndex: 'UPOP_A2_REMOVAL',
+						filter: {type: 'numeric'},
+						hidden: true
 					}]
 				}]	
 			},{
@@ -285,48 +308,63 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 					dataIndex: 'SPOP_SUM',
 					width: 100,
 					align:'right',
-					filter: {type: 'numeric'/*, fields: {}*/},
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0000');
-					}
+					filter: {type: 'numeric'/*, fields: {}*/}
 				},{ 
 					text     : '하수처리지역',
 					columns: [{ 
 						text     : '소계',
-						dataIndex: 'SPOP_A1_SUM'
+						dataIndex: 'SPOP_A1_SUM',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{ 
 						text     : '분류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'SPOP_A1_SEPARATE_WT_SUM'
+							dataIndex: 'SPOP_A1_SEPARATE_WT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						},{
 							text: '폐수종말',
-							dataIndex: 'SPOP_A1_SEPARATE_IT_SUM'
+							dataIndex: 'SPOP_A1_SEPARATE_IT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						}]
 					},{ 
 						text     : '합류식',
 						columns:[{
 							text: '공공하수처리',
-							dataIndex: 'SPOP_A1_COMBINED_WT_SUM'
+							dataIndex: 'SPOP_A1_COMBINED_WT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						},{
 							text: '폐수종말',
-							dataIndex: 'SPOP_A1_COMBINED_IT_SUM'
+							dataIndex: 'SPOP_A1_COMBINED_IT_SUM',
+							filter: {type: 'numeric'},
+							hidden: true
 						}]
 					}]
 				},{ 
 					text     : '하수미처리지역',
 					columns:[{
 						text: '소계',
-						dataIndex: 'SPOP_A2_SUM'
+						dataIndex: 'SPOP_A2_SUM',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{
 						text: '오수',
-						dataIndex: 'SPOP_A2_SANITARY'
+						dataIndex: 'SPOP_A2_SANITARY',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{
 						text: '정화조',
-						dataIndex: 'SPOP_A2_SEPTIC'
+						dataIndex: 'SPOP_A2_SEPTIC',
+						filter: {type: 'numeric'},
+						hidden: true
 					},{
 						text: '수거식',
-						dataIndex: 'SPOP_A2_REMOVAL'
+						dataIndex: 'SPOP_A2_REMOVAL',
+						filter: {type: 'numeric'},
+						hidden: true
 					}]
 				}]	
 			}],
@@ -334,18 +372,9 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_Pollution_01', {
 			viewConfig: {
 				 getRowClass: function(record, rowIndex, rowParams, store) {
 					 //bold 13px/15px helvetica,arial,verdana,sans-serif
-					 if(record.data.SB_NM == "총계"){
+					 if(record.data.SB_NM == "총계" || record.data.SB_NM == "소계" || record.data.CAT_DID == "소계"
+						 || record.data.ADDR == "총계" || record.data.ADDR == "소계"){
 						 return 'pdj_total_subTotal';						 
-					 }
-					 if(record.data.CAT_DID == "소계"){
-						 //console.info(record);
-						 return 'pdj_total_subTotal';
-					 }
-					 if(record.data.ADDR == "총계"){
-						 return 'pdj_total_subTotal';
-					 }
-					 if(record.data.FINAL_PERCENTAGE == "소계"){
-						 return 'pdj_total_subTotal';
 					 }
 					 //pdj_total_subTotal
 					 
