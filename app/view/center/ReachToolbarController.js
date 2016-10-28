@@ -23,15 +23,15 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig");
 		}
 		
-		var kradConf = Ext.getCmp("kradSchConf");
+		/*var kradConf = Ext.getCmp("kradSchConf");
 		if(kradConf == undefined){
 			kradConf = Ext.create("KRF_DEV.view.krad.kradSchConf");
-		}
+		}*/
 		
 		// 설정창 show
 		if(currCtl.btnOnOff == "on"){
 			popCtl.show();
-			kradConf.show();
+			//kradConf.show();
 			SetWestCollapseXY("show");
 		}
 		else{

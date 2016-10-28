@@ -15,6 +15,7 @@ Ext.define('Report.view.main.rptExtViewMain', {
 
     items: [{
     	xtype: "container",
+    	style:'background:white;',
     	layout: {
             type: 'hbox'
         },
@@ -25,8 +26,10 @@ Ext.define('Report.view.main.rptExtViewMain', {
         		align: "middle",
         		pack: "middle"
         	},
-        	width: 900,
-        	height: 900,
+        	width: 860,
+        	height: 860,
+        	border:3,
+        	style: 'borderColor: #BDBDBD; borderStyle: solid; margin: 20px 20px 20px 20px;',
         	items: [{
         		xtype: 'rpt-map-rptCoreMap',
             	width: 850,
@@ -35,9 +38,9 @@ Ext.define('Report.view.main.rptExtViewMain', {
         }, {
         	xtype: 'panel',
         	title: '지점설정',
-        	width: 450,
-        	height: 900,
-        	//style: 'margin-left: 10px;',
+        	width: 430,
+        	height: 880,
+        	style: 'margin-top: 20px;',
         	items: [{
         		xtype: 'rpt-east-rptSetContainer'
         	}]

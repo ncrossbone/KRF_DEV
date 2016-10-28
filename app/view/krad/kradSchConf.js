@@ -1,6 +1,6 @@
 Ext.define('KRF_DEV.view.krad.kradSchConf', {
 	
-	extend: 'Ext.window.Window',
+	extend: 'Ext.window.Window', 
 
 	xtype: 'krad-kradSchConf',
 	id: 'kradSchConf',
@@ -10,42 +10,160 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 	height: 400,
 	
 	x: 387,
-	y: 200,
+	y: 226,
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
 	//cls: 'dj_toolbarConf',
-	style: "border: 0px;",
+	style: "border: 1px;",
 	header: false,
-	layout: {
-		type: 'vbox',
+	layout:{
+		type:'vbox'
 	},
-	
-	items: [{
-		xtype: 'checkbox',
-		boxLabel: 'KRAD',
-		checked: true,
-		height: 25,
-		style: "padding-left: 5px;"
-	}, {
-		title: '주제도 선택',
-		xtype: 'treepanel',
-		id: 'kradSchTree',
-		header: false,
-		scroll: false,
-		viewConfig: {
-			style: { overflow: 'auto', overflowX: 'hidden' }
+	items:[{
+		layout: {
+			type: 'accordion'
 		},
-		store : Ext.create('KRF_DEV.store.west.Layer01Store'),
-		rootVisible: false,
-		useArrows: true,
-		bufferedRenderer: false,
-		width: "100%",
-		height: 375,
-		style: "padding-left: 10px;"
-	}],
-
+		width: 300,
+		items:[{
+			xtype : 'panel',
+			//autoScroll: true,
+			layout : {
+				type : 'vbox'
+			},
+			cls: 'dj_layer_nm',
+			title :  '공통',
+			items:[{
+				xtype: 'container',
+				width: '100%',
+				height: '100%',
+				
+				//id: 'krad_grid',
+				items: [{
+					xtype: 'grid',
+					columnLines: true,
+					hideHeaders: true,
+			        selType: 'checkboxmodel',
+					store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
+					columns: [{	 
+							text      : '측정망명',
+							dataIndex : 'TITLE',
+							width: 150
+							//filter: {type: 'numeric'}
+						},{	 
+							text:'버튼',
+							align:'center',
+							xtype:'actioncolumn',
+							width:50,
+							items:[{
+								xtype:'button',
+								text:'button',
+								handler: function(a,b,c,d){
+									var metaInfo = Ext.getCmp("kradMetaInfo");
+									if(metaInfo == undefined){
+										metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo",{
+											asdf: 'asdf'
+										});
+									}
+									metaInfo.show();
+								}
+							}]
+						}],
+						 listeners: {
+						        selectionchange: function(model, records) {
+						            console.info(records);
+						            //records[0].data
+						            //localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+						            var confObj = [];
+						            for(var i =0 ;i < records.length;i++){
+						            	confObj.push(records[i].data);
+						            }
+						            
+						            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+						            
+						            
+						        }
+						    }
+					}]
+				}]
+			},{
+				xtype : 'panel',
+				//autoScroll: true,
+				layout : {
+					type : 'vbox'
+				},
+				cls: 'dj_layer_nm',
+				title :  '사용자지정',
+				items:[{
+					xtype: 'container',
+					width: '100%',
+					height: '100%',
+					
+					//id: 'krad_grid',
+					items: [{
+						xtype: 'grid',
+						columnLines: true,
+						hideHeaders: true,
+				        selType: 'checkboxmodel',
+						store : Ext.create('KRF_DEV.store.krad.krad_tmp2'),
+						columns: [{	 
+								text      : '측정망명',
+								dataIndex : 'TITLE',
+								width: 150
+								//filter: {type: 'numeric'}
+							},{	 
+								text:'버튼',
+								align:'center',
+								xtype:'actioncolumn',
+								width:50,
+								items:[{
+									xtype:'button',
+									text:'button',
+									handler: function(a,b,c,d){
+										var metaInfo = Ext.getCmp("kradMetaInfo");
+										if(metaInfo == undefined){
+											metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo",{
+												asdf: 'asdf'
+											});
+										}
+										metaInfo.show();
+									}
+								}]
+							}],
+							 listeners: {
+							        selectionchange: function(model, records) {
+							            console.info(records);
+							            //records[0].data
+							            //localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+							            var confObj = [];
+							            for(var i =0 ;i < records.length;i++){
+							            	confObj.push(records[i].data);
+							            }
+							            
+							            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+							            
+							            
+							        }
+							    }
+						}]
+					}]
+				}]
+	},{
+		xtype:'button',
+		text: '적용',
+		listeners:{
+			click:function(){
+				var confInfo = localStorage['_kradExtInfo_'];
+				console.info(confInfo);
+			}
+		}
+	}]
+	,
 	initComponent: function(){
 		
+		//store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
+		//localStorage['_kradExtInfo_']
+		//localStorage['_kradGroupInfo_']
+		//[{id: kk, name: kk, checked: true}, {{id: kk, name: kk, checked: true}]
 		this.callParent();
 		
 		//console.info(localStorage['_searchConfigInfo_']);
