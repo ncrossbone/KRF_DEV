@@ -17,22 +17,26 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
-		// 팝업 이미지 (임시)
+		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
-		
 		if(popCtl == undefined){
-			
 			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig");
-			
 		}
 		
-		// 팝업 이미지 show
+		/*var kradConf = Ext.getCmp("kradSchConf");
+		if(kradConf == undefined){
+			kradConf = Ext.create("KRF_DEV.view.krad.kradSchConf");
+		}*/
+		
+		// 설정창 show
 		if(currCtl.btnOnOff == "on"){
 			popCtl.show();
+			//kradConf.show();
 			SetWestCollapseXY("show");
 		}
 		else{
 			popCtl.close();
+			kradConf.close();
 		}
 		
 		// 부하량 주제도 off

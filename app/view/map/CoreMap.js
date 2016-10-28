@@ -54,43 +54,20 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.map.setLevel(8);
         	window.clearInterval(timerId);
         	
-        	
-        	
-
-        	
-        	
         	me.dynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin1', me.map);
-        	/*me.droneDynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', me.map);
-        	me.droneDynamicLayerAdmin2 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', me.map);
-        	me.droneDynamicLayerAdmin3 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', me.map);
-        	me.droneDynamicLayerAdmin4 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', me.map);*/
-        	/*me.dynamicLayerAdmin2 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin2', me.map);
-        	me.dynamicLayerAdmin3 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin3', me.map);
-        	me.dynamicLayerAdmin4 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin4', me.map);*/
-        	
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
-        	//me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map); // v2
-        	//me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.reachLayerAdmin_v3_New', me.map); // v3
         	me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.ReachLayerAdmin_v3_New', me.map); // v3 New
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
         	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
-        	//me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin_ReachTest', me.map); // 시뮬레이션용 레이어 서비스
-        	
-        	/* 레포트용 레이어 테스트 */
-        	//me.reportLayerTest = Ext.create('KRF_DEV.view.map.test.ReportLayerTest', me.map); // Dim처리 레이어
-        	/* 레포트용 레이어 테스트 끝 */
-        	
-        	//dojo.require("esri.dijit.Scalebar");
-        	//var scalebar = new esri.dijit.Scalebar({map:me.map, attachTo:"top-right"});
+        	me.kradLayerAdmin = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
         	
         	// 전역 변수 설정 KRF_DEV.getApplication().coreMap
         	KRF_DEV.getApplication().coreMap = me;
         	
         	require(["KRF_DEV/view/map/task/CustomPrintTask"], function() {
-            	//me.printTask  = new KRF_DEV.view.map.task.CustomPrintTask();
             	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", "./resources/jsp/proxy.jsp", _arcServiceUrl, "/resources/saveImgTemp/capture");
             });
         	
