@@ -36,29 +36,19 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				xtype: 'container',
 				width: '100%',
 				height: '100%',
-				hideHeaders: true,
+				
 				//id: 'krad_grid',
 				items: [{
 					xtype: 'grid',
+					columnLines: true,
+					hideHeaders: true,
+			        selType: 'checkboxmodel',
 					store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
-					columns: [{
-						text:'체크박스',
-						width: 50,
-						renderer:function(value,b,c,d){
-							console.info(b);
-							console.info(c);
-							console.info(d);
-							value = 0;
-							if (value == "true") {
-								value = 1;
-							}
-							return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
-						}
-						},{	 
-						text      : '측정망명',
-						dataIndex : 'kradCommonNm',
-						width: 150
-						//filter: {type: 'numeric'}
+					columns: [{	 
+							text      : '측정망명',
+							dataIndex : 'TITLE',
+							width: 150
+							//filter: {type: 'numeric'}
 						},{	 
 							text:'버튼',
 							align:'center',
@@ -77,7 +67,22 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 									metaInfo.show();
 								}
 							}]
-						}]
+						}],
+						 listeners: {
+						        selectionchange: function(model, records) {
+						            console.info(records);
+						            //records[0].data
+						            //localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+						            var confObj = [];
+						            for(var i =0 ;i < records.length;i++){
+						            	confObj.push(records[i].data);
+						            }
+						            
+						            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+						            
+						            
+						        }
+						    }
 					}]
 				}]
 			},{
@@ -87,30 +92,24 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 					type : 'vbox'
 				},
 				cls: 'dj_layer_nm',
-				title :  '사용자 지정',
+				title :  '사용자지정',
 				items:[{
 					xtype: 'container',
 					width: '100%',
 					height: '100%',
+					
 					//id: 'krad_grid',
 					items: [{
 						xtype: 'grid',
+						columnLines: true,
+						hideHeaders: true,
+				        selType: 'checkboxmodel',
 						store : Ext.create('KRF_DEV.store.krad.krad_tmp2'),
-						columns: [{
-							text:'체크박스',
-							width: 50,
-							renderer:function(value){
-								value = 0;
-								if (value == "true") {
-									value = 1;
-								}
-								return "<input type='checkbox'" + (value ? "checked='checked'" : "") + ">";
-							}
-							},{	 
-							text      : '측정망명',
-							dataIndex : 'kradCommonNm',
-							width: 150
-							//filter: {type: 'numeric'}
+						columns: [{	 
+								text      : '측정망명',
+								dataIndex : 'TITLE',
+								width: 150
+								//filter: {type: 'numeric'}
 							},{	 
 								text:'버튼',
 								align:'center',
@@ -122,26 +121,47 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 									handler: function(a,b,c,d){
 										var metaInfo = Ext.getCmp("kradMetaInfo");
 										if(metaInfo == undefined){
-											metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo");
+											metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo",{
+												asdf: 'asdf'
+											});
 										}
 										metaInfo.show();
 									}
 								}]
-							}]
+							}],
+							 listeners: {
+							        selectionchange: function(model, records) {
+							            console.info(records);
+							            //records[0].data
+							            //localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+							            var confObj = [];
+							            for(var i =0 ;i < records.length;i++){
+							            	confObj.push(records[i].data);
+							            }
+							            
+							            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+							            
+							            
+							        }
+							    }
 						}]
 					}]
-				
-				
-			}]
+				}]
 	},{
 		xtype:'button',
-		text: '적용'
+		text: '적용',
+		listeners:{
+			click:function(){
+				var confInfo = localStorage['_kradExtInfo_'];
+				console.info(confInfo);
+			}
+		}
 	}]
 	,
 	initComponent: function(){
 		
 		//store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
-		
+		//localStorage['_kradExtInfo_']
 		//localStorage['_kradGroupInfo_']
 		//[{id: kk, name: kk, checked: true}, {{id: kk, name: kk, checked: true}]
 		this.callParent();

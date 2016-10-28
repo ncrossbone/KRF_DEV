@@ -5,7 +5,7 @@ Ext.define('KRF_DEV.store.krad.krad_tmp', {
 
 	autoLoad: true,
 	
-	fields: ['kradCommonNm'],
+	fields: [],
 	
 	proxy: {
 		type: 'ajax',
