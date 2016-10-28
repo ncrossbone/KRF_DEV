@@ -16,12 +16,16 @@ Ext.define('Report.view.east.rptSetSiteAttr', {
 	height: 25,
 	
 	items: [{
+		xtype:"image",
+		src:"../resources/images/button/blit_st_01.png",
+		style:"margin-top: 8px"
+	},{
 		xtype: "label",
 		text: "지점속성",
-		style: "margin-top: 4px; padding-right: 10px;"
+		style: "margin-top: 4px; padding-right: 10px; margin-left:10px; font-weight: bold;"
 	}, {
 		xtype: "label",
-		text: ":",
+		text: "",
 		style: "margin-top: 4px; padding-right: 10px;"
 	}, {
 		xtype: "checkbox",

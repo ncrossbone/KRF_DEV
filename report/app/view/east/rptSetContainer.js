@@ -21,30 +21,34 @@ Ext.define('Report.view.east.rptSetContainer', {
 	width: "100%",
 	height: 800,
 	
-	style: "margin-left: 20px; margin-top: 20px;",
+	/*style: "margin-left: 20px; margin-top: 20px;",*/
+	style: "margin-top: 20px;",
 
 	items: [{
 		xtype: 'rpt-east-rptSetPeriod',
-		title: '기간'
+		title: '기간',
+		style: "margin-left: 20px;"
 	}, {
 		xtype: 'container',
 		height: 10
 	}, {
 		xtype: 'rpt-east-rptSetItems',
-		title: '항목'
+		title: '항목',
+		style: "margin-left: 20px;"
 	}, {
 		xtype: 'container',
 		height: 10
 	}, {
 		xtype: 'rpt-east-rptSetSiteAttr',
-		title: '지점속성'
+		title: '지점속성',
+		style: "margin-left: 20px;"
 	}, {
 		xtype: 'container',
-		height: 10
+		height: 30
 	}, {
 		xtype: 'rpt-east-rptSetSiteList',
 		title: '지점',
-		height: 650
+		height: 630
 	}, {
 		xtype: 'container',
 		layout: {
@@ -53,7 +57,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 		items: [{
 			xtype: 'image',
 			src: '../resources/images/button/btn_report.png',
-			style: 'cursor: pointer;',
+			style: 'cursor: pointer; margin-left:170px;',
 			text: '리포트보기',
 			listeners: {
 				el: {

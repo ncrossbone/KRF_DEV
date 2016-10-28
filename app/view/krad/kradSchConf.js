@@ -1,6 +1,6 @@
 Ext.define('KRF_DEV.view.krad.kradSchConf', {
 	
-	extend: 'Ext.window.Window',
+	extend: 'Ext.window.Window', 
 
 	xtype: 'krad-kradSchConf',
 	id: 'kradSchConf',
