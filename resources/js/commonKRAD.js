@@ -310,14 +310,27 @@ drawKRADLayer = function(){
 	
 	var coreMap = GetCoreMap();
 	
+	var kradStRchId = coreMap.kradLayerAdmin.stRchId;
+	var kradEdRchId = coreMap.kradLayerAdmin.edRchId;
+	
+	var reachLineGraphics = coreMap.reachLayerAdmin_v3_New.lineGrpLayer.graphics;
+	
+	for(var i = 0; i < reachLineGraphics.length; i++){
+		
+		var rchId = reachLineGraphics[i].attributes.RCH_ID;
+		if(rchId == kradStRchId || rchId == kradEdRchId){
+			
+			coreMap.reachLayerAdmin_v3_New.removeLine(reachLineGraphics[i], "lineGrpLayer");
+		}
+	}
+	
+	coreMap.kradLayerAdmin.drawKRADLayer();
+	
+	return;
+	
 	var kradPELayer = coreMap.map.getLayer("kradPELayer");
 	var kradStRchId = kradPELayer.ST_RCH_ID;
 	var kradEdRchId = kradPELayer.ED_RCH_ID;
-	
-	console.info(kradPELayer);
-	console.info(coreMap.reachLayerAdmin_v3_New.grpCommDownLine);
-	console.info(coreMap.reachLayerAdmin_v3_New.lineGrpLayer);
-	console.info(coreMap.reachLayerAdmin_v3_New.areaGrpLayer);
 	
 	var comDownRchId = coreMap.reachLayerAdmin_v3_New.grpCommDownLine.attributes.RCH_ID;
 	var reachLineGraphics = coreMap.reachLayerAdmin_v3_New.lineGrpLayer.graphics;
