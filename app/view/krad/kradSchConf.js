@@ -31,12 +31,11 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				type : 'vbox'
 			},
 			cls: 'dj_layer_nm',
-			title :  '공통',
+			title: '공통',
 			items:[{
 				xtype: 'container',
 				width: '100%',
 				height: '100%',
-				
 				//id: 'krad_grid',
 				items: [{
 					xtype: 'grid',
@@ -86,67 +85,62 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 					}]
 				}]
 			},{
-				xtype : 'panel',
-				//autoScroll: true,
-				layout : {
-					type : 'vbox'
-				},
-				cls: 'dj_layer_nm',
-				title :  '사용자지정',
-				items:[{
-					xtype: 'container',
-					width: '100%',
-					height: '100%',
-					
-					//id: 'krad_grid',
-					items: [{
-						xtype: 'grid',
-						columnLines: true,
-						hideHeaders: true,
-				        selType: 'checkboxmodel',
-						store : Ext.create('KRF_DEV.store.krad.krad_tmp2'),
-						columns: [{	 
-								text      : '측정망명',
-								dataIndex : 'TITLE',
-								width: 150
-								//filter: {type: 'numeric'}
-							},{	 
-								text:'버튼',
-								align:'center',
-								xtype:'actioncolumn',
-								width:50,
-								items:[{
-									xtype:'button',
-									text:'button',
-									handler: function(a,b,c,d){
-										var metaInfo = Ext.getCmp("kradMetaInfo");
-										if(metaInfo == undefined){
-											metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo",{
-												asdf: 'asdf'
-											});
-										}
-										metaInfo.show();
+			xtype : 'panel',
+			//autoScroll: true,
+			layout : {
+				type : 'vbox'
+			},
+			cls: 'dj_layer_nm',
+			title: '공통',
+			items:[{
+				xtype: 'container',
+				width: '100%',
+				height: '100%',
+				//id: 'krad_grid',
+				items: [{
+					xtype: 'grid',
+					columnLines: true,
+					hideHeaders: true,
+			        selType: 'checkboxmodel',
+					store : Ext.create('KRF_DEV.store.krad.krad_tmp2'),
+					columns: [{	 
+							text      : '측정망명',
+							dataIndex : 'TITLE',
+							width: 150
+							//filter: {type: 'numeric'}
+						},{	 
+							text:'버튼',
+							align:'center',
+							xtype:'actioncolumn',
+							width:50,
+							items:[{
+								xtype:'button',
+								text:'button',
+								handler: function(a,b,c,d){
+									var metaInfo = Ext.getCmp("kradMetaInfo");
+									if(metaInfo == undefined){
+										metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo",{
+											asdf: 'asdf'
+										});
 									}
-								}]
-							}],
-							 listeners: {
-							        selectionchange: function(model, records) {
-							            console.info(records);
-							            //records[0].data
-							            //localStorage['_kradExtInfo_']= JSON.stringify(confObj);
-							            var confObj = [];
-							            for(var i =0 ;i < records.length;i++){
-							            	confObj.push(records[i].data);
-							            }
-							            
-							            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
-							            
-							            
-							        }
-							    }
-						}]
+									metaInfo.show();
+								}
+							}]
+						}],
+					 listeners: {
+					        selectionchange: function(model, records) {
+					            console.info(records);
+					            var confObj = [];
+					            for(var i =0 ;i < records.length;i++){
+					            	confObj.push(records[i].data);
+					            }
+					            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+					            
+					        }
+					    }
 					}]
 				}]
+			}]
 	},{
 		xtype:'button',
 		text: '적용',
@@ -162,26 +156,28 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 		
 		//store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
 		//localStorage['_kradExtInfo_']
-		//localStorage['_kradGroupInfo_']
 		//[{id: kk, name: kk, checked: true}, {{id: kk, name: kk, checked: true}]
 		this.callParent();
 		
-		//console.info(localStorage['_searchConfigInfo_']);
-		/*if(localStorage['_searchConfigInfo_'] != null && localStorage['_searchConfigInfo_'] != undefined){
+		
+		if(localStorage['_kradExtInfo_'] != null && localStorage['_kradExtInfo_'] != undefined){
+			console.info(localStorage['_kradExtInfo_']);
+			confInfo = localStorage['_kradExtInfo_'];
 			
-			confInfo = localStorage['_searchConfigInfo_'];
-			
-			if(confInfo != undefined && confInfo != null){
+			/*if(confInfo != undefined && confInfo != null){
 				//console.info(JSON.parse(confInfo));
 				var jsonConf = JSON.parse(confInfo);
 				this.items.items[1].setValue(jsonConf.isJiDraw);
-			}
-			else{
+			}*/
+			/*else{
 				//console.info(checked);
 				var saveObj = {isBonDraw:true, isJiDraw:true};
-				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
-			}
-		}*/
+				localStorage['_kradExtInfo_'] = JSON.stringify(saveObj);
+			}*/
+		}
+		
+		//console.info(localStorage['_searchConfigInfo_']);
+		
 	}
 
 });

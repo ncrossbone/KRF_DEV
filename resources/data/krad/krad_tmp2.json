@@ -1,5 +1,21 @@
-	[{
-		"kradCommonNm": "수질측정망_경안천_201605",
+[{
+			"EXT_DATA_ID": "OBS_WQ_STR_EV",
+			"TITLE": "하천 수질 관측소",
+			"CHECKED": "false",
+			"EVENT_TYPE": "Point",
+			"DATA_LAYER_ID": 5,
+			"ORIGIN_LAYER_ID": null,
+			"PE_LAYER_ID": 6,
+			"LE_LAYER_ID": 7,
+			"AE_LAYER_ID": 8
 	},{
-		"kradCommonNm": "수질측정망_안양천_201605",
+			"EXT_DATA_ID": "ACCD_1024_EV",
+			"TITLE": "오염사고경로",
+			"CHECKED": true,
+			"EVENT_TYPE": "Line",
+			"DATA_LAYER_ID": 3,
+			"ORIGIN_LAYER_ID": 2,
+			"PE_LAYER_ID": 0,
+			"LE_LAYER_ID": 1,
+			"AE_LAYER_ID": 4
 	}]
