@@ -72,6 +72,7 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 				text: "Reach",
 				width: "100%",
 				handler: function(){
+					
 					coreMap.reachLayerAdmin_v3_New.drawEnd(btnId);
 					coreMap.reachLayerAdmin_v3_New.drawSymbol(me.evt, symbol, me.drawOption); // 심볼 그리기
 					coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(where, me.drawOption); // 라인 검색
@@ -84,62 +85,15 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 				handler: function(){
 					
 					coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Point", me.drawOption, me.evt);
-					
-					return;
-					
-					var kradPELayer = coreMap.map.getLayer("kradPELayer");
-					
-					kradPELayer.setVisibility(true);
-					
-					require(["dojo/on"],
-							function(on){
-						
-						var kradPELayer_mouseover = on(kradPELayer, "mouse-over", function(evt){
-			        		
-							evt.graphic.setSymbol(overSymbol);
-			        	});
-						
-						var kradPELayer_mouseout = on(kradPELayer, "mouse-out", function(evt){
-			        		
-							evt.graphic.setSymbol(outSymbol);
-			        	});
-						
-			        	var kradPELayer_click = on(kradPELayer, "click", function(evt){
-			        		
-			        		if(me.drawOption == "startPoint" || me.drawOption == "start"){
-			        			// 그래픽 레이어에 선택된 Attribute 셋팅 (시작위치)
-				        		kradPELayer.ST_EXT_DATA_ID = evt.graphic.attributes.EXT_DATA_ID;
-				        		kradPELayer.ST_POINT_EVENT_ID = evt.graphic.attributes.POINT_EVENT_ID;
-				        		kradPELayer.ST_EVENT_ORDER = evt.graphic.attributes.EVENT_ORDER;
-				        		kradPELayer.ST_RCH_ID = evt.graphic.attributes.RCH_ID;
-			    			}
-			    			if(me.drawOption == "endPoint" || me.drawOption == "end"){
-			    				// 그래픽 레이어에 선택된 Attribute 셋팅 (끝위치)
-				        		kradPELayer.ED_EXT_DATA_ID = evt.graphic.attributes.EXT_DATA_ID;
-				        		kradPELayer.ED_POINT_EVENT_ID = evt.graphic.attributes.POINT_EVENT_ID;
-				        		kradPELayer.ED_EVENT_ORDER = evt.graphic.attributes.EVENT_ORDER;
-				        		kradPELayer.ED_RCH_ID = evt.graphic.attributes.RCH_ID;
-			    			}
-			        		
-			        		coreMap.reachLayerAdmin_v3_New.drawEnd(btnId);
-							coreMap.reachLayerAdmin_v3_New.drawSymbol(evt.graphic.geometry, symbol, me.drawOption); // 심볼 그리기
-							coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(where, me.drawOption); // 라인 검색
-							
-							kradPELayer_mouseout.remove();
-							kradPELayer_mouseover.remove();
-							kradPELayer_click.remove();
-							
-							evt.graphic.setSymbol(outSymbol);
-							kradPELayer.setVisibility(false);
-							
-							me.close();
-			        	});
-					});
 				}
 			}, {
 				xtype: "button",
 				text: "Line",
-				width: "100%"
+				width: "100%",
+				handler: function(){
+					
+					coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Line", me.drawOption, me.evt);
+				}
 			}, {
 				xtype: "button",
 				text: "Area",
