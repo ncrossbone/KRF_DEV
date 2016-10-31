@@ -17,7 +17,22 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	},
 	width: 500,
 	height: 305,
+	closable: false,
 	style:"padding-top:10px",
+	header:{
+		items:[{
+			xtype:'image',
+			src:'./resources/images/button/btn_close.png',
+			style:'padding-right :13px; cursor:pointer;',
+			listeners:{
+				el:{
+					click:function(){
+						Ext.getCmp("siteListWindow").close();
+					}
+				}
+			}
+		}]
+	}, 
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',
