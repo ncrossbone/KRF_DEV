@@ -18,7 +18,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	
 	drawOption: null,
 	rchMouseEvt: null,
-	mousSymbol: null,
+	mouseSymbol: null,
 	rchIds: null,
 	stRchId: null,
 	edRchId: null,
@@ -136,7 +136,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.map.addLayer(me.kradAreaLayer);
 		});
     },
-    
     drawDataGrp: function(rchIds, evtType, drawOption, rchMouseEvt){
     	
     	var me = this;
@@ -151,11 +150,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	me.rchIds = rchIds;
     	
     	if(me.drawOption == "startPoint"){
-    		me.mousSymbol = coreMap.reachLayerAdmin_v3_New.startSymbol;
+    		me.mouseSymbol = coreMap.reachLayerAdmin_v3_New.startSymbol;
     		me.btnId = "btnMenu04";
     	}
     	if(me.drawOption == "endPoint"){
-    		me.mousSymbol = coreMap.reachLayerAdmin_v3_New.endSymbol;
+    		me.mouseSymbol = coreMap.reachLayerAdmin_v3_New.endSymbol;
     		me.btnId = "btnMenu05";
     	}
     	
@@ -178,76 +177,86 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		
 		where = where.replace("#RCH_ID#", strRchId);
     	
-    	require(["esri/tasks/QueryTask",
-		         "esri/tasks/query",
-		         "esri/symbols/SimpleMarkerSymbol",
-		         "dojo/_base/Color",
-		         "esri/layers/GraphicsLayer"],
-		         function(QueryTask,
-		        		 Query,
-		        		 SimpleMarkerSymbol,
-		        		 Color,
-		        		 GraphicsLayer){
-    		
-	    	for(var i = 0; i < me.kradInfo.length; i++){
+		if(evtType == "Reach"){
+			
+			coreMap.reachLayerAdmin_v3_New.drawEnd(me.btnId);
+			coreMap.reachLayerAdmin_v3_New.drawSymbol(me.rchMouseEvt, me.mouseSymbol, me.drawOption); // 심볼 그리기
+			coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(where, me.drawOption); // 라인 검색
+			
+			me.closeKradPop();
+		}
+		else{
+	    	require(["esri/tasks/QueryTask",
+			         "esri/tasks/query",
+			         "esri/symbols/SimpleMarkerSymbol",
+			         "dojo/_base/Color",
+			         "esri/layers/GraphicsLayer"],
+			         function(QueryTask,
+			        		 Query,
+			        		 SimpleMarkerSymbol,
+			        		 Color,
+			        		 GraphicsLayer){
 	    		
-	    		if(me.kradInfo[i].CHECKED == true && evtType == me.kradInfo[i].EVENT_TYPE){
-
-	    			var originLayerId = me.kradInfo[i].LO_LAYER_ID;
-	    			var extDataId = me.kradInfo[i].EXT_DATA_ID;
-	    			var layerId = "";
-	    			
-	    			if(evtType == "Point"){
-	    				layerId = me.kradInfo[i].PD_LAYER_ID;
-					}
-
-					if(evtType == "Line"){
-						layerId = me.kradInfo[i].LD_LAYER_ID
-					}
-	    			
-    				var queryTask = new QueryTask(_kradInfo.kradServiceUrl + "/" + layerId);
-    				var query = new Query();
-    				query.returnGeometry = true;
-    				query.outFields = ["*"];
-    				query.where = where + " AND EXT_DATA_ID = '" + me.kradInfo[i].EXT_DATA_ID + "'";
-    				
-    				queryTask.execute(query, function(featureSet){
-    					
-    					if(featureSet.features.length > 0){
-    						
-    						if(evtType == "Point"){
+		    	for(var i = 0; i < me.kradInfo.length; i++){
+		    		
+		    		if(me.kradInfo[i].CHECKED == true && evtType == me.kradInfo[i].EVENT_TYPE){
+	
+		    			var originLayerId = me.kradInfo[i].LO_LAYER_ID;
+		    			var extDataId = me.kradInfo[i].EXT_DATA_ID;
+		    			var layerId = "";
+		    			
+		    			if(evtType == "Point"){
+		    				layerId = me.kradInfo[i].PD_LAYER_ID;
+						}
+	
+						if(evtType == "Line"){
+							layerId = me.kradInfo[i].LD_LAYER_ID
+						}
+		    			
+	    				var queryTask = new QueryTask(_kradInfo.kradServiceUrl + "/" + layerId);
+	    				var query = new Query();
+	    				query.returnGeometry = true;
+	    				query.outFields = ["*"];
+	    				query.where = where + " AND EXT_DATA_ID = '" + me.kradInfo[i].EXT_DATA_ID + "'";
+	    				
+	    				queryTask.execute(query, function(featureSet){
+	    					
+	    					if(featureSet.features.length > 0){
 	    						
-	    						me.drawGraphic(featureSet, evtType);
+	    						if(evtType == "Point"){
+		    						
+		    						me.drawGraphic(featureSet, evtType);
+		    					}
+	
+		    					if(evtType == "Line"){
+		    						
+		    						var qTaskOrigin = new QueryTask(_kradInfo.kradServiceUrl + "/" + originLayerId);
+		    						var qOrigin = new Query();
+		    						qOrigin.returnGeometry = true;
+		    						qOrigin.outFields = ["*"];
+		    						qOrigin.where = "EXT_DATA_ID = '" + extDataId + "' AND ORG_ID = " + featureSet.features[0].attributes.ORG_ID;
+		    						
+		    						qTaskOrigin.execute(qOrigin, function(fOrigin){
+		    							
+		    							me.drawGraphic(fOrigin, evtType);
+		    						});
+		    					}
 	    					}
-
-	    					if(evtType == "Line"){
-	    						
-	    						var qTaskOrigin = new QueryTask(_kradInfo.kradServiceUrl + "/" + originLayerId);
-	    						var qOrigin = new Query();
-	    						qOrigin.returnGeometry = true;
-	    						qOrigin.outFields = ["*"];
-	    						qOrigin.where = "EXT_DATA_ID = '" + extDataId + "' AND ORG_ID = " + featureSet.features[0].attributes.ORG_ID;
-	    						
-	    						qTaskOrigin.execute(qOrigin, function(fOrigin){
-	    							
-	    							me.drawGraphic(fOrigin, evtType);
-	    						});
-	    					}
-    					}
-    				});
-    			}
-    		}
-	    	
-	    	me.onMouseOver(evtType);
-	    	me.onMouseOut(evtType);
-	    	
-	    	if(evtType == "Point"){
-	    		me.onMouseClick_P(evtType);
-	    	}
-	    	if(evtType == "Line"){
-	    		me.onMouseClick_L(evtType);
-	    	}
-    	});
+	    				});
+	    			}
+	    		}
+		    	
+		    	me.onMouseOver(evtType);
+		    	me.onMouseOut(evtType);
+		    	
+		    	if(evtType == "Point"){
+		    		me.onMouseClick_P(evtType);
+		    	}
+		    	if(evtType == "Line"){
+		    		me.onMouseClick_L(evtType);
+		    	}
+	    	});
+		}
     },
     drawGraphic: function(featureSet, evtType, symbol){
     	
@@ -362,17 +371,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    		}
 	    		
 		    	coreMap.reachLayerAdmin_v3_New.drawEnd(me.btnId);
-				coreMap.reachLayerAdmin_v3_New.drawSymbol(evt.graphic.geometry, me.mousSymbol, me.drawOption); // 심볼 그리기
+				coreMap.reachLayerAdmin_v3_New.drawSymbol(evt.graphic.geometry, me.mouseSymbol, me.drawOption); // 심볼 그리기
 				coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(where, me.drawOption); // 라인 검색
 				
 				// 레이어 및 이벤트 클리어
 				//me.clearLayer();
 				me.clearEvent();
 				
-				var popCtl = Ext.getCmp("kradEvtPop");
-				if(popCtl != undefined){
-					popCtl.close();
-				}
+				me.closeKradPop();
 	    	});
     	});
     },
@@ -391,7 +397,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		me.mouseClickObj_L = on(me.kradLineLayer, "click", function(evt){
     			
 	    		coreMap.reachLayerAdmin_v3_New.drawEnd(me.btnId);
-				coreMap.reachLayerAdmin_v3_New.drawSymbol(evt.mapPoint, me.mousSymbol, me.drawOption); // 심볼 그리기
+				coreMap.reachLayerAdmin_v3_New.drawSymbol(evt.mapPoint, me.mouseSymbol, me.drawOption); // 심볼 그리기
 				coreMap.reachLayerAdmin_v3_New.selectLineWithEvent(evt.mapPoint, me.drawOption); // 라인 검색
 				
 				var extDataId = evt.graphic.attributes.EXT_DATA_ID;
@@ -610,5 +616,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	if(me.mouseClickObj_L != undefined && me.mouseClickObj_L != null){
     		me.mouseClickObj_L.remove();
     	}
+    },
+    closeKradPop: function(){
+    	
+    	var popCtl = Ext.getCmp("kradEvtPop");
+		if(popCtl != undefined){
+			popCtl.close();
+		}
     }
 });
