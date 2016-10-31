@@ -442,7 +442,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    					//coreMap.reachLayerAdmin_v3_New.addGraphics(evt.graphic, "lineGrpLayer");
 	    					
 	    					for(var i = 0; i < featureSet.features.length; i++){
-	    						console.info(featureSet.features[i]);
+	    						
 	    						featureSet.features[i].setSymbol(me.drawSymbol_A);
 	    						if(me.drawOption == "startPoint"){
 		    						me.arrStAreaGrp.push(featureSet.features[i]);
