@@ -4,7 +4,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	xtype : 'east-sitelistindow',
 	
 	id: 'siteListWindow',
-	//params: this.record,
 	
 	//title: '지점 목록',
 	
@@ -18,13 +17,11 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	},
 	width: 500,
 	height: 305,
-
+	style:"padding-top:10px",
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		rootVisible:false,
-		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
-		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 		cls: 'khLee-x-grid-cell',
 		columns: [{
             xtype: 'treecolumn', //this is so we know which column will show the tree
@@ -158,7 +155,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				
 				var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
 				"&w=" + width + "&h=" + height;
-				window.open(url, "리포트 설정", "width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
+				window.open(url, "리포트 설정", "width=1490,height=980,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
 				
 				/*width : 팝업창 가로길이
 				height : 팝업창 세로길이
@@ -384,7 +381,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     initComponent: function(){
     	
     	var me = this;
-    	
 		this.on("beforeclose", function windSitreNChartClose(){
 			var windowSiteNChart = Ext.getCmp("windowSiteNChart");
 			if(windowSiteNChart != undefined){

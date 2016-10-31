@@ -16,8 +16,8 @@ showKRADEvtPop = function(rchIds, evt, drawOption){
 	var cursorY = _cursorY;
 	var bodyWidth = Ext.getBody().getWidth();
 	var bodyHeight = Ext.getBody().getHeight();
-	var popWidth = 100;
-	var popHeight = 200;
+	var popWidth = 80;
+	var popHeight = 120;
 	
 	if(_cursorX > bodyWidth - popWidth){
 		cursorX = bodyWidth - popWidth;
@@ -35,7 +35,8 @@ showKRADEvtPop = function(rchIds, evt, drawOption){
 			y: cursorY,
 			rchIds: rchIds,
 			evt: evt,
-			drawOption: drawOption
+			drawOption: drawOption,
+			style:"background-image: url(./resources/images/button/option_bg1.png); border:0px;"
 		}).show();
 	}
 	else{
