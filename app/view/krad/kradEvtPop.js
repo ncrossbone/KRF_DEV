@@ -72,7 +72,6 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 				//text: "Reach",
 				style:"padding-left:4px; margin-top:4px; padding-right:4px; cursor: pointer;",
 				width: "100%",
-<<<<<<< HEAD
 				height: 21,
 				listeners: {
 					el: {
@@ -89,14 +88,6 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							this.dom.setAttribute("src","./resources/images/button/btn_option_1_off.gif");
 						}
 					}
-=======
-				handler: function(){
-					
-					coreMap.reachLayerAdmin_v3_New.drawEnd(btnId);
-					coreMap.reachLayerAdmin_v3_New.drawSymbol(me.evt, symbol, me.drawOption); // 심볼 그리기
-					coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(where, me.drawOption); // 라인 검색
-					me.close();
->>>>>>> b571e2e3924b7d01477befcaf935b5123cdedfd8
 				}
 			}, {
 				xtype: "image",
@@ -104,7 +95,6 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 				//text: "Point",
 				style:"padding-left:4px; padding-right:4px; cursor: pointer;",
 				width: "100%",
-<<<<<<< HEAD
 				height: 21,
 				listeners:{
 					el:{
@@ -203,19 +193,6 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							this.dom.setAttribute("src","./resources/images/button/btn_option_4_off.gif");
 						}
 					}
-=======
-				handler: function(){
-					
-					coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Point", me.drawOption, me.evt);
-				}
-			}, {
-				xtype: "button",
-				text: "Line",
-				width: "100%",
-				handler: function(){
-					
-					coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Line", me.drawOption, me.evt);
->>>>>>> b571e2e3924b7d01477befcaf935b5123cdedfd8
 				}
 			}, {
 				xtype: "image",
