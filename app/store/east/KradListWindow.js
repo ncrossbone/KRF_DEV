@@ -20,13 +20,16 @@ Ext.define('KRF_DEV.store.east.KradListWindow', {
 	listeners: {
 		
 		load: function(store) {
-			console.info(store.param);
+			
 				
 			
 				var confInfo = localStorage['_kradExtInfo_'];
 				var jsonConf = JSON.parse(confInfo);
 				console.info(jsonConf);
-			
+				
+				if(jsonConf == undefined || jsonConf == null){
+					return;
+				}
 				
 				var jsonStr = "{\n";
 				jsonStr += "	\"id\": \"0\", \n";

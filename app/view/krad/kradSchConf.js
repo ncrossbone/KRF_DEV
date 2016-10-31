@@ -232,10 +232,8 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 						}
 					}
 				}
-			
 			}]
 		}]
-		
 	}]
 	,
 	initComponent: function(){
