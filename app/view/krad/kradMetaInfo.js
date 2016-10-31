@@ -55,6 +55,8 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 			'</style>                                                                                                                   '+
 			'</head>                                                                                                                    '+
 			'<body>                                                                                                                     '+
+			' <img src="./resources/images/button/blit_st_01.png"/>  '+
+			'<b style="color:#2E9AFE">기본정보</b>'+
 			'<table class=\"meta\" summary=\"\">                                                                                            '+
 			'	<colgroup>                                                                                                                '+
 			'    	<col width=\"110\" />                                                                                                   '+
