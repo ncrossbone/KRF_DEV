@@ -4,7 +4,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	xtype : 'east-sitelistindow',
 	
 	id: 'siteListWindow',
-	//params: this.record,
 	
 	//title: '지점 목록',
 	
@@ -18,14 +17,15 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	},
 	width: 500,
 	height: 305,
+<<<<<<< HEAD
 	style:"padding-top:10px",
 
+=======
+>>>>>>> b571e2e3924b7d01477befcaf935b5123cdedfd8
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		rootVisible:false,
-		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
-		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 		cls: 'khLee-x-grid-cell',
 		columns: [{
             xtype: 'treecolumn', //this is so we know which column will show the tree
@@ -385,7 +385,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     initComponent: function(){
     	
     	var me = this;
-    	
 		this.on("beforeclose", function windSitreNChartClose(){
 			var windowSiteNChart = Ext.getCmp("windowSiteNChart");
 			if(windowSiteNChart != undefined){

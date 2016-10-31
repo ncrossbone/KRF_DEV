@@ -1758,6 +1758,31 @@ SetWestCollapseXY = function(option){
 		}
 	}
 	
+	
+	//krad 리스트
+	var kConfig = Ext.getCmp("kradSchConf");
+	
+	if(kConfig != undefined){
+		
+		if(kConfig.hidden == false){
+			
+			kConfig.setX(kConfig.getX() + offsetWidth);
+		}
+	}
+	
+	var kMetaConfig = Ext.getCmp("kradMetaInfo");
+	
+	if(kMetaConfig != undefined){
+		
+		if(kMetaConfig.hidden == false){
+			
+			kMetaConfig.setX(kMetaConfig.getX() + offsetWidth);
+		}
+	}
+	
+	
+	
+	
 	if(option != "show"){
 		
 		var reachNameToolbar = Ext.getCmp("reachNameToolbar");

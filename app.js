@@ -207,7 +207,7 @@ Ext.application({
 		var infoWinCtl = null;
 
 		// 지점 목록 창 띄우기
-		Ext.ShowSiteListWindow = function(searchText) {
+		Ext.ShowSiteListWindow = function(searchText, searchType) {
 
 			var me = GetCoreMap();
 
@@ -275,10 +275,20 @@ Ext.application({
 
 			listWinCtl.show();
 			// alert("dd");
+			var store = null;
 			var treeCtl = Ext.getCmp("siteListTree");
-			var store = treeCtl.getStore();
+			//alert(searchType);
+			if(searchType == "krad"){
+				store = Ext.create('KRF_DEV.store.east.KradListWindow');
+			}
+			else{
+				store = Ext.create('KRF_DEV.store.east.SiteListWindow');
+			}
+			
+			//var store = treeCtl.getStore();
 			store.searchType = searchText;
 			store.load();
+			treeCtl.setStore(store);
 
 			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
 			var listWinY = 98;

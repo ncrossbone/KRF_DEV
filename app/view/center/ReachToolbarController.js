@@ -27,16 +27,35 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		if(kradConf == undefined){
 			kradConf = Ext.create("KRF_DEV.view.krad.kradSchConf");
 		}*/
+		var kradConf = Ext.getCmp("kradSchConf");
+		if(kradConf == undefined){
+			kradConf = Ext.create("KRF_DEV.view.krad.kradSchConf");
+		}
 		
 		// 설정창 show
 		if(currCtl.btnOnOff == "on"){
 			popCtl.show();
+			
+			var confInfo = localStorage['_searchConfigInfo_'];
+			if(confInfo != undefined){
+				var jsonConf = JSON.parse(confInfo);
+				if(jsonConf.isKrad == true){
+					kradConf.show();
+				}else{
+					kradConf.hide();
+				}
+				
+			}
+			
+			
+			
 			//kradConf.show();
 			SetWestCollapseXY("show");
 		}
 		else{
 			popCtl.close();
 			kradConf.close();
+			kradConf.hide();
 		}
 		
 		// 부하량 주제도 off
