@@ -17,11 +17,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	},
 	width: 500,
 	height: 305,
-<<<<<<< HEAD
 	style:"padding-top:10px",
-
-=======
->>>>>>> b571e2e3924b7d01477befcaf935b5123cdedfd8
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',
