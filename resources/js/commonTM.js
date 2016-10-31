@@ -514,7 +514,12 @@ pollutionLayerOnOff = function(onOff, value){
 			// 부하량 레이어 off
 			catTMLayerOnOff("off");
 			for(var i = 1 ; i <= 7 ;i++){
-				$("#catPollutionOnOff_0"+i)[0].src = imgSrc.replace("_on.", "_off.");
+				if($("#catPollutionOnOff_0"+i)[0] != undefined){
+					$("#catPollutionOnOff_0"+i)[0].src = imgSrc.replace("_on.", "_off.");
+				}
+				
+				
+				
 			}
 			
 			pollutionMapSetValue.show();
@@ -578,8 +583,8 @@ catTMLayerOnOff = function(onOff){
 			
 			pollMapSetValue.show();
 			
-			if($("#catPollutionOnOff_0"+i)[0] != undefined){
-				for(var i = 1 ; i <= 7 ;i++){
+			for(var i = 1 ; i <= 7 ;i++){
+				if($("#catPollutionOnOff_0"+i)[0] != undefined){
 					$("#catPollutionOnOff_0"+i)[0].src = imgSrc.replace("_on.", "_off.");
 				}
 			}
