@@ -142,12 +142,16 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				}]
 			}]
 	},{
-		xtype:'button',
+		xtype:'image',
 		text: '적용',
+		src:"./resources/images/button/btn_app.gif",
+		style : "margin-left: 120px; cursor: pointer; margin-top: 235px;",
 		listeners:{
-			click:function(){
-				var confInfo = localStorage['_kradExtInfo_'];
-				console.info(confInfo);
+			el:{
+				click:function(){
+					var confInfo = localStorage['_kradExtInfo_'];
+					console.info(confInfo);
+				}
 			}
 		}
 	}]
