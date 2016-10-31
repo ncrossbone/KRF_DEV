@@ -43,9 +43,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		
 		var me = this;
         me.map = map;
-        
+        console.info(map);
         /* khLee Test 임시 설정 개발완료 후 삭제할것.. */
-        var confObj = {isBonDraw:true, isJiDraw:true, isKRAD:true};
+        var confObj = {isBonDraw:true, isJiDraw:true, isKrad:false};
 		localStorage['_searchConfigInfo_'] = JSON.stringify(confObj);
 		// localStorage['_kradExtInfo_']= JSON.stringify(confObj);
 		me.kradInfo = [{
