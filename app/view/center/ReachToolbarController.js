@@ -13,7 +13,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	
 	// 스마트선택 버튼 클릭
 	onClickSmart: function(obj, el, evt){
-		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
@@ -143,9 +142,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("ENDPOINT", el.id); // v3
 			me.onClickEndPoint(); // v3 New
 		}
-		
-		// 부하량 주제도 off
-		catTMLayerOnOff("off");
 	},
 	
 	// 초기화 버튼 클릭

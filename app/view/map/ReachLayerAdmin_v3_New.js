@@ -179,7 +179,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				*/
 				
 				// khLee Test KRAD 20161024
-				console.info(evt);
 				me.getRchIdWithEvent(evt, drawOption);
 				//return;
 				// khLee Test KRAD 20161024 End
@@ -288,7 +287,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 										rchIds.push(lineFS.features[i].attributes.RCH_ID);
 									}
 									
-									/* KRAD 이벤트 그래픽 그리기 */
+									/* khLee Test KRAD 이벤트 그래픽 그리기 */
 									drawKRADEvtGrp(rchIds, evt, drawOption);
 								}
 								else{
@@ -425,7 +424,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
-				//console.info(featureSet);
+				
 				if(featureSet.features.length > 0){
 					
 					var minRchDid = "";
@@ -448,7 +447,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					if(drawOption == "startPoint"){
 						
 						// 시작위치 클릭시 배열에 담기
-						me.arrStartLine.push(featureSet.features[i]);
+						me.arrStartLine.push(featureSet.features[0]);
 						//me.arrStartLine.unshift(featureSet.features[i]);
 						// 시작위치 최상류 라인 아이디 셋팅
 						me.minStartRchDid = minRchDid; 
@@ -459,7 +458,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					if(drawOption == "endPoint"){
 						
 						// 끝위치 클릭시 배열에 담기
-						me.arrEndLine.push(featureSet.features[i]);
+						me.arrEndLine.push(featureSet.features[0]);
 						// 끝위치 최상류 라인 아이디 셋팅
 						me.minEndRchDid = minRchDid;
 						// 끝위치 하천명 셋팅
@@ -939,7 +938,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	var obj = setInterval(chkCnt = function(){
     		
 			//console.info(me.searchCnt);
-			 
     		// 검색 카운트 같으면
 			if(me.searchCnt == me.tmpSearchCnt){
         		
@@ -951,13 +949,14 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					
 					if(me.searchCnt == me.tmpSearchCnt){
 						
+						/* khLee Test KRAD 추가로 주석.. commonKRAD에서 실행 */
 						// 지점 목록 창 띄우기
-		        		Ext.ShowSiteListWindow("selectReach");
+		        		//Ext.ShowSiteListWindow("selectReach");
 		        		
 		        		// 검색결과 창 띄우기
-		        		ShowSearchResultReach("");
-		        		//PollLoadSearchResult("");
-		        		
+		        		//ShowSearchResultReach("");
+						/* khLee Test KRAD 추가로 주석.. commonKRAD에서 실행 끝 */
+	        		
 		        		/* khLee Test 20161026 */
 		        		drawKRADLayer();
 		        		/* khLee Test 20161026 End */

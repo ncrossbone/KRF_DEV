@@ -1559,6 +1559,9 @@ ResetButtonClick = function(){
 	//me.reachLayerAdmin_v3_New.clearGraphicsLayer("reset");
 	me.reachLayerAdmin_v3_New.clearGraphicsLayer();
 	
+	// KRAD 레이어 그래픽 및 변수 초기화
+	me.kradLayerAdmin.clearKRADLayer();
+	
 	Ext.HideSiteListWindow();
 	HideWindowSiteNChart();
 	HideSearchResult();

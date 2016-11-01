@@ -1,7 +1,8 @@
 drawKRADEvtGrp = function(rchIds, evt, drawOption){
 	
 	var coreMap = GetCoreMap();
-	coreMap.kradLayerAdmin.clearLayer();
+	//coreMap.kradLayerAdmin.clearLayer();
+	coreMap.kradLayerAdmin.clearEvent();
 	
 	//console.info(_kradInfo);
 	//var rchId = "10071017";
@@ -55,6 +56,14 @@ drawKRADLayer = function(){
 	var kradStRchId = coreMap.kradLayerAdmin.stRchId;
 	var kradEdRchId = coreMap.kradLayerAdmin.edRchId;
 	
+	var kradStLineGrps = coreMap.kradLayerAdmin.arrStLineGrp;
+	var kradStAreaGrps = coreMap.kradLayerAdmin.arrStAreaGrp;
+	var kradEdLineGrps = coreMap.kradLayerAdmin.arrEdLineGrp;
+	var kradEdAreaGrps = coreMap.kradLayerAdmin.arrEdAreaGrp;
+	
+	var kradStLDGrps = coreMap.kradLayerAdmin.arrStLDGrp;
+	var kradEdLDGrps = coreMap.kradLayerAdmin.arrEdLDGrp;
+	
 	var reachLineGraphics = coreMap.reachLayerAdmin_v3_New.lineGrpLayer.graphics;
 	
 	for(var i = 0; i < reachLineGraphics.length; i++){
@@ -64,7 +73,54 @@ drawKRADLayer = function(){
 			
 			coreMap.reachLayerAdmin_v3_New.removeLine(reachLineGraphics[i], "lineGrpLayer");
 		}
+		
+		var stLDIdx = kradStLDGrps.map(function(e){
+			//console.info(e);
+			return e.attributes.RCH_ID;
+		}).indexOf(rchId);
+		
+		if(stLDIdx > -1){
+			
+			coreMap.reachLayerAdmin_v3_New.removeGraphics(reachLineGraphics[i], "lineGrpLayer");
+		}
 	}
 	
+	var reachAreaGraphics = coreMap.reachLayerAdmin_v3_New.areaGrpLayer.graphics;
+	
+	/*for(var i = 0; i < reachAreaGraphics.length; i++){
+		
+		var catId = reachAreaGraphics[i].attributes.CAT_ID;
+		
+		var stAreaIdx = kradStAreaGrps.map(function(e){
+			return e.attributes.CAT_ID;
+		}).indexOf(catId);
+		
+		//console.info(stAreaIdx);
+		if(stAreaIdx > -1){
+			
+			coreMap.reachLayerAdmin_v3_New.removeGraphics(reachAreaGraphics[i], "areaGrpLayer");
+		}
+	}*/
+	
 	coreMap.kradLayerAdmin.drawKRADLayer();
+	
+	coreMap.kradLayerAdmin.clearEvent();
+	
+	if(coreMap.kradLayerAdmin.stEvtType != null && coreMap.kradLayerAdmin.edEvtType != null){
+	
+		console.info(coreMap.kradLayerAdmin.stEvtType);
+		console.info(coreMap.kradLayerAdmin.edEvtType);
+		
+		coreMap.reachLayerAdmin_v3_New.lineGrpLayer.setVisibility(true);
+		coreMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+		
+		coreMap.kradLayerAdmin.clearKRADLayer();
+		
+		// 지점 목록 창 띄우기
+		Ext.ShowSiteListWindow("selectReach");
+		
+		// 검색결과 창 띄우기
+		ShowSearchResultReach("");
+		//PollLoadSearchResult("");
+	}
 }
