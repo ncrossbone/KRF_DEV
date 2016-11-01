@@ -7,6 +7,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	
 	kradPointLayer: null,
 	kradLineLayer: null,
+	kradAreaLayer: null,
 	
 	mouseOverObj_P: null,
 	mouseOutObj_P: null,
@@ -22,9 +23,18 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	rchIds: null,
 	stRchId: null,
 	edRchId: null,
+	stEvtType: null,
+	edEvtType: null,
 	btnId: null,
 	stExtDataId: null,
 	edExtDataId: null,
+	
+	arrStLineGrp: [],
+    arrStLDGrp: [],
+    arrStAreaGrp: [],
+    arrEdLineGrp: [],
+    arrEdLDGrp: [],
+    arrEdAreaGrp: [],
 	
 	/* Point Symbol */
 	basicSymbol_P: null,
@@ -48,7 +58,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		
 		var me = this;
         me.map = map;
-        console.info(map);
+        //console.info(map);
         /* khLee Test 임시 설정 개발완료 후 삭제할것.. */
         var confObj = {isBonDraw:true, isJiDraw:true, isKrad:false};
 		localStorage['_searchConfigInfo_'] = JSON.stringify(confObj);
@@ -112,12 +122,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.drawSymbol_P.setSize(10);
 			me.drawSymbol_P.setColor(new Color([255,0,0,1]));
 			
-			me.basicSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 5);
-			me.mouseOverSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 8);
-			me.mouseOutSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 0, 0]), 5);
-			me.drawSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([0, 255, 0]), 5);
+			me.basicSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 5);
+			me.mouseOverSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 8);
+			me.mouseOutSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 5);
+			me.drawSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 5);
 			
-			me.drawSymbol_A = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2), new Color([0, 0, 255, 0.3]));
+			me.drawSymbol_A = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2), new Color([0, 0, 255, 0.5]));
 			/* 심볼 설정 끝 */
 			
 			me.kradPointLayer = new GraphicsLayer();
@@ -142,7 +152,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	var coreMap = GetCoreMap();
     	
     	// 레이어 및 이벤트 클리어
-		me.clearLayer();
+		//me.clearLayer();
 		me.clearEvent();
     	
     	me.drawOption = drawOption;
@@ -179,6 +189,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
 		if(evtType == "Reach"){
 			
+			if(me.drawOption == "startPoint"){
+				me.stEvtType = "Reach";
+			}
+			if(me.drawOption == "endPoint"){
+				me.edEvtType = "Reach";
+			}
+			
 			coreMap.reachLayerAdmin_v3_New.drawEnd(me.btnId);
 			coreMap.reachLayerAdmin_v3_New.drawSymbol(me.rchMouseEvt, me.mouseSymbol, me.drawOption); // 심볼 그리기
 			coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(where, me.drawOption); // 라인 검색
@@ -202,6 +219,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		if(me.kradInfo[i].CHECKED == true && evtType == me.kradInfo[i].EVENT_TYPE){
 	
 		    			var originLayerId = me.kradInfo[i].LO_LAYER_ID;
+		    			var peLayerId = me.kradInfo[i].PE_LAYER_ID;
 		    			var extDataId = me.kradInfo[i].EXT_DATA_ID;
 		    			var layerId = "";
 		    			
@@ -226,6 +244,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    						if(evtType == "Point"){
 		    						
 		    						me.drawGraphic(featureSet, evtType);
+		    						
+		    						if(evtType == "Point"){
+		    				    		me.onMouseClick_P(evtType);
+		    				    	}
 		    					}
 	
 		    					if(evtType == "Line"){
@@ -239,6 +261,24 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    						qTaskOrigin.execute(qOrigin, function(fOrigin){
 		    							
 		    							me.drawGraphic(fOrigin, evtType);
+		    							
+		    							var queryTaskPE = new QueryTask(_kradInfo.kradServiceUrl + "/" + peLayerId);
+		    							var queryPE = new Query();
+		    							queryPE.returnGeometry = true;
+		    							queryPE.outFields = ["*"];
+		    							queryPE.where = "EXT_DATA_ID = '" + extDataId + "'";
+		    							queryTaskPE.execute(queryPE, function(fSetPE){
+		    								
+		    								//console.info(fSetPE);
+		    								var wherePE1 = "RCH_ID = '" + fSetPE.features[0].attributes.RCH_ID + "'";
+		    								//coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(wherePE, "startPoint");
+		    								var wherePE2 = "RCH_ID = '" + fSetPE.features[1].attributes.RCH_ID + "'";
+		    								//coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(wherePE, "endPoint");
+		    								
+		    								if(evtType == "Line"){
+		    						    		me.onMouseClick_L(evtType, wherePE1, wherePE2);
+		    						    	}
+		    							});
 		    						});
 		    					}
 	    					}
@@ -248,13 +288,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    	
 		    	me.onMouseOver(evtType);
 		    	me.onMouseOut(evtType);
-		    	
-		    	if(evtType == "Point"){
-		    		me.onMouseClick_P(evtType);
-		    	}
-		    	if(evtType == "Line"){
-		    		me.onMouseClick_L(evtType);
-		    	}
 	    	});
 		}
     },
@@ -358,13 +391,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				function(on){
     		
     		me.mouseClickObj_P = on(me.kradPointLayer, "click", function(evt){
-	    		console.info(evt);
+	    		
 	    		if(me.drawOption == "startPoint"){
+	    			me.stEvtType = "point";
 	    			me.stRchId = evt.graphic.attributes.RCH_ID;
 	    			me.stExtDataId = evt.graphic.attributes.EXT_DATA_ID;
 	    			me.stEventOrder = evt.graphic.attributes.EVENT_ORDER;
 	    		}
 	    		if(me.drawOption == "endPoint"){
+	    			me.edEvtType = "point";
 	    			me.edRchId = evt.graphic.attributes.RCH_ID;
 	    			me.edExtDataId = evt.graphic.attributes.EXT_DATA_ID;
 	    			me.edEventOrder = evt.graphic.attributes.EVENT_ORDER;
@@ -382,11 +417,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    	});
     	});
     },
-    arrStLineGrp: [],
-    arrStAreaGrp: [],
-    arrEdLineGrp: [],
-    arrEdAreaGrp: [],
-    onMouseClick_L: function(evtType){
+    onMouseClick_L: function(evtType, wherePE1, wherePE2){
     	
     	var me = this;
     	var coreMap = GetCoreMap();
@@ -395,11 +426,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				function(on){
     		
     		me.mouseClickObj_L = on(me.kradLineLayer, "click", function(evt){
-    			
-	    		coreMap.reachLayerAdmin_v3_New.drawEnd(me.btnId);
+    			console.info(evt);
+    			coreMap.reachLayerAdmin_v3_New.drawEnd(me.btnId);
 				coreMap.reachLayerAdmin_v3_New.drawSymbol(evt.mapPoint, me.mouseSymbol, me.drawOption); // 심볼 그리기
 				coreMap.reachLayerAdmin_v3_New.selectLineWithEvent(evt.mapPoint, me.drawOption); // 라인 검색
-				
+    			
 				var extDataId = evt.graphic.attributes.EXT_DATA_ID;
 				var orgId = evt.graphic.attributes.ORG_ID;
 				var dataLayerId = "";
@@ -413,6 +444,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 						dataLayerId = me.kradInfo[i].LD_LAYER_ID;
 						leLayerId = me.kradInfo[i].LE_LAYER_ID;
+						ldLayerId = me.kradInfo[i].LD_LAYER_ID;
 						aeLayerId = me.kradInfo[i].AE_LAYER_ID;
 						aoLayerId = me.kradInfo[i].AO_LAYER_ID;
 					}
@@ -438,12 +470,32 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    					me.clearEvent();
 	    					
 	    					evt.graphic.setSymbol(me.drawSymbol_L);
+	    					
 	    					if(me.drawOption == "startPoint"){
+	    						me.stEvtType = "Line";
 	    						me.arrStLineGrp.push(evt.graphic);
 	    					}
 	    					if(me.drawOption == "endPoint"){
+	    						me.edEvtType = "Line";
 	    						me.arrEdLineGrp.push(evt.graphic);
 	    					}
+	    					
+	    					// LD 데이터 셋팅
+	    					var queryTaskLD = new QueryTask(_kradInfo.kradServiceUrl + "/" + ldLayerId);
+	    					query.where = "ORG_ID = " + orgId;
+	    					queryTaskLD.execute(query, function(featureSetLD){
+	    						
+	    						for(var ldCnt = 0; ldCnt < featureSetLD.features.length; ldCnt++){
+	    							
+		    						if(me.drawOption == "startPoint"){
+		    							me.arrStLDGrp.push(featureSetLD.features[ldCnt]);
+		    						}
+		    						if(me.drawOption == "endPoint"){
+		    							me.arrEdLDGrp.push(featureSetLD.features[ldCnt]);
+		    						}
+	    						}
+	    					});
+	    					// LD 데이터 셋팅 끝
 	    					
 	    					//coreMap.reachLayerAdmin_v3_New.addGraphics(evt.graphic, "lineGrpLayer");
 	    					
@@ -458,10 +510,21 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    					}
 	    						//coreMap.reachLayerAdmin_v3_New.addGraphics(featureSet.features[i], "areaGrpLayer");
 	    					}
+	    					
 	    					me.drawGraphic(featureSet, "Area", me.drawSymbol_A);
+	    					
+	    					// 리치레이어 일단 숨기기
+	    					coreMap.reachLayerAdmin_v3_New.lineGrpLayer.setVisibility(false);
+	    					coreMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+	    					
+	    					// 라인 사이 상류 검색
+							coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(wherePE1, "startPoint");
+							coreMap.reachLayerAdmin_v3_New.selectLineWithWhere(wherePE2, "endPoint");
 	    				});
 					});
 				}
+				
+				me.closeKradPop();
 	    	});
     	});
     },
@@ -476,7 +539,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	var coreMap = GetCoreMap();
     	
     	// 레이어 및 이벤트 클리어
-		me.clearLayer();
+		//me.clearLayer();
 		me.clearEvent();
     	
     	require(["esri/tasks/QueryTask",
@@ -516,7 +579,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    				queryLE.returnGeometry = true;
 		    				queryLE.outFields = ["*"];
 		    				queryLE.where = where;
-		    				
 		    				queryTaskLE.execute(queryLE, function(featureSet){
 		    					
 		    					for(var fCnt = 0; fCnt < featureSet.features.length; fCnt++){
@@ -544,7 +606,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    				});
 	    				}
 	    			}
-	    			else{
+	    			else if(me.kradInfo[i].EVENT_TYPE == "Line"){
     					
     					for(var arrCnt = 0; arrCnt < me.arrStLineGrp.length; arrCnt++){
     						
@@ -565,11 +627,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     						
     						coreMap.reachLayerAdmin_v3_New.addGraphics(me.arrEdAreaGrp[arrCnt], "areaGrpLayer");
     					}
-    					
-    					me.arrStLineGrp = [];
-    					me.arrStAreaGrp = [];
-    					me.arrEdLineGrp = [];
-    					me.arrEdAreaGrp = [];
     				}
 	    		}
 	    	}
@@ -592,6 +649,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	}
     },
     clearEvent: function(){
+    	
+    	var me = this;
     	
     	if(me.mouseOverObj_P != undefined && me.mouseOverObj_P != null){
     		me.mouseOverObj_P.remove();
@@ -623,5 +682,58 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		if(popCtl != undefined){
 			popCtl.close();
 		}
+    },
+    clearKRADLayer: function(){
+    	
+    	var me = this;
+    	
+    	if(me.kradPointLayer != undefined && me.kradPointLayer != null){
+    		me.kradPointLayer.clear();
+    	}
+    	if(me.kradLineLayer != undefined && me.kradLineLayer != null){
+    		me.kradLineLayer.clear();
+    	}
+    	if(me.kradAreaLayer != undefined && me.kradAreaLayer != null){
+    		me.kradAreaLayer.clear();
+    	}
+    	
+    	if(me.mouseOverObj_P != undefined && me.mouseOverObj_P != null){
+    		me.mouseOverObj_P.remove();
+    	}
+    	if(me.mouseOutObj_P != undefined && me.mouseOutObj_P != null){
+    		me.mouseOutObj_P.remove();
+    	}
+    	if(me.mouseClickObj_P != undefined && me.mouseClickObj_P != null){
+    		me.mouseClickObj_P.remove();
+    	}
+    	
+    	if(me.mouseOverObj_L != undefined && me.mouseOverObj_L != null){
+    		me.mouseOverObj_L.remove();
+    	}
+    	if(me.mouseOutObj_L != undefined && me.mouseOutObj_L != null){
+    		me.mouseOutObj_L.remove();
+    	}
+    	if(me.mouseClickObj_L != undefined && me.mouseClickObj_L != null){
+    		me.mouseClickObj_L.remove();
+    	}
+    	
+    	me.drawOption = null;
+    	me.rchMouseEvt = null;
+    	me.mouseSymbol = null;
+    	me.rchIds = null;
+    	me.stRchId = null;
+    	me.edRchId = null;
+    	me.stEvtType = null;
+    	me.edEvtType = null;
+    	me.btnId = null;
+    	me.stExtDataId = null;
+    	me.edExtDataId = null;
+    	
+    	me.arrStLineGrp = [];
+    	me.arrStLDGrp = [];
+		me.arrStAreaGrp = [];
+		me.arrEdLineGrp = [];
+		me.arrEdLDGrp = [];
+		me.arrEdAreaGrp = [];
     }
 });

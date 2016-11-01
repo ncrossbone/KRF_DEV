@@ -143,9 +143,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("ENDPOINT", el.id); // v3
 			me.onClickEndPoint(); // v3 New
 		}
-		
-		// 부하량 주제도 off
-		catTMLayerOnOff("off");
 	},
 	
 	// 초기화 버튼 클릭
