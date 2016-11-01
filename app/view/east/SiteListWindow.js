@@ -170,7 +170,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				
 				var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
 				"&w=" + width + "&h=" + height;
-				window.open(url, "리포트 설정", "width=1490,height=980,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
+				window.open(url, "리포트 설정", "width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
 				
 				/*width : 팝업창 가로길이
 				height : 팝업창 세로길이

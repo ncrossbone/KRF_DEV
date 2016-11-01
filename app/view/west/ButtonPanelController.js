@@ -248,6 +248,12 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			//Ext.HideChartResult();
 			//HideSearchResult();
 			//ShowReachInfoWindow();
+			
+			var kradMetaInfo = Ext.getCmp("kradMetaInfo");
+			var kradSchConf = Ext.getCmp("kradSchConf");
+			
+			if(kradMetaInfo!=undefined) kradMetaInfo.close();
+			if(kradSchConf!=undefined) kradSchConf.close();
 		}
 		
 		// 일반모드 버튼

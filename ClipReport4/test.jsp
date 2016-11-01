@@ -110,13 +110,19 @@ var _imgPath = "<%=replaceImgPath%>";
 <script type='text/javascript' src='./js/UserConfig.js'></script>
 <script type='text/javascript'>
 var urlPath = document.location.protocol + "//" + document.location.host;
-
-
-
-
-function html2xml(divPath){	
+function html2xml(divPath){
     var reportkey = "<%=resultKey%>";
-	var report = createImportJSPReport(urlPath + "/KRF_DEV/ClipReport4/Clip.jsp", reportkey, document.getElementById(divPath));
+    // 리포트 상대경로 path
+    // 2016.11.01 - ph
+    var locationPathName = document.location.pathname;
+    var splitLocation = locationPathName.split("/");
+    var localUrl = "/";
+
+    for(var i = 1; i<splitLocation.length - 1; i++){
+    	localUrl += splitLocation[i] + "/";
+    }
+    
+	var report = createImportJSPReport(urlPath + localUrl + "Clip.jsp", reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);
     report.view();

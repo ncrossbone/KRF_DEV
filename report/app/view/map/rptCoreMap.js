@@ -56,7 +56,6 @@ Ext.define('Report.view.map.rptCoreMap', {
         	
         	me.map.setLevel(level);
         	me.map.centerAt(point);
-        	console.info("dd");
         	
         	me.printTask = Ext.create("KRF_DEV.view.map.task.CustomPrintTask",
         			me.map,
