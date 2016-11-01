@@ -13,7 +13,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	
 	// 스마트선택 버튼 클릭
 	onClickSmart: function(obj, el, evt){
-		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		

@@ -9,11 +9,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	title: '검색설정',
 
 	width: 200,
-	//height: 10,
-	
+	//height: 50,
 	x: 387,
 	y: 172,
-
+	style:"padding-bottom:50px;",
 	plain: true, // 요게 있어야 background: transparent 먹음..
 	cls: 'dj_toolbarConf',
 	header: false,

@@ -4,11 +4,28 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 
 	xtype: 'krad-kradMetaInfo',
 	id: 'kradMetaInfo',
+	cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
 	title: '메타상세정보',
 	header: true,
     frame: true,
 	width: 470,
 	height: 559,
+	closable: false,
+	style:"padding-top:10px",
+	header:{
+		items:[{
+			xtype:'image',
+			src:'./resources/images/button/btn_close.png',
+			style:'padding-right :13px; cursor:pointer;',
+			listeners:{
+				el:{
+					click:function(){
+						Ext.getCmp("kradMetaInfo").close();
+					}
+				}
+			}
+		}]
+	},
 	x: 687,
 	y: 226,
 
@@ -31,13 +48,15 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 			'<![endif]-->                                                                                                               '+
 			'<link href=\"./resources/css/BasicSet.css\" rel=\"stylesheet\" type=\"text/css\" />                                                          '+
 			'<style type=\"text/css\">                                                                                                    '+
-			'table.meta { width: 450px; border-top: 2px solid #366be4; }                                                 '+
+			'table.meta { width: 450px; border-top: 2px solid gray; }                                                 '+
 			'table.meta> tbody> tr> th { background: #f3f3f2; font-weight: bold; text-align: left !important;  }                                                     '+
 			'table.meta> tbody> tr> td { }                                                                                              '+
 			'table.meta> tbody> tr> th, table.meta> tbody> tr> td { padding: 10px 0px 10px 10px; border-bottom: 1px solid #d4d1cc; font-size: 12px!important; }    '+
 			'</style>                                                                                                                   '+
 			'</head>                                                                                                                    '+
 			'<body>                                                                                                                     '+
+			' <img src="./resources/images/button/blit_st_01.png"/>  '+
+			'<b style="color:#2E9AFE">기본정보</b>'+
 			'<table class=\"meta\" summary=\"\">                                                                                            '+
 			'	<colgroup>                                                                                                                '+
 			'    	<col width=\"110\" />                                                                                                   '+
