@@ -153,19 +153,31 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						}
 					}
 				}
-			}, {
-				xtype: "image",
-				//text: "취소",
-				src:"./resources/images/button/btn_cancel.gif",
-				style:"padding-left:4px; padding-right:4px; cursor: pointer;",
-				height: 15,
-				width: "50%",
-				listeners: {
-					el: {
-						click: function(){
-							ResetButtonClick();
-							//me.close();
-						}
+			}
+		}, {
+			xtype: "image", // 취소
+			src:"./resources/images/button/btn_cancel.gif",
+			style:"padding-left:4px; padding-right:4px; cursor: pointer;",
+			height: 15,
+			width: "50%",
+			listeners: {
+				el: {
+					click: function(){
+						
+						// 버튼 아이디 셋팅
+						me.clickBtnId = null;
+						
+						// 버튼 src 초기화
+						me.initBtnSrc();
+						
+						// 그래픽 레이어 초기화
+						coreMap.kradLayerAdmin.tmpGrpLayer.clear();
+						// 이벤트 초기화
+						coreMap.kradLayerAdmin.clearEvent();
+						// 맵 클릭 이벤트 생성
+						coreMap.kradLayerAdmin.createMapClickEvt(coreMap.kradLayerAdmin.drawOption);
+						
+						//me.close();
 					}
 				}
 			}, {
