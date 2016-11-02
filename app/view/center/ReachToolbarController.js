@@ -104,89 +104,43 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 	},
-	/* khLee 추가 KRAD 조회 여부 */
-	fIsKRADSearch: function(){
-		
-		//console.info(localStorage['_searchConfigInfo_']);
-		if(localStorage['_searchConfigInfo_'] != undefined && localStorage['_searchConfigInfo_'] != null){
-			
-			var sConfInfo = JSON.parse(localStorage['_searchConfigInfo_']);
-			
-			if(sConfInfo.isKrad != undefined && sConfInfo.isKrad != null){
-				return sConfInfo.isKrad;
-			}
-			else{
-				return false;
-			}
-		}
-		else{
-			return false;
-		}
-	},
 	
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
 		
-		var me = this;
-		var coreMap = GetCoreMap();
-		var reachLayerAdmin = coreMap.reachLayerAdmin_v3_New;
-		var kradLayerAdmin = coreMap.kradLayerAdmin;
+		var me = GetCoreMap().reachLayerAdmin_v3_New;
 		
+		// 리치 선택 종료
+		//GetCoreMap().reachLayerAdmin.drawEnd();
+		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		me.drawEnd();
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
-		/* khLee 추가 KRAD 조회 여부 */
-		var isKRADSearch = me.fIsKRADSearch();
+		if(currCtl.btnOnOff == "on"){
+			//GetCoreMap().reachLayerAdmin.pointStartDraw("STARTPOINT", el.id); // v2
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("STARTPOINT", el.id); // v3
+			me.onClickStartPoint(); // v3 New
+		}
 		
-		if(isKRADSearch == false){ /* 기존 로직 */
-			
-			// 리치 선택 종료
-			reachLayerAdmin.drawEnd();
-			
-			if(currCtl.btnOnOff == "on"){
-				
-				reachLayerAdmin.onClickStartPoint(); // v3 New
-			}
-		}
-		else{ /* KRAD 조회일 때 */
-			
-			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
-			
-			// 맵 클릭 이벤트 생성
-		    kradLayerAdmin.createMapClickEvt("startPoint");
-		}
 	},
 	
 	// 끝위치 버튼 클릭
 	onClickEndReach: function(obj, el, evt){
 		
-		var me = this;
-		var coreMap = GetCoreMap();
-		var reachLayerAdmin = coreMap.reachLayerAdmin_v3_New;
-		var kradLayerAdmin = coreMap.kradLayerAdmin;
+		var me = GetCoreMap().reachLayerAdmin_v3_New;
+		// 리치 선택 종료
+		//GetCoreMap().reachLayerAdmin.drawEnd();
+		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
+		me.drawEnd();
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
-		/* khLee 추가 KRAD 조회 여부 */
-		var isKRADSearch = me.fIsKRADSearch();
-		
-		if(isKRADSearch == false){ /* 기존 로직 */
-			
-			// 리치 선택 종료
-			reachLayerAdmin.drawEnd();
-			
-			if(currCtl.btnOnOff == "on"){
-				
-				reachLayerAdmin.onClickEndPoint(); // v3 New
-			}
-		}
-		else{ /* KRAD 조회일 때 */
-			
-			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
-			
-			// 맵 클릭 이벤트 생성
-		    kradLayerAdmin.createMapClickEvt("endPoint");
+		if(currCtl.btnOnOff == "on"){
+			//GetCoreMap().reachLayerAdmin.pointEndDraw("ENDPOINT", el.id); // v2
+			//GetCoreMap().reachLayerAdmin_v3.pointDraw("ENDPOINT", el.id); // v3
+			me.onClickEndPoint(); // v3 New
 		}
 	},
 	

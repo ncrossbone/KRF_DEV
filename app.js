@@ -22,6 +22,8 @@ var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
 var _MapserviceUrl1 = null;
+var _kradMapserviceUrl = null;
+var _kradCatSearchId = null;
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
@@ -69,6 +71,8 @@ store.load(function(a, b, c) {
 		_arcServiceUrl = record.data.arcServiceUrl;
 		_isOffsetPoint = record.data.isOffsetPoint;
 		_MapserviceUrl1 = record.data.MapserviceUrl1;
+		_kradMapserviceUrl = record.data.kradMapservicUrl;
+		_kradCatSearchId = record.data.kradCatSearchId;
 		_cursorX = "";
 		_cursorY = "";
 		
@@ -282,7 +286,9 @@ Ext.application({
 				store = Ext.create('KRF_DEV.store.east.KradListWindow');
 			}
 			else{
-				store = Ext.create('KRF_DEV.store.east.SiteListWindow');
+				store = Ext.create('KRF_DEV.store.east.SiteListWindow',{
+					async:false
+				});
 			}
 			
 			//var store = treeCtl.getStore();

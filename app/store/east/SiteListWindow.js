@@ -51,7 +51,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//var queryTask = new esri.tasks.QueryTask('http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
 			//var queryTask = new esri.tasks.QueryTask('http://cetech.iptime.org:6080/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
 			//var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL v2
-			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
+			//_kradMapserviceUrl + '/' + _kradCatSearchId
+			//var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
+			var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			
@@ -84,20 +86,33 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			
+			
+			
+			
 			if(store.searchType == "selectReach"){
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
+				
+				
 				
 				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
 					this.catDid = [];
 					var reachBtn = Ext.getCmp("btnModeReach");
 					
+					//1007101500
+					
+						
+						console.info(me.reachLayerAdmin_v3_New.arrAreaGrp);
 						
 						query.where = "CAT_DID IN ("; 
 						
 						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == "1007101702"){
+								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID = "10071017_2";
+								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID = "ACCD_1024_EV";
+								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EVENT_FC_ID = "FC11";
+							}
 							
-							//console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
 							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 							
 							this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
@@ -234,18 +249,130 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						}
 						jsonStr += "			\"children\": [";
 						
+						
+						
 						$.each(layerFeatures, function(cnt, layerFeature){
 							
-							jsonStr += "{\n";
-							jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-							jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-							jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-							jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-							jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-							jsonStr += "				\"leaf\": true,\n";
-							jsonStr += "				\"checked\": null\n";
-							jsonStr += "			}, ";
+							var confInfo = localStorage['_searchConfigInfo_'];
+							var jsonConf = JSON.parse(confInfo);
+							
+							if(jsonConf.isKrad == false){
+								console.info(layerFeature.attributes);
+								if(layerFeature.attributes.AREA_EVENT_ID == null){
+									jsonStr += "{\n";
+									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+									jsonStr += "				\"leaf\": true,\n";
+									jsonStr += "				\"checked\": null\n";
+									jsonStr += "			}, ";
+								}
+							}else{
+								
+								
+								for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+									if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != undefined){
+										if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == layerFeature.attributes.CAT_DID &&
+										   me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID == layerFeature.attributes.AREA_EVENT_ID){
+											jsonStr += "{\n ";
+											jsonStr += "				\"id\": \"" + layerFeature.attributes.AREA_EVENT_ID + "\",\n";
+											jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+											jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+											jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+											jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+											jsonStr += "				\"leaf\": true,\n";
+											jsonStr += "				\"checked\": null\n";
+											jsonStr += "			}, ";
+										}
+									}else if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID == undefined &&
+											me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == layerFeature.attributes.CAT_DID && 
+											layerFeature.attributes.AREA_EVENT_ID == null){
+										jsonStr += "{\n ";
+										jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+										jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+										jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+										jsonStr += "				\"leaf\": true,\n";
+										jsonStr += "				\"checked\": null\n";
+										jsonStr += "			}, ";
+									}
+								}
+								
+								
+								
+								
+								
+								
+								/*for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+									if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != undefined){
+										if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID == layerFeature.attributes.AREA_EVENT_ID){
+											jsonStr += "{\n ";
+											jsonStr += "				\"id\": \"" + layerFeature.attributes.AREA_EVENT_ID + "\",\n";
+											jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+											jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+											jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+											jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+											jsonStr += "				\"leaf\": true,\n";
+											jsonStr += "				\"checked\": null\n";
+											jsonStr += "			}, ";
+										
+										}
+									}
+									
+								}*/
+							}
+							
+							
+							
+							
 						});
+						
+						/*var me = GetCoreMap();
+						
+						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+							console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i]);
+							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined){
+								console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes);
+								
+								var kradQueryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3
+								var kradQuery = new esri.tasks.Query();
+								
+								kradQuery.where += " CAT_DID = '"+me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID+"' AND AREA_EVENT_ID = '"+me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID+"'";
+								console.info(kradQuery.where);
+								kradQuery.outFields = ["*"];
+								
+								
+								kradQueryTask.execute(kradQuery, function(kradResult){
+									console.info(kradResult);
+									if(i == )
+									$.each(kradResult.features, function(cnt, feature){
+										console.info(feature.attributes.LAYER_CODE);
+										
+										jsonStr += "{\n ";
+										jsonStr += "				\"id\": \"" + feature.attributes.JIJUM_CODE + "\",\n";
+										jsonStr += "				\"text\": \"" + feature.attributes.JIJUM_NM + "\",\n";
+										jsonStr += "				\"catDId\": \"" + feature.attributes.CAT_DID + "\",\n";
+										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+										jsonStr += "				\"leaf\": true,\n";
+										jsonStr += "				\"checked\": null\n";
+										jsonStr += "			}, ";
+									})
+									
+								})
+								
+								
+								
+								
+							}
+						}*/
+						
+					
+						
+						
 						
 						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
 						
@@ -270,9 +397,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 				
 				jsonStr += "]\n";
+				console.info("2");
 				jsonStr += "}";
 				
-				//console.info(jsonStr);
+				console.info(jsonStr);
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);

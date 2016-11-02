@@ -16,6 +16,7 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 			var timerId = window.setInterval(function(){
 			
 				//console.info(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId);
+				//var queryTask = new esri.tasks.QueryTask(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId); // 레이어 URL v3
 				var queryTask = new esri.tasks.QueryTask(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId); // 레이어 URL v3
 				var query = new esri.tasks.Query();
 				
