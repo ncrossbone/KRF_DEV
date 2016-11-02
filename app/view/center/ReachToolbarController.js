@@ -137,7 +137,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		/* khLee 추가 KRAD 조회 여부 */
 		var isKRADSearch = me.fIsKRADSearch();
-		
+		console.info(isKRADSearch);
 		if(isKRADSearch == false){ /* 기존 로직 */
 			
 			// 리치 선택 종료
@@ -153,7 +153,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
 			
 			// 맵 클릭 이벤트 생성
-		    kradLayerAdmin.createMapClickEvt("startPoint");
+		    kradLayerAdmin.createMapClickEvt("startPoint", evt);
 		}
 	},
 	
