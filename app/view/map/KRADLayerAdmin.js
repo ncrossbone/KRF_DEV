@@ -1012,6 +1012,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		console.info(graphic);
 		// 배열에 넣기
     	coreMap.reachLayerAdmin_v3_New.arrAreaGrp.push(graphic);
+    	
+    	// 지점 목록 창 띄우기
+		Ext.ShowSiteListWindow("selectReach");
+		
+		// 검색결과 창 띄우기
+		ShowSearchResultReach("");
     },
     // 전역 변수 초기화
     clearKRADLayerAdmin: function(){
