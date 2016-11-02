@@ -118,7 +118,7 @@ function html2xml(divPath){
     var splitLocation = locationPathName.split("/");
     var localUrl = "/";
 
-    for(var i = 1; i<splitLocation.length - 1; i++){
+    for(var i = 1; i < splitLocation.length - 1; i++){
     	localUrl += splitLocation[i] + "/";
     }
     

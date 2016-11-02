@@ -16,7 +16,6 @@ Ext.define('Report.view.map.rptCoreMap', {
 	mapRendered: function(p){
 		
         var me = this;   
-        
         // esri 스크립트 로드 될때까지 타이머
         var timerId = window.setInterval(function(){
         	
@@ -56,6 +55,7 @@ Ext.define('Report.view.map.rptCoreMap', {
         	
         	me.map.setLevel(level);
         	me.map.centerAt(point);
+        	//console.info("dd");
         	
         	me.printTask = Ext.create("KRF_DEV.view.map.task.CustomPrintTask",
         			me.map,

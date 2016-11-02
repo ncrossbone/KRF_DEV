@@ -23,13 +23,13 @@
 <%
 	response.setHeader("Access-Control-Allow-Origin","*");
 	response.setHeader("Access-Control-Allow-Headers", "origin, x-requested-with, content-type, accept");
-	
 	try{
 		Gson gson = new Gson();
 		String fileName = request.getParameter("fileName");
 		String arcServiceUrl = request.getParameter("arcServiceUrl");
 		String mode = request.getParameter("mode");
 		String imgSaveUrl = request.getParameter("imgSaveUrl");
+		
 		// 맵 이미지 저장 폴더
 		String imgSavePath = request.getSession().getServletContext().getRealPath(imgSaveUrl);
 		
