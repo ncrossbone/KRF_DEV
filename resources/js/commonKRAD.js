@@ -87,7 +87,7 @@ drawKRADLayer = function(){
 	
 	var reachAreaGraphics = coreMap.reachLayerAdmin_v3_New.areaGrpLayer.graphics;
 	
-	/*for(var i = 0; i < reachAreaGraphics.length; i++){
+	for(var i = 0; i < reachAreaGraphics.length; i++){
 		
 		var catId = reachAreaGraphics[i].attributes.CAT_ID;
 		
@@ -100,7 +100,7 @@ drawKRADLayer = function(){
 			
 			coreMap.reachLayerAdmin_v3_New.removeGraphics(reachAreaGraphics[i], "areaGrpLayer");
 		}
-	}*/
+	}
 	
 	coreMap.kradLayerAdmin.drawKRADLayer();
 	
