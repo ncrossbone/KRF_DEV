@@ -115,7 +115,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	/* khLee Test 임시 설정 개발완료 후 삭제할것.. */
 		me.kradInfo = [{
 			EXT_DATA_ID: "OBS_WQ_STR_EV",
-			TITLE: "하천 수질 관측소",
+			TITLE: "하천수",
 			CHECKED: true,
 			EVENT_TYPE: "Point",
 			PD_LAYER_ID: 6,
@@ -181,10 +181,69 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		
 		me.kradLayerAdmin.setVisibleLayers(visibleLayers);
     },
+    // 맵 클릭 이벤트 생성
+    createMapClickEvt: function(drawOption){
+    	
+    	var me = this;
+    	var coreMap = GetCoreMap();
+    	
+    	require(["dojo/on"],
+				function(on){
+	    	
+	    	me.mapClickObj = on(coreMap.map, "click", function(evt){
+	    		
+	    		/*  KRAD 조회 여부 */
+	    		var isKRADSearch = me.fIsKRADSearch();
+	    		
+	    		if(isKRADSearch == false){ /* 기존 로직 */
+	    			
+	    			// 리치 그리기
+	    			coreMap.reachLayerAdmin_v3_New.startDrawEnd(evt.mapPoint, null, drawOption);
+	    			// 리치 선택 종료
+	    			coreMap.reachLayerAdmin_v3_New.drawEnd();
+	    			me.clearMapClickEvt();
+	    		}
+	    		else{ /* KRAD 조회일 때 */
+	    			
+	    			me.setRchIdWithEvent(evt.mapPoint, drawOption);
+	    		}
+	    	});
+    	});
+    },
+    // 맵 클릭 이벤트 삭제
+    clearMapClickEvt: function(){
+    	
+    	var me = this;
+    	
+    	// 맵 클릭 이벤트 삭제
+		if(me.mapClickObj != null){
+			
+			me.mapClickObj.remove();
+		}
+    },
+    /* khLee 추가 KRAD 조회 여부 */
+	fIsKRADSearch: function(){
+		
+		//console.info(localStorage['_searchConfigInfo_']);
+		if(localStorage['_searchConfigInfo_'] != undefined && localStorage['_searchConfigInfo_'] != null){
+			
+			var sConfInfo = JSON.parse(localStorage['_searchConfigInfo_']);
+			
+			if(sConfInfo.isKrad != undefined && sConfInfo.isKrad != null){
+				return sConfInfo.isKrad;
+			}
+			else{
+				return false;
+			}
+		}
+		else{
+			return false;
+		}
+	},
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
      * evt: 이벤트 */
-    setRchIdWithEvent: function(evt, drawOption){
+    setRchIdWithEvent: function(evt, drawOption, drawType){
     	
     	var me = this;
     	var coreMap = GetCoreMap();
@@ -202,7 +261,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			var query = new Query();
 			query.returnGeometry = false;
 			query.outFields = ["*"];
-			
+			console.info(evt);
 			if(evt.type == "point"){
 				
 	        	var centerPoint = new Point(evt.x, evt.y, evt.spatialReference);
@@ -269,6 +328,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			});
     	});
     	
+    	console.info(drawType);
     	// 이벤트 선택 팝업 띄우기
     	me.showKRADEvtPop(evt);
     },
@@ -333,7 +393,17 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		var btnEnd = Ext.getCmp("btnMenu05");
     		//console.info(btnEnd.btnOnOff);
     		
-    		me.setRchIdWithEvent(evt.mapPoint, drawOption);
+    		var drawOption = "";
+    		
+    		if(btnStart.btnOnOff == "on"){
+    			drawOption = "startPoint"
+    		}
+    		
+    		if(btnEnd.btnOnOff == "on"){
+    			drawOption = "endPoint"
+    		}
+    		
+    		me.setRchIdWithEvent(evt, drawOption, evtType);
     	}
     	else{
 	    	require(["esri/tasks/QueryTask",
@@ -395,32 +465,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	// KRAD 이벤트 생성
 		me.createEvent();
-    },
-    // 맵 클릭 이벤트 생성
-    createMapClickEvt: function(drawOption){
-    	
-    	var me = this;
-    	var coreMap = GetCoreMap();
-    	
-    	require(["dojo/on"],
-				function(on){
-	    	
-	    	me.mapClickObj = on(coreMap.map, "click", function(evt){
-	    		
-	    		me.setRchIdWithEvent(evt.mapPoint, drawOption);
-	    	});
-    	});
-    },
-    // 맵 클릭 이벤트 생성
-    clearMapClickEvt: function(){
-    	
-    	var me = this;
-    	
-    	// 맵 클릭 이벤트 삭제
-		if(me.mapClickObj != null){
-			
-			me.mapClickObj.remove();
-		}
     },
     createEvent: function(){
     	
@@ -700,22 +744,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						    		// 검색 종료 체크
 						    		me.isStopCheck();
 								//}, 1);
-								
-								console.info(me.commDownLineArr);
-								var stRch = me.stDownLineArr.map(function(obj){
-									return obj.attributes.RCH_DID;
-								});
-								console.info(stRch);
-								
-								var edRch = me.edDownLineArr.map(function(obj){
-									return obj.attributes.RCH_DID;
-								});
-								console.info(edRch);
-								
-								console.info(rchDid);
-								console.info(drawOption);
-								console.info(stCommIdx);
-								console.info(edCommIdx);
 							}
 						}
 					}
@@ -831,7 +859,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 						isUpSearch = false;
 						isDraw = false;
-						kradUpDown = "down"; // 하류 그리기
+						kradUpDown = "down"; // KRAD 하류 그리기
 					}
 					
 					var commRchIdx = me.commDownLineArr.map(function(obj){
@@ -845,8 +873,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 						// 시작 또는 끝 하류 라인이 공통하류이면
 						if(me.stDownLineArr[0].attributes.RCH_ID == curRchId || me.edDownLineArr[0].attributes.RCH_ID == curRchId){
-							kradUpDown = "up"; // 상류 그리기
+							kradUpDown = "up"; // KRAD 상류 그리기
 						}
+					}
+					else{
+						
+						//console.info(kradUpDown);
 					}
 					
 					if(isDraw == true){

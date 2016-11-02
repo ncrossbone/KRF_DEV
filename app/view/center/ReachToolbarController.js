@@ -104,26 +104,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 	},
-	/* khLee 추가 KRAD 조회 여부 */
-	fIsKRADSearch: function(){
-		
-		//console.info(localStorage['_searchConfigInfo_']);
-		if(localStorage['_searchConfigInfo_'] != undefined && localStorage['_searchConfigInfo_'] != null){
-			
-			var sConfInfo = JSON.parse(localStorage['_searchConfigInfo_']);
-			
-			if(sConfInfo.isKrad != undefined && sConfInfo.isKrad != null){
-				return sConfInfo.isKrad;
-			}
-			else{
-				return false;
-			}
-		}
-		else{
-			return false;
-		}
-	},
-	
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
 		
@@ -134,27 +114,11 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
+			
+		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
 		
-		/* khLee 추가 KRAD 조회 여부 */
-		var isKRADSearch = me.fIsKRADSearch();
-		console.info(isKRADSearch);
-		if(isKRADSearch == false){ /* 기존 로직 */
-			
-			// 리치 선택 종료
-			reachLayerAdmin.drawEnd();
-			
-			if(currCtl.btnOnOff == "on"){
-				
-				reachLayerAdmin.onClickStartPoint(); // v3 New
-			}
-		}
-		else{ /* KRAD 조회일 때 */
-			
-			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
-			
-			// 맵 클릭 이벤트 생성
-		    kradLayerAdmin.createMapClickEvt("startPoint", evt);
-		}
+		// 맵 클릭 이벤트 생성
+	    kradLayerAdmin.createMapClickEvt("startPoint", evt);
 	},
 	
 	// 끝위치 버튼 클릭
@@ -167,27 +131,11 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
+			
+		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 		
-		/* khLee 추가 KRAD 조회 여부 */
-		var isKRADSearch = me.fIsKRADSearch();
-		
-		if(isKRADSearch == false){ /* 기존 로직 */
-			
-			// 리치 선택 종료
-			reachLayerAdmin.drawEnd();
-			
-			if(currCtl.btnOnOff == "on"){
-				
-				reachLayerAdmin.onClickEndPoint(); // v3 New
-			}
-		}
-		else{ /* KRAD 조회일 때 */
-			
-			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
-			
-			// 맵 클릭 이벤트 생성
-		    kradLayerAdmin.createMapClickEvt("endPoint");
-		}
+		// 맵 클릭 이벤트 생성
+	    kradLayerAdmin.createMapClickEvt("endPoint", evt);
 	},
 	
 	// 초기화 버튼 클릭
