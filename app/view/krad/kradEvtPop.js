@@ -204,7 +204,7 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						// 이벤트 초기화
 						coreMap.kradLayerAdmin.clearEvent();
 						// 맵 클릭 이벤트 생성
-						coreMap.kradLayerAdmin.createMapClickEvt();
+						coreMap.kradLayerAdmin.createMapClickEvt(coreMap.kradLayerAdmin.drawOption);
 						
 						//me.close();
 					}
