@@ -67,7 +67,7 @@
 html, body, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, hr, pre, code, form, fieldset, legetns, input, textarea, buttonm p, blockquote, th, td, label, select, p, i {
 	margin: 0px;
 	padding: 0px;
-	font-family: '돋움';
+	/* font-family: '돋움'; */
 }
 
 
