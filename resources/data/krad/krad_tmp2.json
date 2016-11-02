@@ -1,6 +1,6 @@
 [{
 			"EXT_DATA_ID": "OBS_WQ_STR_EV",
-			"TITLE": "하천 수질 관측소",
+			"TITLE": "하천수",
 			"CHECKED": "false",
 			"EVENT_TYPE": "Point",
 			"DATA_LAYER_ID": 5,

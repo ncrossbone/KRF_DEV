@@ -45,10 +45,12 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			checked: true,
 			handler: function(obj, checked){
 				
-				//console.info(checked);
-				var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad: false};
+				var me = this.up("window");
+				var isKrad = me.items.items[1].value;
+				var saveObj = {isBonDraw:true, isKrad:isKrad,isJiDraw:checked};
 				
 				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
+				
 			},
 			inputValue: 'isJiDraw'
 			
@@ -56,9 +58,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	},{
 		xtype: 'checkbox',
 		boxLabel: 'KRAD',
-		checked: false,
+		checked: true,
 		handler: function(obj, checked){
-			console.info(obj);
 			
 			var kradConf = Ext.getCmp("kradSchConf");
 			if(kradConf == undefined){
@@ -72,11 +73,14 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				kradConf.hide();
 			}
 			
+			var me = this.up("window");
 			
+			var isJiDraw = me.items.items[0].items.items[1].value;
 			
-			var saveObj = {isBonDraw:true, isJiDraw:true, isKrad: checked};
+			var saveObj = {isBonDraw:true, isJiDraw:isJiDraw, isKrad: checked};
 			
 			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
+			
 		},
 		inputValue: 'isKrad'
 	}],
@@ -89,7 +93,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		if(localStorage['_searchConfigInfo_'] != null && localStorage['_searchConfigInfo_'] != undefined){
 			
 			confInfo = localStorage['_searchConfigInfo_'];
-			
+			console.info(confInfo);
 			
 			if(confInfo != undefined && confInfo != null){
 				var jsonConf = JSON.parse(confInfo);

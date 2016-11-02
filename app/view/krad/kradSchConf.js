@@ -47,9 +47,24 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				        selType: 'checkboxmodel',
 						store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
 						columns: [{	 
+							align:'center',
+							xtype:'actioncolumn',
+							width:50,
+							items:[{
+		                        getClass : function(value, meta, record, rowIx, ColIx, store) {
+		                        	if(record.data.EVENT_TYPE == "Point"){
+		                        		console.info("point");
+		                        		return 'icon_point';
+		                        	}else if(record.data.EVENT_TYPE == "Line"){
+		                        		console.info("line");
+		                        		return 'icon_line';
+		                        	}
+		                        }
+		                    }]
+						},{	 
 								text      : '측정망명',
 								dataIndex : 'TITLE',
-								width: 210
+								width: 160
 								//filter: {type: 'numeric'}
 							},{	 
 								text:'버튼',
@@ -130,6 +145,21 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				        selType: 'checkboxmodel',
 						store : Ext.create('KRF_DEV.store.krad.krad_tmp2'),
 						columns: [{	 
+							align:'center',
+							xtype:'actioncolumn',
+							width:50,
+							items:[{
+		                        getClass : function(value, meta, record, rowIx, ColIx, store) {
+		                        	if(record.data.EVENT_TYPE == "Point"){
+		                        		console.info("point");
+		                        		return 'icon_point';
+		                        	}else if(record.data.EVENT_TYPE == "Line"){
+		                        		console.info("line");
+		                        		return 'icon_line';
+		                        	}
+		                        }
+		                    }]
+						},{	 
 								text      : '측정망명',
 								dataIndex : 'TITLE',
 								width: 210
@@ -217,7 +247,7 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 							var jsonConf = JSON.parse(confInfo);
 							console.info(confInfo);
 							
-							Ext.ShowSiteListWindow("", "krad");
+							//Ext.ShowSiteListWindow("", "krad");
 							
 							/*var listWinCtl = Ext.getCmp("siteListWindow");
 							//console.info(listWinCtl);

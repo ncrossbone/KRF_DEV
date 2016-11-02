@@ -34,8 +34,14 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 	
 	items:[{
 		xtype : 'container',
+		store : Ext.create('KRF_DEV.store.krad.krad_metaInfo'),
 		width: 470,
 		height: 559,
+		initComponent:function(){
+			console.info("init");
+			console.info(this);
+			console.info(this.store.data.items[0].TITLE);
+		},
 		items:[{
 			html: '<!doctype html>																																																						'+	
 			'<html lang=\"ko\">                                                                                                           '+

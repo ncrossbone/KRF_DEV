@@ -23,8 +23,10 @@
 	"areaWSLayerId" : "54", // 대권역 레이어 아이디
 	"areaAMLayerId" : "55", // 중권역 레이어 아이디
 	"areaASLayerId" : "56", // 소권역 레이어 아이디
+	"kradCatSearchId" : "21", // KRAD CAT_SEARCH
 	"siteInfoLayerId" : "85", // 레이어별 지점정보 레이어 아이디
 	"arcServiceUrl":"http://112.217.167.123:20002/arcgis",
 	"MapserviceUrl1" : "http://112.217.167.123:20002/arcgis/rest/services/drone_dev/MapServer",
-	"isOffsetPoint": true // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
+	"isOffsetPoint": true, // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
+	"kradMapservicUrl": "http://112.217.167.123:20002/arcgis/rest/services/KRAD/MapServer"
 }]
