@@ -29,7 +29,7 @@ Ext.define('KRF_DEV.store.east.KradListWindow', {
 				var userInfo = localStorage['_kradExtInfo2_'];
 				var userJsonConf = JSON.parse(userInfo);
 				
-				if(jsonConf == undefined || jsonConf == null){
+				if(jsonConf.length == 0 && userJsonConf.length == 0){
 					return;
 				}
 				
@@ -50,7 +50,7 @@ Ext.define('KRF_DEV.store.east.KradListWindow', {
 				jsonStr += "	\"chartBtnDisabled\": true,\n";
 				jsonStr += "	\"srchBtnDisabled\": false,\n";
 				jsonStr += "	\"children\": [\n";
-				if(jsonConf != undefined || jsonConf.length != 0){
+				if(jsonConf.length != 0){
 					jsonStr += "	{ \n";
 					jsonStr += "	\"id\": \"jsonConf\",\n";
 					jsonStr += "	\"text\": \"공통\",  ";
@@ -88,7 +88,7 @@ Ext.define('KRF_DEV.store.east.KradListWindow', {
 				}
 				
 				
-				if(userJsonConf != undefined || userJsonConf.length != 0){
+				if(userJsonConf.length != 0){
 					jsonStr += "	{ \n";
 					jsonStr += "	\"id\": \"userJsonConf\",\n";
 					jsonStr += "	\"text\": \"사용자지정\",  ";

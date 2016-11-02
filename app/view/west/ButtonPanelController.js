@@ -248,6 +248,12 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			//Ext.HideChartResult();
 			//HideSearchResult();
 			//ShowReachInfoWindow();
+			
+			var kradMetaInfo = Ext.getCmp("kradMetaInfo");
+			var kradSchConf = Ext.getCmp("kradSchConf");
+			
+			if(kradMetaInfo!=undefined) kradMetaInfo.close();
+			if(kradSchConf!=undefined) kradSchConf.close();
 		}
 		
 		// 일반모드 버튼
@@ -310,6 +316,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
 			KRF_DEV.getApplication().fireEvent('pointDrawClick', "point", el.id, false);
 			*/
+			var kradMetaInfo = Ext.getCmp("kradMetaInfo");
+			var kradSchConf = Ext.getCmp("kradSchConf");
+			
+			if(kradMetaInfo!=undefined) kradMetaInfo.close();
+			if(kradSchConf!=undefined) kradSchConf.close();
 		}
 		
 		////console.info("dd");
