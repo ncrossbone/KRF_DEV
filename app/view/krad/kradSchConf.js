@@ -64,7 +64,7 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 						},{	 
 								text      : '측정망명',
 								dataIndex : 'TITLE',
-								width: 210
+								width: 160
 								//filter: {type: 'numeric'}
 							},{	 
 								text:'버튼',
