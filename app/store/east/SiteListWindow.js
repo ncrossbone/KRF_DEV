@@ -327,10 +327,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 				
 				jsonStr += "]\n";
-				console.info("2");
+				
 				jsonStr += "}";
 				
-				console.info(jsonStr);
+				
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
