@@ -15,6 +15,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 	closable: false,
 	resizable: false,
 	
+	evt: null,
+	
 	clickBtnId: null,
 
 	initComponent: function(){
@@ -38,9 +40,9 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						
 						// 버튼 src 초기화
 						me.initBtnSrc();
-						
+						console.info(me.evt);
 						this.dom.setAttribute("src","./resources/images/button/btn_option_1_over.gif");
-						//coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Reach", me.drawOption, me.evt);
+						coreMap.kradLayerAdmin.drawKRADEvtGrp("Reach", me.evt);
 					},
 					mouseover: function(){
 						
