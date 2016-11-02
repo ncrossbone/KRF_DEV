@@ -581,6 +581,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 							var feature = featureSet.features[fCnt];
 							var rchDid = feature.attributes.RCH_DID;
 							
+							var stCommIdx = -1;
+							
 							if(drawOption == "startPoint"){
 								
 								var stIdx = me.stDownLineArr.map(function(obj){
@@ -591,23 +593,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 									// 시작위치 하류 배열 push
 									me.stDownLineArr.push(feature);
 								}
-							}
-							
-							if(drawOption == "endPoint"){
 								
-								var edIdx = me.edDownLineArr.map(function(obj){
-									return obj.attributes.RCH_DID;
-								}).indexOf(rchDid);
-								
-								if(edIdx == -1){
-									// 끝위치 하류 배열 push
-									me.edDownLineArr.push(feature);
-								}
-							}
-							
-							var stCommIdx = -1;
-							
-							if(drawOption == "startPoint"){
 								// 시작위치 하류 배열 길이만큼 루프
 								for(var stIdx = 0; stIdx < me.stDownLineArr.length; stIdx++){
 									
@@ -621,7 +607,17 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 							var edCommIdx = -1;
 							
 							if(drawOption == "endPoint"){
-								// 시작위치 하류 배열 길이만큼 루프
+								
+								var edIdx = me.edDownLineArr.map(function(obj){
+									return obj.attributes.RCH_DID;
+								}).indexOf(rchDid);
+								
+								if(edIdx == -1){
+									// 끝위치 하류 배열 push
+									me.edDownLineArr.push(feature);
+								}
+								
+								// 끝위치 하류 배열 길이만큼 루프
 								for(var edIdx = 0; edIdx < me.edDownLineArr.length; edIdx++){
 									
 									var edRchDid = me.edDownLineArr[edIdx].attributes.RCH_DID;
@@ -658,7 +654,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 								var dnGeoTrib = feature.attributes.GEO_TRIB;
 					    		
 					    		/** 검색설정(본류, 지류) 체크 **/
-								/*var confInfo = localStorage['_searchConfigInfo_'];
+								var confInfo = localStorage['_searchConfigInfo_'];
 								
 								if(confInfo != undefined && confInfo != null){
 									
@@ -673,20 +669,20 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 											return;
 										}
 									}
-								}*/
+								}
 								/** 검색설정(본류, 지류) 체크 끝 **/
 								
-								/*Ext.defer(function(){
+								//Ext.defer(function(){
 									
 									// 상류 검색
-						    		me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
+						    		//me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
 						    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
 						    		
 						    		// 검색 종료 체크
-						    		me.isStopCheck();
+						    		//me.isStopCheck();
 									
 									//me.defaultDate(droneLayerId,measureDate,drone);
-								}, 1);*/
+								//}, 1);
 								
 								console.info(me.commDownLineArr);
 								var stRch = me.stDownLineArr.map(function(obj){
@@ -709,5 +705,107 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				});
 	    	});
     	}
+    },
+    /* 상류 리치라인 조회 및 그리기
+     * curRchDid: 검색될 리치 아이디(DID)
+     * dnGeoTrib: 공통된(최하위) 하류 object 하천차수(본류:0, 지류:1,2,3,...)
+     * cnt: 상류검색 카운트 */
+    selectUpLine: function(curRchDid, dnGeoTrib, drawOption, cnt){
+    	
+    	var me = this;
+    	var coreMap = GetCoreMap();
+    	
+    	me.searchCnt += 1; // 검색 카운트 증가
+
+    	curRchDid = curRchDid.replace(/ /gi, "");
+    	
+    	if(curRchDid == ""){
+    		
+    		return;
+    	}
+    	
+    	require(["esri/tasks/query",
+    	         "esri/tasks/QueryTask",
+    	         "esri/geometry/Point",
+    	         "esri/geometry/Extent"], function(Query, QueryTask, Point, Extent){
+    		
+	    	var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
+			var query = new Query();
+			query.returnGeometry = true;
+			query.outFields = ["*"];
+			query.where = "RCH_DID = '" + curRchDid + "'";
+			
+			//console.info(_mapServiceUrl_v3 + "/" + _reachLineLayerId);
+			//console.info(query.where);
+			
+			// 리치라인 조회
+			queryTask.execute(query, function(featureSet){
+				
+				if(featureSet.features.length > 0){
+					
+					var isUpSearch = true; // 현재 feature 상류 검색 여부
+    				var isDraw = true; // 현재 feature그릴지 여부
+    				
+    				
+					
+					/** 검색설정(본류, 지류) 체크 **/
+					var feature = featureSet.features[0];
+					// 현재 feature 하천 차수
+					var curGeoTrib = feature.attributes.GEO_TRIB;
+					var confInfo = localStorage['_searchConfigInfo_'];
+					
+					if(confInfo != undefined && confInfo != null){
+						
+						var jsonConf = JSON.parse(confInfo);
+						
+						// 지류검색이 아닐때
+						if(jsonConf.isJiDraw == false){
+							
+							// 현재 object가 본류가 아니면
+							if(curGeoTrib != 0){
+								
+								isUpSearch = false;
+								isDraw = false;
+							}
+							else{
+								
+								isUpSearch = true;
+								isDraw = true;
+							}
+						}
+						else{
+							
+							isUpSearch = true;
+							isDraw = true;
+						}
+					}
+					/** 검색설정(본류, 지류) 체크 끝 **/
+					
+					if(isDraw == true){
+						
+						// 라인 그린다
+						coreMap.reachLayerAdmin_v3_New.drawLine(feature, coreMap.reachLayerAdmin_v3_New.upLineSymbol, "lineGrpLayer");
+					}
+    				
+    				if(isUpSearch == true){
+    					
+    					// 카운트 증가시켜 주자.. 꼭!! (처음 호출때만 0이면됨..)
+    					cnt += 1;
+    	    			
+	    				// 좌측 상류 검색 (재귀호출)
+	    				var luRchDid = feature.attributes.LU_RCH_DID;
+	    				if(luRchDid != undefined && luRchDid.trim() != ""){
+	    					me.selectUpLine(luRchDid, dnGeoTrib, drawOption, cnt);
+	    				}
+						
+	    				// 우측 상류 검색 (재귀호출)
+	    				var ruRchDid = feature.attributes.RU_RCH_DID;
+	    				if(ruRchDid != undefined && ruRchDid.trim() != ""){
+	    					me.selectUpLine(ruRchDid, dnGeoTrib, drawOption, cnt);
+	    				}
+    				}
+				}
+			});
+    	});
     }
 });
