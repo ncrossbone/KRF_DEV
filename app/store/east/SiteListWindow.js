@@ -107,11 +107,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						query.where = "CAT_DID IN ("; 
 						
 						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
-							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == "1007101702"){
-								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID = "10071017_2";
-								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID = "ACCD_1024_EV";
-								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EVENT_FC_ID = "FC11";
-							}
 							
 							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 							
