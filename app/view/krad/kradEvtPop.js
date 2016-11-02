@@ -68,7 +68,7 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 			width: "100%",
 			height: 21,
 			listeners:{
-				el:{
+				el:{ 
 					click: function(a, b, c, d){ // 점 버튼 클릭
 						
 						// 버튼 아이디 셋팅
