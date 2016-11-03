@@ -135,7 +135,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			if(drawOption == "startPoint"){
 				symbol = me.startSymbol;
-				bundle.toolbars.draw.addPoint = "시작위치를 추가하려면 클릭.";
+				//bundle.toolbars.draw.addPoint = "시작위치를 추가하려면 클릭.";
+				bundle.toolbars.draw.addPoint = null;
 				me.selectionToolbar.activate(Draw.POINT);
 			}
 			
@@ -182,7 +183,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				me.getRchIdWithEvent(evt, drawOption);
 				//return;
 				// khLee Test KRAD 20161024 End
-				
 				/*if(symbol != null && symbol != undefined)
 					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
 				
@@ -201,7 +201,37 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	        });
 		});
     },
-    
+    startDrawEnd: function(evt, symbol, drawOption){
+    	
+    	var me = this;
+    	
+    	if(symbol == undefined || symbol == null){
+    		
+    		if(drawOption == "startPoint"){
+    			symbol = me.startSymbol;
+    		}
+    		if(drawOption == "endPoint"){
+    			symbol = me.endSymbol;
+    		}
+    	}
+    	
+    	if(symbol != null && symbol != undefined){
+			me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
+    	}
+		
+		if(drawOption == "startPoint" || drawOption == "start"){
+			
+			me.drawEnd("btnMenu04"); // 그리기 종료
+		}
+		
+		if(drawOption == "endPoint" || drawOption == "end"){
+			
+			me.drawEnd("btnMenu05"); // 그리기 종료
+		}
+		
+		// 이벤트로 리치 라인 조회
+		me.selectLineWithEvent(evt, drawOption);
+    },
     /* khLee KRAD Test 20161025 추가 */
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
@@ -1501,9 +1531,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	    	me.selectionToolbar.deactivate();
 	    	me.selectionToolbar = null;
 	    	me.map.enablePan();
-	    	
-	    	Ext.get('_mapDiv__gc').setStyle('cursor','default');
     	}
+    	
+    	Ext.get('_mapDiv__gc').setStyle('cursor','default');
     	
     	if(btnId != null && btnId != undefined){
     		

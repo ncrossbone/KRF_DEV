@@ -104,7 +104,7 @@ drawKRADLayer = function(){
 	
 	coreMap.kradLayerAdmin.drawKRADLayer();
 	
-	coreMap.kradLayerAdmin.clearEvent();
+	coreMap.kradLayerAdmin.clearEventPRE();
 	
 	if(coreMap.kradLayerAdmin.stEvtType != null && coreMap.kradLayerAdmin.edEvtType != null){
 	
