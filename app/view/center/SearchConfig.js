@@ -81,6 +81,14 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			
 			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 			
+			if(checked == true){
+				GetCoreMap().kradLayerAdmin.setDynamicLayer();
+			}
+			else{
+				/*if(GetCoreMap().kradLayerAdmin != undefined && GetCoreMap().kradLayerAdmin != null){
+					GetCoreMap().map.getLayer("kradLayerAdmin").setVisibility(false);
+				}*/
+			}
 		},
 		inputValue: 'isKrad'
 	}],

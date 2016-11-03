@@ -135,7 +135,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			if(drawOption == "startPoint"){
 				symbol = me.startSymbol;
-				bundle.toolbars.draw.addPoint = "시작위치를 추가하려면 클릭.";
+				//bundle.toolbars.draw.addPoint = "시작위치를 추가하려면 클릭.";
+				bundle.toolbars.draw.addPoint = null;
 				me.selectionToolbar.activate(Draw.POINT);
 			}
 			
@@ -179,11 +180,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				*/
 				
 				// khLee Test KRAD 20161024
-				//me.getRchIdWithEvent(evt, drawOption);
+				me.getRchIdWithEvent(evt, drawOption);
 				//return;
 				// khLee Test KRAD 20161024 End
 				
-				me.startDrawEnd(evt, symbol, drawOption);
+				//me.startDrawEnd(evt, symbol, drawOption);
 	        });
 		});
     },
@@ -304,7 +305,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 									}
 									
 									/* khLee Test KRAD 이벤트 그래픽 그리기 */
-									//drawKRADEvtGrp(rchIds, evt, drawOption);
+									drawKRADEvtGrp(rchIds, evt, drawOption);
 								}
 								else{
 									
@@ -326,7 +327,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	
     	var me = this;
     	var coreMap = GetCoreMap();
-    	console.info(evt);
+    	
     	require(["esri/tasks/query",
     	         "esri/tasks/QueryTask",
     	         "esri/geometry/Point",
@@ -967,14 +968,14 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 						
 						/* khLee Test KRAD 추가로 주석.. commonKRAD에서 실행 */
 						// 지점 목록 창 띄우기
-		        		Ext.ShowSiteListWindow("selectReach");
+		        		//Ext.ShowSiteListWindow("selectReach");
 		        		
 		        		// 검색결과 창 띄우기
-		        		ShowSearchResultReach("");
+		        		//ShowSearchResultReach("");
 						/* khLee Test KRAD 추가로 주석.. commonKRAD에서 실행 끝 */
 	        		
 		        		/* khLee Test 20161026 */
-		        		//drawKRADLayer();
+		        		drawKRADLayer();
 		        		/* khLee Test 20161026 End */
 		        		
 		        		// 1초 단위 타이머
