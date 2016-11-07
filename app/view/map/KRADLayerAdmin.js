@@ -296,6 +296,16 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	var me = this;
     	var coreMap = GetCoreMap();
     	
+    	if(Ext.getCmp("btnMenu04").btnOnOff == "on"){
+    		
+    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+    		drawOption = "startPoint";
+    	}
+    	else if(Ext.getCmp("btnMenu05").btnOnOff == "on"){
+    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
+    		drawOption = "endPoint";
+    	}
+    	
     	require(["dojo/on"],
 				function(on){
 	    	

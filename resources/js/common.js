@@ -1561,6 +1561,8 @@ ResetButtonClick = function(){
 	
 	// KRAD 레이어 그래픽 및 변수 초기화
 	me.kradLayerAdmin.clearKRADLayerAdmin();
+	SetBtnOnOff("btnMenu04", "off");
+	SetBtnOnOff("btnMenu05", "off");
 	// 이전로직
 	me.kradLayerAdmin.clearKRADLayer();
 	
