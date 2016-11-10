@@ -117,17 +117,6 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							
 							this.dom.setAttribute("src","./resources/images/button/btn_option_2_over.gif");
 							
-							/*if(coreMap.kradLayerAdmin.isPreExec == true){
-								coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Point", me.drawOption, me.evt);
-							}
-							else{
-								// 맵 클릭 이벤트 삭제
-								coreMap.kradLayerAdmin.clearMapClickEvt();
-								
-								// KRAD 이벤트 그래픽 그리기
-								coreMap.kradLayerAdmin.drawKRADEvtGrp();
-							}*/
-							
 							// 포인트 그래픽 그리기
 							_krad.drawPointGrp("Point");
 							// 팝업 메뉴 닫기
@@ -170,7 +159,11 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							me.initBtnSrc();
 							
 							this.dom.setAttribute("src","./resources/images/button/btn_option_3_over.gif");
-							//coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Line", me.drawOption, me.evt);
+							
+							// 포인트 그래픽 그리기
+							_krad.drawPointGrp("Line");
+							// 팝업 메뉴 닫기
+							_krad.closePopup();
 						},
 						mouseover: function(){
 							

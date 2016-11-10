@@ -34,6 +34,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	
 	overSymbol_P: null, // 마우스 오버 심볼 포인트
 	drawSymbol_P: null, // krad point 심볼
+	overSymbol_L: null, // 마우스 오버 심볼 라인
 	drawSymbol_L: null, // krad line 심볼
 	drawSymbol_A: null, // krad area 심볼
 	drawSymbol_D: null, // 하류 심볼
@@ -82,7 +83,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.overSymbol_P.setSize(20);
 			me.overSymbol_P.setColor(new Color([255,0,0,1]));
 			
-			me.drawSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 5);
+			me.overSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 6);
+			me.drawSymbol_L = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0]), 3);
 			
 			me.drawSymbol_D = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0, 0.5]), 5);
 			
@@ -478,7 +480,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	var me = this;
     	
-    	me.tmpGrpLayer.clear();
+    	// 템프 그래픽 이벤트 끄기
+    	me.offTmpGrpEvt();
     	
     	// 이벤트 타입 설정 (Point, Line 등)
     	me.eventType = paramEvtType;
@@ -503,7 +506,16 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    			
 	    			if(eventType == paramEvtType){
 	    				
-	    				layerId = me.kradInfo[i].PD_LAYER_ID;
+	    				if(paramEvtType == "Point"){
+	    					
+	    					layerId = me.kradInfo[i].PD_LAYER_ID;
+	    				}
+	    				
+	    				if(paramEvtType == "Line"){
+	    					
+	    					layerId = me.kradInfo[i].LO_LAYER_ID;
+	    				}
+	    				
 	    				qWhere = "EXT_DATA_ID = '" + extDataId + "' AND RCH_ID IN (";
 	    				
 	    				for(var idCnt = 0; idCnt < me.rchIds.length; idCnt++){
@@ -513,6 +525,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    				
 	    				qWhere = qWhere.substring(0, qWhere.length - 2) + ")";
 					}
+	    			
+	    			if(layerId == null || layerId == ""){
+	    				
+	    				continue;
+	    			}
 					
 					var queryTask = new QueryTask(_kradInfo.kradServiceUrl + "/" + layerId);
 					var query = new Query();
@@ -530,10 +547,26 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 								
 								var graphic = features[fCnt];
 								
-								if(graphic.geometry.type == "point"){
+								if(paramEvtType == "Point"){
 									
 									graphic.setSymbol(me.drawSymbol_P);
 									me.tmpGrpLayer.add(graphic);
+								}
+								
+								if(paramEvtType == "Line"){
+									
+									var extId = graphic.attributes.EXT_DATA_ID;
+									var orgId = graphic.attributes.ORG_ID;
+									query.where = "EXT_DATA_ID = '" + extId + "' AND ORG_ID = " + orgId;
+									
+									queryTask.execute(query, function(featureSet){
+										
+										for(var fCnt2 = 0; fCnt2 < featureSet.features.length; fCnt2++){
+											
+											featureSet.features[fCnt2].setSymbol(me.drawSymbol_L);
+											me.tmpGrpLayer.add(featureSet.features[fCnt2]);
+										}
+									});
 								}
 							}
 						}
@@ -543,10 +576,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	});
     	
     	// KRAD 이벤트 생성
-		me.onTmpGrpEvt();
+		me.onTmpGrpEvt(paramEvtType);
     },
     // 임시 그래픽 레이어 (tmpGrpLayer) 이벤트 끄기
-    onTmpGrpEvt: function(){
+    onTmpGrpEvt: function(paramEvtType){
     	
     	var me = this;
     	
@@ -563,39 +596,62 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		
 	    	me.mOverObj = on(me.tmpGrpLayer, "mouse-over", function(evt){
 				
-	    		//console.info(evt.graphic);
-	    		var infoIdx = me.kradInfo.map(function(obj){
-	    			return obj.EXT_DATA_ID;
-	    		}).indexOf(evt.graphic.attributes.EXT_DATA_ID);
-	    		
-	    		var siteNm = evt.graphic.attributes.지점명 != undefined ? evt.graphic.attributes.지점명 : (evt.graphic.attributes.시설명 != undefined ? evt.graphic.attributes.시설명 : "");
-	    		var infoTitle = "";
-	    		if(infoIdx > -1){
-	    			infoTitle = me.kradInfo[infoIdx].TITLE;
+	    		if(paramEvtType == "Point"){
+	    			
+		    		var infoIdx = me.kradInfo.map(function(obj){
+		    			return obj.EXT_DATA_ID;
+		    		}).indexOf(evt.graphic.attributes.EXT_DATA_ID);
+		    		
+		    		var siteNm = evt.graphic.attributes.지점명 != undefined ? evt.graphic.attributes.지점명 : (evt.graphic.attributes.시설명 != undefined ? evt.graphic.attributes.시설명 : "");
+		    		var infoTitle = "";
+		    		if(infoIdx > -1){
+		    			infoTitle = me.kradInfo[infoIdx].TITLE;
+		    		}
+		    		var infoContent = "지점명 : " + siteNm;
+		    		
+		    		var template = new InfoTemplate(infoTitle, infoContent);
+		    		evt.graphic.setInfoTemplate(template)
+		    		
+		    		me.map.infoWindow.setContent(evt.graphic.getContent());
+		    		me.map.infoWindow.setTitle(evt.graphic.getTitle());
+		    		me.map.infoWindow.show(evt.screenPoint,
+		    				me.map.getInfoWindowAnchor(evt.screenPoint));
+		    		
+		    		evt.graphic.setSymbol(me.overSymbol_P);
 	    		}
-	    		var infoContent = "지점명 : " + siteNm;
-	    		
-	    		var template = new InfoTemplate(infoTitle, infoContent);
-	    		evt.graphic.setInfoTemplate(template)
-	    		
-	    		me.map.infoWindow.setContent(evt.graphic.getContent());
-	    		me.map.infoWindow.setTitle(evt.graphic.getTitle());
-	    		me.map.infoWindow.show(evt.screenPoint,
-	    				me.map.getInfoWindowAnchor(evt.screenPoint));
-	    		
-	    		evt.graphic.setSymbol(me.overSymbol_P);
+	    		else if(paramEvtType = "Line"){
+	    			
+	    			var graphics = me.tmpGrpLayer.graphics;
+	    			
+	    			for(var i = 0; i < graphics.length; i++){
+	    				
+	    				graphics[i].setSymbol(me.overSymbol_L);
+	    			}
+	    		}
 	    	});
 		
 			me.mOutObj = on(me.tmpGrpLayer, "mouse-out", function(evt){
 				
-				me.map.infoWindow.hide();
-	    		evt.graphic.setSymbol(me.drawSymbol_P);
+				if(paramEvtType == "Point"){
+					
+					me.map.infoWindow.hide();
+		    		evt.graphic.setSymbol(me.drawSymbol_P);
+				}
+				else if(paramEvtType == "Line"){
+					
+					var graphics = me.tmpGrpLayer.graphics;
+	    			
+	    			for(var i = 0; i < graphics.length; i++){
+	    				
+	    				graphics[i].setSymbol(me.drawSymbol_L);
+	    			}
+				}
 	    	});
 		
 			me.mClickObj = on(me.tmpGrpLayer, "mouse-down", function(evt){
-				
+				//console.info(evt);
 				// 변수 셋팅 및 하류조회
-				me.setClickEvt(evt, me.eventType);
+				me.setClickEvt(evt, paramEvtType);
 	    	});
     	});
     },
@@ -614,11 +670,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	if(me.mClickObj != undefined && me.mClickObj != null){
     		me.mClickObj.remove();
-    	}
-    	
-    	if(me.tmpGrpLayer != undefined && me.tmpGrpLayer != null){
-	    	// 임시 그래픽 레이어 초기화
-			me.tmpGrpLayer.clear();
     	}
     },
     // 변수 셋팅, 이벤트 끄기 및 하류조회
@@ -649,6 +700,19 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			rchIds.push(rchId);
 			siteNms.push(siteNm);
+		}
+		else if(eventType == "Line"){
+			
+			geo = evt.graphic.geometry;
+			
+			var graphics = me.tmpGrpLayer.graphics;
+			
+			for(var i = 0; i < graphics.length; i++){
+				
+				rchId = graphics[i].attributes.RCH_ID;
+				rchIds.push(rchId);
+				siteNms.push("");
+			}
 		}
 		else if(eventType == "Reach"){
 			
