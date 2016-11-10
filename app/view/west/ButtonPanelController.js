@@ -109,46 +109,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		if(popOpenCtl != undefined)
 			popOpenCtl.hide();
 		
-		// 팝업 이미지 (임시)
+		// 즐겨찾기 팝업
 		var popCtl = Ext.getCmp("Favorite");
 		
 		if(popCtl == undefined){
 			
-//			popCtl = Ext.create("Ext.window.Window", {
-//				
-//						title: '즐겨찾기',
-//						header: false,
-//						id: 'Favorite',
-//						cls: 'khLee-window-panel-header khLee-x-window-default ',
-//						layout: {
-//							type: 'absolute'
-//						},
-//						items: [{
-//							xtype: 'image',
-//							src: './resources/images/popup/popFavorite.gif',
-//							width: 286,
-//							height: 295
-//						}, {
-//							xtype: 'image',
-//							title: '닫기',
-//							src: './resources/images/button/icon_close2.gif',
-//							listeners: {
-//								el: {
-//						            click: function(){
-//						            	var popCtl = Ext.getCmp("Favorite");
-//										popCtl.hide();
-//						            }
-//						        }
-//							},
-//							width: 10,
-//							height: 10,
-//							x: 264,
-//							y: 10
-//						}],
-//						x: 390,
-//						y: Ext.getBody().getViewSize().height - 295
-//						
-//					});
 			popCtl = Ext.create('KRF_DEV.view.east.FavoriteWindow_v3');
 		}
 		
