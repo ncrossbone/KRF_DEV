@@ -71,16 +71,14 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							me.initBtnSrc();
 							
 							this.dom.setAttribute("src","./resources/images/button/btn_option_1_over.gif");
+							
+							//coreMap.kradLayerAdmin.isPreExec = true;
 							//coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Reach", me.drawOption, me.evt);
 							
-							// 맵 클릭 이벤트 삭제
-							//coreMap.kradLayerAdmin.clearMapClickEvt();
-							
-							// KRAD 이벤트 그래픽 그리기
-							//coreMap.kradLayerAdmin.drawKRADEvtGrp();
-							
-							coreMap.kradLayerAdmin.isPreExec = true;
-							coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Reach", me.drawOption, me.evt);
+							// 포인트 그래픽 그리기
+							_krad.setClickEvt(_krad.mapClickEvt, "Reach");
+							// 팝업 메뉴 닫기
+							_krad.closePopup();
 						},
 						mouseover: function(){
 							
@@ -116,10 +114,10 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							
 							// 버튼 src 초기화
 							me.initBtnSrc();
-							//console.info(coreMap.kradLayerAdmin.isPreExec);
+							
 							this.dom.setAttribute("src","./resources/images/button/btn_option_2_over.gif");
 							
-							if(coreMap.kradLayerAdmin.isPreExec == true){
+							/*if(coreMap.kradLayerAdmin.isPreExec == true){
 								coreMap.kradLayerAdmin.drawDataGrp(me.rchIds, "Point", me.drawOption, me.evt);
 							}
 							else{
@@ -128,7 +126,12 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 								
 								// KRAD 이벤트 그래픽 그리기
 								coreMap.kradLayerAdmin.drawKRADEvtGrp();
-							}
+							}*/
+							
+							// 포인트 그래픽 그리기
+							_krad.drawPointGrp("Point");
+							// 팝업 메뉴 닫기
+							_krad.closePopup();
 						},
 						mouseover: function(){
 							

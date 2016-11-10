@@ -183,8 +183,21 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				me.getRchIdWithEvent(evt, drawOption);
 				//return;
 				// khLee Test KRAD 20161024 End
+				/*if(symbol != null && symbol != undefined)
+					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
 				
-				//me.startDrawEnd(evt, symbol, drawOption);
+				if(drawOption == "startPoint" || drawOption == "start"){
+					
+					me.drawEnd("btnMenu04"); // 그리기 종료
+				}
+				
+				if(drawOption == "endPoint" || drawOption == "end"){
+					
+					me.drawEnd("btnMenu05"); // 그리기 종료
+				}
+				
+				// 이벤트로 리치 라인 조회
+				me.selectLineWithEvent(evt, drawOption);*/
 	        });
 		});
     },

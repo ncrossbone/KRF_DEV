@@ -100,7 +100,12 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 						el:{
 							click: function(){
 								
-								pollutionLayerSelect("01", "on");
+								var setPollutionItems = Ext.getCmp("setPollutionItems");
+								var pollutionMapSetValue = Ext.getCmp("pollutionMapSetValue");
+								
+								pollutionCatLayerClear();
+								
+								showCatPollutionLayer("", setPollutionItems.value, pollutionMapSetValue.pollvalue);
 							}
 						}
 					}

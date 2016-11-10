@@ -980,6 +980,20 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 }
 
 // 검색결과창 닫기
+HideFavoriteWin = function(){
+	
+	// 즐겨찾기 팝업
+	var popCtl = Ext.getCmp("Favorite");
+	
+	if(popCtl != undefined){
+		
+		popCtl.close();
+	}
+	
+	SetBtnOnOff("btnFavorites", "off");
+}
+
+//검색결과창 닫기
 HideSearchResult = function(){
 	
 	var searchResultWindow = KRF_DEV.getApplication().searchResultWindow;
@@ -1550,25 +1564,17 @@ ResetButtonClick = function(){
 	
 	var me = GetCoreMap();
 	
-	// 리치 선택 종료
-	//me.reachLayerAdmin.drawEnd();
-	//me.reachLayerAdmin_v3_New.drawEnd();
-	me.reachLayerAdmin_v3_New.drawEnd();
-	// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
-	//me.reachLayerAdmin.clearGraphicsLayer("reset");
-	//me.reachLayerAdmin_v3_New.clearGraphicsLayer("reset");
-	me.reachLayerAdmin_v3_New.clearGraphicsLayer();
-	
 	// KRAD 레이어 그래픽 및 변수 초기화
-	me.kradLayerAdmin.clearKRADLayerAdmin();
+	_krad.clearKradAll();
 	SetBtnOnOff("btnMenu04", "off");
 	SetBtnOnOff("btnMenu05", "off");
-	// 이전로직
-	me.kradLayerAdmin.clearKRADLayer();
 	
-	Ext.HideSiteListWindow();
-	HideWindowSiteNChart();
-	HideSearchResult();
+	Ext.HideSiteListWindow(); // 지점 리스트 창 닫기
+	HideWindowSiteNChart(); // 지점정보, 차트창 닫기
+	HideSearchResult(); // 검색결과 닫기
+	HideFavoriteWin(); // 즐겨찾기창 닫기
+	
+	ResetStEdSiteName(); // 시작위치 끝위치 하천명 초기화
 	
 	var combo = Ext.getCmp("cmbWater1");
 	combo.setValue("");

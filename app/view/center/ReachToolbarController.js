@@ -107,84 +107,32 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
 		
-		/*var me = this;
-		var coreMap = GetCoreMap();
-		var reachLayerAdmin = coreMap.reachLayerAdmin_v3_New;
-		var kradLayerAdmin = coreMap.kradLayerAdmin;
+		// 맵 클릭 이벤트 켜기
+		_krad.onMapClickEvt("startPoint", el.id);
+			
+		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
 		
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-			
-		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
-		
-		// 맵 클릭 이벤트 생성
-	    kradLayerAdmin.createMapClickEvt("startPoint");*/
-		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-			
-		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+		/*var currCtl = SetBtnOnOff(el.id);
 		
 		var coreMap = GetCoreMap();
 		var kradLayerAdmin = coreMap.kradLayerAdmin;
-		kradLayerAdmin.createMapClickEvt("startPoint");
-		
-		/*var me = GetCoreMap().reachLayerAdmin_v3_New;
-		
-		// 리치 선택 종료
-		//GetCoreMap().reachLayerAdmin.drawEnd();
-		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
-		me.drawEnd();
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-		
-		if(currCtl.btnOnOff == "on"){
-			//GetCoreMap().reachLayerAdmin.pointStartDraw("STARTPOINT", el.id); // v2
-			//GetCoreMap().reachLayerAdmin_v3.pointDraw("STARTPOINT", el.id); // v3
-			me.onClickStartPoint(); // v3 New
-		}*/
+		kradLayerAdmin.createMapClickEvtTest("startPoint");*/
 	},
 	
 	// 끝위치 버튼 클릭
 	onClickEndReach: function(obj, el, evt){
 		
-		/*var me = this;
-		var coreMap = GetCoreMap();
-		var reachLayerAdmin = coreMap.reachLayerAdmin_v3_New;
-		var kradLayerAdmin = coreMap.kradLayerAdmin;
+		// 맵 클릭 이벤트 켜기
+		_krad.onMapClickEvt("endPoint", el.id);
+			
+		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 		
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-			
-		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
-		
-		// 맵 클릭 이벤트 생성
-	    kradLayerAdmin.createMapClickEvt("endPoint");*/
-		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-			
-		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
-		
+		/*var currCtl = SetBtnOnOff(el.id);
 		var coreMap = GetCoreMap();
 		var kradLayerAdmin = coreMap.kradLayerAdmin;
-		//kradLayerAdmin.drawOptionNew = "endPoint";
-		kradLayerAdmin.createMapClickEvt("endPoint");
-		
-		/*var me = GetCoreMap().reachLayerAdmin_v3_New;
-		// 리치 선택 종료
-		//GetCoreMap().reachLayerAdmin.drawEnd();
-		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
-		me.drawEnd();
-		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-		
-		if(currCtl.btnOnOff == "on"){
-			//GetCoreMap().reachLayerAdmin.pointEndDraw("ENDPOINT", el.id); // v2
-			//GetCoreMap().reachLayerAdmin_v3.pointDraw("ENDPOINT", el.id); // v3
-			me.onClickEndPoint(); // v3 New
-		}*/
+		kradLayerAdmin.createMapClickEvtTest("endPoint");*/
 	},
 	
 	// 초기화 버튼 클릭
