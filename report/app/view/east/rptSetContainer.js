@@ -7,7 +7,8 @@ Ext.define('Report.view.east.rptSetContainer', {
 	requires:['Report.view.east.rptSetPeriod',
 	          'Report.view.east.rptSetItems',
 	          'Report.view.east.rptSetSiteAttr',
-	          'Report.view.east.rptSetSiteList'],
+	          'Report.view.east.rptSetSiteList',
+	          'Report.view.east.rptSetCondition'],
 	
 	id: 'rptSetContainer',
 	
@@ -25,6 +26,13 @@ Ext.define('Report.view.east.rptSetContainer', {
 	style: "margin-top: 20px;",
 
 	items: [{
+		xtype: 'rpt-east-rptSetCondition',
+		title: '검색조건',
+		style: "margin-left: 20px;"
+	},{
+		xtype: 'container',
+		height: 10
+	},{
 		xtype: 'rpt-east-rptSetPeriod',
 		title: '기간',
 		style: "margin-left: 20px;"
@@ -48,7 +56,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 	}, {
 		xtype: 'rpt-east-rptSetSiteList',
 		title: '지점',
-		height: 630
+		height: 615
 	}, {
 		xtype: 'container',
 		layout: {
