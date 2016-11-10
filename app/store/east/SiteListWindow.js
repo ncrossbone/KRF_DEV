@@ -236,8 +236,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							}
 						});
 						
-						
-						//if(layerFeatures)
 						var layerCnt = 0;
 						for(var j = 0 ;j<layerFeatures.length;j++){
 							if(layerFeatures[j].attributes.AREA_EVENT_ID == null){
@@ -275,7 +273,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "			}, ";
 								}
 							}else{
-								
 								for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
 									if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != undefined){
 										if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == layerFeature.attributes.CAT_DID &&
@@ -343,7 +340,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				jsonStr += "]\n";
 				
 				jsonStr += "}";
-				
 				
 				
 				var jsonData = "";
