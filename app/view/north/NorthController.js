@@ -36,21 +36,18 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     // 리치 버튼 클릭
 	onClickReachLayer: function(obj, el, evt){
 		
-		// 리치레이어 On/Off
-		//ReachLayerOnOff(el.id, "46");
-		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
-		var me = GetCoreMap();
 		
-		if(me.reachLayerAdmin_v3_New.lineGrpLayer != null && me.reachLayerAdmin_v3_New.lineGrpLayer != undefined){
+		if(_krad.lineGrpLayer != null && _krad.lineGrpLayer != undefined){
+			
 			if(currCtl.btnOnOff == "on"){
-				//me.reachLayerAdmin.reachLineGraphics.setVisibility(true);
-				me.reachLayerAdmin_v3_New.lineGrpLayer.setVisibility(true);
+				
+				_krad.lineGrpLayer.setVisibility(true);
 			}
 			else{
-				//me.reachLayerAdmin.reachLineGraphics.setVisibility(false);
-				me.reachLayerAdmin_v3_New.lineGrpLayer.setVisibility(false);
+				
+				_krad.lineGrpLayer.setVisibility(false);
 			}
 		}
 		
@@ -59,25 +56,18 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	// 집수구역 버튼 클릭
 	onClickAreaLayer: function(obj, el, evt){
 		
-		// 리치레이어 On/Off
-		//ReachLayerOnOff(el.id, "47");
-		
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
-		var me = GetCoreMap();
 		
-		//if(me.reachLayerAdmin.reachAreaGraphics != null && me.reachLayerAdmin.reachAreaGraphics != undefined){
-		if(me.reachLayerAdmin_v3_New.areaGrpLayer != null && me.reachLayerAdmin_v3_New.areaGrpLayer != undefined){
+		if(_krad.areaGrpLayer != null && _krad.areaGrpLayer != undefined){
+			
 			if(currCtl.btnOnOff == "on"){
-				//console.info("on");
-				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(true);
-				me.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
-				//console.info(me.reachLayerAdmin_v3_New);
+				
+				_krad.areaGrpLayer.setVisibility(true);
 			}
 			else{
-				//console.info("off");
-				//me.reachLayerAdmin.reachAreaGraphics.setVisibility(false);
-				me.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+				
+				_krad.areaGrpLayer.setVisibility(false);
 			}
 		}
 		

@@ -62,7 +62,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
         	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
-        	me.kradLayerAdmin = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
+        	
+        	// KRAD 전역 Object Setting
+        	_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
         	
         	// 전역 변수 설정 KRF_DEV.getApplication().coreMap
         	KRF_DEV.getApplication().coreMap = me;
@@ -73,7 +75,6 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
-        	
 		}, 1);
     },
     
