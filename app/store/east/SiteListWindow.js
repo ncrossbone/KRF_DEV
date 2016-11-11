@@ -104,7 +104,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						
 						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
 							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == "1007150100"){
-								console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i]);
+								////console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i]);
 							}
 							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 							
@@ -179,7 +179,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					}
 				});
 				
-				//console.info(arrGroupCodes);
+				////console.info(arrGroupCodes);
 				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
 				
 				// 그룹 코드 루프 시작
@@ -192,20 +192,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							return feature;
 					});
 					
-					var grouplayerCnt = 0;
 					
-					for(var j = 0 ;j<groupFeature.length;j++){
-						if(groupFeature[j].attributes.AREA_EVENT_ID == null){
-							
-							grouplayerCnt += 1
-						}
-					}
 					
 					/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
 					
 					jsonStr += "{\n";
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
-					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "(" + grouplayerCnt + ")\",\n";
+					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "()\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 					if(cnt == 0){
 						jsonStr += "		\"expanded\": true,\n";
@@ -238,16 +231,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							}
 						});
 						
-						var layerCnt = 0;
-						for(var j = 0 ;j<layerFeatures.length;j++){
-							if(layerFeatures[j].attributes.AREA_EVENT_ID == null){
-								layerCnt += 1
-							}
-						}
 						
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
-						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "(" + layerCnt + ")\",\n";
+						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "()\",\n";
 						if(cnt == 0 ){
 							jsonStr += "			\"expanded\": true,\n"; // 펼치기..
 						}else{
@@ -256,10 +243,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "			\"children\": [";
 						
 						
-						console.info("-----------------");
+						//console.info("-----------------");
+						//console.info(layerFeatures[0].attributes.LAYER_CODE);
+						
 						$.each(layerFeatures, function(cnt, layerFeature){
 							
-							console.info(layerFeature);
+							//console.info(layerFeature);
 							var confInfo = localStorage['_searchConfigInfo_'];
 							var jsonConf = JSON.parse(confInfo);
 							
@@ -353,7 +342,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	},
 	
 	getPollLoadString: function(){
-		//console.info("dd");
+		////console.info("dd");
 		//alert("dd");
 		//, {\"id\": \"Z001\", \"text\": \"부하량\", \"expanded\": false, \"children\": [{\"id\": \"111111111\", \"text\": \"111111111\", \"catDId\": \"111111111\", \"cls\": \"khLee-x-tree-node-text-small\", \"iconCls\": \"layerNoneImg\", \"leaf\": true, \"checked\": null}]}
 		var me = GetCoreMap();
@@ -398,7 +387,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
 				
-				//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+				////console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
 				
 				pollLoadChildString += "{\n";
 				pollLoadChildString += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "\",\n";
@@ -418,7 +407,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			pollLoadString = pollLoadString.replace("#pollLoadChildString#", pollLoadChildString);
 			
-			//console.info(pollLoadString);
+			////console.info(pollLoadString);
 			
 			return pollLoadString;
 		}
@@ -561,7 +550,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length; i++){
 					
-					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					////console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
 					
 					pollutionChildString += "{\n";
 					pollutionChildString += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_01[0][i].data.CAT_DID + "\",\n";
@@ -611,7 +600,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length; i++){
 					
-					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					////console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
 					
 					pollutionChild_02String += "{\n";
 					pollutionChild_02String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_02[0][i].data.CAT_DID + "\",\n";
@@ -661,7 +650,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length; i++){
 					
-					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					////console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
 					
 					pollutionChild_03String += "{\n";
 					pollutionChild_03String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_03[0][i].data.CAT_DID + "\",\n";
@@ -711,7 +700,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length; i++){
 					
-					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					////console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
 					
 					pollutionChild_04String += "{\n";
 					pollutionChild_04String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_04[0][i].data.CAT_DID + "\",\n";
@@ -857,7 +846,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length; i++){
 					
-					//console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
+					////console.info( me.reachLayerAdmin_v3_New.arrAreaGrp.length);
 					
 					pollutionChild_07String += "{\n";
 					pollutionChild_07String += "			\"id\": \"" + me.reachLayerAdmin_v3_New.arrAreaPollution_07[0][i].data.CAT_DID + "\",\n";
@@ -886,7 +875,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			pollutionString += "]}";
 			
-			//console.info(pollutionString);
+			////console.info(pollutionString);
 			
 			return pollutionString;
 		}
