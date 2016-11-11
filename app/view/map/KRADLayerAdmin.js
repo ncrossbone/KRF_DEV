@@ -166,7 +166,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			TITLE: "하천 수질 관측소",
 			CHECKED: true,
 			EVENT_TYPE: "Point",
-			PD_LAYER_ID: 6,
+			PD_LAYER_ID: 6, //
 			PE_LAYER_ID: 7,
 			LO_LAYER_ID: null,
 			LD_LAYER_ID: null,

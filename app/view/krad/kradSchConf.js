@@ -20,8 +20,25 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 		type:'vbox'
 	},
 	items:[{
+		xtype: 'checkbox',
+		boxLabel: 'KRAD',
+		checked: false,
+		handler: function(obj, checked){
+			
+			
+			if(checked == true){
+				//GetCoreMap().kradLayerAdmin.setDynamicLayer();
+				console.info("true");
+				_krad.setKradOnOff();
+			}
+			else{
+				_krad.setKradOnOff();
+			}
+		},
+		inputValue: 'isKrad'
+	},{
 		xtype:'container',
-		height:365,
+		height:165,
 		items:[{
 			layout: {
 				type: 'accordion'

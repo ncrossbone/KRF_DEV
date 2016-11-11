@@ -130,7 +130,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	btnOnImg: './resources/images/button/reach_menu07_on.png',
 	    	btnOffImg: './resources/images/button/reach_menu07.png',
 	    	src: './resources/images/button/reach_menu07.png'
-	    },{
+	    }/*,{
 	    	xtype: 'image',
 	    	id: 'btnMenu09',
 	    	groupId: 'groupSmart',
@@ -142,7 +142,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	btnOnImg: './resources/images/button/reach_menu01_on.png',
 	    	btnOffImg: './resources/images/button/reach_menu01.png',
 	    	src: './resources/images/button/reach_menu01.png'
-	    }, {
+	    }*/, {
 	    	xtype: 'image',
 	    	id: 'btnMenu08',
 	    	groupId: 'group1',
