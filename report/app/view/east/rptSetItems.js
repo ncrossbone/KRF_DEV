@@ -39,12 +39,24 @@ Ext.define('Report.view.east.rptSetItems', {
 		id: "chkRptItemBOD",
 		checked: true,
 		boxLabel: 'BOD',
-		width: 80
+		width: 60
 	}, {
 		xtype: "checkbox",
 		id: "chkRptItemTP",
 		checked: true,
 		boxLabel: 'TP',
-		width: 80
+		width: 50
+	}, {
+		xtype: "checkbox",
+		id: "chkRptItemCOD",
+		checked: true,
+		boxLabel: 'COD',
+		width: 60
+	}, {
+		xtype: "checkbox",
+		id: "chkRptItemChla",
+		checked: true,
+		boxLabel: 'Chl-a',
+		width: 60
 	}]
 });
