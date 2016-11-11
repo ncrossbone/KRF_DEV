@@ -103,7 +103,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						query.where = "CAT_DID IN ("; 
 						
 						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
-							
+							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == "1007150100"){
+								console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i]);
+							}
 							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 							
 							this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
@@ -254,9 +256,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "			\"children\": [";
 						
 						
-						
+						console.info("-----------------");
 						$.each(layerFeatures, function(cnt, layerFeature){
 							
+							console.info(layerFeature);
 							var confInfo = localStorage['_searchConfigInfo_'];
 							var jsonConf = JSON.parse(confInfo);
 							

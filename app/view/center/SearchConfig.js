@@ -6,18 +6,18 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 
 	xtype: 'win-searchConfig',
 	id: 'searchConfig',
-	title: '검색설정',
+	title: '데이터셋 설정',
 
 	//width: 100,
 	//height: 50,
 	width: 300,
 	height: 400,
 	x: 387,
-	y: 192,
+	y: 172,
 	//style:"padding-bottom:50px;",
 	plain: true, // 요게 있어야 background: transparent 먹음..
 	//cls: 'dj_toolbarConf',
-	header: false,
+	header: true,
 	style: "border: 0px;",
 	layout: {
 		type: 'vbox',
@@ -59,27 +59,57 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			var me = this.up("window");
 			var isJiDraw = me.items.items[1].value;
 			
-			var saveObj = {isBonDraw:true, isJiDraw:isJiDraw, isKrad:checked };
+			var saveObj = {isBonDraw:true, isJiDraw:isJiDraw ,isKrad: checked};
 			
 			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 			
-			var confInfo = localStorage['_kradExtInfo_'];
-			var jsonConf = JSON.parse(confInfo);
 			
 			if(checked == true){
 				
-				_krad.setKradOnOff();
+				//공통 로컬스토리지
+				var confInfo = localStorage['_kradExtInfo_'];
+    			var jsonConf = JSON.parse(confInfo);
+    			
+    			//사용자지정 로컬스토리지
+    			var confInfo2 = localStorage['_kradExtInfo2_'];
+    			var jsonConf2 = JSON.parse(confInfo2);
+				
+				var kradLayer = [];
+				
+				if(jsonConf.length > 0){
+					for(var i =0 ; i < jsonConf.length;i++){
+						if(jsonConf[i].EVENT_TYPE == "Point"){
+							kradLayer.push(jsonConf[i].PD_LAYER_ID);
+						}
+						if(jsonConf[i].EVENT_TYPE == "Line"){
+							kradLayer.push(jsonConf[i].LO_LAYER_ID);
+						}
+					}
+				}
+				
+				if(jsonConf2.length > 0){
+					for(var i =0 ; i < jsonConf2.length;i++){
+						if(jsonConf2[i].EVENT_TYPE == "Point"){
+							kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+						}
+						if(jsonConf2[i].EVENT_TYPE == "Line"){
+							kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+						}
+					}
+				}
+				
+				_krad.setKradOnOff(kradLayer);
 				
 			}else{
 				
-				_krad.setKradOnOff();
+				_krad.setKradOnOff([]);
 				
 			}
 		},
 		inputValue: 'isKrad'
 	},{
 	xtype:'container',
-	height:165,
+	height:255,
 	items:[{
 		layout: {
 			type: 'accordion'
@@ -299,7 +329,37 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		},
 		items:[{
 			xtype:'container',
-			width:230
+			width:90
+		},{
+			xtype:'container',
+			height:50,
+			width:70,
+			items:[{
+				xtype:'image',
+				src: './resources/images/button/btn_app.gif',
+				listeners:{
+					el:{
+						click:function(){
+							alert("시설");
+						}
+					}
+				}
+			}]
+		},{
+			xtype:'container',
+			height:50,
+			width:70,
+			items:[{
+				xtype:'image',
+				src: './resources/images/button/btn_app.gif',
+				listeners:{
+					el:{
+						click:function(){
+							alert("사고");
+						}
+					}
+				}
+			}]
 		},{
 			xtype:'container',
 			height:50,
@@ -311,12 +371,39 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					el:{
 						click:function(){
 							
-							
+							//공통 로컬스토리지
 							var confInfo = localStorage['_kradExtInfo_'];
 		        			var jsonConf = JSON.parse(confInfo);
-							console.info(jsonConf);
+		        			
+		        			//사용자지정 로컬스토리지
+		        			var confInfo2 = localStorage['_kradExtInfo2_'];
+		        			var jsonConf2 = JSON.parse(confInfo2);
 							
-							_krad.setKradOnOff();
+							var kradLayer = [];
+							
+							if(jsonConf.length > 0){
+								for(var i =0 ; i < jsonConf.length;i++){
+									if(jsonConf[i].EVENT_TYPE == "Point"){
+										kradLayer.push(jsonConf[i].PD_LAYER_ID);
+									}
+									if(jsonConf[i].EVENT_TYPE == "Line"){
+										kradLayer.push(jsonConf[i].LO_LAYER_ID);
+									}
+								}
+							}
+							
+							if(jsonConf2.length > 0){
+								for(var i =0 ; i < jsonConf2.length;i++){
+									if(jsonConf2[i].EVENT_TYPE == "Point"){
+										kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+									}
+									if(jsonConf2[i].EVENT_TYPE == "Line"){
+										kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+									}
+								}
+							}
+							
+							_krad.setKradOnOff(kradLayer);
 							
 						}
 					}
@@ -337,13 +424,13 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			
 			if(confInfo != undefined && confInfo != null){
 				var jsonConf = JSON.parse(confInfo);
-				console.info(jsonConf);
+				
 				this.items.items[1].setValue(jsonConf.isJiDraw);
+				this.items.items[2].setValue(jsonConf.isKrad);
 				
 				//this.items.items[0].items.items[0].setValue(jsonConf.isJiDraw);
 			}
 			else{
-				console.info("else");
 				var saveObj = {isBonDraw:true, isJiDraw:true, isKrad:false};
 				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 			}

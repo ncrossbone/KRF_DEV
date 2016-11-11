@@ -139,10 +139,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		});
     },
     
-    setKradOnOff: function(){
+    setKradOnOff: function(kradLayer){
     	
     	var me = this;
-    	me.dynamicLayer.setVisibleLayers([2,6]);
+    	me.dynamicLayer.setVisibleLayers(kradLayer);
     	
     },
     
@@ -683,7 +683,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		var siteNms = [];
 		var rchId = "";
 		var siteNm = "";
-		
+		console.info(eventType);
 		if(eventType == "Point"){
 			
 			geo = evt.graphic.geometry;
@@ -731,7 +731,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		}
 		
 		me.drawSymbol(geo); // 심볼 그리기
-		
+		console.info(rchIds);
 		for(var i = 0; i < rchIds.length; i++){
 			
 			if(me.drawOption == "startPoint"){
@@ -849,7 +849,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			}
 			
 			query.where = query.where.substring(0, query.where.length - 2) + ")";
-			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
 				
