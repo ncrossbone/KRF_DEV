@@ -86,7 +86,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.drawSymbol_D = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0, 0.5]), 5); // 하류 심볼
 			
 			me.drawSymbol_A = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2), new Color([0, 0, 255, 0.3]));
-			
+			me.drawSymbol_empty = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2);
+
 			me.stSymbol = new PictureMarkerSymbol({
 	 		    "angle": 0,
 	 		    "yoffset": 14,
@@ -1247,6 +1248,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		
     		me.drawGraphic2(graphic, me.drawSymbol_A, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp);
     	}
+    	
+    	if(grpType == "kradEmpty"){
+    		
+    		me.drawGraphic2(graphic, me.drawSymbol_empty, me.areaGrpLayer, [], []);
+    	}
     },
     drawGraphic2: function(graphic, symbol, layer, arrObj, reachArr){
     	
@@ -1352,14 +1358,20 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					
 					var queryTaskLE = new QueryTask(_kradInfo.kradServiceUrl + "/" + leLayerId);
 					var queryLE = new Query();
+					var queryEmpty = new Query();
 					queryLE.returnGeometry = true;
+					queryEmpty.returnGeometry = true;
 					queryLE.outFields = ["*"];
+					queryEmpty.outFields = ["*"];
 					queryLE.where = "RCH_ID = '" + rchId + "'";
+					queryEmpty.where = "RCH_ID = '" + rchId + "'";
 					if(kradUpDown == "up"){
 						queryLE.where += " AND EVENT_ORDER <= " + eventOrder;
+						queryEmpty.where += " AND EVENT_ORDER > " + eventOrder;
 					}
 					if(kradUpDown == "down"){
 						queryLE.where += " AND EVENT_ORDER > " + eventOrder;
+						queryEmpty.where += " AND EVENT_ORDER <= " + eventOrder;
 					}
 					console.info(_kradInfo.kradServiceUrl + "/" + leLayerId);
 					console.info(queryLE.where);
@@ -1387,6 +1399,18 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 										me.drawGraphic(fSetAE.features[faCnt], "kradArea");
 									}
 								}
+								
+								queryTaskAE.execute(queryEmpty, function(fSetEmpty){
+									
+									if(fSetEmpty.features.length > 0){
+										
+										for(var emCnt = 0; emCnt < fSetEmpty.features.length; emCnt++){
+											
+											// 그래픽 그리기
+											me.drawGraphic(fSetEmpty.features[emCnt], "kradEmpty");
+										}
+									}
+								});
 							});
 						}
 					});
@@ -1437,6 +1461,19 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						else{
 							
 							drawType = "kradArea";
+							
+							query.where = "CAT_DID = '" + aeFeatures[0].attributes.CAT_DID + "' AND AREA_EVENT_ID <> '" + evtId + "'";
+							queryTaskAE.execute(query, function(fSet){
+								
+								if(fSet.features.length > 0){
+									
+									for(var i = 0; i < fSet.features.length; i++){
+										
+										// 그래픽 그리기
+										me.drawGraphic(fSet.features[i], "kradEmpty");
+									}
+								}
+							});
 						}
 						
 						var features = featureSet.features; // AO 피처
