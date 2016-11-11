@@ -9,8 +9,8 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 	width: 300,
 	height: 400,
 	
-	x: 387,
-	y: 226,
+	x: 902,
+	y: 173,
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
 	//cls: 'dj_toolbarConf',
@@ -34,7 +34,7 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 					type : 'vbox'
 				},
 				cls: 'dj_layer_nm',
-				title: '공 통',
+				title: '공통',
 				items:[{
 					xtype: 'container',
 					width: '100%',
@@ -52,11 +52,9 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 							width:50,
 							items:[{
 		                        getClass : function(value, meta, record, rowIx, ColIx, store) {
-		                        	if(record.data.EVENT_TYPE == "Point"){
-		                        		console.info("point");
+		                        	if(record.data.SHP == "Point"){
 		                        		return 'icon_point';
-		                        	}else if(record.data.EVENT_TYPE == "Line"){
-		                        		console.info("line");
+		                        	}else if(record.data.SHP == "Line"){
 		                        		return 'icon_line';
 		                        	}
 		                        }
@@ -84,43 +82,58 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 								}]
 							}],
 						 listeners: {
-						        selectionchange: function(model, records) {
-						            var confObj = [];
-						            for(var i =0 ; i < records.length ; i++){
-						            	records[i].data.CHECKED = true;
-						            	confObj.push(records[i].data);
-						            }
-						            
-						            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+							    selectionchange: function(model, records) {
+							    	if(KRF_DEV.getApplication().kradFirst == "Y"){
+							    		var confInfo = localStorage['_kradExtInfo_'];
+					        			var jsonConf = JSON.parse(confInfo);
+					        			
+					        			var confObj = [];
+							            for(var i =0 ; i < records.length ; i++){
+							            	records[i].data.CHECKED = true;
+							            	jsonConf.push(records[i].data);
+							            }
+							            
+							    	}else{
+							    		var confObj = [];
+							            for(var i =0 ; i < records.length ; i++){
+							            	records[i].data.CHECKED = true;
+							            	confObj.push(records[i].data);
+							            }
+							            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
+							    	}
+							    	KRF_DEV.getApplication().kradFirst = "N";
 						            
 						        }
 					    },
-					    viewConfig: { 
-					    	stripeRows: true,
+					    
+					    viewConfig: {
+					    	stripeRows: false,
 					        listeners : {
-					             beforerefresh : function(view) {
-					                    var store = view.getStore();
-					            	 	var model = view.getSelectionModel();
-					                    var s = [];
-					                    
-					                    var confInfo = localStorage['_kradExtInfo_'];
-					                    if(confInfo == undefined){
-					                    	return;
-					                    }
-					                    var jsonConf = JSON.parse(confInfo);
-					        			
-					        			var krad_grid= Ext.getCmp("krad_grid");
-					        			var krad_store = krad_grid.getStore();
-					        			
-					        			store.queryBy(function(record) {
-					        				for(var i = 0; i < jsonConf.length;i++){
-						        				if(jsonConf[i].TITLE == record.data.TITLE){
-						        					s.push(record);
-						        				}
-						        			}
-					        			});
-					        			model.select(s);
-					              }
+					        	beforerefresh : function(view) {
+				                    var store = view.getStore();
+				            	 	var model = view.getSelectionModel();
+				                    var s = [];
+				                    
+				                    var confInfo = localStorage['_kradExtInfo_'];
+				                    if(confInfo == undefined){
+				                    	return;
+				                    }
+				        			var jsonConf = JSON.parse(confInfo);
+				        			console.info(jsonConf);
+				        			
+				        			console.info(store);
+				        			store.queryBy(function(record) {
+				        				for(var i = 0; i < jsonConf.length;i++){
+					        				if(jsonConf[i].TITLE == record.data.TITLE){
+					        					s.push(record);
+					        				}
+					        			}
+				        			});
+				        			
+				        			KRF_DEV.getApplication().kradFirst = "Y";
+				        			model.select(s);
+				        			
+				              }
 					       }
 					    }
 					}]
@@ -150,11 +163,9 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 							width:50,
 							items:[{
 		                        getClass : function(value, meta, record, rowIx, ColIx, store) {
-		                        	if(record.data.EVENT_TYPE == "Point"){
-		                        		console.info("point");
+		                        	if(record.data.SHP == "Point"){
 		                        		return 'icon_point';
-		                        	}else if(record.data.EVENT_TYPE == "Line"){
-		                        		console.info("line");
+		                        	}else if(record.data.SHP == "Line"){
 		                        		return 'icon_line';
 		                        	}
 		                        }
@@ -206,9 +217,7 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 					                    	return;
 					                    }
 					        			var jsonConf2 = JSON.parse(confInfo2);
-					        			
-					        			var krad_grid2= Ext.getCmp("krad_grid2");
-					        			var krad_store2 = krad_grid2.getStore();
+					        			console.info(jsonConf2);
 					        			
 					        			store2.queryBy(function(record2) {
 					        				for(var i = 0; i < jsonConf2.length;i++){
@@ -243,22 +252,14 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				listeners:{
 					el:{
 						click:function(){
+							
+							
 							var confInfo = localStorage['_kradExtInfo_'];
-							var jsonConf = JSON.parse(confInfo);
-							console.info(confInfo);
+		        			var jsonConf = JSON.parse(confInfo);
+							console.info(jsonConf);
 							
-							//Ext.ShowSiteListWindow("", "krad");
+							_krad.setKradOnOff();
 							
-							/*var listWinCtl = Ext.getCmp("siteListWindow");
-							//console.info(listWinCtl);
-							if (listWinCtl == undefined){
-								listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
-							}
-
-							listWinCtl.show();
-							
-							var treeCtl = listWinCtl.items.items[0];
-							treeCtl.paramStore = 'KRF_DEV.store.east.KradListWindow';*/
 						}
 					}
 				}

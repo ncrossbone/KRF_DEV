@@ -22,10 +22,31 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig");
 		}
 		
-		/*var kradConf = Ext.getCmp("kradSchConf");
-		if(kradConf == undefined){
-			kradConf = Ext.create("KRF_DEV.view.krad.kradSchConf");
-		}*/
+		
+		// 설정창 show
+		if(currCtl.btnOnOff == "on"){
+			popCtl.show();
+			
+			SetWestCollapseXY("show");
+		}
+		else{
+			popCtl.close();
+		}
+		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
+		
+	},
+	
+	onClickKrad: function(obj, el, evt){
+		
+		
+		
+		
+		// 버튼 On/Off
+		var currCtl = SetBtnOnOff(el.id);
+		
+		// 본류, 지류 설정창
 		var kradConf = Ext.getCmp("kradSchConf");
 		if(kradConf == undefined){
 			kradConf = Ext.create("KRF_DEV.view.krad.kradSchConf");
@@ -33,26 +54,12 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 설정창 show
 		if(currCtl.btnOnOff == "on"){
-			popCtl.show();
 			
-			var confInfo = localStorage['_searchConfigInfo_'];
-			if(confInfo != undefined){
-				var jsonConf = JSON.parse(confInfo);
-				if(jsonConf.isKrad == true){
-					kradConf.show();
-				}else{
-					kradConf.hide();
-				}
-				
-			}
-			
-			
-			
+			kradConf.show();
 			//kradConf.show();
 			SetWestCollapseXY("show");
 		}
 		else{
-			popCtl.close();
 			kradConf.close();
 			kradConf.hide();
 		}
