@@ -330,7 +330,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 		}
 		
 		var childRecords = record.childNodes;
-		
+		//console.info(childRecords);
 		if(childRecords != undefined && childRecords.length > 0){
 			for(var i = 0; i < childRecords.length; i++){
 				me.setSiteIds(childRecords[i], false);
