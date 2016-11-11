@@ -22,7 +22,7 @@ oof.addField("START_YR",startYear);
 oof.addField("END_YR",endYear);
 oof.addField("IMG_PATH",imgPath);
 
-OOFFile file = oof.addFile("crf.root", "%root%/crf/Report_year_bak_20161110.crf");
+OOFFile file = oof.addFile("crf.root", "%root%/crf/Report_year.crf");
 
 //파라미터로 검색하기 위해 필수
 oof.addConnectionData("*","oracle1");

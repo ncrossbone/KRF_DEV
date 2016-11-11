@@ -11,7 +11,7 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 			
 			// console.info(opener.Ext.getCmp("siteListWindow").siteIds);
 			var siteIds = opener.Ext.getCmp("siteListWindow").siteIds;
-			
+			//console.info(siteIds);
 			// esri 스크립트 로드 될때까지 타이머
 			var timerId = window.setInterval(function(){
 			
