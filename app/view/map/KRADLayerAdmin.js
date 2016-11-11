@@ -51,17 +51,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
         
 		me.setKRADInfo();
 		
-		var confInfo = localStorage['_searchConfigInfo_'];
+		me.setDynamicLayer();
 		
-		if(confInfo != undefined && confInfo != null){
-			
-			var jsonConf = JSON.parse(confInfo);
-			
-			if(jsonConf.isKrad == true){
-				
-				me.setDynamicLayer();
-			}
-		}
+		me.dynamicLayer.setVisibleLayers([-1]);
+		
 		
 		require(["esri/symbols/SimpleMarkerSymbol",
 		         "esri/symbols/SimpleLineSymbol",
@@ -145,6 +138,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.map.addLayer(me.areaGrpLayer);
 		});
     },
+    
+    setKradOnOff: function(){
+    	
+    	var me = this;
+    	me.dynamicLayer.setVisibleLayers([2,6]);
+    	
+    },
+    
     setDynamicLayer: function(){
     	
     	var me = this;
@@ -154,25 +155,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		me.dynamicLayer.visible = true;
 		me.map.addLayer(me.dynamicLayer);
 		
-		var visibleLayers = [];
-		
-		for(var i = 0; i < me.kradInfo.length; i++){
-			
-			if(me.kradInfo[i].CHECKED == true){
-				
-				if(me.kradInfo[i].EVENT_TYPE == "Point" && me.kradInfo[i].PD_LAYER_ID != null){
-					
-					visibleLayers.push(me.kradInfo[i].PD_LAYER_ID);
-				}
-				
-				if(me.kradInfo[i].EVENT_TYPE == "Line" && me.kradInfo[i].LO_LAYER_ID != null){
-					
-					visibleLayers.push(me.kradInfo[i].LO_LAYER_ID);
-				}
-			}
-		}
-		
-		me.dynamicLayer.setVisibleLayers(visibleLayers);
     },
     setKRADInfo: function(){
     	
@@ -181,10 +163,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	/* khLee Test 임시 설정 개발완료 후 삭제할것.. */
 		me.kradInfo = [{
 			EXT_DATA_ID: "OBS_WQ_STR_EV",
-			TITLE: "하천수",
+			TITLE: "하천 수질 관측소",
 			CHECKED: true,
 			EVENT_TYPE: "Point",
-			PD_LAYER_ID: 6,
+			PD_LAYER_ID: 6, //
 			PE_LAYER_ID: 7,
 			LO_LAYER_ID: null,
 			LD_LAYER_ID: null,

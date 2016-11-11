@@ -19,7 +19,7 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
     itemWidth: 102,
     itemHeight: 18,
     plain: true, // 요게 있어야 background: transparent 먹음..
-    style: 'border-style: none !important; background: transparent none !important;',
+    style: 'border-style: none !important; background: transparent none !important; z-index: 99999 !important;',
     cls: 'dj_toolbarNm dj_spottextfield2',
     //width: 78,
     //height: 22,
