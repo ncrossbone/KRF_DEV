@@ -117,8 +117,10 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							
 							this.dom.setAttribute("src","./resources/images/button/btn_option_2_over.gif");
 							
+							// 임시 그래픽 클리어
+							_krad.tmpGrpLayer.clear();
 							// 포인트 그래픽 그리기
-							_krad.drawPointGrp("Point");
+							_krad.drawTempGrp("Point");
 							// 팝업 메뉴 닫기
 							_krad.closePopup();
 						},
@@ -160,8 +162,10 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							
 							this.dom.setAttribute("src","./resources/images/button/btn_option_3_over.gif");
 							
-							// 포인트 그래픽 그리기
-							_krad.drawPointGrp("Line");
+							// 임시 그래픽 클리어
+							_krad.tmpGrpLayer.clear();
+							// 임시 그래픽 그리기
+							_krad.drawTempGrp("Line");
 							// 팝업 메뉴 닫기
 							_krad.closePopup();
 						},
