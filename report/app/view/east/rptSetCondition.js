@@ -30,8 +30,47 @@ Ext.define('Report.view.east.rptSetCondition', {
 		id:"rptRadio",
 		xtype:"radiogroup",
 		vertical: true,
-		items:[{boxLabel: '연 평균', name: 'rb', inputValue: '1', checked: true},
-		       {boxLabel: '월 평균', name: 'rb', inputValue: '2'}]
+		listeners:{
+			change:{
+				fn:function(field,newValue,oldValue,options){
+					
+					var stMonth = Ext.getCmp("cmbRptPeriodStMonth");
+					var edMonth = Ext.getCmp("cmbRptPeriodEdMonth");
+					var stMonthLabel = Ext.getCmp("stMonthLabel");
+					var edMonthLabel = Ext.getCmp("edMonthLabel");
+					var rb = newValue.rb;
+					
+					if(rb!=1){
+						stMonth.show();
+						edMonth.show();
+						stMonthLabel.show();
+						edMonthLabel.show();
+					}else{
+						stMonth.hide();
+						edMonth.hide();
+						stMonthLabel.hide();
+						edMonthLabel.hide();
+					}
+				}
+			}
+		},
+		items:[{
+			boxLabel: '연 평균', 
+			name: 'rb', 
+			inputValue: '1', 
+			checked: true,
+			width:80,
+			
+		},{
+			boxLabel: '월 평균', 
+			name: 'rb', 
+			inputValue: '2',
+			width:80
+		},{
+			boxLabel: '일 자료', 
+			name: 'rb', 
+			inputValue: '3'
+		}]
 	}],
 	initComponent: function(){
 		

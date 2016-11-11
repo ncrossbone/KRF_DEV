@@ -39,7 +39,8 @@ store.load(function(a, b, c) {
 	
 	this.each(function(record, cnt, totCnt) {
 		
-		_mapServiceUrl_Rpt = record.data.mapServiceUrl_Rpt;
+		_mapServiceUrl_Rpt_Dim = record.data.mapServiceUrl_Rpt_Dim;
+		_mapServiceUrl_Rpt_Site = record.data.mapServiceUrl_Rpt_Site;
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
 		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
 		_arcServiceUrl = record.data.arcServiceUrl;

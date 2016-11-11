@@ -79,7 +79,7 @@ Ext.define('Report.view.map.dimDynamicLayerAdmin', {
         imageParameters.transparent = true;
         
         /* Dim처리 레이어 */
-        me.dimDynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_Rpt,
+        me.dimDynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_Rpt_Dim,
         		{"imageParameters": imageParameters});
 		me.dimDynamicLayer.id = "dimDynamicLayer"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dimDynamicLayer.visible = true;
