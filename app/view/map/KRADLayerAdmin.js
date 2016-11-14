@@ -507,7 +507,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    				
 	    				if(paramEvtType == "Point"){
 	    					
-	    					layerId = me.kradInfo[i].PD_LAYER_ID;
+	    					layerId = me.kradInfo[i].PE_LAYER_ID;
 	    				}
 	    				
 	    				if(paramEvtType == "Line"){
