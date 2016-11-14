@@ -219,6 +219,30 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			
 			if(kradMetaInfo!=undefined) kradMetaInfo.close();
 			if(kradSchConf!=undefined) kradSchConf.close();
+			
+			
+			
+			
+			
+			//KRAD 레이어 로컬스토리지 내용으로 Visibility
+			var kradLayer = [];
+			var confInfo2 = localStorage['_kradExtInfo2_'];  //사용자지정 로컬스토리지
+			var jsonConf2 = JSON.parse(confInfo2);
+			
+			if(jsonConf2.length > 0){
+				for(var i =0 ; i < jsonConf2.length;i++){
+					if(jsonConf2[i].EVENT_TYPE == "Point"){
+						kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+					}
+					if(jsonConf2[i].EVENT_TYPE == "Line"){
+						kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+					}
+				}
+			}
+			
+			_krad.setKradOnOff(kradLayer);
+			
+			
 		}
 		
 		// 일반모드 버튼
@@ -286,6 +310,17 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			
 			if(kradMetaInfo!=undefined) kradMetaInfo.close();
 			if(kradSchConf!=undefined) kradSchConf.close();
+			
+			
+			var searchConfigHeader = Ext.getCmp("searchConfigHeader");
+			if(searchConfigHeader != undefined){
+				searchConfigHeader.close();
+			}
+			
+			//KRAD 레이어 해제
+			var kradLayer = [];
+			_krad.setKradOnOff(kradLayer);
+			
 		}
 		
 		////console.info("dd");
