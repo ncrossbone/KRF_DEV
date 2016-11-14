@@ -54,12 +54,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//var queryTask = new esri.tasks.QueryTask('http://cetech.iptime.org:6080/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
 			//var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL v2
 			//_kradMapserviceUrl + '/' + _kradCatSearchId
-			//var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
-			var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
+			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
+			//var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
 			
 			if(buttonInfo1.lastValue != null){
+				
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == "" ){
 					query.where = "CAT_DID like '"+buttonInfo2.lastValue+"%'";
 				}else{
@@ -67,6 +68,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 
 			}else if(buttonInfo1.lastValue == null && startPoint.rawValue == "" && endPoint.rawValue == "" && nameInfo.rawValue == "" ){
+				
 				if(amdBtn2.lastValue == null){
 					query.where = "ADM_CD like '"+amdBtn1.lastValue+"%'";
 				}else if(amdBtn2.lastValue != null && amdBtn3.lastValue == null){
@@ -97,24 +99,38 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				
 				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
+					
+					queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId);
+					
 					this.catDid = [];
 					var reachBtn = Ext.getCmp("btnModeReach");
 					
-					var withWhere = "CAT_DID IN (";
-					var withoutWhere = "CAT_DID IN (";
+					var catWhere = "CAT_DID IN (";
+					var withWhere = "";
+					var withoutWhere = "";
 						
 						query.where = "CAT_DID IN ("; 
 						
 						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
 							
-							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != undefined && 
-									me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != null){
+							catWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
+							
+							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 
+									me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != null){
 								
-								withWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
+								var kInfoIdx = _krad.kradInfo.map(function(obj){
+									return obj.EXT_DATA_ID;
+								}).indexOf(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
+								
+								if(kInfoIdx > -1){
+									withWhere += " AND LAYER_CODE = '" + _krad.kradInfo[kInfoIdx].LAYER_CODE + "'";
+								}
+								
+								withWhere += " AND EXT_DATA_ID = '" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID + "'";
 							}
 							else{
 								
-								withoutWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
+								withoutWhere += " AND EXT_DATA_ID IS NULL";
 							}
 							
 							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
@@ -122,13 +138,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
 						}
 						
-						withWhere = withWhere.substring(0, withWhere.length - 2) + ") AND AREA_EVENT_ID is not null";
-						withoutWhere = withoutWhere.substring(0, withoutWhere.length - 2) + ") AND AREA_EVENT_ID is null";
+						catWhere = catWhere.substring(0, catWhere.length - 2) + ")";
+						
+						withWhere = catWhere + withWhere;
+						withoutWhere = catWhere + withoutWhere;
 						
 						query.where = "(" + withWhere + ") OR (" + withoutWhere + ")"
 						
-						/*console.info(withWhere);
-						console.info(withoutWhere);*/
+						//console.info(query.where);
 						
 						//query.where = query.where.substring(0, query.where.length - 2);
 						//query.where += ")";
@@ -153,13 +170,18 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				$.each(result.features, function(cnt, feature){
 					
-					if($.inArray(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE, filterArr) === -1){
+					if($.inArray(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID, filterArr) === -1){
 						
-						filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE);
+						filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE + feature.attributes.EXT_DATA_ID);
 						newFeatures.push(feature);
 					}
 				});
 				
+				/*newFeatures.sort(function(a, b){
+					
+					return b.attributes.LAYER_CODE - a.attributes.LAYER_CODE;
+				});
+				console.info(newFeatures.map(function(obj){return obj.attributes.LAYER_CODE + obj.attributes.EXT_DATA_ID}));*/
 				result.features = newFeatures;
 				
 				var tMap = result.features.map(function(obj){
@@ -208,7 +230,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					}
 					return;
 				}
-
 				
 				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) */
 				var arrGroupCodes = [];
@@ -224,9 +245,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				////console.info(arrGroupCodes);
 				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
 				
+				var preExtId = result.features[0].attributes.EXT_DATA_ID;
+				
 				// 그룹 코드 루프 시작
 				$.each(arrGroupCodes, function(cnt, groupCode){
-				
+					
 					/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) */
 					var groupFeature = result.features.filter(function(feature){
 						
@@ -252,10 +275,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					var arrLayerCodes = [];
 					
 					$.each(groupFeature, function(cnt, feature){
-						
-						if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
+						//console.info(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID);
+						//if($.inArray(feature.attributes.LAYER_CODE, arrLayerCodes) === -1){
+						if($.inArray(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID, arrLayerCodes) === -1){
 							
-							arrLayerCodes.push(feature.attributes.LAYER_CODE);
+							arrLayerCodes.push(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID);
 						}
 					});
 					/* 해당 그룹코드 내에서 중복제거한 레이어코드 배열에 넣기 (arrLayerCodes) 끝 */
@@ -265,8 +289,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						
 						var layerFeatures = groupFeature.filter(function(feature){
 							
-							if(feature.attributes.LAYER_CODE === layerCode){
-								
+							//if(feature.attributes.LAYER_CODE === layerCode){
+							if(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID === layerCode){
+								//console.info(feature.attributes.LAYER_CODE + feature.attributes.EXT_DATA_ID);
+								if(feature.attributes.EXT_DATA_ID != undefined && feature.attributes.EXT_DATA_ID != null){
+									feature.attributes.LAYER_CODE = feature.attributes.LAYER_CODE + "_" + cnt;
+									feature.attributes.LAYER_NM = feature.attributes.LAYER_NM + "_TEST";
+									feature.attributes.isKradLayer = true;
+								}
 								return feature;
 							}
 						});
@@ -276,6 +306,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "("+layerFeatures.length+")\",\n";
+						if(layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null){
+							jsonStr += "			\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+						}
 						if(cnt == 0 ){
 							jsonStr += "			\"expanded\": true,\n"; // 펼치기..
 						}else{
@@ -284,7 +317,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "			\"children\": [";
 						
 						
-						
+						//console.info(layerFeatures.map(function(obj){return obj.attributes.JIJUM_NM}));
 						$.each(layerFeatures, function(cnt, layerFeature){
 							
 							
@@ -292,7 +325,30 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							var confInfo = localStorage['_searchConfigInfo_'];
 							var jsonConf = JSON.parse(confInfo);
 							
-							if(jsonConf.isKrad == false){
+							if(layerFeature.attributes.EXT_DATA_ID == undefined || layerFeature.attributes.EXT_DATA_ID == null){
+								jsonStr += "{\n";
+								jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+								jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+								jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+								jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+								jsonStr += "				\"leaf\": true,\n";
+								jsonStr += "				\"checked\": null\n";
+								jsonStr += "			}, ";
+							}
+							else{
+								jsonStr += "{\n";
+								jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "_" + cnt + "\",\n";
+								jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+								jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+								jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+								jsonStr += "				\"leaf\": true,\n";
+								jsonStr += "				\"checked\": null\n";
+								jsonStr += "			}, ";
+							}
+							
+							/*if(jsonConf.isKrad == false){
 								if(layerFeature.attributes.AREA_EVENT_ID == null){
 									jsonStr += "{\n";
 									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
@@ -328,7 +384,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "			}, ";
 								}
 								
-							}
+							}*/
 							
 						});
 						
@@ -358,6 +414,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				jsonStr += "]\n";
 				
 				jsonStr += "}";
+				
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);

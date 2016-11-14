@@ -23,6 +23,11 @@ Ext.define('KRF_DEV.store.krad.krad_tmp2', {
 		// beforeload, load, afterload
 		load: function(store) {
 			
+			for(var i = 0; i < store.data.items.length; i++){
+				
+				_krad.kradInfo.push(store.data.items[i].data);
+			}
+			//console.info(_krad.kradInfo);
 			return;
 			/*var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl+"/"+_kradCatExtDataInfo); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();

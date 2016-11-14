@@ -44,7 +44,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	drawSymbol_A: null, // krad area 심볼
 	drawSymbol_D: null, // 하류 심볼
 	
-	kradInfo: null,
+	kradInfo: [],
 	
 	isShowPopup: false, // 팝업 오픈 여부
 	clickPopBtnId: "", // 클릭된 컨텍스트 메뉴 버튼 아이디
@@ -59,7 +59,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		me.setDynamicLayer();
 		
 		me.dynamicLayer.setVisibleLayers([-1]);
-		me.setKradOnOff();
 		
 		require(["esri/symbols/SimpleMarkerSymbol",
 		         "esri/symbols/SimpleLineSymbol",
@@ -169,7 +168,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	me.kradServiceUrl = _kradInfo.kradServiceUrl;
     	
     	/* khLee Test 임시 설정 개발완료 후 삭제할것.. */
-		me.kradInfo = [{
+		/*me.kradInfo = [{
 			EXT_DATA_ID: "OBS_WQ_STR_EV",
 			TITLE: "하천 수질 관측소",
 			CHECKED: true,
@@ -205,7 +204,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			LE_LAYER_ID: 18,
 			AE_LAYER_ID: 19,
 			AO_LAYER_ID: null
-		}];
+		}];*/
 		/* khLee Test 임시 설정 개발완료 후 삭제할것.. 끝 */
     },
     // Context Menu 팝업 생성
