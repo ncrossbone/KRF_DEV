@@ -59,6 +59,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		me.setDynamicLayer();
 		
 		me.dynamicLayer.setVisibleLayers([-1]);
+		me.setKradOnOff();
 		
 		require(["esri/symbols/SimpleMarkerSymbol",
 		         "esri/symbols/SimpleLineSymbol",
@@ -122,16 +123,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.downGrpLayer.visible = true;
 			me.map.addLayer(me.downGrpLayer);
 			
-			me.tmpGrpLayer = new GraphicsLayer();
-			me.tmpGrpLayer.id = "tmpGrpLayer";
-			me.tmpGrpLayer.visible = true;
-			me.map.addLayer(me.tmpGrpLayer);
-			
-			me.symGrpLayer = new GraphicsLayer();
-			me.symGrpLayer.id = "symGrpLayer";
-			me.symGrpLayer.visible = true;
-			me.map.addLayer(me.symGrpLayer);
-			
 			me.lineGrpLayer = new GraphicsLayer();
 			me.lineGrpLayer.id = "lineGrpLayer";
 			me.lineGrpLayer.visible = true;
@@ -141,6 +132,16 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.areaGrpLayer.id = "areaGrpLayer";
 			me.areaGrpLayer.visible = true;
 			me.map.addLayer(me.areaGrpLayer);
+			
+			me.tmpGrpLayer = new GraphicsLayer();
+			me.tmpGrpLayer.id = "tmpGrpLayer";
+			me.tmpGrpLayer.visible = true;
+			me.map.addLayer(me.tmpGrpLayer);
+			
+			me.symGrpLayer = new GraphicsLayer();
+			me.symGrpLayer.id = "symGrpLayer";
+			me.symGrpLayer.visible = true;
+			me.map.addLayer(me.symGrpLayer);
 		});
     },
     
@@ -879,8 +880,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						if(tmpIdx == -1){
 							
 							/* 하류 그래픽 그리기 (필요없을때 삭제 요..) */
-							feature.setSymbol(me.drawSymbol_D);
-							me.downGrpLayer.add(feature);
+							/*feature.setSymbol(me.drawSymbol_D);
+							me.downGrpLayer.add(feature);*/
 							/* 하류 그래픽 그리기 끝 */
 							
 							cnt++;

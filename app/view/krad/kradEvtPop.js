@@ -7,7 +7,7 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
 	//cls: 'dj_toolbarConf',
-	style: "background-image: url(./resources/images/button/option_bg1.png); border:0px;",
+	style: "background-image: url(./resources/images/button/option_bg2.png); background-size: 78px 130px; border:0px;",
 	header: {
 		height: 1,
 		style: "background-color: transparent; border: none;"
@@ -26,15 +26,17 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 	polyClickEvt: null, // 면 버튼 클릭 이벤트
 	polyOverEvt: null, // 면 버튼 오버 이벤트
 	polyOutEvt: null, // 면 버튼 아웃 이벤트
+	
+	arrEvtType: [], // 이벤트 타입 배열
 
 	initComponent: function(){
 		
 		var me = this;
 		
-		me.items = [{
+		me.reachBtnObj = {
 			xtype: "image", // 리치(Reach)
 			id: "btnKradReach",
-			src:"./resources/images/button/btn_option_1_over.gif",
+			src:"./resources/images/button/btn_option_1_off.gif",
 			style:"padding-left:4px; margin-top:2px; padding-right:4px; cursor: pointer;",
 			width: "100%",
 			height: 21,
@@ -71,38 +73,46 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						// 버튼이 클릭되지 않았을 때
 						if(me.clickBtnId != this.id){
 							
-							this.dom.setAttribute("src","./resources/images/button/btn_option_1_over.gif");
+							this.dom.setAttribute("src","./resources/images/button/btn_option_1_off.gif");
 						}
 					}
 				}
 			}
-		}, {
+		};
+		
+		me.pointBtnObj = {
 			xtype: "image", // 점(Point)
 			id: "btnKradPoint",
 			src:"./resources/images/button/btn_option_2_off.gif",
 			style:"padding-left:4px; padding-top: 0px; padding-right:4px;",
 			width: "100%",
 			height: 21
-		}, {
+		};
+		
+		me.lineBtnObj = {
 			xtype: "image", // 선(Line)
 			id: "btnKradLine",
 			src:"./resources/images/button/btn_option_3_off.gif",
 			style:"padding-left:4px; padding-right:4px;",
 			height: 21,
 			width: "100%"
-		}, {
+		};
+		
+		me.polygonBtnObj = {
 			xtype: "image", // 면(Area)
 			id: "btnKradPolygon",
 			src:"./resources/images/button/btn_option_4_off.gif",
 			style:"padding-left:4px; padding-right:4px;",
 			height: 21,
 			width: "100%"
-		}, {
+		};
+		
+		me.cancelBtnObj = {
 			xtype: "image", // 취소
 			src:"./resources/images/button/btn_cancel.gif",
-			style:"padding-left:4px; padding-right:4px;",
-			height: 15,
-			width: "50%",
+			style:"padding-left:4px; padding-right:2px;",
+			height: 17,
+			width: 40,
 			listeners: {
 				el: {
 					click: function(){
@@ -124,12 +134,14 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 					}
 				}
 			}
-		}, {
+		};
+		
+		me.closeBtnObj = {
 			xtype: "image", // 닫기
 			src:"./resources/images/button/btn_close4.gif",
 			style:"padding-right:4px; cursor: pointer;",
-			height: 15,
-			width: "50%",
+			height: 17,
+			width: 40,
 			listeners: {
 				el: {
 					click: function(){
@@ -144,11 +156,15 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 					}
 				}
 			}
-		}];
-		
-		me.setItemDisabled();
+		};
 		
 		me.callParent();
+		
+		me.setEvtType();
+		
+		Ext.defer(function(){
+			me.setItemDisabled();
+		}, 1);
 	},
 	// 버튼 src 초기화
 	initBtnSrc: function(){
@@ -161,11 +177,11 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 			btnItems[i].setSrc(btnItems[i].src);
 		}
 	},
-	setItemDisabled: function(){
+	setEvtType: function(){
 		
 		var me = this;
 		
-		me.arrEventTypes = [];
+		me.arrEvtType = [];
 		
 		for(var i = 0; i < _krad.kradInfo.length; i++){
 			
@@ -209,188 +225,235 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						
 						var evtType = _krad.kradInfo[evtIdx].EVENT_TYPE;
 						
-						if(evtType == "Point"){
-							
-							var pointBtn = Ext.getCmp("btnKradPoint");
-							
-							if(_krad.clickPopBtnId == "btnKradPoint"){
-								
-								pointBtn.setSrc("./resources/images/button/btn_option_2_on.gif");
-							}
-							else{
-								
-								pointBtn.setSrc("./resources/images/button/btn_option_2_over.gif");
-							}
-							
-							if(me.pClickEvt != undefined && me.pClickEvt != null){
-								me.pClickEvt.remove();
-							}
-							
-							me.pClickEvt = pointBtn.getEl().on("click", function(){
-								
-								// 버튼 아이디 셋팅
-								_krad.clickPopBtnId = this.id;
-								
-								// 임시 그래픽 클리어
-								_krad.tmpGrpLayer.clear();
-								// 포인트 그래픽 그리기
-								_krad.drawTempGrp("Point");
-								// 팝업 메뉴 닫기
-								_krad.closePopup();
-							});
-							
-							if(me.pOverEvt != undefined && me.pOverEvt != null){
-								me.pOverEvt.remove();
-							}
-							
-							me.pOverEvt = pointBtn.getEl().on("mouseover", function(){
-								
-								// 버튼이 클릭되지 않았을 때
-								if(_krad.clickPopBtnId != this.id){
-									
-									// 이미지 변경
-									this.dom.setAttribute("src","./resources/images/button/btn_option_2_on.gif");
-									this.setStyle("cursor", "pointer");
-								}
-							});
-							
-							if(me.pOutEvt != undefined && me.pOutEvt != null){
-								me.pOutEvt.remove();
-							}
-							
-							me.pOutEvt = pointBtn.getEl().on("mouseout", function(){
-								
-								// 버튼이 클릭되지 않았을 때
-								if(_krad.clickPopBtnId != this.id){
-									
-									// 이미지 변경
-									this.dom.setAttribute("src","./resources/images/button/btn_option_2_over.gif");
-								}
-							});
-						}
+						var evtIdx = me.arrEvtType.indexOf(evtType);
 						
-						if(evtType == "Line"){
+						if(evtIdx == -1){
 							
-							var lineBtn = Ext.getCmp("btnKradLine");
-							
-							if(_krad.clickPopBtnId == "btnKradLine"){
-								
-								lineBtn.setSrc("./resources/images/button/btn_option_3_on.gif");
-							}
-							else{
-								
-								lineBtn.setSrc("./resources/images/button/btn_option_3_over.gif");
-							}
-							
-							if(me.lClickEvt != undefined && me.lClickEvt != null){
-								me.lClickEvt.remove();
-							}
-							
-							me.lClickEvt = lineBtn.getEl().on("click", function(){
-								
-								// 버튼 아이디 셋팅
-								_krad.clickPopBtnId = this.id;
-								
-								// 임시 그래픽 클리어
-								_krad.tmpGrpLayer.clear();
-								// 임시 그래픽 그리기
-								_krad.drawTempGrp("Line");
-								// 팝업 메뉴 닫기
-								_krad.closePopup();
-							});
-							
-							if(me.lOverEvt != undefined && me.lOverEvt != null){
-								me.lOverEvt.remove();
-							}
-							
-							me.lOverEvt = lineBtn.getEl().on("mouseover", function(){
-								
-								// 버튼이 클릭되지 않았을 때
-								if(_krad.clickPopBtnId != this.id){
-									
-									// 이미지 변경
-									this.dom.setAttribute("src","./resources/images/button/btn_option_3_on.gif");
-									this.setStyle("cursor", "pointer");
-								}
-							});
-							
-							if(me.lOutEvt != undefined && me.lOutEvt != null){
-								me.lOutEvt.remove();
-							}
-							
-							me.lOutEvt = lineBtn.getEl().on("mouseout", function(){
-								
-								// 버튼이 클릭되지 않았을 때
-								if(_krad.clickPopBtnId != this.id){
-									
-									// 이미지 변경
-									this.dom.setAttribute("src","./resources/images/button/btn_option_3_over.gif");
-								}
-							});
-						}
-						
-						if(evtType == "Polygon"){
-							
-							var polygonBtn = Ext.getCmp("btnKradPolygon");
-							
-							if(_krad.clickPopBtnId == "btnKradPolygon"){
-								
-								polygonBtn.setSrc("./resources/images/button/btn_option_4_on.gif");
-							}
-							else{
-								
-								polygonBtn.setSrc("./resources/images/button/btn_option_4_over.gif");
-							}
-							
-							if(me.polyClickEvt != undefined && me.polyClickEvt != null){
-								me.polyClickEvt.remove();
-							}
-							
-							me.polyClickEvt = polygonBtn.getEl().on("click", function(){
-								
-								// 버튼 아이디 셋팅
-								_krad.clickPopBtnId = this.id;
-								
-								/*// 임시 그래픽 클리어
-								_krad.tmpGrpLayer.clear();
-								// 임시 그래픽 그리기
-								_krad.drawTempGrp("Polygon");
-								// 팝업 메뉴 닫기
-								_krad.closePopup();*/
-							});
-							
-							if(me.polyOverEvt != undefined && me.polyOverEvt != null){
-								me.polyOverEvt.remove();
-							}
-							
-							me.polyOverEvt = polygonBtn.getEl().on("mouseover", function(){
-								
-								// 버튼이 클릭되지 않았을 때
-								if(_krad.clickPopBtnId != this.id){
-									
-									// 이미지 변경
-									this.dom.setAttribute("src","./resources/images/button/btn_option_4_on.gif");
-									this.setStyle("cursor", "pointer");
-								}
-							});
-							
-							if(me.polyOutEvt != undefined && me.polyOutEvt != null){
-								me.polyOutEvt.remove();
-							}
-							
-							me.polyOutEvt = polygonBtn.getEl().on("mouseout", function(){
-								
-								// 버튼이 클릭되지 않았을 때
-								if(_krad.clickPopBtnId != this.id){
-									
-									// 이미지 변경
-									this.dom.setAttribute("src","./resources/images/button/btn_option_4_over.gif");
-								}
-							});
+							me.arrEvtType.push(evtType);
 						}
 					}
 				});
 			});
+		}
+	},
+	setItemDisabled: function(){
+		
+		var me = this;
+		
+		// 리치 버튼 추가
+		me.add(me.reachBtnObj);
+		
+		// 점 버튼 추가
+		var idx = me.arrEvtType.indexOf("Point");
+		if(idx > -1){
+			
+			me.add(me.pointBtnObj);
+			
+			var pointBtn = Ext.getCmp("btnKradPoint");
+			
+			if(_krad.clickPopBtnId == "btnKradPoint"){
+				
+				pointBtn.setSrc("./resources/images/button/btn_option_2_on.gif");
+			}
+			else{
+				
+				pointBtn.setSrc("./resources/images/button/btn_option_2_off.gif");
+			}
+			
+			if(me.pClickEvt != undefined && me.pClickEvt != null){
+				me.pClickEvt.remove();
+			}
+			
+			me.pClickEvt = pointBtn.getEl().on("click", function(){
+				
+				// 버튼 아이디 셋팅
+				_krad.clickPopBtnId = this.id;
+				
+				// 임시 그래픽 클리어
+				_krad.tmpGrpLayer.clear();
+				// 포인트 그래픽 그리기
+				_krad.drawTempGrp("Point");
+				// 팝업 메뉴 닫기
+				_krad.closePopup();
+			});
+			
+			if(me.pOverEvt != undefined && me.pOverEvt != null){
+				me.pOverEvt.remove();
+			}
+			
+			me.pOverEvt = pointBtn.getEl().on("mouseover", function(){
+				
+				// 버튼이 클릭되지 않았을 때
+				if(_krad.clickPopBtnId != this.id){
+					
+					// 이미지 변경
+					this.dom.setAttribute("src","./resources/images/button/btn_option_2_on.gif");
+					this.setStyle("cursor", "pointer");
+				}
+			});
+			
+			if(me.pOutEvt != undefined && me.pOutEvt != null){
+				me.pOutEvt.remove();
+			}
+			
+			me.pOutEvt = pointBtn.getEl().on("mouseout", function(){
+				
+				// 버튼이 클릭되지 않았을 때
+				if(_krad.clickPopBtnId != this.id){
+					
+					// 이미지 변경
+					this.dom.setAttribute("src","./resources/images/button/btn_option_2_off.gif");
+				}
+			});
+		}
+		
+		// 라인 버튼 추가
+		idx = me.arrEvtType.indexOf("Line");
+		if(idx > -1){
+			
+			me.add(me.lineBtnObj);
+			
+			var lineBtn = Ext.getCmp("btnKradLine");
+			
+			if(_krad.clickPopBtnId == "btnKradLine"){
+				
+				lineBtn.setSrc("./resources/images/button/btn_option_3_on.gif");
+			}
+			else{
+				
+				lineBtn.setSrc("./resources/images/button/btn_option_3_off.gif");
+			}
+			
+			if(me.lClickEvt != undefined && me.lClickEvt != null){
+				me.lClickEvt.remove();
+			}
+			
+			me.lClickEvt = lineBtn.getEl().on("click", function(){
+				
+				// 버튼 아이디 셋팅
+				_krad.clickPopBtnId = this.id;
+				
+				// 임시 그래픽 클리어
+				_krad.tmpGrpLayer.clear();
+				// 임시 그래픽 그리기
+				_krad.drawTempGrp("Line");
+				// 팝업 메뉴 닫기
+				_krad.closePopup();
+			});
+			
+			if(me.lOverEvt != undefined && me.lOverEvt != null){
+				me.lOverEvt.remove();
+			}
+			
+			me.lOverEvt = lineBtn.getEl().on("mouseover", function(){
+				
+				// 버튼이 클릭되지 않았을 때
+				if(_krad.clickPopBtnId != this.id){
+					
+					// 이미지 변경
+					this.dom.setAttribute("src","./resources/images/button/btn_option_3_on.gif");
+					this.setStyle("cursor", "pointer");
+				}
+			});
+			
+			if(me.lOutEvt != undefined && me.lOutEvt != null){
+				me.lOutEvt.remove();
+			}
+			
+			me.lOutEvt = lineBtn.getEl().on("mouseout", function(){
+				
+				// 버튼이 클릭되지 않았을 때
+				if(_krad.clickPopBtnId != this.id){
+					
+					// 이미지 변경
+					this.dom.setAttribute("src","./resources/images/button/btn_option_3_off.gif");
+				}
+			});
+		}
+		
+		// 라인 버튼 추가
+		idx = me.arrEvtType.indexOf("Polygon");
+		if(idx > -1){
+			
+			me.add(me.polygonBtnObj);
+			
+			var polygonBtn = Ext.getCmp("btnKradPolygon");
+			
+			if(_krad.clickPopBtnId == "btnKradPolygon"){
+				
+				polygonBtn.setSrc("./resources/images/button/btn_option_4_on.gif");
+			}
+			else{
+				
+				polygonBtn.setSrc("./resources/images/button/btn_option_4_off.gif");
+			}
+			
+			if(me.polyClickEvt != undefined && me.polyClickEvt != null){
+				me.polyClickEvt.remove();
+			}
+			
+			me.polyClickEvt = polygonBtn.getEl().on("click", function(){
+				
+				// 버튼 아이디 셋팅
+				_krad.clickPopBtnId = this.id;
+				
+				/*// 임시 그래픽 클리어
+				_krad.tmpGrpLayer.clear();
+				// 임시 그래픽 그리기
+				_krad.drawTempGrp("Polygon");
+				// 팝업 메뉴 닫기
+				_krad.closePopup();*/
+			});
+			
+			if(me.polyOverEvt != undefined && me.polyOverEvt != null){
+				me.polyOverEvt.remove();
+			}
+			
+			me.polyOverEvt = polygonBtn.getEl().on("mouseover", function(){
+				
+				// 버튼이 클릭되지 않았을 때
+				if(_krad.clickPopBtnId != this.id){
+					
+					// 이미지 변경
+					this.dom.setAttribute("src","./resources/images/button/btn_option_4_on.gif");
+					this.setStyle("cursor", "pointer");
+				}
+			});
+			
+			if(me.polyOutEvt != undefined && me.polyOutEvt != null){
+				me.polyOutEvt.remove();
+			}
+			
+			me.polyOutEvt = polygonBtn.getEl().on("mouseout", function(){
+				
+				// 버튼이 클릭되지 않았을 때
+				if(_krad.clickPopBtnId != this.id){
+					
+					// 이미지 변경
+					this.dom.setAttribute("src","./resources/images/button/btn_option_4_off.gif");
+				}
+			});
+		}
+		
+		me.add(me.cancelBtnObj);
+		me.add(me.closeBtnObj);
+		
+		//me.setHeight(40);
+		//me.setHeight(74);
+		//me.setHeight(98);
+		//me.setHeight(124);
+		
+		if(me.arrEvtType.length == 0){
+			me.setHeight(40);
+		}
+		if(me.arrEvtType.length == 1){
+			me.setHeight(74);
+		}
+		if(me.arrEvtType.length == 2){
+			me.setHeight(98);
+		}
+		if(me.arrEvtType.length == 3){
+			me.setHeight(124);
 		}
 	}
 });
