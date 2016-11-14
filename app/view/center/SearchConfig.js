@@ -128,6 +128,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 						 afterrender:function( thisObj, eOpts ){
 						        var sm=thisObj.getSelectionModel();
 						        sm.selectAll(true);
+						        sm.setLocked(true);
+						        //console.info(sm);
 						 }
 				    },
 				}]
