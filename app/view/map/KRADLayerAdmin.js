@@ -1,5 +1,7 @@
 Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	
+	kradServiceUrl: "",
+	
 	map: null,
 	popup: null,
 	mapClickObj: null,
@@ -44,6 +46,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	
 	kradInfo: null,
 	
+	isShowPopup: false, // 팝업 오픈 여부
+	clickPopBtnId: "", // 클릭된 컨텍스트 메뉴 버튼 아이디
+	
 	constructor: function(map) {
 		
 		var me = this;
@@ -54,7 +59,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		me.setDynamicLayer();
 		
 		me.dynamicLayer.setVisibleLayers([-1]);
-		
 		
 		require(["esri/symbols/SimpleMarkerSymbol",
 		         "esri/symbols/SimpleLineSymbol",
@@ -151,7 +155,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	var me = this;
     	
-    	me.dynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer(_kradInfo.kradServiceUrl);
+    	me.dynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer(me.kradServiceUrl);
 		me.dynamicLayer.id = "kradLayerAdmin"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer.visible = true;
 		me.map.addLayer(me.dynamicLayer);
@@ -160,6 +164,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     setKRADInfo: function(){
     	
     	var me = this;
+    	
+    	me.kradServiceUrl = _kradInfo.kradServiceUrl;
     	
     	/* khLee Test 임시 설정 개발완료 후 삭제할것.. */
 		me.kradInfo = [{
@@ -264,7 +270,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		me.btnObj = SetBtnOnOff(btnId);
     	}
     	
-    	var isShowPopup = false;
+    	me.isShowPopup = false;
     	
     	if(me.btnObj != undefined && me.btnObj != null){
     		
@@ -275,7 +281,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    	}
 	    	else{
 		    	
-	    		isShowPopup = true;
+	    		me.isShowPopup = true;
 	    		
 		    	if(me.drawOption == "startPoint"){
 		    		
@@ -316,11 +322,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
 			    			
 			    			// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
-			    			isShowPopup = false;
+			    			me.isShowPopup = false;
 			    		}
 			    		else{
 			    			
-			    			isShowPopup = true;
+			    			me.isShowPopup = true;
 			    		}
 		    		}
 		    		
@@ -339,10 +345,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    			// 오른버튼 컨텍스트 메뉴 풀기
 		    			document.oncontextmenu = null;
 		    			
-			    		if(isShowPopup == true){
+			    		if(me.isShowPopup == true){
 			    			
 			    			me.setRchIdsWithEvent();
-			    			me.showPopup();
 			    		}
 			    		else{
 			    			
@@ -372,7 +377,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		}
     },
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
-     * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회 */
+     * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
+     * 조회 완료 후 컨텍스트 메뉴 팝업 오픈 */
     setRchIdsWithEvent: function(){
     	
     	var me = this;
@@ -403,6 +409,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			}
 			
 			me.rchIds = [];
+			me.clickedReachLines = [];
 			
 			// 이벤트로 리치라인 조회
 			queryTask.execute(query, function(featureSet){
@@ -414,6 +421,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						me.rchIds.push(featureSet.features[i].attributes.RCH_ID);
 						me.clickedReachLines.push(featureSet.features[i]); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
 					}
+					
+					me.showPopup();
 				}
 				else{
 					
@@ -451,6 +460,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 										me.rchIds.push(lineFS.features[i].attributes.RCH_ID);
 										me.clickedReachLines.push(lineFS.features[i]); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
 									}
+									
+									me.showPopup();
 								}
 								else{
 									
@@ -518,7 +529,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    				continue;
 	    			}
 					
-					var queryTask = new QueryTask(_kradInfo.kradServiceUrl + "/" + layerId);
+					var queryTask = new QueryTask(me.kradServiceUrl + "/" + layerId);
 					var query = new Query();
 					query.returnGeometry = true;
 					query.outFields = ["*"];
@@ -1356,7 +1367,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    	         function(Query,
 		    	        		 QueryTask){
 					
-					var queryTaskLE = new QueryTask(_kradInfo.kradServiceUrl + "/" + leLayerId);
+					var queryTaskLE = new QueryTask(me.kradServiceUrl + "/" + leLayerId);
 					var queryLE = new Query();
 					var queryEmpty = new Query();
 					queryLE.returnGeometry = true;
@@ -1373,8 +1384,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						queryLE.where += " AND EVENT_ORDER > " + eventOrder;
 						queryEmpty.where += " AND EVENT_ORDER <= " + eventOrder;
 					}
-					console.info(_kradInfo.kradServiceUrl + "/" + leLayerId);
-					console.info(queryLE.where);
+					//console.info(me.kradServiceUrl + "/" + leLayerId);
+					//console.info(queryLE.where);
 					queryTaskLE.execute(queryLE, function(fSetLE){
 						
 						var features = fSetLE.features;
@@ -1387,7 +1398,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 								me.drawGraphic(features[fCnt], "kradLine");
 							}
 							
-							var queryTaskAE = new QueryTask(_kradInfo.kradServiceUrl + "/" + aeLayerId);
+							var queryTaskAE = new QueryTask(me.kradServiceUrl + "/" + aeLayerId);
 							
 							queryTaskAE.execute(queryLE, function(fSetAE){
 								
@@ -1438,7 +1449,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				var aoLayerId = me.kradInfo[kInfoIdx].AO_LAYER_ID; 
 				var aeLayerId = me.kradInfo[kInfoIdx].AE_LAYER_ID;
 	    	
-		    	var queryTask = new QueryTask(_kradInfo.kradServiceUrl + "/" + aoLayerId);
+		    	var queryTask = new QueryTask(me.kradServiceUrl + "/" + aoLayerId);
 				var query = new Query();
 				query.returnGeometry = true;
 				query.outFields = ["*"];
@@ -1446,7 +1457,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				
 				queryTask.execute(query, function(featureSet){
 					
-					var queryTaskAE = new QueryTask(_kradInfo.kradServiceUrl + "/" + aeLayerId);
+					var queryTaskAE = new QueryTask(me.kradServiceUrl + "/" + aeLayerId);
 					
 					queryTaskAE.execute(query, function(fSetAE){
 						
