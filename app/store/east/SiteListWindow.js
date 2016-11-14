@@ -99,20 +99,39 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
 					this.catDid = [];
 					var reachBtn = Ext.getCmp("btnModeReach");
+					
+					var withWhere = "CAT_DID IN (";
+					var withoutWhere = "CAT_DID IN (";
 						
 						query.where = "CAT_DID IN ("; 
 						
 						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
-							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == "1007150100"){
-								////console.info(me.reachLayerAdmin_v3_New.arrAreaGrp[i]);
+							
+							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != undefined && 
+									me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != null){
+								
+								withWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 							}
+							else{
+								
+								withoutWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
+							}
+							
 							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 							
 							this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
 						}
 						
-						query.where = query.where.substring(0, query.where.length - 2);
-						query.where += ")";
+						withWhere = withWhere.substring(0, withWhere.length - 2) + ") AND AREA_EVENT_ID is not null";
+						withoutWhere = withoutWhere.substring(0, withoutWhere.length - 2) + ") AND AREA_EVENT_ID is null";
+						
+						query.where = "(" + withWhere + ") OR (" + withoutWhere + ")"
+						
+						/*console.info(withWhere);
+						console.info(withoutWhere);*/
+						
+						//query.where = query.where.substring(0, query.where.length - 2);
+						//query.where += ")";
 					//}
 				}
 				else{
@@ -123,6 +142,30 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			query.outFields = ["*"];
 			
 			queryTask.execute(query, function(result){
+				
+				var fMap = result.features.map(function(obj){
+					return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE+ " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID; 
+				});
+				//console.info(fMap);
+				
+				var filterArr= [];
+				var newFeatures = [];
+				
+				$.each(result.features, function(cnt, feature){
+					
+					if($.inArray(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE, filterArr) === -1){
+						
+						filterArr.push(feature.attributes.LAYER_CODE + feature.attributes.JIJUM_CODE);
+						newFeatures.push(feature);
+					}
+				});
+				
+				result.features = newFeatures;
+				
+				var tMap = result.features.map(function(obj){
+					return obj.attributes.GROUP_CODE + " | " + obj.attributes.LAYER_CODE+ " | " + obj.attributes.JIJUM_CODE + " | " + obj.attributes.JIJUM_NM + " | " + obj.attributes.AREA_EVENT_ID; 
+				});
+				//console.info(tMap);
 				
 				var jsonStr = "{\n";
 				jsonStr += "	\"id\": \"0\", \n";
@@ -178,7 +221,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						arrGroupCodes.push(feature.attributes.GROUP_CODE);
 					}
 				});
-				
 				////console.info(arrGroupCodes);
 				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
 				
@@ -192,13 +234,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							return feature;
 					});
 					
-					
-					
 					/* 필터링된 그룹 코드 각각에 해당하는 feature가져오기 (groupFeature) 끝 */
 					
 					jsonStr += "{\n";
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
-					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "()\",\n";
+					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "("+groupFeature.length+")\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 					if(cnt == 0){
 						jsonStr += "		\"expanded\": true,\n";
@@ -232,9 +272,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						});
 						
 						
+						
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
-						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "()\",\n";
+						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "("+layerFeatures.length+")\",\n";
 						if(cnt == 0 ){
 							jsonStr += "			\"expanded\": true,\n"; // 펼치기..
 						}else{
@@ -243,12 +284,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "			\"children\": [";
 						
 						
-						//console.info("-----------------");
-						//console.info(layerFeatures[0].attributes.LAYER_CODE);
 						
 						$.each(layerFeatures, function(cnt, layerFeature){
 							
-							//console.info(layerFeature);
+							
+							
 							var confInfo = localStorage['_searchConfigInfo_'];
 							var jsonConf = JSON.parse(confInfo);
 							
@@ -265,48 +305,34 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "			}, ";
 								}
 							}else{
-								for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
-									if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID != undefined){
-										if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == layerFeature.attributes.CAT_DID &&
-										   me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID == layerFeature.attributes.AREA_EVENT_ID){
-											jsonStr += "{\n ";
-											jsonStr += "				\"id\": \"" + layerFeature.attributes.AREA_EVENT_ID + "\",\n";
-											jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-											jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-											jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
-											jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-											jsonStr += "				\"leaf\": true,\n";
-											jsonStr += "				\"checked\": null\n";
-											jsonStr += "			}, ";
-										}
-									}else if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.AREA_EVENT_ID == undefined &&
-											me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID == layerFeature.attributes.CAT_DID && 
-											layerFeature.attributes.AREA_EVENT_ID == null){
-										jsonStr += "{\n ";
-										jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
-										jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
-										jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
-										jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
-										jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
-										jsonStr += "				\"leaf\": true,\n";
-										jsonStr += "				\"checked\": null\n";
-										jsonStr += "			}, ";
-									}
+								
+								if(layerFeature.attributes.AREA_EVENT_ID == null || layerFeature.attributes.AREA_EVENT_ID == undefined){
+									jsonStr += "{\n";
+									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small\",\n";
+									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+									jsonStr += "				\"leaf\": true,\n";
+									jsonStr += "				\"checked\": null\n";
+									jsonStr += "			}, ";
+								}else{
+									jsonStr += "{\n ";
+									jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
+									jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
+									jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
+									jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+									jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
+									jsonStr += "				\"leaf\": true,\n";
+									jsonStr += "				\"checked\": null\n";
+									jsonStr += "			}, ";
 								}
 								
 							}
 							
-							
-							
-							
 						});
 						
-						
-						
-					
-						
-						
-						
+							
 						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
 						
 						jsonStr += "]\n";
@@ -333,7 +359,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				jsonStr += "}";
 				
-				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				store.setRootNode(jsonData);
@@ -354,12 +379,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			var pollLoadString = "{\n";
 			pollLoadString += "	\"id\": \"pollLoad\",\n";
-			pollLoadString += "	\"text\": \"<span style='vertical-align:top;'>부하량</span>";
-			pollLoadString += " <span style='vertical-align:top;'>&nbsp;&nbsp;";
-			pollLoadString += " <a style='vertical-align:top;' href='#' onClick='catTMLayerOnOff();'>";
-			pollLoadString += " <img id='catTMOnOff' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' />";
-			pollLoadString += " </a>";
-			pollLoadString += " </span>\",\n";
+			pollLoadString += "	\"text\": \"부하량\",\n"; // 집수구역별 조회 개수 집어넣자.. 아래서..
 			pollLoadString += "	\"cls\": \"khLee-x-tree-node-text-bold\",\n";
 			pollLoadString += "	\"expanded\": false,\n";
 			pollLoadString += "	\"checked\": null,\n";
@@ -369,7 +389,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			pollLoadString += "	\"children\": [{\n";
 			
 			pollLoadString += "		\"id\": \"pollLoadCat\",\n";
-			pollLoadString += "		\"text\": \"집수구역별(" + me.reachLayerAdmin_v3_New.arrAreaGrp.length + ")\",\n"; // 집수구역별 조회 개수 집어넣자.. 아래서..
+			pollLoadString += "	\"text\": \"<span style='vertical-align:top;'>집수구역별(" + me.reachLayerAdmin_v3_New.arrAreaGrp.length + ")</span>";
+			pollLoadString += " <span style='vertical-align:top;'>&nbsp;&nbsp;";
+			pollLoadString += " <a style='vertical-align:top;' href='#' onClick='catTMLayerOnOff();'>";
+			pollLoadString += " <img id='catTMOnOff' width='28' height='15' src='./resources/images/button/tmPollLoad_off.png' />";
+			pollLoadString += " </a>";
+			pollLoadString += " </span>\",\n";
 			pollLoadString += "		\"expanded\": false,\n";
 			pollLoadString += "		\"infoBtnDisabled\": true,\n";
 			pollLoadString += "		\"chartBtnDisabled\": true,\n";

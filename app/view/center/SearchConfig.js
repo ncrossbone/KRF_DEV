@@ -43,14 +43,15 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			var me = this.up("window");
 			var isKrad = me.items.items[2].value;
 			
-			var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:isKrad };
+			//var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:isKrad };
+			var saveObj = {isBonDraw:true, isJiDraw:checked};
 			
 			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 			
 		},
 		inputValue: 'isJiDraw'
 		
-	},{
+	},/*{
 		xtype: 'checkbox',
 		boxLabel: 'KRAD',
 		checked: false,
@@ -65,38 +66,43 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			
 			
 			if(checked == true){
+				var kradLayer = [];
 				
 				//공통 로컬스토리지
 				var confInfo = localStorage['_kradExtInfo_'];
-    			var jsonConf = JSON.parse(confInfo);
-    			
-    			//사용자지정 로컬스토리지
+				
+				if(confInfo != undefined){
+					var jsonConf = JSON.parse(confInfo);
+	    			if(jsonConf.length > 0){
+						for(var i =0 ; i < jsonConf.length;i++){
+							if(jsonConf[i].EVENT_TYPE == "Point"){
+								kradLayer.push(jsonConf[i].PD_LAYER_ID);
+							}
+							if(jsonConf[i].EVENT_TYPE == "Line"){
+								kradLayer.push(jsonConf[i].LO_LAYER_ID);
+							}
+						}
+					}
+				}
+				
+				
+				//사용자지정 로컬스토리지
     			var confInfo2 = localStorage['_kradExtInfo2_'];
-    			var jsonConf2 = JSON.parse(confInfo2);
-				
-				var kradLayer = [];
-				
-				if(jsonConf.length > 0){
-					for(var i =0 ; i < jsonConf.length;i++){
-						if(jsonConf[i].EVENT_TYPE == "Point"){
-							kradLayer.push(jsonConf[i].PD_LAYER_ID);
-						}
-						if(jsonConf[i].EVENT_TYPE == "Line"){
-							kradLayer.push(jsonConf[i].LO_LAYER_ID);
-						}
-					}
-				}
-				
-				if(jsonConf2.length > 0){
-					for(var i =0 ; i < jsonConf2.length;i++){
-						if(jsonConf2[i].EVENT_TYPE == "Point"){
-							kradLayer.push(jsonConf2[i].PD_LAYER_ID);
-						}
-						if(jsonConf2[i].EVENT_TYPE == "Line"){
-							kradLayer.push(jsonConf2[i].LO_LAYER_ID);
-						}
-					}
-				}
+    			if(confInfo2 != undefined){
+    				var jsonConf2 = JSON.parse(confInfo2);
+    				
+    				if(jsonConf2.length > 0){
+    					for(var i =0 ; i < jsonConf2.length;i++){
+    						if(jsonConf2[i].EVENT_TYPE == "Point"){
+    							kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+    						}
+    						if(jsonConf2[i].EVENT_TYPE == "Line"){
+    							kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+    						}
+    					}
+    				}
+    			}
+    			
 				
 				_krad.setKradOnOff(kradLayer);
 				
@@ -107,7 +113,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			}
 		},
 		inputValue: 'isKrad'
-	},{
+	},*/{
 	xtype:'container',
 	height:255,
 	items:[{
@@ -168,7 +174,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 									metaInfo.show();
 				                }
 							}]
-						}],
+						}]/*,
 					 listeners: {
 						    selectionchange: function(model, records) {
 						    	if(KRF_DEV.getApplication().kradFirst == "Y"){
@@ -223,7 +229,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			        			
 			              }
 				       }
-				    }
+				    }*/
 				}]
 			}]
 		},{
@@ -240,7 +246,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				height: '100%',
 				items: [{
 					xtype: 'grid',
-					columnLines: true,
+					columnLines: false,
 					hideHeaders: true,
 					id: 'krad_grid2',
 			        selType: 'checkboxmodel',
@@ -283,12 +289,33 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					 listeners: {
 					        selectionchange: function(model, records) {
 					            var confObj2 = [];
+					            var kradLayer = [];
+					            
+					            
 					            for(var i =0 ; i < records.length ; i++){
 					            	records[i].data.CHECKED = true;
 					            	confObj2.push(records[i].data);
 					            }
 					            
 					            localStorage['_kradExtInfo2_']= JSON.stringify(confObj2);
+					            
+			        			//사용자지정 로컬스토리지
+			        			var confInfo2 = localStorage['_kradExtInfo2_'];
+			        			var jsonConf2 = JSON.parse(confInfo2);
+								
+								
+								if(jsonConf2.length > 0){
+									for(var i =0 ; i < jsonConf2.length;i++){
+										if(jsonConf2[i].EVENT_TYPE == "Point"){
+											kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+										}
+										if(jsonConf2[i].EVENT_TYPE == "Line"){
+											kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+										}
+									}
+								}
+								
+								_krad.setKradOnOff(kradLayer);
 					            
 					        }
 				    },
@@ -329,37 +356,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		},
 		items:[{
 			xtype:'container',
-			width:90
-		},{
-			xtype:'container',
-			height:50,
-			width:70,
-			items:[{
-				xtype:'image',
-				src: './resources/images/button/btn_app.gif',
-				listeners:{
-					el:{
-						click:function(){
-							alert("시설");
-						}
-					}
-				}
-			}]
-		},{
-			xtype:'container',
-			height:50,
-			width:70,
-			items:[{
-				xtype:'image',
-				src: './resources/images/button/btn_app.gif',
-				listeners:{
-					el:{
-						click:function(){
-							alert("사고");
-						}
-					}
-				}
-			}]
+			width:230
 		},{
 			xtype:'container',
 			height:50,
@@ -371,17 +368,19 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					el:{
 						click:function(){
 							
+							var kradLayer = [];
+							
 							//공통 로컬스토리지
-							var confInfo = localStorage['_kradExtInfo_'];
-		        			var jsonConf = JSON.parse(confInfo);
+							/*var confInfo = localStorage['_kradExtInfo_'];
+		        			var jsonConf = JSON.parse(confInfo);*/
 		        			
 		        			//사용자지정 로컬스토리지
 		        			var confInfo2 = localStorage['_kradExtInfo2_'];
 		        			var jsonConf2 = JSON.parse(confInfo2);
 							
-							var kradLayer = [];
 							
-							if(jsonConf.length > 0){
+							
+							/*if(jsonConf.length > 0){
 								for(var i =0 ; i < jsonConf.length;i++){
 									if(jsonConf[i].EVENT_TYPE == "Point"){
 										kradLayer.push(jsonConf[i].PD_LAYER_ID);
@@ -390,7 +389,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 										kradLayer.push(jsonConf[i].LO_LAYER_ID);
 									}
 								}
-							}
+							}*/
 							
 							if(jsonConf2.length > 0){
 								for(var i =0 ; i < jsonConf2.length;i++){
@@ -426,12 +425,14 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				var jsonConf = JSON.parse(confInfo);
 				
 				this.items.items[1].setValue(jsonConf.isJiDraw);
-				this.items.items[2].setValue(jsonConf.isKrad);
+				//this.items.items[2].setValue(jsonConf.isKrad);
 				
 				//this.items.items[0].items.items[0].setValue(jsonConf.isJiDraw);
 			}
 			else{
-				var saveObj = {isBonDraw:true, isJiDraw:true, isKrad:false};
+				//var saveObj = {isBonDraw:true, isJiDraw:true, isKrad:false};
+				var saveObj = {isBonDraw:true, isJiDraw:true};
+				
 				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 			}
 		}
