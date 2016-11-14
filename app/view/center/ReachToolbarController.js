@@ -18,19 +18,29 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
+		var popHeader = Ext.getCmp("searchConfigHeader");
+		
 		if(popCtl == undefined){
 			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig");
+		}
+		
+		if(popHeader == undefined){
+			popHeader = Ext.create("KRF_DEV.view.center.SearchConfigHeader");
 		}
 		
 		
 		// 설정창 show
 		if(currCtl.btnOnOff == "on"){
+			popHeader.show();
 			popCtl.show();
+			
 			
 			SetWestCollapseXY("show");
 		}
 		else{
+			popHeader.close();
 			popCtl.close();
+			
 		}
 		
 		// 부하량 주제도 off

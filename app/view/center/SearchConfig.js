@@ -6,38 +6,84 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 
 	xtype: 'win-searchConfig',
 	id: 'searchConfig',
-	title: '검색설정',
-
+	title: '▼',
+	//cls:'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
 	//width: 100,
 	//height: 50,
-	width: 300,
-	height: 400,
+	width: 303,
+	height: 450,
 	x: 387,
-	y: 192,
+	y: 200,
 	//style:"padding-bottom:50px;",
-	plain: true, // 요게 있어야 background: transparent 먹음..
+	//plain: true, // 요게 있어야 background: transparent 먹음..
 	//cls: 'dj_toolbarConf',
 	header: false,
+	closable: false,
+	//sortable: false,
 	style: "border: 0px;",
 	layout: {
 		type: 'vbox',
 	},
 	
 	items: [{
+		xtype: 'panel',
+		title: '검색설정',
+		//bodyStyle:{"background-color":"#dfeaf2"}, 
+		layout: {
+			type: 'hbox',
+		},
+		width: 303,
+		height: 70,
+		items:[{
+			xtype: 'checkbox',
+			boxLabel: '본류',
+			checked: true,
+			width:50,
+			style:"margin-top:5px; margin-left:30px;",
+			handler: function(obj, checked){
+				if(checked == false){
+					obj.setValue(true);
+				}
+			},
+			inputValue: 'isBonDraw'
+
+		},{
+			xtype: 'checkbox',
+			boxLabel: '지류',
+			checked: true,
+			width:50,
+			style:"margin-top:5px; margin-left:30px;",
+			handler: function(obj, checked){
+				
+				var me = this.up("window");
+				var isKrad = me.items.items[2].value;
+				
+				var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:isKrad };
+				
+				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
+				
+			},
+			inputValue: 'isJiDraw'
+			
+		}]
+		//style:"background-color:black;"
+	},/*{
 		xtype: 'checkbox',
 		boxLabel: '본류',
 		checked: true,
+		width:50,
 		handler: function(obj, checked){
 			if(checked == false){
 				obj.setValue(true);
 			}
 		},
 		inputValue: 'isBonDraw'
-		
+
 	}, {
 		xtype: 'checkbox',
 		boxLabel: '지류',
 		checked: true,
+		width:50,
 		handler: function(obj, checked){
 			
 			var me = this.up("window");
@@ -50,10 +96,11 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		},
 		inputValue: 'isJiDraw'
 		
-	},{
+	},*//*{
 		xtype: 'checkbox',
 		boxLabel: 'KRAD',
 		checked: false,
+		width:50,
 		handler: function(obj, checked){
 			
 			var me = this.up("window");
@@ -77,16 +124,25 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			}
 		},
 		inputValue: 'isKrad'
+	},*/{
+		xtype: 'panel',
+		title: '데이터 셋 선택',
+		width: 303,
+		height: 50
 	},{
 	xtype:'container',
 	height:165,
 	items:[{
 		layout: {
-			type: 'accordion'
+			type: 'accordion',
+			animate: true,
+			multi: true
 		},
 		width: 300,
 		items:[{
+			collapsed: false,
 			xtype : 'panel',
+			//width:300,
 			//autoScroll: true,
 			layout : {
 				type : 'vbox'
@@ -103,8 +159,9 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					hideHeaders: true,
 					id: 'krad_grid',
 			        selType: 'checkboxmodel',
+			        locked   : true,
 					store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
-					columns: [{	 
+					columns: [/*{	 
 						align:'center',
 						xtype:'actioncolumn',
 						width:50,
@@ -117,10 +174,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	                        	}
 	                        }
 	                    }]
-					},{	 
+					},*/{	 
 							text      : '측정망명',
 							dataIndex : 'TITLE',
-							width: 160
+							width: 215
 							//filter: {type: 'numeric'}
 						},{	 
 							text:'버튼',
@@ -139,12 +196,12 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				                }
 							}]
 						}],
+						
 					 listeners: {
 						    selectionchange: function(model, records) {
 						    	if(KRF_DEV.getApplication().kradFirst == "Y"){
 						    		var confInfo = localStorage['_kradExtInfo_'];
 				        			var jsonConf = JSON.parse(confInfo);
-				        			
 				        			var confObj = [];
 						            for(var i =0 ; i < records.length ; i++){
 						            	records[i].data.CHECKED = true;
@@ -197,6 +254,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				}]
 			}]
 		},{
+			collapsed: false,
 			xtype : 'panel',
 			//autoScroll: true,
 			layout : {
@@ -204,6 +262,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			},
 			cls: 'dj_layer_nm',
 			title: '사 용 자 지 정',
+			style:'margin-top: 40px;',
 			items:[{
 				xtype: 'container',
 				width: '100%',
@@ -295,7 +354,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	},{
 		xtype:'container',
 		layout:{
-			type: 'hbox'
+			type: 'vbox'
 		},
 		items:[{
 			xtype:'container',
@@ -333,17 +392,16 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		if(localStorage['_searchConfigInfo_'] != null && localStorage['_searchConfigInfo_'] != undefined){
 			
 			confInfo = localStorage['_searchConfigInfo_'];
-			console.info(confInfo);
+			//console.info(confInfo);
 			
 			if(confInfo != undefined && confInfo != null){
 				var jsonConf = JSON.parse(confInfo);
-				console.info(jsonConf);
-				this.items.items[1].setValue(jsonConf.isJiDraw);
+				//this.items.items[1].setValue(jsonConf.isJiDraw);
 				
-				//this.items.items[0].items.items[0].setValue(jsonConf.isJiDraw);
+				this.items.items[0].items.items[0].setValue(jsonConf.isJiDraw);
 			}
 			else{
-				console.info("else");
+				//console.info("else");
 				var saveObj = {isBonDraw:true, isJiDraw:true, isKrad:false};
 				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 			}

@@ -1,25 +1,21 @@
 [{
-			"EXT_DATA_ID": "OBS_WQ_STR_EV",
-			"TITLE": "하천 수질 관측소",
-			"DESC": "하천 수질 관척소 정보",
-			"EVENT_TYPE": "Point",
-			"PD_LAYER_ID": "6",
-			"PE_LAYER_ID": "7",
-			"LO_LAYER_ID": null,
-			"LD_LAYER_ID": null,
-			"LE_LAYER_ID": "8",
-			"AE_LAYER_ID": "9",
-			"AO_LAYER_ID": null
+			"TITLE": "수질 측정 지점",
+			"EVENT_TYPE": "point",
+			CHECKED:true
 	},{
-			"EXT_DATA_ID": "ACCD_1024_EV",
-			"TITLE": "오염사고경로",
-			"DESC": "유조차 전복으로 인한 유류 오염사고경로",
-			"EVENT_TYPE": "Line",
-			"PD_LAYER_ID": null,
-			"PE_LAYER_ID": "0",
-			"LO_LAYER_ID": "2",
-			"LD_LAYER_ID": "3",
-			"LE_LAYER_ID": "1",
-			"AO_LAYER_ID": "4",
-			"AE_LAYER_ID": "5"
+			"TITLE": "수질 자동 측정 지점",
+			"EVENT_TYPE": "point",
+			CHECKED:true
+	},{
+			"TITLE": "퇴적물 조사 지점",
+			"EVENT_TYPE": "point",
+			CHECKED:true			
+	},{
+			"TITLE": "기타 측정 지점",
+			"EVENT_TYPE": "point",
+			CHECKED:true
+	},{
+			"TITLE": "환경 기초 시설",
+			"EVENT_TYPE": "point",
+			CHECKED:true
 	}]
