@@ -198,18 +198,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			LE_LAYER_ID: 18,
 			AE_LAYER_ID: 19,
 			AO_LAYER_ID: null
-		}, {
-			EXT_DATA_ID: "ACCD_1026_EV",
-			TITLE: "녹조발생구간",
-			CHECKED: true 
-			EVENT_TYPE: "Line",
-			PD_LAYER_ID: null,
-			PE_LAYER_ID: 10,
-			LO_LAYER_ID: 12,
-			LD_LAYER_ID: 13,
-			LE_LAYER_ID: 11,
-			AE_LAYER_ID: 15,
-			AO_LAYER_ID: 14
 		}];
 		/* khLee Test 임시 설정 개발완료 후 삭제할것.. 끝 */
     },

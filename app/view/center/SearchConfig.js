@@ -323,6 +323,9 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				    	stripeRows: true,
 				        listeners : {
 				             beforerefresh : function(view) {
+				            	 
+				            	 
+				            	 
 				                    var store2 = view.getStore();
 				            	 	var model2 = view.getSelectionModel();
 				                    var s2 = [];
