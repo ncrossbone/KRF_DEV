@@ -90,7 +90,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.drawSymbol_D = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([255, 255, 0, 0.5]), 5); // 하류 심볼
 			
 			me.drawSymbol_A = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2), new Color([0, 0, 255, 0.3]));
-			me.drawSymbol_empty = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2);
+			me.drawSymbol_empty = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 255]), 2);
 
 			me.stSymbol = new PictureMarkerSymbol({
 	 		    "angle": 0,
@@ -492,10 +492,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		        		 Query,
 		        		 GraphicsLayer,
 		        		 on){
-    		
+    		//console.info(me.kradInfo);
 	    	for(var i = 0; i < me.kradInfo.length; i++){
 	    		
-	    		if(me.kradInfo[i].CHECKED == true){
+	    		//if(me.kradInfo[i].CHECKED == true){
 	
 	    			var extDataId = me.kradInfo[i].EXT_DATA_ID;
 	    			var eventType = me.kradInfo[i].EVENT_TYPE;
@@ -534,7 +534,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					query.returnGeometry = true;
 					query.outFields = ["*"];
 					query.where = qWhere;
-					
+					//console.info(me.kradServiceUrl + "/" + layerId);
+					//console.info(query.where);
 					queryTask.execute(query, function(featureSet){
 						
 						var features = featureSet.features;
@@ -555,29 +556,41 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 									
 									var extId = graphic.attributes.EXT_DATA_ID;
 									var orgId = graphic.attributes.ORG_ID;
-									query.where = "EXT_DATA_ID = '" + extId + "' AND ORG_ID = " + orgId;
 									
-									queryTask.execute(query, function(featureSet){
+									var kInfoIdx = me.kradInfo.map(function(obj){
+										return obj.EXT_DATA_ID;
+									}).indexOf(extId);
+									
+									if(kInfoIdx > -1){
 										
-										for(var fCnt2 = 0; fCnt2 < featureSet.features.length; fCnt2++){
+										var queryTaskLine = new QueryTask(me.kradServiceUrl + "/" + me.kradInfo[kInfoIdx].LO_LAYER_ID);
+										var queryLine = new Query();
+										queryLine.returnGeometry = true;
+										queryLine.outFields = ["*"];
+										queryLine.where = "EXT_DATA_ID = '" + extId + "' AND ORG_ID = " + orgId;
+										
+										queryTaskLine.execute(queryLine, function(lineSet){
 											
-											featureSet.features[fCnt2].setSymbol(me.tempSymbol_L);
-											me.tmpGrpLayer.add(featureSet.features[fCnt2]);
-											
-											var eIdx = me.arrEvtLineGrp.map(function(obj){
-												return obj.attributes.LINE_EVENT_ID;
-											}).indexOf(featureSet.features[fCnt2].attributes.LINE_EVENT_ID);
-											
-											if(eIdx == -1){
-												me.arrEvtLineGrp.push(featureSet.features[fCnt2]);
+											for(var fCnt2 = 0; fCnt2 < lineSet.features.length; fCnt2++){
+												
+												lineSet.features[fCnt2].setSymbol(me.tempSymbol_L);
+												me.tmpGrpLayer.add(lineSet.features[fCnt2]);
+												//console.info(lineSet.features[fCnt2]);
+												var eIdx = me.arrEvtLineGrp.map(function(obj){
+													return obj.attributes.LINE_EVENT_ID;
+												}).indexOf(lineSet.features[fCnt2].attributes.LINE_EVENT_ID);
+												
+												if(eIdx == -1){
+													me.arrEvtLineGrp.push(lineSet.features[fCnt2]);
+												}
 											}
-										}
-									});
+										});
+									}
 								}
 							}
 						}
 					});
-				}
+				//}
 	    	}
     	});
     	
@@ -1093,7 +1106,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					
 					// 시작위치 또는 끝위치 일때
 					if(stIdx != -1 || edIdx != -1){
-						console.info(rchDid);
+						//console.info(rchDid);
 						if(stIdx > -1){ // 시작위치 일 때
 							
 							evtType = me.stEvtTypes[stIdx];
@@ -1453,11 +1466,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				query.returnGeometry = true;
 				query.outFields = ["*"];
 				query.where = "AREA_EVENT_ID = '" + evtId + "'";
-				
+				console.info(me.kradServiceUrl + "/" + aoLayerId);
+				console.info(query.where);
 				queryTask.execute(query, function(featureSet){
 					
 					var queryTaskAE = new QueryTask(me.kradServiceUrl + "/" + aeLayerId);
-					
+					console.info(me.kradServiceUrl + "/" + aeLayerId);
+					console.info(query.where);
 					queryTaskAE.execute(query, function(fSetAE){
 						
 						var aeFeatures = fSetAE.features; // AE 피처
