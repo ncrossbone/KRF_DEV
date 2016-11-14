@@ -13,7 +13,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	width: 303,
 	height: 450,
 	x: 387,
-	y: 172,
+	y: 200,
 
 	header: false,
 	closable: false,
@@ -287,7 +287,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			        			
 			              }
 				       }
-				    }*/
+				    }
 				}]
 			}]
 		},{
