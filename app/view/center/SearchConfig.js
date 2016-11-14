@@ -65,104 +65,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			
 		}]
 		//style:"background-color:black;"
-	},/*{
-		xtype: 'checkbox',
-		boxLabel: '본류',
-		checked: true,
-		width:50,
-		handler: function(obj, checked){
-			if(checked == false){
-				obj.setValue(true);
-			}
-		},
-		inputValue: 'isBonDraw'
-
-	}, {
-		xtype: 'checkbox',
-		boxLabel: '지류',
-		checked: true,
-		width:50,
-		handler: function(obj, checked){
-			
-			var me = this.up("window");
-			var isKrad = me.items.items[2].value;
-			
-			//var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:isKrad };
-			var saveObj = {isBonDraw:true, isJiDraw:checked};
-			
-			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
-			
-		},
-		inputValue: 'isJiDraw'
-		
-<<<<<<< HEAD
-	},*//*{
-=======
-	},/*{
->>>>>>> 11b8c6de9fc9538e945ac51cd1a048a10781723f
-		xtype: 'checkbox',
-		boxLabel: 'KRAD',
-		checked: false,
-		width:50,
-		handler: function(obj, checked){
-			
-			var me = this.up("window");
-			var isJiDraw = me.items.items[1].value;
-			
-			var saveObj = {isBonDraw:true, isJiDraw:isJiDraw ,isKrad: checked};
-			
-			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
-			
-			
-			if(checked == true){
-				var kradLayer = [];
-				
-				//공통 로컬스토리지
-				var confInfo = localStorage['_kradExtInfo_'];
-				
-				if(confInfo != undefined){
-					var jsonConf = JSON.parse(confInfo);
-	    			if(jsonConf.length > 0){
-						for(var i =0 ; i < jsonConf.length;i++){
-							if(jsonConf[i].EVENT_TYPE == "Point"){
-								kradLayer.push(jsonConf[i].PD_LAYER_ID);
-							}
-							if(jsonConf[i].EVENT_TYPE == "Line"){
-								kradLayer.push(jsonConf[i].LO_LAYER_ID);
-							}
-						}
-					}
-				}
-				
-				
-				//사용자지정 로컬스토리지
-    			var confInfo2 = localStorage['_kradExtInfo2_'];
-    			if(confInfo2 != undefined){
-    				var jsonConf2 = JSON.parse(confInfo2);
-    				
-    				if(jsonConf2.length > 0){
-    					for(var i =0 ; i < jsonConf2.length;i++){
-    						if(jsonConf2[i].EVENT_TYPE == "Point"){
-    							kradLayer.push(jsonConf2[i].PD_LAYER_ID);
-    						}
-    						if(jsonConf2[i].EVENT_TYPE == "Line"){
-    							kradLayer.push(jsonConf2[i].LO_LAYER_ID);
-    						}
-    					}
-    				}
-    			}
-    			
-				
-				_krad.setKradOnOff(kradLayer);
-				
-			}else{
-				
-				_krad.setKradOnOff([]);
-				
-			}
-		},
-		inputValue: 'isKrad'
-	},*/{
+	},{
 		xtype: 'panel',
 		title: '데이터 셋 선택',
 		width: 303,
@@ -199,20 +102,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			        selType: 'checkboxmodel',
 			        locked   : true,
 					store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
-					columns: [/*{	 
-						align:'center',
-						xtype:'actioncolumn',
-						width:50,
-						items:[{
-	                        getClass : function(value, meta, record, rowIx, ColIx, store) {
-	                        	if(record.data.SHP == "Point"){
-	                        		return 'icon_point';
-	                        	}else if(record.data.SHP == "Line"){
-	                        		return 'icon_line';
-	                        	}
-	                        }
-	                    }]
-					},*/{	 
+					columns: [{	 
 							text      : '측정망명',
 							dataIndex : 'TITLE',
 							width: 215
@@ -235,59 +125,11 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							}]
 						}],
 					 listeners: {
-						    selectionchange: function(model, records) {
-						    	if(KRF_DEV.getApplication().kradFirst == "Y"){
-						    		var confInfo = localStorage['_kradExtInfo_'];
-				        			var jsonConf = JSON.parse(confInfo);
-				        			var confObj = [];
-						            for(var i =0 ; i < records.length ; i++){
-						            	records[i].data.CHECKED = true;
-						            	jsonConf.push(records[i].data);
-						            }
-						            
-						    	}else{
-						    		var confObj = [];
-						            for(var i =0 ; i < records.length ; i++){
-						            	records[i].data.CHECKED = true;
-						            	confObj.push(records[i].data);
-						            }
-						            localStorage['_kradExtInfo_']= JSON.stringify(confObj);
-						    	}
-						    	KRF_DEV.getApplication().kradFirst = "N";
-					            
-					        }
+						 afterrender:function( thisObj, eOpts ){
+						        var sm=thisObj.getSelectionModel();
+						        sm.selectAll(true);
+						 }
 				    },
-				    
-				    viewConfig: {
-				    	stripeRows: false,
-				        listeners : {
-				        	beforerefresh : function(view) {
-			                    var store = view.getStore();
-			            	 	var model = view.getSelectionModel();
-			                    var s = [];
-			                    
-			                    var confInfo = localStorage['_kradExtInfo_'];
-			                    if(confInfo == undefined){
-			                    	return;
-			                    }
-			        			var jsonConf = JSON.parse(confInfo);
-			        			console.info(jsonConf);
-			        			
-			        			console.info(store);
-			        			store.queryBy(function(record) {
-			        				for(var i = 0; i < jsonConf.length;i++){
-				        				if(jsonConf[i].TITLE == record.data.TITLE){
-				        					s.push(record);
-				        				}
-				        			}
-			        			});
-			        			
-			        			KRF_DEV.getApplication().kradFirst = "Y";
-			        			model.select(s);
-			        			
-			              }
-				       }
-				    }
 				}]
 			}]
 		},{
@@ -433,26 +275,9 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							
 							var kradLayer = [];
 							
-							//공통 로컬스토리지
-							/*var confInfo = localStorage['_kradExtInfo_'];
-		        			var jsonConf = JSON.parse(confInfo);*/
-		        			
 		        			//사용자지정 로컬스토리지
 		        			var confInfo2 = localStorage['_kradExtInfo2_'];
 		        			var jsonConf2 = JSON.parse(confInfo2);
-							
-							
-							
-							/*if(jsonConf.length > 0){
-								for(var i =0 ; i < jsonConf.length;i++){
-									if(jsonConf[i].EVENT_TYPE == "Point"){
-										kradLayer.push(jsonConf[i].PD_LAYER_ID);
-									}
-									if(jsonConf[i].EVENT_TYPE == "Line"){
-										kradLayer.push(jsonConf[i].LO_LAYER_ID);
-									}
-								}
-							}*/
 							
 							if(jsonConf2.length > 0){
 								for(var i =0 ; i < jsonConf2.length;i++){
