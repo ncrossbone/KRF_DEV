@@ -321,10 +321,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						$.each(layerFeatures, function(cnt, layerFeature){
 							
 							
-							
-							var confInfo = localStorage['_searchConfigInfo_'];
-							var jsonConf = JSON.parse(confInfo);
-							
 							if(layerFeature.attributes.EXT_DATA_ID == undefined || layerFeature.attributes.EXT_DATA_ID == null){
 								jsonStr += "{\n";
 								jsonStr += "				\"id\": \"" + layerFeature.attributes.JIJUM_CODE + "\",\n";
