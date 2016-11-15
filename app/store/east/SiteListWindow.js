@@ -169,6 +169,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					}
 				});
 				
+				
+				
 				/*newFeatures.sort(function(a, b){
 					
 					return b.attributes.LAYER_CODE - a.attributes.LAYER_CODE;
