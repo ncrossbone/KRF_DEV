@@ -140,7 +140,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						
 					query.where = catWhere + " AND (" + extWhere + ")"
 						
-					console.info(query.where);
+
+					query.orderByFields = ["LAYER_CODE_ID"];
 				}
 				else{
 					return;
@@ -148,7 +149,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			query.outFields = ["*"];
-			query.orderByFields = ["LAYER_CODE_ID"];
 			
 			queryTask.execute(query, function(result){
 				
@@ -332,6 +332,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "				\"text\": \"" + layerFeature.attributes.JIJUM_NM + "\",\n";
 								jsonStr += "				\"catDId\": \"" + layerFeature.attributes.CAT_DID + "\",\n";
 								jsonStr += "				\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
+								jsonStr += "				\"infoBtnDisabled\": true,\n";
+								jsonStr += "				\"chartBtnDisabled\": true,\n";
+								jsonStr += "				\"srchBtnDisabled\": true,\n";
 								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 								jsonStr += "				\"leaf\": true,\n";
 								jsonStr += "				\"checked\": null\n";
