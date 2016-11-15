@@ -11,7 +11,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	//width: 100,
 	//height: 50,
 	width: 303,
-	height: 450,
+	height: 473,
 	x: 387,
 	y: 200,
 
@@ -72,14 +72,15 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		height: 50
 	},{
 	xtype:'container',
-	height:255,
+	height:300,
+	autoScroll: true,
 	items:[{
 		layout: {
 			type: 'accordion',
 			animate: true,
 			multi: true
 		},
-		width: 300,
+		width: 287,
 		items:[{
 			collapsed: false,
 			//width:300,
@@ -105,13 +106,13 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					columns: [{	 
 							text      : '측정망명',
 							dataIndex : 'TITLE',
-							width: 215
+							width: 208
 							//filter: {type: 'numeric'}
 						},{	 
 							text:'버튼',
 							align:'center',
 							xtype:'actioncolumn',
-							width:50,
+							width:45,
 							items:[{ 
 								icon: './resources/images/button/info.png',  // Use a URL in the icon config
 				                tooltip: 'Edit',
@@ -143,7 +144,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			},
 			cls: 'dj_layer_nm',
 			title: '사 용 자 지 정',
-			style:'margin-top: 40px;',
+			style:'margin-top: 20px;',
 			items:[{
 				xtype: 'container',
 				width: '100%',
@@ -171,13 +172,13 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					},{	 
 							text      : '측정망명',
 							dataIndex : 'TITLE',
-							width: 160
+							width: 158
 							//filter: {type: 'numeric'}
 						},{	 
 							text:'버튼',
 							align:'center',
 							xtype:'actioncolumn',
-							width:50,
+							width:45,
 							items:[{ 
 								icon: './resources/images/button/info.png',  // Use a URL in the icon config
 				                tooltip: 'Edit',
@@ -268,6 +269,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			xtype:'container',
 			height:50,
 			width:70,
+			style:'margin-top:20px; margin-left:5px;',
 			items:[{
 				xtype:'image',
 				src: './resources/images/button/btn_app.gif',
