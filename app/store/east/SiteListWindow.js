@@ -148,6 +148,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			query.outFields = ["*"];
+			query.orderByFields = ["LAYER_CODE_ID"];
 			
 			queryTask.execute(query, function(result){
 				
