@@ -1045,7 +1045,6 @@ GetTabControl = function(options){
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
 	//console.info(catIds);
-	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
@@ -1107,178 +1106,114 @@ ShowSearchResultReach = function(catIds){
 	var storeData = [];
 	
 	
-	
-	
-	
-	
-	if(catIds == ""){ // 리치검색에서 넘어왔을때
+	/* khLee 추가 2016/11/15 */
+	if(catIds == ""){
 		
-    	var rchMap = GetCoreMap();
-    	var sumRchLen = 0;
-    	var sumCatArea = 0;
-    	var subCatArea = 0;
-    	var tmpCatDid = "";
-    	
-    	var tmpGraphics = rchMap.reachLayerAdmin_v3_New.arrLineGrp;
-    	var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
-    	
-    	for(var i = 0; i < tmpGraphics.length; i++){
-    		var rowData = [];
-    		rowData.push(tmpGraphics[i].attributes.RCH_DID);
-    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
-    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
-    		rowData.push(tmpGraphics[i].attributes.CAT_DID);
-    		
-    		var CUM_AREA = "";
-    		
-    		for(var j = 0; j < tmpAreaGrp.length; j++){
-    			
-    			if(tmpAreaGrp[j].attributes.CAT_DID == tmpGraphics[i].attributes.CAT_DID){
-    				CUM_AREA = tmpAreaGrp[j].attributes.AREA;
-    				
-    				
-    				if(tmpCatDid.indexOf(tmpGraphics[i].attributes.CAT_DID + "|") < 0){
-						sumCatArea += tmpAreaGrp[j].attributes.AREA;
-						tmpCatDid += tmpGraphics[i].attributes.CAT_DID + "|";
-					}
-    				
-    			}
-    		}
-    		
-    		rowData.push(CUM_AREA);
-    		//sumCatArea += CUM_AREA;
-    		/*rowData.push(tmpGraphics[i].attributes.CUM_AREA);
-    		sumCatArea += tmpGraphics[i].attributes.CUM_AREA;*/
-    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
-    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
-    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
-    		if(geoTrib == "0")
-    			rowData.push("본류");
-    		else{
-    			//rowData.push(geoTrib + "지류");
-    			rowData.push("지류");
-    		}
-    		storeData.push(rowData);
-    	}
-    	//console.info(subCatArea);
-    	var rowData = [];
-		rowData.push("총계");
-		rowData.push(sumRchLen);
-		rowData.push("");
-		rowData.push(sumCatArea);
-		rowData.push("");
-		rowData.push(0);
-		rowData.push("");
-		
-		storeData.splice(0, 0, rowData);
-    	
-    	var store = new Ext.data.ArrayStore({
-    		fields: [{name: 'RCH_DID', type: 'string'},
-    		         {name: 'RCH_LEN', type: 'float'},
-    		         {name: 'CAT_DID', type: 'string'},
-//    		         {name: 'CAT_AREA', type: 'float'},
-    		         {name: 'CUM_AREA', type: 'float'},
-    		         {name: 'RIV_NM', type: 'string'},
-    		         {name: 'CUM_LEN', type: 'float'},
-    		         {name: 'GEO_TRIB', type: 'string'}]
+    	var catDids = coreMap.reachLayerAdmin_v3_New.arrAreaGrp.map(function(obj){
+    		return obj.attributes.CAT_DID;
     	});
-    	store.loadData(storeData);
-    	grdCtl.setStore(store); // 그리드 스토어 셋팅
+    	
+    	//console.info(catDids);
+    	
+    	for(var i = 0; i < catDids.length; i++){
+    		catIds += "'" + catDids[i] + "', ";
+    	}
+    	
+    	catIds = catIds.substring(0, catIds.length - 2);
 	}
-	else{ // 정보창에서 넘어왔을때
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachLineLayerId); // 레이어 URL
+	/* khLee 추가 2016/11/15 끝 */
+	
+	var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachLineLayerId); // 레이어 URL
+	
+	var query = new esri.tasks.Query();
+	query.returnGeometry = false;
+	
+	//
+	if(catIds.indexOf("'")== -1){
+		catIds = "'" + catIds + "'";
+	}
+	
+	query.where = "CAT_DID IN (" + catIds + ")";
+	//console.info(query.where);
+	query.outFields = ["*"];
+	
+	queryTask.execute(query, function(objLine){
 		
-		var query = new esri.tasks.Query();
-		query.returnGeometry = false;
+		var queryTask2 = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 리치레이어 URL
+		var query2 = new esri.tasks.Query();
+		query2.returnGeometry = false;
+	 
+		query2.where = "CAT_DID IN (" + catIds + ")";
 		
-		//
-		if(catIds.indexOf("'")== -1){
-			catIds = "'" + catIds + "'";
-		}
-		
-		query.where = "CAT_DID IN (" + catIds + ")";
-		
-		query.outFields = ["*"];
-		
-		queryTask.execute(query, function(objLine){
+		query2.outFields = ["*"];
 			
-			var queryTask2 = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 리치레이어 URL
-    		var query2 = new esri.tasks.Query();
-    		query2.returnGeometry = false;
-    	 
-    		query2.where = "CAT_DID IN (" + catIds + ")";
-    		
-    		query2.outFields = ["*"];
-    			
-			queryTask2.execute(query2, function(objArea){
+		queryTask2.execute(query2, function(objArea){
+			
+			var sumRchLen = 0;
+			var sumCatArea = 0;
+			var tmpCatDid = "";
+			
+			Ext.each(objLine.features, function(line){
 				
-				var sumRchLen = 0;
-				var sumCatArea = 0;
-				var tmpCatDid = "";
-				
-				Ext.each(objLine.features, function(line){
-					
-					//console.info(obj.attributes.CAT_DID);
-					
-					var rowData = [];
-					
-					rowData.push(line.attributes.RCH_DID);
-		    		rowData.push(line.attributes.RCH_LEN);
-		    		sumRchLen += line.attributes.RCH_LEN;
-		    		rowData.push(line.attributes.CAT_DID);
-					
-					Ext.each(objArea.features, function(area){
-						
-						if(line.attributes.CAT_DID == area.attributes.CAT_DID){
-
-		    				rowData.push(area.attributes.AREA);
-		    				
-		    				if(tmpCatDid.indexOf(line.attributes.CAT_DID + "|") < 0){
-								sumCatArea += area.attributes.AREA;
-								tmpCatDid += line.attributes.CAT_DID + "|";
-							}
-						}
-					});
-						
-			    	rowData.push(line.attributes.RIV_NM);
-		    		rowData.push(line.attributes.CUM_LEN);
-		    		var geoTrib = line.attributes.GEO_TRIB;
-		    		if(geoTrib == "0")
-		    			rowData.push("본류");
-		    		else{
-		    			rowData.push("지류");
-		    		}
-		    		
-		    		storeData.push(rowData);
-				});
+				//console.info(obj.attributes.CAT_DID);
 				
 				var rowData = [];
-				rowData.push("총계");
-				rowData.push(sumRchLen);
-				rowData.push("");
-				rowData.push(sumCatArea);
-				rowData.push("");
-				rowData.push(0);
-				rowData.push("");
-				storeData.splice(0, 0, rowData);
 				
-				var store = new Ext.data.ArrayStore({
-	        		fields: [{name: 'RCH_DID', type: 'string'},
-	        		         {name: 'RCH_LEN', type: 'float'},
-	        		         {name: 'CAT_DID', type: 'string'},
-	        		         //{name: 'CAT_AREA', type: 'float'},
-	        		         {name: 'CUM_AREA', type: 'float'},
-	        		         {name: 'RIV_NM', type: 'string'},
-	        		         {name: 'CUM_LEN', type: 'float'},
-	        		         {name: 'GEO_TRIB', type: 'string'}]
-	        	});
+				rowData.push(line.attributes.RCH_DID);
+	    		rowData.push(line.attributes.RCH_LEN);
+	    		sumRchLen += line.attributes.RCH_LEN;
+	    		rowData.push(line.attributes.CAT_DID);
 				
-	        	store.loadData(storeData);
-	        	grdCtl.setStore(store); // 그리드 스토어 셋팅
+				Ext.each(objArea.features, function(area){
+					
+					if(line.attributes.CAT_DID == area.attributes.CAT_DID){
+
+	    				rowData.push(area.attributes.AREA);
+	    				
+	    				if(tmpCatDid.indexOf(line.attributes.CAT_DID + "|") < 0){
+							sumCatArea += area.attributes.AREA;
+							tmpCatDid += line.attributes.CAT_DID + "|";
+						}
+					}
+				});
+					
+		    	rowData.push(line.attributes.RIV_NM);
+	    		rowData.push(line.attributes.CUM_LEN);
+	    		var geoTrib = line.attributes.GEO_TRIB;
+	    		if(geoTrib == "0")
+	    			rowData.push("본류");
+	    		else{
+	    			rowData.push("지류");
+	    		}
+	    		
+	    		storeData.push(rowData);
 			});
+			
+			var rowData = [];
+			rowData.push("총계");
+			rowData.push(sumRchLen);
+			rowData.push("");
+			rowData.push(sumCatArea);
+			rowData.push("");
+			rowData.push(0);
+			rowData.push("");
+			storeData.splice(0, 0, rowData);
+			
+			var store = new Ext.data.ArrayStore({
+        		fields: [{name: 'RCH_DID', type: 'string'},
+        		         {name: 'RCH_LEN', type: 'float'},
+        		         {name: 'CAT_DID', type: 'string'},
+        		         //{name: 'CAT_AREA', type: 'float'},
+        		         {name: 'CUM_AREA', type: 'float'},
+        		         {name: 'RIV_NM', type: 'string'},
+        		         {name: 'CUM_LEN', type: 'float'},
+        		         {name: 'GEO_TRIB', type: 'string'}]
+        	});
+			
+        	store.loadData(storeData);
+        	grdCtl.setStore(store); // 그리드 스토어 셋팅
 		});
-	}
-	
+	});
 }
 
 var vrow = "";

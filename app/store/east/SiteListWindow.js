@@ -109,47 +109,38 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					var withWhere = "";
 					var withoutWhere = "";
 						
-						query.where = "CAT_DID IN ("; 
+					query.where = "CAT_DID IN (";
+					
+					var tmpExtIds = [];
+					
+					for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
 						
-						for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
+						catWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
+						
+						if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 
+								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != null){
 							
-							catWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
-							
-							if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 
-									me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != null){
-								
-								var kInfoIdx = _krad.kradInfo.map(function(obj){
-									return obj.EXT_DATA_ID;
-								}).indexOf(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
-								
-								if(kInfoIdx > -1){
-									withWhere += " AND LAYER_CODE = '" + _krad.kradInfo[kInfoIdx].LAYER_CODE + "'";
-								}
-								
-								withWhere += " AND EXT_DATA_ID = '" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID + "'";
+							var extIdx = tmpExtIds.indexOf(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
+							if(extIdx == -1){
+								tmpExtIds.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
 							}
-							else{
-								
-								withoutWhere += " AND EXT_DATA_ID IS NULL";
-							}
-							
-							query.where += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
-							
-							this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
 						}
+					}
+					
+					catWhere = catWhere.substring(0, catWhere.length - 2) + ")";
+					
+					var extWhere = "";
+					
+					for(var i = 0; i < tmpExtIds.length; i++){
 						
-						catWhere = catWhere.substring(0, catWhere.length - 2) + ")";
+						extWhere += "(EXT_DATA_ID = '" + tmpExtIds[i] + "' AND EQ_EVENT_YN = 'Y') OR ";
+					}
+					
+					extWhere += "EXT_DATA_ID IS NULL";
 						
-						withWhere = catWhere + withWhere;
-						withoutWhere = catWhere + withoutWhere;
+					query.where = catWhere + " AND (" + extWhere + ")"
 						
-						query.where = "(" + withWhere + ") OR (" + withoutWhere + ")"
-						
-						//console.info(query.where);
-						
-						//query.where = query.where.substring(0, query.where.length - 2);
-						//query.where += ")";
-					//}
+					console.info(query.where);
 				}
 				else{
 					return;

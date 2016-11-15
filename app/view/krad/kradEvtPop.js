@@ -164,7 +164,7 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 		
 		Ext.defer(function(){
 			me.setItemDisabled();
-		}, 1);
+		}, 200);
 	},
 	// 버튼 src 초기화
 	initBtnSrc: function(){
@@ -251,14 +251,14 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 			
 			var pointBtn = Ext.getCmp("btnKradPoint");
 			
-			if(_krad.clickPopBtnId == "btnKradPoint"){
+			/*if(_krad.clickPopBtnId == "btnKradPoint"){
 				
 				pointBtn.setSrc("./resources/images/button/btn_option_2_on.gif");
 			}
-			else{
+			else{*/
 				
 				pointBtn.setSrc("./resources/images/button/btn_option_2_off.gif");
-			}
+			//}
 			
 			if(me.pClickEvt != undefined && me.pClickEvt != null){
 				me.pClickEvt.remove();
@@ -315,14 +315,14 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 			
 			var lineBtn = Ext.getCmp("btnKradLine");
 			
-			if(_krad.clickPopBtnId == "btnKradLine"){
+			/*if(_krad.clickPopBtnId == "btnKradLine"){
 				
 				lineBtn.setSrc("./resources/images/button/btn_option_3_on.gif");
 			}
-			else{
+			else{*/
 				
 				lineBtn.setSrc("./resources/images/button/btn_option_3_off.gif");
-			}
+			//}
 			
 			if(me.lClickEvt != undefined && me.lClickEvt != null){
 				me.lClickEvt.remove();
@@ -379,14 +379,14 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 			
 			var polygonBtn = Ext.getCmp("btnKradPolygon");
 			
-			if(_krad.clickPopBtnId == "btnKradPolygon"){
+			/*if(_krad.clickPopBtnId == "btnKradPolygon"){
 				
 				polygonBtn.setSrc("./resources/images/button/btn_option_4_on.gif");
 			}
-			else{
+			else{*/
 				
 				polygonBtn.setSrc("./resources/images/button/btn_option_4_off.gif");
-			}
+			//}
 			
 			if(me.polyClickEvt != undefined && me.polyClickEvt != null){
 				me.polyClickEvt.remove();
