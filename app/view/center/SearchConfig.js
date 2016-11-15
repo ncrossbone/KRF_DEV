@@ -131,7 +131,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 						        sm.setLocked(true);
 						        //console.info(sm);
 						 }
-				    },
+				    }
 				}]
 			}]
 		},{
@@ -259,7 +259,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	},{
 		xtype:'container',
 		layout:{
-			type: 'vbox'
+			type: 'hbox'
 		},
 		items:[{
 			xtype:'container',
