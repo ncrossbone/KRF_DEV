@@ -115,7 +115,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 //	   		},"json").error(function(){
 //	   		});
 			
-			console.info(obj);
+			//console.info(obj);
 			
 			$.post(me.printUrl, obj, function(data){
 				if(mode=="print"){

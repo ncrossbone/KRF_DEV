@@ -30,8 +30,11 @@
 		String mode = request.getParameter("mode");
 		String imgSaveUrl = request.getParameter("imgSaveUrl");
 		
+		
+		
 		// 맵 이미지 저장 폴더
 		String imgSavePath = request.getSession().getServletContext().getRealPath(imgSaveUrl);
+		System.out.println(imgSavePath);
 		
 		if(fileName==null){
 			
@@ -147,8 +150,8 @@
 			
 		}
 	}catch(Exception e){
-		out.println(e);
-		e.printStackTrace();
+		//out.println(e);
+		//e.printStackTrace();
 	}
 %>
 

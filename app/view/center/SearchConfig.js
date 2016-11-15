@@ -14,7 +14,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	height: 473,
 	x: 387,
 	y: 200,
-
+	resizable: false,
 	header: false,
 	closable: false,
 	//sortable: false,
@@ -162,9 +162,9 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 						width:50,
 						items:[{
 	                        getClass : function(value, meta, record, rowIx, ColIx, store) {
-	                        	if(record.data.SHP == "Point"){
+	                        	if(record.data.EVENT_TYPE == "Point"){
 	                        		return 'icon_point';
-	                        	}else if(record.data.SHP == "Line"){
+	                        	}else if(record.data.EVENT_TYPE == "Line"){
 	                        		return 'icon_line';
 	                        	}
 	                        }

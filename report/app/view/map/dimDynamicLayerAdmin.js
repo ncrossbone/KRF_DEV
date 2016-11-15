@@ -24,7 +24,9 @@ Ext.define('Report.view.map.dimDynamicLayerAdmin', {
 		console.info(_ADM_SIGUNGU_NM);
 		
 		console.info(_ADM_DONGRI_CD);
-		console.info(_ADM_DONGRI_NM);*/
+		console.info(_ADM_DONGRI_NM);
+		
+		console.info(_CAT_DID);*/
         
 		var visibleLayers = [];
 		var layerIds = [];
@@ -60,7 +62,7 @@ Ext.define('Report.view.map.dimDynamicLayerAdmin', {
 			visibleLayers = [5, 8];
 		}
 		
-		if(_CAT_DID != null){
+		if(_CAT_DID != null && _CAT_DID.length > 0){
 			layerDefs[4] = "CAT_DID NOT IN ("
 			for(var i = 0; i < _CAT_DID.length; i++){
 				layerDefs[4] += "'" + _CAT_DID[i].attributes.CAT_DID + "', ";
@@ -71,7 +73,7 @@ Ext.define('Report.view.map.dimDynamicLayerAdmin', {
 		}
 		
         var imageParameters = new esri.layers.ImageParameters();
-        
+        //console.info(layerDefs);
         imageParameters.layerDefinitions = layerDefs;
         
         imageParameters.layerIds = layerIds;
