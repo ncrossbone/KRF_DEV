@@ -6,14 +6,14 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 
 	xtype: 'win-searchConfig',
 	id: 'searchConfig',
-
+	
 	//width: 100,
 	//height: 50,
 	width: 303,
 	height: 473,
 	x: 387,
 	y: 200,
-	resizable: false,
+	//resizable: false,
 	header: false,
 	closable: false,
 	//sortable: false,
