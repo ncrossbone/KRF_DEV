@@ -23,7 +23,6 @@ Ext.define('KRF_DEV.store.krad.krad_metaInfo', {
 			query.returnGeometry = false;
 			query.where = "EXT_DATA_ID =  '"+store.extDataId+"'"; //+store.extDataId+"'"
 			query.outFields = ["*"];
-			console.info(query);
 			queryTask.execute(query, function(result){
 				
 				
