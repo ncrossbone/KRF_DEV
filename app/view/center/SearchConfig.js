@@ -6,15 +6,14 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 
 	xtype: 'win-searchConfig',
 	id: 'searchConfig',
-	title: '▼',
-
+	
 	//width: 100,
 	//height: 50,
 	width: 303,
 	height: 473,
 	x: 387,
 	y: 200,
-	resizable: false,
+	//resizable: false,
 	header: false,
 	closable: false,
 	//sortable: false,
@@ -26,12 +25,13 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	items: [{
 		xtype: 'panel',
 		title: '검색설정',
-		//bodyStyle:{"background-color":"#dfeaf2"}, 
+		//bodyStyle:{"background-color":"#dfeaf2"},
+		//style: 'padding-bottom:20px;',
 		layout: {
 			type: 'hbox',
 		},
 		width: 303,
-		height: 70,
+		height: 60,
 		items:[{
 			xtype: 'checkbox',
 			boxLabel: '본류',
@@ -69,7 +69,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		xtype: 'panel',
 		title: '데이터 셋 선택',
 		width: 303,
-		height: 50
+		height: 50,
+		style:"padding-top:10px;"
 	},{
 	xtype:'container',
 	height:300,
@@ -105,6 +106,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
 					columns: [{	 
 							text      : '측정망명',
+							id		  : 'testtitle',
 							dataIndex : 'TITLE',
 							width: 208
 							//filter: {type: 'numeric'}
@@ -116,12 +118,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							items:[{ 
 								icon: './resources/images/button/info.png',  // Use a URL in the icon config
 				                tooltip: 'Edit',
-				                handler: function(grid, rowIndex, colIndex) {
-				                	var metaInfo = Ext.getCmp("kradMetaInfo");
-									if(metaInfo == undefined){
-										metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo");
-									}
-									metaInfo.show();
+				                handler: function(grid, rowIndex, colIndex,a,rowdata) {
+				                	
+				                	kradMetaInfo(rowdata);
+				                	
 				                }
 							}]
 						}],
@@ -130,9 +130,15 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 						        var sm=thisObj.getSelectionModel();
 						        sm.selectAll(true);
 						        sm.setLocked(true);
-						        //console.info(sm);
 						 }
+				    },
+				    viewConfig:{
+				    	getRowClass: function(record, rowIndex, rowParams, store) {
+							 return 'pdj_kradText';
+							 
+					   }
 				    }
+				 
 				}]
 			}]
 		},{
@@ -144,7 +150,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			},
 			cls: 'dj_layer_nm',
 			title: '사 용 자 지 정',
-			style:'margin-top: 20px;',
+			style:'margin-top: 5px;',
 			items:[{
 				xtype: 'container',
 				width: '100%',
@@ -161,15 +167,15 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 						xtype:'actioncolumn',
 						width:50,
 						items:[{
-	                        getClass : function(value, meta, record, rowIx, ColIx, store) {
-	                        	if(record.data.EVENT_TYPE == "Point"){
-	                        		return 'icon_point';
-	                        	}else if(record.data.EVENT_TYPE == "Line"){
-	                        		return 'icon_line';
-	                        	}
-	                        }
-	                    }]
-					},{	 
+		                        getClass : function(value, meta, record, rowIx, ColIx, store) {
+		                        	if(record.data.EVENT_TYPE == "Point"){
+		                        		return 'icon_point';
+		                        	}else if(record.data.EVENT_TYPE == "Line"){
+		                        		return 'icon_line';
+		                        	}
+		                        }
+		                    }]
+						},{	 
 							text      : '측정망명',
 							dataIndex : 'TITLE',
 							width: 158
@@ -182,12 +188,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							items:[{ 
 								icon: './resources/images/button/info.png',  // Use a URL in the icon config
 				                tooltip: 'Edit',
-				                handler: function(grid, rowIndex, colIndex) {
-				                	var metaInfo = Ext.getCmp("kradMetaInfo");
-									if(metaInfo == undefined){
-										metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo");
-									}
-									metaInfo.show();
+				                handler: function(grid, rowIndex, colIndex, a, rowdata) {
+				                	
+				                	kradMetaInfo(rowdata);
+									
 				                }
 							}]
 						}],
@@ -240,7 +244,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				                    	return;
 				                    }
 				        			var jsonConf2 = JSON.parse(confInfo2);
-				        			console.info(jsonConf2);
+				        			
 				        			
 				        			store2.queryBy(function(record2) {
 				        				for(var i = 0; i < jsonConf2.length;i++){
@@ -251,7 +255,11 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				        			});
 				        			model2.select(s2);
 				              }
-					       }
+					       },
+					       getRowClass: function(record, rowIndex, rowParams, store) {
+								 return 'pdj_kradText';
+								 
+						   }
 					    }
 					}]
 				}]

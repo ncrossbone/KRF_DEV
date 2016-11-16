@@ -502,7 +502,7 @@ pollutionLayerOnOff = function(onOff, value){
 			pollutionMapSetValue.close();
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
-			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+			_krad.areaGrpLayer.setVisibility(true);
 			
 			catPollutionOnOff[0].src = imgSrc.replace("_on.", "_off.");
 			
@@ -525,7 +525,7 @@ pollutionLayerOnOff = function(onOff, value){
 			pollutionMapSetValue.show();
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "off");
-			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+			_krad.areaGrpLayer.setVisibility(false);
 			
 			catPollutionOnOff[0].src = imgSrc.replace("_off.", "_on.");
 			
@@ -570,7 +570,7 @@ catTMLayerOnOff = function(onOff){
 			
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "on");
-			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(true);
+			_krad.areaGrpLayer.setVisibility(true);
 			
 			catTMOnOff[0].src = imgSrc.replace("_on.", "_off.");
 			
@@ -592,7 +592,7 @@ catTMLayerOnOff = function(onOff){
 			
 			// 집수구역 버튼 Off
 			var currCtl = SetBtnOnOff("btnAreaLayer", "off");
-			corMap.reachLayerAdmin_v3_New.areaGrpLayer.setVisibility(false);
+			_krad.areaGrpLayer.setVisibility(false);
 			
 			catTMOnOff[0].src = imgSrc.replace("_off.", "_on.");
 			

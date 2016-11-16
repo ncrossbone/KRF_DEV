@@ -23,9 +23,10 @@ Ext.define('KRF_DEV.view.center.SearchConfigHeader', {
 			}
 		}
 	},
+	resizable:false,
 	draggable: false,
 	closable: false,
-	sortable: false, 
+	sortable: false,
 	style: "border: 0px;"
 
 });

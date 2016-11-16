@@ -112,9 +112,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					query.where = "CAT_DID IN (";
 					
 					var tmpExtIds = [];
-					
+					this.catDid = [];
 					for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
-						
+						this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
 						catWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
 						
 						if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 

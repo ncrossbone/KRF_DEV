@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	layout: {
 		type: 'fit'
 	},
-	width: 500,
+	width: 540,
 	height: 305,
 	closable: false,
 	style:"padding-top:10px",
@@ -42,7 +42,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             xtype: 'treecolumn', //this is so we know which column will show the tree
             text: '지점',
             //header: false,
-            width: 180,
+            width: 220,
             sortable: true,
             dataIndex: 'text',
             locked: true,
