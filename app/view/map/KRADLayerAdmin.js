@@ -635,7 +635,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		
 		    		var template = new InfoTemplate(infoTitle, infoContent);
 		    		evt.graphic.setInfoTemplate(template)
-		    		
+		    		console.info(me.map.infoWindow);
 		    		me.map.infoWindow.setContent(evt.graphic.getContent());
 		    		me.map.infoWindow.setTitle(evt.graphic.getTitle());
 		    		me.map.infoWindow.show(evt.screenPoint,
@@ -677,6 +677,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				// 변수 셋팅 및 하류조회
 				me.setClickEvt(evt, paramEvtType);
 	    	});
+			
+			var mUpObj = on(me.tmpGrpLayer, "mouse-up", function(evt){
+				
+				Ext.defer(function(){
+					
+					me.map.infoWindow.hide();
+					mUpObj.remove();
+				}, 1000);
+			});
     	});
     },
     // 임시 그래픽 레이어 (tmpGrpLayer) 이벤트 끄기
@@ -701,8 +710,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	var me = this;
     	
-    	// InfoWindow 닫기
-		me.map.infoWindow.hide();
 		// 임시 그래픽 이벤트 끄기 및 그래픽 삭제
 		me.offTmpGrpEvt();
 		// 맵클릭 이벤트 끄기
