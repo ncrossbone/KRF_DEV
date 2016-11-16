@@ -40,7 +40,8 @@ SetBtnOnOff = function(btnId, strOnOff){
 		else{
 			
 			currCtl.setSrc(currCtl.btnOffImg);
-			
+			// 커서 디폴트
+        	Ext.get('_mapDiv__gc').setStyle('cursor','default');
 		}
 	}
 	

@@ -493,7 +493,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		        		 Query,
 		        		 GraphicsLayer,
 		        		 on){
-    		//console.info(me.kradInfo);
+    		
 	    	for(var i = 0; i < me.kradInfo.length; i++){
 	    		
 	    		//if(me.kradInfo[i].CHECKED == true){
@@ -627,15 +627,20 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		}).indexOf(evt.graphic.attributes.EXT_DATA_ID);
 		    		
 		    		var siteNm = evt.graphic.attributes.지점명 != undefined ? evt.graphic.attributes.지점명 : (evt.graphic.attributes.시설명 != undefined ? evt.graphic.attributes.시설명 : "");
+		    		var siteAddr = evt.graphic.attributes.주소 != undefined ? evt.graphic.attributes.주소 : "";
+		    		var siteCorp = evt.graphic.attributes.운영기관 != undefined ? evt.graphic.attributes.운영기관 : "";
+		    		
 		    		var infoTitle = "";
 		    		if(infoIdx > -1){
 		    			infoTitle = me.kradInfo[infoIdx].TITLE;
 		    		}
-		    		var infoContent = "지점명 : " + siteNm;
+		    		var infoContent = "지&nbsp;점&nbsp;&nbsp;명 : " + siteNm + "<br>";
+		    		infoContent += "주&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;소 : " + siteAddr + "<br>";
+		    		infoContent += "운영기관 : " + siteCorp;
 		    		
 		    		var template = new InfoTemplate(infoTitle, infoContent);
 		    		evt.graphic.setInfoTemplate(template)
-		    		console.info(me.map.infoWindow);
+		    		
 		    		me.map.infoWindow.setContent(evt.graphic.getContent());
 		    		me.map.infoWindow.setTitle(evt.graphic.getTitle());
 		    		me.map.infoWindow.show(evt.screenPoint,
@@ -680,11 +685,23 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			var mUpObj = on(me.tmpGrpLayer, "mouse-up", function(evt){
 				
-				Ext.defer(function(){
+				/*var obj = me.map.infoWindow;
+				console.info(obj.domNode.getStyle("visibility"));*/
+				
+				/*console.info(me.map.infoWindow.isShowing);
+				me.map.infoWindow.unsetMap(me.map);*/
+				/*var timerObj = window.setInterval(function(){
+					
+					var obj = me.map.infoWindow;
+					console.info(obj.getAttribute("visibility"));
+					me.map.infoWindow.hide();
+				}, 500);*/
+				
+				/*Ext.defer(function(){
 					
 					me.map.infoWindow.hide();
 					mUpObj.remove();
-				}, 1000);
+				}, 1000);*/
 			});
     	});
     },
