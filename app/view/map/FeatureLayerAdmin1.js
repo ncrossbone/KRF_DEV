@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
+Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 	map:null, 
 	layerId: null,
 	siteId: null,
@@ -197,7 +197,6 @@ Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
     },
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
-		console.info("##");
     	
     	var groupCd = "";
     	if((layerId>=0)&&(layerId<=7)){
@@ -657,7 +656,8 @@ Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
 		query.outFields = ["*"];
 		
 		query.where =  "CAT_DID='" + catDId + "'";
-		
+		console.info(_mapServiceUrl_v3 + "/" + layerId);
+		console.info(query.where);
 		queryTask.execute(query,  function(results){
 			
 			me.moveRchGraphicLayer.clear();
