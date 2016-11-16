@@ -26,12 +26,13 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	items: [{
 		xtype: 'panel',
 		title: '검색설정',
-		//bodyStyle:{"background-color":"#dfeaf2"}, 
+		//bodyStyle:{"background-color":"#dfeaf2"},
+		//style: 'padding-bottom:20px;',
 		layout: {
 			type: 'hbox',
 		},
 		width: 303,
-		height: 70,
+		height: 60,
 		items:[{
 			xtype: 'checkbox',
 			boxLabel: '본류',
@@ -69,7 +70,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		xtype: 'panel',
 		title: '데이터 셋 선택',
 		width: 303,
-		height: 50
+		height: 50,
+		style:"padding-top:10px;"
 	},{
 	xtype:'container',
 	height:300,
@@ -148,8 +150,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				type : 'vbox'
 			},
 			cls: 'dj_layer_nm',
-			title: '사용자지정',
-			style:'margin-top: 20px;',
+			title: '사 용 자 지 정',
+			style:'margin-top: 5px;',
 			items:[{
 				xtype: 'container',
 				width: '100%',

@@ -83,7 +83,6 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				pTranslateInfo.translateX = parseInt(div.css('left'));
 				pTranslateInfo.translateY = parseInt(div.css('top'));
 			}*/
-			
 			var imgs = $('#'+me.mapDivId+'_'+layerIds[i]+' img');
 			//console.info(imgs);
 			for(var k=0; k<imgs.length; k++){	
