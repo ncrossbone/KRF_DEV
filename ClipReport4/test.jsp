@@ -86,7 +86,7 @@ var _imgPath = "<%=replaceImgPath%>";
 	function getSvgPngPath(replaceImgPath, condition) {
 
 		var splitReplaceImgPath = replaceImgPath.split("\\");
-		var splitName = splitReplaceImgPath[8].split("_");
+		var splitName = splitReplaceImgPath[splitReplaceImgPath.length - 1].split("_");
 		var splitExt = splitName[1].split(".");
 		var path = "";
 
