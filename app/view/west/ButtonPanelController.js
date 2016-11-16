@@ -227,20 +227,23 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			//KRAD 레이어 로컬스토리지 내용으로 Visibility
 			var kradLayer = [];
 			var confInfo2 = localStorage['_kradExtInfo2_'];  //사용자지정 로컬스토리지
-			var jsonConf2 = JSON.parse(confInfo2);
-			
-			if(jsonConf2.length > 0){
-				for(var i =0 ; i < jsonConf2.length;i++){
-					if(jsonConf2[i].EVENT_TYPE == "Point"){
-						kradLayer.push(jsonConf2[i].PD_LAYER_ID);
-					}
-					if(jsonConf2[i].EVENT_TYPE == "Line"){
-						kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+			if(confInfo2 != undefined || confInfo2 != null){
+				var jsonConf2 = JSON.parse(confInfo2);
+				
+				if(jsonConf2.length > 0){
+					for(var i =0 ; i < jsonConf2.length;i++){
+						if(jsonConf2[i].EVENT_TYPE == "Point"){
+							kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+						}
+						if(jsonConf2[i].EVENT_TYPE == "Line"){
+							kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+						}
 					}
 				}
+				
+				_krad.setKradOnOff(kradLayer);
 			}
 			
-			_krad.setKradOnOff(kradLayer);
 			
 			
 		}

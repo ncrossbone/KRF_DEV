@@ -25,6 +25,7 @@ var _MapserviceUrl1 = null;
 var _kradMapserviceUrl = null;
 var _kradCatSearchId = null;
 var _kradCatExtDataInfo = null;
+var _kradCatExtMetaData = null;
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
@@ -75,6 +76,7 @@ store.load(function(a, b, c) {
 		_kradMapserviceUrl = record.data.kradMapservicUrl;
 		_kradCatSearchId = record.data.kradCatSearchId;
 		_kradCatExtDataInfo = record.data.kradCatExtDataInfo;
+		_kradCatExtMetaData = record.data.kradCatExtMetaData;
 		_cursorX = "";
 		_cursorY = "";
 		

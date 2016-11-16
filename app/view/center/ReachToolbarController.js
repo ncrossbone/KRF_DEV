@@ -19,6 +19,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
 		var popHeader = Ext.getCmp("searchConfigHeader");
+		var kradMetaInfo = Ext.getCmp("kradMetaInfo");
 		
 		if(popCtl == undefined){
 			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig");
@@ -40,6 +41,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		else{
 			popHeader.close();
 			popCtl.close();
+			if(kradMetaInfo != undefined){
+				kradMetaInfo.close();
+			}
 			
 		}
 		

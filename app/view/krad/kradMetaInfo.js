@@ -8,10 +8,10 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 	title: '메타상세정보',
 	header: true,
     frame: true,
-	width: 470,
-	height: 559,
+	width: 459,
+	height: 400,
 	closable: false,
-	style:"padding-top:10px",
+	style:"padding-top:8px",
 	header:{
 		items:[{
 			xtype:'image',
@@ -26,7 +26,7 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 			}
 		}]
 	},
-	x: 687,
+	x: 692,
 	y: 226,
 
 	plain: true, // 요게 있어야 background: transparent 먹음..
@@ -34,9 +34,9 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 	
 	items:[{
 		xtype : 'container',
-		store : Ext.create('KRF_DEV.store.krad.krad_metaInfo'),
-		width: 470,
-		height: 559,
+		id : 'kradMetaInfoList',
+		width: 459,
+		height: 400,
 		items:[{
 			html: '<!doctype html>																																																						'+	
 			'<html lang=\"ko\">                                                                                                           '+
@@ -49,15 +49,14 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 			'<![endif]-->                                                                                                               '+
 			'<link href=\"./resources/css/BasicSet.css\" rel=\"stylesheet\" type=\"text/css\" />                                                          '+
 			'<style type=\"text/css\">                                                                                                    '+
-			'table.meta { width: 450px; border-top: 2px solid gray; }                                                 '+
-			'table.meta> tbody> tr> th { background: #f3f3f2; font-weight: bold; text-align: left !important;  }                                                     '+
-			'table.meta> tbody> tr> td { }                                                                                              '+
-			'table.meta> tbody> tr> th, table.meta> tbody> tr> td { padding: 10px 0px 10px 10px; border-bottom: 1px solid #d4d1cc; font-size: 12px!important; }    '+
+			'table.meta { width: 450px; border-top: 2px solid gray; margin-top: 5px; }                                                 '+
+			'table.meta> tbody> tr> th { font-weight: bold; background: #f3f3f2;}                                                     '+
+			'table.meta> tbody> tr> td { padding: 7px 0px 7px 10px; border-bottom: 1px solid #d4d1cc; font-size: 12px!important; }                                                                                              '+
+			'table.meta> tbody> tr> th, table.meta> tbody> tr> td { padding: 7px 0px 7px 10px; border-bottom: 1px solid #d4d1cc; font-size: 12px!important; }    '+
 			'</style>                                                                                                                   '+
 			'</head>                                                                                                                    '+
-			'<body>                                                                                                                     '+
-			' <img src="./resources/images/button/blit_st_01.png"/>  '+
-			'<b style="color:#2E9AFE">기본정보</b>'+
+			'<body>                    																								'+
+			'<p style=\"margin-top: 10px; letter-spacing: -1px; background: url(./resources/images/button/label_right.gif) no-repeat; padding-left: 20px; font-weight: bold; \">	기본정보  </p>'+
 			'<table class=\"meta\" summary=\"\">                                                                                            '+
 			'	<colgroup>                                                                                                                '+
 			'    	<col width=\"110\" />                                                                                                   '+
@@ -69,45 +68,45 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 			'    </colgroup>                                                                                                            '+
 			'    <tbody>                                                                                                                '+
 			'    	<tr>                                                                                                                  '+
-			'        	<th>지도명</th>                                                                                                      '+
-			'            <td colspan=\"5\">대분류토지피복지도 : 추가</td>                                                                            '+
+			'        	<th>제목</th>                                                                                                      '+
+			'            <td colspan=\"5\" id = "title"></td>                                                                            '+
 			'        </tr>                                                                                                              '+
 			'        <tr>                                                                                                               '+
-			'        	<th>도엽명</th>                                                                                                      '+
-			'            <td>추자</td>                                                                                                    '+
-			'            <th>도엽번호</th>                                                                                                  '+
-			'            <td>33602</td>                                                                                                 '+
-			'            <th>축척</th>                                                                                                    '+
-			'            <td>1:50,000</td>                                                                                              '+
+			'        	<th>최초등록일</th>                                                                                                      '+
+			'            <td id=\"initDay\"></td>                                                                                                    '+
+			'           <th>최종수정일</th>                                                                                                  '+
+			'            <td id = \"updDay\"></td>                                                                                                 '+
 			'        </tr>                                                                                                              '+
 			'        <tr>                                                                                                               '+
-			'        	<th>제작/갱신일자</th>                                                                                                  '+
-			'            <td colspan=\"5\">20010725</td>                                                                                  '+
+			'        	<th>최초등록자</th>                                                                                                  '+
+			'            <td id = \"initOriginator\"></td>                                                                                  '+
+			'        	<th>최종수정자</th>                                                                                                  '+
+			'            <td id = \"updOriginator\"></td>                                                                                  '+
 			'        </tr>                                                                                                              '+
 			'        <tr>                                                                                                               '+
-			'        	<th>자료포맷명</th>                                                                                                    '+
-			'            <td colspan=\"5\">TIF</td>                                                                                       '+
+			'        	<th>최초등록기관</th>                                                                                                  '+
+			'            <td id = \"initOrganization\"></td>                                                                                  '+
+			'        	<th>최중수정기관</th>                                                                                                  '+
+			'            <td id = \"updOrganization\"></td>                                                                                  '+
 			'        </tr>                                                                                                              '+
 			'        <tr>                                                                                                               '+
-			'        	<th>관리/배포기관</th>                                                                                                  '+
-			'            <td colspan=\"5\">환경부 정보화담당관실(044-201-6422)</td>                                                                 '+
+			'        	<th>최초등록연락처</th>                                                                                                  '+
+			'            <td id = \"initContact\"></td>                                                                                  '+
+			'        	<th>최종수정연락처</th>                                                                                                  '+
+			'            <td id = \"updContact\"></td>                                                                                  '+
 			'        </tr>                                                                                                              '+
 			'        <tr>                                                                                                               '+
-			'        	<th>홈페이지</th>                                                                                                     '+
-			'            <td colspan=\"5\">http://egis.me.go.kr</td>                                                                      '+
-			'        </tr>                                                                                                              '+
-			'        <tr>                                                                                                               '+
-			'        	<th>책임기관명</th>                                                                                                    '+
-			'            <td colspan=\"5\">환경부 정보화담당관실(044-201-6422, biolmj@korea.kr)</td>                                                '+
+			'        	<th>만료일</th>                                                                                                     '+
+			'            <td colspan=\"5\" id = \"expireDay\"></td>                                                                      '+
 			'        </tr>                                                                                                              '+
 			'        <tr>                                                                                                               '+
 			'        	<th>요약설명</th>                                                                                                     '+
-			'            <td colspan=\"5\">환경부에서 2001년 제작된 토지피복도</td>                                                                     '+
+			'            <td colspan=\"5\" id =\"desc\"></td>                                                                     '+
 			'        </tr>                                                                                                              '+
 			'    </tbody>                                                                                                               '+
 			'</table>                                                                                                                   '+
 			'                                                                                                                           '+
-			'<br />                                                                                                                     '+
+			'<p style=\"margin-top: 10px; letter-spacing: -1px; background: url(./resources/images/button/label_right.gif) no-repeat; padding-left: 20px; font-weight: bold; \">	기준계/공간정보  </p>'+
 			'                                                                                                                           '+
 			'                                                                                                                           '+
 			'<table class=\"meta\" summary=\"\">                                                                                            '+
@@ -119,61 +118,19 @@ Ext.define('KRF_DEV.view.krad.kradMetaInfo', {
 			'    </colgroup>                                                                                                            '+
 			'    <tbody>                                                                                                                '+
 			'    	<tr>                                                                                                                  '+
-			'        	<th>기준계명칭</th>                                                                                                    '+
-			'            <td colspan=\"5\">평명직각좌표계(TM)(중부원점)</td>                                                                         '+
+			'        	<th>기준계 명칭</th>                                                                                                    '+
+			'            <td colspan=\"5\">GCS WGS84</td>                                                                         '+
 			'        </tr>                                                                                                              '+
 			'        <tr>                                                                                                               '+
-			'        	<th>기준타원체</th>                                                                                                    '+
-			'            <td>Bessel</td>                                                                                                '+
-			'            <th>기준좌표계</th>                                                                                                 '+
-			'            <td>측지학적기준계</td>                                                                                               '+
-			'        </tr>                                                                                                              '+
-			'        <tr>                                                                                                               '+
-			'        	<th>동쪽경계</th>                                                                                                     '+
-			'            <td>126.2480291</td>                                                                                           '+
-			'            <th>서쪽경계</th>                                                                                                  '+
-			'            <td>126.4980058</td>                                                                                           '+
-			'        </tr>                                                                                                              '+
-			'        <tr>                                                                                                               '+
-			'        	<th>남쪽경계</th>                                                                                                     '+
-			'            <td>33.7532267</td>                                                                                            '+
-			'            <th>북쪽경계</th>                                                                                                  '+
-			'            <td>34.0031973</td>                                                                                            '+
-			'        </tr>                                                                                                              '+
-			'        <tr>                                                                                                               '+
-			'        	<th>행정지역범위</th>                                                                                                   '+
-			'            <td colspan=\"3\"></td>                                                                                          '+
+			'        	<th>기준 타원체</th>                                                                                                    '+
+			'            <td>WGS84</td>                                                                                                '+
+			'            <th>WKID</th>                                                                                                 '+
+			'            <td>4326</td>                                                                                               '+
 			'        </tr>                                                                                                              '+
 			'</table>                                                                                                                   '+
 			'</body>                                                                                                                    '+
-			'</html>                                                                                                                    '
-			
+			'</html>                                                                                                                    '	
 		}]
-	}],
-	initComponent: function(){
-		console.info(this);
-		//store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
-		
-		//localStorage['_kradGroupInfo_']
-		//[{id: kk, name: kk, checked: true}, {{id: kk, name: kk, checked: true}]
-		this.callParent();
-		
-		//console.info(localStorage['_searchConfigInfo_']);
-		/*if(localStorage['_searchConfigInfo_'] != null && localStorage['_searchConfigInfo_'] != undefined){
-			
-			confInfo = localStorage['_searchConfigInfo_'];
-			
-			if(confInfo != undefined && confInfo != null){
-				//console.info(JSON.parse(confInfo));
-				var jsonConf = JSON.parse(confInfo);
-				this.items.items[1].setValue(jsonConf.isJiDraw);
-			}
-			else{
-				//console.info(checked);
-				var saveObj = {isBonDraw:true, isJiDraw:true};
-				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
-			}
-		}*/
-	}
+	}]
 
 });

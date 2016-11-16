@@ -105,6 +105,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
 					columns: [{	 
 							text      : '측정망명',
+							id		  : 'testtitle',
 							dataIndex : 'TITLE',
 							width: 208
 							//filter: {type: 'numeric'}
@@ -116,12 +117,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							items:[{ 
 								icon: './resources/images/button/info.png',  // Use a URL in the icon config
 				                tooltip: 'Edit',
-				                handler: function(grid, rowIndex, colIndex) {
-				                	var metaInfo = Ext.getCmp("kradMetaInfo");
-									if(metaInfo == undefined){
-										metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo");
-									}
-									metaInfo.show();
+				                handler: function(grid, rowIndex, colIndex,a,rowdata) {
+				                	
+				                	kradMetaInfo(rowdata);
+				                	
 				                }
 							}]
 						}],
@@ -130,9 +129,15 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 						        var sm=thisObj.getSelectionModel();
 						        sm.selectAll(true);
 						        sm.setLocked(true);
-						        //console.info(sm);
 						 }
+				    },
+				    viewConfig:{
+				    	getRowClass: function(record, rowIndex, rowParams, store) {
+							 return 'pdj_kradText';
+							 
+					   }
 				    }
+				 
 				}]
 			}]
 		},{
@@ -143,7 +148,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				type : 'vbox'
 			},
 			cls: 'dj_layer_nm',
-			title: '사 용 자 지 정',
+			title: '사용자지정',
 			style:'margin-top: 20px;',
 			items:[{
 				xtype: 'container',
@@ -161,15 +166,15 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 						xtype:'actioncolumn',
 						width:50,
 						items:[{
-	                        getClass : function(value, meta, record, rowIx, ColIx, store) {
-	                        	if(record.data.EVENT_TYPE == "Point"){
-	                        		return 'icon_point';
-	                        	}else if(record.data.EVENT_TYPE == "Line"){
-	                        		return 'icon_line';
-	                        	}
-	                        }
-	                    }]
-					},{	 
+		                        getClass : function(value, meta, record, rowIx, ColIx, store) {
+		                        	if(record.data.EVENT_TYPE == "Point"){
+		                        		return 'icon_point';
+		                        	}else if(record.data.EVENT_TYPE == "Line"){
+		                        		return 'icon_line';
+		                        	}
+		                        }
+		                    }]
+						},{	 
 							text      : '측정망명',
 							dataIndex : 'TITLE',
 							width: 158
@@ -182,12 +187,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							items:[{ 
 								icon: './resources/images/button/info.png',  // Use a URL in the icon config
 				                tooltip: 'Edit',
-				                handler: function(grid, rowIndex, colIndex) {
-				                	var metaInfo = Ext.getCmp("kradMetaInfo");
-									if(metaInfo == undefined){
-										metaInfo = Ext.create("KRF_DEV.view.krad.kradMetaInfo");
-									}
-									metaInfo.show();
+				                handler: function(grid, rowIndex, colIndex, a, rowdata) {
+				                	
+				                	kradMetaInfo(rowdata);
+									
 				                }
 							}]
 						}],
@@ -240,7 +243,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				                    	return;
 				                    }
 				        			var jsonConf2 = JSON.parse(confInfo2);
-				        			console.info(jsonConf2);
+				        			
 				        			
 				        			store2.queryBy(function(record2) {
 				        				for(var i = 0; i < jsonConf2.length;i++){
@@ -251,7 +254,11 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				        			});
 				        			model2.select(s2);
 				              }
-					       }
+					       },
+					       getRowClass: function(record, rowIndex, rowParams, store) {
+								 return 'pdj_kradText';
+								 
+						   }
 					    }
 					}]
 				}]

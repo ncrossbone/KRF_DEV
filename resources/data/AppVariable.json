@@ -25,6 +25,7 @@
 	"areaAMLayerId" : "55", // 중권역 레이어 아이디
 	"areaASLayerId" : "56", // 소권역 레이어 아이디
 	"kradCatSearchId" : "21", // KRAD CAT_SEARCH
+	"kradCatExtMetaData" : "23", // KRAD METADATA
 	"kradCatExtDataInfo" : "27", // KRAD DATA_INFO
 	"siteInfoLayerId" : "85", // 레이어별 지점정보 레이어 아이디
 	"arcServiceUrl":"http://112.217.167.123:20002/arcgis",
