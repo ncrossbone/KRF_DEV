@@ -225,8 +225,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			
 			
 			//KRAD 레이어 로컬스토리지 내용으로 Visibility
-			var kradLayer = [];
 			var confInfo2 = localStorage['_kradExtInfo2_'];  //사용자지정 로컬스토리지
+			var kradLayer = [];
 			if(confInfo2 != undefined || confInfo2 != null){
 				var jsonConf2 = JSON.parse(confInfo2);
 				
@@ -242,6 +242,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				}
 				
 				_krad.setKradOnOff(kradLayer);
+				_krad.kradInfo = jsonConf2;
 			}
 			
 			
