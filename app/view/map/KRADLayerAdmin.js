@@ -435,20 +435,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				
 				if(featureSet.features.length > 0){
 					
-					for(var i = 0; i < featureSet.features.length; i++){
-						
-						me.rchIds.push(featureSet.features[i].attributes.RCH_ID);
-						me.clickedReachLines.push(featureSet.features[i]); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
-					}
-					
-					if(_krad.kradInfo.length == 0){
-	    				
-						me.setClickEvt(_krad.mapClickEvt, "Reach");
-	    			}
-					else{
-						
-						me.showPopup();
-					}
+					me.execLineFeature(featureSet);
 				}
 				else{
 					
@@ -481,20 +468,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 								
 								if(lineFS.features.length > 0){
 									
-									for(var i = 0; i < lineFS.features.length; i++){
-										
-										me.rchIds.push(lineFS.features[i].attributes.RCH_ID);
-										me.clickedReachLines.push(lineFS.features[i]); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
-									}
-									
-									if(_krad.kradInfo.length == 0){
-					    				
-										me.setClickEvt(_krad.mapClickEvt, "Reach");
-					    			}
-									else{
-										
-										me.showPopup();
-									}
+									me.execLineFeature(lineFS);
 								}
 								else{
 									
@@ -506,6 +480,41 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				}
 			});
     	});
+    },
+    execLineFeature: function(featureSet){
+    	
+    	var me = this;
+    	
+    	for(var i = 0; i < featureSet.features.length; i++){
+    		
+    		var feature = featureSet.features[i];
+			
+    		if(me.drawOption == "addPoint"){
+    			
+    			var catDid = feature.attributes.CAT_DID;
+    			
+    			// 그래픽 그리기
+    			me.drawGraphic(feature, "reachLine");
+    			// 집수구역 그리기
+    			me.setReachArea(catDid);
+    		}
+    		else{
+    			
+    			me.rchIds.push(feature.attributes.RCH_ID);
+    			me.clickedReachLines.push(feature); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
+    			
+    			if(_krad.kradInfo.length == 0){
+    				
+    				me.setClickEvt(_krad.mapClickEvt, "Reach");
+    				// 이벤트 초기화
+					initKradEvt();
+    			}
+    			else{
+    				
+    				me.showPopup();
+    			}
+    		}
+		}
     },
     drawTempGrp: function(paramEvtType){
     	
@@ -634,7 +643,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	// KRAD 이벤트 생성
 		me.onTmpGrpEvt(paramEvtType);
     },
-    // 임시 그래픽 레이어 (tmpGrpLayer) 이벤트 끄기
+    // 임시 그래픽 레이어 (tmpGrpLayer) 이벤트 켜기
     onTmpGrpEvt: function(paramEvtType){
     	
     	var me = this;

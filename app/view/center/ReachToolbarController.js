@@ -89,21 +89,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 맵 클릭 이벤트 켜기
 		_krad.onMapClickEvt("addPoint", el.id);
 		
-		// 리치 선택 종료
-		//GetCoreMap().reachLayerAdmin.drawEnd();
-		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
-		GetCoreMap().reachLayerAdmin_v3_New.drawEnd();
-		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-		
-		if(currCtl.btnOnOff == "on"){
-			// 리치 선택 시작
-			//GetCoreMap().reachLayerAdmin.pointDraw("ADD", el.id);
-			//GetCoreMap().reachLayerAdmin_v3.pointDraw("ADD", el.id); // v3
-			GetCoreMap().reachLayerAdmin_v3_New.startDraw("addPoint"); // v3
-		}
-		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 	},
@@ -133,6 +118,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 맵 클릭 이벤트 켜기
 		_krad.onMapClickEvt("startPoint", el.id);
+		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 			
 		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
 		
@@ -149,6 +137,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 맵 클릭 이벤트 켜기
 		_krad.onMapClickEvt("endPoint", el.id);
+		
+		// 부하량 주제도 off
+		catTMLayerOnOff("off");
 			
 		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 		
