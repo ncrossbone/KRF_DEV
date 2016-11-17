@@ -225,7 +225,6 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 										}
 									}
 								}
-								console.info(confInfo2);
 								_krad.setKradOnOff(kradLayer);
 					            
 					        }
