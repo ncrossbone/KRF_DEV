@@ -57,6 +57,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						
 						// 포인트 그래픽 그리기
 						_krad.setClickEvt(_krad.mapClickEvt, "Reach");
+						// 이벤트 초기화
+						initKradEvt();
 						// 팝업 메뉴 닫기
 						_krad.closePopup();
 					},
