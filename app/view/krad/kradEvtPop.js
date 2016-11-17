@@ -123,16 +123,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						// 버튼 src 초기화
 						me.initBtnSrc();
 						
-						SetBtnOnOff("btnMenu04", "off");
-						SetBtnOnOff("btnMenu05", "off");
-						
-						// 그래픽 레이어 초기화
-						_krad.tmpGrpLayer.clear();
 						// 이벤트 초기화
-						_krad.offMapClickEvt();
-						_krad.offTmpGrpEvt();
-						// 맵 클릭 이벤트 생성
-						//_krad.onMapClickEvt(_krad.drawOption);
+						initKradEvt();
 						
 						me.close();
 					}

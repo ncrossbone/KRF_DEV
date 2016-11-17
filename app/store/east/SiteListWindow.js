@@ -141,7 +141,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					query.where = catWhere + " AND (" + extWhere + ")"
 						
 
-					query.orderByFields = ["LAYER_CODE_ID"];
+					query.orderByFields = ["LAYER_CODE", "LAYER_CODE_ID"];
 				}
 				else{
 					return;
