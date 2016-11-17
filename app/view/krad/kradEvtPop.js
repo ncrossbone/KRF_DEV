@@ -123,16 +123,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 						// 버튼 src 초기화
 						me.initBtnSrc();
 						
-						SetBtnOnOff("btnMenu04", "off");
-						SetBtnOnOff("btnMenu05", "off");
-						
-						// 그래픽 레이어 초기화
-						_krad.tmpGrpLayer.clear();
 						// 이벤트 초기화
-						_krad.offMapClickEvt();
-						_krad.offTmpGrpEvt();
-						// 맵 클릭 이벤트 생성
-						//_krad.onMapClickEvt(_krad.drawOption);
+						initKradEvt();
 						
 						me.close();
 					}
@@ -166,9 +158,14 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 		
 		me.setEvtType();
 		
-		Ext.defer(function(){
-			me.setItemDisabled();
-		}, 200);
+		var timerObj = window.setInterval(function(){
+			
+			if(_krad.kradInfo.length == me.queryCnt){
+				
+				me.setItemDisabled();
+				window.clearInterval(timerObj);
+			}
+		}, 100);
 	},
 	// 버튼 src 초기화
 	initBtnSrc: function(){
@@ -186,6 +183,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 		var me = this;
 		
 		me.arrEvtType = [];
+		
+		me.queryCnt = 0;
 		
 		for(var i = 0; i < _krad.kradInfo.length; i++){
 			
@@ -218,7 +217,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 				}
 				
 				query.where = query.where.substring(0, query.where.length - 2) + ")";
-				
+				//console.info(_krad.kradServiceUrl + "/" + layerId);
+				//console.info(query.where);
 				queryTask.execute(query, function(featureSet){
 					
 					if(featureSet.features.length > 0){
@@ -236,6 +236,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							me.arrEvtType.push(evtType);
 						}
 					}
+					
+					me.queryCnt++;
 				});
 			});
 		}

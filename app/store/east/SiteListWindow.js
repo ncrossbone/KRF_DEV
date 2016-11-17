@@ -141,7 +141,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					query.where = catWhere + " AND (" + extWhere + ")"
 						
 
-					query.orderByFields = ["LAYER_CODE_ID"];
+					query.orderByFields = ["LAYER_CODE", "LAYER_CODE_ID"];
 				}
 				else{
 					return;
@@ -149,7 +149,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			query.outFields = ["*"];
-			
+			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
+			//console.info(query.where);
 			queryTask.execute(query, function(result){
 				
 				var fMap = result.features.map(function(obj){

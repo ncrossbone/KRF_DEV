@@ -206,6 +206,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					            	confObj2.push(records[i].data);
 					            }
 					            
+					            _krad.kradInfo = confObj2;
+					            
 					            localStorage['_kradExtInfo2_']= JSON.stringify(confObj2);
 					            
 			        			//사용자지정 로컬스토리지
@@ -216,14 +218,13 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 								if(jsonConf2.length > 0){
 									for(var i =0 ; i < jsonConf2.length;i++){
 										if(jsonConf2[i].EVENT_TYPE == "Point"){
-											kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+											kradLayer.push(jsonConf2[i].PE_LAYER_ID);
 										}
 										if(jsonConf2[i].EVENT_TYPE == "Line"){
 											kradLayer.push(jsonConf2[i].LO_LAYER_ID);
 										}
 									}
 								}
-								
 								_krad.setKradOnOff(kradLayer);
 					            
 					        }
@@ -245,6 +246,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				                    }
 				        			var jsonConf2 = JSON.parse(confInfo2);
 				        			
+				        			_krad.kradInfo = jsonConf2;
 				        			
 				        			store2.queryBy(function(record2) {
 				        				for(var i = 0; i < jsonConf2.length;i++){
@@ -294,7 +296,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 							if(jsonConf2.length > 0){
 								for(var i =0 ; i < jsonConf2.length;i++){
 									if(jsonConf2[i].EVENT_TYPE == "Point"){
-										kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+										kradLayer.push(jsonConf2[i].PE_LAYER_ID);
 									}
 									if(jsonConf2[i].EVENT_TYPE == "Line"){
 										kradLayer.push(jsonConf2[i].LO_LAYER_ID);

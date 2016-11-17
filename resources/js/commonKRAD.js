@@ -60,3 +60,17 @@ kradMetaInfo = function(rowData){
 		}
 	}, 500);
 }
+
+initKradEvt = function(){
+	
+	SetBtnOnOff("btnMenu04", "off");
+	SetBtnOnOff("btnMenu05", "off");
+	
+	// 그래픽 레이어 초기화
+	_krad.tmpGrpLayer.clear();
+	// 이벤트 초기화
+	_krad.offMapClickEvt();
+	_krad.offTmpGrpEvt();
+	// 커서 디폴트
+	Ext.get('_mapDiv__gc').setStyle('cursor','default');
+}

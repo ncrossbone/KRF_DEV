@@ -121,7 +121,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     
     /* 그리기 시작
      * drawOption: 시작위치, 끝위치, 드래그선택 등 ("startPoint", "endPoint"...) */
-    startDraw: function(drawOption){
+    /*startDraw: function(drawOption){
     	
     	var me = this;
     	
@@ -170,20 +170,16 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			on(me.selectionToolbar, "DrawEnd", function (evt) {
 
-				/* draw extention offset 2016-04-05 주석 - map left 고정시키면서 필요없어짐..
+				 draw extention offset 2016-04-05 주석 - map left 고정시키면서 필요없어짐..
 				//if(location.host != "10.101.95.14"){
 				if(_isOffsetPoint == true){
 					//console.info(_isOffsetPoint);
 					// 실서버는 적용 안해도 됨.
 					//evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
 				}
-				*/
 				
-				// khLee Test KRAD 20161024
-				me.getRchIdWithEvent(evt, drawOption);
-				//return;
-				// khLee Test KRAD 20161024 End
-				/*if(symbol != null && symbol != undefined)
+				
+				if(symbol != null && symbol != undefined)
 					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
 				
 				if(drawOption == "startPoint" || drawOption == "start"){
@@ -197,10 +193,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				}
 				
 				// 이벤트로 리치 라인 조회
-				me.selectLineWithEvent(evt, drawOption);*/
+				me.selectLineWithEvent(evt, drawOption);
 	        });
 		});
-    },
+    },*/
     startDrawEnd: function(evt, symbol, drawOption){
     	
     	var me = this;
@@ -232,106 +228,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		// 이벤트로 리치 라인 조회
 		me.selectLineWithEvent(evt, drawOption);
     },
-    /* khLee KRAD Test 20161025 추가 */
-    /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
-     * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
-     * evt: 이벤트 */
-    getRchIdWithEvent: function(evt, drawOption){
-    	
-    	var me = this;
-    	var coreMap = GetCoreMap();
-    	
-    	var rchIds = [];
-    	
-    	require(["esri/tasks/query",
-    	         "esri/tasks/QueryTask",
-    	         "esri/geometry/Point",
-    	         "esri/geometry/Extent"], function(Query, QueryTask, Point, Extent){
-    		
-	    	var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
-			var query = new Query();
-			query.returnGeometry = false;
-			query.outFields = ["*"];
-			
-			if(evt.type == "point"){
-				
-	        	var centerPoint = new Point(evt.x, evt.y, evt.spatialReference);
-	        	var mapWidth = coreMap.map.extent.getWidth();
-	        	var pixelWidth = mapWidth / coreMap.map.width;
-	        	var tolerance = 10 * pixelWidth;
-	        	
-	        	var queryExtent = new Extent(1, 1, tolerance, tolerance, evt.spatialReference);
-	        	query.geometry = queryExtent.centerAt(centerPoint);
-	    	}
-			else{
-				
-				query.geometry = evt;
-			}
-			
-			// 이벤트로 리치라인 조회
-			queryTask.execute(query, function(featureSet){
-				
-				if(featureSet.features.length > 0){
-					
-					for(var i = 0; i < featureSet.features.length; i++){
-						
-						rchIds.push(featureSet.features[i].attributes.RCH_ID);
-						
-						/* KRAD 이벤트 그래픽 그리기 */
-						drawKRADEvtGrp(rchIds, evt, drawOption);
-					}
-				}
-				else{
-					
-					var areaQueryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId); // 집수구역 URL
-					var areaQuery = new Query();
-					areaQuery.returnGeometry = false;
-					areaQuery.outFields = ["*"];
-					areaQuery.geometry = query.geometry;
-					
-					// 이벤트로 집수구역 조회
-					areaQueryTask.execute(areaQuery, function(areaFS){
-						
-						if(areaFS.features.length > 0){
-							
-							var lineQueryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
-							var lineQuery = new Query();
-							lineQuery.returnGeometry = false;
-							lineQuery.outFields = ["*"];
-							lineQuery.where = "CAT_DID IN (";
-							
-							for(var i = 0; i < areaFS.features.length; i++){
-								
-								lineQuery.where += "'" + areaFS.features[i].attributes.CAT_DID + "', ";
-							}
-							
-							lineQuery.where = lineQuery.where.substring(0, lineQuery.where.length - 2) + ")";
-							
-							// 조건으로 리치라인 조회
-							lineQueryTask.execute(lineQuery, function(lineFS){
-								
-								if(lineFS.features.length > 0){
-									
-									for(var i = 0; i < lineFS.features.length; i++){
-										
-										rchIds.push(lineFS.features[i].attributes.RCH_ID);
-									}
-									
-									/* khLee Test KRAD 이벤트 그래픽 그리기 */
-									drawKRADEvtGrp(rchIds, evt, drawOption);
-								}
-								else{
-									
-									alert("해당 구역에 리치라인을 찾을 수 없습니다.");
-								}
-							});
-						}
-					});
-				}
-			});
-    	});
-    },
-    
     /* 이벤트(클릭, 드래그 등)로 리치라인 조회 
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
      * evt: 이벤트
@@ -979,17 +875,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					
 					if(me.searchCnt == me.tmpSearchCnt){
 						
-						/* khLee Test KRAD 추가로 주석.. commonKRAD에서 실행 */
 						// 지점 목록 창 띄우기
-		        		//Ext.ShowSiteListWindow("selectReach");
+		        		Ext.ShowSiteListWindow("selectReach");
 		        		
 		        		// 검색결과 창 띄우기
-		        		//ShowSearchResultReach("");
-						/* khLee Test KRAD 추가로 주석.. commonKRAD에서 실행 끝 */
-	        		
-		        		/* khLee Test 20161026 */
-		        		drawKRADLayer();
-		        		/* khLee Test 20161026 End */
+		        		ShowSearchResultReach("");
 		        		
 		        		// 1초 단위 타이머
 		        		var timer = setInterval(afterChk = function(){

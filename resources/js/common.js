@@ -40,8 +40,6 @@ SetBtnOnOff = function(btnId, strOnOff){
 		else{
 			
 			currCtl.setSrc(currCtl.btnOffImg);
-			// 커서 디폴트
-        	Ext.get('_mapDiv__gc').setStyle('cursor','default');
 		}
 	}
 	
@@ -1698,7 +1696,6 @@ SetWestCollapseXY = function(option){
 	}
 	
 	var sConfig = Ext.getCmp("searchConfig");
-	
 	if(sConfig != undefined){
 		
 		if(sConfig.hidden == false){
@@ -1707,6 +1704,15 @@ SetWestCollapseXY = function(option){
 		}
 	}
 	
+	var shConfig = Ext.getCmp("searchConfigHeader");
+	if(shConfig != undefined){
+		
+		if(shConfig.hidden == false){
+			
+			shConfig.setX(shConfig.getX() + offsetWidth);
+		}
+	}
+	//searchConfigHeader
 	
 	//krad 리스트
 	var kConfig = Ext.getCmp("kradSchConf");
