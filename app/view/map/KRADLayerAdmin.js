@@ -59,8 +59,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		
 		me.setDynamicLayer();
 		
-		me.dynamicLayer.setVisibleLayers([-1]);
-		
 		require(["esri/symbols/SimpleMarkerSymbol",
 		         "esri/symbols/SimpleLineSymbol",
 		         "esri/symbols/SimpleFillSymbol",
@@ -160,6 +158,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		me.dynamicLayer.id = "kradLayerAdmin"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer.visible = true;
 		me.map.addLayer(me.dynamicLayer);
+		me.dynamicLayer.setVisibleLayers([-1]);
 		
     },
     setKRADInfo: function(){
