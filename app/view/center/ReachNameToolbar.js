@@ -18,7 +18,7 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
     /* 사이즈 지정 */
     itemWidth: 102,
     itemHeight: 18,
-    alwaysOnTop: false , // 가장 상위에 있기 위한 함수
+    //alwaysOnTop: true , // 가장 상위에 있기 위한 함수
     plain: true, // 요게 있어야 background: transparent 먹음..
     style: 'border-style: none !important; background: transparent none !important; border-width: 2px !important;',
     cls: 'dj_toolbarNm dj_spottextfield2',
