@@ -441,7 +441,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						me.clickedReachLines.push(featureSet.features[i]); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
 					}
 					
-					me.showPopup();
+					if(_krad.kradInfo.length == 0){
+	    				
+						me.setClickEvt(_krad.mapClickEvt, "Reach");
+	    			}
+					else{
+						
+						me.showPopup();
+					}
 				}
 				else{
 					
@@ -480,7 +487,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 										me.clickedReachLines.push(lineFS.features[i]); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
 									}
 									
-									me.showPopup();
+									if(_krad.kradInfo.length == 0){
+					    				
+										me.setClickEvt(_krad.mapClickEvt, "Reach");
+					    			}
+									else{
+										
+										me.showPopup();
+									}
 								}
 								else{
 									

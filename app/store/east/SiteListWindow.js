@@ -149,8 +149,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			query.outFields = ["*"];
-			console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
-			console.info(query.where);
+			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
+			//console.info(query.where);
 			queryTask.execute(query, function(result){
 				
 				var fMap = result.features.map(function(obj){
