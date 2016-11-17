@@ -86,6 +86,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 리치추가 버튼 클릭
 	onClickAddReach: function(obj, el, evt){
 		
+		// 맵 클릭 이벤트 켜기
+		_krad.onMapClickEvt("addPoint", el.id);
+		
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
 		//GetCoreMap().reachLayerAdmin_v3.drawEnd();
