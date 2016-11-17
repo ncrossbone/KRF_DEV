@@ -25,7 +25,8 @@ Ext.define('KRF_DEV.store.east.PollutionResult_03_Catdid', {
 			Ext.Ajax.request({
 				url: './resources/jsp/pollution/PollutionSelect_03_Catdid.jsp',
         		params: { 
-        			catDid: store.catDid
+        			catDid: store.catDid,
+        			year: store.year
         		},
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',

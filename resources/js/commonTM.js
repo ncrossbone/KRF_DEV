@@ -480,7 +480,7 @@ pollutionLayerOnOff = function(onOff, value){
 		pollvalue: value,
 		async: false		
 	});
-	
+	var year = Ext.getCmp("setPollutionYear").value;
 	var colName = Ext.getCmp("setPollutionItems").value;
 	
 	
@@ -530,7 +530,7 @@ pollutionLayerOnOff = function(onOff, value){
 			catPollutionOnOff[0].src = imgSrc.replace("_off.", "_on.");
 			
 			// 주제도 레이어 보이기
-			showCatPollutionLayer("", colName,value);
+			showCatPollutionLayer("", colName,value,year);
 		}
 	}
 	
@@ -632,7 +632,7 @@ showCatTMLayer = function(year, colName){
 }
 
 //집수구역별 주제도 보여주기
-showCatPollutionLayer = function(year, colName, value){
+showCatPollutionLayer = function(year, colName, value, year){
 	
 	var coreMap = GetCoreMap();
 	var arrAreaGrp = [];
@@ -664,7 +664,7 @@ showCatPollutionLayer = function(year, colName, value){
 		coreMap.pollutionLayerAdmin = Ext.create("KRF_DEV.view.map.PollutionLayerAdmin");
 	}
 	
-	coreMap.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, "2012" , colName, value);
+	coreMap.pollutionLayerAdmin.drawTMCatLayer(inStrCatDids, year , colName, value);
 }
 
 //집수구역별 주제도 보여주기
@@ -1062,8 +1062,8 @@ PollLoadSearchResult = function(value){
 
 
 
-PollutionSearchResult = function(value,recordId,title,storeNm){
-	console.info(value);
+PollutionSearchResult = function(value,recordId,title,storeNm,year){
+	
 	
 	var coreMap = GetCoreMap();
 	
@@ -1110,7 +1110,8 @@ PollutionSearchResult = function(value,recordId,title,storeNm){
 	
 	var	pollutionstore = Ext.create("KRF_DEV.store.east."+storeNm,{
 			catDid : catDid,
-			selectValue: value
+			selectValue: value,
+			year: year
 		});
 	
 

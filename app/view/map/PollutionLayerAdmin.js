@@ -59,7 +59,6 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 				
 				layerId = "1";
 			}
-			
 			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/" + layerId);
 			
 			var query = new Query();
@@ -73,13 +72,14 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        queryTask.execute(query, function(tmCatFeatureSet){
 	        	
 	        	
-	        	
+	        	console.info(year);
 	        	var tmpCatDids = inStrCatDids.replace(/'/g, "").split(", ");
 	        	console.info(kind);
 	        	//각 계에 해당하는 store 생성
 	        	 var store = Ext.create('KRF_DEV.store.east.PollutionResult_0'+kind+'_Catdid',{
 	    			async:false,
-	    			catDid : tmpCatDids
+	    			catDid : tmpCatDids,
+	    			year: year
 	    		});
 	        	
 	        	if(store == undefined){
