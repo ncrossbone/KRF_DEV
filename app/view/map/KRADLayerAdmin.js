@@ -627,7 +627,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		
 		    		var siteNm = evt.graphic.attributes.지점명 != undefined ? evt.graphic.attributes.지점명 : (evt.graphic.attributes.시설명 != undefined ? evt.graphic.attributes.시설명 : "");
 		    		var siteAddr = evt.graphic.attributes.주소 != undefined ? evt.graphic.attributes.주소 : "";
-		    		var siteCorp = evt.graphic.attributes.운영기관 != undefined ? evt.graphic.attributes.운영기관 : "";
+		    		var siteCorp = evt.graphic.attributes.조사기관 != undefined ? evt.graphic.attributes.조사기관 : (evt.graphic.attributes.운영기관 != undefined ? evt.graphic.attributes.운영기관 : "");
 		    		
 		    		var infoTitle = "";
 		    		if(infoIdx > -1){

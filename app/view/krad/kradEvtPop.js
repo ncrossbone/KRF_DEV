@@ -225,7 +225,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 				}
 				
 				query.where = query.where.substring(0, query.where.length - 2) + ")";
-				
+				//console.info(_krad.kradServiceUrl + "/" + layerId);
+				//console.info(query.where);
 				queryTask.execute(query, function(featureSet){
 					
 					if(featureSet.features.length > 0){
