@@ -166,9 +166,14 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 		
 		me.setEvtType();
 		
-		Ext.defer(function(){
-			me.setItemDisabled();
-		}, 200);
+		var timerObj = window.setInterval(function(){
+			
+			if(_krad.kradInfo.length == me.queryCnt){
+				
+				me.setItemDisabled();
+				window.clearInterval(timerObj);
+			}
+		}, 100);
 	},
 	// 버튼 src 초기화
 	initBtnSrc: function(){
@@ -186,6 +191,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 		var me = this;
 		
 		me.arrEvtType = [];
+		
+		me.queryCnt = 0;
 		
 		for(var i = 0; i < _krad.kradInfo.length; i++){
 			
@@ -236,6 +243,8 @@ Ext.define('KRF_DEV.view.krad.kradEvtPop', {
 							me.arrEvtType.push(evtType);
 						}
 					}
+					
+					me.queryCnt++;
 				});
 			});
 		}

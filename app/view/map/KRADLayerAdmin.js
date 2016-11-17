@@ -683,25 +683,25 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				me.setClickEvt(evt, paramEvtType);
 	    	});
 			
-			var mUpObj = on(me.tmpGrpLayer, "mouse-up", function(evt){
+			/* 마우스 업 시 infowindow hidden */
+			var mUpObj = on(me.map, "mouse-up", function(evt){
 				
-				/*var obj = me.map.infoWindow;
-				console.info(obj.domNode.getStyle("visibility"));*/
+				var obj = me.map.infoWindow;
+				var hCnt = 0;
 				
-				/*console.info(me.map.infoWindow.isShowing);
-				me.map.infoWindow.unsetMap(me.map);*/
-				/*var timerObj = window.setInterval(function(){
+				// 1초 체크
+				var timerObj = window.setInterval(function(){
 					
-					var obj = me.map.infoWindow;
-					console.info(obj.getAttribute("visibility"));
-					me.map.infoWindow.hide();
-				}, 500);*/
-				
-				/*Ext.defer(function(){
+					obj.hide();
 					
-					me.map.infoWindow.hide();
-					mUpObj.remove();
-				}, 1000);*/
+					hCnt++;
+					
+					if(hCnt > 10){
+						
+						window.clearInterval(timerObj);
+						mUpObj.remove();
+					}
+				}, 100);
 			});
     	});
     },
