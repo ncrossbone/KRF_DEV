@@ -270,6 +270,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		me.btnObj = SetBtnOnOff(btnId);
     	}
     	
+    	var isMapClickEvt = false;
     	me.isShowPopup = false;
     	
     	if(me.btnObj != undefined && me.btnObj != null){
@@ -281,6 +282,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    	}
 	    	else{
 		    	
+	    		isMapClickEvt = true;
 	    		me.isShowPopup = true;
 	    		
 		    	if(me.drawOption == "startPoint"){
@@ -301,62 +303,79 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    	/* 클릭 이벤트 삭제 */
 	    	me.offMapClickEvt();
 	    	
-	    	/* 클릭 이벤트 설정 */
-	    	require(["dojo/on"],
-					function(on){
+	    	if(isMapClickEvt == true){
 	    		
-	    		/* 지도 이동을 염두에 두고 down일때 이벤트 지정 */
-	    		me.mapMdownObj = on(me.map, "mouse-down", function(evt){
-	    			
-	    			if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
-		    		}
-	    			else{ // 오른클릭이 아닐때만 이벤트 입력
-	    				me.mapClickEvt = evt;
-	    			}
-	    		});
-	    		
-		    	me.mapClickObj = on(me.map, "mouse-up", function(evt){
+		    	/* 클릭 이벤트 설정 */
+		    	require(["dojo/on"],
+						function(on){
 		    		
-		    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+		    		/* 지도 이동을 염두에 두고 down일때 이벤트 지정 */
+		    		me.mapMdownObj = on(me.map, "mouse-down", function(evt){
 		    			
-			    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
-			    			
-			    			// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
-			    			me.isShowPopup = false;
+		    			if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
 			    		}
-			    		else{
-			    			
-			    			me.isShowPopup = true;
-			    		}
-		    		}
-		    		
-		    		if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
-		    			
-		    			// 오른버튼 컨텍스트 메뉴 막기
-		    			document.oncontextmenu = function(evt){return false;}
-		    			
-		    			if(me.mapClickEvt != undefined && me.mapClickEvt != null){
-		    				
-		    				me.showPopup();
+		    			else{ // 오른클릭이 아닐때만 이벤트 입력
+		    				me.mapClickEvt = evt;
 		    			}
-		    		}
-		    		else{
-		    			
-		    			// 오른버튼 컨텍스트 메뉴 풀기
-		    			document.oncontextmenu = null;
-		    			
-			    		if(me.isShowPopup == true){
+		    		});
+		    		
+			    	me.mapClickObj = on(me.map, "mouse-up", function(evt){
+			    		
+			    		if(me.mapClickEvt != undefined && me.mapClickEvt != null){
 			    			
-			    			me.setRchIdsWithEvent();
+				    		if(me.mapClickEvt.x != evt.x || me.mapClickEvt.y != evt.y){
+				    			
+				    			// 지도 이동 시 팝업 띄우지 않는다. 해당 리치 정보도 담지않는다. me.setRchIdsWithEvent();, me.showPopup(); 안들어가게..
+				    			me.isShowPopup = false;
+				    		}
+				    		else{
+				    			
+				    			if(me.map.getLevel() < 11){
+				    				
+				    				alert("11레벨 이하에서는 동작하지 않습니다.");
+				    				// 이벤트 초기화
+				    				initKradEvt();
+				    				me.isShowPopup = false;
+				    			}
+				    			else{
+				    				
+				    				me.isShowPopup = true;
+				    			}
+				    		}
+			    		}
+			    		
+			    		if((evt.which && evt.which == 3) || (evt.button && evt.button == 2)){
+			    			
+			    			// 오른버튼 컨텍스트 메뉴 막기
+			    			/*document.oncontextmenu = function(evt){return false;}
+			    			
+			    			if(me.mapClickEvt != undefined && me.mapClickEvt != null){
+			    				
+			    				me.showPopup();
+			    			}*/
 			    		}
 			    		else{
 			    			
-			    			me.closePopup();
+			    			// 오른버튼 컨텍스트 메뉴 풀기
+			    			//document.oncontextmenu = null;
+			    			
+				    		if(me.isShowPopup == true){
+				    			
+				    			me.setRchIdsWithEvent();
+				    		}
+				    		else{
+				    			
+				    			me.closePopup();
+				    		}
 			    		}
-		    		}
+			    	});
 		    	});
-	    	});
-	    	/* 클릭 이벤트 설정 끝 */
+		    	/* 클릭 이벤트 설정 끝 */
+	    	}
+	    	else{
+	    		
+	    		me.closePopup();
+	    	}
     	}
     },
     /* 맵 클릭 이벤트 끄기 */
