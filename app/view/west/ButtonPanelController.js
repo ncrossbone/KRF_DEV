@@ -233,7 +233,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				if(jsonConf2.length > 0){
 					for(var i =0 ; i < jsonConf2.length;i++){
 						if(jsonConf2[i].EVENT_TYPE == "Point"){
-							kradLayer.push(jsonConf2[i].PD_LAYER_ID);
+							kradLayer.push(jsonConf2[i].PE_LAYER_ID);
 						}
 						if(jsonConf2[i].EVENT_TYPE == "Line"){
 							kradLayer.push(jsonConf2[i].LO_LAYER_ID);
