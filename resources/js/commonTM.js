@@ -487,12 +487,14 @@ pollutionLayerOnOff = function(onOff, value){
 	var catPollutionOnOff = $("#catPollutionOnOff_0"+value);
 	var corMap = GetCoreMap();
 	
+	pollutionCatLayerClear();
+	// 주제도 레이어 클리어
+	tmCatLayerClear();
+	
 	if(catPollutionOnOff[0] != undefined){
 	
 		// 주제도 레이어 클리어
-		pollutionCatLayerClear();
-		// 주제도 레이어 클리어
-		tmCatLayerClear();
+		
 		
 		var imgSrc = catPollutionOnOff[0].src;
 		
