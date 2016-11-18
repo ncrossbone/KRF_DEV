@@ -478,7 +478,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					//frame: true,
 					plain: true, // 요게 있어야 background: transparent 먹음..
 					point: point, // 지점 포인트 정보
-					width: 360,
+					width: 380,
 					height: 215,
 					//x: xyObj.x,
 					//y: xyObj.y,
