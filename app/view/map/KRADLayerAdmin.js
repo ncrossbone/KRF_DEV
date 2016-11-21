@@ -409,7 +409,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		
 	    	var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
 			var query = new Query();
-			query.returnGeometry = false;
+			query.returnGeometry = true;
 			query.outFields = ["*"];
 			
 			if(me.mapClickEvt.mapPoint.type == "point"){
@@ -441,7 +441,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					
 					var areaQueryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId); // 집수구역 URL
 					var areaQuery = new Query();
-					areaQuery.returnGeometry = false;
+					areaQuery.returnGeometry = true;
 					areaQuery.outFields = ["*"];
 					areaQuery.geometry = query.geometry;
 					
@@ -497,7 +497,26 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     			me.drawGraphic(feature, "reachLine");
     			// 집수구역 그리기
     			me.setReachArea(catDid);
+    			// 검색 종료 체크
+    			me.isStopCheck();
+    			// 버튼 끄기
+    			SetBtnOnOff(me.btnObj.id, "off");
+    			// 이벤트 초기화
+				initKradEvt();
     		}
+    		if(me.drawOption == "removePoint"){
+    			
+				// 라인 지운다
+				me.removeGraphic(feature, "reachLine");
+				// 집수구역 지운다
+				me.removeGraphic(feature, "reachArea");
+				// 검색 종료 체크
+    			me.isStopCheck();
+    			// 버튼 끄기
+    			SetBtnOnOff(me.btnObj.id, "off");
+    			// 이벤트 초기화
+				initKradEvt();
+			}
     		else{
     			
     			me.rchIds.push(feature.attributes.RCH_ID);
@@ -869,27 +888,30 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	var me = this;
     	
-    	require(["esri/graphic"], function(Graphic){
+    	if(me.drawOption == "startPoint" || me.drawOption == "endPoint"){
     		
-    		var graphic = null;
-    		var btnId = null;
-    		
-    		if(me.drawOption == "startPoint"){
-    			btnId = "btnMenu04";
-    			graphic = new Graphic(evt, me.stSymbol);
-    		}
-    		if(me.drawOption == "endPoint"){
-    			btnId = "btnMenu05";
-    			graphic = new Graphic(evt, me.edSymbol);
-    		}
-    		
-    		me.symGrpLayer.add(graphic); // 그래픽 추가
-    		
-    		// 커서 디폴트
-        	Ext.get('_mapDiv__gc').setStyle('cursor','default');
-        	// 버튼 off
-        	SetBtnOnOff(btnId, "off");
-    	});
+	    	require(["esri/graphic"], function(Graphic){
+	    		
+	    		var graphic = null;
+	    		var btnId = null;
+	    		
+	    		if(me.drawOption == "startPoint"){
+	    			btnId = "btnMenu04";
+	    			graphic = new Graphic(evt, me.stSymbol);
+	    		}
+	    		if(me.drawOption == "endPoint"){
+	    			btnId = "btnMenu05";
+	    			graphic = new Graphic(evt, me.edSymbol);
+	    		}
+	    		
+	    		me.symGrpLayer.add(graphic); // 그래픽 추가
+	    		
+	    		// 커서 디폴트
+	        	Ext.get('_mapDiv__gc').setStyle('cursor','default');
+	        	// 버튼 off
+	        	SetBtnOnOff(btnId, "off");
+	    	});
+    	}
     },
     chkGeoTrib: function(geoTrib){
     	
@@ -1399,6 +1421,83 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			arrObj.push(graphic);
 			// 리치 배열 넣기
 			reachArr.push(graphic);
+		}
+    },
+    /* 그래픽 지우기 */
+    removeGraphic: function(graphic, grpType){
+    	
+    	var me = this;
+    	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+    	
+    	if(grpType == "reachLine"){
+    		
+    		me.removeGraphic2(graphic, me.lineGrpLayer, me.arrLineGrp, reachAdmin.arrLineGrp);
+    	}
+    	
+    	if(grpType == "reachArea"){
+    		
+    		me.removeGraphic2(graphic, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp);
+    	}
+    },
+    removeGraphic2: function(graphic, layer, arrObj, reachArr){
+    	
+    	var me = this;
+    	
+    	var currId = graphic.attributes.LINE_EVENT_ID != undefined ? graphic.attributes.LINE_EVENT_ID :
+    		(graphic.attributes.AREA_EVENT_ID != undefined ? graphic.attributes.AREA_EVENT_ID :
+    			(graphic.attributes.RCH_DID != undefined ? graphic.attributes.RCH_DID : 
+    				(graphic.attributes.RCH_ID != undefined ? graphic.attributes.RCH_ID : graphic.attributes.CAT_DID)));
+    	
+    	var grpIdx = layer.graphics.map(function(obj){
+			
+			var objId = obj.attributes.LINE_EVENT_ID != undefined ? obj.attributes.LINE_EVENT_ID :
+	    		(obj.attributes.AREA_EVENT_ID != undefined ? obj.attributes.AREA_EVENT_ID :
+	    			(obj.attributes.RCH_DID != undefined ? obj.attributes.RCH_DID : 
+	    				(obj.attributes.RCH_ID != undefined ? obj.attributes.RCH_ID :
+	    					obj.attributes.CAT_DID)));
+			
+			return objId;
+		}).indexOf(currId);
+    	
+    	//console.info(grpIdx);
+    		
+		var idx = arrObj.map(function(obj){
+			
+			var objId = obj.attributes.LINE_EVENT_ID != undefined ? obj.attributes.LINE_EVENT_ID :
+	    		(obj.attributes.AREA_EVENT_ID != undefined ? obj.attributes.AREA_EVENT_ID :
+	    			(obj.attributes.RCH_DID != undefined ? obj.attributes.RCH_DID : 
+	    				(obj.attributes.RCH_ID != undefined ? obj.attributes.RCH_ID :
+	    					obj.attributes.CAT_DID)));
+			
+			return objId;
+		}).indexOf(currId);
+		
+		var rchIdx = reachArr.map(function(obj){
+			
+			var objId = obj.attributes.LINE_EVENT_ID != undefined ? obj.attributes.LINE_EVENT_ID :
+	    		(obj.attributes.AREA_EVENT_ID != undefined ? obj.attributes.AREA_EVENT_ID :
+	    			(obj.attributes.RCH_DID != undefined ? obj.attributes.RCH_DID : 
+	    				(obj.attributes.RCH_ID != undefined ? obj.attributes.RCH_ID :
+	    					obj.attributes.CAT_DID)));
+			
+			return objId;
+		}).indexOf(currId);
+		
+		if(grpIdx > -1){
+			
+			layer.remove(layer.graphics[grpIdx]);
+		}
+		
+		if(idx > -1){
+			
+			// 배열에서 삭제
+			arrObj.splice(idx, 1);
+		}
+		
+		if(rchIdx > -1){
+			
+			// 리치 배열에서 삭제
+			reachArr.splice(rchIdx, 1);
 		}
     },
     /* 리치 집수구역 셋팅 */

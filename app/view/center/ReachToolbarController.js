@@ -96,6 +96,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 구간제거 버튼 클릭
 	onClickRemoveReach: function(obj, el, evt){
 		
+		// 맵 클릭 이벤트 켜기
+		_krad.onMapClickEvt("removePoint", el.id);/*
+		
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
 		GetCoreMap().reachLayerAdmin_v3_New.drawEnd();
@@ -108,7 +111,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			//GetCoreMap().reachLayerAdmin.pointDraw("REMOVE", el.id);
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("REMOVE", el.id); // v3
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("removePoint"); // v3
-		}
+		}*/
 		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
