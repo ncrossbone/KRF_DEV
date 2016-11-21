@@ -1503,6 +1503,10 @@ ResetButtonClick = function(){
 	SetBtnOnOff("btnMenu04", "off");
 	SetBtnOnOff("btnMenu05", "off");
 	
+	catTMLayerOnOff("off");
+	
+	pollutionLayerOnOff("off","");
+	
 	Ext.HideSiteListWindow(); // 지점 리스트 창 닫기
 	HideWindowSiteNChart(); // 지점정보, 차트창 닫기
 	HideSearchResult(); // 검색결과 닫기
@@ -1544,9 +1548,7 @@ ResetButtonClick = function(){
 	txtBox.setValue("");
 	
 	// 주제도 레이어 off
-	catTMLayerOnOff("off");
 	
-	pollutionLayerOnOff("off","");
 }
 
 // 주제도 레이어 on/off

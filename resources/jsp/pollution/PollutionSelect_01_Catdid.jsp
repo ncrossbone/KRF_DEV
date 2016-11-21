@@ -11,6 +11,7 @@
 try{
 	
 	Object[] catDid = request.getParameterValues("catDid");
+	String year = request.getParameter("year");
 	
 	sql = " WITH TBL_PLA_POP_TOTAL AS (																																	                    ";
 	sql += "     SELECT YYYY                                                                               ";
@@ -313,6 +314,8 @@ try{
 			
 		}
 	}
+	
+	sql += "  AND YYYY ='"+year+"'                                 ";
 	sql += "  ORDER BY DECODE(SB_NM,'ÃÑ°è',1,2), SB_ID, DECODE(CAT_DID,'¼Ò°è',1,2), CAT_DID                                  ";
 
     

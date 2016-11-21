@@ -11,6 +11,7 @@
 try{
 	
 	Object[] catDid = request.getParameterValues("catDid");
+	String year = request.getParameter("year");
 	
 	sql = " WITH TBL_PLA_POP_TOTAL AS (																																									";
 	sql += "     SELECT YYYY    /*조사년도*/                                                                              ";
@@ -67,7 +68,7 @@ try{
 			
 		}
 	}
-
+	sql += "  AND YYYY ='"+year+"'                                 ";
 	sql += "     )                                                                                                        ";
 	sql += " select YYYY    /*조사년도*/                                                                                  ";
 	sql += "      , WS_NM   /*대권역*/                                                                                    ";
