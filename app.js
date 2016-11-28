@@ -1,5 +1,10 @@
 var _testUrl = null;
 var _serviceUrl = null;
+/**
+ * testlkj
+ * @param ljkdfjsad flkjdsl
+ * @return string
+ * */
 var _mapServiceUrl = null; // 리치 맵 서비스
 var _mapServiceUrl_v3 = null; // 리치 맵 서비스 v3
 var _mapServiceUrl_v3_2 = null; // 리치 맵 서비스 v3 (투명도적용)
@@ -51,7 +56,9 @@ var store = Ext.create('Ext.data.Store', {
 });
 
 store.load(function(a, b, c) {
+	
 	this.each(function(record, cnt, totCnt) {
+		
 		_mapServiceUrl = record.data.reachServiceUrl;
 		_mapServiceUrl_v3 = record.data.reachServiceUrl_v3;
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
@@ -176,7 +183,6 @@ Ext.application({
 			var westContents = Ext.getCmp("westContents");
 			westContents.setActiveItem(tabIdx);
 		}
-
 		// Ext.WestTabChange(1);
 
 		// 이미지 on/off
