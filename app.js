@@ -142,6 +142,7 @@ kradStore.load(function(a, b, c) {
  */
 Ext.application({
 	name : 'KRF_DEV',
+	requires: ["KRF_DEV.global.Obj"],
 	
 	// extend: 'KRF_DEV.Application',
 
