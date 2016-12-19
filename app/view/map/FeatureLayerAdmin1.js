@@ -261,9 +261,9 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		else{
 			query.where = "측정소코드='" + siteId + "'";
 		}
-		console.info("?");
+		
 		queryTask.execute(query,  function(results){
-			console.info("??");
+			
 			Ext.each(results.features, function(obj, index) {
 				
 				
@@ -656,8 +656,8 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outFields = ["*"];
 		
 		query.where =  "CAT_DID='" + catDId + "'";
-		console.info(_mapServiceUrl_v3 + "/" + layerId);
-		console.info(query.where);
+		
+		
 		queryTask.execute(query,  function(results){
 			
 			me.moveRchGraphicLayer.clear();
