@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
+<<<<<<< HEAD
 encoding//app/view/east/ChartPanelDate.js=UTF-8
 encoding//app/view/map/task/CustomPrintTask.js=UTF-8
+=======
+>>>>>>> 895b1469da3a91d55c261aaa7d5e142a72181e3a
 encoding//resources/jsp/GetRWMDT_A.jsp=UTF-8
-encoding/app.js=UTF-8
+encoding/<project>=UTF-8

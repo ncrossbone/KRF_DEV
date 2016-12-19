@@ -257,6 +257,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
      * [params isShowPopup]	: 컨텍스트 메뉴 팝업 보이기 여부 */
     onMapClickEvt: function(drawOption, btnId){
     	
+    	initKradEvt();
+    	
     	var me = this;
     	
     	if(drawOption != undefined && drawOption != null && drawOption != ""){
@@ -276,11 +278,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	if(me.btnObj != undefined && me.btnObj != null){
     		
 	    	/* 커서 설정 */
-	    	if(me.btnObj.btnOnOff == "off"){
-	    		
-	    		Ext.get('_mapDiv__gc').setStyle('cursor','default');
-	    	}
-	    	else{
+	    	if(me.btnObj.btnOnOff == "on"){
 		    	
 	    		isMapClickEvt = true;
 	    		me.isShowPopup = true;
@@ -293,15 +291,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		
 		    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
 		    	}
-		    	else{
-		    		
-		    		Ext.get('_mapDiv__gc').setStyle('cursor','default');
-		    	}
 	    	}
 	    	/* 커서 설정 끝 */
-	    	
-	    	/* 클릭 이벤트 삭제 */
-	    	me.offMapClickEvt();
 	    	
 	    	if(isMapClickEvt == true){
 	    		
@@ -395,6 +386,69 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.mapClickObj = null;
 		}
     },
+    onMapDragEvt: function(drawOption, btnId){
+    	
+    	initKradEvt();
+    	
+    	var me = this;
+    	
+    	if(drawOption != undefined && drawOption != null && drawOption != ""){
+    		
+    		me.drawOption = drawOption;
+    	}
+    	
+    	/* 버튼 On, Off */
+    	if(btnId != undefined && btnId != null && btnId != ""){
+    		
+    		me.btnObj = SetBtnOnOff(btnId);
+    	}
+    	
+    	me.isShowPopup = false;
+    	
+    	KRF_DEV.global.Obj.showSimpleTooltip("선택할 영역을 드래그하세요.");
+    	
+    	require(["esri/toolbars/draw",
+	         "dojo/on"], function(Draw, on, bundle){
+    		
+    		var mapClickObj = on(me.map, "mouse-up", function(evt){
+        		
+        		if(me.map.getLevel() < 11){
+    				
+    				alert("11레벨 이하에서는 동작하지 않습니다.");
+    				mapClickObj.remove();
+    				return;
+    			}
+        	});
+    		
+    		var selectionToolbar = new Draw(me.map, { showTooltips: false });
+    		
+    		if(me.drawOption == "extent"){
+    			selectionToolbar.activate(Draw.EXTENT);
+    		}
+    		else if(me.drawOption == "circle"){
+    			selectionToolbar.activate(Draw.CIRCLE);
+    		}
+    		
+    		on(selectionToolbar, "DrawEnd", function (evt) {
+    			
+    			me.mapClickEvt = evt;
+    			
+    			me.setRchIdsWithEvent();
+    			
+    			//console.info(evt);
+    			selectionToolbar.deactivate();
+    			
+    			// 버튼 off
+    	    	SetBtnOnOff(btnId, "off");
+    	    	
+    	    	KRF_DEV.global.Obj.hideSimpleTooltip();
+    		});
+    	});
+    },
+    offMapDragEvt: function(){
+    	
+    	KRF_DEV.global.Obj.hideSimpleTooltip();
+    },
     /* 이벤트(클릭, 드래그 등)로 리치라인에서 리치아이디 가져오기
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
      * 조회 완료 후 컨텍스트 메뉴 팝업 오픈 */
@@ -412,7 +466,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			query.returnGeometry = true;
 			query.outFields = ["*"];
 			
-			if(me.mapClickEvt.mapPoint.type == "point"){
+			if(me.mapClickEvt == undefined || me.mapClickEvt == null){
+				
+				alert("클릭 이벤트가 지정되지 않았습니다.");
+				return;
+			}
+			
+			if((me.mapClickEvt.type != undefined && me.mapClickEvt.type == "point") || 
+			   (me.mapClickEvt.mapPoint != undefined && me.mapClickEvt.mapPoint.type != undefined && me.mapClickEvt.mapPoint.type == "point")){
 				
 	        	var centerPoint = new Point(me.mapClickEvt.mapPoint.x, me.mapClickEvt.mapPoint.y, me.mapClickEvt.mapPoint.spatialReference);
 	        	var mapWidth = me.map.extent.getWidth();
@@ -424,7 +485,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    	}
 			else{
 				
-				query.geometry = me.mapClickEvt.mapPoint;
+				if(me.mapClickEvt.mapPoint != undefined && me.mapClickEvt.mapPoint != null){
+					query.geometry = me.mapClickEvt.mapPoint;
+				}
+				else{
+					query.geometry = me.mapClickEvt;
+				}
 			}
 			
 			me.rchIds = [];
@@ -489,7 +555,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		
     		var feature = featureSet.features[i];
 			
-    		if(me.drawOption == "addPoint"){
+    		if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle"){
     			
     			var catDid = feature.attributes.CAT_DID;
     			
@@ -497,21 +563,17 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     			me.drawGraphic(feature, "reachLine");
     			// 집수구역 그리기
     			me.setReachArea(catDid);
-    			// 검색 종료 체크
-    			me.isStopCheck();
     			// 버튼 끄기
     			SetBtnOnOff(me.btnObj.id, "off");
     			// 이벤트 초기화
 				initKradEvt();
     		}
-    		if(me.drawOption == "removePoint"){
+    		else if(me.drawOption == "removePoint"){
     			
 				// 라인 지운다
 				me.removeGraphic(feature, "reachLine");
 				// 집수구역 지운다
 				me.removeGraphic(feature, "reachArea");
-				// 검색 종료 체크
-    			me.isStopCheck();
     			// 버튼 끄기
     			SetBtnOnOff(me.btnObj.id, "off");
     			// 이벤트 초기화
@@ -534,6 +596,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     			}
     		}
 		}
+    	
+    	if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "removePoint"){
+    		
+	    	// 검색 종료 체크
+			me.isStopCheck();
+    	}
     },
     drawTempGrp: function(paramEvtType){
     	
@@ -1351,14 +1419,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 						me.isStopCheck();
 					}
-				}, 500, this);
+				}, 100, this);
 			}
 			else{
 				
 				// 검색카운트 다르면 체크용 변수에 저장
 				me.tmpSearchCnt = me.searchCnt;
 			}
-		}, 100);
+		}, 10);
     },
     /* 그래픽 그리기 */
     drawGraphic: function(graphic, grpType){
