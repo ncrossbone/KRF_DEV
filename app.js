@@ -96,6 +96,8 @@ Ext.application({
 	],
 	launch : function() {
 		
+		var params = Ext.urlDecode(location.search.substring(1));
+		console.info(params);
 		/*
 		 * Ext.Ajax.on('beforerequest', function (con, opt) {
 		 * //console.info(con); //console.info(opt);

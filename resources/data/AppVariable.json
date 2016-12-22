@@ -21,5 +21,26 @@
 	"siteInfoLayerId" : "85", // 레이어별 지점정보 레이어 아이디
 	"arcServiceUrl":"http://112.217.167.123:20002/arcgis",
 	"MapserviceUrl1" : "http://112.217.167.123:20002/arcgis/rest/services/drone_dev/MapServer",
-	"isOffsetPoint": true // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
+	"isOffsetPoint": true, // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
+	"paramInfo": [{ // 물환경 상세자료검색에서 넘기는 파라메터 정보
+		"stationType": "MA",
+		"layerId": "1",
+		"layerName": "하천수"
+	}, {
+		"stationType": "MB",
+		"layerId": "2",
+		"layerName": "호소수"
+	}, {
+		"stationType": "MD",
+		"layerId": "3",
+		"layerName": "농업용수"
+	}, {
+		"stationType": "ME",
+		"layerId": "4",
+		"layerName": "산단하천"
+	}, {
+		"stationType": "MF",
+		"layerId": "5",
+		"layerName": "도시관류"
+	}]
 }]
