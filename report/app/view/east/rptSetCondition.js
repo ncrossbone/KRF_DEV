@@ -59,17 +59,19 @@ Ext.define('Report.view.east.rptSetCondition', {
 			name: 'rb', 
 			inputValue: '1', 
 			checked: true,
-			width:80,
+			width:80
 			
 		},{
 			boxLabel: '월 평균', 
 			name: 'rb', 
 			inputValue: '2',
+			disabled:true,
 			width:80
 		},{
 			boxLabel: '일 자료', 
 			name: 'rb', 
-			inputValue: '3'
+			inputValue: '3',
+			disabled:true
 		}]
 	}],
 	initComponent: function(){
