@@ -258,6 +258,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
 					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "("+groupFeature.length+")\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
+					if(groupFeature[0].attributes.GROUP_CODE == "G"){
+						jsonStr += "				\"srchBtnDisabled\": true,\n";
+					}
 					if(cnt == 0){
 						jsonStr += "		\"expanded\": true,\n";
 					}else{
@@ -297,10 +300,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						});
 						
 						
-						
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "("+layerFeatures.length+")\",\n";
+						if(layerFeatures[0].attributes.GROUP_CODE == "G"){
+							jsonStr += "				\"srchBtnDisabled\": true,\n";
+						}
 						if(layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null){
 							jsonStr += "			\"cls\": \"khLee-x-tree-node-text-small-bold\",\n";
 						}
@@ -325,6 +330,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 								jsonStr += "				\"leaf\": true,\n";
 								jsonStr += "				\"checked\": null\n";
+								if(layerFeature.attributes.GROUP_CODE == "G"){
+									jsonStr += "			,   \"infoBtnDisabled\": false,\n";
+									jsonStr += "				\"chartBtnDisabled\": true,\n";
+									jsonStr += "				\"srchBtnDisabled\": true\n";
+								}
 								jsonStr += "			}, ";
 							}
 							else{

@@ -41,7 +41,7 @@ Ext
 									items : [
 											{
 												id : 'cmbWater1',
-												layerId : '54',
+												layerId : '57',
 												xtype : 'combo',
 												tarCmbId : 'cmbWater2',
 												lnkBtnId : 'btnWater1',
@@ -84,7 +84,7 @@ Ext
 									items : [
 											{
 												id : 'cmbWater2',
-												layerId : '55',
+												layerId : '58',
 												xtype : 'combo',
 												tarCmbId : 'cmbWater3',
 												lnkBtnId : 'btnWater2',
@@ -127,7 +127,7 @@ Ext
 									items : [
 											{
 												id : 'cmbWater3',
-												layerId : '56',
+												layerId : '59',
 												xtype : 'combo',
 												tarCmbId : '',
 												lnkBtnId : 'btnWater3',
