@@ -11,6 +11,7 @@
 try{
 	
 	Object[] catDid = request.getParameterValues("catDid");
+	String year = request.getParameter("year");
 	
 	sql = "  with tbl_PLA_LANDUSE as (																																				";
 	sql += "      select YYYY        /* 조사년도 */                                                           ";
@@ -46,6 +47,7 @@ try{
 			
 		}
 	}
+	sql += "  AND YYYY ='"+year+"'                                 ";
 	sql += "      )                                                                                           ";
 	sql += "  select YYYY             /* 조사년도 */                                                          ";
 	sql += "       , WS_NM            /* 대권역 */                                                            ";

@@ -43,8 +43,8 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 			},{
 				xtype: 'combo',
 				id : 'setPollutionYear',
-				store: ['', '2010', '2011', '2012', '2013'],
-				value: '2012',
+				store: ['2012', '2013'],
+				value: '2013',
 				//labelWidth: 30,
 				//labelAlign: 'right',
 				width: 65,
@@ -102,10 +102,12 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 								
 								var setPollutionItems = Ext.getCmp("setPollutionItems");
 								var pollutionMapSetValue = Ext.getCmp("pollutionMapSetValue");
+								var setPollutionYear = Ext.getCmp("setPollutionYear").value;
+								console.info(setPollutionYear);
 								
 								pollutionCatLayerClear();
 								
-								showCatPollutionLayer("", setPollutionItems.value, pollutionMapSetValue.pollvalue);
+								showCatPollutionLayer("", setPollutionItems.value, pollutionMapSetValue.pollvalue,setPollutionYear);
 							}
 						}
 					}

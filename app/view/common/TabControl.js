@@ -289,8 +289,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			items: [{
 				xtype: 'combo',
 				id: 'pollutionYear',
-				store: ['2013', '2012', '2011', '2010'],
-				value: '2012',
+				store: ['2013', '2012', '2011'],
+				value: '2013',
 				width: 80,
 				height: 25
 			},  {
@@ -312,11 +312,11 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var tabCtl = Ext.getCmp("searchResultTab");
 							tabCtl = tabCtl.items.items[1];
 							var activeTab = tabCtl.getActiveTab();
-							console.info(activeTab);
 							
+							var pollutionYear = Ext.getCmp("pollutionYear").value;
 							//pdj
 							var pollutionSelect = Ext.getCmp("pollutionSelect");
-							PollutionSearchResult(pollutionSelect.lastValue,activeTab.recordId,activeTab.title,activeTab.storeNm);
+							PollutionSearchResult(pollutionSelect.lastValue,activeTab.recordId,activeTab.title,activeTab.storeNm,pollutionYear);
 						}
 					}
 				}
@@ -582,12 +582,22 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					var pollutiongrdCtl = storevalue.items.items[0]; // 그리드 컨테이너
 					pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
 					
+					
+					
 					var pollutionSelect = Ext.getCmp("pollutionSelect");
 					
 					if(pollutiongrdCtl.store.selectValue == undefined || pollutiongrdCtl.store.selectValue == ""){
 						pollutionSelect.setValue("11");
 					}else{
 						pollutionSelect.setValue(pollutiongrdCtl.store.selectValue);
+					}
+					
+					
+					var pollutionYear = Ext.getCmp("pollutionYear");
+					if(pollutiongrdCtl.store.year == undefined || pollutiongrdCtl.store.year == ""){
+						pollutionYear.setValue("2013");
+					}else{
+						pollutionYear.setValue(pollutiongrdCtl.store.year);
 					}
 					
 					

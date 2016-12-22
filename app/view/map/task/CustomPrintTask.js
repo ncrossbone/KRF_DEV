@@ -127,7 +127,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
 				}
 				else if(mode=="report"){
-					// 리포트 뷰어 호출 로직
+					// 由ы룷��酉곗뼱 �몄텧 濡쒖쭅
 					var imgPath = data.path;
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
     						"&paramCode=" + me.paramCode +

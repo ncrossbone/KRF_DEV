@@ -253,7 +253,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
         				
         				var coreMap = GetCoreMap();
-        				
+        				var year = "2013";
         				//검색결과 "검색"시 부하량 표출
         				if(record.id == "pollLoad"){
         					PollLoadSearchResult("");
@@ -264,13 +264,14 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         						||record.id == "pollution_05"
         						||record.id == "pollution_06"
         						||record.id == "pollution_07"){
-        					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm);
+        					
+        					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm,year);
         				}else if(record.id = "pollution"){
         					
         					for(var i = 0 ; i < record.childNodes.length;i++){
         						PollutionSearchResult("",record.childNodes[i].data.id
         								,record.childNodes[i].data.title
-        								,record.childNodes[i].data.storeNm);
+        								,record.childNodes[i].data.storeNm,year);
         					}	
         				}
             	}

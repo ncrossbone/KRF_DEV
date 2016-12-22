@@ -96,6 +96,9 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 구간제거 버튼 클릭
 	onClickRemoveReach: function(obj, el, evt){
 		
+		// 맵 클릭 이벤트 켜기
+		_krad.onMapClickEvt("removePoint", el.id);/*
+		
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
 		GetCoreMap().reachLayerAdmin_v3_New.drawEnd();
@@ -108,7 +111,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			//GetCoreMap().reachLayerAdmin.pointDraw("REMOVE", el.id);
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("REMOVE", el.id); // v3
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("removePoint"); // v3
-		}
+		}*/
 		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
@@ -293,20 +296,22 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickDrag: function(obj, el, evt){
 		
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
+		//var currCtl = SetBtnOnOff(el.id);
 		
-		var me = KRF_DEV.getApplication().coreMap;
+		//var me = KRF_DEV.getApplication().coreMap;
 		
 		// 리치 선택 종료
 		//me.reachLayerAdmin.drawEnd();
 		//me.reachLayerAdmin_v3.drawEnd();
-		me.reachLayerAdmin_v3_New.drawEnd();
+		/*me.reachLayerAdmin_v3_New.drawEnd();
 		
 		if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.extentDraw("ADD", el.id);
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("EXTENT", el.id); // v3
 			GetCoreMap().reachLayerAdmin_v3_New.startDraw("extent"); // v3
-		}
+		}*/
+		
+		_krad.onMapDragEvt("extent", el.id);
 		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
@@ -316,21 +321,23 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickRadius: function(obj, el, evt){
 		
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
+		//var currCtl = SetBtnOnOff(el.id);
 		
-		var me = KRF_DEV.getApplication().coreMap;
+		//var me = KRF_DEV.getApplication().coreMap;
 		
 		// 리치 선택 종료
 		//me.reachLayerAdmin.drawEnd();
 		//me.reachLayerAdmin_v3.drawEnd();
-		me.reachLayerAdmin_v3_New.drawEnd();
+		//me.reachLayerAdmin_v3_New.drawEnd();
 		
 		//SetBtnOnOff("btnSearchResult");
-		if(currCtl.btnOnOff == "on"){
+		//if(currCtl.btnOnOff == "on"){
 			//GetCoreMap().reachLayerAdmin.radiusDraw("ADD", el.id);
 			//GetCoreMap().reachLayerAdmin_v3.pointDraw("CIRCLE", el.id); // v3
-			GetCoreMap().reachLayerAdmin_v3_New.startDraw("circle"); // v3
-		}
+			//GetCoreMap().reachLayerAdmin_v3_New.startDraw("circle"); // v3
+		//}
+		
+		_krad.onMapDragEvt("circle", el.id);
 		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");

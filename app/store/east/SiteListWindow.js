@@ -496,7 +496,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	getPollutionString: function(){
 		
 		var me = GetCoreMap();		
-		
+		var year = "2013";
 		if(this.catDid.length == 0){
 			return "";
 		}
@@ -504,21 +504,24 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		//생활계
 		var store1 = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
 			async:false,
-			catDid : this.catDid
+			catDid : this.catDid,
+			year : year
 		});
 		store1.load();
 		
 		//축산계
 		var store2 = Ext.create('KRF_DEV.store.east.PollutionResult_02_Catdid',{
 			async:false,
-			catDid : this.catDid
+			catDid : this.catDid,
+			year : year
 		});
 		store2.load();
 		
 		//산업계
 		var store3 = Ext.create('KRF_DEV.store.east.PollutionResult_03_Catdid',{
 			async:false,
-			catDid : this.catDid
+			catDid : this.catDid,
+			year : year
 		});
 		store3.load();
 		
@@ -526,21 +529,24 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		//토지계
 		var store4 = Ext.create('KRF_DEV.store.east.PollutionResult_04_Catdid',{
 			async:false,
-			catDid : this.catDid
+			catDid : this.catDid,
+			year : year
 		});
 		store4.load();
 		
 		//양식계
 		var store5 = Ext.create('KRF_DEV.store.east.PollutionResult_05_Catdid',{
 			async:false,
-			catDid : this.catDid
+			catDid : this.catDid,
+			year : year
 		});
 		store5.load();
 		
 		//매립계
 		var store6 = Ext.create('KRF_DEV.store.east.PollutionResult_06_Catdid',{
 			async:false,
-			catDid : this.catDid
+			catDid : this.catDid,
+			year : year
 		});
 		store6.load();
 		
@@ -549,7 +555,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		//기타수질오염원
 		var store7 = Ext.create('KRF_DEV.store.east.PollutionResult_07_Catdid',{
 			async:false,
-			catDid : this.catDid
+			catDid : this.catDid,
+			year : year
 		});
 		store7.load();
 		
