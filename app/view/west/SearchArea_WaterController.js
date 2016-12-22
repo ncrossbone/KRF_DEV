@@ -94,14 +94,14 @@ Ext
 						var idColumn, nameColumn, whereStr;
 
 						var centerCtl = Ext.getCmp("center_container");
-
-						if (searchLayerId == '54') {
+						console.info(searchLayerId);
+						if (searchLayerId == '57') {
 							idColumn = "WS_CD";
 							centerCtl
 									.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> '
 											+ combo.rawValue);
 						}
-						if (searchLayerId == '55') {
+						if (searchLayerId == '58') {
 							idColumn = "MW_CODE";
 
 							var wsCtl = Ext.getCmp("cmbWater1");
@@ -111,7 +111,7 @@ Ext
 											+ " > "
 											+ combo.rawValue);
 						}
-						if (searchLayerId == '56') {
+						if (searchLayerId == '59') {
 							idColumn = "SW_CODE";
 
 							var wsCtl = Ext.getCmp("cmbWater1");
