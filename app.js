@@ -158,9 +158,9 @@ Ext.application({
 						 		    "xoffset": -2,
 						 		    "yoffset": 14,
 						 		    "type": "esriPMS",
-						 		    "url": "./resources/images/symbol/spot_04.png",
+						 		    "url": "./resources/images/symbol/spot_06.png",
 						 		    "contentType": "image/png",
-						 		    "width": 12,
+						 		    "width": 22,
 						 		    "height": 29
 						 		});
 								
