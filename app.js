@@ -31,6 +31,7 @@ var _kradMapserviceUrl = null;
 var _kradCatSearchId = null;
 var _kradCatExtDataInfo = null;
 var _kradCatExtMetaData = null;
+var _paramInfo = null; // 물환경 상세자료검색에서 넘기는 파라메터 정보
 
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
@@ -114,6 +115,8 @@ store.load(function(a, b, c) {
 
 			page: 문서가 기준인 좌표. client와 비슷하지만 문서 전체 크기가 기준이라 스크롤 시 값이 바뀐다.*/
 		});
+
+		_paramInfo = record.data.paramInfo; // 물환경 상세자료검색에서 넘기는 파라메터 정보
 	});
 });
 
@@ -168,6 +171,103 @@ Ext.application({
 	 */
 	],
 	launch : function() {
+		
+		Ext.onReady(function(){
+
+			/* 물환경 상세조회 시 화면 이동 및 심볼 표시
+			 * station, stationType 필수 파라메터 */
+			var params = Ext.urlDecode(location.search.substring(1));
+			
+			if(params.stationType != undefined){
+				
+				var paramIdx = _paramInfo.map(function(obj){
+					
+					return obj.stationType;
+				}).indexOf(params.stationType);
+				
+				if(paramIdx > -1){
+					
+					var layerId = _paramInfo[paramIdx].layerId;
+					var siteIds = params.station.split("|");
+					var where = "측정소코드 IN (";
+					
+					for(var i = 0; i < siteIds.length; i++){
+						
+						if(siteIds[i] != ""){
+							
+							where += "'" + siteIds[i] + "', ";
+						}
+					}
+					
+					where = where.substring(0, where.length - 2) + ")";
+					
+					require(["esri/tasks/query",
+		    	         "esri/tasks/QueryTask",
+		    	         "esri/graphic",
+		    	         "esri/layers/GraphicsLayer",
+		    	         "esri/symbols/PictureMarkerSymbol",
+		    	         "esri/graphicsUtils"],
+		    	         function(Query,
+		    	        		 QueryTask,
+		    	        		 Graphic,
+		    	        		 GraphicsLayer,
+		    	        		 PictureMarkerSymbol,
+		    	        		 graphicsUtils){
+						
+						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + layerId);
+						var query = new Query();
+						query.returnGeometry = true;
+						query.outFields = ["*"];
+						query.where = where;
+						
+						// 리치라인 조회
+						queryTask.execute(query, function(featureSet){
+							
+							if(featureSet.features.length > 0){
+								
+								var coreMap = GetCoreMap();
+								
+								var symbol = new PictureMarkerSymbol({
+						 		    "angle": 0,
+						 		    "yoffset": 22,
+						 		    "type": "esriPMS",
+						 		    "url": "./resources/images/symbol/spot_99.gif",
+						 		    "contentType": "image/png",
+						 		    "width": 30,
+						 		    "height": 44
+						 		});
+								
+								var graphicLayer = new GraphicsLayer();
+								graphicLayer.id = "siteSymbolGraphic";
+								
+								for(var i = 0; i < featureSet.features.length; i++){
+									
+									var graphic = new Graphic(featureSet.features[i].geometry, symbol);
+									graphicLayer.add(graphic);
+								}
+								
+								coreMap.map.setExtent(graphicsUtils.graphicsExtent(graphicLayer.graphics));
+								
+								Ext.defer(function(){
+									
+									var level = coreMap.map.getLevel() - 1;
+									
+									if(level > 12){
+										coreMap.map.setLevel(12);
+									}
+									else{
+										coreMap.map.setLevel(level);
+									}
+									
+									coreMap.map.addLayer(graphicLayer);
+								}, 500);
+							}
+						});
+					});
+				}
+			}
+			/* 물환경 상세조회 시 화면 이동 및 심볼 표시 끝 */
+		});
 		
 		/*
 		 * Ext.Ajax.on('beforerequest', function (con, opt) {

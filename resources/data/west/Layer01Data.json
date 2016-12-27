@@ -251,14 +251,14 @@
 		"checked": false
 	}]
 }, {
-	"id": "41",
+	"id": "44",
 	"text": "비점오염원",
 	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "42",
+		"id": "45",
 		"text": "비점조사지점",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer42",
