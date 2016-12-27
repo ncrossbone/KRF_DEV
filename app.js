@@ -155,13 +155,12 @@ Ext.application({
 								
 								var symbol = new PictureMarkerSymbol({
 						 		    "angle": 0,
-						 		    "xoffset": -2,
-						 		    "yoffset": 14,
+						 		    "yoffset": 22,
 						 		    "type": "esriPMS",
-						 		    "url": "./resources/images/symbol/spot_06.png",
+						 		    "url": "./resources/images/symbol/spot_99.gif",
 						 		    "contentType": "image/png",
-						 		    "width": 22,
-						 		    "height": 29
+						 		    "width": 30,
+						 		    "height": 44
 						 		});
 								
 								var graphicLayer = new GraphicsLayer();
@@ -177,16 +176,13 @@ Ext.application({
 								
 								Ext.defer(function(){
 									
-									var level = coreMap.map.getLevel();
+									var level = coreMap.map.getLevel() - 1;
 									
 									if(level > 12){
 										coreMap.map.setLevel(12);
 									}
-									else if(graphicLayer.graphics.length > 2){
-										coreMap.map.setLevel(coreMap.map.getLevel() - 1);
-									}
 									else{
-										coreMap.map.setLevel(12);
+										coreMap.map.setLevel(level);
 									}
 									
 									coreMap.map.addLayer(graphicLayer);
