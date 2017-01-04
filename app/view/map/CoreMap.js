@@ -49,12 +49,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	//me.map.resize();
         	me.baseMapInit();
         	me.map.setLevel(8);
+        	
         	window.clearInterval(timerId);
-        	
-        	
-        	
-
-        	
         	
         	me.dynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin1', me.map);
         	/*me.droneDynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', me.map);

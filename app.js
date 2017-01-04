@@ -172,7 +172,15 @@ Ext.application({
 									graphicLayer.add(graphic);
 								}
 								
-								coreMap.map.setExtent(graphicsUtils.graphicsExtent(graphicLayer.graphics));
+								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
+								coreMap.map.setExtent(extent);
+								
+								coreMap.map.addLayer(graphicLayer);
+								
+								var timer = window.setInterval(function(){
+									//console.info(coreMap.map.extent);
+									//window.clearInterval(timer);
+								}, 500);
 								
 								Ext.defer(function(){
 									
@@ -185,7 +193,7 @@ Ext.application({
 										coreMap.map.setLevel(level);
 									}
 									
-									coreMap.map.addLayer(graphicLayer);
+									//coreMap.map.addLayer(graphicLayer);
 								}, 500);
 							}
 						});
