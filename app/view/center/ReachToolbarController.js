@@ -48,7 +48,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		}
 		
 		// 부하량 주제도 off
-		catTMLayerOnOff("off");
+		//catTMLayerOnOff("off");
 		
 	},
 	

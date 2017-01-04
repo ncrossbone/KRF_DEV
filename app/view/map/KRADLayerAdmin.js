@@ -985,7 +985,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	/** 검색설정(본류, 지류) 체크 **/
 		var confInfo = localStorage['_searchConfigInfo_'];
-		
+		//console.info(confInfo);
 		if(confInfo != undefined && confInfo != null){
 			
 			var jsonConf = JSON.parse(confInfo);
@@ -1149,6 +1149,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						    					alert("선택된 시작위치, 끝위치 사이에 본류가 흐르지 않습니다.\r\n검색설정을 확인하세요.");
 						    					// 마지막 심볼 삭제
 						    					me.symGrpLayer.remove(me.symGrpLayer.graphics[me.symGrpLayer.graphics.length - 1]);
+						    					return;
 						    				}
 						    				else{
 						    					
