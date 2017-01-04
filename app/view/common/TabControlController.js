@@ -25,7 +25,7 @@ Ext.define('KRF_DEV.view.common.TabControlController', {
 		},
 		'#pollcmbWater3' : {
 			select : 'onwaterChange'
-		},
+		}
 		/*,
 		'#btnSearch1': {
 			click: 'onAreaSearch'

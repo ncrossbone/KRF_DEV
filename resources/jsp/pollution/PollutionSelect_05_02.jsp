@@ -178,7 +178,7 @@ try{
 	sql += "  ORDER BY DECODE(SB_NM,'ÃÑ°è',1,2), SB_ID, DECODE(SB_NM,'¼Ò°è',1,2)                                      ";
 	
     
-	System.out.println(sql);
+	//System.out.println(sql);
 	stmt = con.createStatement();
 	rs = stmt.executeQuery(sql);
 

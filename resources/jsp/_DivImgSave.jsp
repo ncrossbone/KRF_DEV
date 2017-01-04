@@ -70,8 +70,8 @@ try
     Graphics2D graphic = newImage.createGraphics();
     
 	if(fileName != null && fileName != ""){
-		System.out.println(fileName);
-		System.out.println(filePath + fileName);
+		//System.out.println(fileName);
+		//System.out.println(filePath + fileName);
 		BufferedImage originImage = ImageIO.read(new File(filePath + fileName));
 		graphic.drawImage(originImage, null, 0, 0);
 		resultPngFileName = fileName;

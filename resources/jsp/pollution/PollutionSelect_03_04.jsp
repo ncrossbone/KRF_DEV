@@ -925,7 +925,7 @@ try{
 	
 	
     
-System.out.println(sql);
+//System.out.println(sql);
 stmt = con.createStatement();
 rs = stmt.executeQuery(sql);
 

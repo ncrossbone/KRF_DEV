@@ -7,10 +7,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	xtype: 'win-searchConfig',
 	id: 'searchConfig',
 	
-	//width: 100,
-	//height: 50,
 	width: 303,
-	height: 473,
+	height: 70,
+	//width: 303,
+	//height: 473,
 	x: 387,
 	y: 200,
 	//resizable: false,
@@ -19,7 +19,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	//sortable: false,
 	style: "border: 0px;",
 	layout: {
-		type: 'vbox',
+		type: 'vbox'
 	},
 	
 	items: [{
@@ -28,7 +28,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		//bodyStyle:{"background-color":"#dfeaf2"},
 		//style: 'padding-bottom:20px;',
 		layout: {
-			type: 'hbox',
+			type: 'hbox'
 		},
 		width: 303,
 		height: 60,
@@ -65,7 +65,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			
 		}]
 		//style:"background-color:black;"
-	},{
+	}/*,{
 		xtype: 'panel',
 		title: '데이터 셋 선택',
 		width: 303,
@@ -311,7 +311,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				}
 			}]
 		}]
-	}],
+	}*/],
 
 	initComponent: function(){
 		
