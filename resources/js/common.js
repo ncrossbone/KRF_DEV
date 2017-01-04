@@ -40,7 +40,6 @@ SetBtnOnOff = function(btnId, strOnOff){
 		else{
 			
 			currCtl.setSrc(currCtl.btnOffImg);
-			
 		}
 	}
 	
@@ -509,10 +508,14 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	//console.info(tooltipCk);
 	//console.info("==================================");
 	// 리치검색 khLee 20151102 추가
+	
 	if(siteIds == "CAT"){
+		
 		ShowSearchResultReach();
 		return;
 	}
+	
+	
 	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
@@ -976,6 +979,20 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 }
 
 // 검색결과창 닫기
+HideFavoriteWin = function(){
+	
+	// 즐겨찾기 팝업
+	var popCtl = Ext.getCmp("Favorite");
+	
+	if(popCtl != undefined){
+		
+		popCtl.close();
+	}
+	
+	SetBtnOnOff("btnFavorites", "off");
+}
+
+//검색결과창 닫기
 HideSearchResult = function(){
 	
 	var searchResultWindow = KRF_DEV.getApplication().searchResultWindow;
@@ -1019,11 +1036,14 @@ GetTabControl = function(options){
 	
 }
 
+
+
+
+
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
 	//console.info(catIds);
-	
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
@@ -1084,174 +1104,179 @@ ShowSearchResultReach = function(catIds){
 	//alert(catIds);
 	var storeData = [];
 	
-	if(catIds == ""){ // 리치검색에서 넘어왔을때
-    	var rchMap = GetCoreMap();
-    	var sumRchLen = 0;
-    	var sumCatArea = 0;
-    	var subCatArea = 0;
-    	var tmpCatDid = "";
-    	
-    	var tmpGraphics = rchMap.reachLayerAdmin_v3_New.arrLineGrp;
-    	var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
-    	
-    	for(var i = 0; i < tmpGraphics.length; i++){
-    		var rowData = [];
-    		rowData.push(tmpGraphics[i].attributes.RCH_DID);
-    		rowData.push(tmpGraphics[i].attributes.RCH_LEN);
-    		sumRchLen += tmpGraphics[i].attributes.RCH_LEN;
-    		rowData.push(tmpGraphics[i].attributes.CAT_DID);
-    		
-    		var CUM_AREA = "";
-    		
-    		for(var j = 0; j < tmpAreaGrp.length; j++){
-    			
-    			if(tmpAreaGrp[j].attributes.CAT_DID == tmpGraphics[i].attributes.CAT_DID){
-    				CUM_AREA = tmpAreaGrp[j].attributes.AREA;
-    				
-    				
-    				if(tmpCatDid.indexOf(tmpGraphics[i].attributes.CAT_DID + "|") < 0){
-						sumCatArea += tmpAreaGrp[j].attributes.AREA;
-						tmpCatDid += tmpGraphics[i].attributes.CAT_DID + "|";
-					}
-    				
-    			}
-    		}
-    		
-    		rowData.push(CUM_AREA);
-    		//sumCatArea += CUM_AREA;
-    		/*rowData.push(tmpGraphics[i].attributes.CUM_AREA);
-    		sumCatArea += tmpGraphics[i].attributes.CUM_AREA;*/
-    		rowData.push(tmpGraphics[i].attributes.RIV_NM);
-    		rowData.push(tmpGraphics[i].attributes.CUM_LEN);
-    		var geoTrib = tmpGraphics[i].attributes.GEO_TRIB;
-    		if(geoTrib == "0")
-    			rowData.push("본류");
-    		else{
-    			//rowData.push(geoTrib + "지류");
-    			rowData.push("지류");
-    		}
-    		storeData.push(rowData);
-    	}
-    	//console.info(subCatArea);
-    	var rowData = [];
-		rowData.push("총계");
-		rowData.push(sumRchLen);
-		rowData.push("");
-		rowData.push(sumCatArea);
-		rowData.push("");
-		rowData.push(0);
-		rowData.push("");
+	
+	/* khLee 추가 2016/11/15 */
+	if(catIds == ""){
 		
-		storeData.splice(0, 0, rowData);
-    	
-    	var store = new Ext.data.ArrayStore({
-    		fields: [{name: 'RCH_DID', type: 'string'},
-    		         {name: 'RCH_LEN', type: 'float'},
-    		         {name: 'CAT_DID', type: 'string'},
-//    		         {name: 'CAT_AREA', type: 'float'},
-    		         {name: 'CUM_AREA', type: 'float'},
-    		         {name: 'RIV_NM', type: 'string'},
-    		         {name: 'CUM_LEN', type: 'float'},
-    		         {name: 'GEO_TRIB', type: 'string'}]
+    	var catDids = coreMap.reachLayerAdmin_v3_New.arrAreaGrp.map(function(obj){
+    		return obj.attributes.CAT_DID;
     	});
-    	store.loadData(storeData);
-    	grdCtl.setStore(store); // 그리드 스토어 셋팅
+    	
+    	//console.info(catDids);
+    	
+    	for(var i = 0; i < catDids.length; i++){
+    		catIds += "'" + catDids[i] + "', ";
+    	}
+    	
+    	catIds = catIds.substring(0, catIds.length - 2);
 	}
-	else{ // 정보창에서 넘어왔을때
-		var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachLineLayerId); // 레이어 URL
+	/* khLee 추가 2016/11/15 끝 */
+	
+	var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachLineLayerId); // 레이어 URL
+	
+	var query = new esri.tasks.Query();
+	query.returnGeometry = false;
+	
+	//
+	if(catIds.indexOf("'")== -1){
+		catIds = "'" + catIds + "'";
+	}
+	
+	query.where = "CAT_DID IN (" + catIds + ")";
+	//console.info(query.where);
+	query.outFields = ["*"];
+	
+	queryTask.execute(query, function(objLine){
 		
-		var query = new esri.tasks.Query();
-		query.returnGeometry = false;
+		var queryTask2 = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 리치레이어 URL
+		var query2 = new esri.tasks.Query();
+		query2.returnGeometry = false;
+	 
+		query2.where = "CAT_DID IN (" + catIds + ")";
 		
-		//
-		if(catIds.indexOf("'")== -1){
-			catIds = "'" + catIds + "'";
-		}
-		
-		query.where = "CAT_DID IN (" + catIds + ")";
-		
-		query.outFields = ["*"];
-		
-		queryTask.execute(query, function(objLine){
+		query2.outFields = ["*"];
 			
-			var queryTask2 = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 리치레이어 URL
-    		var query2 = new esri.tasks.Query();
-    		query2.returnGeometry = false;
-    	 
-    		query2.where = "CAT_DID IN (" + catIds + ")";
-    		
-    		query2.outFields = ["*"];
-    			
-			queryTask2.execute(query2, function(objArea){
+		queryTask2.execute(query2, function(objArea){
+			
+			var sumRchLen = 0;
+			var sumCatArea = 0;
+			var tmpCatDid = "";
+			
+			Ext.each(objLine.features, function(line){
 				
-				var sumRchLen = 0;
-				var sumCatArea = 0;
-				var tmpCatDid = "";
-				
-				Ext.each(objLine.features, function(line){
-					
-					//console.info(obj.attributes.CAT_DID);
-					
-					var rowData = [];
-					
-					rowData.push(line.attributes.RCH_DID);
-		    		rowData.push(line.attributes.RCH_LEN);
-		    		sumRchLen += line.attributes.RCH_LEN;
-		    		rowData.push(line.attributes.CAT_DID);
-					
-					Ext.each(objArea.features, function(area){
-						
-						if(line.attributes.CAT_DID == area.attributes.CAT_DID){
-
-		    				rowData.push(area.attributes.AREA);
-		    				
-		    				if(tmpCatDid.indexOf(line.attributes.CAT_DID + "|") < 0){
-								sumCatArea += area.attributes.AREA;
-								tmpCatDid += line.attributes.CAT_DID + "|";
-							}
-						}
-					});
-						
-			    	rowData.push(line.attributes.RIV_NM);
-		    		rowData.push(line.attributes.CUM_LEN);
-		    		var geoTrib = line.attributes.GEO_TRIB;
-		    		if(geoTrib == "0")
-		    			rowData.push("본류");
-		    		else{
-		    			rowData.push("지류");
-		    		}
-		    		
-		    		storeData.push(rowData);
-				});
+				//console.info(obj.attributes.CAT_DID);
 				
 				var rowData = [];
-				rowData.push("총계");
-				rowData.push(sumRchLen);
-				rowData.push("");
-				rowData.push(sumCatArea);
-				rowData.push("");
-				rowData.push(0);
-				rowData.push("");
-				storeData.splice(0, 0, rowData);
 				
-				var store = new Ext.data.ArrayStore({
-	        		fields: [{name: 'RCH_DID', type: 'string'},
-	        		         {name: 'RCH_LEN', type: 'float'},
-	        		         {name: 'CAT_DID', type: 'string'},
-	        		         //{name: 'CAT_AREA', type: 'float'},
-	        		         {name: 'CUM_AREA', type: 'float'},
-	        		         {name: 'RIV_NM', type: 'string'},
-	        		         {name: 'CUM_LEN', type: 'float'},
-	        		         {name: 'GEO_TRIB', type: 'string'}]
-	        	});
+				rowData.push(line.attributes.RCH_DID);
+	    		rowData.push(line.attributes.RCH_LEN);
+	    		sumRchLen += line.attributes.RCH_LEN;
+	    		rowData.push(line.attributes.CAT_DID);
 				
-	        	store.loadData(storeData);
-	        	grdCtl.setStore(store); // 그리드 스토어 셋팅
+				Ext.each(objArea.features, function(area){
+					
+					if(line.attributes.CAT_DID == area.attributes.CAT_DID){
+
+	    				rowData.push(area.attributes.AREA);
+	    				
+	    				if(tmpCatDid.indexOf(line.attributes.CAT_DID + "|") < 0){
+							sumCatArea += area.attributes.AREA;
+							tmpCatDid += line.attributes.CAT_DID + "|";
+						}
+					}
+				});
+					
+		    	rowData.push(line.attributes.RIV_NM);
+	    		rowData.push(line.attributes.CUM_LEN);
+	    		var geoTrib = line.attributes.GEO_TRIB;
+	    		if(geoTrib == "0")
+	    			rowData.push("본류");
+	    		else{
+	    			rowData.push("지류");
+	    		}
+	    		
+	    		storeData.push(rowData);
 			});
+			
+			var rowData = [];
+			rowData.push("총계");
+			rowData.push(sumRchLen);
+			rowData.push("");
+			rowData.push(sumCatArea);
+			rowData.push("");
+			rowData.push(0);
+			rowData.push("");
+			storeData.splice(0, 0, rowData);
+			
+			var store = new Ext.data.ArrayStore({
+        		fields: [{name: 'RCH_DID', type: 'string'},
+        		         {name: 'RCH_LEN', type: 'float'},
+        		         {name: 'CAT_DID', type: 'string'},
+        		         //{name: 'CAT_AREA', type: 'float'},
+        		         {name: 'CUM_AREA', type: 'float'},
+        		         {name: 'RIV_NM', type: 'string'},
+        		         {name: 'CUM_LEN', type: 'float'},
+        		         {name: 'GEO_TRIB', type: 'string'}]
+        	});
+			
+        	store.loadData(storeData);
+        	grdCtl.setStore(store); // 그리드 스토어 셋팅
 		});
+	});
+}
+
+var vrow = "";
+
+PollSelectedFocus = function(catId){
+	console.info("catId ::"+catId);
+	if(catId == undefined || catId == null || catId == ""){
+		return;
+	}
+	
+	var tabpanels = Ext.getCmp("tabpanels");
+	console.info(tabpanels.activeTab);
+	
+	var container = "";
+	var value =	"";
+	
+	if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
+		container = Ext.getCmp("searchResultPollLoad_container");
+		value = Ext.getCmp("pollLoadSelect").value;
+	}else if(tabpanels.activeTab.id == "searchResultPollution_01_container"){
+		container = Ext.getCmp("searchResultPollution_01_container");
+		value = Ext.getCmp("pollutionSelect").value;
+	}
+	
+	if(container == undefined){
+		return;
+	}
+	
+	
+	if(value == 11 || value == 22){
+		return;
+	}else{
+		
+		var container = container.items.items[0];
+		container = container.items.items[0];
+		
+		var pollStore = container.getStore();
+		console.info(pollStore);
+		
+		var row = "";
+		
+		for(i = 0 ; i <pollStore.data.items.length  ;i++){
+			if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
+				if(pollStore.data.items[i].data.GUBUN == "소계"){
+					if(pollStore.data.items[i].data.CAT_DID == catId){
+						row = i;
+					}
+				}
+			}else if(tabpanels.activeTab.id == "searchResultPollution_01_container"){
+				if(pollStore.data.items[i].data.CAT_DID == catId){
+					row = i;
+				}
+			}
+			
+			
+		}
+		
+		container.getView().bufferedRenderer.scrollTo(row, true);
+		container.getSelectionModel().select(row);
+		
 	}
 	
 }
+
 
 ReachSelectedFocus = function(catId){
 	
@@ -1473,18 +1498,21 @@ ResetButtonClick = function(){
 	
 	var me = GetCoreMap();
 	
-	// 리치 선택 종료
-	//me.reachLayerAdmin.drawEnd();
-	//me.reachLayerAdmin_v3_New.drawEnd();
-	me.reachLayerAdmin_v3_New.drawEnd();
-	// 리치라인, 집수구역 그래픽 레이어 및 전역 변수 clear
-	//me.reachLayerAdmin.clearGraphicsLayer("reset");
-	//me.reachLayerAdmin_v3_New.clearGraphicsLayer("reset");
-	me.reachLayerAdmin_v3_New.clearGraphicsLayer();
+	// KRAD 레이어 그래픽 및 변수 초기화
+	_krad.clearKradAll();
+	SetBtnOnOff("btnMenu04", "off");
+	SetBtnOnOff("btnMenu05", "off");
 	
-	Ext.HideSiteListWindow();
-	HideWindowSiteNChart();
-	HideSearchResult();
+	catTMLayerOnOff("off");
+	
+	pollutionLayerOnOff("off","");
+	
+	Ext.HideSiteListWindow(); // 지점 리스트 창 닫기
+	HideWindowSiteNChart(); // 지점정보, 차트창 닫기
+	HideSearchResult(); // 검색결과 닫기
+	HideFavoriteWin(); // 즐겨찾기창 닫기
+	
+	ResetStEdSiteName(); // 시작위치 끝위치 하천명 초기화
 	
 	var combo = Ext.getCmp("cmbWater1");
 	combo.setValue("");
@@ -1518,6 +1546,8 @@ ResetButtonClick = function(){
 	
 	var txtBox = Ext.getCmp("textSearchText");
 	txtBox.setValue("");
+	
+	// 주제도 레이어 off
 	
 }
 
@@ -1668,7 +1698,6 @@ SetWestCollapseXY = function(option){
 	}
 	
 	var sConfig = Ext.getCmp("searchConfig");
-	
 	if(sConfig != undefined){
 		
 		if(sConfig.hidden == false){
@@ -1677,13 +1706,52 @@ SetWestCollapseXY = function(option){
 		}
 	}
 	
+	var shConfig = Ext.getCmp("searchConfigHeader");
+	if(shConfig != undefined){
+		
+		if(shConfig.hidden == false){
+			
+			shConfig.setX(shConfig.getX() + offsetWidth);
+		}
+	}
+	//searchConfigHeader
+	
+	//krad 리스트
+	var kConfig = Ext.getCmp("kradSchConf");
+	
+	if(kConfig != undefined){
+		
+		if(kConfig.hidden == false){
+			
+			kConfig.setX(kConfig.getX() + offsetWidth);
+		}
+	}
+	
+	var kMetaConfig = Ext.getCmp("kradMetaInfo");
+	
+	if(kMetaConfig != undefined){
+		
+		if(kMetaConfig.hidden == false){
+			
+			kMetaConfig.setX(kMetaConfig.getX() + offsetWidth);
+		}
+	}
+	
+	
+	
+	
 	if(option != "show"){
 		
 		var reachNameToolbar = Ext.getCmp("reachNameToolbar");
 		
 		if(reachNameToolbar != undefined){
 			
-			reachNameToolbar.setX(reachNameToolbar.getX() + offsetWidth);
+			if(offsetWidth == 300){
+				reachNameToolbar.setX(486 - 300 + offsetWidth);
+			}
+			else{
+				reachNameToolbar.setX(486 - 300);
+			}
 		}
 		
 		// 툴팁 XY 셋팅
@@ -1786,4 +1854,250 @@ setWestBodyScroll = function(){
 	var bodyCtl = Ext.getCmp("searchAreaList").body;
 	bodyCtl.setStyle("height", height + "px");
 	bodyCtl.setStyle("overflow", "overlay");
+}
+
+// 이미지 정보 가져오기
+getImageInfos = function(obj, outObjInfos, callbackMethod){
+	
+	if(outObjInfos == null){
+		outObjInfos = [];
+	}
+	//console.info(obj);
+	var arrObj = [];
+	
+	if(obj[0] != undefined && obj[0] != null){
+		
+		arrObj = obj;
+	}
+	else{
+		
+		arrObj.push(obj);
+	}
+	
+	if(arrObj != undefined && arrObj != null && arrObj.length > 0){
+		
+		for(var i = 0; i < arrObj.length; i++){
+			
+			//console.info(arrObj[i].tagName.toUpperCase());
+			
+			/*if(i < 35){
+				continue;
+			}*/
+			
+			var objInfo = {};
+			
+			var imgObj = $("#" + arrObj[i].id);
+			
+			//console.info(imgObj.parent().css("opacity"));
+			//console.info(arrObj[i].id);
+			//if(arrObj[i].id.search("ReachLayerAdminBackground") != -1){
+				//console.info(arrObj[i].id.indexOf("ReachLayerAdminBackground"));
+				//console.info(imgObj.parent().css("opacity"));
+			//}
+
+			objInfo.width = imgObj.width();
+			objInfo.height = imgObj.height();
+			//objInfo.opacity = imgObj.css("opacity");
+			objInfo.opacity = imgObj.parent().css("opacity");
+			objInfo.translateX = 0;
+			objInfo.translateY = 0;
+			objInfo.src = imgObj[0].src;
+			objInfo.tagName = imgObj[0].tagName.toUpperCase();
+			objInfo.outerHTML = new XMLSerializer().serializeToString(imgObj[0]);
+			//console.info(obj.css("opacity"));
+			//console.info(objInfo.outerHTML);
+			
+			/*if(tagName == "IMG"){
+				
+				objInfo.src = imgObj[0].src;
+			}
+			else{
+				
+				var svgString = new XMLSerializer().serializeToString(imgObj[0]);
+				//console.info(svgString);
+				
+				// bota() : svg -> base64 encording
+				var imgsrc = 'data:image/svg+xml;base64,'+ btoa(svgString);
+				//console.info(imgsrc);
+				
+				objInfo.base64 = imgsrc;
+				objInfo.src = tagName;
+			}*/
+			
+			//console.info(imgObj.css('transform'));
+			//console.info(imgObj.css('-webkit-transform'));
+			//console.info(isNaN(parseInt(imgObj.css('left'))));
+			//console.info(imgObj.css('top'));
+			
+			if(imgObj.css('transform') != undefined && imgObj.css('transform') != null){
+				
+				var arr = imgObj.css('transform').split(",");
+				
+				if(arr.length > 11){
+					
+					objInfo.translateX = parseInt(arr[12]);
+					objInfo.translateY = parseInt(arr[13]);
+				}
+				else{
+					
+					objInfo.translateX = parseInt(arr[4]);
+					objInfo.translateY = parseInt(arr[5]);
+				}
+			}
+			else if(imgObj.css('-webkit-transform') != undefined && imgObj.css('-webkit-transform') != null){
+				
+				var arr = imgObj.css('-webkit-transform').split(",");
+				
+				objInfo.translateX = parseInt(arr[4]);
+				objInfo.translateY = parseInt(arr[5]);
+			}
+			
+			if(isNaN(parseInt(imgObj.css('left'))) == false && parseInt(imgObj.css('left')) != 0){
+				
+				objInfo.translateX = parseInt(imgObj.css('left').replace("px", ""));
+			}
+			
+			if(isNaN(parseInt(imgObj.css('top'))) == false && parseInt(imgObj.css('top')) != 0){
+				
+				objInfo.translateY = parseInt(imgObj.css('top').replace("px", ""));
+			}
+			
+			objInfo.translateX = 0;
+			objInfo.translateY = 0;
+			
+			console.info(objInfo);
+			outObjInfos.push(objInfo);
+		}
+		
+		var imgLoadCnt = 0;
+		
+		for(var i = 0; i < outObjInfos.length; i++){
+		
+			convertImgToBase64(outObjInfos[i], function(base64Img, outObjInfo){
+				
+				imgLoadCnt++;
+				
+				var base64Cnt = 1;
+				
+				for(var i = 0; i < outObjInfos.length; i++){
+
+					if(outObjInfos[i].base64 != undefined && outObjInfos[i].base64 != null){
+						
+						base64Cnt++;
+					}
+				}
+				
+				
+				
+				outObjInfo.base64 = base64Img;
+			});
+		}
+		
+		var tmpCnt = 0;
+		var eqlCnt = 0;
+		
+		var timerId = window.setInterval(function(){
+			
+			if(tmpCnt != imgLoadCnt){
+				
+				tmpCnt = imgLoadCnt;
+			}
+			else{
+				
+				eqlCnt++;
+				
+				if(eqlCnt > 15){
+					//console.info(outObjInfos);
+					callbackMethod.call(this, outObjInfos);
+					window.clearInterval(timerId);
+				}
+			}
+			
+			/*var base64Cnt = 0;
+			for(var i = 0; i < outObjInfos.length; i++){
+
+				if(outObjInfos[i].base64 != undefined && outObjInfos[i].base64 != null){
+					
+					base64Cnt++;
+				}
+			}
+			
+			if(base64Cnt == imgLoadCnt){
+
+				callbackMethod.call(this, outObjInfos, base64Cnt);
+				window.clearInterval(timerId);
+			}*/
+			
+		}, 100);
+	}
+	
+	//console.info(arrObjInfos);
+	//return arrObjInfos;
+}
+
+var imgLoadCnt = 0;
+
+convertImgToBase64 = function(outObjInfo, callbackMethod){
+	
+	if(outObjInfo.tagName == "IMG"){
+		
+		var canvas = document.createElement('CANVAS');
+		var ctx = canvas.getContext('2d');
+		
+		var img = new Image;
+		img.crossOrigin = 'Anonymous';
+		
+		img.onload = function(){
+			//console.info("dd");
+			imgLoadCnt++;
+			canvas.height = img.height;
+			canvas.width = img.width;
+			ctx.drawImage(img,0,0);
+			
+			var dataURL = canvas.toDataURL('image/png');
+			
+			callbackMethod.call(this, dataURL, outObjInfo);
+			
+			canvas = null; 
+		};
+		
+		img.src = "./resources/jsp/proxy.jsp?" + outObjInfo.src;
+	}
+	else if(outObjInfo.tagName == "SVG"){
+		
+		// bota() : svg -> base64 encording
+		var dataURL = 'data:image/svg+xml;base64,'+ btoa(outObjInfo.outerHTML);
+		//console.info(imgsrc);
+		
+		callbackMethod.call(this, dataURL, outObjInfo);
+	}
+}
+
+var chkoutObj = false;
+
+postCall = function(outObjInfos, width, height, fileName){
+	
+	var paramInfos = [];
+	
+	if(outObjInfos.length > 20){
+		chkoutObj = false;
+		paramInfos = outObjInfos.splice(0, 20);
+	}
+	else{
+		chkoutObj = true;
+		paramInfos = outObjInfos;
+	}
+
+	var obj = {width:width, height:height, fileName: fileName, imageInfos:JSON.stringify(paramInfos)};
+
+	$.post("./resources/jsp/_DivImgSave.jsp", obj, function(data){
+		
+		//console.info(data.fileName);
+		
+		if(chkoutObj == false){
+			postCall(outObjInfos, width, height, data.fileName);
+		}
+	},"json").error(function(e){
+		console.info(e);
+	});
 }

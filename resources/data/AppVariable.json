@@ -4,9 +4,15 @@
 	"reachServiceUrl_v3_2" : "http://112.217.167.123:20002/arcgis/rest/services/reach_V3_2/MapServer", // 리치 서비스 v3 (투명도적용)
 	"reachServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/reach/MapServer", // 리치 서비스
 	"reachTestServiceUrl" : "http://112.217.167.123:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
+	"mapServiceUrl_Rpt_Dim" : "http://112.217.167.123:20002/arcgis/rest/services/Gray_Report/MapServer", // 리포트용 Dim처리 맵 서비스 URL
+	"mapServiceUrl_Rpt_Site" : "http://112.217.167.123:20002/arcgis/rest/services/Report/MapServer", // 리포트용 맵 서비스 URL
 	"reachTestServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
 	"dimServiceUrl" : "http://112.217.167.123:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
 	"dimServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
+	"baseMapUrl_vworld": "http://xdworld.vworld.kr:8080/2d/Base/201301/#level#/#col#/#row#.png", // 배경맨 서비스 (아래 외부, 내부, 테스트 중 택일)
+	"baseMapUrl_vworld_http": "http://xdworld.vworld.kr:8080/2d/Base/201301/#level#/#col#/#row#.png", // 배경맨 서비스 외부 (참고용)
+	"baseMapUrl_vworld_intra": "http://10.101.95.129/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맨 서비스 내부 (참고용)
+	"baseMapUrl_vworld_test": "http://112.218.1.243:20080/2d/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맨 서비스 테스트 서버 (참고용)
 	"reachFlowLayerId" : "48", // 리치흐름 레이어 아이디
 	"reachNodeLayerId" : "49", // 리치노드 레이어 아이디
 	"reachLineLayerId" : "50", // 리치라인 레이어 아이디
@@ -18,10 +24,14 @@
 	"areaWSLayerId" : "57", // 대권역 레이어 아이디
 	"areaAMLayerId" : "58", // 중권역 레이어 아이디
 	"areaASLayerId" : "59", // 소권역 레이어 아이디
+	"kradCatSearchId" : "21", // KRAD CAT_SEARCH
+	"kradCatExtMetaData" : "23", // KRAD METADATA
+	"kradCatExtDataInfo" : "27", // KRAD DATA_INFO
 	"siteInfoLayerId" : "88", // 레이어별 지점정보 레이어 아이디
 	"arcServiceUrl":"http://112.217.167.123:20002/arcgis",
 	"MapserviceUrl1" : "http://112.217.167.123:20002/arcgis/rest/services/drone_dev/MapServer",
 	"isOffsetPoint": true, // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
+	"kradMapservicUrl": "http://112.217.167.123:20002/arcgis/rest/services/KRAD/MapServer",
 	"paramInfo": [{ // 물환경 상세자료검색에서 넘기는 파라메터 정보
 		"stationType": "MA",
 		"layerId": "1",

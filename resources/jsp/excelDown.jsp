@@ -36,7 +36,7 @@
 			ArrayList headNameList = gson.fromJson(request.getParameter("headName"), ArrayList.class);
 			ArrayList headList = gson.fromJson(request.getParameter("header"), ArrayList.class);
 			ArrayList dataList = gson.fromJson(request.getParameter("datas"), ArrayList.class);
-			System.out.println(dataList);
+			//System.out.println(dataList);
 			String url = request.getParameter("url");
 			String param = request.getParameter("param");
 			if(url!=null && !"".equals(url)){
@@ -54,7 +54,7 @@
 				con.setDoOutput(true);
 				con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 				int responseCode = con.getResponseCode();
-				System.out.println("Response Code : " + responseCode);
+				//System.out.println("Response Code : " + responseCode);
 		 
 				BufferedReader in = new BufferedReader(
 				        new InputStreamReader(con.getInputStream(), "UTF-8"));
@@ -92,7 +92,7 @@
 			
 			String randomId =  UUID.randomUUID().toString() + ".xls";
 			FileOutputStream outFile;
-			outFile = new FileOutputStream("D:\\temp\\" + randomId);
+			outFile = new FileOutputStream("c:\\temp\\" + randomId);
 			workbook.write(outFile);
 			outFile.close();
 			
@@ -101,8 +101,8 @@
 	 		out.println(gson.toJson(hashMap));
 		}else{
 			
-			
-			File file = new File("D:\\temp\\" + fileName);
+			////
+			File file = new File("c:\\temp\\" + fileName);
 			FileInputStream fin = new FileInputStream(file);
 			int ifilesize = (int)file.length();
 			byte b[] = new byte[ifilesize];

@@ -82,7 +82,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						}
 					}
 				},
-				width: 34,
+				width: 40,
 				height: 21,
 				src: './resources/images/button/btn_date.gif'
 			}, {
@@ -126,7 +126,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
                         filename: "Chart1"+selectName+""
                     })
                 },*/
-				width: 34,
+				width: 40,
 				height: 21,
 				src: './resources/images/button/btn_save.gif'
 			

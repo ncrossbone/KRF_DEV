@@ -39,7 +39,7 @@ Ext.define('KRF_DEV.view.north.North', {
 	}, {
 		xtype: 'container',
 		flex: 1
-	}, { 
+	}, {
 		xtype: 'image',
 		//id: 'btnReachLayer',
 		layerId: 'baseMap',
@@ -79,10 +79,10 @@ Ext.define('KRF_DEV.view.north.North', {
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
-    	btnOnOff: 'off',
+    	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	src: './resources/images/button/btn_top_02_off.png'
+    	src: './resources/images/button/btn_top_02_on.png'
     }, {
     	xtype: 'container',
     	width: 5
@@ -142,7 +142,34 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn4_off.png'			
-	}, {
+	},/*{
+		//----확인 후 제거-----
+	xtype: 'image',
+	title: '공지사항',
+	width: 69,
+	height: 37,
+	listeners: {
+		el: {
+			click: function(){
+				
+				var boardCtl = Ext.getCmp("boardCLIP");
+				if(boardCtl == undefined){
+    				boardCtl = Ext.create("Ext.window.Window", {
+			    					id: "boardCLIP",
+			    					title: "공지사항",
+			    					width: 660,
+			    					height: 600,
+			    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./ClipReport4/test.jsp?boardType=2"></iframe>'
+			    				});
+				}
+				
+				boardCtl.show();
+				
+			}
+		}
+	},
+	src: './resources/images/button/top_btn4_off.png'			
+}, */{
 		xtype: 'image',
     	title: 'Q&A',
     	width: 69,

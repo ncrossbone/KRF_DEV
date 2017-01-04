@@ -116,7 +116,7 @@ try{
 	stmt = con.createStatement();   
 	rs = stmt.executeQuery(sql);
 	
-	System.out.println(sql);
+	//System.out.println(sql);
 
 	request.setAttribute("boardType", boardType);
 	request.setAttribute("selectType", selectType);

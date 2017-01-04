@@ -83,7 +83,7 @@ try{
                              
 
 
-	System.out.println(sql);
+	//System.out.println(sql);
    //out.print(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);

@@ -20,6 +20,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	printTask:null,
 	baseMap: null,
 	
+	tmGraphicLayerCat: null, // 집수구역 단위 주제도 그래픽 레이어
+	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
+	
 	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
 	height: 1100,
 	x: -378,
@@ -49,47 +52,29 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	//me.map.resize();
         	me.baseMapInit();
         	me.map.setLevel(8);
+
         	window.clearInterval(timerId);
         	
-        	
-        	
-
-        	
-        	
         	me.dynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin1', me.map);
-        	/*me.droneDynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', me.map);
-        	me.droneDynamicLayerAdmin2 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', me.map);
-        	me.droneDynamicLayerAdmin3 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', me.map);
-        	me.droneDynamicLayerAdmin4 = Ext.create('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', me.map);*/
-        	/*me.dynamicLayerAdmin2 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin2', me.map);
-        	me.dynamicLayerAdmin3 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin3', me.map);
-        	me.dynamicLayerAdmin4 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin4', me.map);*/
-        	
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
-        	//me.reachLayerAdmin = Ext.create('KRF_DEV.view.map.ReachLayerAdmin', me.map); // v2
-        	//me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.reachLayerAdmin_v3_New', me.map); // v3
         	me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.ReachLayerAdmin_v3_New', me.map); // v3 New
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
-        	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
         	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
-        	//me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin_ReachTest', me.map); // 시뮬레이션용 레이어 서비스
-        	
-        	//dojo.require("esri.dijit.Scalebar");
-        	//var scalebar = new esri.dijit.Scalebar({map:me.map, attachTo:"top-right"});
+        	// KRAD 전역 Object Setting
+        	_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
+        	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	
         	// 전역 변수 설정 KRF_DEV.getApplication().coreMap
         	KRF_DEV.getApplication().coreMap = me;
         	
         	require(["KRF_DEV/view/map/task/CustomPrintTask"], function() {
-            	//me.printTask  = new KRF_DEV.view.map.task.CustomPrintTask();
-            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", _arcServiceUrl);
+            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask.jsp", "./resources/jsp/proxy.jsp", _arcServiceUrl, "/resources/saveImgTemp/capture");
             });
         	
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
-        	
 		}, 1);
     },
     
@@ -153,14 +138,11 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		      this.onLoad(this);
 		    },
 		    getTileUrl: function(level, row, col) {
-		    	var newrow = row + (Math.pow(2, level) * 47);
-      			var newcol = col + (Math.pow(2, level) * 107);
-      			// http://10.101.95.129/Base/201411/11/11/1747/800.png
-      			// 토양지하수 베이스 맵 서비스 URL
-      			//return "http://10.101.95.129/Base/201411/" + level + "/" + level + "/" + col + "/" + row + ".png";
-      			// 테스트 서버 베이스 맵 서비스 URL
-      			//return "http://112.218.1.243:20080/2d/Base/201411/" + level + "/" + level + "/" + col + "/" + row + ".png";
-		    	return "http://xdworld.vworld.kr:8080/2d/Base/201301/" + level + "/" + col + "/" + row + ".png";
+
+		    	var baseMapUrl = _baseMapUrl_vworld.replace(/#level#/gi, level).replace(/#row#/gi, row).replace(/#col#/gi, col);
+      			//console.info(baseMapUrl);
+      			
+		    	return baseMapUrl;
 		    }	
 		  });
 		me.baseMap = new CustomMapsLayer();
@@ -183,7 +165,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	
 	capture:function(){
 		var me = this;
-		alert("dd");
+		//alert("dd");
 		me.printTask.capture();
 	},
 	

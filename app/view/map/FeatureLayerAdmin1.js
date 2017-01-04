@@ -1,4 +1,4 @@
-Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
+Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 	map:null, 
 	layerId: null,
 	siteId: null,
@@ -197,7 +197,6 @@ Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
     },
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
-		
     	
     	var groupCd = "";
     	if((layerId>=0)&&(layerId<=7)){
@@ -479,7 +478,7 @@ Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
 					//frame: true,
 					plain: true, // 요게 있어야 background: transparent 먹음..
 					point: point, // 지점 포인트 정보
-					width: 360,
+					width: 380,
 					height: 215,
 					//x: xyObj.x,
 					//y: xyObj.y,
@@ -657,6 +656,7 @@ Ext.define('KRF_DEV.view.map.rpt.ReverseTest', {
 		query.outFields = ["*"];
 		
 		query.where =  "CAT_DID='" + catDId + "'";
+		
 		
 		queryTask.execute(query,  function(results){
 			

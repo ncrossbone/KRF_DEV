@@ -4,7 +4,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	xtype : 'east-sitelistindow',
 	
 	id: 'siteListWindow',
-	//params: this.record,
 	
 	//title: '지점 목록',
 	
@@ -16,27 +15,42 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	layout: {
 		type: 'fit'
 	},
-	width: 450,
+	width: 540,
 	height: 305,
-
+	closable: false,
+	style:"padding-top:10px",
+	header:{
+		items:[{
+			xtype:'image',
+			src:'./resources/images/button/btn_close.png',
+			style:'padding-right :13px; cursor:pointer;',
+			listeners:{
+				el:{
+					click:function(){
+						Ext.getCmp("siteListWindow").close();
+					}
+				}
+			}
+		}]
+	}, 
 	items: [{
 		xtype: 'treepanel',
 		id: 'siteListTree',
 		rootVisible:false,
-	    
-		//store: Ext.create('KRF_DEV.store.east.SiteListWindow')
-		store: Ext.create('KRF_DEV.store.east.SiteListWindow'),
 		cls: 'khLee-x-grid-cell',
 		columns: [{
             xtype: 'treecolumn', //this is so we know which column will show the tree
             text: '지점',
             //header: false,
-            width: 180,
+            width: 220,
             sortable: true,
             dataIndex: 'text',
             locked: true,
             listeners: {
             	click: function(grid, rowIndex, colIndex, actionItem, node, record, row){
+            		//console.info(tmBtnId);
+            		//console.info($("#catTMOnOff"));
+            		
 	            	if(node.record.data.leaf == true){
 						if(node.record.data.id != undefined){
 
@@ -69,7 +83,16 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             },
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {
-                return !record.data.leaf;
+            	
+            	//console.info(record.data.infoBtnDisabled);
+            	
+            	if(record.data.infoBtnDisabled != undefined){
+            		
+            		return record.data.infoBtnDisabled;
+            	}
+            	else{
+            		return !record.data.leaf;
+            	}
             }
         }, {
             text: '차트',
@@ -92,7 +115,75 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				me.moveCommon(record);
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
-                return !record.data.leaf;
+            	
+            	if(record.data.chartBtnDisabled != undefined){
+            		
+            		return record.data.chartBtnDisabled;
+            	}
+            	else{
+            		return !record.data.leaf;
+            	}
+            }
+        }, {
+        	xtype: 'actioncolumn',
+            text: '리포트',
+            width: 60,
+            menuDisabled: true,
+            tooltip: '리포트',
+            align: 'center',
+            dataIndex: 'id',
+            icon: "./resources/images/button/icon_report.gif",
+            iconCls: ' khLee-x-default-btn',
+            isDisabled: function(view, rowIdx, colIdx, item, record) {
+            	
+            	if(record.data.id == "A"){
+            		return false;
+            	}
+            	else{
+            		return true;
+            	}
+            },
+            handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
+            	
+            	var me = this.up("window");
+            	
+            	var childRecord = record.childNodes;
+        		
+        		for(var i = 0; i < childRecord.length; i++){
+        			
+        			var isInit = true;
+        			if(i != 0){
+        				isInit = false;
+        			}
+        			me.setSiteIds(childRecord[i], isInit);
+        		}
+            	
+            	var coreMap = GetCoreMap();
+				var center = coreMap.map.extent.getCenter();
+				var level = coreMap.map.getLevel();
+				var width = coreMap.getWidth();
+				var height = coreMap.getHeight();
+				//console.info(width);
+				//console.info(height);
+				//console.info(coreMap.map.extent.getCenter());
+				//console.info(coreMap.map.getLevel());
+				
+				var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
+				"&w=" + width + "&h=" + height;
+				window.open(url, "리포트 설정", "width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
+				
+				/*width : 팝업창 가로길이
+				height : 팝업창 세로길이
+				toolbar=no : 단축도구창(툴바) 표시안함
+				menubar=no : 메뉴창(메뉴바) 표시안함
+				location=no : 주소창 표시안함
+				scrollbars=no : 스크롤바 표시안함
+				status=no : 아래 상태바창 표시안함
+				resizable=no : 창변형 하지않음
+				fullscreen=no : 전체화면 하지않음
+				channelmode=yes : F11 키 기능이랑 같음
+				left=0 : 왼쪽에 창을 고정(ex. left=30 이런식으로 조절)
+				top=0 : 위쪽에 창을 고정(ex. top=100 이런식으로 조절)*/
             }
         }, {
             text: '검색',
@@ -109,11 +200,11 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	var siteIds = "";
             	var parentId = "";
             	//var gridId = "grid_" + record.data.id;
-            	
+            	//console.info(childRecord[i].data.text);
             	// 집수구역, 지점 이동, 리치정보 하이라이트
 				var me = this.up("window");
 				me.moveCommon(record);
-            	
+            	//PollLoadSearchResult
             	if(record.id.length == 1){
             		var childRecord = record.childNodes;
             		
@@ -134,7 +225,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             				
             				pNm = pNm.substring(0,1);
             				
-            				
+            				//console.info(childRecord[i].data.text);
             				// 검색결과창 띄우기
             				ShowSearchResult(me.siteIds, me.parentIds, childRecord[i].data.text, gridId , "");
                     		
@@ -157,13 +248,40 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         				var pNm = me.parentIds[0].parentId;
         				
         				pNm = pNm.substring(0,1);
-        				
+        				//console.info(record.data.text);
         				// 검색결과창 띄우기
         				ShowSearchResult(me.siteIds, me.parentIds, record.data.text, gridId , "");
-                		
-                	//}
+        				
+        				var coreMap = GetCoreMap();
+        				var year = "2013";
+        				//검색결과 "검색"시 부하량 표출
+        				if(record.id == "pollLoad"){
+        					PollLoadSearchResult("");
+        				}else if(record.id == "pollution_01"
+        						||record.id == "pollution_02"
+        						||record.id == "pollution_03"
+        						||record.id == "pollution_04"
+        						||record.id == "pollution_05"
+        						||record.id == "pollution_06"
+        						||record.id == "pollution_07"){
+        					
+        					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm,year);
+        				}else if(record.id = "pollution"){
+        					
+        					for(var i = 0 ; i < record.childNodes.length;i++){
+        						PollutionSearchResult("",record.childNodes[i].data.id
+        								,record.childNodes[i].data.title
+        								,record.childNodes[i].data.storeNm,year);
+        					}	
+        				}
             	}
+            },
+            isDisabled: function(view, rowIdx, colIdx, item, record) {
             	
+            	if(record.data.srchBtnDisabled != undefined){
+            		
+            		return record.data.srchBtnDisabled;
+            	}
             }
         }, {
             text: '관련리치',
@@ -220,6 +338,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 			}
 		}
 		else{
+			;
 			if(me.siteIds != ""){
 				me.siteIds += ", ";
 			}
@@ -279,7 +398,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
     initComponent: function(){
     	
     	var me = this;
-    	
 		this.on("beforeclose", function windSitreNChartClose(){
 			var windowSiteNChart = Ext.getCmp("windowSiteNChart");
 			if(windowSiteNChart != undefined){

@@ -24,6 +24,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	arrStDownLine: [], // 시작위치 하류 배열
 	arrEdDownLine: [], // 끝위치 하류 배열
 	
+	grpCommDownLine: null, // 시작위치, 끝위치 공통 하류(만나는지점) 그래픽 오브젝트
+	
 	minStartRchDid: '', // 시작위치 라인 최상류 (시작위치 라인이 여러개일 수 있음)
 	minEndRchId: '', // 끝위치 라인 최상류 (끝위치 라인이 여러개일 수 있음) 
 	
@@ -119,7 +121,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     
     /* 그리기 시작
      * drawOption: 시작위치, 끝위치, 드래그선택 등 ("startPoint", "endPoint"...) */
-    startDraw: function(drawOption){
+    /*startDraw: function(drawOption){
     	
     	var me = this;
     	
@@ -133,7 +135,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			if(drawOption == "startPoint"){
 				symbol = me.startSymbol;
-				bundle.toolbars.draw.addPoint = "시작위치를 추가하려면 클릭.";
+				//bundle.toolbars.draw.addPoint = "시작위치를 추가하려면 클릭.";
+				bundle.toolbars.draw.addPoint = null;
 				me.selectionToolbar.activate(Draw.POINT);
 			}
 			
@@ -167,14 +170,14 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			on(me.selectionToolbar, "DrawEnd", function (evt) {
 
-				/* draw extention offset 2016-04-05 주석 - map left 고정시키면서 필요없어짐..
+				 draw extention offset 2016-04-05 주석 - map left 고정시키면서 필요없어짐..
 				//if(location.host != "10.101.95.14"){
 				if(_isOffsetPoint == true){
 					//console.info(_isOffsetPoint);
 					// 실서버는 적용 안해도 됨.
 					//evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
 				}
-				*/
+				
 				
 				if(symbol != null && symbol != undefined)
 					me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
@@ -189,11 +192,42 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					me.drawEnd("btnMenu05"); // 그리기 종료
 				}
 				
+				// 이벤트로 리치 라인 조회
 				me.selectLineWithEvent(evt, drawOption);
 	        });
 		});
+    },*/
+    startDrawEnd: function(evt, symbol, drawOption){
+    	
+    	var me = this;
+    	
+    	if(symbol == undefined || symbol == null){
+    		
+    		if(drawOption == "startPoint"){
+    			symbol = me.startSymbol;
+    		}
+    		if(drawOption == "endPoint"){
+    			symbol = me.endSymbol;
+    		}
+    	}
+    	
+    	if(symbol != null && symbol != undefined){
+			me.drawSymbol(evt, symbol, drawOption); // 심볼 그리기
+    	}
+		
+		if(drawOption == "startPoint" || drawOption == "start"){
+			
+			me.drawEnd("btnMenu04"); // 그리기 종료
+		}
+		
+		if(drawOption == "endPoint" || drawOption == "end"){
+			
+			me.drawEnd("btnMenu05"); // 그리기 종료
+		}
+		
+		// 이벤트로 리치 라인 조회
+		me.selectLineWithEvent(evt, drawOption);
     },
-    
     /* 이벤트(클릭, 드래그 등)로 리치라인 조회 
      * 이벤트에 리치라인이 포함되지 않으면 집수구역 조회
      * evt: 이벤트
@@ -266,6 +300,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
+			        		//PollLoadSearchResult("");
 						}
 						else if(drawOption == "addPoint" || drawOption == "extent" || drawOption == "circle"){
 							// 라인 그린다
@@ -275,6 +310,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			        		Ext.ShowSiteListWindow("selectReach");
 			        		// 검색결과 창 띄우기
 			        		ShowSearchResultReach("");
+			        		//PollLoadSearchResult("");
 						}
 					}
 					
@@ -314,7 +350,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
-				//console.info(featureSet);
+				
 				if(featureSet.features.length > 0){
 					
 					var minRchDid = "";
@@ -337,7 +373,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					if(drawOption == "startPoint"){
 						
 						// 시작위치 클릭시 배열에 담기
-						me.arrStartLine.push(featureSet.features[i]);
+						me.arrStartLine.push(featureSet.features[0]);
 						//me.arrStartLine.unshift(featureSet.features[i]);
 						// 시작위치 최상류 라인 아이디 셋팅
 						me.minStartRchDid = minRchDid; 
@@ -348,7 +384,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					if(drawOption == "endPoint"){
 						
 						// 끝위치 클릭시 배열에 담기
-						me.arrEndLine.push(featureSet.features[i]);
+						me.arrEndLine.push(featureSet.features[0]);
 						// 끝위치 최상류 라인 아이디 셋팅
 						me.minEndRchDid = minRchDid;
 						// 끝위치 하천명 셋팅
@@ -380,6 +416,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
+					        		//PollLoadSearchResult("");
 								}
 								else{
 									// 라인 그린다
@@ -389,6 +426,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					        		Ext.ShowSiteListWindow("selectReach");
 					        		// 검색결과 창 띄우기
 					        		ShowSearchResultReach("");
+					        		//PollLoadSearchResult("");
 								}
 							}
 						}
@@ -429,11 +467,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				query.outFields = ["*"];
 				query.where = "RCH_DID = '" + curRchDid + "'";
 				
-				//console.info(curRchDid);
+				//console.info(query);
 				
 				// 리치라인 조회
 				queryTask.execute(query, function(featureSet){
-					//console.info(featureSet.features);
+					
 					if(featureSet.features.length > 0){
 						
 						var feature = featureSet.features[0];
@@ -448,8 +486,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							// 끝위치 하류 배열 push
 							me.arrEdDownLine.push(feature);
 						}
-						//console.info(me.arrStDownLine);
-						//console.info(me.arrEdDownLine);
+						
 						var stLength = me.arrStDownLine.length; // 시작위치 하류 배열 길이
 						var edLength = me.arrEdDownLine.length; // 끝위치 하류 배열 길이
 						var stSliceIdx = -1; // 시작위치 하류 배열 잘라낼 인덱스
@@ -467,6 +504,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 								// 시작위치 하류 배열, 끝위치 하류 배열에서 ID가 일치하는지 체크..
 								// 시작위치 하류, 끝위치 하류 만나는 지점..
 								if(stRchDid == edRchDid){
+
+									// 만나는 지점 그래픽 오브젝트 전역
+									me.grpCommDownLine = me.arrStDownLine[stIdx];
 									
 									stSliceIdx = stIdx;
 									edSliceIdx = edIdx;
@@ -540,16 +580,15 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 							/** 검색설정(본류, 지류) 체크 끝 **/
 							Ext.defer(function(){
 								
-								me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
+								// 상류 검색
+					    		me.selectUpLine(rchDid, dnGeoTrib, drawOption, 0); // 처음 호출시 마지막 0파라메터 주의..
 					    		//alert("하류 만나는 지점 하천차수 : " + dnGeoTrib);
 					    		
 					    		// 검색 종료 체크
 					    		me.isStopCheck();
 								
-								me.defaultDate(droneLayerId,measureDate,drone);
+								//me.defaultDate(droneLayerId,measureDate,drone);
 							}, 1);
-							// 상류 검색
-				    		
 				    	}
 					}
 				});
@@ -587,6 +626,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			query.returnGeometry = true;
 			query.outFields = ["*"];
 			query.where = "RCH_DID = '" + curRchDid + "'";
+			
+			//console.info(_mapServiceUrl_v3 + "/" + _reachLineLayerId);
+			//console.info(query.where);
 			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
@@ -802,6 +844,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 						
 	    				// 우측 상류 검색 (재귀호출)
 	    				var ruRchDid = feature.attributes.RU_RCH_DID;
+	    				//console.info(ruRchDid);
 						me.selectUpLine(ruRchDid, dnGeoTrib, drawOption, cnt);
     				}
 				}
@@ -821,7 +864,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	var obj = setInterval(chkCnt = function(){
     		
 			//console.info(me.searchCnt);
-			 
     		// 검색 카운트 같으면
 			if(me.searchCnt == me.tmpSearchCnt){
         		
@@ -1226,7 +1268,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	if(isDraw == true){
     		
 	    	// 그래픽 그린다.
-	    	graphic.setSymbol(symbol);
+    		graphic.setSymbol(symbol);
 			me.addGraphics(graphic, layerId);
 			
 			// 배열에 넣기
@@ -1379,9 +1421,9 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	    	me.selectionToolbar.deactivate();
 	    	me.selectionToolbar = null;
 	    	me.map.enablePan();
-	    	
-	    	Ext.get('_mapDiv__gc').setStyle('cursor','default');
     	}
+    	
+    	Ext.get('_mapDiv__gc').setStyle('cursor','default');
     	
     	if(btnId != null && btnId != undefined){
     		

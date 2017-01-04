@@ -63,7 +63,7 @@ try{
 		sql = withSql + sql;
 		
    //out.print(sql);
-   System.out.println(sql);
+   //System.out.println(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
    

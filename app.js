@@ -1,10 +1,16 @@
 var _testUrl = null;
 var _serviceUrl = null;
+/**
+ * testlkj
+ * @param ljkdfjsad flkjdsl
+ * @return string
+ * */
 var _mapServiceUrl = null; // 리치 맵 서비스
 var _mapServiceUrl_v3 = null; // 리치 맵 서비스 v3
 var _mapServiceUrl_v3_2 = null; // 리치 맵 서비스 v3 (투명도적용)
 var _mapServiceUrl_reachtest = null; // 시연용 테스트 맵 서비스
 var _mapServiceUrl_dim = null; // dim처리 맵 서비스
+var _baseMapUrl_vworld = null; // 배경맵 서비스 URL
 var _reachFlowLayerId = null; // 리치흐름 레이어 아이디
 var _reachNodeLayerId = null; // 리치노드 레이어 아이디
 var _reachLineLayerId = null; // 리치라인 레이어 아이디
@@ -21,6 +27,10 @@ var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
 var _MapserviceUrl1 = null;
+var _kradMapserviceUrl = null;
+var _kradCatSearchId = null;
+var _kradCatExtDataInfo = null;
+var _kradCatExtMetaData = null;
 var _paramInfo = null; // 물환경 상세자료검색에서 넘기는 파라메터 정보
 
 var store = Ext.create('Ext.data.Store', {
@@ -47,12 +57,15 @@ var store = Ext.create('Ext.data.Store', {
 });
 
 store.load(function(a, b, c) {
+	
 	this.each(function(record, cnt, totCnt) {
+		
 		_mapServiceUrl = record.data.reachServiceUrl;
 		_mapServiceUrl_v3 = record.data.reachServiceUrl_v3;
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
 		_mapServiceUrl_reachtest = record.data.reachTestServiceUrl;
 		_mapServiceUrl_dim = record.data.dimServiceUrl;
+		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
 		_reachFlowLayerId = record.data.reachFlowLayerId;
 		_reachNodeLayerId = record.data.reachNodeLayerId;
 		_reachLineLayerId = record.data.reachLineLayerId;
@@ -68,8 +81,68 @@ store.load(function(a, b, c) {
 		_arcServiceUrl = record.data.arcServiceUrl;
 		_isOffsetPoint = record.data.isOffsetPoint;
 		_MapserviceUrl1 = record.data.MapserviceUrl1;
+		_kradMapserviceUrl = record.data.kradMapservicUrl;
+		_kradCatSearchId = record.data.kradCatSearchId;
+		_kradCatExtDataInfo = record.data.kradCatExtDataInfo;
+		_kradCatExtMetaData = record.data.kradCatExtMetaData;
+		_cursorX = "";
+		_cursorY = "";
+		
+		$(document).bind("click", function(event){
+			
+			_cursorX = event.pageX;
+			_cursorY = event.pageY;
+			
+			var str = "";
+	        str = "offsetX: " + (event.offsetX == undefined ? event.layerX : event.offsetX);
+	        str += ", offsetY: " + (event.offsetY == undefined ? event.layerY : event.offsetY);
+	        str += "<br/>screenX: " + event.screenX;
+	        str += ", screenY : " + event.screenY;
+	        str += "<br/>clientX : " + event.clientX;
+	        str += ", clientY : " + event.clientY;
+	        str += "<br/>pageX : " + event.pageX;
+	        str += ", pageY : " + event.pageY;
+	        
+			//console.info(str);
+			
+			/*offset: 이벤트가 걸려있는 DOM 객체를 기준으로 좌표를 출력한다.
+
+			layer: offset과 같음. 파폭에서 사용한다.
+
+			screen: 화면 출력 크기가 기준인 절대좌표. 브라우저를 움직여도 값은 같다.
+
+			client: 브라우저가 기준인 좌표. 브라우저 상에서 어느 지점에 위치하는지를 의미하기 때문에 스크롤해도 값은 변하지 않는다.
+
+			page: 문서가 기준인 좌표. client와 비슷하지만 문서 전체 크기가 기준이라 스크롤 시 값이 바뀐다.*/
+		});
+
 		_paramInfo = record.data.paramInfo; // 물환경 상세자료검색에서 넘기는 파라메터 정보
 	});
+});
+
+var _kradInfo = null;
+
+var kradStore = Ext.create('Ext.data.Store', {
+	
+	autoLoad : true,
+	
+	fields : [{
+		name : 'kradServiceUrl'
+	}],
+	
+	proxy : {
+		type : 'ajax',
+		url : './resources/data/krad/kradLayerVar.json',
+		reader : {
+			type : 'json'
+		}
+	}
+});
+
+kradStore.load(function(a, b, c) {
+	
+	_kradInfo = a[0].data;
+	//console.info(_kradInfo);
 });
 
 /*
@@ -79,6 +152,7 @@ store.load(function(a, b, c) {
  */
 Ext.application({
 	name : 'KRF_DEV',
+	requires: ["KRF_DEV.global.Obj"],
 	
 	// extend: 'KRF_DEV.Application',
 
@@ -155,13 +229,12 @@ Ext.application({
 								
 								var symbol = new PictureMarkerSymbol({
 						 		    "angle": 0,
-						 		    "xoffset": -2,
-						 		    "yoffset": 14,
+						 		    "yoffset": 22,
 						 		    "type": "esriPMS",
-						 		    "url": "./resources/images/symbol/spot_06.png",
+						 		    "url": "./resources/images/symbol/spot_99.gif",
 						 		    "contentType": "image/png",
-						 		    "width": 22,
-						 		    "height": 29
+						 		    "width": 30,
+						 		    "height": 44
 						 		});
 								
 								var graphicLayer = new GraphicsLayer();
@@ -173,23 +246,28 @@ Ext.application({
 									graphicLayer.add(graphic);
 								}
 								
-								coreMap.map.setExtent(graphicsUtils.graphicsExtent(graphicLayer.graphics));
+								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
+								coreMap.map.setExtent(extent);
+								
+								coreMap.map.addLayer(graphicLayer);
+								
+								var timer = window.setInterval(function(){
+									//console.info(coreMap.map.extent);
+									//window.clearInterval(timer);
+								}, 500);
 								
 								Ext.defer(function(){
 									
-									var level = coreMap.map.getLevel();
+									var level = coreMap.map.getLevel() - 1;
 									
 									if(level > 12){
 										coreMap.map.setLevel(12);
 									}
-									else if(graphicLayer.graphics.length > 2){
-										coreMap.map.setLevel(coreMap.map.getLevel() - 1);
-									}
 									else{
-										coreMap.map.setLevel(12);
+										coreMap.map.setLevel(level);
 									}
 									
-									coreMap.map.addLayer(graphicLayer);
+									//coreMap.map.addLayer(graphicLayer);
 								}, 500);
 							}
 						});
@@ -214,7 +292,6 @@ Ext.application({
 			var westContents = Ext.getCmp("westContents");
 			westContents.setActiveItem(tabIdx);
 		}
-
 		// Ext.WestTabChange(1);
 
 		// 이미지 on/off
@@ -253,7 +330,7 @@ Ext.application({
 		var infoWinCtl = null;
 
 		// 지점 목록 창 띄우기
-		Ext.ShowSiteListWindow = function(searchText) {
+		Ext.ShowSiteListWindow = function(searchText, searchType) {
 
 			var me = GetCoreMap();
 
@@ -321,10 +398,22 @@ Ext.application({
 
 			listWinCtl.show();
 			// alert("dd");
+			var store = null;
 			var treeCtl = Ext.getCmp("siteListTree");
-			var store = treeCtl.getStore();
+			//alert(searchType);
+			if(searchType == "krad"){
+				store = Ext.create('KRF_DEV.store.east.KradListWindow');
+			}
+			else{
+				store = Ext.create('KRF_DEV.store.east.SiteListWindow',{
+					async:false
+				});
+			}
+			
+			//var store = treeCtl.getStore();
 			store.searchType = searchText;
 			store.load();
+			treeCtl.setStore(store);
 
 			var listWinX = Ext.getBody().getViewSize().width - listWinCtl.width;
 			var listWinY = 98;
@@ -516,11 +605,16 @@ Ext.application({
 			var rToolbar = Ext.getCmp("reachToolbar");
 			var rNameToolbar = Ext.getCmp("reachNameToolbar");
 			var sConfig = Ext.getCmp("searchConfig");
+			var kConfig = Ext.getCmp("kradSchConf");
+			console.info(kConfig);
 			cContainer.remove(rToolbar, false);
 			if(rNameToolbar != undefined && rNameToolbar != null)
 				rNameToolbar.close();
 			if(sConfig != undefined && sConfig != null)
 				sConfig.close();
+			if(kConfig != undefined && kConfig != null)
+				kConfig.hide();
+				
 		}
 	},
 	// session정보 없을 시 로그인 창 이동. 2015.11.27 hyeok

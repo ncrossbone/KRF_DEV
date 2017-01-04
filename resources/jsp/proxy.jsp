@@ -38,8 +38,11 @@ try {
 	final int length = 5000;
   	byte[] bytes = new byte[length];
   	int bytesRead = 0;
+  	int i = 0;
   	while ((bytesRead = in.read(bytes, 0, length)) > 0) {
     	ostream.write(bytes, 0, bytesRead);
+    	i++;
+    	//System.out.println(i);
   	}
 }catch(Exception e) {
 	response.setStatus(200);
