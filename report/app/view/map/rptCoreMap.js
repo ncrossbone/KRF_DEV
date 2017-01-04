@@ -137,6 +137,7 @@ Ext.define('Report.view.map.rptCoreMap', {
 		  });
 		
 		me.baseMap = new CustomMapsLayer();
+		me.baseMap.setVisibility(false);
 		this.map.addLayer(me.baseMap);
 	},
 	report:function(paramCode, startYear, endYear){
