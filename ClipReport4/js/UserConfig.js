@@ -50,6 +50,10 @@ function ReportEventHandler(event){
  */
 function ReportWebLog(message){
 	if(typeof window.console != 'undefined'){
+		//리포트 생성 완료 시점
+		//이미지 경로 "," -> "//"로 대체 
+		//2016.10.18 ph
+		imgDelete(imgPathReplace());
 		window.console.log(message);
 	}
 	else{

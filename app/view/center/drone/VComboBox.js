@@ -32,6 +32,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	onChange: "",
 	onItemClick: "",
 	noCollapse: false, // 콤보 리스트를 닫히지 않게하려면 true
+	expanded: false, // 펼쳐진 상태 true
 	
 	initComponent: function(){
 		
@@ -74,7 +75,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    		listeners: {
 	    			change: me.onChange,
 	    			beforeselect: function(combo, record, index){
-	    				
+	    				//console.info(me.noCollapse);
 	    				// 콤보 리스트가 닫히지 않게 한다.
 	    				if(me.noCollapse == true)
 	    					return false;
@@ -90,7 +91,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    		emptyText: "선택하세요"
 	    	}]
 	    }];
-	    
+		
 	    this.callParent();
 	},
 	

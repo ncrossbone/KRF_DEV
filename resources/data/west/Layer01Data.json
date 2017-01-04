@@ -92,6 +92,28 @@
 		"leaf": true,
 		"checked": false
 	}]
+},{
+	"id": "33",
+	"text": "방사선조사지점",
+	"cls": 'khLee-x-tree-node-text-bold',
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "35",
+		"text": "하천수",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer77",
+		"leaf": true,
+		"checked": false
+	},{
+		"id": "34",
+		"text": "호소수",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer78",
+		"leaf": true,
+		"checked": false
+	}]
 }, {
 	"id": "14",
 	"text": "기타측정지점",
@@ -399,7 +421,7 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
-		"id": "41",
+		"id": "74",
 		"text": "특별대책지역",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer71",

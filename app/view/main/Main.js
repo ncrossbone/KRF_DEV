@@ -53,7 +53,7 @@ Ext.define('KRF_DEV.view.main.Main', {
         	    }]
         	}],
         	weight: 2
-        }],
+        }]
     }],
     
     initComponent: function(){

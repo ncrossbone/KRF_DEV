@@ -159,7 +159,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			Ext.getCmp("searchResultContainer_A_Id").removeCls("dj-mask-noneimg");
 			Ext.getCmp("searchResultContainer_A_Id").addCls("dj-mask-withimg");
 			Ext.getCmp("searchResultContainer_A_Id").mask("loading", "loading...");
-			
+		
+
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD

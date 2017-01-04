@@ -109,46 +109,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		if(popOpenCtl != undefined)
 			popOpenCtl.hide();
 		
-		// 팝업 이미지 (임시)
+		// 즐겨찾기 팝업
 		var popCtl = Ext.getCmp("Favorite");
 		
 		if(popCtl == undefined){
 			
-//			popCtl = Ext.create("Ext.window.Window", {
-//				
-//						title: '즐겨찾기',
-//						header: false,
-//						id: 'Favorite',
-//						cls: 'khLee-window-panel-header khLee-x-window-default ',
-//						layout: {
-//							type: 'absolute'
-//						},
-//						items: [{
-//							xtype: 'image',
-//							src: './resources/images/popup/popFavorite.gif',
-//							width: 286,
-//							height: 295
-//						}, {
-//							xtype: 'image',
-//							title: '닫기',
-//							src: './resources/images/button/icon_close2.gif',
-//							listeners: {
-//								el: {
-//						            click: function(){
-//						            	var popCtl = Ext.getCmp("Favorite");
-//										popCtl.hide();
-//						            }
-//						        }
-//							},
-//							width: 10,
-//							height: 10,
-//							x: 264,
-//							y: 10
-//						}],
-//						x: 390,
-//						y: Ext.getBody().getViewSize().height - 295
-//						
-//					});
 			popCtl = Ext.create('KRF_DEV.view.east.FavoriteWindow_v3');
 		}
 		
@@ -248,6 +213,40 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			//Ext.HideChartResult();
 			//HideSearchResult();
 			//ShowReachInfoWindow();
+			
+			var kradMetaInfo = Ext.getCmp("kradMetaInfo");
+			var kradSchConf = Ext.getCmp("kradSchConf");
+			
+			if(kradMetaInfo!=undefined) kradMetaInfo.close();
+			if(kradSchConf!=undefined) kradSchConf.close();
+			
+			
+			
+			
+			
+			//KRAD 레이어 로컬스토리지 내용으로 Visibility
+			var confInfo2 = localStorage['_kradExtInfo2_'];  //사용자지정 로컬스토리지
+			var kradLayer = [];
+			if(confInfo2 != undefined || confInfo2 != null){
+				var jsonConf2 = JSON.parse(confInfo2);
+				
+				if(jsonConf2.length > 0){
+					for(var i =0 ; i < jsonConf2.length;i++){
+						if(jsonConf2[i].EVENT_TYPE == "Point"){
+							kradLayer.push(jsonConf2[i].PE_LAYER_ID);
+						}
+						if(jsonConf2[i].EVENT_TYPE == "Line"){
+							kradLayer.push(jsonConf2[i].LO_LAYER_ID);
+						}
+					}
+				}
+				
+				_krad.setKradOnOff(kradLayer);
+				_krad.kradInfo = jsonConf2;
+			}
+			
+			
+			
 		}
 		
 		// 일반모드 버튼
@@ -310,6 +309,22 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
 			KRF_DEV.getApplication().fireEvent('pointDrawClick', "point", el.id, false);
 			*/
+			var kradMetaInfo = Ext.getCmp("kradMetaInfo");
+			var kradSchConf = Ext.getCmp("kradSchConf");
+			
+			if(kradMetaInfo!=undefined) kradMetaInfo.close();
+			if(kradSchConf!=undefined) kradSchConf.close();
+			
+			
+			var searchConfigHeader = Ext.getCmp("searchConfigHeader");
+			if(searchConfigHeader != undefined){
+				searchConfigHeader.close();
+			}
+			
+			//KRAD 레이어 해제
+			var kradLayer = [];
+			_krad.setKradOnOff(kradLayer);
+			
 		}
 		
 		////console.info("dd");

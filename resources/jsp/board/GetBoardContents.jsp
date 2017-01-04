@@ -28,7 +28,7 @@ try{
 	sql = sb.toString();
 	rs = stmt.executeQuery(sql);
 	
-	System.out.println(sql);
+	//System.out.println(sql);
 	
 %>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />

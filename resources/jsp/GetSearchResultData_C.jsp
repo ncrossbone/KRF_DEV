@@ -482,7 +482,7 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
      //sql += "AND A.PT_NO IN (" + siteIds + ") ";
      
      //out.print(sql);  
-   System.out.println(sql);
+   //System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
    

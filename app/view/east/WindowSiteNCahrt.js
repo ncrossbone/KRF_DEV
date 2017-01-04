@@ -57,7 +57,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
 		type: 'vbox'
 	},
 	
-	width: 450,
+	width: 500,
 	height: 350,
 	draggable: true,
 	 listeners : {//resize될때 chart panel width값 변경

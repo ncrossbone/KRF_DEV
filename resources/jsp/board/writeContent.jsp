@@ -95,7 +95,7 @@ try{
 		sql = sb.toString();
 		rs = stmt.executeQuery(sql);
 		
-		System.out.println(sql);
+		//System.out.println(sql);
 		
 		while(rs.next()){
 %>

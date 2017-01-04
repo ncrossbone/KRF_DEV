@@ -502,7 +502,7 @@ try{
 	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)      ) ORDER BY PT_NO, RN, RN_2 DESC                ";
 		
    //out.print(sql);
-   System.out.println(sql);
+   //System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
    
