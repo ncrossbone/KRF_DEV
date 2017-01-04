@@ -7,10 +7,10 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	xtype: 'win-searchConfig',
 	id: 'searchConfig',
 	
-	width: 303,
-	height: 70,
 	//width: 303,
-	//height: 473,
+	//height: 70,
+	width: 303,
+	height: 473,
 	x: 387,
 	y: 200,
 	//resizable: false,
@@ -65,7 +65,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			
 		}]
 		//style:"background-color:black;"
-	}/*,{
+	},{
 		xtype: 'panel',
 		title: '데이터 셋 선택',
 		width: 303,
@@ -311,7 +311,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				}
 			}]
 		}]
-	}*/],
+	}],
 
 	initComponent: function(){
 		
