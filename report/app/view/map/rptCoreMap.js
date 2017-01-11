@@ -144,6 +144,7 @@ Ext.define('Report.view.map.rptCoreMap', {
 		
 		var me = this;
 		//alert("dd");
+		
 		me.printTask.report(paramCode, startYear, endYear);
 	}
 });

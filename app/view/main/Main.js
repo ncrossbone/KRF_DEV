@@ -59,8 +59,11 @@ Ext.define('KRF_DEV.view.main.Main', {
     initComponent: function(){
     	
  		if(document.URL != "http://112.218.1.243:20003/KRF_IE/"){
+ 			
 	 		//if(Ext.browser.is.Chrome == false){
-	 		if(Ext.browser.is.IE == true){
+	 		if(Ext.browser.is.IE == true && Ext.browser.version.major < 11){ // IE11 아래 버전 막기
+ 			//if(Ext.browser.is.IE == true){
+	 			
 	 			Ext.create("Ext.window.Window", {
 	 				renderTo: Ext.getBody(),
 	 				width: 886,
@@ -111,8 +114,8 @@ Ext.define('KRF_DEV.view.main.Main', {
 	 			return;
 	 		}
  		}
-    	
-    	this.callParent();
+ 		
+ 		this.callParent();
     	
     	// 메인 컨테이너 전역변수
     	KRF_DEV.getApplication().northContainer = Ext.getCmp('north_container');

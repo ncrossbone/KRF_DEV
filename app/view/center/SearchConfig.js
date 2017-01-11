@@ -53,10 +53,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			style:"margin-top:5px; margin-left:30px;",
 			handler: function(obj, checked){
 				
-				var me = this.up("window");
-				var isKrad = me.items.items[2].value;
-				
-				var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:isKrad };
+				var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:checked };
 				
 				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 				
@@ -317,22 +314,18 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		
 		this.callParent();
 		
-		//console.info(localStorage['_searchConfigInfo_']);
-		if(localStorage['_searchConfigInfo_'] != null && localStorage['_searchConfigInfo_'] != undefined){
+		var confInfo = localStorage['_searchConfigInfo_'];
+		
+		if(confInfo != undefined && confInfo != null){
 			
-			confInfo = localStorage['_searchConfigInfo_'];
-			//console.info(confInfo);
+			var jsonConf = JSON.parse(confInfo);
+			//console.info(this.items.items[0]);
+			this.items.items[0].items.items[1].setValue(jsonConf.isJiDraw);
+		}
+		else{
 			
-			if(confInfo != undefined && confInfo != null){
-				var jsonConf = JSON.parse(confInfo);
-				
-				this.items.items[0].items.items[0].setValue(jsonConf.isJiDraw);
-			}
-			else{
-				//console.info("else");
-				var saveObj = {isBonDraw:true, isJiDraw:true};
-				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
-			}
+			var saveObj = {isBonDraw:true, isJiDraw:true};
+			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
 		}
 	}
 

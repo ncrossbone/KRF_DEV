@@ -48,7 +48,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		}
 		
 		// 부하량 주제도 off
-		catTMLayerOnOff("off");
+		//catTMLayerOnOff("off");
 		
 	},
 	
@@ -155,7 +155,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	
 	// 초기화 버튼 클릭
 	onClickReset: function(obj, el, evt){
-		
+		//console.info("dkjdf");
 		ResetButtonClick();
 		
 	},
