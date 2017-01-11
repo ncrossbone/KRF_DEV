@@ -50,7 +50,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	xtype: 'image',
 	    	id: 'btnMenu01',
 	    	groupId: 'groupSmart',
-	    	title: '스마트선택',
+	    	title: '데이터셋설정',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
 	    	listeners: { el: { click: 'onClickSmart' } },
