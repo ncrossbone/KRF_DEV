@@ -70,7 +70,6 @@ Ext.define('Report.view.east.rptSetContainer', {
 			listeners: {
 				el: {
 					click: function(){
-						
 						var paramCode = "";
 						var listStore = Ext.getCmp("treeRptSiteList").getStore();
 						for(var i = 0; i < listStore.data.items.length; i++){
