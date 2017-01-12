@@ -23,6 +23,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	tmGraphicLayerCat: null, // 집수구역 단위 주제도 그래픽 레이어
 	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
 	
+	//width: "100%",
+	//height: "100%",
+	
 	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
 	height: 1100,
 	x: -378,
@@ -75,6 +78,10 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
+    		
+    		/* 맵 영역 채우기 위해 맵 랜더 후 좌측 패널 Expand */
+    		//KRF_DEV.getApplication().contWestContainer.expand();
+    		/* 맵 영역 채우기 위해 맵 랜더 후 좌측 패널 Expand 끝 */
 		}, 1);
     },
     
