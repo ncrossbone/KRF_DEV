@@ -20,7 +20,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	labelSrc: '',
 	labelHeight: 24,
 	
-	width: 115,
+	width: 123,
 	
 	comboHeight: 24,
 	
