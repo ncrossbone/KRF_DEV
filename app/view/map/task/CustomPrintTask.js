@@ -38,7 +38,6 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 		me.startYear = startYear;
 		me.endYear = endYear;
 		
-		//alert("dd");
 		me.execute("report");
 	},
 	
@@ -129,7 +128,6 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				else if(mode=="report"){
 					// 由ы룷��酉곗뼱 �몄텧 濡쒖쭅
 					var imgPath = data.path;
-					console.info(imgPath);
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
     						"&paramCode=" + me.paramCode +
     						"&startYear=" + me.startYear +

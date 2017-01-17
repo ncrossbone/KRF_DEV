@@ -90,7 +90,6 @@ Ext.application({
 	name : 'Report',
 	
 	launch : function() {
-		
 		Ext.create("Report.view.main.rptExtViewMain", {
 			renderTo: Ext.getBody()
 		});

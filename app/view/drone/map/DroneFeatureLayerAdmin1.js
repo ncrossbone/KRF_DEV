@@ -116,7 +116,6 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
         			//alert(response.responseText);
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			console.info(response.responseText);
         			//alert(jsonData.data[0].ITEM_SURFACE_CLOA);
         		},
         		failure: function(form, action) {
@@ -124,7 +123,6 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
         			alert("오류가 발생하였습니다.");
         		}
         	});
-			console.info(jsonData);
 			//console.info(jsonData.data.length);
 			if(jsonData != undefined && jsonData != null){
 				for(var jsonCnt = 0; jsonCnt < jsonData.data.length; jsonCnt++){
