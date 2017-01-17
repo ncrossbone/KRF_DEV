@@ -194,6 +194,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_seah.gif',
             iconCls: ' khLee-x-serch-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
+            	
+            	console.info(record.id);
             	//Ext.ShowSearchResult("grid-tab-2", "하천수");
             	KRF_DEV.getApplication().btnFlag = "noDate";
             	var treeCtl = Ext.getCmp("siteListTree");

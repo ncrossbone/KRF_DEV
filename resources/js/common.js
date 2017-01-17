@@ -1291,8 +1291,8 @@ ReachSelectedFocus = function(catId){
 	//console.info(catId);
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
 	//console.info(rowIdx);
-	gridCtl.getSelectionModel().select(rowIdx);
-	gridCtl.getView().getRow(rowIdx).scrollIntoView();
+	//gridCtl.getSelectionModel().select(rowIdx);
+	//gridCtl.getView().getRow(rowIdx).scrollIntoView();
 }
 
 GetCatArea = function(catDId){
@@ -1432,9 +1432,9 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	var layerId = "";
 	
 	if(parentNodeId == "Cat"){ // 집수구역
-		layerId = "48";
+		layerId = _reachAreaLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
-		layerId = "47";
+		layerId = _reachLineLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedRchLine', layerId, nodeId);
 		return;
 	}else if(parentNodeId == "A001"){

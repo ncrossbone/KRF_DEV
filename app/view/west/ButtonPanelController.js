@@ -180,8 +180,10 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	
 	    	// Dim 처리 서비스 레이어
 	    	var activeLayer = me.map.getLayer("ReachLayerAdminBackground");
-	    	if(activeLayer != undefined)
+	    	if(activeLayer != undefined){
+	    		activeLayer.setVisibleLayers([0]);
 	    		activeLayer.setVisibility(true);
+	    	}
 	    	
 	    	// 시뮬레이션용 서비스 레이어
 	    	activeLayer = me.map.getLayer("DynamicLayerAdmin_ReachTest");
