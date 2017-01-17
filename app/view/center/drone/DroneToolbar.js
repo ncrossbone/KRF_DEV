@@ -46,8 +46,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         					toolbarCont.expand();
         					toolbarCont.updateHeaderPosition("right");
         					toolbarCont.header.setHtml("<img src='./resources/images/drone/btn_arrow_close2.png' />");
-        					toolbarCont.setWidth(762);
-        					toolbarCont.up("panel").setWidth(827);
+        					toolbarCont.setWidth(938);
+        					toolbarCont.up("panel").setWidth(1003);
         				}
         				else{
         					toolbarCont.collapse();
@@ -125,6 +125,20 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	displayField: "ChlaDate",
         	valueField: "ChlaLayerId",
         	onChange: "onDroneChlaChange",
+        	onItemClick: "onItemClickEmpty"
+        }, {
+    		xtype: "container",
+    		width: 5
+    	}, { // 피코시아닌
+        	xtype: "drone-vcombo",
+        	id: "cboDronePhy", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	labelSrc: './resources/images/drone/label_07.png',
+        	jsonUrl: "./resources/data/drone/LayerMapper.json",
+        	dataRoot: "",
+        	fields: ["PhyLayerId", "PhyDate"],
+        	displayField: "PhyDate",
+        	valueField: "PhyLayerId",
+        	onChange: "onDronePhyChange",
         	onItemClick: "onItemClickEmpty"
         }, {
     		xtype: "container",

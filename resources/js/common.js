@@ -1495,7 +1495,7 @@ OpenMenualPop = function(){
 }
 
 ResetButtonClick = function(){
-	
+	//console.info("dlkfj");
 	var me = GetCoreMap();
 	
 	// KRAD 레이어 그래픽 및 변수 초기화
@@ -1547,8 +1547,7 @@ ResetButtonClick = function(){
 	var txtBox = Ext.getCmp("textSearchText");
 	txtBox.setValue("");
 	
-	// 주제도 레이어 off
-	
+	_krad.isSearchStop = true;
 }
 
 // 주제도 레이어 on/off
