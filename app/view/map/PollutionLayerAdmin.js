@@ -59,8 +59,8 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 				
 				layerId = "1";
 			}
-			var queryTask = new QueryTask("http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer/" + layerId);
-			
+			var queryTask = new QueryTask(_mapServiceUrl_v3_TM +"/" + layerId);
+			console.info(_mapServiceUrl_v3_TM);
 			var query = new Query();
 	        query.returnGeometry = true;
 	        query.outFields = ["*"];
