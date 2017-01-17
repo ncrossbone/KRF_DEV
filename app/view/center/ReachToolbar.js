@@ -57,7 +57,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	btnOnOff: 'off',
 	    	btnOnImg: './resources/images/button/reach_menu01_on.png',
 	    	btnOffImg: './resources/images/button/reach_menu01.png',
-	    	src: './resources/images/button/reach_menu01.png'
+	    	src: './resources/images/button/reach_menu01.png' 
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu04',

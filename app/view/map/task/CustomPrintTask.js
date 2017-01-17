@@ -114,7 +114,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 //	   		},"json").error(function(){
 //	   		});
 			
-			//console.info(obj);
+			//console.info(obj);  
 			
 			$.post(me.printUrl, obj, function(data){
 				if(mode=="print"){
@@ -129,10 +129,6 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				else if(mode=="report"){
 					// 由ы룷��酉곗뼱 �몄텧 濡쒖쭅
 					var imgPath = data.path;
-<<<<<<< HEAD
-					
-=======
->>>>>>> 6528191fd3c37e7e8662c3be2e91928c74361e9f
 					console.info(imgPath);
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
     						"&paramCode=" + me.paramCode +
