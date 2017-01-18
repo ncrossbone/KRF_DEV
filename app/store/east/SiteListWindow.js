@@ -151,6 +151,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			query.outFields = ["*"];
 			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
 			//console.info(query.where);
+			
+			// 로딩바 표시
+			Ext.getCmp("siteListWindow").removeCls("dj-mask-noneimg");
+			Ext.getCmp("siteListWindow").addCls("dj-mask-withimg");
+			Ext.getCmp("siteListWindow").mask("loading", "loading...");
+			
 			queryTask.execute(query, function(result){
 				
 				var fMap = result.features.map(function(obj){
@@ -192,40 +198,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				jsonStr += "	\"expanded\": true, \n";
 				jsonStr += "	\"children\": [";
 				
-				// 부하량 Json String 가져오기 khLee 20160823 추가
-				var pollLoadString = store.getPollLoadString();
-				
-				if(result.features.length == 0){
-					
-					if(pollLoadString != ""){
-						
-						jsonStr += pollLoadString;
-					
-						
-						var jsonData = "";
-						jsonData = Ext.util.JSON.decode(jsonStr);
-						store.setRootNode(jsonData);
-					}
-					
-					return;
-				}
-				
-				
-				var pollutionString = store.getPollutionString();
-				
-				if(result.features.length == 0){
-					
-					if(pollutionString != ""){
-						
-						jsonStr += pollutionString;
-						
-						var jsonData = "";
-						jsonData = Ext.util.JSON.decode(jsonStr);
-						store.setRootNode(jsonData);
-					}
-					return;
-				}
-				
 				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) */
 				var arrGroupCodes = [];
 				
@@ -239,8 +211,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				});
 				////console.info(arrGroupCodes);
 				/* 중복 제거한 그룹 코드 배열에 넣기 (arrGroupCodes) 끝 */
-				
-				var preExtId = result.features[0].attributes.EXT_DATA_ID;
 				
 				// 그룹 코드 루프 시작
 				$.each(arrGroupCodes, function(cnt, groupCode){
@@ -407,19 +377,33 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "]\n";
 					jsonStr += "	}, ";
 				}); // 그룹 코드 루프 끝
-				
+				//console.info(arrGroupCodes.length);
 				if(arrGroupCodes.length > 0){
 					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
 				}
 				
+				// 부하량 Json String 가져오기 khLee 20160823 추가
+				var pollLoadString = store.getPollLoadString();
+				var pollutionString = store.getPollutionString();
+				
 				if(pollLoadString != ""){
 					
-					jsonStr += ", " + pollLoadString;
+					if(result.features.length == 0){
+						jsonStr += pollLoadString;
+					}
+					else{
+						jsonStr += ", " + pollLoadString;
+					}
 				}
 				
 				if(pollutionString != ""){
 					
-					jsonStr += ", " + pollutionString;
+					if(result.features.length == 0 && pollLoadString == ""){
+						jsonStr += pollutionString;
+					}
+					else{
+						jsonStr += ", " + pollutionString;
+					}
 				}
 				
 				jsonStr += "]\n";
@@ -430,6 +414,22 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				store.setRootNode(jsonData);
+				
+				// 로딩바 숨김
+				Ext.getCmp("siteListWindow").unmask();
+				
+				if(result.features.length == 0 && pollLoadString == "" && pollutionString == ""){
+					
+	        		Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
+					Ext.getCmp("siteListWindow").mask("데이터가 존재하지 않습니다.", "noData");
+	        	}
+				
+	        }, function(error){
+	        	
+	        	// 로딩바 숨김
+				Ext.getCmp("siteListWindow").unmask();
+				Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
+				Ext.getCmp("siteListWindow").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 	        });
 	  	}
 	},

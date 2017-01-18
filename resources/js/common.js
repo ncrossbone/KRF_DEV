@@ -1136,6 +1136,11 @@ ShowSearchResultReach = function(catIds){
 	//console.info(query.where);
 	query.outFields = ["*"];
 	
+	// 로딩바 표시
+	Ext.getCmp("searchResultReachGridContainer").removeCls("dj-mask-noneimg");
+	Ext.getCmp("searchResultReachGridContainer").addCls("dj-mask-withimg");
+	Ext.getCmp("searchResultReachGridContainer").mask("loading", "loading...");
+	
 	queryTask.execute(query, function(objLine){
 		
 		var queryTask2 = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _reachAreaLayerId); // 리치레이어 URL
@@ -1145,7 +1150,7 @@ ShowSearchResultReach = function(catIds){
 		query2.where = "CAT_DID IN (" + catIds + ")";
 		
 		query2.outFields = ["*"];
-			
+		
 		queryTask2.execute(query2, function(objArea){
 			
 			var sumRchLen = 0;
@@ -1211,7 +1216,27 @@ ShowSearchResultReach = function(catIds){
 			
         	store.loadData(storeData);
         	grdCtl.setStore(store); // 그리드 스토어 셋팅
+        	
+        	// 로딩바 숨김
+			Ext.getCmp("searchResultReachGridContainer").unmask();
+			
+        	if(objLine.features.length == 0){
+        		Ext.getCmp("searchResultReachGridContainer").addCls("dj-mask-noneimg");
+				Ext.getCmp("searchResultReachGridContainer").mask("데이터가 존재하지 않습니다.", "noData");
+        	}
+		}, function(error){
+			
+			// 로딩바 숨김
+			Ext.getCmp("searchResultReachGridContainer").unmask();
+			Ext.getCmp("searchResultReachGridContainer").addCls("dj-mask-noneimg");
+			Ext.getCmp("searchResultReachGridContainer").mask("집수구역 조회 오류 발생하였습니다.", "noData");
 		});
+	}, function(error){
+		
+		// 로딩바 숨김
+		Ext.getCmp("searchResultReachGridContainer").unmask();
+		Ext.getCmp("searchResultReachGridContainer").addCls("dj-mask-noneimg");
+		Ext.getCmp("searchResultReachGridContainer").mask("리치라인 조회 오류 발생하였습니다.", "noData");
 	});
 }
 

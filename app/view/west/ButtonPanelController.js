@@ -72,7 +72,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	onClickResult: function(obj, el, evt){
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
-		console.info(el.id);
+		//console.info(el.id);
 		var searchResultWindow = Ext.getCmp("searchResultWindow");
 		/*
 		if(currCtl.btnOnOff == "off"){
