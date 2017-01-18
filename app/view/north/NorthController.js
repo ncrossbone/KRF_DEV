@@ -86,13 +86,13 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     	
     	for(var i = 0; i < layers.length; i++){
     		//o(layers[i]);
-			if(layers[i] != 45 && layers[i] != 44){
+			if(layers[i] != 48){
 				visibleLayer.push(layers[i]);
 			}
     	}
     	
 		if(currCtl.btnOnOff == "on"){
-			visibleLayer.push(45);
+			visibleLayer.push(48);
 	    	activeLayer.setVisibleLayers(visibleLayer);
 		}
 		else{

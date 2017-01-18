@@ -90,7 +90,7 @@
 		    		continue;
 		    	}
 		    	
-		    	System.out.println(imageInfos[i].src);
+		    	//System.out.println(imageInfos[i].src);
 		    	
 				String encodingPrefix = "base64,";
 				int contentStartIndex = imageInfos[i].base64.indexOf(encodingPrefix) + encodingPrefix.length();

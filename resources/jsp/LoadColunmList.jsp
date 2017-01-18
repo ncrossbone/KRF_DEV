@@ -77,7 +77,7 @@ try{
 	sql+= " C_60 ,";
 	sql+= " C_61  from visibleColunm where user_ip = '"+ip+"' ORDER BY SYSD ASC";
 	
-	System.out.println(sql);
+	//System.out.println(sql);
 	   stmt = con.createStatement();
 	   rs = stmt.executeQuery(sql);
 	   

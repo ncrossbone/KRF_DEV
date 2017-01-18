@@ -35,7 +35,7 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 				nameColumn = "SW_NAME";
 				whereStr = "MBSNCD = '" + store.parentId + "'";
 			}
-			console.info(store.layerId);
+			//console.info(store.layerId);
 			// if(store.layerId == '54' || store.layerId == '55'){ pId =
 			// store.parentId; }
 			// alert(store.layerId);

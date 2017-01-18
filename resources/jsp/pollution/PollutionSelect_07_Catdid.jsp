@@ -77,7 +77,7 @@ try{
 	sql += "  ORDER BY DECODE(SB_NM,'ÃÑ°è',1,2), SB_ID, DECODE(CAT_DID,'¼Ò°è',1,2), CAT_DID   ";
 	
     
-System.out.println(sql);
+//System.out.println(sql);
 stmt = con.createStatement();
 rs = stmt.executeQuery(sql);
 

@@ -8,6 +8,7 @@ var _serviceUrl = null;
 var _mapServiceUrl = null; // 리치 맵 서비스
 var _mapServiceUrl_v3 = null; // 리치 맵 서비스 v3
 var _mapServiceUrl_v3_2 = null; // 리치 맵 서비스 v3 (투명도적용)
+var _mapServiceUrl_v3_TM = null; // 리치 맵 서비스 v3 (투명도적용)
 var _mapServiceUrl_reachtest = null; // 시연용 테스트 맵 서비스
 var _mapServiceUrl_dim = null; // dim처리 맵 서비스
 var _baseMapUrl_vworld = null; // 배경맵 서비스 URL
@@ -63,6 +64,7 @@ store.load(function(a, b, c) {
 		_mapServiceUrl = record.data.reachServiceUrl;
 		_mapServiceUrl_v3 = record.data.reachServiceUrl_v3;
 		_mapServiceUrl_v3_2 = record.data.reachServiceUrl_v3_2;
+		_mapServiceUrl_v3_TM = record.data.reachServiceUrl_v3_TM;
 		_mapServiceUrl_reachtest = record.data.reachTestServiceUrl;
 		_mapServiceUrl_dim = record.data.dimServiceUrl;
 		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
@@ -246,7 +248,15 @@ Ext.application({
 									graphicLayer.add(graphic);
 								}
 								
-								coreMap.map.setExtent(graphicsUtils.graphicsExtent(graphicLayer.graphics));
+								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
+								coreMap.map.setExtent(extent);
+								
+								coreMap.map.addLayer(graphicLayer);
+								
+								var timer = window.setInterval(function(){
+									//console.info(coreMap.map.extent);
+									//window.clearInterval(timer);
+								}, 500);
 								
 								Ext.defer(function(){
 									
@@ -259,7 +269,7 @@ Ext.application({
 										coreMap.map.setLevel(level);
 									}
 									
-									coreMap.map.addLayer(graphicLayer);
+									//coreMap.map.addLayer(graphicLayer);
 								}, 500);
 							}
 						});

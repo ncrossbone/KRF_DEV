@@ -86,7 +86,7 @@ Ext.define('Report.view.map.dimDynamicLayerAdmin', {
 		me.dimDynamicLayer.id = "dimDynamicLayer"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dimDynamicLayer.visible = true;
 		me.dimDynamicLayer.setVisibleLayers(visibleLayers);
-		me.dimDynamicLayer.setOpacity(0.6);
+		me.dimDynamicLayer.setOpacity(0.8);
         
 		me.map.addLayer(me.dimDynamicLayer);
 		
