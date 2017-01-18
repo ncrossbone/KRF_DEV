@@ -131,7 +131,6 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     		width: 5
     	}, { // 피코시아닌
         	xtype: "drone-vcombo",
-        	hidden: true,
         	id: "cboDronePhy", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_07.png',
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
@@ -161,10 +160,13 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         					}
         				});
         				
-        				console.info(this.up());
-        				
+        				        				
+        				//controller
         				if(index > -1){
-        					KRF_DEV.getApplication().fireEvent("itemclick", null, layerStore, null, index, null);
+        					
+        					//this.application.getController('VComboBoxController').onDroneLayerClick(null, layerStore, null, index, null);
+        					
+        					//KRF_DEV.getApplication().fireEvent("itemclick", null, layerStore, null, index, null);
         					//controller.VComboBoxController.onDroneLayerClick(null, layerStore, null, index, null);
         				}
         				

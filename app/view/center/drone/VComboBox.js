@@ -65,6 +65,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    		store: comboStore,
 	    		listConfig: {
 	    			id: me.id + "-list", // z-index 주기위해 id 지정 (drone.css .drone-combolist)
+	    			itemId:me.id,
 	    			getInnerTpl: function(a, b, c, d){
 	    				return "{image1}{image2}{" + me.displayField + "}";
 	    			},
