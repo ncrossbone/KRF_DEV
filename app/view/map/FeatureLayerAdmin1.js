@@ -593,8 +593,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     // 집수구역 선택
     setSelectedCatAreaHandler: function(layerId, catDId){
     	var me = this;
-    	console.info(layerId);
-    	console.info(catDId);
+    	
     	// 집수구역 심볼 설정
 		var selectedSymbol = new esri.symbol.SimpleFillSymbol(
 			esri.symbol.SimpleFillSymbol.STYLE_SOLID,
@@ -614,7 +613,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			query.where =  "CAT_ID='" + catDId + "'";
 		
 		queryTask.execute(query,  function(results){
-			console.info(results);
+			
 			Ext.each(results.features, function(obj, index) {
 				
 				me.moveCatGraphicLayer.clear();

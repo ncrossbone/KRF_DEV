@@ -392,34 +392,41 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 							
 						});
 						
-							
-						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+						if(layerFeatures.length > 0){
+							jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+						}
 						
 						jsonStr += "]\n";
 						jsonStr += "		}, ";
 					}); // 레이어 코드 루프 끝
 					
-					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+					if(arrLayerCodes.length > 0){
+						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+					}
 					
 					jsonStr += "]\n";
 					jsonStr += "	}, ";
 				}); // 그룹 코드 루프 끝
 				
+				if(arrGroupCodes.length > 0){
+					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+				}
+				
 				if(pollLoadString != ""){
 					
-					jsonStr += pollLoadString;
-					jsonStr += pollutionString;
+					jsonStr += ", " + pollLoadString;
 				}
-				else{
+				
+				if(pollutionString != ""){
 					
-					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+					jsonStr += ", " + pollutionString;
 				}
 				
 				jsonStr += "]\n";
 				
 				jsonStr += "}";
 				
-				
+				//console.info(jsonStr);
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);
 				store.setRootNode(jsonData);
@@ -467,7 +474,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			pollLoadString += "]\n";
 			
 			pollLoadString += "	}]\n";
-			pollLoadString += "},";
+			pollLoadString += "}";
 			
 			var pollLoadChildString = "";
 			
@@ -581,7 +588,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		me.reachLayerAdmin_v3_New.arrAreaPollution_06 = [];
 		me.reachLayerAdmin_v3_New.arrAreaPollution_07 = [];
 		
-		
+		//console.info(store1.data.items);
 		
 		me.reachLayerAdmin_v3_New.arrAreaPollution_01.push(store1.data.items);
 		me.reachLayerAdmin_v3_New.arrAreaPollution_02.push(store2.data.items);
@@ -602,8 +609,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				["06",me.reachLayerAdmin_v3_New.arrAreaPollution_06],
 				["07",me.reachLayerAdmin_v3_New.arrAreaPollution_07]);
 		
-		
-		
+		var p01Cnt = me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length;
+		var p02Cnt = me.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length;
+		var p03Cnt = me.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length;
+		var p04Cnt = me.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length;
+		var p05Cnt = me.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length;
+		var p06Cnt = me.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length;
+		var p07Cnt = me.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length;
 		
 		if(me.reachLayerAdmin_v3_New.arrAreaPollution[0].length > 0){
 			var pollutionString = "{\n";
@@ -618,9 +630,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			
 			
-			pollutionString += "	\"children\": [{\n";
+			pollutionString += "	\"children\": [\n";
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length > 0){
+				
+				pollutionString += "	  { \n";
 				pollutionString += "	\"id\": \"pollution_01\",\n";
 				pollutionString += "	\"title\": \"생활계\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_01\",\n";
@@ -670,7 +684,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_02[0].length > 0){
-				pollutionString += "	 , { \n";
+				
+				if(p01Cnt == 0){
+					pollutionString += "	  { \n";
+				}
+				else{
+					pollutionString += "	 , { \n";
+				}
+				
 				pollutionString += "	\"id\": \"pollution_02\",\n";
 				pollutionString += "	\"title\": \"축산계\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_02\",\n";
@@ -718,9 +739,15 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 			}
 			
-			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_03[0].length > 0){
-				pollutionString += "	 , { \n";
+				
+				if(p01Cnt == 0 && p02Cnt == 0){
+					pollutionString += "	  { \n";
+				}
+				else{
+					pollutionString += "	 , { \n";
+				}
+				
 				pollutionString += "	\"id\": \"pollution_03\",\n";
 				pollutionString += "	\"title\": \"산업계\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_03\",\n";
@@ -770,7 +797,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_04[0].length > 0){
-				pollutionString += "	 , { \n";
+				
+				if(p01Cnt == 0 && p02Cnt == 0 && p03Cnt == 0){
+					pollutionString += "	  { \n";
+				}
+				else{
+					pollutionString += "	 , { \n";
+				}
+				
 				pollutionString += "	\"id\": \"pollution_04\",\n";
 				pollutionString += "	\"title\": \"토지계\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_04\",\n";
@@ -820,7 +854,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_05[0].length > 0){
-				pollutionString += "	 , { \n";
+				
+				if(p01Cnt == 0 && p02Cnt == 0 && p03Cnt == 0 && p04Cnt == 0){
+					pollutionString += "	  { \n";
+				}
+				else{
+					pollutionString += "	 , { \n";
+				}
+				
 				pollutionString += "	\"id\": \"pollution_05\",\n";
 				pollutionString += "	\"title\": \"양식계\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_05\",\n";
@@ -868,7 +909,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_06[0].length > 0){
-				pollutionString += "	 , { \n";
+				
+				if(p01Cnt == 0 && p02Cnt == 0 && p03Cnt == 0 && p04Cnt == 0 && p05Cnt == 0){
+					pollutionString += "	  { \n";
+				}
+				else{
+					pollutionString += "	 , { \n";
+				}
+				
 				pollutionString += "	\"id\": \"pollution_06\",\n";
 				pollutionString += "	\"title\": \"매립계\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_06\",\n";
@@ -916,7 +964,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_07[0].length > 0){
-				pollutionString += "	 , { \n";
+				
+				if(p01Cnt == 0 && p02Cnt == 0 && p03Cnt == 0 && p04Cnt == 0 && p05Cnt == 0 && p06Cnt == 0){
+					pollutionString += "	  { \n";
+				}
+				else{
+					pollutionString += "	 , { \n";
+				}
+				
 				pollutionString += "	\"id\": \"pollution_07\",\n";
 				pollutionString += "	\"title\": \"기타수질오염원\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_07\",\n";

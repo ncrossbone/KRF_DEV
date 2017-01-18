@@ -1496,7 +1496,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				Ext.defer(clear = function(){
 					
 					if(me.searchCnt == me.tmpSearchCnt){
-						
+						console.info("show");
 						// 지점 목록 창 띄우기
 		        		Ext.ShowSiteListWindow("selectReach");
 		        		
@@ -1513,15 +1513,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		        			me.afterChkCnt++;
 		        			
 		        			// 타이머 작동 10초 뒤 타이머 종료
-		        			if(me.afterChkCnt == 20){
-		        				
+		        			if(me.afterChkCnt >= 20){
+		        				console.info("end");
 		        				clearInterval(timer);
 		        				me.afterChkCnt = 0;
 		        			}
 		        			
 		        			// 결과 창 띄운 후 10초간 검색 카운트에 변화 있으면 재귀호출
 		        			if(me.searchCnt != me.tmpSearchCnt){
-			        			
+		        				console.info("call");
 		        				clearInterval(timer);
 			        			me.isStopCheck();
 			        		}
@@ -1531,14 +1531,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 						me.isStopCheck();
 					}
-				}, 100, this);
+				}, 500, this);
 			}
 			else{
 				
 				// 검색카운트 다르면 체크용 변수에 저장
 				me.tmpSearchCnt = me.searchCnt;
 			}
-		}, 10);
+		}, 100);
     },
     /* 그래픽 그리기 */
     drawGraphic: function(graphic, grpType){
