@@ -194,6 +194,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_seah.gif',
             iconCls: ' khLee-x-serch-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
+            	
             	//Ext.ShowSearchResult("grid-tab-2", "하천수");
             	KRF_DEV.getApplication().btnFlag = "noDate";
             	var treeCtl = Ext.getCmp("siteListTree");
@@ -266,12 +267,10 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         						||record.id == "pollution_07"){
         					
         					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm,year);
-        				}else if(record.id = "pollution"){
+        				}else if(record.id == "pollution"){
         					
         					for(var i = 0 ; i < record.childNodes.length;i++){
-        						PollutionSearchResult("",record.childNodes[i].data.id
-        								,record.childNodes[i].data.title
-        								,record.childNodes[i].data.storeNm,year);
+        						PollutionSearchResult("",record.childNodes[i].data.id, record.childNodes[i].data.title, record.childNodes[i].data.storeNm,year);
         					}	
         				}
             	}

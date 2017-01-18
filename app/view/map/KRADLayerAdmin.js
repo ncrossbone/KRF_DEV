@@ -1482,63 +1482,84 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     isStopCheck: function(){
     	
     	var me = this;
+    	var originTimer = null;
+    	var checkedTimer = null;
     	
-    	// 타이머 돌리기 0.1초
-    	var obj = setInterval(chkCnt = function(){
+    	// 타이머 돌리기 0.2초
+    	originTimer = setInterval(chkCnt = function(){
     		
     		// 검색 카운트 같으면
 			if(me.searchCnt == me.tmpSearchCnt){
         		
-				// 타이머 중지
-				clearInterval(obj);
+				if(originTimer != null){
+					// 타이머 중지
+					clearInterval(originTimer);
+				}
+				
+				// 지점 목록 창 띄우기
+        		Ext.ShowSiteListWindow("selectReach");
+        		
+        		// 검색결과 창 띄우기
+        		ShowSearchResultReach("");
+        		
+        		// 임시 그래픽 이벤트 종료
+        		me.offTmpGrpEvt();
+        		me.tmpGrpLayer.clear();
 				
         		// 0.5초 뒤에 실행 체크했을때도 같으면
 				Ext.defer(clear = function(){
 					
 					if(me.searchCnt == me.tmpSearchCnt){
-						
-						// 지점 목록 창 띄우기
-		        		Ext.ShowSiteListWindow("selectReach");
 		        		
-		        		// 검색결과 창 띄우기
-		        		ShowSearchResultReach("");
-		        		
-		        		// 임시 그래픽 이벤트 종료
-		        		me.offTmpGrpEvt();
-		        		me.tmpGrpLayer.clear();
-		        		
-		        		// 0.5초 단위 타이머
-		        		var timer = setInterval(afterChk = function(){
+		        		// 0.2초 단위 타이머
+		        		var checkedTimer = setInterval(afterChk = function(){
 		        			
 		        			me.afterChkCnt++;
 		        			
 		        			// 타이머 작동 10초 뒤 타이머 종료
-		        			if(me.afterChkCnt == 20){
+		        			if(me.afterChkCnt >= 50){
 		        				
-		        				clearInterval(timer);
+		        				if(checkedTimer != null){
+		        					clearInterval(checkedTimer);
+		        				}
+		        				
 		        				me.afterChkCnt = 0;
 		        			}
-		        			
-		        			// 결과 창 띄운 후 10초간 검색 카운트에 변화 있으면 재귀호출
-		        			if(me.searchCnt != me.tmpSearchCnt){
-			        			
-		        				clearInterval(timer);
-			        			me.isStopCheck();
-			        		}
-		        		}, 500);
+		        			else{
+		        				
+			        			// 결과 창 띄운 후 10초간 검색 카운트에 변화 있으면 재귀호출
+			        			if(me.searchCnt != me.tmpSearchCnt){
+			        				
+			        				if(checkedTimer != null){
+			        					clearInterval(checkedTimer);
+			        				}
+			        				
+				        			me.isStopCheck();
+				        		}
+		        			}
+		        		}, 200);
 					}
 					else{
 						
+						if(originTimer != null){
+							// 타이머 중지
+							clearInterval(originTimer);
+						}
+						
+						if(checkedTimer != null){
+        					clearInterval(checkedTimer);
+        				}
+						
 						me.isStopCheck();
 					}
-				}, 100, this);
+				}, 500, this);
 			}
 			else{
 				
 				// 검색카운트 다르면 체크용 변수에 저장
 				me.tmpSearchCnt = me.searchCnt;
 			}
-		}, 10);
+		}, 200);
     },
     /* 그래픽 그리기 */
     drawGraphic: function(graphic, grpType){
