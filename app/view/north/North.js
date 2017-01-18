@@ -32,7 +32,7 @@ Ext.define('KRF_DEV.view.north.North', {
     }, {
 		xtype: 'image',
 		id: 'top-logo-khLee',
-		width: 273,
+		width: 290,
 		height: 37,
 		//cls: 'khLee-x-box-item',
 		src: './resources/images/button/top_logo.png'
