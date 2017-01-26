@@ -168,9 +168,16 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 				//console.info(coreMap.map.extent.getCenter());
 				//console.info(coreMap.map.getLevel());
 				
-				var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
-				"&w=" + width + "&h=" + height;
-				window.open(url, "리포트 설정", "width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
+				var rptwindow = Ext.getCmp("rptinitwindow");
+								
+				if(rptwindow==undefined){
+					var rpt = Ext.create("KRF_DEV.view.center.RptInitWindow");
+					rpt.show(); 
+				}
+				
+				//var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
+				//"&w=" + width + "&h=" + height;
+				//window.open(url, "리포트 설정", //"width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
 				
 				/*width : 팝업창 가로길이
 				height : 팝업창 세로길이
@@ -194,7 +201,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             icon: './resources/images/button/icon_seah.gif',
             iconCls: ' khLee-x-serch-btn', // 앞에 한칸 띄워야 함!!
             handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
-            	
             	//Ext.ShowSearchResult("grid-tab-2", "하천수");
             	KRF_DEV.getApplication().btnFlag = "noDate";
             	var treeCtl = Ext.getCmp("siteListTree");
@@ -267,10 +273,12 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         						||record.id == "pollution_07"){
         					
         					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm,year);
-        				}else if(record.id == "pollution"){
+        				}else if(record.id = "pollution"){
         					
         					for(var i = 0 ; i < record.childNodes.length;i++){
-        						PollutionSearchResult("",record.childNodes[i].data.id, record.childNodes[i].data.title, record.childNodes[i].data.storeNm,year);
+        						PollutionSearchResult("",record.childNodes[i].data.id
+        								,record.childNodes[i].data.title
+        								,record.childNodes[i].data.storeNm,year);
         					}	
         				}
             	}

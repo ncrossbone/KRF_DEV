@@ -97,14 +97,19 @@ Ext.define('Report.view.east.rptSetPeriod', {
 		var monthData = [];
 		
 		for(var i =1; i <= 12; i++){
-			monthData.push(i);
+			if(i>9){
+				monthData.push(i );
+			}else{
+				monthData.push("0" + i );
+			}
+
 		}
 		
 		stMonth.setStore(monthData);
 		edMonth.setStore(monthData);
 		
-		stMonth.setValue(1);
-		edMonth.setValue(1);
+		stMonth.setValue("01");
+		edMonth.setValue("01");
 		
 		stMonth.hide();
 		edMonth.hide();
