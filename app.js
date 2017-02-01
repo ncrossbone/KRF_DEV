@@ -189,9 +189,10 @@ Ext.application({
 				
 				if(paramIdx > -1){
 					
+					var colNm = _paramInfo[paramIdx].colName;
 					var layerId = _paramInfo[paramIdx].layerId;
 					var siteIds = params.station.split("|");
-					var where = "측정소코드 IN (";
+					var where = colNm + " IN (";
 					
 					for(var i = 0; i < siteIds.length; i++){
 						
