@@ -33,12 +33,11 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 	report: function(paramCode, startYear, endYear){
 		
 		var me = this;
-		
+		//console.info("aaa");
 		me.paramCode = paramCode;
 		me.startYear = startYear;
 		me.endYear = endYear;
 		
-		//alert("dd");
 		me.execute("report");
 	},
 	
@@ -114,9 +113,10 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 //	   		},"json").error(function(){
 //	   		});
 			
-			//console.info(obj);
+			//console.info(obj);  
 			
-			$.post(me.printUrl, obj, function(data){
+			/*$.post(me.printUrl, obj, function(data){
+				
 				if(mode=="print"){
 					var popup = window.open(data.url, 'newWindow', "width=1000,height=700");
 					//console.info(data.url);
@@ -129,23 +129,55 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				else if(mode=="report"){
 					// 由ы룷��酉곗뼱 �몄텧 濡쒖쭅
 					var imgPath = data.path;
+					//console.info(imgPath);
     				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
     						"&paramCode=" + me.paramCode +
     						"&startYear=" + me.startYear +
     						"&endYear=" + me.endYear,
     						"",
     						"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
-    				
-    				/*setTimeout(function(){
-    					me.imageDelete(imgPath);
-    				},6000);*/
 				}
 				//console.info(data);
 				me.onComplete("complete");
 	   		},"json").error(function(e){
 	   			//alert(e)
 	   			console.info(e);
-	   		});
+	   		});*/
+			
+			$.ajax({
+				type: "POST",
+				url: me.printUrl,
+				data: obj,
+				async: false,
+				success: function(response){
+					
+					var response = response.trim();
+					var data = JSON.parse(response);
+					
+					if(mode=="print"){
+						var popup = window.open(data.url, 'newWindow', "width=1000,height=700");
+						popup.focus(); //required for IE
+						popup.print();
+					}else if(mode=="capture"){
+						$('#__fileDownloadIframe__').remove();
+						$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
+					}
+					else if(mode=="report"){
+						var imgPath = data.path;
+						window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
+								"&paramCode=" + me.paramCode +
+								"&startYear=" + me.startYear +
+								"&endYear=" + me.endYear,
+								"",
+								"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+					}
+					//console.info(data);
+					me.onComplete("complete");
+				},
+				error: function(err){
+					console.info(err);
+				}
+			});
 		});
 	},
 	
