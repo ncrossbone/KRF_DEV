@@ -306,18 +306,6 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var activeLayer= "";
 		
 		
-		if(record.data.layerId == "Phy"){
-			if(list.store.data.items[5].data.layerOnOff == "on"){
-				alert("!");
-				return;
-			}
-		}else if(record.data.layerId == "Chla"){
-			if(list.store.data.items[6].data.layerOnOff == "on"){
-				alert("?");
-				return;
-			}
-		}
-		
 		
 		if(record.data.layerOnOff == "on"){
 			record.data.layerOnOff = "off";
@@ -366,26 +354,39 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				}
 			}	
 		}
-		//console.info(index);
+		
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
 		var store = cboDroneLayer.getStore();
-		store.insert(index, record);
-		//console.info(store);
 		
+		
+		if(record.data.layerId == "Phy"){
+			
+			store.data.items[5].data.layerOnOff = "off";
+			store.data.items[5].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index-1, store.data.items[5].data);
+			store.insert(index, record);
+		}else if(record.data.layerId == "Chla"){
+			store.data.items[6].data.layerOnOff = "off";
+			store.data.items[6].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index+1, store.data.items[6].data);
+			store.insert(index, record);
+		}else{
+			store.insert(index, record);
+			
+		}
 		this.LayerVisibility();
 	},
 	
 	// Combo Item Click 시 아무것도 안하는 펑션..
 	onItemClickEmpty: function(item,record){
-		//console.info(record);
+	
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
 		var layerStore = cboDroneLayer.getStore();
 		
 		var index = -1;
 		
 		layerStore.each(function(obj, cnt){
-			//
-			console.info(item.itemId);
+			
 			if(item.itemId == "cboDroneChla" || item.itemId == "cboDroneArea"){
 				if(obj.data.layerId == "Chla"){
 					index = cnt;
@@ -398,8 +399,6 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 					obj.data.image1 = obj.data.image1.replace("_on", "_off");
 					layerStore.insert(index,obj);
 				}
-				
-				
 			}else if(item.itemId == "cboDronePhy"){
 				if(obj.data.layerId == "Chla"){
 					index = cnt;
@@ -565,10 +564,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			if(droneOnOff == "on"){
 				if(cboDroneDate.value != null)
 					layersAciation.push(cboDroneDate.value);
-			}
+			}			
 			
-			console.info("chlOnOff::"+chlOnOff);
-			console.info("phyOnOff::"+phyOnOff);
 			//클로로필
 			if(chlOnOff == "on"){
 				

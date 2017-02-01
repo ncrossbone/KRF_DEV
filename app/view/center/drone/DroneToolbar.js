@@ -205,10 +205,6 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	valueField: "layerId",
         	onChange: "onComboChangeEmpty",
         	onItemClick: "onDroneLayerClick",
-        	listeners: {
-        		render: function(a,b,c,d){
-        		}
-        	},
         	expanded: true,
             noCollapse: true // 콤보 리스트가 닫히지 않게 한다.
         }, {

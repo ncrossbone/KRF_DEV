@@ -277,7 +277,7 @@
 		"DroneLayerId": "31",		 // 항공영상 레이어 아이디
 		"DroneDate": "2016-06-17",	 // 항공영상 레이어 일자
 		"MeasureDate": "2016-06-3주", // 측정지점 측정 일자
-		"ChlaLayerId": "59",			 // 클로로필a 초분광영상 레이어 아이디
+		"ChlaLayerId": "49",			 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-06-17",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "4",		 // 피코시안 레이어 아이디
 		"PhyDate": "2016-06-17"		 // 피코시안 레이어 일자
@@ -544,8 +544,8 @@
 	}, {
 		"layerId": "Phy",
 		"layerName": "피코시아닌",
-		"layerOnOff": "on",
-		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"layerOnOff": "off",
+		"image1": "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_06.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "true"
 	}, {
