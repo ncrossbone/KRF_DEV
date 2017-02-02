@@ -21,6 +21,10 @@
 <%@page import="javax.imageio.ImageIO"%>
 
 <%
+/* 스크립트에서 base64로 변환하여 파라메터 받아오는 로직.. (이미지 개수만큼 파라메터 길이가 엄청나게 길어질 수 있음..)
+   POST방식도 HTTP1.0에서는 길이 제한이 있다고 함.. HTTP1.1부터는 제한 없음 
+   CustomPrintTask_New.jsp에 url로 받아서 이미지 변환/저장하는 로직 있음.. */
+   
 	response.setHeader("Access-Control-Allow-Origin","*");
 	response.setHeader("Access-Control-Allow-Headers", "origin, x-requested-with, content-type, accept");
 	try{
