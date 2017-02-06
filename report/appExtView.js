@@ -91,7 +91,7 @@ store.load(function(a, b, c) {
 			_CAT_DID = opener.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 		}
 		
-		console.info(selWS);
+		//console.info(selWS);
 		if(selWS != undefined && selWS != null & selWS.length > 0){
 			_WS_CD = selWS[0].data.id;
 			_WS_NM = selWS[0].data.name;

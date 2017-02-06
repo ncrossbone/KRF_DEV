@@ -94,7 +94,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				imgSaveUrl: me.imgSaveUrl,
 				mode:mode};
 		
-		console.info(JSON.stringify(obj).length);
+		//console.info(JSON.stringify(obj).length);
 		
 		$.ajax({
 			type: "POST",
@@ -102,7 +102,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 			data: obj,
 			async: false,
 			success: function(response){
-				console.info(response);
+				//console.info(response);
 				var response = response.trim();
 				var data = JSON.parse(response);
 				
