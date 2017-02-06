@@ -45,69 +45,81 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 		
 		var me = this;
 		
+		var svgInfo = $('#'+me.mapDivId+' svg').parent().html();
 		var layerIds = me.map.layerIds;
 		var imageInfos = [];
-		
 		for(var i=0; i<layerIds.length; i++){
-
 			if($('#'+me.mapDivId+'_'+layerIds[i]).css('display')=="none"){
 				continue;
 			}	
 			
 			var div = $('#'+me.mapDivId+'_'+layerIds[i]);
 			var pTranslateInfo = {};
-			
-			if(div.css('transform')){
-				var arr = div.css('transform').split(',');
-				
-				if(arr.length>11){
-					pTranslateInfo.translateX = parseInt(arr[12]);
-					pTranslateInfo.translateY = parseInt(arr[13]);
-				}else{
+			/*console.info(div.css('left'));
+			console.info(div.css('transform'));
+			console.info(div.css('-webkit-transform').split(','));*/
+			//if(isNaN(parseInt(div.css('left')))){
+				if(div.css('transform')){
+					var arr = div.css('transform').split(',');
+					
+					if(arr.length>11){
+						pTranslateInfo.translateX = parseInt(arr[12]);
+						pTranslateInfo.translateY = parseInt(arr[13]);
+					}else{
+						pTranslateInfo.translateX = parseInt(arr[4]);
+						pTranslateInfo.translateY = parseInt(arr[5]);
+					}
+				}else if(div.css('-webkit-transform')){
+					var arr = div.css('-webkit-transform').split(',');
 					pTranslateInfo.translateX = parseInt(arr[4]);
 					pTranslateInfo.translateY = parseInt(arr[5]);
 				}
-			}else if(div.css('-webkit-transform')){
-				var arr = div.css('-webkit-transform').split(',');
-				pTranslateInfo.translateX = parseInt(arr[4]);
-				pTranslateInfo.translateY = parseInt(arr[5]);
-			}
-			else{
+				else{
+					pTranslateInfo.translateX = parseInt(div.css('left'));
+					pTranslateInfo.translateY = parseInt(div.css('top'));
+				}
+			/*}else{
 				pTranslateInfo.translateX = parseInt(div.css('left'));
 				pTranslateInfo.translateY = parseInt(div.css('top'));
-			}
-			
+			}*/
 			var imgs = $('#'+me.mapDivId+'_'+layerIds[i]+' img');
-			
+			//console.info(imgs);
 			for(var k=0; k<imgs.length; k++){	
 				var obj = me.imageInfoExtract($(imgs[k]), pTranslateInfo);
+				obj.src = me.proxyUrl + "?" + obj.src;
 				imageInfos.push(obj);
 			}
 		}
-		
-		var strImgInfo = JSON.stringify(imageInfos);
-		
-		var obj = {imageInfos:strImgInfo,
-				width:$('#'+me.mapDivId).width(),
-				height:$('#'+me.mapDivId).height(),
-				arcServiceUrl:me.arcServiceUrl,
-				imgSaveUrl: me.imgSaveUrl,
-				mode:mode};
-		
-		console.info(JSON.stringify(obj).length);
-		
-		$.ajax({
-			type: "POST",
-			url: me.printUrl,
-			data: obj,
-			async: false,
-			success: function(response){
-				console.info(response);
-				var response = response.trim();
-				var data = JSON.parse(response);
+		//console.info(imageInfos);
+		me.convertImgToBase64Exe(imageInfos, function(){
+			var obj = {imageInfos:JSON.stringify(imageInfos),
+					svgInfo:svgInfo,
+					width:$('#'+me.mapDivId).width(),
+					height:$('#'+me.mapDivId).height(),
+					arcServiceUrl:me.arcServiceUrl,
+					imgSaveUrl: me.imgSaveUrl,
+					mode:mode};
+//			$.post(esri.config.defaults.io.proxyUrl+'?'+me.printUrl, obj, function(data){
+//				if(mode=="print"){
+//					var popup = window.open(esri.config.defaults.io.proxyUrl+'?'+data.url, 'newWindow', "width=1000,height=700");
+//					popup.focus(); //required for IE
+//					popup.print();
+//				}else if(mode=="capture"){
+//					$('#__fileDownloadIframe__').remove();
+//					$('body').append('<iframe src='+esri.config.defaults.io.proxyUrl+'?'+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
+//				}
+//				
+//				me.onComplete("complete");
+//	   		},"json").error(function(){
+//	   		});
+			
+			//console.info(obj);  
+			
+			/*$.post(me.printUrl, obj, function(data){
 				
 				if(mode=="print"){
 					var popup = window.open(data.url, 'newWindow', "width=1000,height=700");
+					//console.info(data.url);
 					popup.focus(); //required for IE
 					popup.print();
 				}else if(mode=="capture"){
@@ -115,20 +127,57 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
 				}
 				else if(mode=="report"){
+					// 由ы룷��酉곗뼱 �몄텧 濡쒖쭅
 					var imgPath = data.path;
-					window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
-							"&paramCode=" + me.paramCode +
-							"&startYear=" + me.startYear +
-							"&endYear=" + me.endYear,
-							"",
-							"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+					//console.info(imgPath);
+    				window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
+    						"&paramCode=" + me.paramCode +
+    						"&startYear=" + me.startYear +
+    						"&endYear=" + me.endYear,
+    						"",
+    						"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
 				}
 				//console.info(data);
 				me.onComplete("complete");
-			},
-			error: function(err){
-				console.info(err);
-			}
+	   		},"json").error(function(e){
+	   			//alert(e)
+	   			console.info(e);
+	   		});*/
+			//console.info(me.printUrl);
+			$.ajax({
+				type: "POST",
+				url: me.printUrl,
+				data: obj,
+				async: false,
+				success: function(response){
+					//console.info(response);
+					var response = response.trim();
+					var data = JSON.parse(response);
+					
+					if(mode=="print"){
+						var popup = window.open(data.url, 'newWindow', "width=1000,height=700");
+						popup.focus(); //required for IE
+						popup.print();
+					}else if(mode=="capture"){
+						$('#__fileDownloadIframe__').remove();
+						$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
+					}
+					else if(mode=="report"){
+						var imgPath = data.path;
+						window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
+								"&paramCode=" + me.paramCode +
+								"&startYear=" + me.startYear +
+								"&endYear=" + me.endYear,
+								"",
+								"width=1000,height=1000,status=no,toolbar=no,scrollbars=no");
+					}
+					//console.info(data);
+					me.onComplete("complete");
+				},
+				error: function(err){
+					console.info(err);
+				}
+			});
 		});
 	},
 	
