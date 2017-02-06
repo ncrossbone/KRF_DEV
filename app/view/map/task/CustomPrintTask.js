@@ -164,7 +164,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 					}
 					else if(mode=="report"){
 						var imgPath = data.path;
-						window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
+						window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imgPath) +
 								"&paramCode=" + me.paramCode +
 								"&startYear=" + me.startYear +
 								"&endYear=" + me.endYear,
