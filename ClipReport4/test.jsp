@@ -131,6 +131,7 @@ function html2xml(divPath){
     	localUrl += splitLocation[i] + "/";
     }
     
+	console.info(urlPath+localUrl);
 	var report = createImportJSPReport(urlPath + localUrl + "Clip.jsp", reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);

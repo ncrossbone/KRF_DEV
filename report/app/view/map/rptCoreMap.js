@@ -66,7 +66,7 @@ Ext.define('Report.view.map.rptCoreMap', {
         			//"./proxy.jsp",
         			_arcServiceUrl,
         			"/resources/saveImgTemp/report");
-					
+			
 			if(print=="Y"){
 					var siteListWindow = parentObj.Ext.getCmp("siteListWindow");
 					

@@ -94,7 +94,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				imgSaveUrl: me.imgSaveUrl,
 				mode:mode};
 		
-		console.info(JSON.stringify(obj).length);
+		//console.info(JSON.stringify(obj).length);
 		
 		$.ajax({
 			type: "POST",
@@ -102,7 +102,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 			data: obj,
 			async: false,
 			success: function(response){
-				console.info(response);
+				//console.info(response);
 				var response = response.trim();
 				var data = JSON.parse(response);
 				
@@ -116,7 +116,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				}
 				else if(mode=="report"){
 					var imgPath = data.path;
-					window.open("../ClipReport4/test.jsp?imgPath=" + imgPath +
+					window.open("../ClipReport4/test.jsp?imgPath=" + encodeURIComponent(imgPath) +
 							"&paramCode=" + me.paramCode +
 							"&startYear=" + me.startYear +
 							"&endYear=" + me.endYear,
