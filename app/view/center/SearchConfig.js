@@ -44,7 +44,20 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 					
 					if(checked == true){
 						
-						//this.up("container").query("#chkMWDraw").enable();
+						// 중권역 체크박스 활성
+						this.up("container").query("#chkMWDraw")[0].enable();
+						this.up("container").query("#chkMWDraw")[0].setValue(true);
+						// 댐/보 체크박스 활성
+						this.up("container").query("#chkDaemBoDraw")[0].enable();
+					}
+					else{
+						
+						// 중권역 체크박스 비활성
+						this.up("container").query("#chkMWDraw")[0].disable();
+						this.up("container").query("#chkMWDraw")[0].setValue(false);
+						// 댐/보 체크박스 비활성
+						this.up("container").query("#chkDaemBoDraw")[0].disable();
+						this.up("container").query("#chkDaemBoDraw")[0].setValue(false);
 					}
 					
 					// 로컬 스토리지 셋팅
@@ -57,13 +70,26 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				boxLabel: '중권역',
 				checked: false,
 				disabled: true,
-				width:80,
+				width:65,
 				handler: function(obj, checked){
 					
 					// 로컬 스토리지 셋팅
 					this.up("win-searchConfig").setLocalStorage();
 				},
 				inputValue: 'isMWDraw'
+			}, {
+				xtype: 'checkbox',
+				itemId: "chkDaemBoDraw",
+				boxLabel: '댐/보',
+				checked: false,
+				disabled: true,
+				width:80,
+				handler: function(obj, checked){
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isDaemBoDraw'
 			}]
 		}, {
 			xtype: 'container',

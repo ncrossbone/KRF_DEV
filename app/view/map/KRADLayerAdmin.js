@@ -355,7 +355,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			    			
 			    			// 오른버튼 컨텍스트 메뉴 풀기
 			    			//document.oncontextmenu = null;
-			    			
+			    			//console.info(me.isShowPopup);
 				    		if(me.isShowPopup == true){
 				    			
 				    			me.setRchIdsWithEvent();
@@ -972,6 +972,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				// 끝위치 이벤트 타입 배열 넣기 (Reach, Point, Line 등)
 				me.edEvtTypes.push(eventType);
 			}
+			
+			/* khLee 검색설정 상류 조회 로직 추가 */
 			
 			if(rchDid != ""){
 				
