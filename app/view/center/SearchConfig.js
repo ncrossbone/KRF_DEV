@@ -2,331 +2,159 @@
  * This example shows navigation tabs docked to the side.
  */
 Ext.define('KRF_DEV.view.center.SearchConfig', {
-	extend: 'Ext.window.Window',
 
+	extend: 'Ext.window.Window',
 	xtype: 'win-searchConfig',
 	id: 'searchConfig',
 	
 	width: 303,
-	height: 70,
-	//width: 303,
-	//height: 473,
+	height: 110,
 	x: 387,
 	y: 200,
-	//resizable: false,
+	
 	header: false,
 	closable: false,
-	//sortable: false,
+	
 	style: "border: 0px;",
 	layout: {
 		type: 'vbox'
 	},
 	
 	items: [{
-		xtype: 'panel',
-		title: '검색설정',
-		//bodyStyle:{"background-color":"#dfeaf2"},
-		//style: 'padding-bottom:20px;',
+		xtype: "panel",
+		title: "검색설정",
 		layout: {
-			type: 'hbox'
+			type: "vbox"
 		},
-		width: 303,
-		height: 60,
-		items:[{
-			xtype: 'checkbox',
-			boxLabel: '본류',
-			checked: true,
-			width:50,
+		width: "100%",
+		items: [{
+			xtype: 'container',
 			style:"margin-top:5px; margin-left:30px;",
-			handler: function(obj, checked){
-				if(checked == false){
-					obj.setValue(true);
-				}
+			layout: {
+				type: 'hbox'
 			},
-			inputValue: 'isBonDraw'
-
-		},{
-			xtype: 'checkbox',
-			boxLabel: '지류',
-			checked: true,
-			width:50,
-			style:"margin-top:5px; margin-left:30px;",
-			handler: function(obj, checked){
-				
-				var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:checked };
-				
-				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
-				
-			},
-			inputValue: 'isJiDraw'
-			
-		}]
-		//style:"background-color:black;"
-	}/*,{
-		xtype: 'panel',
-		title: '데이터 셋 선택',
-		width: 303,
-		height: 50,
-		style:"padding-top:10px;"
-	},{
-	xtype:'container',
-	height:300,
-	autoScroll: true,
-	items:[{
-		layout: {
-			type: 'accordion',
-			animate: true,
-			multi: true
-		},
-		width: 287,
-		items:[{
-			collapsed: false,
-			//width:300,
-			xtype : 'panel',
-			//autoScroll: true,
-			layout : {
-				type : 'vbox'
-			},
-			cls: 'dj_layer_nm',
-			title: '공통',
+			width: "100%",
+			height: 30,
 			items:[{
-				xtype: 'container',
-				width: '100%',
-				height: '100%',
-				items: [{
-					xtype: 'grid',
-					columnLines: true,
-					hideHeaders: true,
-					id: 'krad_grid',
-			        selType: 'checkboxmodel',
-			        locked   : true,
-					store : Ext.create('KRF_DEV.store.krad.krad_tmp'),
-					columns: [{	 
-							text      : '측정망명',
-							id		  : 'testtitle',
-							dataIndex : 'TITLE',
-							width: 208
-							//filter: {type: 'numeric'}
-						},{	 
-							text:'버튼',
-							align:'center',
-							xtype:'actioncolumn',
-							width:45,
-							items:[{ 
-								icon: './resources/images/button/info.png',  // Use a URL in the icon config
-				                tooltip: 'Edit',
-				                handler: function(grid, rowIndex, colIndex,a,rowdata) {
-				                	
-				                	kradMetaInfo(rowdata);
-				                	
-				                }
-							}]
-						}],
-					 listeners: {
-						 afterrender:function( thisObj, eOpts ){
-						        var sm=thisObj.getSelectionModel();
-						        sm.selectAll(true);
-						        sm.setLocked(true);
-						 }
-				    },
-				    viewConfig:{
-				    	getRowClass: function(record, rowIndex, rowParams, store) {
-							 return 'pdj_kradText';
-							 
-					   }
-				    }
-				 
-				}]
-			}]
-		},{
-			collapsed: false,
-			xtype : 'panel',
-			//autoScroll: true,
-			layout : {
-				type : 'vbox'
-			},
-			cls: 'dj_layer_nm',
-			title: '사 용 자 지 정',
-			style:'margin-top: 5px;',
-			items:[{
-				xtype: 'container',
-				width: '100%',
-				height: '100%',
-				items: [{
-					xtype: 'grid',
-					columnLines: false,
-					hideHeaders: true,
-					id: 'krad_grid2',
-			        selType: 'checkboxmodel',
-					store : Ext.create('KRF_DEV.store.krad.krad_tmp2'),
-					columns: [{	 
-						align:'center',
-						xtype:'actioncolumn',
-						width:50,
-						items:[{
-		                        getClass : function(value, meta, record, rowIx, ColIx, store) {
-		                        	if(record.data.EVENT_TYPE == "Point"){
-		                        		return 'icon_point';
-		                        	}else if(record.data.EVENT_TYPE == "Line"){
-		                        		return 'icon_line';
-		                        	}
-		                        }
-		                    }]
-						},{	 
-							text      : '측정망명',
-							dataIndex : 'TITLE',
-							width: 158
-							//filter: {type: 'numeric'}
-						},{	 
-							text:'버튼',
-							align:'center',
-							xtype:'actioncolumn',
-							width:45,
-							items:[{ 
-								icon: './resources/images/button/info.png',  // Use a URL in the icon config
-				                tooltip: 'Edit',
-				                handler: function(grid, rowIndex, colIndex, a, rowdata) {
-				                	
-				                	kradMetaInfo(rowdata);
-									
-				                }
-							}]
-						}],
-					 listeners: {
-					        selectionchange: function(model, records) {
-					            var confObj2 = [];
-					            var kradLayer = [];
-					            
-					            
-					            for(var i =0 ; i < records.length ; i++){
-					            	records[i].data.CHECKED = true;
-					            	confObj2.push(records[i].data);
-					            }
-					            
-					            _krad.kradInfo = confObj2;
-					            
-					            localStorage['_kradExtInfo2_']= JSON.stringify(confObj2);
-					            
-			        			//사용자지정 로컬스토리지
-			        			var confInfo2 = localStorage['_kradExtInfo2_'];
-			        			var jsonConf2 = JSON.parse(confInfo2);
-								
-								
-								if(jsonConf2.length > 0){
-									for(var i =0 ; i < jsonConf2.length;i++){
-										if(jsonConf2[i].EVENT_TYPE == "Point"){
-											kradLayer.push(jsonConf2[i].PE_LAYER_ID);
-										}
-										if(jsonConf2[i].EVENT_TYPE == "Line"){
-											kradLayer.push(jsonConf2[i].LO_LAYER_ID);
-										}
-									}
-								}
-								_krad.setKradOnOff(kradLayer);
-					            
-					        }
-				    },
-				    viewConfig: { 
-				    	stripeRows: true,
-				        listeners : {
-				             beforerefresh : function(view) {
-				            	 
-				            	 
-				            	 
-				                    var store2 = view.getStore();
-				            	 	var model2 = view.getSelectionModel();
-				                    var s2 = [];
-				                    
-				                    var confInfo2 = localStorage['_kradExtInfo2_'];
-				                    if(confInfo2 == undefined){
-				                    	return;
-				                    }
-				        			var jsonConf2 = JSON.parse(confInfo2);
-				        			
-				        			_krad.kradInfo = jsonConf2;
-				        			
-				        			store2.queryBy(function(record2) {
-				        				for(var i = 0; i < jsonConf2.length;i++){
-					        				if(jsonConf2[i].TITLE == record2.data.TITLE){
-					        					s2.push(record2);
-					        				}
-					        			}
-				        			});
-				        			model2.select(s2);
-				              }
-					       },
-					       getRowClass: function(record, rowIndex, rowParams, store) {
-								 return 'pdj_kradText';
-								 
-						   }
-					    }
-					}]
-				}]
-			}]
-		}]
-	},{
-		xtype:'container',
-		layout:{
-			type: 'hbox'
-		},
-		items:[{
-			xtype:'container',
-			width:230
-		},{
-			xtype:'container',
-			height:50,
-			width:70,
-			style:'margin-top:20px; margin-left:5px;',
-			items:[{
-				xtype:'image',
-				src: './resources/images/button/btn_app.gif',
-				listeners:{
-					el:{
-						click:function(){
-							
-							var kradLayer = [];
-							
-		        			//사용자지정 로컬스토리지
-		        			var confInfo2 = localStorage['_kradExtInfo2_'];
-		        			var jsonConf2 = JSON.parse(confInfo2);
-							
-							if(jsonConf2.length > 0){
-								for(var i =0 ; i < jsonConf2.length;i++){
-									if(jsonConf2[i].EVENT_TYPE == "Point"){
-										kradLayer.push(jsonConf2[i].PE_LAYER_ID);
-									}
-									if(jsonConf2[i].EVENT_TYPE == "Line"){
-										kradLayer.push(jsonConf2[i].LO_LAYER_ID);
-									}
-								}
-							}
-							
-							_krad.setKradOnOff(kradLayer);
-							
-						}
+				xtype: 'checkbox',
+				boxLabel: '상류',
+				checked: false,
+				width:50,
+				handler: function(obj, checked){
+					
+					if(checked == true){
+						
+						//this.up("container").query("#chkMWDraw").enable();
 					}
-				}
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isUpDraw'
+			},{
+				xtype: 'checkbox',
+				itemId: "chkMWDraw",
+				boxLabel: '중권역',
+				checked: false,
+				disabled: true,
+				width:80,
+				handler: function(obj, checked){
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isMWDraw'
+			}]
+		}, {
+			xtype: 'container',
+			style:"margin-top:5px; margin-left:30px;",
+			layout: {
+				type: 'hbox'
+			},
+			width: "100%",
+			height: 30,
+			items:[{
+				xtype: 'checkbox',
+				boxLabel: '본류',
+				checked: true,
+				width:50,
+				handler: function(obj, checked){
+					
+					if(checked == false){
+						
+						obj.setValue(true);
+					}
+				},
+				inputValue: 'isBonDraw'
+			},{
+				xtype: 'checkbox',
+				boxLabel: '지류',
+				checked: true,
+				width:50,
+				handler: function(obj, checked){
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isJiDraw'
 			}]
 		}]
-	}*/],
-
+	}],
+	
 	initComponent: function(){
 		
 		this.callParent();
 		
-		var confInfo = localStorage['_searchConfigInfo_'];
+		// 체크박스 셋팅
+		this.setCheckBox();
+	},
+	// 체크박스 셋팅
+	setCheckBox: function(){
 		
-		if(confInfo != undefined && confInfo != null){
+		// 로컬 스토리지
+		var searchConfigInfo = localStorage['_searchConfigInfo_'];
+		// 체크박스 컨트롤 배열
+		var chkCtls = this.query("checkbox");
+		console.info(searchConfigInfo);
+		if(chkCtls != undefined && chkCtls != null){
 			
-			var jsonConf = JSON.parse(confInfo);
-			//console.info(this.items.items[0]);
-			this.items.items[0].items.items[1].setValue(jsonConf.isJiDraw);
-		}
-		else{
+			// 로컬 스토리지 존재하면
+			if(searchConfigInfo != undefined && searchConfigInfo != null){
 			
-			var saveObj = {isBonDraw:true, isJiDraw:true};
-			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
+				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
+				
+				// 체크박스 셋팅
+				for(var i = 0; i < chkCtls.length; i++){
+					
+					if(chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null){
+						
+						var checked = eval("searchConfigInfoJson." + chkCtls[i].inputValue);
+						chkCtls[i].setValue(checked);
+					}
+				}
+			}
+			else{
+				
+				// 로컬 스토리지 셋팅
+				this.setLocalStorage();
+			}
 		}
+	},
+	// 로컬 스토리지 셋팅
+	setLocalStorage: function(){
+		
+		var chkCtls = this.query("checkbox");
+		var jsonObj = {};
+		
+		for(var i = 0; i < chkCtls.length; i++){
+			
+			if(chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null){
+				
+				eval("jsonObj." + chkCtls[i].inputValue + " = " + chkCtls[i].checked);
+			}
+		}
+		
+		localStorage['_searchConfigInfo_'] = JSON.stringify(jsonObj);
+		console.info(localStorage['_searchConfigInfo_']);
 	}
-
 });

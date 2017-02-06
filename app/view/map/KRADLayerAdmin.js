@@ -96,6 +96,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 
 			me.stSymbol = new PictureMarkerSymbol({
 	 		    "angle": 0,
+	 		    //"xoffset": 10,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
 	 		    "url": "./resources/images/symbol/btn_start01.png",
@@ -289,6 +290,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    	if(me.drawOption == "startPoint"){
 		    		
 		    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
+		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38, url(./resources/images/symbol/btn_start01.cur),auto');
 		    	}
 		    	else if(me.drawOption == "endPoint"){
 		    		
