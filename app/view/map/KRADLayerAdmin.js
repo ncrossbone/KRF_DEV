@@ -1404,8 +1404,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 							kradUpDown = "up";
 						}
 						else{
-							console.info(stDidx);
-							console.info(edDidx);
+							//console.info(stDidx);
+							//console.info(edDidx);
 							if(evtType != "Reach"){
 								isSearch = false;
 							}
