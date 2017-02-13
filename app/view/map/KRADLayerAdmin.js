@@ -368,6 +368,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			    			if(_krad.searchConfigInfoJson.isUpDraw == true){
 			    				
 			    				_rchUpSearch.searchWithEvent(evt);
+			    				// 종료 검색 체크
+			    				me.isStopCheck();
 			    			}
 			    			else{ /* 검색설정 "상류" 체크 시 끝 */
 			    				
@@ -1522,7 +1524,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		        			me.afterChkCnt++;
 		        			
 		        			// 타이머 작동 10초 뒤 타이머 종료
-		        			if(me.afterChkCnt >= 50){
+		        			if(me.afterChkCnt >= 10){
 		        				
 		        				if(checkedTimer != null){
 		        					clearInterval(checkedTimer);
@@ -1542,7 +1544,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				        			me.isStopCheck();
 				        		}
 		        			}
-		        		}, 200);
+		        		}, 1000);
 					}
 					else{
 						
@@ -1557,14 +1559,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 						me.isStopCheck();
 					}
-				}, 500, this);
+				}, 1000, this);
 			}
 			else{
 				
 				// 검색카운트 다르면 체크용 변수에 저장
 				me.tmpSearchCnt = me.searchCnt;
 			}
-		}, 200);
+		}, 1000);
     },
     /* 그래픽 그리기 */
     drawGraphic: function(graphic, grpType){

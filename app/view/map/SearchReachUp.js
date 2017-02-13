@@ -35,6 +35,8 @@ Ext.define("KRF_DEV.view.map.SearchReachUp", {
 			for(var i = 0; i < features.length; i++){
 				
 				me.searchUpWithFeature(features[i], 0);
+				// 종료 검색 체크
+				//_krad.isStopCheck();
 			}
 		});
     },
@@ -226,6 +228,8 @@ Ext.define("KRF_DEV.view.map.SearchReachUp", {
     				
     				// 상류검색, 그래픽 그리기
     				me.searchUpWithFeature(features[i], cnt);
+    				// 종료 검색 체크
+					//_krad.isStopCheck();
     			}
     		});
     	}
