@@ -291,7 +291,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 									}
 								}
 								_krad.setKradOnOff(kradLayer);
-					            
+					            //console.info(jsonConf2);
+					            //console.info(kradLayer);
 					        }
 				    },
 				    viewConfig: { 
@@ -382,20 +383,75 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		
 		this.callParent();
 		
-		var confInfo = localStorage['_searchConfigInfo_'];
+		// 체크박스 셋팅
+		this.setCheckBox();
+	},
+	// 체크박스 셋팅
+	setCheckBox: function(){
 		
-		if(confInfo != undefined && confInfo != null){
+		// 로컬 스토리지
+		var searchConfigInfo = localStorage['_searchConfigInfo_'];
+		// 체크박스 컨트롤 배열
+		var chkCtls = this.query("checkbox");
+		//console.info(searchConfigInfo);
+		if(chkCtls != undefined && chkCtls != null){
 			
-			var jsonConf = JSON.parse(confInfo);
-			//console.info(this.items.items[0]);
-			//this.items.items[0].items.items[1].setValue(jsonConf.isJiDraw);
-			this.query("#chkJiDraw").setValue(jsonConf.isJiDraw);
+			// 로컬 스토리지 존재하면
+			if(searchConfigInfo != undefined && searchConfigInfo != null){
+			
+				var searchConfigInfoJson = JSON.parse(searchConfigInfo);
+				
+				// 체크박스 셋팅
+				for(var i = 0; i < chkCtls.length; i++){
+					
+					if(chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null){
+						
+						var checked = eval("searchConfigInfoJson." + chkCtls[i].inputValue);
+						chkCtls[i].setValue(checked);
+					}
+				}
+			}
+			else{
+				
+				// 로컬 스토리지 셋팅
+				this.setLocalStorage();
+			}
+		}
+	},
+	// 로컬 스토리지 셋팅
+	setLocalStorage: function(){
+		
+		var chkCtls = this.query("checkbox");
+		var jsonObj = {};
+		
+		for(var i = 0; i < chkCtls.length; i++){
+			
+			if(chkCtls[i].inputValue != undefined && chkCtls[i].inputValue != null){
+				
+				eval("jsonObj." + chkCtls[i].inputValue + " = " + chkCtls[i].checked);
+			}
+		}
+		
+		localStorage['_searchConfigInfo_'] = JSON.stringify(jsonObj);
+	},
+	getLocalStorage: function(){
+		
+		// 로컬 스토리지
+		var searchConfigInfo = localStorage['_searchConfigInfo_'];
+		var searchConfigInfoJson = null;
+		
+		if(searchConfigInfo != undefined && searchConfigInfo != null){
+			
+			searchConfigInfoJson = JSON.parse(searchConfigInfo);
 		}
 		else{
 			
-			var saveObj = {isBonDraw:true, isJiDraw:true};
-			localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
+			// 로컬 스토리지 셋팅
+			this.setLocalStorage();
+			searchConfigInfoJson = JSON.parse(localStorage['_searchConfigInfo_']);
 		}
+		
+		return searchConfigInfoJson;
 	}
 
 });

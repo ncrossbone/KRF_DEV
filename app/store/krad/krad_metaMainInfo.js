@@ -18,7 +18,8 @@ Ext.define('KRF_DEV.store.krad.krad_metaMainInfo', {
 			query.returnGeometry = false;
 			query.where = "EXT_DATA_ID =  '"+store.extDataId+"'"; //+store.extDataId+"'"
 			query.outFields = ["*"];
-			
+			//console.info(_kradMapserviceUrl+"/"+_kradCatExtDataInfo);
+			//console.info(query.where);
 			queryTask.execute(query, function(result){
 
 				if(result.features.length == 0){

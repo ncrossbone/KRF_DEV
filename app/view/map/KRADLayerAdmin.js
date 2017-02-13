@@ -159,12 +159,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     setDynamicLayer: function(){
     	
     	var me = this;
-    	
+    	//console.info(me.kradServiceUrl);
     	me.dynamicLayer = new esri.layers.ArcGISDynamicMapServiceLayer(me.kradServiceUrl);
 		me.dynamicLayer.id = "kradLayerAdmin"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer.visible = true;
 		me.map.addLayer(me.dynamicLayer);
 		me.dynamicLayer.setVisibleLayers([-1]);
+		//me.dynamicLayer.setVisibleLayers([0, 1, 2, 3, 4, 5, 6, 7, 8, 9]);
 		
     },
     setKRADInfo: function(){
@@ -1386,7 +1387,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					}
 					
 					// 시작위치 또는 끝위치 일때
-					if(stDidx != -1 || edDidx != -1){
+					if(stDidx != -1 || edDidx != -1 || stIdx != -1 || edIdx != -1){
 						
 						if(stIdx > -1){ // 시작위치 일 때
 							
@@ -1403,14 +1404,19 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 							kradUpDown = "up";
 						}
 						else{
+							console.info(stDidx);
+							console.info(edDidx);
+							if(evtType != "Reach"){
+								isSearch = false;
+							}
+							else{
+								if(stDidx != -1 || edDidx != -1){
+									isSearch = false;
+								}
+							}
 							
-							isSearch = false;
 							kradUpDown = "down";
 						}
-						
-						//console.info(cnt);
-						//console.info(rchDid);
-						//console.info(isSearch);
 					}
 					/* 검색, 그리기 조건 설정 끝 */
 					
@@ -1418,7 +1424,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					if(isGeoTrib == false){
 						evtType = "none";
 					}
-					
+					//console.info(evtType);
 					// 이벤트 타입에 따라 그리기 유형 다르게..
 					if(evtType == "Reach"){
 						
