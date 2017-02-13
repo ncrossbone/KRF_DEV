@@ -23,45 +23,113 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	},
 	
 	items: [{
-		xtype: 'panel',
-		title: '검색설정',
-		//bodyStyle:{"background-color":"#dfeaf2"},
-		//style: 'padding-bottom:20px;',
+		xtype: "panel",
+		title: "검색설정",
 		layout: {
-			type: 'hbox'
+			type: "vbox"
 		},
-		width: 303,
-		height: 60,
-		items:[{
-			xtype: 'checkbox',
-			boxLabel: '본류',
-			checked: true,
-			width:50,
+		width: "100%",
+		items: [{
+			xtype: 'container',
 			style:"margin-top:5px; margin-left:30px;",
-			handler: function(obj, checked){
-				if(checked == false){
-					obj.setValue(true);
-				}
+			layout: {
+				type: 'hbox'
 			},
-			inputValue: 'isBonDraw'
-
-		},{
-			xtype: 'checkbox',
-			boxLabel: '지류',
-			checked: true,
-			width:50,
+			width: "100%",
+			height: 30,
+			items:[{
+				xtype: 'checkbox',
+				itemId: "chkUpDraw",
+				boxLabel: '상류',
+				checked: false,
+				width:50,
+				handler: function(obj, checked){
+					
+					if(checked == true){
+						
+						// 중권역 체크박스 활성
+						this.up("container").query("#chkMWDraw")[0].enable();
+						this.up("container").query("#chkMWDraw")[0].setValue(true);
+						// 댐/보 체크박스 활성
+						this.up("container").query("#chkDaemBoDraw")[0].enable();
+					}
+					else{
+						
+						// 중권역 체크박스 비활성
+						this.up("container").query("#chkMWDraw")[0].disable();
+						this.up("container").query("#chkMWDraw")[0].setValue(false);
+						// 댐/보 체크박스 비활성
+						this.up("container").query("#chkDaemBoDraw")[0].disable();
+						this.up("container").query("#chkDaemBoDraw")[0].setValue(false);
+					}
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isUpDraw'
+			},{
+				xtype: 'checkbox',
+				itemId: "chkMWDraw",
+				boxLabel: '중권역',
+				checked: false,
+				disabled: true,
+				width:65,
+				handler: function(obj, checked){
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isMWDraw'
+			}, {
+				xtype: 'checkbox',
+				itemId: "chkDaemBoDraw",
+				boxLabel: '댐/보',
+				checked: false,
+				disabled: true,
+				width:80,
+				handler: function(obj, checked){
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isDaemBoDraw'
+			}]
+		}, {
+			xtype: 'container',
 			style:"margin-top:5px; margin-left:30px;",
-			handler: function(obj, checked){
-				
-				var saveObj = {isBonDraw:true, isJiDraw:checked, isKrad:checked };
-				
-				localStorage['_searchConfigInfo_'] = JSON.stringify(saveObj);
-				
+			layout: {
+				type: 'hbox'
 			},
-			inputValue: 'isJiDraw'
-			
+			width: "100%",
+			height: 30,
+			items:[{
+				xtype: 'checkbox',
+				itemId: "chkBonDraw",
+				boxLabel: '본류',
+				checked: true,
+				width:50,
+				handler: function(obj, checked){
+					
+					if(checked == false){
+						
+						obj.setValue(true);
+					}
+				},
+				inputValue: 'isBonDraw'
+			},{
+				xtype: 'checkbox',
+				itemId: "chkJiDraw",
+				boxLabel: '지류',
+				checked: true,
+				width:50,
+				handler: function(obj, checked){
+					
+					// 로컬 스토리지 셋팅
+					this.up("win-searchConfig").setLocalStorage();
+				},
+				inputValue: 'isJiDraw'
+			}]
 		}]
-		//style:"background-color:black;"
 	},{
 		xtype: 'panel',
 		title: '데이터 셋 선택',
@@ -320,7 +388,8 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 			
 			var jsonConf = JSON.parse(confInfo);
 			//console.info(this.items.items[0]);
-			this.items.items[0].items.items[1].setValue(jsonConf.isJiDraw);
+			//this.items.items[0].items.items[1].setValue(jsonConf.isJiDraw);
+			this.query("#chkJiDraw").setValue(jsonConf.isJiDraw);
 		}
 		else{
 			
