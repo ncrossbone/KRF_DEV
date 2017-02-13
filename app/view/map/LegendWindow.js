@@ -12,14 +12,13 @@ Ext.define('KRF_DEV.view.map.LegendWindow', {
 	title: '범례',
 	
 	cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
-	//bodyStyle: 'border: 0px;',
 	
 	layout: {
 		type: 'absolute'
 	},
 	
-	//width: 450,
-	//height: 305,
+	//width: 209,
+	//height: 275,
 
 	items: [{
 		xtype: 'image',

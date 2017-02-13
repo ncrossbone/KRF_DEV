@@ -46,8 +46,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         					toolbarCont.expand();
         					toolbarCont.updateHeaderPosition("right");
         					toolbarCont.header.setHtml("<img src='./resources/images/drone/btn_arrow_close2.png' />");
-        					toolbarCont.setWidth(762);
-        					toolbarCont.up("panel").setWidth(827);
+        					toolbarCont.setWidth(938);
+        					toolbarCont.up("panel").setWidth(1003);
         				}
         				else{
         					toolbarCont.collapse();
@@ -129,6 +129,57 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         }, {
     		xtype: "container",
     		width: 5
+    	}, { // 피코시아닌
+        	xtype: "drone-vcombo",
+        	id: "cboDronePhy", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
+        	labelSrc: './resources/images/drone/label_07.png',
+        	jsonUrl: "./resources/data/drone/LayerMapper.json",
+        	dataRoot: "",
+        	fields: ["PhyLayerId", "PhyDate"],
+        	displayField: "PhyDate",
+        	valueField: "PhyLayerId",
+        	onChange: "onDronePhyChange",
+        	onItemClick: "onItemClickEmpty"/*,
+        	listeners:{
+        		el:{
+        			click: function(){
+        				
+        				var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
+        				var layerStore = cboDroneLayer.getStore();
+        				
+        				var index = -1;
+        				
+        				layerStore.each(function(obj, cnt){
+        					
+        					if(obj.data.layerId == "Chla"){
+        						index = cnt;
+        						obj.data.layerOnOff = "off";
+        					}else if(obj.data.layerId == "Phy"){
+        						index = cnt;
+        						obj.data.layerOnOff = "on";
+        					}
+        				});
+        				
+        				        				
+        				//controller
+        				if(index > -1){
+        					
+        					//this.application.getController('VComboBoxController').onDroneLayerClick(null, layerStore, null, index, null);
+        					
+        					//KRF_DEV.getApplication().fireEvent("itemclick", null, layerStore, null, index, null);
+        					//controller.VComboBoxController.onDroneLayerClick(null, layerStore, null, index, null);
+        				}
+        				
+        				layerStore.load();
+        				cboDroneLayer.setStore(layerStore);
+        				
+        				
+        			}
+        		}
+        	}*/
+        }, {
+    		xtype: "container",
+    		width: 5
     	}, { // 조류측정자료
         	xtype: "drone-vcombo",
         	id: "cboDroneWBSite", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
@@ -154,10 +205,6 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	valueField: "layerId",
         	onChange: "onComboChangeEmpty",
         	onItemClick: "onDroneLayerClick",
-        	listeners: {
-        		render: function(a,b,c,d){
-        		}
-        	},
         	expanded: true,
             noCollapse: true // 콤보 리스트가 닫히지 않게 한다.
         }, {

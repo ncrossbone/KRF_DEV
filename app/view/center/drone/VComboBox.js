@@ -20,7 +20,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	labelSrc: '',
 	labelHeight: 24,
 	
-	width: 115,
+	width: 123,
 	
 	comboHeight: 24,
 	
@@ -65,6 +65,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    		store: comboStore,
 	    		listConfig: {
 	    			id: me.id + "-list", // z-index 주기위해 id 지정 (drone.css .drone-combolist)
+	    			itemId:me.id,
 	    			getInnerTpl: function(a, b, c, d){
 	    				return "{image1}{image2}{" + me.displayField + "}";
 	    			},

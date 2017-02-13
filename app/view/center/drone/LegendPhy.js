@@ -1,13 +1,13 @@
-Ext.define('KRF_DEV.view.center.drone.LegendChl', {
+Ext.define('KRF_DEV.view.center.drone.LegendPhy', {
 	
 	extend: 'Ext.window.Window',
-	id: 'chlLegend',
+	id: 'phyLegend',
 	xtype: 'legendchl-panel',
 	
 	height: 54,
 	width: 232,
 	
-	title: '클로로필a 범례',
+	title: '피코시아닌 범례',
 	header: false,
 	
 	layout: {
@@ -23,7 +23,7 @@ Ext.define('KRF_DEV.view.center.drone.LegendChl', {
 	items: [{
 		xtype: 'image',
 		id: 'imgLegend',
-		src: './resources/images/drone/legend/standard01.png',
+		src: './resources/images/drone/legend/standard02.png',
 		style: 'border:0px;',
 		height: 54,
 		width: 232

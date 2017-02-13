@@ -2,11 +2,13 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	
 	extend: 'Ext.app.ViewController',
 
+	id: "VComboBoxController",
 	alias: 'controller.VComboBoxController',
 	
 	//기본 배열
 	layer: ["0","1","3","2","4","10","11","12","13"],
 	onlayer: [],
+	clickItemId: "",
 	//초기화 버튼
 	onClickResetButton: function(){
 
@@ -61,6 +63,10 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
 		me.initVComboBox(cboDroneWBSite);
 		
+		// 피코시안 초기화
+		var cboDronePhy = Ext.getCmp("cboDronePhy");
+		me.initVComboBox(cboDronePhy);
+		
 		// 레이어선택 초기화
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 		me.initVComboBox(cboDroneLayer);
@@ -88,6 +94,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
 		this.comboBind(newValue, cboDroneWBSite, "MeasureDate", "DESC");
 		cboDroneWBSite.setValue("");
+		
+		/* 피코시안 바인딩 */
+		var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
+		this.comboBind(newValue, cboDronePhy, "PhyLayerId", "DESC");
+		cboDronePhy.setValue("");
 		
 		
 		/* 지점목록 바인딩 */
@@ -124,15 +135,15 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var droneLayerId = "";
 		var drone = "";
 		var measureDate = "";
+		var phyLayerId = "";
 		
 		Ext.defer(function(){
 			var store = cboDroneDate.getStore();
 			
-			
 			droneLayerId = store.data.items[0].data.DroneLayerId;
 			drone = store.data.items[0].data;
 			measureDate = store.data.items[0].data.MeasureDate;
-			
+			phyLayerId = store.data.items[0].data.PhyLayerId;
 			/*for(var i = 0 ; i<store.data.items.length ; i++){
 				if(i == store.data.items.length-1){
 					droneLayerId = store.data.items[0].data.DroneLayerId;
@@ -141,7 +152,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				}
 			}*/
 			
-			me.defaultDate(droneLayerId,measureDate,drone);
+			me.defaultDate(droneLayerId,measureDate,drone,phyLayerId);
 		}, 1);
 		
 	},
@@ -154,18 +165,22 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	},
 	
 	/* Default Event */
-	defaultDate: function(droneLayerId,measureDate,drone){
-		
+	defaultDate: function(droneLayerId,measureDate,drone,phyLayerId){
+		console.info(phyLayerId);
+		console.info(droneLayerId);
 		if(droneLayerId != null && droneLayerId != ""){
 			/* 클로로필a Set Value */
 			var chlaLayerId = "";
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			this.comboChange(droneLayerId, cboDroneChla, chlaLayerId);
 			
+			
 			/* 조류측정자료 Set Value */
 			var measureDate = measureDate;
 			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
 			this.comboChange(droneLayerId, cboDroneWBSite, measureDate);
+			
+			
 			
 			// featurelayer on/off
 			this.SetFeatureLayer(drone);
@@ -184,6 +199,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var chlaLayerId = item.lastSelectedRecords[0].data.ChlaLayerId;
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			this.comboChange(newValue, cboDroneChla, chlaLayerId);
+			
+			/* 피코시안 Set Value */
+			var phyLayerId = item.lastSelectedRecords[0].data.PhyLayerId;
+			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
+			this.comboChange(newValue, cboDronePhy, phyLayerId);
 			
 			/* 조류측정자료 Set Value */
 			var measureDate = item.lastSelectedRecords[0].data.MeasureDate;
@@ -213,10 +233,38 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
 			this.comboChange(newValue, cboDroneDate, droneLayerId);
 			
+			/* 피코시안 Set Value */
+			var phyLayerId = item.lastSelectedRecords[0].data.PhyLayerId;
+			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
+			this.comboChange(newValue, cboDronePhy, phyLayerId);
+			
 			/* 조류측정자료 Set Value */
 			var measureDate = item.lastSelectedRecords[0].data.MeasureDate;
 			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
 			this.comboChange(newValue, cboDroneWBSite, measureDate);
+			
+		}
+	},
+	
+	/* 피코시안 Change Event */
+	onDronePhyChange: function(item, newValue, oldValue, evt){
+		if(newValue != null && newValue != ""){
+			
+			/* 항공영상 Set Value */
+			var droneLayerId = item.lastSelectedRecords[0].data.DroneLayerId;
+			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
+			this.comboChange(newValue, cboDroneDate, droneLayerId);
+			
+			/* 조류측정자료 Set Value */
+			var measureDate = item.lastSelectedRecords[0].data.MeasureDate;
+			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
+			this.comboChange(newValue, cboDroneWBSite, measureDate);
+			
+			/* 클로로필a Set Value */
+			var chlaLayerId = item.lastSelectedRecords[0].data.ChlaLayerId;
+			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
+			this.comboChange(newValue, cboDroneChla, chlaLayerId);
+			
 		}
 	},
 	
@@ -234,6 +282,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var chlaLayerId = item.lastSelectedRecords[0].data.ChlaLayerId;
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			this.comboChange(newValue, cboDroneChla, chlaLayerId);
+			
+			/* 피코시안 Set Value */
+			var phyLayerId = item.lastSelectedRecords[0].data.PhyLayerId;
+			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
+			this.comboChange(newValue, cboDronePhy, phyLayerId);
 		}
 	},
 	
@@ -244,7 +297,6 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	
 	// 레이어 선택 Combo Item Click Event
 	onDroneLayerClick: function(list, record, liEm, index, divEm){
-		
 		var layerNum = "";
 		layerNum = record.data.layerId;
 		
@@ -253,8 +305,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		var activeLayer= "";
 		
+		
+		
 		if(record.data.layerOnOff == "on"){
 			record.data.layerOnOff = "off";
+			
 			record.data.image1 = record.data.image1.replace("_on", "_off");
 			
 			if(cboDroneArea.rawValue != ""){
@@ -302,13 +357,65 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
 		var store = cboDroneLayer.getStore();
-		store.insert(index, record);
 		
+		
+		if(record.data.layerId == "Phy"){
+			
+			store.data.items[5].data.layerOnOff = "off";
+			store.data.items[5].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index-1, store.data.items[5].data);
+			store.insert(index, record);
+		}else if(record.data.layerId == "Chla"){
+			store.data.items[6].data.layerOnOff = "off";
+			store.data.items[6].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index+1, store.data.items[6].data);
+			store.insert(index, record);
+		}else{
+			store.insert(index, record);
+			
+		}
 		this.LayerVisibility();
 	},
 	
 	// Combo Item Click 시 아무것도 안하는 펑션..
-	onItemClickEmpty: function(){
+	onItemClickEmpty: function(item,record){
+	
+		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
+		var layerStore = cboDroneLayer.getStore();
+		
+		var index = -1;
+		
+		layerStore.each(function(obj, cnt){
+			
+			if(item.itemId == "cboDroneChla" || item.itemId == "cboDroneArea"){
+				if(obj.data.layerId == "Chla"){
+					index = cnt;
+					obj.data.layerOnOff = "on";
+					obj.data.image1 = obj.data.image1.replace("_off", "_on");
+					layerStore.insert(index,obj);
+				}else if(obj.data.layerId == "Phy"){
+					index = cnt;
+					obj.data.layerOnOff = "off";
+					obj.data.image1 = obj.data.image1.replace("_on", "_off");
+					layerStore.insert(index,obj);
+				}
+			}else if(item.itemId == "cboDronePhy"){
+				if(obj.data.layerId == "Chla"){
+					index = cnt;
+					obj.data.layerOnOff = "off";
+					obj.data.image1 = obj.data.image1.replace("_on", "_off");
+					layerStore.insert(index,obj);
+				}else if(obj.data.layerId == "Phy"){
+					index = cnt;
+					obj.data.layerOnOff = "on";
+					obj.data.image1 = obj.data.image1.replace("_off", "_on");
+					layerStore.insert(index,obj);
+				}
+			} 
+		});
+		
+		/*var store = cboDroneLayer.getStore();
+		store.insert(index, record);*/
 		
 	},
 	
@@ -316,7 +423,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	comboBind: function(dataRoot, comboCtl, keyName, sort){
 		
 		var fields = ["layerId", "layerName", "layerOnOff", "layerImg", "layerOnImg", "layerOffImg",
-		              "DroneDate", "MeasureDate", "ChlaLayerId", "ChlaDate", "layerNm"];
+		              "DroneDate", "MeasureDate", "ChlaLayerId", "ChlaDate", "layerNm", "PhyData", "PhyLayerId"];
 		var jsonUrl = "./resources/data/drone/LayerMapper.json";
 		
 		var sorters = [];
@@ -377,38 +484,62 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				return;
 			}
 			
-			//맵 불러오기
+			//기본레이어
 			var activeLayer = me.map.getLayer("DynamicLayer3");
 			activeLayer.setVisibility(true);
+			
+			//항공영상레이어
+			var aciationLayer = me.map.getLayer("AciationLayer");
+			aciationLayer.setVisibility(true);
+			
+			//클로로필a 레이어
+			var Chlorophyll_a = me.map.getLayer("Chlorophyll_a");
+			Chlorophyll_a.setVisibility(true);
+			
+			//피코시아닌 레이어
+			var Phycocyanin = me.map.getLayer("Phycocyanin");
+			Phycocyanin.setVisibility(true);
+			
 			
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
 			var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
+			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
 			var chlLegend = Ext.getCmp("chlLegend"); // 범례 이미지 컨트롤
+			var phyLegend = Ext.getCmp("phyLegend"); // 범례 이미지 컨트롤
 			
 			if(chlLegend == undefined || chlLegend == null){
 				chlLegend = Ext.create('KRF_DEV.view.center.drone.LegendChl');
 			}
 			
+			if(phyLegend == undefined || phyLegend == null){
+				phyLegend = Ext.create('KRF_DEV.view.center.drone.LegendPhy');
+			}
+			
 			
 			var layers = [];
+			var layersAciation = [];
+			var layersChlorophyll_a = [];
+			var layersPhycocyanin = [];
 			
 			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
 			var layerStore = cboDroneLayer.getStore();
 			
 			var droneOnOff = "";
 			var chlOnOff = "";
+			var phyOnOff = "";
 			var measureOnOff = "";
 			var wbSiteOnOff = "";
 			
-			//console.info(layerStore);
 			layerStore.each(function(obj){
-				
+				//console.info(obj);
 				if(obj.data.layerId == "Drone"){
 					droneOnOff = obj.data.layerOnOff;
 				}
 				else if(obj.data.layerId == "Chla"){
 					chlOnOff = obj.data.layerOnOff;
+				}else if(obj.data.layerId == "Phy"){
+					phyOnOff = obj.data.layerOnOff;
 				}
 
 				else if(obj.data.id == "reachLine"){
@@ -428,18 +559,20 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				}
 			});
 			
+			
 			//항공사진
 			if(droneOnOff == "on"){
 				if(cboDroneDate.value != null)
-					layers.push(cboDroneDate.value);
-			}
-
+					layersAciation.push(cboDroneDate.value);
+			}			
+			
 			//클로로필
 			if(chlOnOff == "on"){
 				
 				if(cboDroneChla.value != null){
 					chlLegend.show();
-					layers.push(cboDroneChla.value);
+					//layers.push(cboDroneChla.value);
+					layersChlorophyll_a.push(cboDroneChla.value);
 					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
     				Ext.getCmp("cboDroneLayer").down("combo").expand();
 				}else{
@@ -450,15 +583,57 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 				chlLegend.hide();
 			}
 			
+			if(phyOnOff == "on"){
+				
+				if(cboDronePhy.value != null){
+					phyLegend.show();
+					//layers.push(cboDroneChla.value);
+					layersPhycocyanin.push(cboDronePhy.value);
+					// 클로로필 범례 표시 후 레이어 선택 콤보 펼치기 (focus이동 때문..)
+    				Ext.getCmp("cboDroneLayer").down("combo").expand();
+				}else{
+					phyLegend.hide();
+				}
+					
+			}else{
+				phyLegend.hide();
+			}
+			
+			/*if(phyOnOff == "on"){
+				if(cboDronePhy.value != null){
+					layersPhycocyanin.push(cboDronePhy.value);
+				}
+				
+			}*/
+			
 			//측정지점
 			if(measureOnOff == "on"){
 				layers.push("3")
 			}
 			
-			activeLayer.setVisibleLayers([-1]);
 			
-			if(layers.length > 0)
+			activeLayer.setVisibleLayers([-1]);
+			aciationLayer.setVisibleLayers([-1]);
+			Chlorophyll_a.setVisibleLayers([-1]);
+			Phycocyanin.setVisibleLayers([-1]);
+			
+			
+			if(layers.length > 0){
 				activeLayer.setVisibleLayers(layers);
+			}
+			
+			if(layersAciation.length > 0){
+				aciationLayer.setVisibleLayers(layersAciation);
+			}
+			
+			if(layersChlorophyll_a.length > 0){
+				Chlorophyll_a.setVisibleLayers(layersChlorophyll_a);
+			}
+			
+			if(layersPhycocyanin.length > 0){
+				Phycocyanin.setVisibleLayers(layersPhycocyanin);
+			}
+			
 		}, 1);
 	},
 	
@@ -627,6 +802,14 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		mapCtl.map.centerAndZoom(point, 15);
 		
 		
+	},
+	
+	ChloPhycoOnOff: function(){
+		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
+		var layerStore = cboDroneLayer.getStore();
+		
+		console.info(layerStore);
+			
 	}
 	
 });
