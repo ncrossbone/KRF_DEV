@@ -19,6 +19,21 @@ var _ADM_DONGRI_NM = null; // 읍면동 명
 
 var _CAT_DID = null; // 집수구역 ID
 
+var level = location.search.split("l=")[1].split("&")[0];
+var x = location.search.split("x=")[1].split("&")[0];
+var y = location.search.split("y=")[1].split("&")[0];
+var print = location.search.split("print=")[1].split("&")[0];
+
+var parentObj = null;
+			
+if(print == "Y"){
+	parentObj = parent;
+
+}else{
+	parentObj = opener;
+
+}
+
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
 
@@ -45,43 +60,72 @@ store.load(function(a, b, c) {
 		_baseMapUrl_vworld = record.data.baseMapUrl_vworld;
 		_arcServiceUrl = record.data.arcServiceUrl;
 		
-		var selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
+		//var selWS = parent.Ext.getCmp("cmbWater1").lastSelection;
+		var selWS = null;
+		var selMW = null;
+		var selSW = null;
+		var selSIDO = null;
+		var selSIGUNGU = null;
+		var selDONGRI = null;
+		
+		if(print == "Y"){
+			
+			selWS = parent.Ext.getCmp("cmbWater1").lastSelection;
+			selMW = parent.Ext.getCmp("cmbWater2").lastSelection;
+			selSW = parent.Ext.getCmp("cmbWater3").lastSelection;
+			selSIDO = parent.Ext.getCmp("cmbArea1").lastSelection;
+			selSIGUNGU = parent.Ext.getCmp("cmbArea2").lastSelection;
+			selDONGRI = parent.Ext.getCmp("cmbArea3").lastSelection;
+			
+			_CAT_DID = parent.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
+		}
+		else{
+			
+			selWS = opener.Ext.getCmp("cmbWater1").lastSelection;
+			selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
+			selSW = opener.Ext.getCmp("cmbWater3").lastSelection;
+			selSIDO = opener.Ext.getCmp("cmbArea1").lastSelection;
+			selSIGUNGU = opener.Ext.getCmp("cmbArea2").lastSelection;
+			selDONGRI = opener.Ext.getCmp("cmbArea3").lastSelection;
+			
+			_CAT_DID = opener.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
+		}
+		
+		//console.info(selWS);
 		if(selWS != undefined && selWS != null & selWS.length > 0){
 			_WS_CD = selWS[0].data.id;
 			_WS_NM = selWS[0].data.name;
 		}
 		
-		var selMW = opener.Ext.getCmp("cmbWater2").lastSelection;
+		
 		if(selMW != undefined && selMW != null & selMW.length > 0){
 			_MW_CD = selMW[0].data.id;
 			_MW_NM = selMW[0].data.name;
 		}
 		
-		var selSW = opener.Ext.getCmp("cmbWater3").lastSelection;
+		
 		if(selSW != undefined && selSW != null & selSW.length > 0){
 			_SW_CD = selSW[0].data.id;
 			_SW_NM = selSW[0].data.name;
 		}
 		
-		var selSIDO = opener.Ext.getCmp("cmbArea1").lastSelection;
+		
 		if(selSIDO != undefined && selSIDO != null & selSIDO.length > 0){
 			_ADM_SIDO_CD = selSIDO[0].data.id;
 			_ADM_SIDO_NM = selSIDO[0].data.name;
 		}
 		
-		var selSIGUNGU = opener.Ext.getCmp("cmbArea2").lastSelection;
+		
 		if(selSIGUNGU != undefined && selSIGUNGU != null & selSIGUNGU.length > 0){
 			_ADM_SIGUNGU_CD = selSIGUNGU[0].data.id;
 			_ADM_SIGUNGU_NM = selSIGUNGU[0].data.name;
 		}
 		
-		var selDONGRI = opener.Ext.getCmp("cmbArea3").lastSelection;
+		
 		if(selDONGRI != undefined && selDONGRI != null & selDONGRI.length > 0){
 			_ADM_DONGRI_CD = selDONGRI[0].data.id;
 			_ADM_DONGRI_NM = selDONGRI[0].data.name;
 		}
-		
-		_CAT_DID = opener.Ext.getCmp("_mapDiv_").reachLayerAdmin_v3_New.arrAreaGrp;
 	});
 });
 
@@ -90,7 +134,6 @@ Ext.application({
 	name : 'Report',
 	
 	launch : function() {
-		
 		Ext.create("Report.view.main.rptExtViewMain", {
 			renderTo: Ext.getBody()
 		});

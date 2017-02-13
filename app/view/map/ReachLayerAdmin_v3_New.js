@@ -1,8 +1,8 @@
 Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	
-	lineGrpLayer: null, // 리치라인 레이어
+	//lineGrpLayer: null, // 리치라인 레이어
 	downLineLayer: null, // 하류 리치라인 레이어
-	areaGrpLayer: null, // 집수구역 레이어
+	//areaGrpLayer: null, // 집수구역 레이어
 	pointGrpLayer: null, // 포인트 레이어
 	symbolGrpLayer: null, // 심볼 레이어 (시작, 끝...)
 	
@@ -37,7 +37,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 		var me = this;
 		me.map = map;
 		
-		require(["esri/symbols/SimpleLineSymbol",
+		/*require(["esri/symbols/SimpleLineSymbol",
 		         "esri/symbols/SimpleFillSymbol",
 		         "esri/symbols/PictureMarkerSymbol",
 		         "esri/Color",
@@ -100,7 +100,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				me.symbolGrpLayer.id = "symbolGrpLayer";
 				me.map.addLayer(me.symbolGrpLayer);
 			});
-		});
+		});*/
     },
     
     /* 시작위치 버튼 클릭 */

@@ -44,10 +44,11 @@ Ext.define('Report.view.map.rptCoreMap', {
         	me.dimDynamicLayerAdmin = Ext.create('Report.view.map.dimDynamicLayerAdmin', me.map);
         	
         	//alert(_mapServiceUrl_Rpt);
-        	var level = location.search.split("l=")[1].split("&")[0];
-        	var x = location.search.split("x=")[1].split("&")[0];
-        	var y = location.search.split("y=")[1].split("&")[0];
-        	
+        	//var level = location.search.split("l=")[1].split("&")[0];
+        	//var x = location.search.split("x=")[1].split("&")[0];
+        	//var y = location.search.split("y=")[1].split("&")[0];
+        	//var print = location.search.split("print=")[1].split("&")[0];
+			
         	var resolution = me.tileInfo.lods[level].resolution;
         	x = x - (370 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
         	
@@ -56,15 +57,39 @@ Ext.define('Report.view.map.rptCoreMap', {
         	me.map.setLevel(level);
         	me.map.centerAt(point);
         	//console.info("dd");
-        	
-        	me.printTask = Ext.create("KRF_DEV.view.map.task.CustomPrintTask",
+			
+			me.printTask = Ext.create("KRF_DEV.view.map.task.CustomPrintTask",
         			me.map,
         			"_rptMapDiv_",
-        			"../resources/jsp/CustomPrintTask.jsp",
+        			"../resources/jsp/CustomPrintTask_New.jsp",
         			"../resources/jsp/proxy.jsp",
+        			//"./proxy.jsp",
         			_arcServiceUrl,
         			"/resources/saveImgTemp/report");
+			
+			if(print=="Y"){
+					var siteListWindow = parentObj.Ext.getCmp("siteListWindow");
+					
+					var paramCode = "";
+					var listStore = siteListWindow.parentIds;
+					for(var i = 0; i < listStore.length; i++){
+							
+							paramCode += "'" + listStore[i].siteId + "', ";
+						}
+					paramCode = paramCode.substring(0, paramCode.length - 2);
+					var nowDate = new Date();
+					var nowYear = nowDate.getFullYear();
+						
+	    			var startYear = nowYear - 1;
+	    			var endYear = nowYear;
+					
+					setTimeout(function(){ me.report(paramCode, startYear, endYear) }, 2000);
+			}
+					
+			
+			
         	
+					
         	// Extent Change Event
     		/*dojo.connect(me.map, "onExtentChange", function(extent, a, b, obj, c){
     			console.info(extent);
@@ -142,7 +167,7 @@ Ext.define('Report.view.map.rptCoreMap', {
 	report:function(paramCode, startYear, endYear){
 		
 		var me = this;
-		//alert("dd");
+	//alert("dd");
 		
 		me.printTask.report(paramCode, startYear, endYear);
 	}

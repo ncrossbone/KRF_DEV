@@ -65,7 +65,6 @@ Ext.define('Report.view.east.rptSetCondition', {
 			boxLabel: '월 평균', 
 			name: 'rb', 
 			inputValue: '2',
-			disabled:true,
 			width:80
 		},{
 			boxLabel: '일 자료', 
