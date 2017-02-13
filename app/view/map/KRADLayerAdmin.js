@@ -1386,7 +1386,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					}
 					
 					// 시작위치 또는 끝위치 일때
-					if(stDidx != -1 || edDidx != -1){
+					if(stDidx != -1 || edDidx != -1 || stIdx != -1 || edIdx != -1){
 						
 						if(stIdx > -1){ // 시작위치 일 때
 							
@@ -1404,7 +1404,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						}
 						else{
 							
-							isSearch = false;
+							if(evtType != "Reach"){
+								isSearch = false;
+							}
+							else{
+								if(stDidx != -1 || edDidx != -1){
+									isSearch = false;
+								}
+							}
+							
 							kradUpDown = "down";
 						}
 						
