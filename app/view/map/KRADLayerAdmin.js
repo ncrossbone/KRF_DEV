@@ -1414,7 +1414,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 									isSearch = false;
 								}
 							}
-							
 							kradUpDown = "down";
 						}
 					}
