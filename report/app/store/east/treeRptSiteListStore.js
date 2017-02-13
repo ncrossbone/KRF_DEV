@@ -121,7 +121,7 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 							jsonStr += "	}, ";
 						}); // 레이어 코드 루프 끝
 						
-						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+						jsonStr = jsonStr.substring(0, jsonStr.length - 1);
 					}); // 그룹 코드 루프 끝
 											
 					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
@@ -129,7 +129,6 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 					jsonStr += "}]\n";
 					jsonStr += "}";
 					
-					//console.info(jsonStr);
 					
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);

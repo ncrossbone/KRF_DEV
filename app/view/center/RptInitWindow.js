@@ -55,7 +55,7 @@ Ext.define('KRF_DEV.view.center.RptInitWindow', {
 						
 					var url = "./report/rptExtView.html?print=Y&l=" + level + "&x=" + center.x + "&y=" + center.y + "&w=" + width + "&h=" + height;
 					
-					console.info(document.getElementById("rptHidden"));
+					//console.info(document.getElementById("rptHidden"));
 					var rptHidden = document.getElementById("rptHidden");
 					rptHidden.src = url;
 					
