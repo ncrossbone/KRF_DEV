@@ -46,27 +46,23 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
 		
+		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 */
+		var layer01Info = getLayer01Info("id", layerId, null, null);
 		
-		
-		if(layerId == "11"){ // 사업장 TMS
-			query.where =  "사업장코드='" + siteId + "'";
-		}
-		else if(layerId == "25" || layerId == "26" || layerId == "27"
-			|| layerId == "28" || layerId == "29" || layerId == "30"
-			|| layerId == "31" || layerId == "32"){ // 환경기초시설
-			query.where = "시설코드='" + siteId + "'";
-		}
-		else if(layerId == "15" || layerId == "16" || layerId == "17"
-			|| layerId == "18" || layerId == "19" || layerId == "20"
-			|| layerId == "21"){ // 기타측정지점
-			query.where = "관측소코드='" + siteId + "'";
-		}
-		else if(layerId == "23"){ // 수생태계조사지점
-			query.where = "조사지코드='" + siteId + "'";
+		if(layer01Info != undefined && layer01Info != null && layer01Info.length > 0){
+			
+			query.where = layer01Info[0].siteIdCol + " = '" + siteId + "'";
 		}
 		else{
-			query.where = "측정소코드='" + siteId + "'";
+			console.info(layerId + "에 해당하는 siteIdCol(이)가 없습니다. Layer01Data.json 확인 요함.")
 		}
+		
+		if(query.where == undefined){
+			
+			console.info("쿼리 조건이 설정되지 않았습니다.");
+			return;
+		}
+		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
 		
 		queryTask.execute(query,  function(results){
 			
@@ -198,20 +194,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
     	
-    	var groupCd = "";
-    	if((layerId>=0)&&(layerId<=7)){
-    		groupCd = "A";
-    	}else if((layerId>=8)&&(layerId<=11)){
-    		groupCd = "B";
-    	}else if((layerId>=12)&&(layerId<=13)){
-    		groupCd = "C";
-    	}else if((layerId>=14)&&(layerId<=21)){
-    		groupCd = "D";
-    	}else if((layerId>=24)&&(layerId<=32)){
-    		groupCd = "F";
-    	}
-    	
-    	
     	var me = this;
     	
     	//	시작지점 끝지점 선택시 --- 명칭찾기,toolbar지점이름 변경
@@ -242,28 +224,26 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 		query.outSpatialReference = {"wkid":102100};
 		query.outFields = ["*"];
 		
-		if(layerId == "11"){ // 사업장 TMS
-			query.where =  "사업장코드='" + siteId + "'";
-		}
-		else if(layerId == "25" || layerId == "26" || layerId == "27"
-			|| layerId == "28" || layerId == "29" || layerId == "30"
-			|| layerId == "31" || layerId == "32"){ // 환경기초시설
-			query.where = "시설코드='" + siteId + "'";
-		}
-		else if(layerId == "15" || layerId == "16" || layerId == "17"
-			|| layerId == "18" || layerId == "19" || layerId == "20"
-			|| layerId == "21"){ // 기타측정지점
-			query.where = "관측소코드='" + siteId + "'";
-		}
-		else if(layerId == "23"){ // 수생태계조사지점
-			query.where = "조사지코드='" + siteId + "'";
+		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 */
+		var layer01Info = getLayer01Info("id", layerId, null, null);
+		
+		if(layer01Info != undefined && layer01Info != null && layer01Info.length > 0){
+			
+			query.where = layer01Info[0].siteIdCol + " = '" + siteId + "'";
 		}
 		else{
-			query.where = "측정소코드='" + siteId + "'";
+			console.info(layerId + "에 해당하는 siteIdCol(이)가 없습니다. Layer01Data.json 확인 요함.")
 		}
 		
-		queryTask.execute(query,  function(results){
+		if(query.where == undefined){
 			
+			console.info("쿼리 조건이 설정되지 않았습니다.");
+			return;
+		}
+		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
+		
+		queryTask.execute(query,  function(results){
+			//console.info(layerId);
 			Ext.each(results.features, function(obj, index) {
 				
 				
@@ -274,141 +254,13 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				var jijum_Cd = "";		//지점토드
 				var jijum_Gubun = "";
 				
-				
-				//layer마다 column값이 달라 분기처리
-				if(layerId == "1"){
-					parentChcek = "A001";
-					jijum_Name = jijum.측정소명;
-					jijum_Addr = jijum.채수지점;
-					jijum_Cd = jijum.측정소코드;
-					jijum_Gubun = "하천수";
+				if(layer01Info != undefined && layer01Info != null && layer01Info.length > 0){
 					
-				}else if(layerId == "2"){
-					parentChcek = "A002";
-					jijum_Name = jijum.측정소명;
-					jijum_Addr = jijum.채수지점;
-					jijum_Cd = jijum.측정소코드;
-					jijum_Gubun = "호소수";
-				}else if(layerId == "3"){
-					parentChcek = "A003";
-					jijum_Name = jijum.측정소명;
-					jijum_Addr = jijum.채수지점;
-					jijum_Cd = jijum.측정소코드;
-					jijum_Gubun = "농업용수";
-				}else if(layerId == "A004"){
-					parentChcek = "4";
-					jijum_Name = jijum.측정소명;
-					jijum_Addr = jijum.채수지점;
-					jijum_Cd = jijum.측정소코드;
-					jijum_Gubun =  "산단하천" ;
-				}else if(layerId == "5"){
-					parentChcek = "A005";
-					jijum_Name = jijum.측정소명;
-					jijum_Addr = jijum.채수지점;
-					jijum_Cd = jijum.측정소코드;
-					jijum_Gubun =  "도시관류" ;
-				}else if(layerId == "11"){
-					parentChcek = "B002"; // 사업장TMS
-					jijum_Name = jijum.사업장명칭;
-					jijum_Addr = jijum.사업장주소;
-					jijum_Cd = jijum.사업장코드;
-					jijum_Gubun =  "사업장TMS" ;
-				}else if(layerId == "13"){
-					parentChcek = "C001"; // 퇴적물
-					jijum_Name = jijum.지점명;
-					jijum_Addr = jijum.채취지점_;
-					jijum_Cd = jijum.측정소코드;
-					jijum_Gubun =  "퇴적물" ;
-				}else if(layerId == "15"){
-					parentChcek = "D001"; // 수위관측소
-					jijum_Name = jijum.관측소명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.관측소코드;
-					jijum_Gubun =  "수위관측소" ;
-				}else if(layerId == "16"){
-					parentChcek = "D002"; // 우량관측소
-					jijum_Name = jijum.관측소명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.관측소코드;
-					jijum_Gubun =  "우량관측소" ;
-				}else if(layerId == "17"){
-					parentChcek = "D003"; // 유량관측소
-					jijum_Name = jijum.관측소명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.관측소코드;
-					jijum_Gubun =  "유량관측소" ;
-				}else if(layerId == "18"){
-					parentChcek = "D004"; // 댐관측소
-					jijum_Name = jijum.관측소명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.관측소코드;
-					jijum_Gubun =  "댐관측소" ;
-				}else if(layerId == "19"){
-					parentChcek = "D005"; // AWS기상관측소
-					jijum_Name = jijum.관측소명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.관측소코드;
-					jijum_Gubun =  "AWS기상관측소" ;
-				}else if(layerId == "20"){
-					parentChcek = "D006"; // 지상기상관측소
-					jijum_Name = jijum.관측소명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.관측소코드;
-					jijum_Gubun =  "지상기상관측소" ;
-				}else if(layerId == "21"){
-					parentChcek = "D007"; // 보관측소
-					jijum_Name = jijum.보명;
-					jijum_Addr = "";	// 값없음
-					jijum_Cd = "";		// 값없음
-					jijum_Gubun =  "보관측소" ;
-				}else if(layerId == "23"){
-					parentChcek = "E001"; // 수생태계조사지점
-					jijum_Name = jijum.조사지명;
-					jijum_Addr = "";//값없음
-					jijum_Cd = jijum.조사지코드;
-					jijum_Gubun =  "수생태계조사지점" ;
-				}else if(layerId == "31"){
-					parentChcek = "F001"; // 농공단지처리시설
-					jijum_Name = jijum.시설명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.시설코드;
-					jijum_Gubun =  "농공단지처리시설" ;
-				}else if(layerId == "32"){
-					parentChcek = "F002"; // 기타공동처리시설
-					jijum_Name = jijum.시설명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.시설코드;
-					jijum_Gubun =  "기타공동처리시설" ;
-				}else if(layerId == "28"){
-					parentChcek = "F003"; // 분뇨처리시설
-					jijum_Name = jijum.시설명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.시설코드;
-					jijum_Gubun =  "분뇨처리시설" ;
-				}else if(layerId == "27"){
-					parentChcek = "F004"; // 산업폐수종말처리시설
-					jijum_Name = jijum.시설명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.시설코드;
-					jijum_Gubun =  "산업폐수종말처리시설" ;
-				}else if(layerId == "25"){
-					parentChcek = "F006"; // 축산폐수공공처리시설
-					jijum_Name = jijum.시설명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.시설코드;
-					jijum_Gubun =  "축산폐수공공처리시설" ;
-				}else if(layerId == "30"){
-					parentChcek = "F007"; // 마을하수도
-					jijum_Name = jijum.시설명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.시설코드;
-					jijum_Gubun =  "마을하수도" ;
-				}else if(layerId == "26"){
-					parentChcek = "F009"; // 하수종말처리시설
-					jijum_Name = jijum.시설명;
-					jijum_Addr = jijum.주소;
-					jijum_Cd = jijum.시설코드;
-					jijum_Gubun =  "하수종말처리시설" ;
+					parentCheck = layer01Info[0].layerCode;
+					jijum_Name = eval("jijum." + layer01Info[0].siteNmCol);
+					jijum_Addr = eval("jijum." + layer01Info[0].siteAddrCol);
+					jijum_Cd = eval("jijum." + layer01Info[0].siteIdCol);
+					jijum_Gubun = layer01Info[0].text;
 				}
 				
 				//시작지점 끝지점 처리및 지점명 삽입
@@ -425,7 +277,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				me.moveGraphicLayer.clear();
 				me.moveGraphicLayer.id = "moveGraphicLayer" + siteId;
-				
+				console.info(url);
 				if(clickValue == "none"){
 					var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
 					    "angle": 0,
@@ -523,15 +375,15 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 						"        <dt>주소 :</dt>                                                                                                                                                            "+
 						"        <dd>"+jijum_Addr+"</dd>                                                                                       "+
 						"    </dl>                                                                                                                                                                          "+
-						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"','"+parentChcek+"');\" /></a>"+
+						"    <a href=\"#\"><img src=\"./resources/images/popup/btn_detailView.gif\"  onClick=\"ShowWindowSiteNChart(1,'"+jijum_Cd+"','"+jijum_Name+"','"+parentCheck+"');\" /></a>"+
 						"    <ul>                                                                                                                                                                           "+
 						"    	<li style=\"float: left;\">                                                                                                                                                   "+
-						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+parentChcek+"');\" /></a>                                                                                                                    "+
-						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResult('"+jijum_Cd+"','','"+jijum_Name+"','grid_"+jijum_Cd+"','','"+parentChcek+"');\" /></a>                                                                                                                  "+
+						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_chart.gif\"  onClick=\"ShowWindowSiteNChart(0,'"+jijum_Cd+"','"+jijum_Name+"','"+parentCheck+"');\" /></a>                                                                                                                    "+
+						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_data.gif\" onClick=\"ShowSearchResult('"+jijum_Cd+"','','"+jijum_Name+"','grid_"+jijum_Cd+"','','"+parentCheck+"');\" /></a>                                                                                                                  "+
 						"        </li>                                                                                                                                                                   "+
 						"        <li id =\"reachTable\"  style=\"float: right; padding-right: 25px;\">                                                                                                                          "+
-						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'start' );\"  /></a>                                                                                                                "+
-						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_endSpot.gif\"   onClick=\"siteMovePoint('"+parentChcek+"','"+jijum_Cd+"' , 'end' );\"  /></a>                                                                                                               "+
+						"        	<a href=\"#\"><img src=\"./resources/images/popup/btn_startSpot.gif\"  onClick=\"siteMovePoint('"+parentCheck+"','"+jijum_Cd+"' , 'start' );\"  /></a>                                                                                                                "+
+						"            <a href=\"#\"><img src=\"./resources/images/popup/btn_endSpot.gif\"   onClick=\"siteMovePoint('"+parentCheck+"','"+jijum_Cd+"' , 'end' );\"  /></a>                                                                                                               "+
 						"        </li>                                                                                                                                                                      "+
 						"    </ul>                                                                                                                                                                          "+
 						"</div>                                                                                                                                                                             "+
@@ -556,31 +408,29 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					var symbol = null;
 					
 					if(clickValue == "start"){
-						// 심볼설정
-						//coreMap.reachLayerAdmin_v3.startSymbol.url = coreMap.reachLayerAdmin_v3.getStartSymbolUrl();
-						//coreMap.reachLayerAdmin_v3.startSymbol.width = 48;
-						//coreMap.reachLayerAdmin_v3.startSymbol.height = 38;
-						
 						btnId = "btnMenu04";
-						symbol = coreMap.reachLayerAdmin_v3_New.startSymbol;
+						_krad.drawOption = "startPoint";
 					}
 					if(clickValue == "end"){
-						// 심볼설정
-						//coreMap.reachLayerAdmin_v3.endSymbol.url = coreMap.reachLayerAdmin_v3.getEndSymbolUrl();
-						//coreMap.reachLayerAdmin_v3.endSymbol.width = 48;
-						//coreMap.reachLayerAdmin_v3.endSymbol.height = 38;
-		    			
 						btnId = "btnMenu05";
-						symbol = coreMap.reachLayerAdmin_v3_New.endSymbol;
+						_krad.drawOption = "endPoint";
 					}
-
-					coreMap.reachLayerAdmin_v3_New.drawEnd(btnId);
-					coreMap.reachLayerAdmin_v3_New.drawSymbol(point, symbol, clickValue); // 심볼 그리기
-					coreMap.reachLayerAdmin_v3_New.selectNodeWithEvent(point, clickValue); // 라인 검색
 					
-					var currCtl = Ext.getCmp(btnId);
-					if(currCtl != undefined && currCtl.btnOnOff == "on")
-						SetBtnOnOff(btnId);
+					initKradEvt();
+					me.btnObj = SetBtnOnOff(btnId, "off");
+					_krad.mapClickEvt = {mapPoint: point};
+					// 검색설정 JSON 셋팅 (_krad.searchConfigInfoJson)
+					_krad.getSearchConfigInfo();
+	    			
+	    			/* 검색설정 "상류" 체크 시 */
+	    			if(_krad.searchConfigInfoJson.isUpDraw == true){
+	    				
+	    				_rchUpSearch.searchWithEvent(point);
+	    			}
+	    			else{ /* 검색설정 "상류" 체크 시 끝 */
+			    			
+	    				_krad.setRchIdsWithEvent();
+	    			}
 					
 					closePopSiteInfo(); // 툴팁 닫기
 				}

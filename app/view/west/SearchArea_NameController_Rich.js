@@ -94,57 +94,17 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 					
 					if(result.features[i].attributes.LAYER_NM != guBunNm){
 							
-							
-							//iconCls 에 아이콘정보를 가져오기 위해 LAYER_CODE를 이용해 cls값의 layer번호를 구한다
-							var layerId = "";
 							var layerCode = result.features[i].attributes.LAYER_CODE;
 							
-							if(layerCode == "A001"){
-								layerId = "layer1";
-							}else if(layerCode == "A002"){
-								layerId = "layer2";
-							}else if(layerCode == "A003"){
-								layerId = "layer3";
-							}else if(layerCode == "A004"){
-								layerId = "layer4";
-							}else if(layerCode == "A005"){
-								layerId = "layer5";
-							}else if(layerCode == "B002"){
-								layerId = "layer11"; // 사업장TMS
-							}else if(layerCode == "C001"){
-								layerId = "layer13"; // 퇴적물
-							}else if(layerCode == "D001"){
-								layerId = "layer15"; // 수위관측소
-							}else if(layerCode == "D002"){
-								layerId = "layer16"; // 우량관측소
-							}else if(layerCode == "D003"){
-								layerId = "layer17"; // 유량관측소
-							}else if(layerCode == "D004"){
-								layerId = "layer18"; // 댐관측소
-							}else if(layerCode == "D005"){
-								layerId = "layer19"; // AWS기상관측소
-							}else if(layerCode == "D006"){
-								layerId = "layer20"; // 지상기상관측소
-							}else if(layerCode == "D007"){
-								layerId = "layer21"; // 보관측소
-							}else if(layerCode == "E001"){
-								layerId = "layer23"; // 수생태계조사지점
-							}else if(layerCode == "F001"){
-								layerId = "layer31"; // 농공단지처리시설
-							}else if(layerCode == "F002"){
-								layerId = "layer32"; // 기타공동처리시설
-							}else if(layerCode == "F003"){
-								layerId = "layer28"; // 분뇨처리시설
-							}else if(layerCode == "F004"){
-								layerId = "layer27"; // 산업폐수종말처리시설
-							}else if(layerCode == "F006"){
-								layerId = "layer25"; // 축산폐수공공처리시설
-							}else if(layerCode == "F007"){
-								layerId = "layer30"; // 마을하수도
-							}else if(layerCode == "F008"){
-								layerId = "layer26"; // 하수종말처리시설
+							/* 레이어 정보 가져오기 */
+							var layer01Info = getLayer01Info("layerCode", layerCode, null, null);
+							var iconCls = "";
+							if(layer01Info.length > 0){
+								iconCls = layer01Info[0].iconCls;
 							}
-							
+							else{
+								console.info(layerCode + "에 해당하는 iconCls가 없습니다. Layer01Data.json 확인 요함.")
+							}
 							
 							listCtl.addCls('dj_accordion');
 							listCtl.add({
@@ -156,7 +116,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 								cls: 'dj_layer_nm',
 								title :  '&nbsp;' + result.features[i].attributes.LAYER_NM +'&nbsp; (Count)' ,
 								layerCd : layerCode,
-								iconCls: 'layerIconSize '+layerId+''
+								iconCls: iconCls
 							});
 							
 							//console.info(layerCnt);

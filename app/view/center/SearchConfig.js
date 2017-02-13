@@ -141,7 +141,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		var searchConfigInfo = localStorage['_searchConfigInfo_'];
 		// 체크박스 컨트롤 배열
 		var chkCtls = this.query("checkbox");
-		console.info(searchConfigInfo);
+		//console.info(searchConfigInfo);
 		if(chkCtls != undefined && chkCtls != null){
 			
 			// 로컬 스토리지 존재하면
@@ -181,6 +181,24 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		}
 		
 		localStorage['_searchConfigInfo_'] = JSON.stringify(jsonObj);
-		console.info(localStorage['_searchConfigInfo_']);
+	},
+	getLocalStorage: function(){
+		
+		// 로컬 스토리지
+		var searchConfigInfo = localStorage['_searchConfigInfo_'];
+		var searchConfigInfoJson = null;
+		
+		if(searchConfigInfo != undefined && searchConfigInfo != null){
+			
+			searchConfigInfoJson = JSON.parse(searchConfigInfo);
+		}
+		else{
+			
+			// 로컬 스토리지 셋팅
+			this.setLocalStorage();
+			searchConfigInfoJson = JSON.parse(localStorage['_searchConfigInfo_']);
+		}
+		
+		return searchConfigInfoJson;
 	}
 });

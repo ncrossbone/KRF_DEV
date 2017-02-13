@@ -62,8 +62,18 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
         	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
+        	
         	// KRAD 전역 Object Setting
         	_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
+        	// 검색설정 "상류" 검색 전역 Object Setting
+        	_rchUpSearch = Ext.create('KRF_DEV.view.map.SearchReachUp');
+        	// 리치라인 전역 Object Setting
+        	_rchLine = Ext.create('KRF_DEV.view.map.SearchReachLine');
+        	// 집수구역 전역 Object Setting
+        	_rchArea = Ext.create('KRF_DEV.view.map.SearchReachArea');
+        	// 리치노드 전역 Object Setting
+        	_rchNode = Ext.create('KRF_DEV.view.map.SearchReachNode');
+        	
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	
         	// 전역 변수 설정 KRF_DEV.getApplication().coreMap

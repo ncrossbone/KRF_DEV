@@ -1457,55 +1457,24 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	var layerId = "";
 	
 	if(parentNodeId == "Cat"){ // 집수구역
+		
 		layerId = _reachAreaLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
 		layerId = _reachLineLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedRchLine', layerId, nodeId);
 		return;
-	}else if(parentNodeId == "A001"){
-		layerId = "1";
-	}else if(parentNodeId == "A002"){
-		layerId = "2";
-	}else if(parentNodeId == "A003"){
-		layerId = "3";
-	}else if(parentNodeId == "A004"){
-		layerId = "4";
-	}else if(parentNodeId == "A005"){
-		layerId = "5";
-	}else if(parentNodeId == "B002"){
-		layerId = "11"; // 사업장TMS
-	}else if(parentNodeId == "C001"){
-		layerId = "13"; // 퇴적물
-	}else if(parentNodeId == "D001"){
-		layerId = "15"; // 수위관측소
-	}else if(parentNodeId == "D002"){
-		layerId = "16"; // 우량관측소
-	}else if(parentNodeId == "D003"){
-		layerId = "17"; // 유량관측소
-	}else if(parentNodeId == "D004"){
-		layerId = "18"; // 댐관측소
-	}else if(parentNodeId == "D005"){
-		layerId = "19"; // AWS기상관측소
-	}else if(parentNodeId == "D006"){
-		layerId = "20"; // 지상기상관측소
-	}else if(parentNodeId == "D007"){
-		layerId = "21"; // 보관측소
-	}else if(parentNodeId == "E001"){
-		layerId = "23"; // 수생태계조사지점
-	}else if(parentNodeId == "F001"){
-		layerId = "31"; // 농공단지처리시설
-	}else if(parentNodeId == "F002"){
-		layerId = "32"; // 기타공동처리시설
-	}else if(parentNodeId == "F003"){
-		layerId = "28"; // 분뇨처리시설
-	}else if(parentNodeId == "F004"){
-		layerId = "27"; // 산업폐수종말처리시설
-	}else if(parentNodeId == "F006"){
-		layerId = "25"; // 축산폐수공공처리시설
-	}else if(parentNodeId == "F007"){
-		layerId = "30"; // 마을하수도
-	}else if(parentNodeId == "F008"){
-		layerId = "26"; // 하수종말처리시설
+	}else{
+		
+		/* 레이어 정보 가져오기 */
+		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
+		console.info(parentNodeId);
+		console.info(layer01Info);
+		if(layer01Info.length > 0){
+			layerId = layer01Info[0].id;
+		}
+		else{
+			console.info(parentNodeId + "에 해당하는 레이어 아이디가 없습니다. Layer01Data.json 확인 요함.")
+		}
 	}
 	
 	// 피처 레이어 생성/갱신
@@ -2125,3 +2094,42 @@ postCall = function(outObjInfos, width, height, fileName){
 		console.info(e);
 	});
 }
+
+/* 레이어 정보(Layer01Data.json) 가져오기 */
+getLayer01Info = function(attrName, attrValue, childNodes, layer01Infos){
+	
+	if(childNodes == undefined || childNodes == null){
+		
+		childNodes = Ext.getCmp("layer01").store.data.items;
+	}
+	
+	if(layer01Infos == undefined || layer01Infos == null){
+		
+		layer01Infos = [];
+	}
+	
+	for(var i = 0; i < childNodes.length; i++){
+		
+		var data = childNodes[i].data;
+		
+		if(eval("data." + attrName) == attrValue){
+			
+			var infoIdx = layer01Infos.indexOf(data);
+			
+			if(infoIdx == -1){
+				
+				layer01Infos.push(data);
+			}
+		}
+		
+		var tmpChilds = childNodes[i].childNodes;
+		
+		if(tmpChilds != undefined && tmpChilds.length > 0){
+			
+			getLayer01Info(attrName, attrValue, tmpChilds, layer01Infos);
+		}
+	}
+	
+	return layer01Infos;
+}
+/* 레이어 정보(Layer01Data.json) 가져오기 끝 */

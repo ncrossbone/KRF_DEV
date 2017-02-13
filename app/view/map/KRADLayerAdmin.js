@@ -53,6 +53,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	isSearchStop: false, // 검색 종료 플래그
 	clickPopBtnId: "", // 클릭된 컨텍스트 메뉴 버튼 아이디
 	
+	searchConfigInfoJson: null, // 검색설정 JSON
+	
 	constructor: function(map) {
 		
 		var me = this;
@@ -333,6 +335,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    				// 이벤트 초기화
 				    				initKradEvt();
 				    				me.isShowPopup = false;
+				    				SetBtnOnOff(btnId, "off");
+				    				return;
 				    			}
 				    			else{
 				    				
@@ -356,14 +360,26 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			    			// 오른버튼 컨텍스트 메뉴 풀기
 			    			//document.oncontextmenu = null;
 			    			//console.info(me.isShowPopup);
-				    		if(me.isShowPopup == true){
-				    			
-				    			me.setRchIdsWithEvent();
-				    		}
-				    		else{
-				    			
-				    			me.closePopup();
-				    		}
+			    			
+			    			// 검색설정 JSON 셋팅 (_krad.searchConfigInfoJson)
+			    			me.getSearchConfigInfo();
+			    			
+			    			/* 검색설정 "상류" 체크 시 */
+			    			if(_krad.searchConfigInfoJson.isUpDraw == true){
+			    				
+			    				_rchUpSearch.searchWithEvent(evt);
+			    			}
+			    			else{ /* 검색설정 "상류" 체크 시 끝 */
+			    				
+			    				if(me.isShowPopup == true){
+					    			
+					    			me.setRchIdsWithEvent();
+					    		}
+					    		else{
+					    			
+					    			me.closePopup();
+					    		}
+			    			}
 			    		}
 			    	});
 		    	});
@@ -973,16 +989,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				me.edEvtTypes.push(eventType);
 			}
 			
-			/* khLee 검색설정 상류 조회 로직 추가 */
-			
 			if(rchDid != ""){
 				
-				/* 하류 및 공통하류 셋팅 */
+				// 하류 및 공통하류 셋팅 
 				me.setDownAndComm([rchDid], [], 0, "RCH_DID");
 			}
 			else{
 				
-				/* 하류 및 공통하류 셋팅 */
+				// 하류 및 공통하류 셋팅 
 				me.setDownAndComm(rchIds, [], 0, "RCH_ID");
 			}
 		}
@@ -1016,6 +1030,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	        	SetBtnOnOff(btnId, "off");
 	    	});
     	}
+    },
+    removeLastSymbol: function(){
+    	
+    	// 마지막 심볼 삭제
+		this.symGrpLayer.remove(this.symGrpLayer.graphics[this.symGrpLayer.graphics.length - 1]);
     },
     chkGeoTrib: function(geoTrib){
     	
@@ -1216,7 +1235,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						    					
 						    					alert("선택된 시작위치, 끝위치 사이에 본류가 흐르지 않습니다.\r\n검색설정을 확인하세요.");
 						    					// 마지막 심볼 삭제
-						    					me.symGrpLayer.remove(me.symGrpLayer.graphics[me.symGrpLayer.graphics.length - 1]);
+						    					me.removeLastSymbol();
 						    					return;
 						    				}
 						    				else{
@@ -1235,8 +1254,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    					
 				    					alert("위치간 만나는 하류가 없습니다.");
 				    					// 마지막 심볼 삭제
-				    					me.symGrpLayer.remove(me.symGrpLayer.graphics[me.symGrpLayer.graphics.length - 1]);
-				    					
+				    					me.removeLastSymbol();
 				    					return;
 				    				}
 				    			}
@@ -1267,35 +1285,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     /* 상류 리치라인 조회 및 그리기
      * rchDid: 검색될 리치 아이디(DID)
      * cnt: 상류검색 카운트 */
-    setReachUpLine: function(rchDid, cnt, isSearchStop){
+    setReachUpLine: function(rchDid, cnt){
     	
     	var me = this;
     	
     	/* 초기화 시 검색 종료 */
-    	if(cnt == 0){
-    		
-    		me.isSearchStop = false;
-    	}
-    	
-    	if(me.isSearchStop == true){
-    		
-    		var sec = 0;
-    		var timer = setInterval(function(){
-    			
-    			sec++;
-    			ResetButtonClick();
-    			
-    			// 2초 후 검색 종료 플래그 변경
-    			if(sec >= 2){
-    				
-    				clearInterval(timer);
-    				me.isSearchStop = false;
-    			}
-    		}, 1000);
-    		
-    		return;
-    	}
-    	/* 초기화 시 검색 종료 끝 */
+    	if(me.searchStopCheck(cnt) == false){ return false };
     	
     	me.searchCnt++; // 검색 카운트 증가
 
@@ -1417,6 +1412,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					}
 					/* 검색, 그리기 조건 설정 끝 */
 					
+					var isGeoTrib = me.chkGeoTrib(geoTrib);
+					if(isGeoTrib == false){
+						evtType = "none";
+					}
+					
 					// 이벤트 타입에 따라 그리기 유형 다르게..
 					if(evtType == "Reach"){
 						
@@ -1463,7 +1463,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    				if(luRchDid != undefined && luRchDid.trim() != ""){
 	    					
 		    				// 좌측 상류 검색 (재귀호출)
-							me.setReachUpLine(luRchDid, cnt, isSearchStop);
+							me.setReachUpLine(luRchDid, cnt);
 	    				}
 						
 	    				var ruRchDid = feature.attributes.RU_RCH_DID;
@@ -1471,7 +1471,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    				if(ruRchDid != undefined && ruRchDid.trim() != ""){
 	    					
 	    					// 우측 상류 검색 (재귀호출)
-	    					me.setReachUpLine(ruRchDid, cnt, isSearchStop);
+	    					me.setReachUpLine(ruRchDid, cnt);
 	    				}
 					}
 					else{
@@ -2002,5 +2002,42 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	reachAdmin.arrLineGrp = []; // 기존 리치 라인 그래픽 배열
     	reachAdmin.arrAreaGrp = []; // 기존 리치 집수구역 그래픽 배열
+    },
+    searchStopCheck: function(cnt){
+    	
+    	var me = this;
+    	
+    	/* 초기화 시 검색 종료 */
+    	if(cnt == 0){
+    		
+    		me.isSearchStop = false;
+    	}
+    	
+    	if(me.isSearchStop == true){
+    		
+    		var sec = 0;
+    		var timer = setInterval(function(){
+    			
+    			sec++;
+    			ResetButtonClick(); // 초기화
+    			
+    			// 2초 후 검색 종료 플래그 변경
+    			if(sec >= 2){
+    				
+    				clearInterval(timer);
+    				me.isSearchStop = false;
+    			}
+    		}, 1000);
+    		
+    		return false;
+    	}
+    	/* 초기화 시 검색 종료 끝 */
+    	
+    	return true;
+    },
+    getSearchConfigInfo: function(){
+    	
+    	var searchConfig = Ext.getCmp("searchConfig");
+    	this.searchConfigInfoJson = searchConfig.getLocalStorage();
     }
 });
