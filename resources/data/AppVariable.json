@@ -10,10 +10,11 @@
 	"reachTestServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
 	"dimServiceUrl" : "http://112.217.167.123:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
 	"dimServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
-	"baseMapUrl_vworld": "http://xdworld.vworld.kr:8080/2d/Base/201301/#level#/#col#/#row#.png", // 배경맨 서비스 (아래 외부, 내부, 테스트 중 택일)
-	"baseMapUrl_vworld_http": "http://xdworld.vworld.kr:8080/2d/Base/201301/#level#/#col#/#row#.png", // 배경맨 서비스 외부 (참고용)
-	"baseMapUrl_vworld_intra": "http://10.101.95.129/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맨 서비스 내부 (참고용)
-	"baseMapUrl_vworld_test": "http://112.218.1.243:20080/2d/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맨 서비스 테스트 서버 (참고용)
+	"baseMapUrl_vworld": "http://xdworld.vworld.kr:8080/2d/Base/201612/#level#/#col#/#row#.png", // 배경맵 서비스 (아래 외부, 내부, 테스트 중 택일)
+	"baseMapUrl_vworld_http": "http://xdworld.vworld.kr:8080/2d/Base/201612/#level#/#col#/#row#.png", // 배경맵 서비스 외부 (참고용)
+	"baseMapUrl_vworld_intra": "http://10.101.95.129/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맵 서비스 내부 (참고용)
+	"baseMapUrl_vworld_test": "http://112.218.1.243:20080/2d/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맵 서비스 테스트 서버 (참고용)
+	"baseMapUrl_vworld_old": "http://xdworld.vworld.kr:8080/2d/Base/201301/#level#/#col#/#row#.png", // 배경맵 서비스 예전버전 2013년
 	"reachFlowLayerId" : "48", // 리치흐름 레이어 아이디
 	"reachNodeLayerId" : "49", // 리치노드 레이어 아이디
 	"reachLineLayerId" : "50", // 리치라인 레이어 아이디
