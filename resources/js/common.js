@@ -1,6 +1,11 @@
 //  버튼 on/off
 SetBtnOnOff = function(btnId, strOnOff){
 	var currCtl = Ext.getCmp(btnId);
+	
+	if(currCtl == undefined){
+		return;
+	}
+	
 	var parentCtl = currCtl.findParentByType('container');
 	var items = parentCtl.items.items;
 	var groupCnt = 0;
@@ -1542,6 +1547,20 @@ ResetButtonClick = function(){
 	txtBox.setValue("");
 	
 	_krad.isSearchStop = true;
+	
+	// 항공영상 초기화
+	KRF_DEV.global.DroneFn.onClickResetButton();
+	
+	// 항공영상 On/Off
+	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
+	var droneCtl = Ext.getCmp("droneToolbar");
+	//console.info(droneCtl);
+	// 항공영상 tool 숨기기
+	if(currCtl.btnOnOff == "on"){
+		droneCtl.show();
+	}else{
+		droneCtl.hide();
+	}
 }
 
 // 주제도 레이어 on/off
