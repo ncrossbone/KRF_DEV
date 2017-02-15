@@ -162,7 +162,8 @@ kradStore.load(function(a, b, c) {
  */
 Ext.application({
 	name : 'KRF_DEV',
-	requires: ["KRF_DEV.global.Obj"],
+	requires: ["KRF_DEV.global.Obj",
+				"KRF_DEV.global.DroneFn"],
 	
 	// extend: 'KRF_DEV.Application',
 

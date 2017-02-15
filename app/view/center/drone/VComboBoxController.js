@@ -10,63 +10,9 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	//초기화 버튼
 	onClickResetButton: function(){
 
-		var me = Ext.getCmp('_mapDiv_');
-		if(me.map == null){
-			return;
-		}
 		
-		//맵 불러오기
-		var activeLayer = me.map.getLayer("DynamicLayer3");
-		activeLayer.setVisibility(false);
-		
-		
-		activeLayer= "";
-		var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
-		
-		if(cboDroneArea.lastValue == "R02"){
-			activeLayer = me.map.getLayer("DroneFeatureLayer1");
-		}else if(cboDroneArea.lastValue == "R01_1"){
-			activeLayer = me.map.getLayer("DroneFeatureLayer2");
-		}else if(cboDroneArea.lastValue == "R01_2"){
-			activeLayer = me.map.getLayer("DroneFeatureLayer3");
-		}else if(cboDroneArea.lastValue == "R04"){
-			activeLayer = me.map.getLayer("DroneFeatureLayer4");
-		}else{
-			activeLayer = me.map.getLayer("DroneFeatureLayer5");
-		}
-		
-		if(activeLayer != undefined && activeLayer != null)
-			activeLayer.setVisibility(false);
-		
-		
-		
-		var me = Ext.getCmp("droneToolbar");
-		
-		// 수계선택 초기화
-		var cboDroneArea = Ext.getCmp("cboDroneArea");
-		me.initVComboBox(cboDroneArea);
-		
-		// 지점목록 초기화
-		var cboDroneSiteList = Ext.getCmp("cboDroneSiteList");
-		me.initVComboBox(cboDroneSiteList);
-		// 항공영상 초기화
-		var cboDroneDate = Ext.getCmp("cboDroneDate");
-		me.initVComboBox(cboDroneDate);
-		
-		// 클로로필a 초기화
-		var cboDroneChla = Ext.getCmp("cboDroneChla");
-		me.initVComboBox(cboDroneChla);
-		
-		// 조류측정자료 초기화
-		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
-		me.initVComboBox(cboDroneWBSite);
-		
-		// 레이어선택 초기화
-		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
-		me.initVComboBox(cboDroneLayer);
-		
-		this.LayerVisibility();
-	
+		KRF_DEV.global.DroneFn.onClickResetButton();
+		KRF_DEV.global.DroneFn.LayerVisibility();
 	},
 	// 수계선택 Change Event
 	onAreaChange: function(item, newValue, oldValue, evt){
@@ -171,7 +117,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			this.SetFeatureLayer(drone);
 			
 			
-			this.LayerVisibility();
+			KRF_DEV.global.DroneFn.LayerVisibility();
 		    
 			
 			
@@ -197,7 +143,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			this.SetFeatureLayer(dateValue);
 			
 			
-			this.LayerVisibility();
+			KRF_DEV.global.DroneFn.LayerVisibility();
 		    
 			
 			
@@ -304,7 +250,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var store = cboDroneLayer.getStore();
 		store.insert(index, record);
 		
-		this.LayerVisibility();
+		KRF_DEV.global.DroneFn.LayerVisibility();
 	},
 	
 	// Combo Item Click 시 아무것도 안하는 펑션..
