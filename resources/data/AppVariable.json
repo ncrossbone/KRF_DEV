@@ -63,6 +63,16 @@
 		"colName": "측정소코드",
 		"layerName": "도시관류"
 	}, {
+		"stationType": "CA",
+		"layerId": "13",
+		"colName": "측정소코드",
+		"layerName": "퇴적물"
+	}, {
+		"stationType": "CB",
+		"layerId": "13",
+		"colName": "측정소코드",
+		"layerName": "퇴적물"
+	}, {
 		"stationType": "DA",
 		"layerId": "16",
 		"colName": "관측소코드",
