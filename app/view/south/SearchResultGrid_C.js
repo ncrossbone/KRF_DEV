@@ -107,7 +107,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				width: 110,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, {
-				text : '수심(m)',
+				text : '최고수심',
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'ITEM_DOW_VAL',
@@ -144,11 +144,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
-			},{
-				text : '수온(℃)',
+			}, {
+				text : '표층-수심',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'ITEM_TEMP_VAL',
+					dataIndex: 'ITEM_DOW_SURF_VAL',
 					width: 100,
 					renderer: function(value){
 						return Ext.util.Format.number(value, '0.0');
@@ -157,7 +157,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'ITEM_TEMP_GRAPH',
+					dataIndex: 'ITEM_DOW_SURF_GRAPH',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -178,106 +178,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
-						chartRangeMax: 13.2,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			},{
-				text : 'DO(㎎/L)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'ITEM_DO_VAL',
-					width: 100,
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'ITEM_DO_GRAPH',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
-						    '</tpl>',
-						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
-						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
-						        }
-						    }
-						),
-						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
-						chartRangeMax: 17.6,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			},{
-				text : 'pH',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'ITEM_PH_VAL',
-					width: 100,
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.0');
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'ITEM_PH_GRAPH',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
-						    '</tpl>',
-						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
-						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.0');
-						            return yVal;
-						        }
-						    }
-						),
-						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
-						chartRangeMax: 9.9,
-						chartRangeMin: 0,
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
-				text : '전기전도도(SC)(25℃ μS/㎝)',
+				text : '표층 수온',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'ITEM_EC_VAL',
+					dataIndex: 'ITEM_TEMP_SURF_VAL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0');
+						return Ext.util.Format.number(value, '0.0');
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'ITEM_EC_GRAPH',
+					dataIndex: 'ITEM_TEMP_SURF_GRAPH',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -292,14 +210,354 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 							    	return xVal;
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
 						            return yVal;
 						        }
 						    }
 						),
-						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 418.0,
-						chartRangeMin: 0,
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '표층-DO',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_DO_SURF_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_DO_SURF_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '표층-ph',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_PH_SURF_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_PH_SURF_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '표층-전기전도도',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_EC_SURF_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_EC_SURF_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '저층-수심',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_DOW_LOW_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_DOW_LOW_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '저층-수온',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_TEMP_LOW_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_TEMP_LOW_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '저층-DO',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_DO_LOW_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_DO_LOW_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '저층-ph',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_PH_LOW_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_PH_LOW_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '저층-전기전도도',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_EC_LOW_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_EC_LOW_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
+						spotRadius: 1,
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '투명도',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'ITEM_TRANSPARENCY_VAL',
+					width: 100,
+					renderer: function(value){
+						return Ext.util.Format.number(value, '0.0');
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'ITEM_TRANSPARENCY_GRAPH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
+						    '</tpl>',
+						    {
+							    formatX: function(xVal){
+							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
+							    	return xVal;
+							    },
+						        formatY: function(yVal){
+						        	yVal = Ext.util.Format.number(yVal, '0.0');
+						            return yVal;
+						        }
+						    }
+						),
+						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
 						spotRadius: 1,
 						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}

@@ -28,7 +28,7 @@ try{
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
 	
-sql = " SELECT A.PT_NO                                                                																																																				";
+sql = " SELECT A.PT_NO                                                                																									";
 sql += "     , A.NO    /* 순번 참고용 */                                                                                                                                                      ";
 sql += "     , A.PT_NM /* 측정소명 */                                                                                                                                                         ";
 sql += "     , A.WMYR  /* 년도 */                                                                                                                                                             ";
@@ -413,47 +413,36 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	
 	String ITEM_DOW_SURF_VAL = "";
 	JSONArray ITEM_DOW_SURF_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_TEMP_SURF_VAL = "";
 	JSONArray ITEM_TEMP_SURF_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_DO_SURF_VAL = "";
 	JSONArray ITEM_DO_SURF_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_PH_SURF_VAL = "";
 	JSONArray ITEM_PH_SURF_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_EC_SURF_VAL = "";
 	JSONArray ITEM_EC_SURF_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_DOW_LOW_VAL = "";
 	JSONArray ITEM_DOW_LOW_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_TEMP_LOW_VAL = "";
 	JSONArray ITEM_TEMP_LOW_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_DO_LOW_VAL = "";
 	JSONArray ITEM_DO_LOW_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_PH_LOW_VAL = "";
 	JSONArray ITEM_PH_LOW_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_EC_LOW_VAL = "";
 	JSONArray ITEM_EC_LOW_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	String ITEM_TRANSPARENCY_VAL = "";
 	JSONArray ITEM_TRANSPARENCY_GRAPH = new JSONArray();
-	JSONArray Chart_Data_tmp = new JSONArray();
 	
 	
 	
@@ -635,10 +624,23 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	  		
 	  		WMCYMD_GRAPH = new JSONArray();
 	  		ITEM_DOW_GRAPH = new JSONArray();
-	  		ITEM_TEMP_GRAPH = new JSONArray();
+	  		
+	  		ITEM_DOW_SURF_GRAPH = new JSONArray();
+	  		ITEM_TEMP_SURF_GRAPH = new JSONArray();
+	  		ITEM_DO_SURF_GRAPH = new JSONArray();
+	  		ITEM_PH_SURF_GRAPH = new JSONArray();
+	  		ITEM_EC_SURF_GRAPH = new JSONArray();
+	  		ITEM_DOW_LOW_GRAPH = new JSONArray();
+	  		ITEM_TEMP_LOW_GRAPH = new JSONArray();
+	  		ITEM_DO_LOW_GRAPH = new JSONArray();
+	  		ITEM_PH_LOW_GRAPH = new JSONArray();
+	  		ITEM_EC_LOW_GRAPH = new JSONArray();
+	  		ITEM_TRANSPARENCY_GRAPH = new JSONArray();
+	  		
+	  		/* ITEM_TEMP_GRAPH = new JSONArray();
 	  		ITEM_DO_GRAPH  = new JSONArray();
 	  		ITEM_PH_GRAPH  = new JSONArray();
-	  		ITEM_EC_GRAPH  = new JSONArray();
+	  		ITEM_EC_GRAPH  = new JSONArray(); */
 	  		ITEM_FSD_GRAPH  = new JSONArray();
 	  		ITEM_FST_GRAPH  = new JSONArray();
 	  		ITEM_FCL_GRAPH  = new JSONArray();
@@ -927,16 +929,16 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 		jsonRecord.put("JOSANAME",JOSANAME);
 		jsonRecord.put("ITEM_DOW_VAL",ITEM_DOW_VAL);
 		jsonRecord.put("ITEM_DOW_GRAPH",ITEM_DOW_GRAPH);
-		jsonRecord.put("ITEM_TEMP_VAL",ITEM_TEMP_VAL);
-		jsonRecord.put("ITEM_TEMP_GRAPH",ITEM_TEMP_GRAPH);
+		/* jsonRecord.put("ITEM_TEMP_VAL",ITEM_TEMP_VAL);
+		jsonRecord.put("ITEM_TEMP_GRAPH",ITEM_TEMP_GRAPH); */
 		
 		
 		
 		jsonRecord.put("ITEM_DOW_SURF_VAL",ITEM_DOW_SURF_VAL);
 		jsonRecord.put("ITEM_DOW_SURF_GRAPH",ITEM_DOW_SURF_GRAPH);
 		
-		jsonRecord.put("ITEM_TEMP_SURF_VAL",ITEM_DOW_SURF_VAL);
-		jsonRecord.put("ITEM_TEMP_SURF_GRAPH",ITEM_DOW_SURF_GRAPH);
+		jsonRecord.put("ITEM_TEMP_SURF_VAL",ITEM_TEMP_SURF_VAL);
+		jsonRecord.put("ITEM_TEMP_SURF_GRAPH",ITEM_TEMP_SURF_GRAPH);
 		
 		jsonRecord.put("ITEM_DO_SURF_VAL",ITEM_DO_SURF_VAL);
 		jsonRecord.put("ITEM_DO_SURF_GRAPH",ITEM_DO_SURF_GRAPH);
