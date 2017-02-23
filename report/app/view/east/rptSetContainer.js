@@ -85,7 +85,8 @@ Ext.define('Report.view.east.rptSetContainer', {
 						
 						paramCode = paramCode.substring(0, paramCode.length - 2);
 						//console.info(paramCode);
-						
+						 var radio = Ext.getCmp("rptRadio").lastValue.rb;
+						 
 						//var paramCode = "'" + "1001A15" + "','" + "1001A60" + "','" + "1001A85" + "','" + "1016A10" + "'";
 	    				var startYear = Ext.getCmp("cmbRptPeriodStYear").getValue();
 	    				//console.info(startYear);
@@ -102,7 +103,16 @@ Ext.define('Report.view.east.rptSetContainer', {
 	    					return;
 	    				}
 	    				
-						Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
+						if(radio=="1"){
+							console.info("lkjfsd");
+							Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
+						}else{
+							startYear = Ext.getCmp("cmbRptPeriodStYear").getValue() + "." + Ext.getCmp("cmbRptPeriodStMonth").getValue();
+							endYear = Ext.getCmp("cmbRptPeriodEdYear").getValue() + "." + Ext.getCmp("cmbRptPeriodEdMonth").getValue();
+							
+							Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
+						}
+						
 					}
 				}
 			}

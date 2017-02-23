@@ -10,14 +10,16 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 		load: function(store) {
 			
 			// console.info(opener.Ext.getCmp("siteListWindow").siteIds);
-			var siteIds = opener.Ext.getCmp("siteListWindow").siteIds;
+			
+			
+			var siteIds = parentObj.Ext.getCmp("siteListWindow").siteIds;
 			
 			// esri 스크립트 로드 될때까지 타이머
 			var timerId = window.setInterval(function(){
 			
 				//console.info(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId);
 				//var queryTask = new esri.tasks.QueryTask(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId); // 레이어 URL v3
-				var queryTask = new esri.tasks.QueryTask(opener._mapServiceUrl_v3 + '/' + opener._siteInfoLayerId); // 레이어 URL v3
+				var queryTask = new esri.tasks.QueryTask(parentObj._mapServiceUrl_v3 + '/' + parentObj._siteInfoLayerId); // 레이어 URL v3
 				var query = new esri.tasks.Query();
 				
 				// esri 스크립트 로드 됐을때 타이머 멈춤
@@ -119,7 +121,7 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 							jsonStr += "	}, ";
 						}); // 레이어 코드 루프 끝
 						
-						jsonStr = jsonStr.substring(0, jsonStr.length - 2);
+						jsonStr = jsonStr.substring(0, jsonStr.length - 1);
 					}); // 그룹 코드 루프 끝
 											
 					jsonStr = jsonStr.substring(0, jsonStr.length - 2);
@@ -127,7 +129,6 @@ Ext.define('Report.store.east.treeRptSiteListStore', {
 					jsonStr += "}]\n";
 					jsonStr += "}";
 					
-					//console.info(jsonStr);
 					
 					var jsonData = "";
 					jsonData = Ext.util.JSON.decode(jsonStr);

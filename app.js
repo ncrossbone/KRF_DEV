@@ -37,6 +37,14 @@ var _kradCatExtDataInfo = null;
 var _kradCatExtMetaData = null;
 var _paramInfo = null; // 물환경 상세자료검색에서 넘기는 파라메터 정보
 
+/* Reach, KRAD 관련 object */
+var _krad = null; // Reach검색, KRAD검색 관련 object (공통)
+var _rchUpSearch = null; // 상류검색 관련 object (검색설정 "상류" 체크 시)
+var _rchNode = null; // ReachNode검색 관련 object
+var _rchLine = null; // ReachLine검색 관련 object
+var _rchArea = null; // ReachArea검색 관련 object
+/* Reach, KRAD 관련 object 끝 */
+
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
 
@@ -160,7 +168,8 @@ kradStore.load(function(a, b, c) {
  */
 Ext.application({
 	name : 'KRF_DEV',
-	requires: ["KRF_DEV.global.Obj"],
+	requires: ["KRF_DEV.global.Obj",
+				"KRF_DEV.global.DroneFn"],
 	
 	// extend: 'KRF_DEV.Application',
 
@@ -181,7 +190,7 @@ Ext.application({
 	launch : function() {
 		
 		Ext.onReady(function(){
-
+			//console.info(encodeURIComponent("121342134|fsljdk|ffff"));
 			/* 물환경 상세조회 시 화면 이동 및 심볼 표시
 			 * station, stationType 필수 파라메터 */
 			var params = Ext.urlDecode(location.search.substring(1));
@@ -195,9 +204,10 @@ Ext.application({
 				
 				if(paramIdx > -1){
 					
+					var colNm = _paramInfo[paramIdx].colName;
 					var layerId = _paramInfo[paramIdx].layerId;
 					var siteIds = params.station.split("|");
-					var where = "측정소코드 IN (";
+					var where = colNm + " IN (";
 					
 					for(var i = 0; i < siteIds.length; i++){
 						
