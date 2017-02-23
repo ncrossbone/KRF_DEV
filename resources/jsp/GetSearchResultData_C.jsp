@@ -28,7 +28,7 @@ try{
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
 	
-sql += " SELECT A.PT_NO                                                                																																																				";
+sql = " SELECT A.PT_NO                                                                																																																				";
 sql += "     , A.NO    /* 순번 참고용 */                                                                                                                                                      ";
 sql += "     , A.PT_NM /* 측정소명 */                                                                                                                                                         ";
 sql += "     , A.WMYR  /* 년도 */                                                                                                                                                             ";
