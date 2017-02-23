@@ -1831,6 +1831,10 @@ setTooltipXY = function(){
 		xPx = xPx - popWidth / 2;
 		yPx = yPx - popHeight;
 		
+		// 이미지 사이즈 절반만큼 offset
+		xPx += 11;
+		yPx += 11;
+		
 		/* 상단 map left 고정으로인해 필요없게 되었음.. 2016-04-05
 		var westContainer = Ext.getCmp("west_container");
 		
