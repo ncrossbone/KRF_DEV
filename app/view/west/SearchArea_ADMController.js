@@ -164,6 +164,11 @@ Ext.define('KRF_DEV.view.west.SearchArea_ADMController', {
 			if(btnCtl != null){
 				this.onAreaSearch(btnCtl, null, null);
 				
+				if (btnCtl.lnkCmbId == "cmbArea1") {
+					alert("시군구를 선택하여 주세요");
+					return;
+				}
+				
 				var treeResach = Ext.getCmp("siteListTree");
 				if(treeResach != undefined){
 					var store = treeResach.getStore();
