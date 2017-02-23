@@ -28,7 +28,7 @@ try{
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
 	
-sql = " SELECT A.PT_NO                                                                																																																				";
+sql = " SELECT A.PT_NO  
 sql += "     , A.NO    /* 순번 참고용 */                                                                                                                                                      ";
 sql += "     , A.PT_NM /* 측정소명 */                                                                                                                                                         ";
 sql += "     , A.WMYR  /* 년도 */                                                                                                                                                             ";
@@ -370,7 +370,7 @@ sql += "         WHERE A.PT_NO = B.PT_NO                                        
 sql += "           AND SUBSTR(A.PT_NO, 5, 1) = CD.CODE(+)                                                                                                                                     ";
 sql += "           AND B.JOSACODE = CD2.CODE(+)                                                                                                                                               ";
 sql += "           AND A.WMWK = CD3.CODE(+) ) ) B                                                                                                                                             ";
-sql += "  WHERE A.PT_NO = B.PT_NO                                                                                                                                                              ";
+sql += " WHERE A.PT_NO = B.PT_NO                                                                                                                                                              ";
 sql += "   AND A.NO BETWEEN B.NO -4 AND B.NO                                                                                                                                                  ";
 sql += "      AND A.PT_NO IN ("+siteIds+ ")                                                                                                                                                       ";
 if(firstSearch.equals("date")){
@@ -408,8 +408,45 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	String ITEM_DOW_VAL = "";
 	JSONArray ITEM_DOW_GRAPH = new JSONArray();
 	JSONArray Chart_Data_tmp = new JSONArray();
+	//
 	
-	String ITEM_TEMP_VAL = "";
+	
+	String ITEM_DOW_SURF_VAL = "";
+	JSONArray ITEM_DOW_SURF_GRAPH = new JSONArray();
+	
+	String ITEM_TEMP_SURF_VAL = "";
+	JSONArray ITEM_TEMP_SURF_GRAPH = new JSONArray();
+	
+	String ITEM_DO_SURF_VAL = "";
+	JSONArray ITEM_DO_SURF_GRAPH = new JSONArray();
+	
+	String ITEM_PH_SURF_VAL = "";
+	JSONArray ITEM_PH_SURF_GRAPH = new JSONArray();
+	
+	String ITEM_EC_SURF_VAL = "";
+	JSONArray ITEM_EC_SURF_GRAPH = new JSONArray();
+	
+	String ITEM_DOW_LOW_VAL = "";
+	JSONArray ITEM_DOW_LOW_GRAPH = new JSONArray();
+	
+	String ITEM_TEMP_LOW_VAL = "";
+	JSONArray ITEM_TEMP_LOW_GRAPH = new JSONArray();
+	
+	String ITEM_DO_LOW_VAL = "";
+	JSONArray ITEM_DO_LOW_GRAPH = new JSONArray();
+	
+	String ITEM_PH_LOW_VAL = "";
+	JSONArray ITEM_PH_LOW_GRAPH = new JSONArray();
+	
+	String ITEM_EC_LOW_VAL = "";
+	JSONArray ITEM_EC_LOW_GRAPH = new JSONArray();
+	
+	String ITEM_TRANSPARENCY_VAL = "";
+	JSONArray ITEM_TRANSPARENCY_GRAPH = new JSONArray();
+	
+	
+	
+	/* String ITEM_TEMP_VAL = "";
 	JSONArray ITEM_TEMP_GRAPH = new JSONArray();
 	
 	String ITEM_DO_VAL = "";
@@ -419,7 +456,9 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	JSONArray ITEM_PH_GRAPH = new JSONArray();
 	
 	String ITEM_EC_VAL = "";
-	JSONArray ITEM_EC_GRAPH = new JSONArray();
+	JSONArray ITEM_EC_GRAPH = new JSONArray(); */
+	
+	//
 	
 	String ITEM_FSD_VAL = "";
 	JSONArray ITEM_FSD_GRAPH = new JSONArray();
@@ -505,14 +544,41 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 			jsonRecord.put("JOSANAME",JOSANAME);
 			jsonRecord.put("ITEM_DOW_VAL",ITEM_DOW_VAL);
 			jsonRecord.put("ITEM_DOW_GRAPH",ITEM_DOW_GRAPH);
-			jsonRecord.put("ITEM_TEMP_VAL",ITEM_TEMP_VAL);
+			
+			
+			jsonRecord.put("ITEM_DOW_SURF_VAL",ITEM_DOW_SURF_VAL);
+			jsonRecord.put("ITEM_DOW_SURF_GRAPH",ITEM_DOW_SURF_GRAPH);
+			jsonRecord.put("ITEM_TEMP_SURF_VAL",ITEM_TEMP_SURF_VAL);
+			jsonRecord.put("ITEM_TEMP_SURF_GRAPH",ITEM_TEMP_SURF_GRAPH);
+			jsonRecord.put("ITEM_DO_SURF_VAL",ITEM_DO_SURF_VAL);
+			jsonRecord.put("ITEM_DO_SURF_GRAPH",ITEM_DO_SURF_GRAPH);
+			jsonRecord.put("ITEM_PH_SURF_VAL",ITEM_PH_SURF_VAL);
+			jsonRecord.put("ITEM_PH_SURF_GRAPH",ITEM_PH_SURF_GRAPH);
+			jsonRecord.put("ITEM_EC_SURF_VAL",ITEM_EC_SURF_VAL);
+			jsonRecord.put("ITEM_EC_SURF_GRAPH",ITEM_EC_SURF_GRAPH);
+			jsonRecord.put("ITEM_DOW_LOW_VAL",ITEM_DOW_LOW_VAL);
+			jsonRecord.put("ITEM_DOW_LOW_GRAPH",ITEM_DOW_LOW_GRAPH);
+			jsonRecord.put("ITEM_TEMP_LOW_VAL",ITEM_TEMP_LOW_VAL);
+			jsonRecord.put("ITEM_TEMP_LOW_GRAPH",ITEM_TEMP_LOW_GRAPH);
+			jsonRecord.put("ITEM_DO_LOW_VAL",ITEM_DO_LOW_VAL);
+			jsonRecord.put("ITEM_DO_LOW_GRAPH",ITEM_DO_LOW_GRAPH);
+			jsonRecord.put("ITEM_PH_LOW_VAL",ITEM_PH_LOW_VAL);
+			jsonRecord.put("ITEM_PH_LOW_GRAPH",ITEM_PH_LOW_GRAPH);
+			jsonRecord.put("ITEM_EC_LOW_VAL",ITEM_EC_LOW_VAL);
+			jsonRecord.put("ITEM_EC_LOW_GRAPH",ITEM_EC_LOW_GRAPH);
+			jsonRecord.put("ITEM_TRANSPARENCY_VAL",ITEM_TRANSPARENCY_VAL);
+			jsonRecord.put("ITEM_TRANSPARENCY_GRAPH",ITEM_TRANSPARENCY_GRAPH);
+			
+			/* jsonRecord.put("ITEM_TEMP_VAL",ITEM_TEMP_VAL);
 			jsonRecord.put("ITEM_TEMP_GRAPH",ITEM_TEMP_GRAPH);
 			jsonRecord.put("ITEM_DO_VAL",ITEM_DO_VAL);
 			jsonRecord.put("ITEM_DO_GRAPH",ITEM_DO_GRAPH);
 			jsonRecord.put("ITEM_PH_VAL",ITEM_PH_VAL);
 			jsonRecord.put("ITEM_PH_GRAPH",ITEM_PH_GRAPH);
 			jsonRecord.put("ITEM_EC_VAL",ITEM_EC_VAL);
-			jsonRecord.put("ITEM_EC_GRAPH",ITEM_EC_GRAPH);
+			jsonRecord.put("ITEM_EC_GRAPH",ITEM_EC_GRAPH); */
+			
+			
 			jsonRecord.put("ITEM_FSD_VAL",ITEM_FSD_VAL);
 			jsonRecord.put("ITEM_FSD_GRAPH",ITEM_FSD_GRAPH);
 			jsonRecord.put("ITEM_FST_VAL",ITEM_FST_VAL);
@@ -558,10 +624,23 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	  		
 	  		WMCYMD_GRAPH = new JSONArray();
 	  		ITEM_DOW_GRAPH = new JSONArray();
-	  		ITEM_TEMP_GRAPH = new JSONArray();
+	  		
+	  		ITEM_DOW_SURF_GRAPH = new JSONArray();
+	  		ITEM_TEMP_SURF_GRAPH = new JSONArray();
+	  		ITEM_DO_SURF_GRAPH = new JSONArray();
+	  		ITEM_PH_SURF_GRAPH = new JSONArray();
+	  		ITEM_EC_SURF_GRAPH = new JSONArray();
+	  		ITEM_DOW_LOW_GRAPH = new JSONArray();
+	  		ITEM_TEMP_LOW_GRAPH = new JSONArray();
+	  		ITEM_DO_LOW_GRAPH = new JSONArray();
+	  		ITEM_PH_LOW_GRAPH = new JSONArray();
+	  		ITEM_EC_LOW_GRAPH = new JSONArray();
+	  		ITEM_TRANSPARENCY_GRAPH = new JSONArray();
+	  		
+	  		/* ITEM_TEMP_GRAPH = new JSONArray();
 	  		ITEM_DO_GRAPH  = new JSONArray();
 	  		ITEM_PH_GRAPH  = new JSONArray();
-	  		ITEM_EC_GRAPH  = new JSONArray();
+	  		ITEM_EC_GRAPH  = new JSONArray(); */
 	  		ITEM_FSD_GRAPH  = new JSONArray();
 	  		ITEM_FST_GRAPH  = new JSONArray();
 	  		ITEM_FCL_GRAPH  = new JSONArray();
@@ -605,7 +684,76 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 			Chart_Data_tmp.add(rs.getString("ITEM_DOW_GRAPH"));
 			ITEM_DOW_GRAPH.add(Chart_Data_tmp);
 			
-			ITEM_TEMP_VAL = rs.getString("ITEM_TEMP_VAL");
+			
+			
+			ITEM_DOW_SURF_VAL = rs.getString("ITEM_DOW_SURF_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_DOW_SURF_GRAPH"));
+			ITEM_DOW_SURF_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_TEMP_SURF_VAL = rs.getString("ITEM_TEMP_SURF_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_TEMP_SURF_GRAPH"));
+			ITEM_TEMP_SURF_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_DO_SURF_VAL = rs.getString("ITEM_DO_SURF_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_DO_SURF_GRAPH"));
+			ITEM_DO_SURF_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_PH_SURF_VAL = rs.getString("ITEM_PH_SURF_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_PH_SURF_GRAPH"));
+			ITEM_PH_SURF_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_EC_SURF_VAL = rs.getString("ITEM_EC_SURF_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_EC_SURF_GRAPH"));
+			ITEM_EC_SURF_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_DOW_LOW_VAL = rs.getString("ITEM_DOW_LOW_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_DOW_LOW_GRAPH"));
+			ITEM_DOW_LOW_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_TEMP_LOW_VAL = rs.getString("ITEM_TEMP_LOW_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_TEMP_LOW_GRAPH"));
+			ITEM_TEMP_LOW_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_DO_LOW_VAL = rs.getString("ITEM_DO_LOW_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_DO_LOW_GRAPH"));
+			ITEM_DO_LOW_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_PH_LOW_VAL = rs.getString("ITEM_PH_LOW_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_PH_LOW_GRAPH"));
+			ITEM_PH_LOW_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_EC_LOW_VAL = rs.getString("ITEM_EC_LOW_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_EC_LOW_GRAPH"));
+			ITEM_EC_LOW_GRAPH.add(Chart_Data_tmp);
+			
+			ITEM_TRANSPARENCY_VAL = rs.getString("ITEM_TRANSPARENCY_VAL");
+			Chart_Data_tmp = new JSONArray();
+			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+			Chart_Data_tmp.add(rs.getString("ITEM_TRANSPARENCY_GRAPH"));
+			ITEM_TRANSPARENCY_GRAPH.add(Chart_Data_tmp);
+			
+			
+			/* ITEM_TEMP_VAL = rs.getString("ITEM_TEMP_VAL");
 			Chart_Data_tmp = new JSONArray();
 			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 			Chart_Data_tmp.add(rs.getString("ITEM_TEMP_GRAPH"));
@@ -630,7 +778,7 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 	  		Chart_Data_tmp = new JSONArray();
 			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
 			Chart_Data_tmp.add(rs.getString("ITEM_EC_GRAPH"));
-			ITEM_EC_GRAPH.add(Chart_Data_tmp);
+			ITEM_EC_GRAPH.add(Chart_Data_tmp); */
 			
 			
 			ITEM_FSD_VAL = rs.getString("ITEM_FSD_VAL");
@@ -781,14 +929,55 @@ sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                             
 		jsonRecord.put("JOSANAME",JOSANAME);
 		jsonRecord.put("ITEM_DOW_VAL",ITEM_DOW_VAL);
 		jsonRecord.put("ITEM_DOW_GRAPH",ITEM_DOW_GRAPH);
-		jsonRecord.put("ITEM_TEMP_VAL",ITEM_TEMP_VAL);
-		jsonRecord.put("ITEM_TEMP_GRAPH",ITEM_TEMP_GRAPH);
-		jsonRecord.put("ITEM_DO_VAL",ITEM_DO_VAL);
+		/* jsonRecord.put("ITEM_TEMP_VAL",ITEM_TEMP_VAL);
+		jsonRecord.put("ITEM_TEMP_GRAPH",ITEM_TEMP_GRAPH); */
+		
+		
+		
+		jsonRecord.put("ITEM_DOW_SURF_VAL",ITEM_DOW_SURF_VAL);
+		jsonRecord.put("ITEM_DOW_SURF_GRAPH",ITEM_DOW_SURF_GRAPH);
+		
+		jsonRecord.put("ITEM_TEMP_SURF_VAL",ITEM_TEMP_SURF_VAL);
+		jsonRecord.put("ITEM_TEMP_SURF_GRAPH",ITEM_TEMP_SURF_GRAPH);
+		
+		jsonRecord.put("ITEM_DO_SURF_VAL",ITEM_DO_SURF_VAL);
+		jsonRecord.put("ITEM_DO_SURF_GRAPH",ITEM_DO_SURF_GRAPH);
+		
+		jsonRecord.put("ITEM_PH_SURF_VAL",ITEM_PH_SURF_VAL);
+		jsonRecord.put("ITEM_PH_SURF_GRAPH",ITEM_PH_SURF_GRAPH);
+		
+		jsonRecord.put("ITEM_EC_SURF_VAL",ITEM_EC_SURF_VAL);
+		jsonRecord.put("ITEM_EC_SURF_GRAPH",ITEM_EC_SURF_GRAPH);
+		
+		jsonRecord.put("ITEM_DOW_LOW_VAL",ITEM_DOW_LOW_VAL);
+		jsonRecord.put("ITEM_DOW_LOW_GRAPH",ITEM_DOW_LOW_GRAPH);
+		
+		jsonRecord.put("ITEM_TEMP_LOW_VAL",ITEM_TEMP_LOW_VAL);
+		jsonRecord.put("ITEM_TEMP_LOW_GRAPH",ITEM_TEMP_LOW_GRAPH);
+		
+		jsonRecord.put("ITEM_DO_LOW_VAL",ITEM_DO_LOW_VAL);
+		jsonRecord.put("ITEM_DO_LOW_GRAPH",ITEM_DO_LOW_GRAPH);
+		
+		jsonRecord.put("ITEM_PH_LOW_VAL",ITEM_PH_LOW_VAL);
+		jsonRecord.put("ITEM_PH_LOW_GRAPH",ITEM_PH_LOW_GRAPH);
+		
+		jsonRecord.put("ITEM_EC_LOW_VAL",ITEM_EC_LOW_VAL);
+		jsonRecord.put("ITEM_EC_LOW_GRAPH",ITEM_EC_LOW_GRAPH);
+		
+		jsonRecord.put("ITEM_TRANSPARENCY_VAL",ITEM_TRANSPARENCY_VAL);
+		jsonRecord.put("ITEM_TRANSPARENCY_GRAPH",ITEM_TRANSPARENCY_GRAPH);
+		
+		
+		
+		
+		/* jsonRecord.put("ITEM_DO_VAL",ITEM_DO_VAL);
 		jsonRecord.put("ITEM_DO_GRAPH",ITEM_DO_GRAPH);
 		jsonRecord.put("ITEM_PH_VAL",ITEM_PH_VAL);
 		jsonRecord.put("ITEM_PH_GRAPH",ITEM_PH_GRAPH);
 		jsonRecord.put("ITEM_EC_VAL",ITEM_EC_VAL);
-		jsonRecord.put("ITEM_EC_GRAPH",ITEM_EC_GRAPH);
+		jsonRecord.put("ITEM_EC_GRAPH",ITEM_EC_GRAPH); */
+		
+		
 		jsonRecord.put("ITEM_FSD_VAL",ITEM_FSD_VAL);
 		jsonRecord.put("ITEM_FSD_GRAPH",ITEM_FSD_GRAPH);
 		jsonRecord.put("ITEM_FST_VAL",ITEM_FST_VAL);
