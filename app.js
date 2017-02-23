@@ -34,6 +34,14 @@ var _kradCatExtDataInfo = null;
 var _kradCatExtMetaData = null;
 var _paramInfo = null; // 물환경 상세자료검색에서 넘기는 파라메터 정보
 
+/* Reach, KRAD 관련 object */
+var _krad = null; // Reach검색, KRAD검색 관련 object (공통)
+var _rchUpSearch = null; // 상류검색 관련 object (검색설정 "상류" 체크 시)
+var _rchNode = null; // ReachNode검색 관련 object
+var _rchLine = null; // ReachLine검색 관련 object
+var _rchArea = null; // ReachArea검색 관련 object
+/* Reach, KRAD 관련 object 끝 */
+
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
 
@@ -154,7 +162,8 @@ kradStore.load(function(a, b, c) {
  */
 Ext.application({
 	name : 'KRF_DEV',
-	requires: ["KRF_DEV.global.Obj"],
+	requires: ["KRF_DEV.global.Obj",
+				"KRF_DEV.global.DroneFn"],
 	
 	// extend: 'KRF_DEV.Application',
 
