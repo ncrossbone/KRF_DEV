@@ -7,7 +7,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	endBtnOnOff: 'off',
 	
 	//btnSearchDrone
-	// 주제도 선택
+	// 조류항공사진버튼
 	onClickDrone: function(obj, el, evt){
 		// 버튼 On/Off
 
@@ -17,8 +17,16 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		
 		if(currCtl.btnOnOff == "on"){
 			droneCtl.show();
+			Layer01OnOff(_reachNodeLayerId, "off");
+			Layer01OnOff(_reachLineLayerId, "off");
 		}else{
+			// 항공영상 초기화
+			KRF_DEV.global.DroneFn.onClickResetButton();
 			droneCtl.hide();
+			Ext.defer(function(){
+				Layer01OnOff(_reachNodeLayerId, "on");
+				Layer01OnOff(_reachLineLayerId, "on");
+			}, 100);
 		}
 	},
 	
