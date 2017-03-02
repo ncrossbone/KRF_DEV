@@ -36,10 +36,10 @@ Ext.define('KRF_DEV.view.center.RptInitWindow', {
 				var detailSelect = Ext.ComponentQuery.query("#detailSelect")[0];
 				
 				var coreMap = GetCoreMap();
-					var center = coreMap.map.extent.getCenter();
-					var level = coreMap.map.getLevel();
-					var width = coreMap.getWidth();
-					var height = coreMap.getHeight();
+				var center = coreMap.map.extent.getCenter();
+				var level = coreMap.map.getLevel();
+				var width = coreMap.getWidth();
+				var height = coreMap.getHeight();
 				
 				if(easySelect.lastValue.rb==undefined){
 					
