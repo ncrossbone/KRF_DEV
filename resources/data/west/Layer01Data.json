@@ -110,6 +110,17 @@
 		"siteNmCol": "사업장명칭",
 		"siteAddrCol": "사업장주소",
 		"layerCode": "B002",
+	},{
+		"id": "10",
+		"text": "수질자동측정망",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer10",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "ST_ID",
+		"siteNmCol": "ST_NM",
+		"siteAddrCol": "",
+		"layerCode": "B001",
 	}]
 }, {
 	"id": "12",
