@@ -151,13 +151,22 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			Ext.getCmp("searchResultContainer_B001_Id").removeCls("dj-mask-noneimg");
 			Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-withimg");
 			Ext.getCmp("searchResultContainer_B001_Id").mask("loading", "loading...");
+			
 			var con = Ext.getCmp("select_B001").value;
+			var url ="";
+			
+			if(con=="01"){
+				url = './resources/jsp/GetSearchResultData_B001.jsp';
+			}else{
+				url = './resources/jsp/GetSearchResultData_B001_fix.jsp';
+			}
+			
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetSearchResultData_B001.jsp',
+        		url: url,
         		/*params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},*/
-				params:{startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con},
+				params:{startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
