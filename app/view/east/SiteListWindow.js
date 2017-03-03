@@ -273,7 +273,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         						||record.id == "pollution_07"){
         					
         					PollutionSearchResult("",record.id,record.data.title,record.data.storeNm,year);
-        				}else if(record.id = "pollution"){
+        				}else if(record.id == "pollution"){
         					
         					for(var i = 0 ; i < record.childNodes.length;i++){
         						PollutionSearchResult("",record.childNodes[i].data.id

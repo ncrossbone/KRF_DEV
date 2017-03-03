@@ -34,6 +34,19 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			flex: 1,
 			height: 30,
 			items: [{
+				xtype:"combo",
+				id:"select_B001",
+				store:Ext.create('Ext.data.Store',{
+					fields:['label','value'],
+					data:[['미확정자료 보기','01'],['확정자료 보기','02']]
+				}),
+				displayField:'label',
+				valueField:'value',
+				width:150,
+				editable:false,
+				hidden:true,
+				value:"01"
+			},{
 				xtype: 'container',
 				width: 10
 			}, {
@@ -518,7 +531,14 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		listeners:{
 			'tabchange': function (tabPanel, tab){
 				
-				//
+				//미확정자료 콤보박스 분기 - ph
+				var b001 = Ext.getCmp("select_B001");
+				if(tab.id=="grid_B001_container"){
+					b001.setHidden(false);
+				}else{
+					b001.setHidden(true);
+				}
+				
 				if(tab.parentId != "F"){
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					hiddenGrid.setHidden(true);

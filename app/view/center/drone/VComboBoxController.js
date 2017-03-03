@@ -314,7 +314,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			store.insert(index, record);
 			
 		}
-		
+
 		KRF_DEV.global.DroneFn.LayerVisibility();
 	},
 	

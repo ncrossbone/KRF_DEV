@@ -257,10 +257,21 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				if(layer01Info != undefined && layer01Info != null && layer01Info.length > 0){
 					
 					parentCheck = layer01Info[0].layerCode;
-					jijum_Name = eval("jijum." + layer01Info[0].siteNmCol);
-					jijum_Addr = eval("jijum." + layer01Info[0].siteAddrCol);
-					jijum_Cd = eval("jijum." + layer01Info[0].siteIdCol);
-					jijum_Gubun = layer01Info[0].text;
+					if(layer01Info[0].siteNmCol != undefined && layer01Info[0].siteNmCol != ""){
+						jijum_Name = eval("jijum." + layer01Info[0].siteNmCol);
+					}
+					if(layer01Info[0].siteAddrCol != undefined &&layer01Info[0].siteAddrCol != ""){
+						jijum_Addr = eval("jijum." + layer01Info[0].siteAddrCol);
+					}
+					if( layer01Info[0].siteIdCol != undefined &&  layer01Info[0].siteIdCol != ""){
+						jijum_Cd = eval("jijum." + layer01Info[0].siteIdCol);
+					}
+					if(layer01Info[0].text != undefined && layer01Info[0].text != ""){
+						jijum_Gubun = layer01Info[0].text;
+					}
+					//jijum_Addr = eval("jijum." + layer01Info[0].siteAddrCol);
+					//jijum_Cd = eval("jijum." + layer01Info[0].siteIdCol);
+					//jijum_Gubun = layer01Info[0].text;
 				}
 				
 				//시작지점 끝지점 처리및 지점명 삽입
