@@ -592,15 +592,16 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var b001 = Ext.getCmp("select_B001");
 				var startDayTime = Ext.getCmp("startDayTime");
 				var endDayTime = Ext.getCmp("endDayTime");
-				if(tab.id=="grid_B001_container"){
-					b001.setHidden(false);
-					startDayTime.setHidden(false);
-					endDayTime.setHidden(false);
-				}else{
-					b001.setHidden(true);
-					startDayTime.setHidden(true);
-					endDayTime.setHidden(true);
-				}
+				
+					if(tab.id=="grid_B001_container" || tab.idCheck=="B001"){
+						b001.setHidden(false);
+						startDayTime.setHidden(false);
+						endDayTime.setHidden(false);
+					}else{
+						b001.setHidden(true);
+						startDayTime.setHidden(true);
+						endDayTime.setHidden(true);
+					}
 				
 				if(tab.parentId != "F"){
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
