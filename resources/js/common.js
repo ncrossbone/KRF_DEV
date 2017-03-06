@@ -315,7 +315,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			store.load();
 			siteinfoCtl.setStore(store);
 		}
-		
 		// 차트정보 스토어 로드
 		if(siteChartCtl != undefined){
 			//var chartStore = siteChartCtl.getStore();
@@ -323,6 +322,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			chartStore.siteCD = title;
 			chartStore.yFieldName = yFieldName;
 			chartStore.parentId = parentId;
+			chartStore.orgParentId = orgParentId;
 			chartStore.load();
 			siteChartCtl.setStore(chartStore);
 		}

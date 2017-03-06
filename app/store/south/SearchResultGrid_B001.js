@@ -126,13 +126,56 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 	
 	siteIds: "",
 	parentIds: [],
-	
+	isFirst:true,
 	listeners: {
 		load: function(store) {
-			
+			var me = this;
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			
 			var startYear = startMonth = endYear = endMonth = "";
+			
+			var startDay = Ext.getCmp("startDay");
+			var startTime = Ext.getCmp("startTime");
+			var endDay = Ext.getCmp("endDay");
+			var endTime = Ext.getCmp("endTime");
+			var cmbStartYear = Ext.getCmp("cmbStartYear");
+			var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+			var cmbEndYear = Ext.getCmp("cmbEndYear");
+			var cmbEndMonth = Ext.getCmp("cmbEndMonth");
+			
+			if(me.isFirst == true){
+				var allDay =[];
+			    var allTime = [];
+				
+				
+				for(var i = 1; i < 32; i++){
+					allDay.push(me.addZero(i,2));
+				}
+				
+				for(var i = 0; i < 25; i++){
+					allTime.push(me.addZero(i,2));
+				}
+				
+				var date = new Date();
+				
+				startDay.setStore(allDay);
+				startTime.setStore(allTime);
+				endDay.setStore(allDay);
+				endTime.setStore(allTime);
+				
+				
+				cmbStartYear.setValue(date.getFullYear());
+				cmbStartMonth.setValue(this.addZero(date.getMonth() + 1,2));
+				
+				cmbEndYear.setValue(date.getFullYear());
+				cmbEndMonth.setValue(this.addZero(date.getMonth() + 1,2));
+				
+				startDay.setValue(this.addZero(date.getDate(),2));
+				startTime.setValue("00");
+				endDay.setValue(this.addZero(date.getDate(),2));
+				endTime.setValue("24");
+				
+				me.isFirst = false;
+			}
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
 			startMonth = Ext.getCmp("cmbStartMonth").value;
@@ -141,8 +184,15 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			
 			
 			var jsonData = "";
-			var arrData = [];
+			var arrData = [];  
 			
+			console.info(cmbStartYear.value + cmbStartMonth.value +  startDay.value + startTime.value);
+			console.info(cmbEndYear.value + cmbEndMonth.value +  endDay.value + endTime.value);
+			
+			var startFull = cmbStartYear.value + cmbStartMonth.value +  startDay.value + startTime.value;
+			var endFull = cmbEndYear.value + cmbEndMonth.value +  endDay.value + endTime.value;
+			//var nowDate = date.getFullYear() + this.addZero(date.getMonth() + 1,2) + this.addZero(date.getDate(),2) + this.addZero(date.getHours(),2) + this.addZero(date.getMinutes(),2) + this.addZero(date.getSeconds(),2);
+			//console.info(nowDate);
 			// 로딩바 표시
 			var winCtl = Ext.getCmp("searchResultWindow");
 			var tabContainer = winCtl.items.items[0];
@@ -152,12 +202,19 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-withimg");
 			Ext.getCmp("searchResultContainer_B001_Id").mask("loading", "loading...");
 			var con = Ext.getCmp("select_B001").value;
+			var url ="";
+			
+			if(con=="01"){
+				url = './resources/jsp/GetSearchResultData_B001.jsp';
+			}else{
+				url = './resources/jsp/GetSearchResultData_B001_fix.jsp';
+			}
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetSearchResultData_B001.jsp',
+        		url: url,
         		/*params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},*/
-				params:{startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con},
+				params:{startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con, startFull:startFull, endFull:endFull},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
@@ -188,5 +245,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
         	});
 			
 		}
-    }
+    },
+	
+	addZero: function(n, width) {
+		n = n + '';
+		return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+	}
 });
