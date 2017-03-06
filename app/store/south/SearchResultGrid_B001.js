@@ -140,7 +140,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			var cmbStartMonth = Ext.getCmp("cmbStartMonth");
 			var cmbEndYear = Ext.getCmp("cmbEndYear");
 			var cmbEndMonth = Ext.getCmp("cmbEndMonth");
-			alert(me.isFirst);
 			if(me.isFirst == true){
 				var allDay =[];
 			    var allTime = [];
@@ -174,7 +173,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 				endTime.setValue("24");
 				
 				me.isFirst = false;
-				alert(me.isFirst);
 			}
 			
 			startYear = Ext.getCmp("cmbStartYear").value;

@@ -900,7 +900,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			autoResize: true,
 			idCheck:idCheck
 			};
-			console.info(options);
 			//b003.setHidden(false);
 			
 			if(grdContainer == null || grdContainer == undefined){
