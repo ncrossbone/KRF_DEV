@@ -38,10 +38,35 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 	siteIds: "",
 	parentIds: [],
 	
+	isFirst: true,
+	
 	listeners: {
 		load: function(store) {
 			
+			var me = this;
+			console.info(me.isFirst);
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
+			
+			if(me.isFirst == true){
+				Ext.defer(function(){
+					
+					var cmbStartYear = Ext.getCmp("cmbStartYear");
+					var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+					var cmbEndYear = Ext.getCmp("cmbEndYear");
+					var cmbEndMonth = Ext.getCmp("cmbEndMonth");
+						
+						var stDate = new Date();
+						var edDate = new Date();
+						stDate.setMonth(stDate.getMonth() - 3);
+						console.info(stDate.getMonth());
+						console.info(edDate.getMonth());
+						cmbStartYear.setValue(stDate.getFullYear());
+						cmbStartMonth.setValue(me.addZero(stDate.getMonth() + 1,2));
+						
+						cmbEndYear.setValue(edDate.getFullYear());
+						cmbEndMonth.setValue(me.addZero(edDate.getMonth() + 1,2));
+				}, 1000);
+			}
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -50,6 +75,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
 			
+			console.info(startYear);
+			console.info(startMonth);
+			console.info(endYear);
+			console.info(endMonth);
 			
 			var jsonData = "";
 			var arrData = [];
@@ -94,5 +123,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
         	});
 			
 		}
-    }
+    },
+    addZero: function(n, width) {
+		n = n + '';
+		return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+	}
 });

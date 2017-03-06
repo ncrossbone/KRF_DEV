@@ -494,7 +494,7 @@ ChangeTabIndex = function(tabIdx){
 }
 
 // 검색결과창 띄우기
-ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk){
+ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst){
 	
 	if(parentIds == ""){
 		parentIds = [{parentId : tooltipCk , siteId : siteIds}];
@@ -502,6 +502,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	if(tooltipCk != undefined){
 		siteIds = "'"+siteIds+"'";
+	}
+	console.info(isFirst);
+	if(isFirst == undefined){
+		isFirst = true;
 	}
 	
 	//console.info("==================================");
@@ -879,12 +883,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				}
 				
 				//console.info(grdCtl.parentIds)
-				//console.info(grdCtl.siteIds);
+				//console.info(isFirst);
 				
 				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
 					siteIds: grdCtl.siteIds,
 					parentIds: grdCtl.parentIds,
-					firstSession: test
+					firstSession: test,
+					isFirst: isFirst
 				});
 				
 				grdCtl.getView().bindStore(gridStore);
@@ -918,7 +923,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B001", {
 					siteIds: grdCtl.siteIds,
 					parentIds: grdCtl.parentIds,
-					firstSession: test
+					firstSession: test,
+					isFirst: isFirst
 				});
 				
 				grdCtl.getView().bindStore(gridStore);

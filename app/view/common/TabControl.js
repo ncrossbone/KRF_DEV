@@ -58,7 +58,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			}, {
 				xtype: 'combo',
 				id: 'cmbStartYear',
-				store: ['', '2015', '2014', '2013', '2012', '2011', '2010'],
+				store: KRF_DEV.global.CommFn.arrNowYear(2010, "Desc"),
 				value: '2015',
 				width: 80,
 				height: 25
@@ -193,7 +193,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 							
 							KRF_DEV.getApplication().btnFlag = "date";
-							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value);
+							
+							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 						}
 					}
 				}
