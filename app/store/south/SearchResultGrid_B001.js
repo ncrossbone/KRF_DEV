@@ -123,7 +123,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
     pageSize: 100,
 
 	remoteSort: true,
-	
 	siteIds: "",
 	parentIds: [],
 	isFirst:true,
@@ -141,7 +140,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			var cmbStartMonth = Ext.getCmp("cmbStartMonth");
 			var cmbEndYear = Ext.getCmp("cmbEndYear");
 			var cmbEndMonth = Ext.getCmp("cmbEndMonth");
-			
+			alert(me.isFirst);
 			if(me.isFirst == true){
 				var allDay =[];
 			    var allTime = [];
@@ -175,6 +174,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 				endTime.setValue("24");
 				
 				me.isFirst = false;
+				alert(me.isFirst);
 			}
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
@@ -185,9 +185,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			
 			var jsonData = "";
 			var arrData = [];  
-			
-			console.info(cmbStartYear.value + cmbStartMonth.value +  startDay.value + startTime.value);
-			console.info(cmbEndYear.value + cmbEndMonth.value +  endDay.value + endTime.value);
 			
 			var startFull = cmbStartYear.value + cmbStartMonth.value +  startDay.value + startTime.value;
 			var endFull = cmbEndYear.value + cmbEndMonth.value +  endDay.value + endTime.value;
@@ -209,6 +206,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			}else{
 				url = './resources/jsp/GetSearchResultData_B001_fix.jsp';
 			}
+			
 			Ext.Ajax.request({
         		url: url,
         		/*params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD

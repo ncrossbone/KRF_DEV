@@ -855,7 +855,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		//test value - ph
 		//idCheck = "B003";
 		
-		if(idCheck=="B002"){
+		if(idCheck!="B001"){
 			
 				if(grdContainer == null || grdContainer == undefined){
 					
@@ -888,11 +888,19 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				});
 				
 				grdCtl.getView().bindStore(gridStore);
-		}else if(idCheck=="B001"){
+		}else{
 			//test value - ph
 			//options.title = "수질자동측정망";
-			
-			
+			options = {
+			//id: "searchResultContainer",
+			id: gridId + "_container",
+			title: titleText, //_searchType,
+			parentId: parentCheck,
+			//closable : true,
+			autoResize: true,
+			idCheck:idCheck
+			};
+			console.info(options);
 			//b003.setHidden(false);
 			
 			if(grdContainer == null || grdContainer == undefined){
