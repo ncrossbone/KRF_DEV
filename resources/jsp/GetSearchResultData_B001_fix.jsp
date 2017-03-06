@@ -18,7 +18,8 @@ try{
 	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
-	
+	String startFull = request.getParameter("startFull");
+	String endFull = request.getParameter("endFull");
 	
 	sql="WITH TBL_TEMP AS (                                                                                                                                                                      \n\r";
 	sql+="SELECT RIVER_ID, SITE_NAME, MSR_DATE                                                                                                                                             \n\r";

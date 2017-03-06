@@ -78,10 +78,38 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			}, {
 				xtype: 'label',
 				text: '월'
-			}, {
+			},{
+				xtype:"panel",
+				id:"startDayTime",
+				border:false,
+				hidden:true,
+				layout:{
+						type:"hbox",
+						align: 'middle'
+				},
+				items:[{
+				xtype:'combo',
+				id:"startDay",
+				editable:false,
+				value:"30",
+				width:50
+			},{
+				xtype:"label",
+				text:"일"
+			},{
+				xtype:'combo',
+				id:"startTime",
+				editable:false,
+				value:"23",
+				width:50
+			},{
+				xtype:"label",
+				text:"시"
+			}]
+			},{
 				xtype: 'container',
 				width: 10
-			}, {
+			},{
 				xtype: 'label',
 				text: '~'
 			}, {
@@ -110,7 +138,35 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			}, {
 				xtype: 'label',
 				text: '월'
-			}, {
+			},{
+				xtype:"panel",
+				border:false,
+				hidden:true,
+				id:"endDayTime",
+				layout:{
+					type:"hbox",
+					align:"center"
+				},
+				items:[{
+				xtype:'combo',
+				id:"endDay",
+				editable:false,
+				value:"30",
+				width:50
+			},{
+				xtype:"label",
+				text:"일"
+			},{
+				xtype:'combo',
+				id:"endTime",
+				editable:false,
+				value:"23",
+				width:50
+			},{
+				xtype:"label",
+				text:"시"
+			}]
+			},{
 				xtype: 'container',
 				width: 10
 			}, {
@@ -533,10 +589,16 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				
 				//미확정자료 콤보박스 분기 - ph
 				var b001 = Ext.getCmp("select_B001");
+				var startDayTime = Ext.getCmp("startDayTime");
+				var endDayTime = Ext.getCmp("endDayTime");
 				if(tab.id=="grid_B001_container"){
 					b001.setHidden(false);
+					startDayTime.setHidden(false);
+					endDayTime.setHidden(false);
 				}else{
 					b001.setHidden(true);
+					startDayTime.setHidden(true);
+					endDayTime.setHidden(true);
 				}
 				
 				if(tab.parentId != "F"){

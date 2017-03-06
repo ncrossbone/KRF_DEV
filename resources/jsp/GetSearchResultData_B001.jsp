@@ -19,7 +19,8 @@ try{
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	
-	
+	String startFull = request.getParameter("startFull");
+	String endFull = request.getParameter("endFull");
 	sql="WITH TBL_TEMP AS (                                                                                                                                                                \n\r";
 	sql+="SELECT RIVER_ID, SITE_NAME, MSR_DATE                                                                                                                                       \n\r";
 	sql+="     , MAX(CASE WHEN BB.ITEM_ID = 'M02'  THEN M02  ELSE NULL END) AS F02   --수온1                                                                        \n\r";
@@ -142,8 +143,8 @@ try{
 	sql+="             , FIVEDATA_TB B                                                                                                                                                         \n\r";
 	sql+="         WHERE A.SITE_ID = B.SITE_ID                                                                                                                                             \n\r";
 	sql+="           AND A.SITE_ID IN (" + siteIds + ") -- 지점코드                                                                                                                  \n\r";
-	sql+="           AND SUBSTR(MSR_DATE,1,6) >= '" + startYYYYMM + "'                                                                                                                          \n\r";
-	sql+="           AND SUBSTR(MSR_DATE,1,6) <= '" + endYYYYMM + "'                                                                                                                          \n\r";
+	sql+="           AND SUBSTR(MSR_DATE,1,10) >= '" + startFull + "'                                                                                                                          \n\r";
+	sql+="           AND SUBSTR(MSR_DATE,1,10) <= '" + endFull + "'                                                                                                                          \n\r";
 	sql+="       ) AA                                                                                                                                                                               \n\r";
 	sql+="     , (                                                                                                                                                                                    \n\r";
 	sql+="        SELECT SITE_ID, ITEM_ID                                                                                                                                                    \n\r";
