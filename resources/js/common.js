@@ -503,7 +503,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	if(tooltipCk != undefined){
 		siteIds = "'"+siteIds+"'";
 	}
-	console.info(isFirst);
+	
 	if(isFirst == undefined){
 		isFirst = true;
 	}
@@ -625,12 +625,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			grdCtl.parentIds = parentIds;
 		}
 		////console.info(grdCtl.parentIds)
-		////console.info(grdCtl.siteIds);
+		console.info(grdCtl);
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
 			siteIds: grdCtl.siteIds,
-			parentIds: grdCtl.parentIds
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
 		});
 		
 		//grdCtl.getView().bindStore(gridStore);
@@ -839,7 +840,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
-			firstSession: test
+			firstSession: test,
+			gridCtl: grdCtl
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
@@ -889,7 +891,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					siteIds: grdCtl.siteIds,
 					parentIds: grdCtl.parentIds,
 					firstSession: test,
-					isFirst: isFirst
+					isFirst: isFirst,
+					gridCtl: grdCtl
 				});
 				
 				grdCtl.getView().bindStore(gridStore);
@@ -931,7 +934,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					siteIds: grdCtl.siteIds,
 					parentIds: grdCtl.parentIds,
 					firstSession: test,
-					isFirst: isFirst
+					isFirst: isFirst,
+					gridCtl: grdCtl
 				});
 				
 				grdCtl.getView().bindStore(gridStore);
@@ -975,7 +979,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_C", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
-			firstSession: test
+			firstSession: test,
+			gridCtl: grdCtl
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
@@ -1035,7 +1040,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_D", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
-			orgParentIds: orgParentId
+			orgParentIds: orgParentId,
+			gridCtl: grdCtl
 		});
 		
 		grdCtl.getView().bindStore(gridStore);

@@ -100,7 +100,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				
 				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
 					
-					queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId);
+					//queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId);
 					
 					this.catDid = [];
 					var reachBtn = Ext.getCmp("btnModeReach");
@@ -129,7 +129,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					
 					catWhere = catWhere.substring(0, catWhere.length - 2) + ")";
 					
-					var extWhere = "";
+					/*var extWhere = "";
 					
 					for(var i = 0; i < tmpExtIds.length; i++){
 						
@@ -138,10 +138,11 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					
 					extWhere += "EXT_DATA_ID IS NULL";
 						
-					query.where = catWhere + " AND (" + extWhere + ")"
-						
+					query.where = catWhere + " AND (" + extWhere + ")";*/
+					query.where = catWhere;
 
-					query.orderByFields = ["LAYER_CODE", "LAYER_CODE_ID"];
+					//query.orderByFields = ["LAYER_CODE", "LAYER_CODE_ID"];
+					//query.orderByFields = ["LAYER_CODE"];
 				}
 				else{
 					return;

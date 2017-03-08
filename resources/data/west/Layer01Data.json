@@ -117,9 +117,9 @@
 		"iconCls": "layerIconSize layer10",
 		"leaf": true,
 		"checked": false,
-		"siteIdCol": "ST_ID",
-		"siteNmCol": "ST_NM",
-		"siteAddrCol": "",
+		"siteIdCol": "CODE",
+		"siteNmCol": "PT_NM",
+		"siteAddrCol": "ADDR",
 		"layerCode": "B001",
 	}]
 }, {

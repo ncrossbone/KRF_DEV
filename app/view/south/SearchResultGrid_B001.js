@@ -311,5 +311,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B001', {
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}]
 		}]
-	}]
+	}],
+	initComponent: function(){
+		
+		this.callParent();
+		
+		// 검색조건 컨트롤 초기화
+		KRF_DEV.global.TabFn.searchConditionInit("수질자동측정망", this.down("grid"));
+	}
 });

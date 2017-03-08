@@ -116,5 +116,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_Reach', {
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}]
 		}]
-	}]
+	}],
+	initComponent: function(){
+		
+		this.callParent();
+		
+		// 검색조건 컨트롤 초기화
+		KRF_DEV.global.TabFn.searchConditionInit("", this.down("grid"));
+	}
 });

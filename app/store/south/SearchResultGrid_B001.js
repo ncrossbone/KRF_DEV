@@ -125,6 +125,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 	remoteSort: true,
 	siteIds: "",
 	parentIds: [],
+	gridCtl: null,
 	isFirst:true,
 	listeners: {
 		load: function(store) {
@@ -140,40 +141,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			var cmbStartMonth = Ext.getCmp("cmbStartMonth");
 			var cmbEndYear = Ext.getCmp("cmbEndYear");
 			var cmbEndMonth = Ext.getCmp("cmbEndMonth");
-			if(me.isFirst == true){
-				var allDay =[];
-			    var allTime = [];
-				
-				
-				for(var i = 1; i < 32; i++){
-					allDay.push(me.addZero(i,2));
-				}
-				
-				for(var i = 0; i < 25; i++){
-					allTime.push(me.addZero(i,2));
-				}
-				
-				var date = new Date();
-				
-				startDay.setStore(allDay);
-				startTime.setStore(allTime);
-				endDay.setStore(allDay);
-				endTime.setStore(allTime);
-				
-				
-				cmbStartYear.setValue(date.getFullYear());
-				cmbStartMonth.setValue(this.addZero(date.getMonth() + 1,2));
-				
-				cmbEndYear.setValue(date.getFullYear());
-				cmbEndMonth.setValue(this.addZero(date.getMonth() + 1,2));
-				
-				startDay.setValue(this.addZero(date.getDate(),2));
-				startTime.setValue("00");
-				endDay.setValue(this.addZero(date.getDate(),2));
-				endTime.setValue("24");
-				
-				me.isFirst = false;
-			}
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
 			startMonth = Ext.getCmp("cmbStartMonth").value;
@@ -188,14 +155,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			var endFull = cmbEndYear.value + cmbEndMonth.value +  endDay.value + endTime.value;
 			//var nowDate = date.getFullYear() + this.addZero(date.getMonth() + 1,2) + this.addZero(date.getDate(),2) + this.addZero(date.getHours(),2) + this.addZero(date.getMinutes(),2) + this.addZero(date.getSeconds(),2);
 			//console.info(nowDate);
-			// 로딩바 표시
+			
 			var winCtl = Ext.getCmp("searchResultWindow");
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			Ext.getCmp("searchResultContainer_B001_Id").removeCls("dj-mask-noneimg");
-			Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-withimg");
-			Ext.getCmp("searchResultContainer_B001_Id").mask("loading", "loading...");
+			
 			var con = Ext.getCmp("select_B001").value;
 			var url ="";
 			
@@ -203,6 +168,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 				url = './resources/jsp/GetSearchResultData_B001.jsp';
 			}else{
 				url = './resources/jsp/GetSearchResultData_B001_fix.jsp';
+			}
+			
+			// 로딩중 메세지
+			if(me.gridCtl != null){
+				
+				me.gridCtl.removeCls("dj-mask-noneimg");
+				me.gridCtl.addCls("dj-mask-withimg");
+				me.gridCtl.mask("loading", "loading...");
 			}
 			
 			Ext.Ajax.request({
@@ -216,27 +189,43 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
         		success : function(response, opts) {
         			
         			jsonData = Ext.util.JSON.decode( response.responseText );
-					if(jsonData.data.length == 0){
-						Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-noneimg");
-						Ext.getCmp("searchResultContainer_B001_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-					}else{
+        			
+        			if(jsonData.data.length > 0){
+        				
 						if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
-									store.setData(jsonData.data);
-									// 로딩바 숨김
-									Ext.getCmp("searchResultContainer_B001_Id").unmask();
-								}else{
-									Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-noneimg");
-									Ext.getCmp("searchResultContainer_B001_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-								}
-					}
-        			
-        			
+							
+							store.setData(jsonData.data);
+							
+							// 로딩바 숨김
+	        				if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.unmask();
+	        				}
+						}else{
+							
+							if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.addCls("dj-mask-noneimg");
+	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        				}
+						}
+        			}
+        			else{
+        				
+        				if(me.gridCtl != null){
+        					
+        					me.gridCtl.addCls("dj-mask-noneimg");
+        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+        				}
+        			}
         		},
         		failure: function(form, action) {
-        			// 로딩바 숨김
-        			activeTab.unmask();
         			
-        			alert("오류가 발생하였습니다.");
+        			if(me.gridCtl != null){
+    					
+    					me.gridCtl.addCls("dj-mask-noneimg");
+    					me.gridCtl.mask("오류가 발생하였습니다.");
+    				}
         		}
         	});
 			

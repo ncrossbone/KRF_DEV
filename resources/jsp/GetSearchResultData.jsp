@@ -394,13 +394,13 @@ try{
 	sql += "         AND    B.WMOD = C.WMOD                                                                       ";
 	sql += "         AND    B.WMWK = C.WMWK                                                                       ";
 	
-	if(firstSearch.equals("date")){
+	//if(firstSearch.equals("date")){
 		sql += "         AND    B.WMYR || B.WMOD >= '"+startYYYYMM+"'                                                          ";
 		sql += "         AND    B.WMYR || B.WMOD <= '"+endYYYYMM+"'                                                          ";
-	}else{
-		sql += "         AND    B.WMYR || B.WMOD >= '201508'                                                          ";
-		sql += "         AND    B.WMYR || B.WMOD <= '201512'                                                          ";
-	}
+	//}else{
+	//	sql += "         AND    B.WMYR || B.WMOD >= '201508'                                                          ";
+	//	sql += "         AND    B.WMYR || B.WMOD <= '201512'                                                          ";
+	//}
 	
 	sql += "         AND    SUBSTR(A.PT_NO, 1, 7) IN ("+siteIds+")                                                  ";
 	sql += "         AND    C.WMCYMD IS NOT NULL                                                                  ";
@@ -485,13 +485,13 @@ try{
 	sql += "         AND    B.WMYR = C.WMYR                                                                   ";
 	sql += "         AND    B.WMOD = C.WMOD                                                                   ";
 	sql += "         AND    B.WMWK = C.WMWK                                                                   ";
-	if(firstSearch.equals("date")){
+	//if(firstSearch.equals("date")){
 		sql += "         AND    B.WMYR || B.WMOD >= TO_CHAR(TO_DATE('"+startYYYYMM+"' ,'YYYYMM')-360,'YYYYMM')             ";
 		sql += "         AND    B.WMYR || B.WMOD <= '"+endYYYYMM+"'                                                      ";
-	}else{
-		sql += "         AND    B.WMYR || B.WMOD >= TO_CHAR(TO_DATE('201508' ,'YYYYMM')-360,'YYYYMM')             ";
-		sql += "         AND    B.WMYR || B.WMOD <= '201510'                                                      ";
-	}
+	//}else{
+	//	sql += "         AND    B.WMYR || B.WMOD >= TO_CHAR(TO_DATE('201508' ,'YYYYMM')-360,'YYYYMM')             ";
+	//	sql += "         AND    B.WMYR || B.WMOD <= '201510'                                                      ";
+	//}
 	sql += "         AND    SUBSTR(A.PT_NO, 1, 7) IN ("+siteIds+")                                              ";
 	sql += "         AND    C.WMCYMD IS NOT NULL                                                              ";
 	sql += "        ) B                                                                                       ";

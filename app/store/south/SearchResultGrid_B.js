@@ -37,6 +37,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 	
 	siteIds: "",
 	parentIds: [],
+	gridCtl: null,
 	
 	isFirst: true,
 	
@@ -44,29 +45,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 		load: function(store) {
 			
 			var me = this;
-			console.info(me.isFirst);
-			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			
-			if(me.isFirst == true){
-				Ext.defer(function(){
-					
-					var cmbStartYear = Ext.getCmp("cmbStartYear");
-					var cmbStartMonth = Ext.getCmp("cmbStartMonth");
-					var cmbEndYear = Ext.getCmp("cmbEndYear");
-					var cmbEndMonth = Ext.getCmp("cmbEndMonth");
-						
-						var stDate = new Date();
-						var edDate = new Date();
-						stDate.setMonth(stDate.getMonth() - 3);
-						console.info(stDate.getMonth());
-						console.info(edDate.getMonth());
-						cmbStartYear.setValue(stDate.getFullYear());
-						cmbStartMonth.setValue(me.addZero(stDate.getMonth() + 1,2));
-						
-						cmbEndYear.setValue(edDate.getFullYear());
-						cmbEndMonth.setValue(me.addZero(edDate.getMonth() + 1,2));
-				}, 1000);
-			}
+			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -75,22 +55,21 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
 			
-			console.info(startYear);
-			console.info(startMonth);
-			console.info(endYear);
-			console.info(endMonth);
-			
 			var jsonData = "";
 			var arrData = [];
 			
-			// 로딩바 표시
 			var winCtl = Ext.getCmp("searchResultWindow");
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			Ext.getCmp("searchResultContainer_B_Id").removeCls("dj-mask-noneimg");
-			Ext.getCmp("searchResultContainer_B_Id").addCls("dj-mask-withimg");
-			Ext.getCmp("searchResultContainer_B_Id").mask("loading", "loading...");
+			
+			// 로딩중 메세지
+			if(me.gridCtl != null){
+				
+				me.gridCtl.removeCls("dj-mask-noneimg");
+				me.gridCtl.addCls("dj-mask-withimg");
+				me.gridCtl.mask("loading", "loading...");
+			}
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_B.jsp',
@@ -100,25 +79,46 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			
+        			console.info("dlfja");
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
-        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
-        				store.setData(jsonData.data);
-	        			// 로딩바 숨김
-        				Ext.getCmp("searchResultContainer_B_Id").unmask();
+        			if(jsonData.data.length > 0){
+        				
+	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+	        				
+	        				store.setData(jsonData.data);
+		        			
+	        				// 로딩바 숨김
+	        				if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.unmask();
+	        				}
+	        			}
+	        			else{
+	        				
+	        				if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.addCls("dj-mask-noneimg");
+	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        				}
+	        			}
         			}
         			else{
-        				Ext.getCmp("searchResultContainer_B_Id").addCls("dj-mask-noneimg");
-        				Ext.getCmp("searchResultContainer_B_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+        				
+        				if(me.gridCtl != null){
+        					
+        					me.gridCtl.addCls("dj-mask-noneimg");
+        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+        				}
         			}
-        			
         		},
         		failure: function(form, action) {
-        			// 로딩바 숨김
-        			activeTab.unmask();
         			
-        			alert("오류가 발생하였습니다.");
+        			if(me.gridCtl != null){
+    					
+    					me.gridCtl.addCls("dj-mask-noneimg");
+    					me.gridCtl.mask("오류가 발생하였습니다.");
+    				}
         		}
         	});
 			
