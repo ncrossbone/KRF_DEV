@@ -13,7 +13,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	onClickResetButton: function(){
 
 		KRF_DEV.global.DroneFn.onClickResetButton();
-		KRF_DEV.global.DroneFn.LayerVisibility();
+		//KRF_DEV.global.DroneFn.LayerVisibility();
 	},
 	// 수계선택 Change Event
 	onAreaChange: function(item, newValue, oldValue, evt){
@@ -107,8 +107,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	
 	/* Default Event */
 	defaultDate: function(droneLayerId,measureDate,drone,phyLayerId){
-		console.info(phyLayerId);
-		console.info(droneLayerId);
+		
 		if(droneLayerId != null && droneLayerId != ""){
 			/* 클로로필a Set Value */
 			var chlaLayerId = "";
