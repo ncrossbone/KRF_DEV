@@ -315,7 +315,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			store.load();
 			siteinfoCtl.setStore(store);
 		}
-		
 		// 차트정보 스토어 로드
 		if(siteChartCtl != undefined){
 			//var chartStore = siteChartCtl.getStore();
@@ -323,6 +322,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			chartStore.siteCD = title;
 			chartStore.yFieldName = yFieldName;
 			chartStore.parentId = parentId;
+			chartStore.orgParentId = orgParentId;
 			chartStore.load();
 			siteChartCtl.setStore(chartStore);
 		}
@@ -494,7 +494,7 @@ ChangeTabIndex = function(tabIdx){
 }
 
 // 검색결과창 띄우기
-ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk){
+ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst){
 	
 	if(parentIds == ""){
 		parentIds = [{parentId : tooltipCk , siteId : siteIds}];
@@ -502,6 +502,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	if(tooltipCk != undefined){
 		siteIds = "'"+siteIds+"'";
+	}
+	
+	if(isFirst == undefined){
+		isFirst = true;
 	}
 	
 	//console.info("==================================");
@@ -621,12 +625,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			grdCtl.parentIds = parentIds;
 		}
 		////console.info(grdCtl.parentIds)
-		////console.info(grdCtl.siteIds);
+		console.info(grdCtl);
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
 			siteIds: grdCtl.siteIds,
-			parentIds: grdCtl.parentIds
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
 		});
 		
 		//grdCtl.getView().bindStore(gridStore);
@@ -835,7 +840,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
-			firstSession: test
+			firstSession: test,
+			gridCtl: grdCtl
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
@@ -855,7 +861,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		//test value - ph
 		//idCheck = "B003";
 		
-		if(idCheck=="B002"){
+		if(idCheck!="B001"){
 			
 				if(grdContainer == null || grdContainer == undefined){
 					
@@ -879,20 +885,29 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				}
 				
 				//console.info(grdCtl.parentIds)
-				//console.info(grdCtl.siteIds);
+				//console.info(isFirst);
 				
 				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
 					siteIds: grdCtl.siteIds,
 					parentIds: grdCtl.parentIds,
-					firstSession: test
+					firstSession: test,
+					isFirst: isFirst,
+					gridCtl: grdCtl
 				});
 				
 				grdCtl.getView().bindStore(gridStore);
-		}else if(idCheck=="B001"){
+		}else{
 			//test value - ph
 			//options.title = "수질자동측정망";
-			
-			
+			options = {
+			//id: "searchResultContainer",
+			id: gridId + "_container",
+			title: titleText, //_searchType,
+			parentId: parentCheck,
+			//closable : true,
+			autoResize: true,
+			idCheck:idCheck
+			};
 			//b003.setHidden(false);
 			
 			if(grdContainer == null || grdContainer == undefined){
@@ -918,7 +933,9 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B001", {
 					siteIds: grdCtl.siteIds,
 					parentIds: grdCtl.parentIds,
-					firstSession: test
+					firstSession: test,
+					isFirst: isFirst,
+					gridCtl: grdCtl
 				});
 				
 				grdCtl.getView().bindStore(gridStore);
@@ -962,7 +979,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_C", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
-			firstSession: test
+			firstSession: test,
+			gridCtl: grdCtl
 		});
 		
 		grdCtl.getView().bindStore(gridStore);
@@ -1022,7 +1040,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_D", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
-			orgParentIds: orgParentId
+			orgParentIds: orgParentId,
+			gridCtl: grdCtl
 		});
 		
 		grdCtl.getView().bindStore(gridStore);

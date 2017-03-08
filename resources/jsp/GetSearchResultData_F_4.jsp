@@ -95,11 +95,11 @@ sql = " SELECT 																																																" +
 "    AND A.ADM_CD    =  B.ADM_CD                                                                              " +
 "    AND A.NO BETWEEN B.NO -4 AND B.NO                                                                        " +
 "    AND A.FACI_CD IN (" + siteIds + ")                                                                             " ; 
-if(firstSearch.equals("date")){
+//if(firstSearch.equals("date")){
 	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               " ;
-}else{
-	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
-}
+//}else{
+//	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
+//}
 sql += "  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                  " ;
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";

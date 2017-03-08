@@ -373,13 +373,13 @@ sql += "           AND A.WMWK = CD3.CODE(+) ) ) B                               
 sql += " WHERE A.PT_NO = B.PT_NO                                                                                                                                                              ";
 sql += "   AND A.NO BETWEEN B.NO -4 AND B.NO                                                                                                                                                  ";
 sql += "      AND A.PT_NO IN ("+siteIds+ ")                                                                                                                                                       ";
-if(firstSearch.equals("date")){
+//if(firstSearch.equals("date")){
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '"+startYYYYMM+"'                                                         " ;
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '"+endYYYYMM+"'                                                         " ;
-}else{
-	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201209'                                                         ";
-	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201212'                                                         " ;	
-}
+//}else{
+//	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201209'                                                         ";
+//	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201212'                                                         " ;	
+//}
 sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                                                         " ;
 		
      //sql += "AND A.PT_NO IN (" + siteIds + ") ";

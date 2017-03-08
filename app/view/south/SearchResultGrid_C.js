@@ -1404,5 +1404,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			
 			}]
 		}]
-	}]
+	}],
+	initComponent: function(){
+		
+		this.callParent();
+		
+		// 검색조건 컨트롤 초기화
+		KRF_DEV.global.TabFn.searchConditionInit("", this.down("grid"));
+	}
 });

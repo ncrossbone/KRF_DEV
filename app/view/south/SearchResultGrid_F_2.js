@@ -466,5 +466,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				filter: {type: 'numeric'/*, fields: {}*/}
 			}]
 		}]
-	}]
+	}],
+	initComponent: function(){
+		
+		this.callParent();
+		
+		// 검색조건 컨트롤 초기화
+		KRF_DEV.global.TabFn.searchConditionInit("", this.down("grid"));
+	}
 });

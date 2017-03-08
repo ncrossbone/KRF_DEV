@@ -110,13 +110,13 @@ try{
 	sql += "            AND A.WAST_NO = D.WAST_NO                                                                                             ";
 	sql += "            AND SUBSTR(D.ADM_CD, 1, 10) = E.ADM_CD                                                                                ";
 	sql += "            AND E.ADM_CD = F.ADM_CD                                                                                               ";
-	if(firstSearch.equals("date")){
+	//if(firstSearch.equals("date")){
 		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= '" + startYYYYMM + "'                                             ";
 		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '" + endYYYYMM + "'                                           ";
-	}else{
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= '201509'                                             ";
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '201512'                                           ";
-	}
+	//}else{
+	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= '201509'                                             ";
+	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '201512'                                           ";
+	//}
 	sql += "            AND A.FACT_CODE IN ("+siteIds+")                                                                                ";
 	sql += "        ) A                                                                                                                       ";
 	sql += "      , (                                                                                                                         ";
@@ -169,15 +169,15 @@ try{
 	sql += "            AND A.WAST_NO = D.WAST_NO                                                                                             ";
 	sql += "            AND SUBSTR(D.ADM_CD, 1, 10) = E.ADM_CD                                                                                ";
 	sql += "            AND E.ADM_CD = F.ADM_CD                                                                                               ";
-	if(firstSearch.equals("date")){
+	//if(firstSearch.equals("date")){
 		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= TO_CHAR(TO_DATE('" + startYYYYMM + "'                            ";
 		sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
 		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '" + endYYYYMM + "'                                           ";
-	}else{
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= TO_CHAR(TO_DATE('201509'                            ";
-		sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '201512'                                          ";
-	}
+	//}else{
+	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= TO_CHAR(TO_DATE('201509'                            ";
+	//	sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
+	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '201512'                                          ";
+	//}
 	sql += "            AND A.FACT_CODE IN ("+siteIds+")                                                                               ";
 	sql += "        ) B                                                                                                                       ";
 	sql += "  WHERE A.PT_NO   = B.PT_NO                                                                                                       ";

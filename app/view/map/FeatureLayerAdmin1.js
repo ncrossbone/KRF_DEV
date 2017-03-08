@@ -241,7 +241,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			return;
 		}
 		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
-		
+		console.info(query);
 		queryTask.execute(query,  function(results){
 			//console.info(layerId);
 			Ext.each(results.features, function(obj, index) {
