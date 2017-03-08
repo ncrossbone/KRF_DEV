@@ -1,4 +1,4 @@
-/** 전역 변수 클래스
+/** 전역 변수 클래스 (항공영상관련함수)
  *  config 속성의 변수를 get, set 메서드로 접근 가능함. (get변수명, set변수명)
  *  get, set 뒤 첫 알파벳은 대문자로 할 것
  *  ex) setGlobalTest(1234), getGlobalTest()

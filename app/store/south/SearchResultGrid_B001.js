@@ -123,16 +123,24 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
     pageSize: 100,
 
 	remoteSort: true,
-	
 	siteIds: "",
 	parentIds: [],
-	
+	gridCtl: null,
+	isFirst:true,
 	listeners: {
 		load: function(store) {
-			
+			var me = this;
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			
 			var startYear = startMonth = endYear = endMonth = "";
+			
+			var startDay = Ext.getCmp("startDay");
+			var startTime = Ext.getCmp("startTime");
+			var endDay = Ext.getCmp("endDay");
+			var endTime = Ext.getCmp("endTime");
+			var cmbStartYear = Ext.getCmp("cmbStartYear");
+			var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+			var cmbEndYear = Ext.getCmp("cmbEndYear");
+			var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
 			startMonth = Ext.getCmp("cmbStartMonth").value;
@@ -141,52 +149,91 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			
 			
 			var jsonData = "";
-			var arrData = [];
+			var arrData = [];  
 			
-			// 로딩바 표시
+			var startFull = cmbStartYear.value + cmbStartMonth.value +  startDay.value + startTime.value;
+			var endFull = cmbEndYear.value + cmbEndMonth.value +  endDay.value + endTime.value;
+			//var nowDate = date.getFullYear() + this.addZero(date.getMonth() + 1,2) + this.addZero(date.getDate(),2) + this.addZero(date.getHours(),2) + this.addZero(date.getMinutes(),2) + this.addZero(date.getSeconds(),2);
+			//console.info(nowDate);
+			
 			var winCtl = Ext.getCmp("searchResultWindow");
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			Ext.getCmp("searchResultContainer_B001_Id").removeCls("dj-mask-noneimg");
-			Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-withimg");
-			Ext.getCmp("searchResultContainer_B001_Id").mask("loading", "loading...");
+			
 			var con = Ext.getCmp("select_B001").value;
+			var url ="";
+			
+			if(con=="01"){
+				url = './resources/jsp/GetSearchResultData_B001.jsp';
+			}else{
+				url = './resources/jsp/GetSearchResultData_B001_fix.jsp';
+			}
+			
+			// 로딩중 메세지
+			if(me.gridCtl != null){
+				
+				me.gridCtl.removeCls("dj-mask-noneimg");
+				me.gridCtl.addCls("dj-mask-withimg");
+				me.gridCtl.mask("loading", "loading...");
+			}
+			
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetSearchResultData_B001.jsp',
+        		url: url,
         		/*params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},*/
-				params:{startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con},
+				params:{startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con, startFull:startFull, endFull:endFull},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
         			jsonData = Ext.util.JSON.decode( response.responseText );
-					if(jsonData.data.length == 0){
-						Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-noneimg");
-						Ext.getCmp("searchResultContainer_B001_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-					}else{
+        			
+        			if(jsonData.data.length > 0){
+        				
 						if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
-									store.setData(jsonData.data);
-									// 로딩바 숨김
-									Ext.getCmp("searchResultContainer_B001_Id").unmask();
-								}else{
-									Ext.getCmp("searchResultContainer_B001_Id").addCls("dj-mask-noneimg");
-									Ext.getCmp("searchResultContainer_B001_Id").mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-								}
-					}
-        			
-        			
+							
+							store.setData(jsonData.data);
+							
+							// 로딩바 숨김
+	        				if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.unmask();
+	        				}
+						}else{
+							
+							if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.addCls("dj-mask-noneimg");
+	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        				}
+						}
+        			}
+        			else{
+        				
+        				if(me.gridCtl != null){
+        					
+        					me.gridCtl.addCls("dj-mask-noneimg");
+        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+        				}
+        			}
         		},
         		failure: function(form, action) {
-        			// 로딩바 숨김
-        			activeTab.unmask();
         			
-        			alert("오류가 발생하였습니다.");
+        			if(me.gridCtl != null){
+    					
+    					me.gridCtl.addCls("dj-mask-noneimg");
+    					me.gridCtl.mask("오류가 발생하였습니다.");
+    				}
         		}
         	});
 			
 		}
-    }
+    },
+	
+	addZero: function(n, width) {
+		n = n + '';
+		return n.length >= width ? n : new Array(width - n.length + 1).join('0') + n;
+	}
 });

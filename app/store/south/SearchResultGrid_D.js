@@ -25,6 +25,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	
 	siteIds: "",
 	parentIds: [],
+	gridCtl: null,
 	orgParentIds: "",
 	
 	listeners: {
@@ -138,12 +139,18 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			var jsonData = "";
 			var arrData = [];
 			
-			// 로딩바 표시
 			var winCtl = Ext.getCmp("searchResultWindow");
 			var tabContainer = winCtl.items.items[0];
 			var tabCtl = tabContainer.items.items[1];
 			var activeTab = tabCtl.getActiveTab();
-			activeTab.mask("loading", "loading...");
+			
+			// 로딩중 메세지
+			if(me.gridCtl != null){
+				
+				me.gridCtl.removeCls("dj-mask-noneimg");
+				me.gridCtl.addCls("dj-mask-withimg");
+				me.gridCtl.mask("loading", "loading...");
+			}
 			
 			Ext.Ajax.request({
         		url: requestUrl,
@@ -155,21 +162,43 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
-        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
-        				store.setData(jsonData.data);
-	        			// 로딩바 숨김
-	        			activeTab.unmask();
+        			if(jsonData.data.length > 0){
+        				
+	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+	        				
+	        				store.setData(jsonData.data);
+		        			
+	        				// 로딩바 숨김
+	        				if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.unmask();
+	        				}
+	        			}
+	        			else{
+	        				
+	        				if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.addCls("dj-mask-noneimg");
+	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        				}
+	        			}
         			}
         			else{
-        				activeTab.mask(jsonData.data[0].msg, "noData");
+        				
+        				if(me.gridCtl != null){
+        					
+        					me.gridCtl.addCls("dj-mask-noneimg");
+        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+        				}
         			}
-        			
         		},
         		failure: function(form, action) {
-        			// 로딩바 숨김
-        			activeTab.unmask();
         			
-        			alert("오류가 발생하였습니다.");
+        			if(me.gridCtl != null){
+    					
+    					me.gridCtl.addCls("dj-mask-noneimg");
+    					me.gridCtl.mask("오류가 발생하였습니다.");
+    				}
         		}
         	});
 			

@@ -16,6 +16,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 	
 	items: [{
 		xtype: 'container',
+		id: "tabCondition",
 		//title: 'test',
 		layout: {
 			type: 'hbox',
@@ -58,8 +59,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			}, {
 				xtype: 'combo',
 				id: 'cmbStartYear',
-				store: ['', '2015', '2014', '2013', '2012', '2011', '2010'],
-				value: '2015',
+				store: KRF_DEV.global.CommFn.bindComboYear(2010, "Desc", ""),
 				width: 80,
 				height: 25
 			}, {
@@ -71,17 +71,45 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			}, {
 				xtype: 'combo',
 				id: 'cmbStartMonth',
-				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				value: '08',
+				store: KRF_DEV.global.CommFn.bindComboMonth("Asc", ""),
 				width: 50,
 				height: 25
 			}, {
 				xtype: 'label',
 				text: '월'
-			}, {
+			},{
+				xtype:"panel",
+				id:"startDayTime",
+				border:false,
+				hidden:true,
+				layout:{
+						type:"hbox",
+						align: 'middle'
+				},
+				items:[{
+					xtype:'combo',
+					id:"startDay",
+					store: KRF_DEV.global.CommFn.bindComboDay("Asc", ""),
+					editable:false,
+					value:"30",
+					width:50
+				},{
+					xtype:"label",
+					text:"일"
+				},{
+					xtype:'combo',
+					id:"startTime",
+					store: KRF_DEV.global.CommFn.bindComboHour("Asc", ""),
+					editable:false,
+					width:50
+				},{
+					xtype:"label",
+					text:"시"
+				}]
+			},{
 				xtype: 'container',
 				width: 10
-			}, {
+			},{
 				xtype: 'label',
 				text: '~'
 			}, {
@@ -90,8 +118,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			}, {
 				xtype: 'combo',
 				id: 'cmbEndYear',
-				store: ['', '2015', '2014', '2013', '2012', '2011', '2010'],
-				value: '2015',
+				store: KRF_DEV.global.CommFn.bindComboYear(2010, "Desc", ""),
 				width: 80,
 				height: 25
 			}, {
@@ -103,14 +130,43 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			}, {
 				xtype: 'combo',
 				id: 'cmbEndMonth',
-				store: ['', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
-				value: '10',
+				store: KRF_DEV.global.CommFn.bindComboMonth("Asc", ""),
 				width: 50,
 				height: 25
 			}, {
 				xtype: 'label',
 				text: '월'
-			}, {
+			},{
+				xtype:"panel",
+				border:false,
+				hidden:true,
+				id:"endDayTime",
+				layout:{
+					type:"hbox",
+					align:"center"
+				},
+				items:[{
+					xtype:'combo',
+					id:"endDay",
+					store: KRF_DEV.global.CommFn.bindComboDay("Asc", ""),
+					editable:false,
+					value:"30",
+					width:50
+				},{
+					xtype:"label",
+					text:"일"
+				},{
+					xtype:'combo',
+					id:"endTime",
+					store: KRF_DEV.global.CommFn.bindComboHour("Asc", ""),
+					editable:false,
+					value:"23",
+					width:50
+				},{
+					xtype:"label",
+					text:"시"
+				}]
+			},{
 				xtype: 'container',
 				width: 10
 			}, {
@@ -122,10 +178,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				listeners: {
 					el: {
 						click: function(){
+							
 							var fName = Ext.getCmp("F_CHANGE");
 							var tabCtl = Ext.getCmp("searchResultTab");
 							tabCtl = tabCtl.items.items[1];
 							var activeTab = tabCtl.getActiveTab();
+							
+							// 검색조건 셋팅 (필수!!)
+							KRF_DEV.global.TabFn.searchConditionSet(activeTab.down("grid"));
+							
 							var gridContainer = activeTab.items.items[0];
 							var gridCtl = gridContainer.items.items[0];
 							if(gridCtl.parentIds[0].parentId == undefined){
@@ -137,7 +198,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 							
 							KRF_DEV.getApplication().btnFlag = "date";
-							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value);
+							
+							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 						}
 					}
 				}
@@ -531,13 +593,23 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		listeners:{
 			'tabchange': function (tabPanel, tab){
 				
+				// 그리드별 조회조건 컨트롤 셋팅
+				KRF_DEV.global.TabFn.searchConditionCtl(tab.down("grid"));
+				
 				//미확정자료 콤보박스 분기 - ph
 				var b001 = Ext.getCmp("select_B001");
-				if(tab.id=="grid_B001_container"){
-					b001.setHidden(false);
-				}else{
-					b001.setHidden(true);
-				}
+				var startDayTime = Ext.getCmp("startDayTime");
+				var endDayTime = Ext.getCmp("endDayTime");
+				
+					if(tab.id=="grid_B001_container" || tab.idCheck=="B001"){
+						b001.setHidden(false);
+						startDayTime.setHidden(false);
+						endDayTime.setHidden(false);
+					}else{
+						b001.setHidden(true);
+						startDayTime.setHidden(true);
+						endDayTime.setHidden(true);
+					}
 				
 				if(tab.parentId != "F"){
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
