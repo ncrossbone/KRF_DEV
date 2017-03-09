@@ -569,7 +569,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
 	////console.info(searchResultTab.items.items[1]);
-	
 	var orgParentId = parentIds[0].parentId;
 	
 	if(parentIds[0].parentId == undefined){

@@ -177,7 +177,6 @@ Ext.define('KRF_DEV.view.north.North', {
     	listeners: {
     		el: {
     			click: function(){
-    				
     				var boardCtl = Ext.getCmp("boardQNA");
     				if(boardCtl == undefined){
 	    				boardCtl = Ext.create("Ext.window.Window", {

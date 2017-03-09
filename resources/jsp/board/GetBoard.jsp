@@ -96,6 +96,7 @@ try{
 	sb.append("\n                     ,BOARD_CONTENTS ");
 	sb.append("\n                     ,TO_CHAR(REGDT,'YYYY-MM-DD') AS REGDT ");
 	sb.append("\n                     ,TYPE           ");
+	sb.append("\n                     ,NVL(FILE_NM, 0) AS FILE_NM           ");
 	sb.append("\n                 FROM KRF_BOARD      ");
 	sb.append("\n                WHERE TYPE = ").append(boardType);
 	if(wordSh != null && !"".equals(wordSh)){
@@ -165,6 +166,7 @@ try{
             <tr>
                 <th>번호</th>
                 <th>제목</th>
+                <th>첨부파일</th>
                 <th>작성일</th>
             </tr>
         </thead>
@@ -174,6 +176,7 @@ try{
             <tr>
                 <td><%=rs.getInt("ROWNO1") %></td>
                 <td class="PdL10 AL"><a href="./GetBoardContents.jsp?seq=<%=rs.getInt("SEQ")%>&type=<%=rs.getString("TYPE")%>"><%=rs.getString("TITLE") %></a></td>
+                <td><%=rs.getInt("FILE_NM") %></td>
                 <td><%=rs.getString("REGDT") %></td>
             </tr>
             <%	
