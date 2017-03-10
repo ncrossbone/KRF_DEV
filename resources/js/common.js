@@ -1629,6 +1629,11 @@ ResetButtonClick = function(){
 	}else{
 		droneCtl.hide();
 	}
+	
+	Ext.defer(function(){
+		Layer01OnOff(_reachNodeLayerId, "on");
+		Layer01OnOff(_reachLineLayerId, "on");
+	}, 100);
 }
 
 // 주제도 레이어 on/off
