@@ -1622,18 +1622,23 @@ ResetButtonClick = function(){
 	// 항공영상 On/Off
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
+	//console.info(currCtl);
 	//console.info(droneCtl);
-	// 항공영상 tool 숨기기
-	if(currCtl.btnOnOff == "on"){
-		droneCtl.show();
-	}else{
-		droneCtl.hide();
-	}
 	
-	Ext.defer(function(){
-		Layer01OnOff(_reachNodeLayerId, "on");
-		Layer01OnOff(_reachLineLayerId, "on");
-	}, 100);
+	if(currCtl != undefined && droneCtl != undefined){
+		
+		// 항공영상 tool 숨기기
+		if(currCtl.btnOnOff == "on"){
+			droneCtl.show();
+		}else{
+			droneCtl.hide();
+		}
+		
+		Ext.defer(function(){
+			Layer01OnOff(_reachNodeLayerId, "on");
+			Layer01OnOff(_reachLineLayerId, "on");
+		}, 100);
+	}
 }
 
 // 주제도 레이어 on/off
