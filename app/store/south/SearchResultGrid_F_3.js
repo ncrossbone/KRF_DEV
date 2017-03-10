@@ -33,6 +33,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
 	listeners: {
 		load: function(store) {
 			
+			var me = this;
 			var startYear = startMonth = endYear = endMonth = "";
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
