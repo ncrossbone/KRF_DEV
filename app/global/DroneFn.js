@@ -21,6 +21,12 @@ Ext.define("KRF_DEV.global.DroneFn", {
 		
 		//맵 불러오기
 		var activeLayer = me.map.getLayer("DynamicLayer3");
+		
+		if(activeLayer == undefined || activeLayer == null){
+			
+			return;
+		}
+
 		activeLayer.setVisibility(false);
 		
 		
