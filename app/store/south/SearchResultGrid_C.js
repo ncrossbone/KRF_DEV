@@ -67,6 +67,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 	listeners: {
 		load: function(store) {
 			
+			var me = this;
+			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			
 			var startYear = startMonth = endYear = endMonth = "";

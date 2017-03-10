@@ -26,7 +26,7 @@ Ext.define("KRF_DEV.global.DroneFn", {
 			
 			return;
 		}
-
+		
 		activeLayer.setVisibility(false);
 		
 		

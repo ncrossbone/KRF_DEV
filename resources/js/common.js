@@ -1622,8 +1622,6 @@ ResetButtonClick = function(){
 	// 항공영상 On/Off
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
-	//console.info(currCtl);
-	//console.info(droneCtl);
 	
 	if(currCtl != undefined && droneCtl != undefined){
 		

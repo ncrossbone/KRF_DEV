@@ -31,6 +31,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	listeners: {
 		load: function(store) {
 			
+			var me = this;
 			var requestUrl = "";
 			
 			if(store.orgParentIds == "D001"){
