@@ -124,75 +124,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             		return !record.data.leaf;
             	}
             }
-        }, {
-        	xtype: 'actioncolumn',
-            text: '리포트',
-            width: 60,
-            menuDisabled: true,
-            tooltip: '리포트',
-            align: 'center',
-            dataIndex: 'id',
-            icon: "./resources/images/button/icon_report.gif",
-            iconCls: ' khLee-x-default-btn',
-            isDisabled: function(view, rowIdx, colIdx, item, record) {
-            	
-            	if(record.data.id == "A"){
-            		return false;
-            	}
-            	else{
-            		return true;
-            	}
-            },
-            handler: function(grid, rowIndex, colIndex, actionItem, node, record, row) {
-            	
-            	var me = this.up("window");
-            	
-            	var childRecord = record.childNodes;
-        		
-        		for(var i = 0; i < childRecord.length; i++){
-        			
-        			var isInit = true;
-        			if(i != 0){
-        				isInit = false;
-        			}
-        			me.setSiteIds(childRecord[i], isInit);
-        		}
-            	
-            	var coreMap = GetCoreMap();
-				var center = coreMap.map.extent.getCenter();
-				var level = coreMap.map.getLevel();
-				var width = coreMap.getWidth();
-				var height = coreMap.getHeight();
-				//console.info(width);
-				//console.info(height);
-				//console.info(coreMap.map.extent.getCenter());
-				//console.info(coreMap.map.getLevel());
-				
-				var rptwindow = Ext.getCmp("rptinitwindow");
-								
-				if(rptwindow==undefined){
-					var rpt = Ext.create("KRF_DEV.view.center.RptInitWindow");
-					rpt.show(); 
-				}
-				
-				//var url = "./report/rptExtView.html?l=" + level + "&x=" + center.x + "&y=" + center.y +
-				//"&w=" + width + "&h=" + height;
-				//window.open(url, "리포트 설정", //"width=1350,height=900,menubar=no,status=no,toolbar=no,location=no,resizable=no,fullscreen=no,scrollbars=no");
-				
-				/*width : 팝업창 가로길이
-				height : 팝업창 세로길이
-				toolbar=no : 단축도구창(툴바) 표시안함
-				menubar=no : 메뉴창(메뉴바) 표시안함
-				location=no : 주소창 표시안함
-				scrollbars=no : 스크롤바 표시안함
-				status=no : 아래 상태바창 표시안함
-				resizable=no : 창변형 하지않음
-				fullscreen=no : 전체화면 하지않음
-				channelmode=yes : F11 키 기능이랑 같음
-				left=0 : 왼쪽에 창을 고정(ex. left=30 이런식으로 조절)
-				top=0 : 위쪽에 창을 고정(ex. top=100 이런식으로 조절)*/
-            }
-        }, {
+        }/* 외부망 리포트 삭제 */, {
             text: '검색',
             width: 50,
             xtype: 'actioncolumn',
