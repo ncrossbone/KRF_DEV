@@ -2,6 +2,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
+    // -----퇴적물조사지점-----
     fields: [
 			'PT_NO',
 			'PT_NM',
@@ -94,12 +95,61 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
+			
+			if(firstSearch == "noDate"){
+				Ext.Ajax.request({
+	        		url: './resources/jsp/GetSearchResultData_C.jsp',
+	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch:firstSearch},
+	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		//rootProperty : 'items',
+	        		success : function(response, opts) {
+	        			
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+	
+	        			if(jsonData.data.length > 0){
+	        				
+		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+		        				
+		        				console.info(jsonData.data);
+		        				//store.setData(jsonData.data);
+		        				startYear = jsonData.data[0].WMYR;
+		        				if(jsonData.data[0].WMOM == "1"){
+		        					jsonData.data[0].WMOM = "12";
+		        					startYear = startYear-1;
+		        				}else{
+		        					startMonth = jsonData.data[0].WMOM-1;
+		        				}
+		        				
+		        				if(startMonth < 10){
+		        					startMonth = "0"+startMonth;
+		        				}
+		        				
+		        				endYear = jsonData.data[0].WMYR;
+		        				endMonth = jsonData.data[0].WMOM;
+		        			}
+	        			}
+	        		},
+	        		failure: function(form, action) {
+	        			
+	        		}
+	        	});
+				
+				
+				firstSearch = "date";
+				Ext.getCmp("cmbStartYear").setValue(startYear); 
+				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("cmbEndYear").setValue(endYear);
+				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+			}
+			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_C.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch:firstSearch},
-        		async: true, // 비동기 = async: true, 동기 = async: false
+        		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
@@ -109,6 +159,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 	        				
+	        				console.info(jsonData.data);
 	        				store.setData(jsonData.data);
 		        			
 	        				// 로딩바 숨김

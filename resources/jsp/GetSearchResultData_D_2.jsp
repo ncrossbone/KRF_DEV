@@ -23,11 +23,22 @@ try{
 	String endYear = request.getParameter("endYear");
 	String endMonth = request.getParameter("endMonth");
 	
+	String firstSearch = request.getParameter("firstSearch");
+	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
-	//out.print(parentIds);
 	
-sql = " SELECT A.RN /* 순번 참고용 */																																				";
+	//firstSearch
+	//out.print(parentIds);
+	//우량관측소
+
+if(firstSearch.equals("date")){
+	sql = "";
+}else{
+	sql = " SELECT * FROM ( ";
+}
+	
+sql += " SELECT A.RN /* 순번 참고용 */																																				";
 sql += "     , A.WS_NM /* 대권역 */                                                                           ";
 sql += "     , A.AM_NM /* 중권역 */                                                                           ";
 sql += "     , A.AS_NM /* 소권역 */                                                                           ";
@@ -87,9 +98,16 @@ sql += "           AND A.ADM_CD = C.ADM_CD                                      
 sql += "       ) B                                                                                            ";
 sql += " WHERE A.PT_NO = B.PT_NO                                                                              ";
 sql += "   AND A.RN BETWEEN B.RN -4 AND B.RN                                                                  ";
-sql += "   AND SUBSTR(A.WMCYMD,1,4)||SUBSTR(A.WMCYMD,6,2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'                       ";
-sql += "   AND A.PT_NO IN ( "+siteIds+"  )                                                                         ";
-sql += " ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                           ";
+if(firstSearch.equals("date")){
+	sql += "   AND SUBSTR(A.WMCYMD,1,4)||SUBSTR(A.WMCYMD,6,2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'                       ";
+	sql += "   AND A.PT_NO IN ( "+siteIds+"  )                                                                         ";
+	sql += " ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                           ";	
+}else{
+	sql += "   AND A.PT_NO IN ( "+siteIds+"  )                                                                         ";
+	sql += " ORDER BY A.WMCYMD DESC 	";
+	sql += " ) WHERE ROWNUM <= 1  	";
+}
+
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
     //out.print(sql);

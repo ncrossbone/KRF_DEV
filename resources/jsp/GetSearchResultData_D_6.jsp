@@ -23,11 +23,19 @@ try{
 	String endYear = request.getParameter("endYear");
 	String endMonth = request.getParameter("endMonth");
 	
+	String firstSearch = request.getParameter("firstSearch");
+	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
-	
-sql = " SELECT A.RN     /* 순번 */																														";
+	//지상기상관측소
+
+if(firstSearch.equals("date")){
+	sql = "";
+}else{
+	sql = " SELECT * FROM ( ";
+}
+sql += " SELECT A.RN     /* 순번 */																														";
 sql += "      , A.WS_NM  /* 대권역 */                                                         ";
 sql += "      , A.AM_NM  /* 중권역 */                                                         ";
 sql += "      , A.AS_NM  /* 소권역 */                                                         ";
@@ -64,8 +72,10 @@ sql += "                        KESTI_RNDY_ST D,                                
 sql += "                        WTOBSIF E                                                     ";
 sql += "                 WHERE  A.STN_ID = D.STN_ID                                           ";
 sql += "                 AND    A.STN_ID= E.OBSNMENG                                          ";
-sql += "                 AND    SUBSTR(A.TM, 1, 6) >='"+startYYYYMM+"'                                 ";
-sql += "                 AND    SUBSTR(A.TM, 1, 6) <='"+endYYYYMM+"'                                 ";
+if(firstSearch.equals("date")){
+	sql += "                 AND    SUBSTR(A.TM, 1, 6) >='"+startYYYYMM+"'                                 ";
+	sql += "                 AND    SUBSTR(A.TM, 1, 6) <='"+endYYYYMM+"'                                 ";
+}
 sql += "                 AND    D.STN_ID IN ( "+siteIds+" )                                             ";
 sql += "                 GROUP BY TM, E.OBSNMENG, STN_NM, TA, SI_DAY)A,                       ";
 sql += "                KESTI_WATER_ALL_MAP B,                                                ";
@@ -96,9 +106,11 @@ sql += "                        KESTI_RNDY_ST D,                                
 sql += "                        WTOBSIF E                                                     ";
 sql += "                 WHERE  A.STN_ID = D.STN_ID                                           ";
 sql += "                 AND    A.STN_ID= E.OBSNMENG                                          ";
-sql += "                 AND    SUBSTR(A.TM, 1, 6) >= TO_CHAR(TO_DATE('"+startYYYYMM+"'                ";
-sql += "                       , 'YYYYMM') -35, 'YYYYMM')                                     ";
-sql += "                 AND    SUBSTR(A.TM, 1, 6) <= '"+endYYYYMM+"'                                ";
+if(firstSearch.equals("date")){
+	sql += "                 AND    SUBSTR(A.TM, 1, 6) >= TO_CHAR(TO_DATE('"+startYYYYMM+"'                ";
+	sql += "                       , 'YYYYMM') -35, 'YYYYMM')                                     ";
+	sql += "                 AND    SUBSTR(A.TM, 1, 6) <= '"+endYYYYMM+"'                                ";
+}
 sql += "                 AND    D.STN_ID IN ( "+siteIds+" )                                              ";
 sql += "                 GROUP BY TM, E.OBSNMENG, STN_NM, TA, SI_DAY)A,                       ";
 sql += "                KESTI_WATER_ALL_MAP B,                                                ";
@@ -108,7 +120,12 @@ sql += "         AND    A.ADM_CD = C.ADM_CD                                     
 sql += "        ) B                                                                           ";
 sql += "  WHERE A.PT_NO = B.PT_NO                                                             ";
 sql += "    AND A.RN BETWEEN B.RN -4 AND B.RN                                                 ";
-sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                          ";
+if(firstSearch.equals("date")){
+	sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                          ";
+}else{
+	sql += "  ORDER BY A.WMCYMD DESC                                          ";
+	sql += "  ) WHERE ROWNUM <= 1                                          ";
+}
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    //out.print(sql);

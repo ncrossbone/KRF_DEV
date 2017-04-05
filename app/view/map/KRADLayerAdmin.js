@@ -374,7 +374,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			    			else{ /* 검색설정 "상류" 체크 시 끝 */
 			    				
 			    				if(me.isShowPopup == true){
-					    			
 					    			me.setRchIdsWithEvent();
 					    		}
 					    		else{
@@ -508,7 +507,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	        	query.geometry = queryExtent.centerAt(centerPoint);
 	    	}
 			else{
-				
 				if(me.mapClickEvt.mapPoint != undefined && me.mapClickEvt.mapPoint != null){
 					query.geometry = me.mapClickEvt.mapPoint;
 				}
@@ -522,9 +520,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			// 이벤트로 리치라인 조회
 			queryTask.execute(query, function(featureSet){
-				//console.info(featureSet);
+				console.info(featureSet);
 				if(featureSet.features.length > 0){
-					
 					me.execLineFeature(featureSet);
 				}
 				else{
@@ -572,7 +569,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	});
     },
     execLineFeature: function(featureSet){
-    	
     	var me = this;
     	
     	for(var i = 0; i < featureSet.features.length; i++){
@@ -605,11 +601,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			}
     		else{
     			//console.info(feature.attributes.RCH_ID);
+    			console.info(feature);
     			me.rchIds.push(feature.attributes.RCH_ID);
     			me.clickedReachLines.push(feature); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
-    			
+    		
     			if(_krad.kradInfo.length == 0){
-    				
     				me.setClickEvt(_krad.mapClickEvt, "Reach");
     				// 이벤트 초기화
 					initKradEvt();
@@ -928,7 +924,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		else if(eventType == "Reach"){
 			
 			geo = me.mapClickEvt.mapPoint;
-			
+			console.info(me.clickedReachLines.length);
 			var rIdx = me.clickedReachLines.length - 1;
 			//console.info(me.clickedReachLines[rIdx].attributes);
 			rchId = me.clickedReachLines[rIdx].attributes.RCH_ID;
@@ -941,12 +937,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		}
 		
 		me.drawSymbol(geo); // 심볼 그리기
-		//console.info(siteNms);
-		
 		for(var i = 0; i < rchIds.length; i++){
 			
 			if(me.drawOption == "startPoint"){
-				
 				// 시작위치 하천명 셋팅
 				SetStEdSiteName("start", siteNms[i]);
 				
@@ -992,14 +985,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			}
 			
 			if(rchDid != ""){
-				
-				// 하류 및 공통하류 셋팅 
+				// 하류 및 공통하류 셋팅
 				me.setDownAndComm([rchDid], [], 0, "RCH_DID");
+				
 			}
 			else{
-				
-				// 하류 및 공통하류 셋팅 
+				// 하류 및 공통하류 셋팅
 				me.setDownAndComm(rchIds, [], 0, "RCH_ID");
+				
 			}
 		}
     },
@@ -1062,7 +1055,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     },
     /* 하류 및 공통하류 셋팅 */
     setDownAndComm: function(rchIds, tmpArr, cnt, colNm){
-    	
+    	console.info(rchIds[0]);
     	var me = this;
     	
     	require(["esri/tasks/query",
@@ -1094,21 +1087,19 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			}
 			
 			query.where = query.where.substring(0, query.where.length - 2) + ")";
+			
+			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
-				
 				if(featureSet.features.length > 0){
 					
 					for(var fCnt = 0; fCnt < featureSet.features.length; fCnt++){
 						
 						var feature = featureSet.features[fCnt];
 						var rchDid = feature.attributes.RCH_DID;
-						
 						var tmpIdx = tmpArr.map(function(obj){
-							
 							return obj.attributes.RCH_DID;
 						}).indexOf(rchDid);
-						
 						if(tmpIdx == -1){
 							
 							/* khLee 하류 그래픽 그리기 (필요없을때 삭제(주석) 요..) */
@@ -1124,7 +1115,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 							tmpArr.push(feature);
 							
 				    		var ldRchDid = feature.attributes.LD_RCH_DID;
-				    		
 				    		if(ldRchDid != undefined && ldRchDid.trim() != ""){
 				    			
 				    			// 좌측 하류 검색 (재귀호출)
@@ -1137,7 +1127,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    		}
 				    		
 				    		var rdRchDid = feature.attributes.RD_RCH_DID;
-				    		
 				    		if(rdRchDid != undefined && rdRchDid.trim() != ""){
 				    			
 				    			// 우측 하류 검색 (재귀호출)
@@ -1151,16 +1140,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    		
 				    		// 좌/우측 하류 검색 종료 시
 				    		if(isEndLD == true && isEndRD == true){
-				    			
 				    			/* 좌/우측 하류 동시 존재 시 한번만 입력되도록 push 플래그 설정 */
 				    			var isPush = true;
 				    			
+				    			//  vvv : ??
 				    			for(var dnCnt = 0; dnCnt < me.arrDownGrp.length; dnCnt++){
 				    				
 				    				//console.info(me.arrDownGrp[dnCnt][0].attributes.RCH_DID);
 				    				//console.info(tmpArr[0].attributes.RCH_DID);
 				    				if(me.arrDownGrp[dnCnt][0].attributes.RCH_DID == tmpArr[0].attributes.RCH_DID){
-				    					
 				    					isPush = false;
 				    					break;
 				    				}
@@ -1170,7 +1158,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    			var lastIdx = -1;
 				    			
 				    			for(var dnCnt = 0; dnCnt < me.arrDownGrp.length; dnCnt++){
-				    				
 				    				var isBreak = false;
 				    				
 				    				for(var tmpCnt = 0; tmpCnt < tmpArr.length; tmpCnt++){
@@ -1186,18 +1173,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    						var cIdx = me.arrCommGrp.map(function(obj){
 				    							return obj.attributes.RCH_DID;
 				    						}).indexOf(tmpRchDid);
-				    						
 				    						if(cIdx == -1){
 				    							//console.info(tmpArr[tmpCnt].attributes.RCH_DID);
 				    							
 				    							// 좌/우측 하류 동시 존재 시 한번만 입력되도록..
 				    							if(isPush == true){
-				    								
 				    								// 공통 하류 배열 담기..
 				    								me.arrCommGrp.push(tmpArr[tmpCnt]);
 				    							}
 				    						}
-				    						
 				    						if(tmpCnt > lastIdx){
 				    							
 				    							lastIdx = tmpCnt;
@@ -1216,7 +1200,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    			}
 				    			
 				    			if(lastIdx > -1){
-				    				
 					    			/*console.info(me.stRchIds);
 					    			console.info(me.stEvtTypes);
 					    			console.info(me.edRchIds);
@@ -1226,11 +1209,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    				// 시작위치, 끝위치 선택 완료 시
 					    			if(me.stRchIds.length > 0 && me.edRchIds.length > 0){
 					    				//console.info(tmpArr[0].attributes.RCH_DID);
+					    				
 					    				for(var i = 0; i < me.arrCommGrp.length; i++){
 					    					
 						    				var commRchDid = me.arrCommGrp[i].attributes.RCH_DID;
 						    				var commGeoTrib = me.arrCommGrp[i].attributes.GEO_TRIB;
-						    				//console.info(commRchDid);
+						    				
 						    				var isGeoTrib = me.chkGeoTrib(commGeoTrib);
 						    				
 						    				if(isGeoTrib == false){
@@ -1241,9 +1225,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						    					return;
 						    				}
 						    				else{
-						    					
 						    					// 상류 검색
 						    					me.setReachUpLine(commRchDid, 0, false);
+						    					
 						    					// 종료 검색 체크
 						    					me.isStopCheck();
 						    				}
@@ -1289,7 +1273,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
      * cnt: 상류검색 카운트 */
     setReachUpLine: function(rchDid, cnt){
     	
-    	var me = this;
+    	var me = this;    	
     	
     	/* 초기화 시 검색 종료 */
     	if(me.searchStopCheck(cnt) == false){ return false };
@@ -1344,7 +1328,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 						// 하류 배열 인덱스
 						dnIdx = me.arrDownGrp[i].map(function(obj){
-							
 							return obj.attributes.RCH_DID;
 						}).indexOf(rchDid);
 						
@@ -1427,9 +1410,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						evtType = "none";
 					}
 					
-					// 이벤트 타입에 따라 그리기 유형 다르게..
+					
+					// 이벤트 타입에 따라 그리기 유형 다르게.. ***********
 					if(evtType == "Reach"){
-						
 						// 그래픽 그리기
 						me.drawGraphic(feature, "reachLine");
 						// 집수구역 그리기
@@ -1467,19 +1450,17 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					if(isSearch == true){
 						
 						cnt++;
-						
 						var luRchDid = feature.attributes.LU_RCH_DID;
 	    				
 	    				if(luRchDid != undefined && luRchDid.trim() != ""){
-	    					
 		    				// 좌측 상류 검색 (재귀호출)
 							me.setReachUpLine(luRchDid, cnt);
+							
 	    				}
 						
 	    				var ruRchDid = feature.attributes.RU_RCH_DID;
 	    				
 	    				if(ruRchDid != undefined && ruRchDid.trim() != ""){
-	    					
 	    					// 우측 상류 검색 (재귀호출)
 	    					me.setReachUpLine(ruRchDid, cnt);
 	    				}

@@ -7,6 +7,9 @@
 	중요!!!
 	Json 형태로 출력하는 jsp페이지는 어떠한 html 요소도 사용하지 않아야 한다.
 	<!DOCTYPE, <html 등등
+	
+	----수질자동측정지점---
+	
 */
 try{
 	String WS_CD = request.getParameter("WS_CD");

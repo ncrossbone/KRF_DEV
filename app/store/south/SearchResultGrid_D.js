@@ -153,12 +153,69 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
+			var firstSearch =  KRF_DEV.getApplication().btnFlag;
+			
+			if(firstSearch == "noDate"){
+				Ext.Ajax.request({
+	        		url: requestUrl,
+	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
+	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		success : function(response, opts) {
+
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+
+	        			if(jsonData.data.length > 0){
+	        				
+		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+		        				
+		        				
+		        				var dateSplit = jsonData.data[0].WMCYMD;
+		        				console.info(dateSplit);
+		        				if(store.orgParentIds == "D006"){
+		        					var afterVal = [];
+		        					afterVal.push(dateSplit.substring(0,4));
+		        					afterVal.push(dateSplit.substring(4,6));
+		        				}else{
+			        				var afterVal = dateSplit.split(".");
+		        				}
+		        				
+		        				console.info(afterVal);
+		        				startYear = afterVal[0];
+		        				if(afterVal[1] == "1"){
+		        					afterVal[1] = "12";
+		        					startYear = startYear-1;
+		        				}else{
+		        					startMonth = afterVal[1]-1;
+		        				}
+		        				
+		        				if(startMonth < 10){
+		        					startMonth = "0"+startMonth;
+		        				}
+		        				
+		        				endYear = afterVal[0];
+		        				endMonth = afterVal[1];
+		        				
+		        			}
+	        			}
+	        		}
+	        	});
+				
+				//return;
+				firstSearch = "date";
+				Ext.getCmp("cmbStartYear").setValue(startYear); 
+				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("cmbEndYear").setValue(endYear);
+				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+			}
+			
 			Ext.Ajax.request({
         		url: requestUrl,
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: store.siteIds},
-        		async: true, // 비동기 = async: true, 동기 = async: false
+        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
+        		async: false, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
 
         			jsonData = Ext.util.JSON.decode( response.responseText );

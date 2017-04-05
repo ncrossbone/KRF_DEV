@@ -28,7 +28,13 @@ try{
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
 	//직접이송량
-sql = " SELECT 																																																						" +
+	
+if(firstSearch.equals("noDate")){
+	sql = " select * from ( ";
+}else{
+	sql = "  ";
+}
+sql += " SELECT 																																																						" +
 "        A.FACI_CD                                                                                                  " +
 "      , A.NO /* 순번 참고용 */                                                                                     " +
 "      , A.FACI_NM /* 처리시설명*/                                                                                  " +
@@ -95,15 +101,18 @@ sql = " SELECT 																																																						" +
 "    AND A.ADM_CD    =  B.ADM_CD                                                                                    " +
 "    AND A.NO BETWEEN B.NO -4 AND B.NO                                                                              " +
 "    AND A.FACI_CD IN (" + siteIds + ")                                                                                  " ; 
-//if(firstSearch.equals("date")){
+if(firstSearch.equals("date")){
 	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               " ;
-//}else{
+	sql += "  ORDER BY A.FACI_NM, A.IN_PL_TYPE, A.WORK_DT DESC, B.WORK_DT                                                     ";
+}else{
+	sql += " ) where rownum <= 1  order by work_dt_val ";
+}
 //	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
 //}
-sql += "  ORDER BY A.FACI_NM, A.IN_PL_TYPE, A.WORK_DT DESC, B.WORK_DT                                                     "; 
+ 
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
-   
+   //out.print(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
    

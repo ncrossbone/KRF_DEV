@@ -105,7 +105,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     
     /* 시작위치 버튼 클릭 */
     onClickStartPoint: function(){
-    	
     	var me = this;
     	Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
 		me.startDraw("startPoint");

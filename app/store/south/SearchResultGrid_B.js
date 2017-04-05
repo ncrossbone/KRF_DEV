@@ -79,7 +79,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			console.info("dlfja");
+        			//console.info("dlfja");
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){

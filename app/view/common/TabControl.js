@@ -223,6 +223,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				style: 'cursor:pointer;border:0px !important;',
 				listeners: {
 					change: function(){
+						
+						KRF_DEV.getApplication().btnFlag = "noDate";
+						
 						var fName = Ext.getCmp("F_CHANGE");
 						var tabCtl = Ext.getCmp("searchResultTab");
 						tabCtl = tabCtl.items.items[1];

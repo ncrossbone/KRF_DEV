@@ -134,6 +134,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			
+			
 			var startYear = startMonth = endYear = endMonth = "";
 			
 			var sYearCtl = Ext.getCmp("cmbStartYear");
@@ -167,19 +168,74 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 				me.gridCtl.addCls("dj-mask-withimg");
 				me.gridCtl.mask("loading", "loading...");
 			}
-
+			
+			
+			console.info(startYear);
+			console.info(startMonth);
+			console.info(endYear);
+			console.info(endMonth);
+			
+			if(firstSearch == "noDate"){
+				Ext.Ajax.request({
+	        		url: './resources/jsp/GetSearchResultData.jsp',
+	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
+	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		//rootProperty : 'items',
+	        		success : function(response, opts) {
+	        			
+	        			// JSON Object로 변경
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+	        			
+	        			if(jsonData.data.length > 0){
+	        				
+		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+		        				
+		        				startYear = jsonData.data[0].WMYR;
+		        				if(jsonData.data[0].WMOD == "1"){
+		        					jsonData.data[0].WMOD = "12";
+		        					startYear = startYear-1;
+		        				}else{
+		        					startMonth = jsonData.data[0].WMOD-1;
+		        				}
+		        				
+		        				if(startMonth < 10){
+		        					startMonth = "0"+startMonth;
+		        				}
+		        				
+		        				endYear = jsonData.data[0].WMYR;
+		        				endMonth = jsonData.data[0].WMOD;
+		        				
+		        			}
+	        			}
+	        		},
+	        		failure: function(form, action) {
+	        			
+	        		}
+	        	});
+				
+				//return;
+				firstSearch = "date";
+				Ext.getCmp("cmbStartYear").setValue(startYear); 
+				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("cmbEndYear").setValue(endYear);
+				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+			}
+			
+			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
-        		async: true, // 비동기 = async: true, 동기 = async: false
+        		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			
+        			console.info(jsonData.data);
         			if(jsonData.data.length > 0){
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){

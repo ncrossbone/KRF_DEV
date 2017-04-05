@@ -42,7 +42,6 @@ Ext.define("KRF_DEV.view.map.SearchReachUp", {
     },
     // 상류검색, 그래픽 그리기
     searchUpWithFeature: function(lineFeature, cnt){
-    	
     	var me = this;
     	
     	/* 초기화 시 검색 종료 */
@@ -201,7 +200,6 @@ Ext.define("KRF_DEV.view.map.SearchReachUp", {
     	});
     },
     drawGraphic: function(isDrawGraphic, lineFeature, areaFeatures){
-    	
     	//console.info(me.mbId);
 		if(isDrawGraphic == true){
 			
@@ -216,7 +214,6 @@ Ext.define("KRF_DEV.view.map.SearchReachUp", {
 		}
     },
     searchUpWithWhere: function(isUpSearch, where, cnt){
-    	
     	var me = this;
     	
     	if(isUpSearch == true){

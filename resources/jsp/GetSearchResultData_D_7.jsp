@@ -26,8 +26,9 @@ try{
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
+	//보관측소
 	
-	sql = " SELECT A.RN /* 순번 */																																											";
+	sql = " SELECT A.RN /* 순번 */																					 ";
 	sql += "      , A.WS_NM  /* 대권역 */                                                                               ";
 	sql += "      , A.AM_NM  /* 중권역 */                                                                               ";
 	sql += "      , A.AS_NM  /* 소권역 */                                                                               ";
@@ -157,7 +158,7 @@ try{
 	sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                                ";
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
-   	//out.print(sql); 
+   	out.print(sql); 
 	stmt = con.createStatement();
 	rs = stmt.executeQuery(sql);
 	

@@ -149,6 +149,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 			}
 			
+			//수질자동측정지점 외부망 표출 X
+			query.where += "	AND  GROUP_CODE <> 'B'	";
+			
 			query.outFields = ["*"];
 			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
 			//console.info(query.where);
