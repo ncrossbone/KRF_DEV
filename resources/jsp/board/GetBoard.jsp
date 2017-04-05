@@ -8,13 +8,14 @@
 		location.href = './GetBoardContents.jsp?seq='+val;
 	}
 	
+	var _boardType = "";
 	function getListByBoard(val){
 		
 		if(val == ''){
 			val = document.getElementById("boardType").value;
+			_boardType = val
 		}
-		
-		location.href = './GetBoard.jsp?boardType='+val;
+		location.href = './GetBoard.jsp?boardType='+_boardType;
 	}
 	
 	function getListByTitle(val){
@@ -136,9 +137,9 @@ try{
 </title>
 <link href="./css/BasicSet.css" rel="stylesheet" type="text/css" />
 <link href="./css/board.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/js/board.js"></script>
+<script type="text/javascript" src="./js/board.js"></script>
 
-<div class="boardArea">
+<div class="boardArea" style='margin-top:20px; margin-left:10px;'>
 	<div class="fullFrame H20">
         <select style="display:none;" class="W100 fl" id="boardType" onchange="javascript:getListByBoard(this.value);">
             <option value="1" <%if(boardTypeVal.equals("1")) {%>selected="selected"<%} %>>Q &amp; A</option>
@@ -176,7 +177,7 @@ try{
             <tr>
                 <td><%=rs.getInt("ROWNO1") %></td>
                 <td class="PdL10 AL"><a href="./GetBoardContents.jsp?seq=<%=rs.getInt("SEQ")%>&type=<%=rs.getString("TYPE")%>"><%=rs.getString("TITLE") %></a></td>
-                <td><%=rs.getInt("FILE_NM") %></td>
+                <td><%if(!rs.getString("FILE_NM").equals("0")){%><img id='<%=rs.getString("FILE_NM")%>' onclick='javascript:fileDown(this.id)' src="<%="../../images/button/btn_down.png" %>" style='width: 25px !important; height: 25px !important; cursor:pointer;'><%}%> </td>
                 <td><%=rs.getString("REGDT") %></td>
             </tr>
             <%	
@@ -239,8 +240,8 @@ try{
         <%if(pagingLargeVal >= 2 && pagingLargeVal >= startPage + 1) {%><a href="#" onclick="javascript:goPage('<%=maxPage %>');">&gt;&gt;</a><%} %>
     </div>
     <div class="btnArea2 fr MgT20" id="btnArea">
-    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="javascript:getListByBoard('')">목록</a>
-    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="newBtn"    onclick="location.href='./writeContent.jsp'">등록</a>
+    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="javascript:getListByBoard('')" style='position: absolute; top: 505px; right: 60px;'>목록</a>
+    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="newBtn"    onclick="location.href='./writeContent.jsp'" style='position: absolute; top: 505px; right: 10px;'>등록</a>
     </div>
 </div>
 <%

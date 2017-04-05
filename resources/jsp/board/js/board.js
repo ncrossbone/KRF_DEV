@@ -74,3 +74,7 @@
 		return val;
 	}
 	
+	function fileDown(fileName){
+		location.href = './fileDown.jsp?fileName=' + fileName;
+	}
+	

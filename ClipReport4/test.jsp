@@ -22,11 +22,6 @@ oof.addField("START_YR",startYear);
 oof.addField("END_YR",endYear);
 oof.addField("IMG_PATH",imgPath);
 
-
-
-
-System.out.println(startYear.length());
-
 if(startYear.length()==4){
 	OOFFile file = oof.addFile("crf.root", "%root%/crf/Report_year.crf");
 }else{
@@ -131,7 +126,6 @@ function html2xml(divPath){
     	localUrl += splitLocation[i] + "/";
     }
     
-	console.info(urlPath+localUrl);
 	var report = createImportJSPReport(urlPath + localUrl + "Clip.jsp", reportkey, document.getElementById(divPath));
     //실행
     //report.setSlidePage(true);

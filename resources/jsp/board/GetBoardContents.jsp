@@ -56,8 +56,15 @@ try{
 		}
 	}
 	
+	function getListByBoard(val){
+		
+		if(val == ''){
+			val = document.getElementById("boardType").value;
+			_boardType = val
+		}
+		location.href = './GetBoard.jsp?boardType='+_boardType;
+	}
 	
-
 </script>
 <div class="boardArea">
 	<%while(rs.next()) {%>
@@ -89,7 +96,7 @@ try{
     <div class="btnArea2 fr MgT20" id="btnArea">
     	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="modifyBtn" onclick="modifyThisBoard(<%=rs.getInt("SEQ") %>)">수정</a>
         <a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="removeBtn" onclick="javascript:removeThisBoard(<%=rs.getInt("SEQ") %>);">삭제</a>
-        <a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="location.href='./GetBoard.jsp'">목록</a>
+        <a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="javascript:getListByBoard('');">목록</a>
         <a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="newBtn"    onclick="location.href='./writeContent.jsp'">등록</a>
     </div>
     <input type="hidden" id="boardType" value="<%=rs.getString("TYPE")%>">
