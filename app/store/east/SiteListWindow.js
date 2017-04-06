@@ -440,7 +440,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	getPollLoadString: function(){
 		
 		/* 외부망 부하량 검색 막기 */
-		return "";
+		//return "";
 		
 		////console.info("dd");
 		//alert("dd");
@@ -526,7 +526,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		}
 		
 		/* 외부망 오염원 검색 막기 */
-		return "";
+		//return "";
 		
 		//생활계
 		var store1 = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
