@@ -520,7 +520,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			// 이벤트로 리치라인 조회
 			queryTask.execute(query, function(featureSet){
-				console.info(featureSet);
+				
 				if(featureSet.features.length > 0){
 					me.execLineFeature(featureSet);
 				}
@@ -601,7 +601,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			}
     		else{
     			//console.info(feature.attributes.RCH_ID);
-    			console.info(feature);
+    			
     			me.rchIds.push(feature.attributes.RCH_ID);
     			me.clickedReachLines.push(feature); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
     		
@@ -924,7 +924,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		else if(eventType == "Reach"){
 			
 			geo = me.mapClickEvt.mapPoint;
-			console.info(me.clickedReachLines.length);
+			
 			var rIdx = me.clickedReachLines.length - 1;
 			//console.info(me.clickedReachLines[rIdx].attributes);
 			rchId = me.clickedReachLines[rIdx].attributes.RCH_ID;
@@ -1208,7 +1208,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    				// 시작위치, 끝위치 선택 완료 시
 					    			if(me.stRchIds.length > 0 && me.edRchIds.length > 0){
 					    				//console.info(tmpArr[0].attributes.RCH_DID);
-					    				console.info(me.arrCommGrp);
+					    				
 					    				for(var i = 0; i < me.arrCommGrp.length; i++){
 					    					
 						    				var commRchDid = me.arrCommGrp[i].attributes.RCH_DID;

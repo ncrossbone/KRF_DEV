@@ -55,7 +55,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL v2
 			//_kradMapserviceUrl + '/' + _kradCatSearchId
 			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
-			console.info(queryTask);
 			//var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
@@ -442,7 +441,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	getPollLoadString: function(){
 		
 		/* 외부망 부하량 검색 막기 */
-		return "";
+		//return "";
 		
 		////console.info("dd");
 		//alert("dd");
@@ -528,7 +527,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		}
 		
 		/* 외부망 오염원 검색 막기 */
-		return "";
+		//return "";
 		
 		//생활계
 		var store1 = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
