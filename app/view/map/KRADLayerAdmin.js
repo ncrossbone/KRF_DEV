@@ -1055,7 +1055,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     },
     /* 하류 및 공통하류 셋팅 */
     setDownAndComm: function(rchIds, tmpArr, cnt, colNm){
-    	console.info(rchIds[0]);
     	var me = this;
     	
     	require(["esri/tasks/query",
@@ -1140,14 +1139,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    		
 				    		// 좌/우측 하류 검색 종료 시
 				    		if(isEndLD == true && isEndRD == true){
+				    			
 				    			/* 좌/우측 하류 동시 존재 시 한번만 입력되도록 push 플래그 설정 */
 				    			var isPush = true;
 				    			
-				    			//  vvv : ??
+				    			//  me.arrDownGrp = 시작지점 끝지점이 완료된후 
+				    			
 				    			for(var dnCnt = 0; dnCnt < me.arrDownGrp.length; dnCnt++){
-				    				
-				    				//console.info(me.arrDownGrp[dnCnt][0].attributes.RCH_DID);
-				    				//console.info(tmpArr[0].attributes.RCH_DID);
 				    				if(me.arrDownGrp[dnCnt][0].attributes.RCH_DID == tmpArr[0].attributes.RCH_DID){
 				    					isPush = false;
 				    					break;
@@ -1157,14 +1155,14 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    			
 				    			var lastIdx = -1;
 				    			
+				    			//시작지점 끝지점 루프돌면서 각 해당하는 리치아이디를 찾아낸다?? 만약없으면?
 				    			for(var dnCnt = 0; dnCnt < me.arrDownGrp.length; dnCnt++){
 				    				var isBreak = false;
 				    				
 				    				for(var tmpCnt = 0; tmpCnt < tmpArr.length; tmpCnt++){
-				    				
+				    					
 				    					var tmpRchDid = tmpArr[tmpCnt].attributes.RCH_DID;
 				    					var commIdx = me.arrDownGrp[dnCnt].map(function(obj){
-				    						
 				    						return obj.attributes.RCH_DID;
 				    					}).indexOf(tmpRchDid);
 				    					
@@ -1173,22 +1171,23 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    						var cIdx = me.arrCommGrp.map(function(obj){
 				    							return obj.attributes.RCH_DID;
 				    						}).indexOf(tmpRchDid);
+				    						
 				    						if(cIdx == -1){
-				    							//console.info(tmpArr[tmpCnt].attributes.RCH_DID);
-				    							
 				    							// 좌/우측 하류 동시 존재 시 한번만 입력되도록..
 				    							if(isPush == true){
 				    								// 공통 하류 배열 담기..
 				    								me.arrCommGrp.push(tmpArr[tmpCnt]);
 				    							}
 				    						}
+				    						
+				    						// tmpCnt : 좌/우 측 하류 번호    lastIdx : 동일 하류번호
 				    						if(tmpCnt > lastIdx){
 				    							
 				    							lastIdx = tmpCnt;
 				    						}
 				    						
+				    						//루프 멈춤
 				    						isBreak = true;
-				    						
 				    						break;
 				    					}
 				    				}
@@ -1209,14 +1208,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    				// 시작위치, 끝위치 선택 완료 시
 					    			if(me.stRchIds.length > 0 && me.edRchIds.length > 0){
 					    				//console.info(tmpArr[0].attributes.RCH_DID);
-					    				
+					    				console.info(me.arrCommGrp);
 					    				for(var i = 0; i < me.arrCommGrp.length; i++){
 					    					
 						    				var commRchDid = me.arrCommGrp[i].attributes.RCH_DID;
 						    				var commGeoTrib = me.arrCommGrp[i].attributes.GEO_TRIB;
 						    				
 						    				var isGeoTrib = me.chkGeoTrib(commGeoTrib);
-						    				
 						    				if(isGeoTrib == false){
 						    					
 						    					alert("선택된 시작위치, 끝위치 사이에 본류가 흐르지 않습니다.\r\n검색설정을 확인하세요.");
@@ -1304,13 +1302,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				if(featureSet.features.length > 0){
 					
 					var feature = featureSet.features[0];
-					var rchId = feature.attributes.RCH_ID;
-					var rchDid = feature.attributes.RCH_DID;
-					var catDid = feature.attributes.CAT_DID;
-					var geoTrib = feature.attributes.GEO_TRIB;
+					var rchId = feature.attributes.RCH_ID; //KRF 리치 아이디
+					var rchDid = feature.attributes.RCH_DID; // 분활코드 아이디
+					var catDid = feature.attributes.CAT_DID; //집수구역 분활코드
+					var geoTrib = feature.attributes.GEO_TRIB; //하천차수
 					
-					var stIdx = me.stRchIds.indexOf(rchId);
-					var edIdx = me.edRchIds.indexOf(rchId);
+					var stIdx = me.stRchIds.indexOf(rchId); //시작위치 리치아이디	 
+					var edIdx = me.edRchIds.indexOf(rchId);	//끝위치 리치아이디
 					var stDidx = me.stRchDids.indexOf(rchDid);
 					var edDidx = me.edRchDids.indexOf(rchDid);
 					
@@ -1330,7 +1328,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						dnIdx = me.arrDownGrp[i].map(function(obj){
 							return obj.attributes.RCH_DID;
 						}).indexOf(rchDid);
-						
 						if(dnIdx > -1){
 							
 							break;
@@ -1404,7 +1401,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						//console.info(isSearch);
 					}
 					/* 검색, 그리기 조건 설정 끝 */
-					
 					var isGeoTrib = me.chkGeoTrib(geoTrib);
 					if(isGeoTrib == false){
 						evtType = "none";
