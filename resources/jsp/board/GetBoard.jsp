@@ -8,14 +8,16 @@
 		location.href = './GetBoardContents.jsp?seq='+val;
 	}
 	
-	function getListByBoard(val){
-		
-		if(val == ''){
-			val = document.getElementById("boardType").value;
-		}
-		
-		location.href = './GetBoard.jsp?boardType='+val;
-	}
+    var _boardType = "";
+    function getListByBoard(val){
+        
+        if(val == ''){
+            val = document.getElementById("boardType").value;
+            _boardType = val
+        }
+        
+        location.href = './GetBoard.jsp?boardType='+_boardType;
+    }
 	
 	function getListByTitle(val){
 		var boardType = document.getElementById("boardType").value;
@@ -137,7 +139,7 @@ try{
 <link href="./css/board.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/js/board.js"></script>
 
-<div class="boardArea">
+<div class="boardArea" style='margin-top:20px; margin-left:10px;'>
 	<div class="fullFrame H20">
         <select style="display:none;" class="W100 fl" id="boardType" onchange="javascript:getListByBoard(this.value);">
             <option value="1" <%if(boardTypeVal.equals("1")) {%>selected="selected"<%} %>>Q &amp; A</option>
@@ -236,8 +238,8 @@ try{
         <%if(pagingLargeVal >= 2 && pagingLargeVal >= startPage + 1) {%><a href="#" onclick="javascript:goPage('<%=maxPage %>');">&gt;&gt;</a><%} %>
     </div>
     <div class="btnArea2 fr MgT20" id="btnArea">
-    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="javascript:getListByBoard('')">목록</a>
-    	<a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="newBtn"    onclick="location.href='./writeContent.jsp'">등록</a>
+    	<!-- <a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="listBtn"   onclick="javascript:getListByBoard('')" style='position: absolute; top: 505px; right: 10px;'>목록</a> -->
+        <!-- <a href="#" onmouseover="javascript:classOn(this.id);" onmouseout="javascript:classOff(this.id);" id="newBtn"    onclick="location.href='./writeContent.jsp'" style='position: absolute; top: 505px; right: 10px;'>등록</a> -->
     </div>
 </div>
 <%

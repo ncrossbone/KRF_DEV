@@ -45,6 +45,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		layerId: 'baseMap',
 		groupId: 'grpBase',
     	title: '배경맵',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickBaseLayer' } },
@@ -61,6 +62,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		layerId: '46',
 		groupId: 'grpReach',
     	title: '리치라인',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickReachLayer' } },
@@ -76,13 +78,14 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnAreaLayer',
 		groupId: 'grpArea',
     	title: '집수구역',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
-    	btnOnOff: 'on',
+    	btnOnOff: 'off',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	src: './resources/images/button/btn_top_02_on.png'
+    	src: './resources/images/button/btn_top_02_off.png'
     }, {
     	xtype: 'container',
     	width: 5
@@ -93,6 +96,7 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '리치흐름',
     	width: 32,
     	height: 32,
+        style:'cursor:pointer;',
     	listeners: { el: { click: 'onClickFlowLayer' } },
     	btnOnOff: 'off',
     	btnOnImg: './resources/images/button/btn_top_04_on.png',
@@ -106,6 +110,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnLayerReset',
 		groupId: 'grpReset',
     	title: '초기화',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickReset' } },
@@ -121,6 +126,7 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '공지사항',
     	width: 69,
     	height: 37,
+        style:'cursor:pointer;',
     	listeners: {
     		el: {
     			click: function(){
@@ -130,9 +136,26 @@ Ext.define('KRF_DEV.view.north.North', {
 	    				boardCtl = Ext.create("Ext.window.Window", {
 				    					id: "boardNotice",
 				    					title: "공지사항",
-				    					width: 660,
-				    					height: 600,
-				    					html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=2"></iframe>'
+                                        width: 670,
+                                        height: 580,
+                                        html: '<iframe style="overflow:auto;width:100%;height:100%;" frameborder="0" src="./resources/jsp/board/GetBoard.jsp?boardType=2"></iframe>',
+                                        cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
+                                        style:"border:solid 10px #E6E6E6;",
+                                        closable: false,
+                                        header:{
+                                            items:[{
+                                                xtype:'image',
+                                                src:'./resources/images/button/btn_close.png',
+                                                style:'padding-right:13px !important; cursor:pointer;',
+                                                listeners:{
+                                                    el:{
+                                                        click:function(){
+                                                            Ext.getCmp("boardNotice").close();
+                                                        }
+                                                    }
+                                                }
+                                            }]
+                                        }
 				    				});
     				}
     				
@@ -169,7 +192,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		}
 	},
 	src: './resources/images/button/top_btn4_off.png'			
-}, */{
+}, *//*{
 		xtype: 'image',
     	title: 'Q&A',
     	width: 69,
@@ -195,7 +218,7 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn5_off.png'			
-	},/*, {
+	},*//*, {
 		xtype: 'image',
     	title: '인쇄',
     	width: 69,
@@ -208,9 +231,10 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn1_off.png'			
-	}*/, {
+	},*/{
 		xtype: 'image',
     	title: '저장',
+        style:'cursor:pointer;',
     	width: 69,
     	height: 37,
     	listeners: {
@@ -254,6 +278,7 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '매뉴얼',
     	width: 69,
     	height: 37,
+        style:'cursor:pointer;',
     	listeners: {
     		el: {
     			click: function(){

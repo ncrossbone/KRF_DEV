@@ -9,11 +9,25 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 			checkchange: 'onCheckChanged'
 		}
 	},
-	
+	//-----------------------------------------------------------------------------------------
+	//상위 메뉴바 레이어(주제도) 선택 연동
+	//-----------------------------------------------------------------------------------------
+	northLink: function(node){
+		if(node.data.siteIdCol!=undefined){
+			if(node.data.siteIdCol=="RCH_DID"){
+				SetBtnOnOff("btnReachLayer");
+			}else if(node.data.siteIdCol=="CAT_DID"){
+				SetBtnOnOff("btnAreaLayer");
+			}
+		}
+	},
 	onCheckChanged: function(node, checked, btnId) {
+		
 		var me = this;
 		me.node = node;
 		me.checked = checked;
+		
+		me.northLink(node);
 		
 		if(btnId == undefined || btnId == null){
 			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)

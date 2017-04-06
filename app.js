@@ -239,7 +239,7 @@ Ext.application({
 						query.returnGeometry = true;
 						query.outFields = ["*"];
 						query.where = where;
-						
+						console.info(queryTask);
 						// 리치라인 조회
 						queryTask.execute(query, function(featureSet){
 							
@@ -267,16 +267,18 @@ Ext.application({
 								}
 								
 								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
-								coreMap.map.setExtent(extent);
+								//coreMap.map.setExtent(extent);
+								
 								
 								coreMap.map.addLayer(graphicLayer);
-								
-								var timer = window.setInterval(function(){
+								//var timer = window.setInterval(function(){
+									/*var cenPoint = new esri.geometry.Point({ "x": featureSet.features[0].attributes.TM_X, "y": featureSet.features[0].attributes.TM_Y});
+									coreMap.map.centerAt(cenPoint);*/
 									//console.info(coreMap.map.extent);
 									//window.clearInterval(timer);
-								}, 500);
+								//}, 1000);
 								
-								Ext.defer(function(){
+								/*Ext.defer(function(){
 									
 									var level = coreMap.map.getLevel() - 1;
 									
@@ -288,7 +290,7 @@ Ext.application({
 									}
 									
 									//coreMap.map.addLayer(graphicLayer);
-								}, 500);
+								}, 500);*/
 							}
 						});
 					});
@@ -429,7 +431,6 @@ Ext.application({
 					async:false
 				});
 			}
-			
 			//var store = treeCtl.getStore();
 			store.searchType = searchText;
 			store.load();

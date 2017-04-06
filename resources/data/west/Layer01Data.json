@@ -82,7 +82,7 @@
 		"siteNmCol": "보명",
 		"siteAddrCol": "ADDR"
 	}]
-}, {
+}, /*{
 	"id": "8",
 	"text": "수질자동측정지점",
 	"cls": 'khLee-x-tree-node-text-bold',
@@ -122,7 +122,7 @@
 		"siteAddrCol": "ADDR",
 		"layerCode": "B001",
 	}]
-}, {
+}, */{
 	"id": "12",
 	"text": "퇴적물조사지점",
 	"cls": 'khLee-x-tree-node-text-bold',

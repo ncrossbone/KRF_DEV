@@ -123,7 +123,6 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController',{
 	onWaterSelect : function(button, eOpts) {
 
 		// if(ChkSearchCondition("수계찾기")){
-
 		var btnCtl = null;
 
 		var btn1 = Ext.getCmp("btnWater1");

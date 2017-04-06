@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	layout: {
 		type: 'fit'
 	},
-	width: 540,
+	width: 520,
 	height: 305,
 	closable: false,
 	style:"padding-top:10px",
@@ -63,7 +63,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             }
         }, {
             text: '정보',
-            width: 50,
+            width: 60,
             menuDisabled: true,
             xtype: 'actioncolumn',
             tooltip: '지점정보',
@@ -96,7 +96,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             }
         }, {
             text: '차트',
-            width: 50,
+            width: 60,
             menuDisabled: true,
             tooltip: '차트정보',
             xtype: 'actioncolumn',
@@ -224,7 +224,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             }
         }, {
             text: '관련리치',
-            width: 95,
+            width: 105,
             //xtype: 'templatecolumn',
             tooltip: '관련리치',
             dataIndex: 'catDId',
