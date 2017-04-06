@@ -1,7 +1,6 @@
 //  버튼 on/off
 SetBtnOnOff = function(btnId, strOnOff){
 	var currCtl = Ext.getCmp(btnId);
-	
 	if(currCtl == undefined){
 		return;
 	}

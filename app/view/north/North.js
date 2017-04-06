@@ -79,6 +79,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		groupId: 'grpArea',
     	title: '집수구역',
         style:'cursor:pointer;',
+        hidden:true,
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
@@ -86,9 +87,6 @@ Ext.define('KRF_DEV.view.north.North', {
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
     	src: './resources/images/button/btn_top_02_off.png'
-    }, {
-    	xtype: 'container',
-    	width: 5
     }, { 
 		xtype: 'image',
 		id: 'btnFlowLayer',
@@ -98,10 +96,10 @@ Ext.define('KRF_DEV.view.north.North', {
     	height: 32,
         style:'cursor:pointer;',
     	listeners: { el: { click: 'onClickFlowLayer' } },
-    	btnOnOff: 'off',
+    	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_04_on.png',
     	btnOffImg: './resources/images/button/btn_top_04_off.png',
-    	src: './resources/images/button/btn_top_04_off.png'
+    	src: './resources/images/button/btn_top_04_on.png'
     }, {
     	xtype: 'container',
     	width: 5
