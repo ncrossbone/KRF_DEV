@@ -395,6 +395,15 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
+		"id": "48",
+		"text": "리치노드",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer46",
+		"leaf": true,
+		"checked": true,
+		"visible": false, // 보이기 여부 (숨김 상태에서 데이터 필요 시 false로 설정)
+		"siteIdCol": "NODE_DID"
+	},{
 		"id": "49",
 		"text": "리치노드",
 		"cls": "khLee-x-tree-node-text-small-nounder",

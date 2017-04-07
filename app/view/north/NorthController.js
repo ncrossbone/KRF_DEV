@@ -82,24 +82,32 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var me = GetCoreMap();
 		var activeLayer = me.map.getLayer("DynamicLayer1");
     	var layers = activeLayer.visibleLayers;
+    	console.info(layers);
     	var visibleLayer = [];
-    	activeLayer.setVisibleLayers([]);
+    	activeLayer.setVisibleLayers(visibleLayer);
     	
     	for(var i = 0; i < layers.length; i++){
     		//o(layers[i]);
-			if(layers[i] != 48){
+			if(layers[i] != 48 || layers[i] != "48"){
 				visibleLayer.push(layers[i]);
 			}
     	}
     	
 		if(currCtl.btnOnOff == "on"){
 			visibleLayer.push(48);
-	    	activeLayer.setVisibleLayers(visibleLayer);
+	    	
 		}
-		else{
-			//o(visibleLayer);
-			activeLayer.setVisibleLayers(visibleLayer);
+		
+		var layer = Ext.getCmp("layer01").getView().getChecked();
+		var a = "";
+		for(var i =0; i < layer.length;i++){
+			if(layer[i].id == "48"){
+				a = i;
+			}
 		}
+		layer.splice(a,1);
+		//console.info(Ext.getCmp("layer01").getView().getChecked());
+		KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', layer);
 		
 	},
 	
