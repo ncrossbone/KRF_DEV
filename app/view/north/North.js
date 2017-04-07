@@ -97,7 +97,7 @@ Ext.define('KRF_DEV.view.north.North', {
     	btnOnOff: 'off',
     	btnOnImg: './resources/images/button/btn_top_04_on.png',
     	btnOffImg: './resources/images/button/btn_top_04_off.png',
-    	src: './resources/images/button/btn_top_04_off.png'
+    	src: './resources/images/button/btn_top_04_on.png'
     }, {
     	xtype: 'container',
     	width: 5

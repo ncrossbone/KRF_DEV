@@ -395,6 +395,14 @@
 	"checked": false,
 	"expanded": true,
 	"children": [{
+		"id": "48",
+		"text": "리치라인",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer49",
+		"leaf": true,
+		"checked": true,
+		"siteIdCol": "RCH_FLW"
+	},{
 		"id": "49",
 		"text": "리치노드",
 		"cls": "khLee-x-tree-node-text-small-nounder",

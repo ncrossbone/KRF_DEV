@@ -75,9 +75,9 @@ Ext.define("KRF_DEV.global.DroneFn", {
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 		me.initVComboBox(cboDroneLayer);
 		
-		if(Ext.getCmp("btnSearchDrone").btnOnOff == "on"){
+		//if(Ext.getCmp("btnSearchDrone").btnOnOff == "on"){
 			this.LayerVisibility();
-		}
+		//}
 	
 	},
 	LayerVisibility: function(){
