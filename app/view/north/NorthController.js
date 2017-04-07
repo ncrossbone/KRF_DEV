@@ -78,35 +78,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var me = this;
 		// 버튼 On/Off
 		me.searchNodeId(el.id);
-	/*	var currCtl = SetBtnOnOff(el.id);
-		
-		var coreMap = GetCoreMap();
-		var activeLayer = coreMap.map.getLayer("DynamicLayer1");
-    	var layers = activeLayer.visibleLayers;
-    	var visibleLayer = [];
-    	activeLayer.setVisibleLayers([]);
-    	for(var i = 0; i < layers.length; i++){
-			if(layers[i] != 48 || layers[i] != "48"){
-				visibleLayer.push(layers[i]);
-			}
-    	}
-    	
-		if(currCtl.btnOnOff == "on"){
-		
-			me.searchNodeId(el.id);
-		}
-		else{
-			var layer = Ext.getCmp("layer01").getView().getChecked();
-		      var a = "";
-		      for(var i =0; i < layer.length;i++){
-		         if(layer[i].id == "48"){
-		        	 //layer[i].data.checked = false;
-		            a = i;
-		         }
-		      }
-		      layer.splice(a,1);
-		      KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', layer);
-		}*/
+	
 		
 	},
 	
@@ -128,7 +100,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		switch (btn) {
 		case "btnReachLayer": lyrId = "RCH_DID"; break;
 		case "btnAreaLayer": lyrId = "CAT_DID"; break;
-		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+		//case "btnFlowLayer": lyrId = "RCH_FLW"; break;
 		default: break;
 		}
 		
