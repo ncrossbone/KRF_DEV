@@ -106,7 +106,6 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 			}
 		}
 		layer.splice(a,1);
-		//console.info(Ext.getCmp("layer01").getView().getChecked());
 		KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', layer);
 		
 	},
