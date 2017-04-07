@@ -75,9 +75,10 @@ Ext.define("KRF_DEV.global.DroneFn", {
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 		me.initVComboBox(cboDroneLayer);
 		
-		if(Ext.getCmp("btnSearchDrone").btnOnOff == "on"){
+		//if(Ext.getCmp("btnSearchDrone").btnOnOff == "on"){
 			this.LayerVisibility();
-		}
+			
+		//}
 	
 	},
 	LayerVisibility: function(){
@@ -175,7 +176,6 @@ Ext.define("KRF_DEV.global.DroneFn", {
 			
 			//클로로필
 			if(chlOnOff == "on"){
-				
 				if(cboDroneChla.value != null){
 					chlLegend.show();
 					//layers.push(cboDroneChla.value);
@@ -191,7 +191,6 @@ Ext.define("KRF_DEV.global.DroneFn", {
 			}
 			
 			if(phyOnOff == "on"){
-				
 				if(cboDronePhy.value != null){
 					phyLegend.show();
 					//layers.push(cboDroneChla.value);
