@@ -21,21 +21,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var me = this;
 		
 		
-		//지점목록 분기
-		if(newValue == "R02"){
-			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin1");
-		}else if(newValue == "R01_1"){
-			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin2");
-		}else if(newValue == "R01_2"){
-			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin3");
-		}else if(newValue == "R04"){
-			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin4");
-		}else{
-			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin5");
-		}
-		//console.info(siteListStore);
-		siteListStore.load();
-		cboDroneSiteList.setStore(siteListStore);
+		
 		
 		
 		/* 항공영상 바인딩 */
@@ -71,7 +57,21 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var siteListStore = "";
 		//cboDroneSiteList.setValue("선택하세요.");
 		
-		
+		//지점목록 분기
+		if(newValue == "R02"){
+			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin1");
+		}else if(newValue == "R01_1"){
+			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin2");
+		}else if(newValue == "R01_2"){
+			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin3");
+		}else if(newValue == "R04"){
+			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin4");
+		}else{
+			siteListStore = Ext.create("KRF_DEV.store.drone.FeatureStoreLayerAdmin5");
+		}
+		//console.info(siteListStore);
+		siteListStore.load();
+		cboDroneSiteList.setStore(siteListStore);
 		
 		
 		
