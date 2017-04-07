@@ -118,7 +118,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	},
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
-		
 		// 맵 클릭 이벤트 켜기
 		_krad.onMapClickEvt("startPoint", el.id);
 		

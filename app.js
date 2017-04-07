@@ -239,6 +239,7 @@ Ext.application({
 						query.outFields = ["*"];
 						query.where = where;
 						// 리치라인 조회
+						
 						queryTask.execute(query, function(featureSet){
 							
 							if(featureSet.features.length > 0){
@@ -265,8 +266,8 @@ Ext.application({
 								}
 								
 								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
-								//coreMap.map.setExtent(extent);
-								
+								coreMap.map.setExtent(extent);
+								coreMap.map.setLevel(7);
 								
 								coreMap.map.addLayer(graphicLayer);
 								Ext.ShowSiteListWindow("paramSearch");
@@ -352,9 +353,9 @@ Ext.application({
 
 		// 지점 목록 창 띄우기
 		Ext.ShowSiteListWindow = function(searchText, searchType) {
-
+			
 			var me = GetCoreMap();
-
+			
 			//console.info(searchText);
 
 			// 검샋시 다른 더튼값 초기화

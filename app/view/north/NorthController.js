@@ -100,7 +100,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		switch (btn) {
 		case "btnReachLayer": lyrId = "RCH_DID"; break;
 		case "btnAreaLayer": lyrId = "CAT_DID"; break;
-		//case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
 		default: break;
 		}
 		

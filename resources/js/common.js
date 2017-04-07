@@ -22,7 +22,6 @@ SetBtnOnOff = function(btnId, strOnOff){
 	else{
 		currCtl.btnOnOff = strOnOff;
 	}
-	
 	for(i = 0; i < items.length; i++){
 		
 		if(currCtl.btnOnOff == "on"){
@@ -1636,6 +1635,14 @@ ResetButtonClick = function(){
 			Layer01OnOff(_reachLineLayerId, "on");
 		}, 100);
 	}
+	
+	// 물환경 연동 마커 초기화
+	var coreMap = GetCoreMap();
+	var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+	if(paramMarker!=undefined){
+		paramMarker.hide();
+	}
+	
 }
 
 // 주제도 레이어 on/off
