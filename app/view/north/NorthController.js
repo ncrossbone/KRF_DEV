@@ -77,45 +77,8 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	onClickFlowLayer: function(obj, el, evt){
 		var me = this;
 		// 버튼 On/Off
-		
-		var currCtl = SetBtnOnOff(el.id);
-		
-		var coreMap = GetCoreMap();
-		var activeLayer = coreMap.map.getLayer("DynamicLayer1");
-    	var layers = activeLayer.visibleLayers;
-    	
-    	var layer = Ext.getCmp("layer01").getView().getChecked();
-    	console.info(Ext.getCmp("layer01").getStore());
-    	
-    	for(var x = 0;x < Ext.getCmp("layer01").getStore().data.length;x++){
-    		console.info(Ext.getCmp("layer01").getStore().data.items[x].id);
-    		if(Ext.getCmp("layer01").getStore().data.items[x].id == "48"){
-    			console.info(Ext.getCmp("layer01").getStore().data.items[x]);
-    		}
-    	}
-    	
-    	var visibleLayer = [];
-    	activeLayer.setVisibleLayers([]);
-    	for(var i = 0; i < layers.length; i++){
-			if(layers[i] != 48 || layers[i] != "48"){
-				visibleLayer.push(layers[i]);
-			}
-    	}
-    	
-		if(currCtl.btnOnOff == "on"){
-			me.searchNodeId(el.id);
-		}
-		else{
-		      var a = "";
-		      for(var i =0; i < layer.length;i++){
-		         if(layer[i].id == "48"){
-		        	 layer[i].data.checked = false;
-		            a = i;
-		         }
-		      }
-		      layer.splice(a,1);
-		      KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', layer);
-		}
+		me.searchNodeId(el.id);
+	
 		
 	},
 	
@@ -129,6 +92,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	//상위 메뉴바, 주제도 연동 tree node id 값 클릭 function
 	//-----------------------------------------------------------------------------------------
 	searchNodeId: function(btn){
+		
 		var layerObj = Ext.getCmp("layer01");
 		var nodeObj = "";
 		var lyrId = "";

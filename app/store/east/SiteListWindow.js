@@ -424,7 +424,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				if(result.features.length == 0 && pollLoadString == "" && pollutionString == ""){
 					
 	        		Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
-					Ext.getCmp("siteListWindow").mask("데이터가 존재하지 않습니다.", "noData");
+					Ext.getCmp("siteListTree").mask("데이터가 존재하지 않습니다.", "noData");
 	        	}
 				
 	        }, function(error){
@@ -432,7 +432,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	        	// 로딩바 숨김
 				Ext.getCmp("siteListWindow").unmask();
 				Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
-				Ext.getCmp("siteListWindow").mask("지점정보 조회 오류 발생하였습니다.", "noData");
+				Ext.getCmp("siteListTree").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 	        });
 	  	}
 	},
