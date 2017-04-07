@@ -77,8 +77,8 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	onClickFlowLayer: function(obj, el, evt){
 		var me = this;
 		// 버튼 On/Off
-		
-		var currCtl = SetBtnOnOff(el.id);
+		me.searchNodeId(el.id);
+	/*	var currCtl = SetBtnOnOff(el.id);
 		
 		var coreMap = GetCoreMap();
 		var activeLayer = coreMap.map.getLayer("DynamicLayer1");
@@ -100,12 +100,13 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		      var a = "";
 		      for(var i =0; i < layer.length;i++){
 		         if(layer[i].id == "48"){
+		        	 //layer[i].data.checked = false;
 		            a = i;
 		         }
 		      }
 		      layer.splice(a,1);
 		      KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', layer);
-		}
+		}*/
 		
 	},
 	
@@ -119,6 +120,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	//상위 메뉴바, 주제도 연동 tree node id 값 클릭 function
 	//-----------------------------------------------------------------------------------------
 	searchNodeId: function(btn){
+		
 		var layerObj = Ext.getCmp("layer01");
 		var nodeObj = "";
 		var lyrId = "";

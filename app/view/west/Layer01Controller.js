@@ -18,6 +18,8 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 				SetBtnOnOff("btnReachLayer");
 			}else if(node.data.siteIdCol=="CAT_DID"){
 				SetBtnOnOff("btnAreaLayer");
+			}else if(node.data.siteIdCol=="CAT_DID"){
+				SetBtnOnOff("btnFlowLayer");
 			}
 		}
 	},
