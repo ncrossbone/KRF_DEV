@@ -83,6 +83,17 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		var coreMap = GetCoreMap();
 		var activeLayer = coreMap.map.getLayer("DynamicLayer1");
     	var layers = activeLayer.visibleLayers;
+    	
+    	var layer = Ext.getCmp("layer01").getView().getChecked();
+    	console.info(Ext.getCmp("layer01").getStore());
+    	
+    	for(var x = 0;x < Ext.getCmp("layer01").getStore().data.length;x++){
+    		console.info(Ext.getCmp("layer01").getStore().data.items[x].id);
+    		if(Ext.getCmp("layer01").getStore().data.items[x].id == "48"){
+    			console.info(Ext.getCmp("layer01").getStore().data.items[x]);
+    		}
+    	}
+    	
     	var visibleLayer = [];
     	activeLayer.setVisibleLayers([]);
     	for(var i = 0; i < layers.length; i++){
@@ -92,14 +103,13 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     	}
     	
 		if(currCtl.btnOnOff == "on"){
-		
 			me.searchNodeId(el.id);
 		}
 		else{
-			var layer = Ext.getCmp("layer01").getView().getChecked();
 		      var a = "";
 		      for(var i =0; i < layer.length;i++){
 		         if(layer[i].id == "48"){
+		        	 layer[i].data.checked = false;
 		            a = i;
 		         }
 		      }
@@ -126,7 +136,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		switch (btn) {
 		case "btnReachLayer": lyrId = "RCH_DID"; break;
 		case "btnAreaLayer": lyrId = "CAT_DID"; break;
-		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+		//case "btnFlowLayer": lyrId = "RCH_FLW"; break;
 		default: break;
 		}
 		
