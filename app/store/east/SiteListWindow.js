@@ -21,7 +21,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		
 		load: function(store) {
 			var me = GetCoreMap();
-			
 			var a = Ext.getCmp("btnADMSelect");
 			
 			var nameInfo = Ext.getCmp("textSearchText");
@@ -88,10 +87,30 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 			}
 			
+			//물환경 연동
 			if(store.searchType == "paramSearch"){
-				store.searchType="";
+				
+				var params = Ext.urlDecode(location.search.substring(1));
+				var siteIds = params.station.split("|");
+				var inTxt = "";
+				for(var i = 0; i < siteIds.length; i++){
+					
+					if(siteIds[i] != ""){
+						
+						inTxt += "'" + siteIds[i] + "', ";
+					}
+				}
+				inTxt = inTxt.substring(0, inTxt.length - 2) + ")";
+				query.where = "JIJUM_CODE in (" + inTxt;
+			}else{
+				var coreMap = GetCoreMap();
+				var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+				if(paramMarker!=undefined){
+					paramMarker.hide();
+				}
 				
 			}
+			
 			if(store.searchType == "selectReach"){
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
@@ -156,9 +175,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//console.info(query.where);
 			
 			// 로딩바 표시
-			Ext.getCmp("siteListWindow").removeCls("dj-mask-noneimg");
-			Ext.getCmp("siteListWindow").addCls("dj-mask-withimg");
-			Ext.getCmp("siteListWindow").mask("loading", "loading...");
+			Ext.getCmp("siteListTree").removeCls("dj-mask-noneimg");
+			Ext.getCmp("siteListTree").addCls("dj-mask-withimg");
+			Ext.getCmp("siteListTree").mask("loading", "loading...");
 			
 			queryTask.execute(query, function(result){
 				
@@ -419,19 +438,19 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				store.setRootNode(jsonData);
 				
 				// 로딩바 숨김
-				Ext.getCmp("siteListWindow").unmask();
+				Ext.getCmp("siteListTree").unmask();
 				
 				if(result.features.length == 0 && pollLoadString == "" && pollutionString == ""){
 					
-	        		Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
+	        		Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
 					Ext.getCmp("siteListTree").mask("데이터가 존재하지 않습니다.", "noData");
 	        	}
 				
 	        }, function(error){
 	        	
 	        	// 로딩바 숨김
-				Ext.getCmp("siteListWindow").unmask();
-				Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
+				Ext.getCmp("siteListTree").unmask();
+				Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
 				Ext.getCmp("siteListTree").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 	        });
 	  	}

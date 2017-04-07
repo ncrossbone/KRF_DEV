@@ -29,6 +29,13 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				Layer01OnOff(48, "on");
 			}, 100);
 		}
+		
+		// 물환경 연동 마커 초기화
+		var coreMap = GetCoreMap();
+		var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+		if(paramMarker!=undefined){
+			paramMarker.hide();
+		}
 	},
 	
 	
@@ -459,6 +466,13 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
         	
         	// 지점목록 보여주기
     		Ext.ShowSiteListWindow("test");
+		}
+		
+		// 물환경 연동 마커 초기화
+		var coreMap = GetCoreMap();
+		var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+		if(paramMarker!=undefined){
+			paramMarker.hide();
 		}
 	}
 });
