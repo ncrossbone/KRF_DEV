@@ -241,7 +241,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			return;
 		}
 		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
-		console.info(query);
+		//console.info(query);
 		queryTask.execute(query,  function(results){
 			//console.info(layerId);
 			Ext.each(results.features, function(obj, index) {
@@ -288,7 +288,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				me.moveGraphicLayer.clear();
 				me.moveGraphicLayer.id = "moveGraphicLayer" + siteId;
-				console.info(url);
+				//console.info(url);
 				if(clickValue == "none"){
 					var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
 					    "angle": 0,

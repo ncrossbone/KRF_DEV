@@ -170,10 +170,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			}
 			
 			
-			console.info(startYear);
-			console.info(startMonth);
-			console.info(endYear);
-			console.info(endMonth);
+			//console.info(startYear);
+			//console.info(startMonth);
+			//console.info(endYear);
+			//console.info(endMonth);
 			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
@@ -235,7 +235,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         			
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			console.info(jsonData.data);
+        			//console.info(jsonData.data);
         			if(jsonData.data.length > 0){
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
@@ -336,7 +336,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			//store.setData(jsonData.items);
 			//store.data.items.add(jsonData.data);
 			//store.data.items = jsonData.items;
-			//console.info(store.data);
+			////console.info(store.data);
 		}
     }
 });

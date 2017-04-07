@@ -78,11 +78,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 		        				
-		        				console.info(jsonData.data[0]);
+		        				//console.info(jsonData.data[0]);
 		        				
 		        				var dateSplit = jsonData.data[0].WORK_DT_VAL;
 		        				var afterVal = dateSplit.split("-");
-		        				console.info(afterVal);
+		        				//console.info(afterVal);
 		        				
 		        				startYear = afterVal[0];
 		        				if(afterVal[1] == "1"){

@@ -172,7 +172,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 		        				
 		        				
 		        				var dateSplit = jsonData.data[0].WMCYMD;
-		        				console.info(dateSplit);
+		        				//console.info(dateSplit);
 		        				if(store.orgParentIds == "D006"){
 		        					var afterVal = [];
 		        					afterVal.push(dateSplit.substring(0,4));
@@ -181,7 +181,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			        				var afterVal = dateSplit.split(".");
 		        				}
 		        				
-		        				console.info(afterVal);
+		        				//console.info(afterVal);
 		        				startYear = afterVal[0];
 		        				if(afterVal[1] == "1"){
 		        					afterVal[1] = "12";
