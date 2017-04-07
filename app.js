@@ -196,7 +196,6 @@ Ext.application({
 			/* 물환경 상세조회 시 화면 이동 및 심볼 표시
 			 * station, stationType 필수 파라메터 */
 			var params = Ext.urlDecode(location.search.substring(1));
-			
 			if(params.stationType != undefined){
 				
 				var paramIdx = _paramInfo.map(function(obj){
@@ -239,7 +238,6 @@ Ext.application({
 						query.returnGeometry = true;
 						query.outFields = ["*"];
 						query.where = where;
-						console.info(queryTask);
 						// 리치라인 조회
 						queryTask.execute(query, function(featureSet){
 							
@@ -271,6 +269,7 @@ Ext.application({
 								
 								
 								coreMap.map.addLayer(graphicLayer);
+								Ext.ShowSiteListWindow("paramSearch");
 								//var timer = window.setInterval(function(){
 									/*var cenPoint = new esri.geometry.Point({ "x": featureSet.features[0].attributes.TM_X, "y": featureSet.features[0].attributes.TM_Y});
 									coreMap.map.centerAt(cenPoint);*/

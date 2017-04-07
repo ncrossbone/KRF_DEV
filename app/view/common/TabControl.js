@@ -404,7 +404,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			
 			
 		
-		},{
+		},/*{
 			xtype: 'image',
 			width: 48,
 			height: 14,
@@ -425,9 +425,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			},
 			width: 100,
 			height: 25
-		}, {
+		},*/ {
 			xtype: 'container',
-			width: 10
+			width: 120
 		}, {
 			xtype: 'image',
 			width: 83,

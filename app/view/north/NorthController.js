@@ -75,38 +75,37 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 	},
 	
 	onClickFlowLayer: function(obj, el, evt){
-		
+		var me = this;
 		// 버튼 On/Off
+		
 		var currCtl = SetBtnOnOff(el.id);
 		
-		var me = GetCoreMap();
-		var activeLayer = me.map.getLayer("DynamicLayer1");
+		var coreMap = GetCoreMap();
+		var activeLayer = coreMap.map.getLayer("DynamicLayer1");
     	var layers = activeLayer.visibleLayers;
-    	console.info(layers);
     	var visibleLayer = [];
-    	activeLayer.setVisibleLayers(visibleLayer);
-    	
+    	activeLayer.setVisibleLayers([]);
     	for(var i = 0; i < layers.length; i++){
-    		//o(layers[i]);
 			if(layers[i] != 48 || layers[i] != "48"){
 				visibleLayer.push(layers[i]);
 			}
     	}
     	
 		if(currCtl.btnOnOff == "on"){
-			visibleLayer.push(48);
-	    	
-		}
 		
-		var layer = Ext.getCmp("layer01").getView().getChecked();
-		var a = "";
-		for(var i =0; i < layer.length;i++){
-			if(layer[i].id == "48"){
-				a = i;
-			}
+			me.searchNodeId(el.id);
 		}
-		layer.splice(a,1);
-		KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', layer);
+		else{
+			var layer = Ext.getCmp("layer01").getView().getChecked();
+		      var a = "";
+		      for(var i =0; i < layer.length;i++){
+		         if(layer[i].id == "48"){
+		            a = i;
+		         }
+		      }
+		      layer.splice(a,1);
+		      KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', layer);
+		}
 		
 	},
 	
@@ -127,6 +126,7 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		switch (btn) {
 		case "btnReachLayer": lyrId = "RCH_DID"; break;
 		case "btnAreaLayer": lyrId = "CAT_DID"; break;
+		case "btnFlowLayer": lyrId = "RCH_FLW"; break;
 		default: break;
 		}
 		

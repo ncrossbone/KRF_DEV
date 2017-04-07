@@ -9,7 +9,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	constructor: function(map) {
         var me = this;
         me.map = map;
-        
         me.dynamicLayer1 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3);
 		me.dynamicLayer1.id = "DynamicLayer1"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer1.visible = true;
@@ -53,7 +52,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     
     // 레이어 on/off 핸들러 정의
     dynamicLayerOnOffHandler: function(selectInfo){
-    	console.info(selectInfo);
     	var me = this;
     	
     	var layers1 = [-1];

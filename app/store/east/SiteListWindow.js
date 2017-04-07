@@ -20,7 +20,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	listeners: {
 		
 		load: function(store) {
-			
 			var me = GetCoreMap();
 			
 			var a = Ext.getCmp("btnADMSelect");
@@ -58,7 +57,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
-			
+			//console.info(queryTask);
 			if(buttonInfo1.lastValue != null){
 				
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == "" ){
@@ -89,10 +88,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 			}
 			
-			
-			
-			
-			
+			if(store.searchType == "paramSearch"){
+				store.searchType="";
+				
+			}
 			if(store.searchType == "selectReach"){
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
