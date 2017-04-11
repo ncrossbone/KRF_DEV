@@ -1624,7 +1624,9 @@ ResetButtonClick = function(){
 	var droneCtl = Ext.getCmp("droneToolbar");
 
     //리치 시작 끝 close 끄기
-    Ext.getCmp("reach_close").setVisible(false);
+    if(Ext.getCmp("reach_close")!=undefined){
+        Ext.getCmp("reach_close").setVisible(false);
+    }
 
 	//console.info(droneCtl);
 	// 항공영상 tool 숨기기
