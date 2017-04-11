@@ -7,6 +7,9 @@
 	중요!!!
 	Json 형태로 출력하는 jsp페이지는 어떠한 html 요소도 사용하지 않아야 한다.
 	<!DOCTYPE, <html 등등
+	
+	------수질측정지점---------
+	
 */
 try{
 	String WS_CD = request.getParameter("WS_CD");
@@ -27,7 +30,7 @@ try{
 	String endYYYYMM = endYear + endMonth;
 	
 	String firstSearch = request.getParameter("firstSearch");
-	//out.print(parentIds);
+	//out.print("firstSearch::"+firstSearch);
 	sql = " SELECT RN,RN_2, PT_NO, PT_NM, WMCYMD, CHART_DATE, WMYR, WMOD, WMWK, SEQ, WMDEP, CURR_BOD, CHART_BOD, CURR_DO, CHART_DO, CURR_COD, 												";
 	sql += " CHART_COD, CURR_TN, CHART_TN, CURR_TP, CHART_TP, CURR_TEMP, CHART_TEMP, CURR_PH, CHART_PH, CURR_SS,CURR_SS_NEW, CHART_SS, CURR_CLOA, CHART_CLOA, CURR_TOC,       ";
 	sql += "  CHART_TOC, CURR_AMNT, CHART_AMNT, CURR_DTN, CHART_DTN, CURR_NO3N, CHART_NO3N, CURR_NH3N, CHART_NH3N, CURR_DTP, CHART_DTP, CURR_POP, CHART_POP,      ";
@@ -394,9 +397,10 @@ try{
 	sql += "         AND    B.WMOD = C.WMOD                                                                       ";
 	sql += "         AND    B.WMWK = C.WMWK                                                                       ";
 	
-	//if(firstSearch.equals("date")){
+	if(firstSearch.equals("date")){
 		sql += "         AND    B.WMYR || B.WMOD >= '"+startYYYYMM+"'                                                          ";
 		sql += "         AND    B.WMYR || B.WMOD <= '"+endYYYYMM+"'                                                          ";
+	}
 	//}else{
 	//	sql += "         AND    B.WMYR || B.WMOD >= '201508'                                                          ";
 	//	sql += "         AND    B.WMYR || B.WMOD <= '201512'                                                          ";
@@ -485,9 +489,10 @@ try{
 	sql += "         AND    B.WMYR = C.WMYR                                                                   ";
 	sql += "         AND    B.WMOD = C.WMOD                                                                   ";
 	sql += "         AND    B.WMWK = C.WMWK                                                                   ";
-	//if(firstSearch.equals("date")){
+	if(firstSearch.equals("date")){
 		sql += "         AND    B.WMYR || B.WMOD >= TO_CHAR(TO_DATE('"+startYYYYMM+"' ,'YYYYMM')-360,'YYYYMM')             ";
 		sql += "         AND    B.WMYR || B.WMOD <= '"+endYYYYMM+"'                                                      ";
+	}
 	//}else{
 	//	sql += "         AND    B.WMYR || B.WMOD >= TO_CHAR(TO_DATE('201508' ,'YYYYMM')-360,'YYYYMM')             ";
 	//	sql += "         AND    B.WMYR || B.WMOD <= '201510'                                                      ";
@@ -499,9 +504,14 @@ try{
 	sql += " WHERE A.PT_NO = B.PT_NO                                                                          ";
 	sql += "   AND A.ADMCODE = B.ADMCODE                                                                      ";
 	sql += "   AND B.RN BETWEEN A.RN AND A.RN + 8                                                             ";
-	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)      ) ORDER BY PT_NO, RN, RN_2 DESC                ";
-		
+	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)     ";
+	if(firstSearch.equals("date")){
+		sql += "			) ORDER BY PT_NO, RN, RN_2 DESC                ";
+	}else{
+		sql += "	ORDER BY WMCYMD DESC		)      WHERE ROWNUM <=1           ";
+	}
    //out.print(sql);
+   
    //System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);

@@ -7,6 +7,9 @@
 	중요!!!
 	Json 형태로 출력하는 jsp페이지는 어떠한 html 요소도 사용하지 않아야 한다.
 	<!DOCTYPE, <html 등등
+	
+	-----퇴적물조사지점-----
+	
 */
 try{
 	String WS_CD = request.getParameter("WS_CD");
@@ -373,18 +376,23 @@ sql += "           AND A.WMWK = CD3.CODE(+) ) ) B                               
 sql += " WHERE A.PT_NO = B.PT_NO                                                                                                                                                              ";
 sql += "   AND A.NO BETWEEN B.NO -4 AND B.NO                                                                                                                                                  ";
 sql += "      AND A.PT_NO IN ("+siteIds+ ")                                                                                                                                                       ";
-//if(firstSearch.equals("date")){
+if(firstSearch.equals("date")){
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '"+startYYYYMM+"'                                                         " ;
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '"+endYYYYMM+"'                                                         " ;
+	sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                                                         " ;
+}else{
+	sql += " AND ROWNUM <= 1  ";
+	sql += " order by WMYR DESC, WMOM DESC ";
+}
 //}else{
 //	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '201209'                                                         ";
 //	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '201212'                                                         " ;	
 //}
-sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                                                         " ;
+
 		
      //sql += "AND A.PT_NO IN (" + siteIds + ") ";
      
-     //out.print(sql);  
+     
    //System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);

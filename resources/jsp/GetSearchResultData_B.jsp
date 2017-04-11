@@ -7,6 +7,9 @@
 	중요!!!
 	Json 형태로 출력하는 jsp페이지는 어떠한 html 요소도 사용하지 않아야 한다.
 	<!DOCTYPE, <html 등등
+	
+	----수질자동측정지점---
+	
 */
 try{
 	String WS_CD = request.getParameter("WS_CD");
@@ -28,7 +31,9 @@ try{
 	
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
-	
+	//SELECT SUBSTR(TRANS_TIME, 1, 7) AS WMCYMD FROM TMS_HOURDATA WHERE FACT_CODE ='44A0291'
+			
+if(firstSearch.equals("date")){			
 	sql = " SELECT A.RN																																																											";
 	sql += "      , A.WS_NM /* 히든 */                                                                                                        ";
 	sql += "      , A.AM_NM /* 히든 */                                                                                                        ";
@@ -110,13 +115,8 @@ try{
 	sql += "            AND A.WAST_NO = D.WAST_NO                                                                                             ";
 	sql += "            AND SUBSTR(D.ADM_CD, 1, 10) = E.ADM_CD                                                                                ";
 	sql += "            AND E.ADM_CD = F.ADM_CD                                                                                               ";
-	//if(firstSearch.equals("date")){
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= '" + startYYYYMM + "'                                             ";
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '" + endYYYYMM + "'                                           ";
-	//}else{
-	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= '201509'                                             ";
-	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '201512'                                           ";
-	//}
+	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= '" + startYYYYMM + "'                                             ";
+	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '" + endYYYYMM + "'                                           ";
 	sql += "            AND A.FACT_CODE IN ("+siteIds+")                                                                                ";
 	sql += "        ) A                                                                                                                       ";
 	sql += "      , (                                                                                                                         ";
@@ -169,22 +169,19 @@ try{
 	sql += "            AND A.WAST_NO = D.WAST_NO                                                                                             ";
 	sql += "            AND SUBSTR(D.ADM_CD, 1, 10) = E.ADM_CD                                                                                ";
 	sql += "            AND E.ADM_CD = F.ADM_CD                                                                                               ";
-	//if(firstSearch.equals("date")){
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= TO_CHAR(TO_DATE('" + startYYYYMM + "'                            ";
-		sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
-		sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '" + endYYYYMM + "'                                           ";
-	//}else{
-	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= TO_CHAR(TO_DATE('201509'                            ";
-	//	sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
-	//	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '201512'                                          ";
-	//}
+	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) >= TO_CHAR(TO_DATE('" + startYYYYMM + "'                            ";
+	sql += "                ,'YYYYMM')-30,'YYYYMM')                                                                                           ";
+	sql += "            AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 5, 2) <= '" + endYYYYMM + "'                                           ";
 	sql += "            AND A.FACT_CODE IN ("+siteIds+")                                                                               ";
 	sql += "        ) B                                                                                                                       ";
 	sql += "  WHERE A.PT_NO   = B.PT_NO                                                                                                       ";
 	sql += "    AND A.WAST_NO = B.WAST_NO                                                                                                     ";
 	sql += "    AND B.RN BETWEEN A.RN AND A.RN + 4                                                                                            ";
 	sql += "  ORDER BY A.PT_NO, A.WAST_NO, A.RN, B.RN DESC                                                                                    ";
-		
+}else{
+	//SELECT SUBSTR(TRANS_TIME, 1, 7) AS WMCYMD FROM TMS_HOURDATA WHERE FACT_CODE ='44A0291'
+	sql = "  SELECT '9999' AS RN , MAX(SUBSTR(TRANS_TIME, 1, 7)) AS WMCYMD FROM TMS_HOURDATA WHERE FACT_CODE IN ("+siteIds+")  ";
+}
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    //out.print(sql);
    //System.out.println(sql);
@@ -196,6 +193,8 @@ try{
 	JSONObject jsonRecord = null;
 	
 	String preSeq = "";
+	String preSeq2 = "9999";
+	String check = "";
 	
 	String WS_NM = "";
 	String AM_NM = "";
@@ -245,146 +244,149 @@ try{
 	int cnt = 0;
 	//out.print(rs);
 	while(rs.next()) {
-		
-		cnt++;
-		if(!preSeq.equals("") && !preSeq.equals(rs.getString("RN"))){
-			
-			cnt = 1;
-			//System.out.println("CURR_COD ::"+CURR_COD);
-			//System.out.println("CHART_COD ::"+CHART_COD);
-			//System.out.println(preSite + preDate);
-			jsonRecord = new JSONObject();
-			
-			//jsonRecord.put("parentId", parentId);
-			jsonRecord.put("WS_NM",WS_NM);
-			jsonRecord.put("AM_NM",AM_NM);
-			jsonRecord.put("AS_NM",AS_NM);
-			jsonRecord.put("PT_NO",PT_NO);
-			jsonRecord.put("PT_NM",PT_NM);
-			jsonRecord.put("WAST_NO",WAST_NO);
-			jsonRecord.put("FACT_KIND_NAME",FACT_KIND_NAME);
-			jsonRecord.put("FACT_CAPACITY",FACT_CAPACITY);
-			jsonRecord.put("WMCYMD",WMCYMD);
-			jsonRecord.put("CHART_DATE",CHART_DATE);
-			jsonRecord.put("CURR_BOD",CURR_BOD);
-			jsonRecord.put("CHART_BOD",CHART_BOD);
-			jsonRecord.put("Chart_Data_tmp",Chart_Data_tmp);
-			jsonRecord.put("CURR_COD",CURR_COD);
-			jsonRecord.put("CHART_COD",CHART_COD);
-			jsonRecord.put("CURR_SS",CURR_SS);
-			jsonRecord.put("CHART_SS",CHART_SS);
-			jsonRecord.put("CURR_TN",CURR_TN);
-			jsonRecord.put("CHART_TN",CHART_TN);
-			jsonRecord.put("CURR_TP",CURR_TP);
-			jsonRecord.put("CHART_TP",CHART_TP);
-			jsonRecord.put("CURR_PH",CURR_PH);
-			jsonRecord.put("CHART_PH",CHART_PH);
-			jsonRecord.put("CURR_FLW",CURR_FLW);
-			jsonRecord.put("CHART_FLW",CHART_FLW);
-			jsonRecord.put("CURR_TOC",CURR_TOC);
-			jsonRecord.put("CHART_TOC",CHART_TOC);
-			jsonRecord.put("DO_NM",DO_NM);
-			jsonRecord.put("CTY_NM",CTY_NM);
-			jsonRecord.put("DONG_NM",DONG_NM);
-			jsonRecord.put("RI_NM",RI_NM);
-	  		
-	  		jsonArr.add(jsonRecord);
-	  		
-	  		CHART_BOD = new JSONArray();
-	  		CHART_COD = new JSONArray();
-	  		CHART_SS = new JSONArray();
-	  		CHART_TN = new JSONArray();
-	  		CHART_TP = new JSONArray();
-	  		CHART_PH = new JSONArray();
-	  		CHART_FLW = new JSONArray();
-	  		CHART_TOC = new JSONArray();
-	  		
+		if(!preSeq2.equals(rs.getString("RN"))){
+			cnt++;
+			if(!preSeq.equals("") && !preSeq.equals(rs.getString("RN"))){
+				
+				cnt = 1;
+				//System.out.println("CURR_COD ::"+CURR_COD);
+				//System.out.println("CHART_COD ::"+CHART_COD);
+				//System.out.println(preSite + preDate);
+				jsonRecord = new JSONObject();
+				
+				//jsonRecord.put("parentId", parentId);
+				jsonRecord.put("WS_NM",WS_NM);
+				jsonRecord.put("AM_NM",AM_NM);
+				jsonRecord.put("AS_NM",AS_NM);
+				jsonRecord.put("PT_NO",PT_NO);
+				jsonRecord.put("PT_NM",PT_NM);
+				jsonRecord.put("WAST_NO",WAST_NO);
+				jsonRecord.put("FACT_KIND_NAME",FACT_KIND_NAME);
+				jsonRecord.put("FACT_CAPACITY",FACT_CAPACITY);
+				jsonRecord.put("WMCYMD",WMCYMD);
+				jsonRecord.put("CHART_DATE",CHART_DATE);
+				jsonRecord.put("CURR_BOD",CURR_BOD);
+				jsonRecord.put("CHART_BOD",CHART_BOD);
+				jsonRecord.put("Chart_Data_tmp",Chart_Data_tmp);
+				jsonRecord.put("CURR_COD",CURR_COD);
+				jsonRecord.put("CHART_COD",CHART_COD);
+				jsonRecord.put("CURR_SS",CURR_SS);
+				jsonRecord.put("CHART_SS",CHART_SS);
+				jsonRecord.put("CURR_TN",CURR_TN);
+				jsonRecord.put("CHART_TN",CHART_TN);
+				jsonRecord.put("CURR_TP",CURR_TP);
+				jsonRecord.put("CHART_TP",CHART_TP);
+				jsonRecord.put("CURR_PH",CURR_PH);
+				jsonRecord.put("CHART_PH",CHART_PH);
+				jsonRecord.put("CURR_FLW",CURR_FLW);
+				jsonRecord.put("CHART_FLW",CHART_FLW);
+				jsonRecord.put("CURR_TOC",CURR_TOC);
+				jsonRecord.put("CHART_TOC",CHART_TOC);
+				jsonRecord.put("DO_NM",DO_NM);
+				jsonRecord.put("CTY_NM",CTY_NM);
+				jsonRecord.put("DONG_NM",DONG_NM);
+				jsonRecord.put("RI_NM",RI_NM);
+		  		
+		  		jsonArr.add(jsonRecord);
+		  		
+		  		CHART_BOD = new JSONArray();
+		  		CHART_COD = new JSONArray();
+		  		CHART_SS = new JSONArray();
+		  		CHART_TN = new JSONArray();
+		  		CHART_TP = new JSONArray();
+		  		CHART_PH = new JSONArray();
+		  		CHART_FLW = new JSONArray();
+		  		CHART_TOC = new JSONArray();
+		  		
+			}
+			//else{
+				//parentId = rs.getString("parentId");
+				WS_NM  = rs.getString("WS_NM");
+				AM_NM  = rs.getString("AM_NM");
+				AS_NM  = rs.getString("AS_NM");
+				PT_NO  = rs.getString("PT_NO");
+				PT_NM  = rs.getString("PT_NM");
+				WAST_NO  = rs.getString("WAST_NO");
+				FACT_KIND_NAME  = rs.getString("FACT_KIND_NAME");
+				FACT_CAPACITY  = rs.getString("FACT_CAPACITY");
+				WMCYMD  = rs.getString("WMCYMD");
+				
+				
+				
+				
+				
+				
+				CURR_BOD = rs.getString("CURR_BOD");
+				Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_BOD"));
+				CHART_BOD.add(Chart_Data_tmp);
+				
+				CURR_COD = rs.getString("CURR_COD");
+				Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_COD"));
+				CHART_COD.add(Chart_Data_tmp);
+							
+				CURR_SS  = rs.getString("CURR_SS");
+				Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_SS"));
+				CHART_SS.add(Chart_Data_tmp);
+				
+				
+				CURR_TN = rs.getString("CURR_TN");
+				Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_TN"));
+				CHART_TN.add(Chart_Data_tmp);
+				
+				
+				CURR_TP = rs.getString("CURR_TP");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_TP"));
+				CHART_TP.add(Chart_Data_tmp);
+				
+				
+				CURR_PH = rs.getString("CURR_PH");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_PH"));
+				CHART_PH.add(Chart_Data_tmp);
+		  		//CHART_TN.add(rs.getString("CHART_TN"));
+		  		
+		  		
+		  		CURR_FLW = rs.getString("CURR_FLW");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_FLW"));
+				CHART_FLW.add(Chart_Data_tmp);
+		  		//CHART_TP.add(rs.getString("CHART_TP"));
+		  		
+		  		
+		  		CURR_TOC = rs.getString("CURR_TOC");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
+				Chart_Data_tmp.add(rs.getString("CHART_TOC"));
+				CHART_TOC.add(Chart_Data_tmp);
+		  		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
+		  		
+		  		
+		  		DO_NM = rs.getString("DO_NM");
+		  		CTY_NM = rs.getString("CTY_NM");
+		  		DONG_NM = rs.getString("DONG_NM");
+		  		RI_NM = rs.getString("RI_NM");
+		  		
+				
+		  		
+			 if(!preSeq.equals(rs.getString("RN")))
+				preSeq = rs.getString("RN"); 	
+		}else{
+			check = preSeq2;
+			WMCYMD = rs.getString("WMCYMD");
 		}
-		//else{
-			//parentId = rs.getString("parentId");
-			WS_NM  = rs.getString("WS_NM");
-			AM_NM  = rs.getString("AM_NM");
-			AS_NM  = rs.getString("AS_NM");
-			PT_NO  = rs.getString("PT_NO");
-			PT_NM  = rs.getString("PT_NM");
-			WAST_NO  = rs.getString("WAST_NO");
-			FACT_KIND_NAME  = rs.getString("FACT_KIND_NAME");
-			FACT_CAPACITY  = rs.getString("FACT_CAPACITY");
-			WMCYMD  = rs.getString("WMCYMD");
-			
-			
-			
-			
-			
-			
-			CURR_BOD = rs.getString("CURR_BOD");
-			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_BOD"));
-			CHART_BOD.add(Chart_Data_tmp);
-			
-			CURR_COD = rs.getString("CURR_COD");
-			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_COD"));
-			CHART_COD.add(Chart_Data_tmp);
-						
-			CURR_SS  = rs.getString("CURR_SS");
-			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_SS"));
-			CHART_SS.add(Chart_Data_tmp);
-			
-			
-			CURR_TN = rs.getString("CURR_TN");
-			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_TN"));
-			CHART_TN.add(Chart_Data_tmp);
-			
-			
-			CURR_TP = rs.getString("CURR_TP");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_TP"));
-			CHART_TP.add(Chart_Data_tmp);
-			
-			
-			CURR_PH = rs.getString("CURR_PH");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_PH"));
-			CHART_PH.add(Chart_Data_tmp);
-	  		//CHART_TN.add(rs.getString("CHART_TN"));
-	  		
-	  		
-	  		CURR_FLW = rs.getString("CURR_FLW");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_FLW"));
-			CHART_FLW.add(Chart_Data_tmp);
-	  		//CHART_TP.add(rs.getString("CHART_TP"));
-	  		
-	  		
-	  		CURR_TOC = rs.getString("CURR_TOC");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace(".", ""));
-			Chart_Data_tmp.add(rs.getString("CHART_TOC"));
-			CHART_TOC.add(Chart_Data_tmp);
-	  		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
-	  		
-	  		
-	  		DO_NM = rs.getString("DO_NM");
-	  		CTY_NM = rs.getString("CTY_NM");
-	  		DONG_NM = rs.getString("DONG_NM");
-	  		RI_NM = rs.getString("RI_NM");
-	  		
-			
-			
-	  		
-	  		
-		 if(!preSeq.equals(rs.getString("RN")))
-			preSeq = rs.getString("RN"); 
+		
   		
 	}
 	
@@ -422,8 +424,9 @@ try{
 		jsonRecord.put("RI_NM",RI_NM);
 		
 		
-	}
-	else{
+	}else if(cnt == 0 && check == "9999"){
+		jsonRecord.put("WMCYMD",WMCYMD);
+	}else{
 		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
 	}
 	
