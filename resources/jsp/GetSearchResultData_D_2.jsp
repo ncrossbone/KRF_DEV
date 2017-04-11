@@ -101,7 +101,7 @@ sql += "   AND A.RN BETWEEN B.RN -4 AND B.RN                                    
 if(firstSearch.equals("date")){
 	sql += "   AND SUBSTR(A.WMCYMD,1,4)||SUBSTR(A.WMCYMD,6,2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'                       ";
 	sql += "   AND A.PT_NO IN ( "+siteIds+"  )                                                                         ";
-	sql += " ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                           ";	
+	sql += " ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                           ";
 }else{
 	sql += "   AND A.PT_NO IN ( "+siteIds+"  )                                                                         ";
 	sql += " ORDER BY A.WMCYMD DESC 	";

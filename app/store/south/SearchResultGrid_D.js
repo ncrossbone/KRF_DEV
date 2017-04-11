@@ -9,9 +9,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			'PT_NO',
 			'PT_NM',
 			'WMCYMD',
+			'CHART_DATE',
 			'CHART_WL',
+			'CURR_WL',
 			'CHART_MXWL',
-			'CHART_MNWL'
+			'CURR_MXWL',
+			'CHART_MNWL',
+			'CURR_MNWL'
     ],
     
     siteId: '',
@@ -36,6 +40,21 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			
 			if(store.orgParentIds == "D001"){
 				requestUrl = "./resources/jsp/GetSearchResultData_D_1.jsp";
+				store.config.fields = [
+					'WS_NM',
+					'AM_NM',
+					'AS_NM',
+					'PT_NO',
+					'PT_NM',
+					'WMCYMD',
+					'CHART_DATE',
+					'CHART_WL',
+					'CURR_WL',
+					'CHART_MXWL',
+					'CURR_MXWL',
+					'CHART_MNWL',
+					'CURR_MNWL'
+                   ]
 			}else if(store.orgParentIds == "D002"){
 				requestUrl = "./resources/jsp/GetSearchResultData_D_2.jsp";
 				store.config.fields = [
@@ -172,8 +191,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 		        				
 		        				
 		        				var dateSplit = jsonData.data[0].WMCYMD;
-		        				//console.info(dateSplit);
-		        				if(store.orgParentIds == "D006"){
+		        				
+		        				if(dateSplit == null){
+		        					me.gridCtl.addCls("dj-mask-noneimg");
+		        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+		        					return;
+		        				}
+		        				
+		        				if(store.orgParentIds == "D006" || store.orgParentIds == "D001"|| store.orgParentIds == "D005"|| store.orgParentIds == "D007"){
 		        					var afterVal = [];
 		        					afterVal.push(dateSplit.substring(0,4));
 		        					afterVal.push(dateSplit.substring(4,6));
@@ -181,7 +206,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			        				var afterVal = dateSplit.split(".");
 		        				}
 		        				
-		        				//console.info(afterVal);
 		        				startYear = afterVal[0];
 		        				if(afterVal[1] == "1"){
 		        					afterVal[1] = "12";
@@ -209,6 +233,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 				Ext.getCmp("cmbEndYear").setValue(endYear);
 				Ext.getCmp("cmbEndMonth").setValue(endMonth);
 			}
+				
 			
 			Ext.Ajax.request({
         		url: requestUrl,
