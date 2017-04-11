@@ -58,6 +58,54 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
+			if(firstSearch == "noDate"){
+				Ext.Ajax.request({
+	        		url: './resources/jsp/GetSearchResultData_F_3.jsp',
+	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
+	        		async: true, // 비동기 = async: true, 동기 = async: false
+	        		//rootProperty : 'items',
+	        		success : function(response, opts) {
+	        			
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+	
+	        			if(jsonData.data.length > 0){
+	        				
+		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+		        				
+		        				var dateSplit = jsonData.data[0].WORK_DT_VAL;
+		        				var afterVal = dateSplit.split("-");
+		        				
+		        				startYear = afterVal[0];
+		        				if(afterVal[1] == "1"){
+		        					afterVal[1] = "12";
+		        					startYear = startYear-1;
+		        				}else{
+		        					startMonth = afterVal[1]-1;
+		        				}
+		        				
+		        				if(startMonth < 10){
+		        					startMonth = "0"+startMonth;
+		        				}
+		        				
+		        				endYear = afterVal[0];
+		        				endMonth = afterVal[1];
+		        			}
+	        			}
+	        		}
+	        	});
+				
+				//return;
+				firstSearch = "date";
+				Ext.getCmp("cmbStartYear").setValue(startYear); 
+				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("cmbEndYear").setValue(endYear);
+				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+			}
+				
+			
+			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_F_3.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD

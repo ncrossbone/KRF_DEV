@@ -578,11 +578,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	for(var i = 0; i < featureSet.features.length; i++){
     		
     		var feature = featureSet.features[i];
-			
     		if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle"){
     			
     			var catDid = feature.attributes.CAT_DID;
-    			
+    			console.info(catDid);
     			// 그래픽 그리기
     			me.drawGraphic(feature, "reachLine");
     			// 집수구역 그리기
@@ -593,7 +592,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				initKradEvt();
     		}
     		else if(me.drawOption == "removePoint"){
-    			
 				// 라인 지운다
 				me.removeGraphic(feature, "reachLine");
 				// 집수구역 지운다
