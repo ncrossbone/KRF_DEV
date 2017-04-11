@@ -267,11 +267,14 @@ Ext.application({
 								}
 								
 								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
+								
 								coreMap.map.setExtent(extent);
-								
+                                coreMap.map.setLevel(7);
+                                
 								coreMap.map.addLayer(graphicLayer);
-								
-								var timer = window.setInterval(function(){
+                                Ext.ShowSiteListWindow("paramSearch");
+
+								/*var timer = window.setInterval(function(){
 									//console.info(coreMap.map.extent);
 									//window.clearInterval(timer);
 								}, 500);
@@ -288,7 +291,7 @@ Ext.application({
 									}
 									
 									//coreMap.map.addLayer(graphicLayer);
-								}, 500);
+								}, 500);*/
 							}
 						});
 					});

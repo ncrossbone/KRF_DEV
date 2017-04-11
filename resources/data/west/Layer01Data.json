@@ -396,7 +396,7 @@
 	"expanded": true,
 	"children": [{
 		"id": "48",
-		"text": "리치라인",
+		"text": "리치흐름",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer49",
 		"leaf": true,

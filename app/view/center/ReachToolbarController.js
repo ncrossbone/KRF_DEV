@@ -157,7 +157,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickReset: function(obj, el, evt){
 		//console.info("dkjdf");
 		ResetButtonClick();
-		
+        initKradEvt();
 	},
 	
 	// 설정저장 버튼 클릭
