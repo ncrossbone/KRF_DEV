@@ -292,7 +292,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     					
     				}else{
     					//같은 버튼 클릭했을 떄
-    					
     					return;
     				}
     			}else{
@@ -320,14 +319,24 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    		
 		    	if(me.drawOption == "startPoint"){
 		    		
-		    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+		    		var agt = navigator.userAgent.toLowerCase();
+		    		if (agt.indexOf("chrome") != -1){
+		    			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+		    		}else{
+		    			KRF_DEV.global.Obj.showSimpleTooltip("해당 리치를 클릭해주세요");
+		    		}
 		    		reachClose.setVisible(true);
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38, url(./resources/images/symbol/btn_start01.cur),auto');
 		    	}
 		    	else if(me.drawOption == "endPoint"){
 		    		
-		    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
+		    		var agt = navigator.userAgent.toLowerCase();
+		    		if (agt.indexOf("chrome") != -1){
+		    			Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
+		    		}else{
+		    			KRF_DEV.global.Obj.showSimpleTooltip("해당 리치를 클릭해주세요");
+		    		}
 		    		reachClose.setVisible(true);
 		    	}
 	    	}
