@@ -34,7 +34,6 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     },
     
     // 리치 버튼 클릭
-<<<<<<< HEAD
 	onClickReachLayer: function(obj, el, evt){
 		
 		var me = this;
