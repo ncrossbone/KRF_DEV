@@ -115,5 +115,22 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		nodeObj.set('checked', !isChecked);
 		layerObj.fireEvent('checkchange',nodeObj, !isChecked);
 		
+		this.northLink(nodeObj);
+		
+	},
+	
+	//-----------------------------------------------------------------------------------------
+	//상위 메뉴바 레이어(주제도) 선택 연동
+	//-----------------------------------------------------------------------------------------
+	northLink: function(node){
+		if(node.data.siteIdCol!=undefined){
+			if(node.data.siteIdCol=="RCH_DID"){
+				SetBtnOnOff("btnReachLayer");
+			}else if(node.data.siteIdCol=="CAT_DID"){
+				SetBtnOnOff("btnAreaLayer");
+			}else if(node.data.siteIdCol=="RCH_FLW"){
+				SetBtnOnOff("btnFlowLayer");
+			}
+		}
 	}
 });

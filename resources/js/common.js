@@ -600,7 +600,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	var cmbStartMonth = Ext.getCmp("cmbStartMonth");
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
-	
 	if(parentCheck == "A"){	
 		
 		////console.info(sYearCtl.setValue("2013"));
@@ -1614,6 +1613,7 @@ ResetButtonClick = function(){
 	
 	_krad.isSearchStop = true;
 	
+	//---north
 	// 항공영상 초기화
 	KRF_DEV.global.DroneFn.onClickResetButton();
 	
@@ -1622,7 +1622,11 @@ ResetButtonClick = function(){
 	var droneCtl = Ext.getCmp("droneToolbar");
 	
 	//리치 시작 끝 close 끄기
-	Ext.getCmp("reach_close").setVisible(false);
+	if(Ext.getCmp("reach_close")!=undefined){
+		Ext.getCmp("reach_close").setVisible(false);
+	}
+	
+	
 	if(currCtl != undefined && droneCtl != undefined){
 		
 		// 항공영상 tool 숨기기
@@ -1635,6 +1639,7 @@ ResetButtonClick = function(){
 		Ext.defer(function(){
 			Layer01OnOff(_reachNodeLayerId, "on");
 			Layer01OnOff(_reachLineLayerId, "on");
+			Layer01OnOff(_reachFlowLayerId, "on");
 		}, 100);
 	}
 	
@@ -1645,7 +1650,13 @@ ResetButtonClick = function(){
 		paramMarker.hide();
 	}
 	
+	//상위 버튼 초기화
+	SetBtnOnOff("btnFlowLayer","on");
+	SetBtnOnOff("btnReachLayer","on");
+	
+	
 }
+
 
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId, onoff){

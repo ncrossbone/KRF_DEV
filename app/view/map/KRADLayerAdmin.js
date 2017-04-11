@@ -275,10 +275,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	//console.info("3.me.btnObj.btnOnOff : " + me.btnObj.btnOnOff);
     	/* 버튼 On, Off */
     	if(btnId != undefined && btnId != null && btnId != ""){
-    		if(drawOption=="startPoint" && drawOption=="endPoint"){
-    			initKradEvt();
-				ResetButtonClick();
-				Ext.getCmp("reach_close").setVisible(false);
+    		if(drawOption!="startPoint" && drawOption!="endPoint"){
+    			
     			me.btnObj = SetBtnOnOff(btnId);
     		}else{
     			if(me.btnObj!=null){
@@ -1095,7 +1093,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     /* 하류 및 공통하류 셋팅 */
     setDownAndComm: function(rchIds, tmpArr, cnt, colNm){
     	var me = this;
-    	
     	require(["esri/tasks/query",
     	         "esri/tasks/QueryTask"],
     	         function(Query,
@@ -2065,5 +2062,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	var searchConfig = Ext.getCmp("searchConfig");
     	this.searchConfigInfoJson = searchConfig.getLocalStorage();
+    	
     }
 });

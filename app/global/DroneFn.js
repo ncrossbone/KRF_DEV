@@ -13,7 +13,6 @@ Ext.define("KRF_DEV.global.DroneFn", {
 	},
 	//초기화 버튼
 	onClickResetButton: function(){
-
 		var me = Ext.getCmp('_mapDiv_');
 		if(me.map == null){
 			return;
