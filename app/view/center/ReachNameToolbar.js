@@ -56,7 +56,7 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
 	    	xtype:"image",
 	    	id:"reach_close",
 	    	hidden:true,
-	    	src:"./resources/images/button/btn_close2.png",
+	    	src:"./resources/images/button/btn_close3.png",
 	    	listeners:{
 	    		el:{
 	    			click: function(){
