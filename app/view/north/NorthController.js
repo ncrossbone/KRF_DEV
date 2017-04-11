@@ -36,70 +36,23 @@ Ext.define('KRF_DEV.view.north.NorthController', {
     // 리치 버튼 클릭
 	onClickReachLayer: function(obj, el, evt){
 		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-		
-		if(_krad.lineGrpLayer != null && _krad.lineGrpLayer != undefined){
-			
-			if(currCtl.btnOnOff == "on"){
-				
-				_krad.lineGrpLayer.setVisibility(true);
-			}
-			else{
-				
-				_krad.lineGrpLayer.setVisibility(false);
-			}
-		}
+		var me = this;
+        me.searchNodeId(el.id);
 		
 	},
 	
 	// 집수구역 버튼 클릭
 	onClickAreaLayer: function(obj, el, evt){
 		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-		
-		if(_krad.areaGrpLayer != null && _krad.areaGrpLayer != undefined){
-			
-			if(currCtl.btnOnOff == "on"){
-				
-				_krad.areaGrpLayer.setVisibility(true);
-			}
-			else{
-				
-				_krad.areaGrpLayer.setVisibility(false);
-			}
-		}
+		var me = this;
+        me.searchNodeId(el.id);
 		
 	},
 	
 	onClickFlowLayer: function(obj, el, evt){
 		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-		
-		var me = GetCoreMap();
-		var activeLayer = me.map.getLayer("DynamicLayer1");
-    	var layers = activeLayer.visibleLayers;
-    	var visibleLayer = [];
-    	activeLayer.setVisibleLayers([]);
-    	
-    	for(var i = 0; i < layers.length; i++){
-    		//o(layers[i]);
-			if(layers[i] != 48){
-				visibleLayer.push(layers[i]);
-			}
-    	}
-    	
-		if(currCtl.btnOnOff == "on"){
-			visibleLayer.push(48);
-	    	activeLayer.setVisibleLayers(visibleLayer);
-		}
-		else{
-			//o(visibleLayer);
-			activeLayer.setVisibleLayers(visibleLayer);
-		}
-		
+        var me = this;
+        me.searchNodeId(el.id);
 	},
 	
 	// 초기화 버튼 클릭
@@ -107,5 +60,51 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		
 		ResetButtonClick();
 		
-	}
+    },
+    //-----------------------------------------------------------------------------------------
+    //상위 메뉴바, 주제도 연동 tree node id 값 클릭 function
+    //-----------------------------------------------------------------------------------------
+    searchNodeId: function(btn){
+    	var layerObj = Ext.getCmp("layer01");
+    	var nodeObj = "";
+    	var lyrId = "";
+
+    	switch (btn) {
+    	case "btnReachLayer": lyrId = "RCH_DID"; break;
+    	case "btnAreaLayer": lyrId = "CAT_DID"; break;
+    	case "btnFlowLayer": lyrId = "RCH_FLW"; break;
+    	default: break;
+    	}
+
+    	for(var i = 0; i<layerObj.store.data.items.length; i++){
+    		if(layerObj.store.data.items[i].data.siteIdCol==lyrId){
+    			nodeObj = layerObj.store.data.items[i];
+    		}
+    	}
+
+    	var isChecked = nodeObj.get('checked');
+
+    	nodeObj.set('checked', !isChecked);
+    	layerObj.fireEvent('checkchange',nodeObj, !isChecked);
+
+    	this.northLink(nodeObj);
+
+    },
+    
+    //-----------------------------------------------------------------------------------------
+    //상위 메뉴바 레이어(주제도) 선택 연동
+    //-----------------------------------------------------------------------------------------
+    northLink: function(node){
+        if(node.data.siteIdCol!=undefined){
+            if(node.data.siteIdCol=="RCH_DID"){
+                SetBtnOnOff("btnReachLayer");
+            }else if(node.data.siteIdCol=="CAT_DID"){
+                SetBtnOnOff("btnAreaLayer");
+            }else if(node.data.siteIdCol=="RCH_FLW"){
+                SetBtnOnOff("btnFlowLayer");
+            }
+        }
+    }
+
+
 });

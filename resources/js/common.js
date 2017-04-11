@@ -1622,6 +1622,10 @@ ResetButtonClick = function(){
 	// 항공영상 On/Off
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
+	
+    //리치 시작 끝 close 끄기
+    Ext.getCmp("reach_close").setVisible(false);
+
 	//console.info(droneCtl);
 	// 항공영상 tool 숨기기
 	if(currCtl.btnOnOff == "on"){
@@ -1633,7 +1637,20 @@ ResetButtonClick = function(){
 	Ext.defer(function(){
 		Layer01OnOff(_reachNodeLayerId, "on");
 		Layer01OnOff(_reachLineLayerId, "on");
+        Layer01OnOff(_reachFlowLayerId, "on");
 	}, 100);
+	
+    
+    // 물환경 연동 마커 초기화
+    var coreMap = GetCoreMap();
+    var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+    if(paramMarker!=undefined){
+        paramMarker.hide();
+    }
+
+    SetBtnOnOff("btnFlowLayer","on");
+    SetBtnOnOff("btnReachLayer","on");
+
 }
 
 // 주제도 레이어 on/off
