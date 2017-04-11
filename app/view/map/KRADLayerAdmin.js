@@ -276,9 +276,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	if(btnId != undefined && btnId != null && btnId != ""){
     		
             if(drawOption!="startPoint" && drawOption!="endPoint"){
-                initKradEvt();
-                ResetButtonClick();
-                Ext.getCmp("reach_close").setVisible(false);
+                
                 me.btnObj = SetBtnOnOff(btnId);
             }else{
                 if(me.btnObj!=null){
