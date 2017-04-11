@@ -22,8 +22,8 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
     plain: true, // 요게 있어야 background: transparent 먹음..
     style: 'border-style: none !important; background: transparent none !important; border-width: 2px !important;',
     cls: 'dj_toolbarNm dj_spottextfield2',
-    //width: 78,
-    //height: 22,
+    width: 300,
+    height: 22,
     /* 사이즈 지정 끝 */
     floating: true,
     //border: 0,
@@ -52,6 +52,25 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
 	    	cls: 'dj_etoptextfield',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight
+	    },{
+	    	xtype:"image",
+	    	id:"reach_close",
+	    	hidden:true,
+	    	src:"./resources/images/button/btn_close2.png",
+	    	listeners:{
+	    		el:{
+	    			click: function(){
+	    				//alert("12");
+	    				//console.info(_krad.btnId);
+	    				SetBtnOnOff(_krad.btnId,"off");
+	    				initKradEvt();
+	    				ResetButtonClick();
+	    				Ext.getCmp("reach_close").setVisible(false);
+	    				
+	    			}
+	    		}
+
+	    	}
 	    }];
 	    
 	    

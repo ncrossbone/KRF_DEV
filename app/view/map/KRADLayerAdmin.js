@@ -7,7 +7,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	mapClickObj: null,
 	mapClickEvt: null,
 	btnObj: null,
-	
+	btnId: "",
 	drawOption: "",
 	eventType: "", // 이벤트 타입 (Reach, Point, Line 등)
 	stEvtArr: [], // 시작위치 이벤트 그래픽 배열
@@ -272,14 +272,43 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		me.drawOption = drawOption;
     	}
     	
+    	//console.info("3.me.btnObj.btnOnOff : " + me.btnObj.btnOnOff);
     	/* 버튼 On, Off */
     	if(btnId != undefined && btnId != null && btnId != ""){
+    		if(drawOption=="startPoint" && drawOption=="endPoint"){
+    			initKradEvt();
+				ResetButtonClick();
+				Ext.getCmp("reach_close").setVisible(false);
+    			me.btnObj = SetBtnOnOff(btnId);
+    		}else{
+    			if(me.btnObj!=null){
+    				
+    				if(btnId!=me.btnId){
+    					if(Ext.getCmp(btnId).btnOnOff=="off"){
+    						me.btnObj =	SetBtnOnOff(btnId,"on");
+    					}else{
+    						return;
+    					}
+    					
+    				}else{
+    					//같은 버튼 클릭했을 떄
+    					
+    					return;
+    				}
+    			}else{
+    				//처음 버튼 눌렀을 때
+    				me.btnObj = SetBtnOnOff(btnId);
+    			}
+    		}
     		
-    		me.btnObj = SetBtnOnOff(btnId);
+    			
     	}
+    	me.btnId = btnId;
     	
     	var isMapClickEvt = false;
     	me.isShowPopup = false;
+    	
+    	var reachClose = Ext.getCmp('reach_close');
     	
     	if(me.btnObj != undefined && me.btnObj != null){
     		
@@ -292,18 +321,19 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    	if(me.drawOption == "startPoint"){
 		    		
 		    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38,auto');
+		    		reachClose.setVisible(true);
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38, url(./resources/images/symbol/btn_start01.cur),auto');
 		    	}
 		    	else if(me.drawOption == "endPoint"){
 		    		
 		    		Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_end01.png) 13 38,auto');
+		    		reachClose.setVisible(true);
 		    	}
 	    	}
 	    	/* 커서 설정 끝 */
 	    	
 	    	if(isMapClickEvt == true){
-	    		
 		    	/* 클릭 이벤트 설정 */
 		    	require(["dojo/on"],
 						function(on){
@@ -1022,7 +1052,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    		// 커서 디폴트
 	        	Ext.get('_mapDiv__gc').setStyle('cursor','default');
 	        	// 버튼 off
-	        	SetBtnOnOff(btnId, "off");
+	        	SetBtnOnOff(btnId, "on");
 	    	});
     	}
     },
