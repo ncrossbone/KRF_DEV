@@ -129,7 +129,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	         "dojo/i18n!esri/nls/jsapi"], function(Draw, on, bundle){
 			
 			me.selectionToolbar = new Draw(me.map, { showTooltips: true });
-			//console.info(me.selectionToolbar);
+			////console.info(me.selectionToolbar);
 			var symbol = null;
 			
 			if(drawOption == "startPoint"){
@@ -172,7 +172,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				 draw extention offset 2016-04-05 주석 - map left 고정시키면서 필요없어짐..
 				//if(location.host != "10.101.95.14"){
 				if(_isOffsetPoint == true){
-					//console.info(_isOffsetPoint);
+					////console.info(_isOffsetPoint);
 					// 실서버는 적용 안해도 됨.
 					//evt = me.getExtentWithOffset(evt); // offset 적용된 geometry 셋팅
 				}
@@ -337,7 +337,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	
     	var me = this;
     	var coreMap = GetCoreMap();
-    	//console.info(where);
+    	////console.info(where);
     	require(["esri/tasks/query",
     	         "esri/tasks/QueryTask"], function(Query, QueryTask){
     		
@@ -394,7 +394,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 						
 						if(drawOption == "startPoint" || drawOption == "endPoint"
 							|| drawOption == "start" || drawOption == "end"){
-							//console.info("Dd");
+							////console.info("Dd");
 							// 하류 조회
 							Ext.defer(function(){
 								
@@ -466,7 +466,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 				query.outFields = ["*"];
 				query.where = "RCH_DID = '" + curRchDid + "'";
 				
-				//console.info(query);
+				////console.info(query);
 				
 				// 리치라인 조회
 				queryTask.execute(query, function(featureSet){
@@ -626,8 +626,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			query.outFields = ["*"];
 			query.where = "RCH_DID = '" + curRchDid + "'";
 			
-			//console.info(_mapServiceUrl_v3 + "/" + _reachLineLayerId);
-			//console.info(query.where);
+			////console.info(_mapServiceUrl_v3 + "/" + _reachLineLayerId);
+			////console.info(query.where);
 			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
@@ -843,7 +843,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 						
 	    				// 우측 상류 검색 (재귀호출)
 	    				var ruRchDid = feature.attributes.RU_RCH_DID;
-	    				//console.info(ruRchDid);
+	    				////console.info(ruRchDid);
 						me.selectUpLine(ruRchDid, dnGeoTrib, drawOption, cnt);
     				}
 				}
@@ -862,7 +862,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	// 타이머 돌리기 0.1초
     	var obj = setInterval(chkCnt = function(){
     		
-			//console.info(me.searchCnt);
+			////console.info(me.searchCnt);
     		// 검색 카운트 같으면
 			if(me.searchCnt == me.tmpSearchCnt){
         		
@@ -970,8 +970,8 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 					var feature = featureSet.features[i];
 					
 					if(option == "draw"){
-						//console.info(feature.attributes.CAT_DID);
-						//console.info(i);
+						////console.info(feature.attributes.CAT_DID);
+						////console.info(i);
 						me.drawArea(feature, me.areaSymbol, "areaGrpLayer");
 					}
 					
@@ -1022,7 +1022,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			// 리치노드 조회
 			queryTask.execute(query, function(featureSet){
-				//console.info(featureSet);
+				////console.info(featureSet);
 				if(featureSet.features.length > 0){
 					
 					//for(var i = 0; i < featureSet.features.length; i++){
@@ -1101,7 +1101,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			leftWidth = 0;
 		
 		var offset = (initWidth - leftWidth) * resolution;
-		//console.info(evt);
+		////console.info(evt);
 		// 위에서 계산된 offset 적용
 		if(evt.x != undefined)
 			evt.x = evt.x + offset;
@@ -1127,11 +1127,11 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			for(var i = 0; evt.rings.length; i++){
 				
 				var points = evt.rings[i];
-				//console.info(points);
+				////console.info(points);
 				if(points != undefined){
 					
 					for(var j = 0; j < points.length; j++){
-						//console.info(points[j][0]);
+						////console.info(points[j][0]);
 						//points[j][0] = points[j][0] + offset;
 					}
 				}
@@ -1272,7 +1272,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			
 			// 배열에 넣기
 			me.arrLineGrp.push(graphic);
-			//console.info(curRchDid);
+			////console.info(curRchDid);
 			// 해당 집수구역 조회, 그리기
 			me.selectAreaWithLine(graphic, "draw");
     	}

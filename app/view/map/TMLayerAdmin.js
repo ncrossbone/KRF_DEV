@@ -18,7 +18,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     
     // 집수구역별 부하량 주제도 그리기
     drawTMCatLayer: function(inStrCatDids, year, colName, kind){
-    	//console.info(kind)
+    	////console.info(kind)
     	var me = this;
     	var coreMap = GetCoreMap();
         
@@ -82,7 +82,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 				
 				layerId = "1";
 			}
-			console.info(_mapServiceUrl_v3_TM);
+			//console.info(_mapServiceUrl_v3_TM);
 			var queryTask = new QueryTask(_mapServiceUrl_v3_TM + "/" + layerId);
 			
 			var query = new Query();
@@ -146,7 +146,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	
 	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range, kind);
 	        	
-	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
+	        	////console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	
 	        	for(var range = 0; range < quantizeObj.length; range++){
 	        		
@@ -163,13 +163,13 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		tmCatGraphic.setSymbol(tmCatFillSymbol);
 		        		// 폴리곤 그래픽 추가
 		        		me.tmGraphicLayerCat.add(tmCatGraphic);
-		        		console.info(tmCatGraphic);
+		        		//console.info(tmCatGraphic);
 		        		/* 폴리곤 중심점 가져오기 */
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
 		        		// 발생부하량 BOD 합계
 		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
-		        		//console.info(colName);
+		        		////console.info(colName);
 		        		// 라벨 텍스트 설정
 		        		//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
 		        		var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";
@@ -179,7 +179,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
 		        						new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
 		        		// 라벨 그래픽 생성
-		        		console.info(tmCatLabelSymbol);
+		        		//console.info(tmCatLabelSymbol);
 		        		var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
 		        		// 집수구역 부하량 속성 데이터 카피
 		        		tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
@@ -210,14 +210,14 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 폴리곤 그래픽 이벤트 */
 	        	on(me.tmGraphicLayerCat, "graphic-draw", function(evt){
 	        		
-	        		//console.info(evt);
+	        		////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
-	        		//console.info(evt);
+	        		////console.info(evt);
                     range = attrs.range;
                     
                     // 집수구역별 부하량 폴리곤 그래픽 스타일 셋팅
-                    console.info(attrs.CAT_DID);
+                    //console.info(attrs.CAT_DID);
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, attrs.color);
                     
                     // 범례와 연계하기 위해 클래스 지정 (가상)
@@ -239,7 +239,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	//클릭 이벤트
 	        	on(me.tmGraphicLayerCat, "click", function(evt){
 	        		
-	        		console.info(evt.graphic.attributes.CAT_DID);
+	        		//console.info(evt.graphic.attributes.CAT_DID);
 	        		
 	        		var value = Ext.getCmp("pollLoadSelect").value;
 	        		
@@ -295,7 +295,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 라벨 그래픽 이벤트 */
 	        	on(me.tmLabelLayerCat, "graphic-draw", function(evt){
 	        		
-	        		//console.info(evt);
+	        		////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
 	        		
@@ -334,7 +334,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	/* 원형 그래픽 이벤트 */
 	        	on(me.circleGraphicLayer, "graphic-draw", function(evt){
 	        		
-	        		//console.info(evt);
+	        		////console.info(evt);
 	        		var attrs = evt.graphic.attributes,
 	        			range;
 	        		
@@ -370,7 +370,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     	var coreMap = GetCoreMap();
     	var me = this;
     	var test = Ext.getCmp("tmLegendWindow");
-    	console.info(test);
+    	//console.info(test);
     	// 레전드 윈도우 생성
     	var tmLegendWindow = Ext.create("KRF_DEV.view.map.TMLegendWindow");
     	// 레전드 윈도우 보이기
@@ -471,10 +471,10 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             
             tmLegendSymbol.on("mouseout", function(evt){
             	
-            	//console.info(evt);
+            	////console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var fillColor = evt.target.getAttribute("fillcolor");
-            	//console.info(fillColor);
+            	////console.info(fillColor);
             	// 범례 스타일 설정
         		me.setAttributeLegend("off", range);
             	
@@ -490,7 +490,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
             
             /*tmLegendSymbol.on("click", function(evt){
             	
-            	//console.info(evt);
+            	////console.info(evt);
             	var range = evt.target.getAttribute("range");
             	var polySymbol = $(".polySymbol_" + range);
             	

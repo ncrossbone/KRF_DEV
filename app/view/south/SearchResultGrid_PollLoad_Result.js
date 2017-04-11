@@ -37,7 +37,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 				me.setHeight(parentCtl.getHeight() - 110);
 				
 				parentCtl.on("resize", function(){
-					////console.info(parentCtl);
+					//////console.info(parentCtl);
 					me.setWidth(parentCtl.getWidth() - 10);
 					me.setHeight(parentCtl.getHeight() - 110);
 				});
@@ -66,7 +66,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 						var coreMap = GetCoreMap();
 						var tmLayerAdmin = coreMap.tmLayerAdmin;
 						
-						console.info(coreMap);
+						//console.info(coreMap);
 						
 		        		if(value == 11){
 		        			return;
@@ -139,7 +139,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 					if(c.data.ADDR == "총계"){
 						return value = "";
 					}else{
-						console.info("else");
+						//console.info("else");
 						return Ext.util.Format.number(value, '0.00');
 					}
 					
@@ -226,12 +226,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 						 }else{
 							 return 'pdj_subTotal';
 						 }
-						 //console.info(record);
+						 ////console.info(record);
 						 
 					 }
 					 
 					 if(record.data.CAT_DID == "총계"){
-						 //console.info(record);
+						 ////console.info(record);
 						 return 'pdj_total';
 					 }
 					 

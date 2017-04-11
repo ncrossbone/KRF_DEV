@@ -103,7 +103,7 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 								var setPollutionItems = Ext.getCmp("setPollutionItems");
 								var pollutionMapSetValue = Ext.getCmp("pollutionMapSetValue");
 								var setPollutionYear = Ext.getCmp("setPollutionYear").value;
-								console.info(setPollutionYear);
+								//console.info(setPollutionYear);
 								
 								pollutionCatLayerClear();
 								

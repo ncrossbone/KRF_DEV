@@ -112,7 +112,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 		        				
-		        				console.info(jsonData.data);
+		        				////console.info(jsonData.data);
 		        				//store.setData(jsonData.data);
 		        				startYear = jsonData.data[0].WMYR;
 		        				if(jsonData.data[0].WMOM == "1"){
@@ -159,7 +159,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 	        				
-	        				console.info(jsonData.data);
+	        				//console.info(jsonData.data);
 	        				store.setData(jsonData.data);
 		        			
 	        				// 로딩바 숨김
