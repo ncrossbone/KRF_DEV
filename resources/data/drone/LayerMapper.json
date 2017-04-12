@@ -513,21 +513,7 @@
 		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_02.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "true"
-	}, {
-		"layerId": "1",
-		"layerName": "취수장",
-		"layerOnOff": "on",
-		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
-		"image2": "<img src='./resources/images/drone/layer_icon_03.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
-		"visible": "true"
-	}, {
-		"layerId": "0",
-		"layerName": "정수장",
-		"layerOnOff": "on",
-		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
-		"image2": "<img src='./resources/images/drone/layer_icon_04.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
-		"visible": "true"
-	}, {
+	},  {
 		"layerId": "Drone",
 		"layerName": "항공사진",
 		"layerOnOff": "on",

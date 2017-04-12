@@ -380,6 +380,7 @@ if(firstSearch.equals("date")){
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) >= '"+startYYYYMM+"'                                                         " ;
 	sql += "   AND SUBSTR(A.WMCYMD, 1, 4)||SUBSTR(A.WMCYMD, 6, 2) <= '"+endYYYYMM+"'                                                         " ;
 	sql += "   ORDER BY A.PT_NO, A.WMCYMD ASC, B.WMCYMD                                                         " ;
+	
 }else{
 	sql += " AND ROWNUM <= 1  ";
 	sql += " order by WMYR DESC, WMOM DESC ";
@@ -393,6 +394,7 @@ if(firstSearch.equals("date")){
      //sql += "AND A.PT_NO IN (" + siteIds + ") ";
      
      
+	
    //System.out.println(sql);
    stmt = con.createStatement();
    rs = stmt.executeQuery(sql);
