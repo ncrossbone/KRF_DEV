@@ -479,7 +479,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			pollLoadString += "	\"checked\": null,\n";
 			pollLoadString += "	\"infoBtnDisabled\": true,\n";
 			pollLoadString += "	\"chartBtnDisabled\": true,\n";
-			pollLoadString += "	\"srchBtnDisabled\": false,\n";
+			pollLoadString += "	\"srchBtnDisabled\": true,\n";
 			pollLoadString += "	\"children\": [{\n";
 			
 			pollLoadString += "		\"id\": \"pollLoadCat\",\n";
