@@ -115,8 +115,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 		        				////console.info(jsonData.data);
 		        				//store.setData(jsonData.data);
 		        				startYear = jsonData.data[0].WMYR;
-		        				if(jsonData.data[0].WMOM == "1"){
-		        					jsonData.data[0].WMOM = "12";
+		        				if(jsonData.data[0].WMOM == "1" || jsonData.data[0].WMOM == "01"){
+		        					startMonth = "12";
 		        					startYear = startYear-1;
 		        				}else{
 		        					startMonth = jsonData.data[0].WMOM-1;

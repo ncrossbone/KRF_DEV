@@ -31,7 +31,6 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 					parentNode.set('checked', false);
 				}
 			}
-			console.info(this.getView().getChecked());
 			KRF_DEV.getApplication().fireEvent('dynamicLayerOnOff', this.getView().getChecked());
 		}
 	},

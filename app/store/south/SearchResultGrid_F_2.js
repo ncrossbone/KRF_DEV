@@ -83,8 +83,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 		        				var afterVal = dateSplit.split("-");
 		        				
 		        				startYear = afterVal[0];
-		        				if(afterVal[1] == "1"){
-		        					afterVal[1] = "12";
+		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
+		        					startMonth = "12";
 		        					startYear = startYear-1;
 		        				}else{
 		        					startMonth = afterVal[1]-1;
