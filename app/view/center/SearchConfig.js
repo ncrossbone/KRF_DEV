@@ -216,7 +216,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				eval("jsonObj." + chkCtls[i].inputValue + " = " + chkCtls[i].checked);
 			}
 		}
-		console.info(jsonObj);
+		//console.info(jsonObj);
 		localStorage['_searchConfigInfo_'] = JSON.stringify(jsonObj);
 	},
 	getLocalStorage: function(){
