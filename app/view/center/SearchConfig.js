@@ -8,7 +8,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	id: 'searchConfig',
 	
 	width: 303,
-	height: 110,
+	height: 150,
 	x: 387,
 	y: 200,
 	
@@ -29,12 +29,12 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 		width: "100%",
 		items: [{
 			xtype: 'container',
-			style:"margin-top:5px; margin-left:30px;",
+			style:"padding-left: 30px; padding-top: 6px; font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px;",
 			layout: {
-				type: 'hbox'
+				type: 'vbox'
 			},
 			width: "100%",
-			height: 30,
+			height: 70,
 			items:[{
 				xtype: 'checkbox',
 				boxLabel: '상류',
@@ -65,40 +65,77 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				},
 				inputValue: 'isUpDraw'
 			},{
-				xtype: 'checkbox',
-				itemId: "chkMWDraw",
-				boxLabel: '중권역',
-				checked: false,
-				disabled: true,
-				width:65,
-				handler: function(obj, checked){
-					
-					// 로컬 스토리지 셋팅
-					this.up("win-searchConfig").setLocalStorage();
+				xtype:"container",
+				layout:{
+					type:"hbox"
 				},
-				inputValue: 'isMWDraw'
-			}, {
-				xtype: 'checkbox',
-				itemId: "chkDaemBoDraw",
-				boxLabel: '댐/보',
-				checked: false,
-				disabled: true,
-				width:80,
-				handler: function(obj, checked){
-					
-					// 로컬 스토리지 셋팅
-					this.up("win-searchConfig").setLocalStorage();
-				},
-				inputValue: 'isDaemBoDraw'
+				width: "100%",
+				style:"padding-left: 20px;",
+				height: 35,
+				items:[{
+					xtype:"label",
+					text:"└"
+				},{
+					xtype: 'checkbox',
+					itemId: "chkMWDraw",
+					id: "chkMWDraw",
+					style:"padding-left:10px;",
+					boxLabel: '중권역',
+					checked: false,
+					disabled: true,
+					width:65,
+					handler: function(obj, checked){
+						
+						
+						
+						var chkDaemBoDraw = Ext.getCmp('chkDaemBoDraw');
+						if(checked==true){
+							chkDaemBoDraw.setValue(false);
+						}else{
+							chkDaemBoDraw.setValue(true);
+						}
+						
+						// 로컬 스토리지 셋팅
+						this.up("win-searchConfig").setLocalStorage();
+						
+					},
+					inputValue: 'isMWDraw'
+				}, {
+					xtype: 'checkbox',
+					itemId: "chkDaemBoDraw",
+					id: "chkDaemBoDraw",
+					style:"padding-left:10px;",
+					boxLabel: '댐/보',
+					checked: false,
+					disabled: true,
+					width:80,
+					handler: function(obj, checked){
+						
+						
+						var chkMWDraw = Ext.getCmp('chkMWDraw');
+						if(checked==true){
+							chkMWDraw.setValue(false);
+						}else{
+							chkMWDraw.setValue(true);
+						}
+						
+						// 로컬 스토리지 셋팅
+						this.up("win-searchConfig").setLocalStorage();
+						
+						
+						
+					},
+					inputValue: 'isDaemBoDraw'
+				}]
 			}]
 		}, {
 			xtype: 'container',
-			style:"margin-top:5px; margin-left:30px;",
+			style:"font: normal 11px 돋움; letter-spacing: -1px; line-height: 19px; padding-left: 30px; padding-top: 6px; border-top: 1px dotted #595959;",
 			layout: {
 				type: 'hbox'
 			},
 			width: "100%",
-			height: 30,
+			height: 35,
 			items:[{
 				xtype: 'checkbox',
 				boxLabel: '본류',
@@ -179,7 +216,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 				eval("jsonObj." + chkCtls[i].inputValue + " = " + chkCtls[i].checked);
 			}
 		}
-		
+		//console.info(jsonObj);
 		localStorage['_searchConfigInfo_'] = JSON.stringify(jsonObj);
 	},
 	getLocalStorage: function(){
