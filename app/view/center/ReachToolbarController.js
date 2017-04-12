@@ -16,6 +16,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
 		
+		
 		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
 		var popHeader = Ext.getCmp("searchConfigHeader");
@@ -39,10 +40,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			SetWestCollapseXY("show");
 		}
 		else{
-			popHeader.close();
-			popCtl.close();
+			popHeader.hide();
+			popCtl.hide();
 			if(kradMetaInfo != undefined){
-				kradMetaInfo.close();
+				kradMetaInfo.hide();
 			}
 			
 		}
