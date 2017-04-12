@@ -39,10 +39,10 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			SetWestCollapseXY("show");
 		}
 		else{
-			popHeader.close();
-			popCtl.close();
+			popHeader.hide();
+            popCtl.hide();
 			if(kradMetaInfo != undefined){
-				kradMetaInfo.close();
+				kradMetaInfo.hide();
 			}
 			
 		}
