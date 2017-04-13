@@ -264,11 +264,22 @@ Ext.application({
 									var graphic = new Graphic(featureSet.features[i].geometry, symbol);
 									graphicLayer.add(graphic);
 								}
-								
 								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
 								coreMap.map.setExtent(extent);
-								coreMap.map.setLevel(7);
 								
+								Ext.defer(function(){
+									
+									var level = coreMap.map.getLevel() - 1;
+									
+									if(level > 12){
+										coreMap.map.setLevel(12);
+									}
+									else{
+										coreMap.map.setLevel(level);
+									}
+									
+									//coreMap.map.addLayer(graphicLayer);
+								}, 500);
 								coreMap.map.addLayer(graphicLayer);
 								Ext.ShowSiteListWindow("paramSearch");
 								//var timer = window.setInterval(function(){
