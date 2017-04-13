@@ -47,11 +47,12 @@ try{
 	sql += "        ) A                                                                                                                               ";
 	sql += "      , DMOBSIF B                                                                                                                         ";
 	sql += "  WHERE A.DMOBSCD = B.DMOBSCD                                                                                                             ";
-	if(defaultChart.equals("1")){
+	if(defaultChart.equals("0")){
+	/* if(defaultChart.equals("1")){
 		sql += "    AND SUBSTR(A.YMD, 1, 6) >='201501'                                                                                                    ";
 		sql += "    AND SUBSTR(A.YMD, 1, 6) <='201510'                                                                                                    ";
 	}else{
-		sql += "    AND SUBSTR(A.YMD, 1, 6) >='"+startDate+"'                                                                                                    ";
+	 */	sql += "    AND SUBSTR(A.YMD, 1, 6) >='"+startDate+"'                                                                                                    ";
 		sql += "    AND SUBSTR(A.YMD, 1, 6) <='"+endDate+"'                                                                                                    ";
 	}
 	sql += "    AND A.DMOBSCD = '"+recordId+"'                                                                                                             ";

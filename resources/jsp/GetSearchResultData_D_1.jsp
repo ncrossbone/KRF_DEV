@@ -113,7 +113,7 @@ if(firstSearch.equals("date")){
 	sql += "     AND A.RN BETWEEN B.RN -4 AND B.RN                                                            ";
 	sql += "   ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                     ";
 }else{
-	sql = "select '9999' AS RN               ,'WS_NM' as WS_NM                                          ,'AM_NM' as AM_NM                                   ,'AS_NM' as AS_NM                                   ,'PT_NO' as PT_NO                                   ,'PT_NM' as PT_NM                                   , max(SUBSTR(TO_CHAR(YMDH , 'YYYYMMDDHH24'),1,8)) as WMCYMD                                   ,'CHART_DATE' as CHART_DATE                               ,'CURR_WL' as CURR_WL                               ,'CHART_WL' as CHART_WL                             ,'CURR_MXWL' as CURR_MXWL                           ,'CHART_MXWL' as CHART_MXWL                         ,'CURR_MNWL' as CURR_MNWL                           ,'CHART_MNWL' as CHART_MNWL                     from WLDY  where WLOBSCD IN ( "+siteIds+" ) ";
+	sql = "select '9999' AS RN   , max(SUBSTR(TO_CHAR(YMDH , 'YYYYMMDDHH24'),1,8)) as WMCYMD           from WLDY  where WLOBSCD IN ( "+siteIds+" ) ";
 }
 
 	
@@ -126,7 +126,7 @@ if(firstSearch.equals("date")){
 	
 	String preSeq = "";
 	String preSeq2 = "9999";
-	String length = "";
+	String check = "";
 	
 	String WS_NM = "";
 	String AM_NM = "";
@@ -247,11 +247,10 @@ if(firstSearch.equals("date")){
 		jsonRecord.put("CURR_MXWL",CURR_MXWL);
 		jsonRecord.put("CHART_MXWL",CHART_MXWL);
 		jsonRecord.put("CURR_MNWL",CURR_MNWL);
-		jsonRecord.put("CHART_MNWL	",CHART_MNWL);
+		jsonRecord.put("CHART_MNWL",CHART_MNWL);
 	}else if(cnt == 0 && check == "9999"){
 		jsonRecord.put("WMCYMD",WMCYMD);
-	}
-	else{
+	}else{
 		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
 	}
 	
