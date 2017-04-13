@@ -30,6 +30,8 @@ try{
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
 	//관거이송량
+	
+if(firstSearch.equals("date")){
 	sql = " SELECT A.FACI_CD  , A.NO /* 순번 참고용 */																																												" +
 "      , A.FACI_NM /* 처리시설명*/                                                                                    " +
 "      , A.WORK_DT AS WORK_DT_VAL    /* 운영일자*/                                                                    " +
@@ -139,17 +141,12 @@ try{
 "    AND A.PIPE_TYPE =  B.PIPE_TYPE				                                         " +
 "    AND A.ADM_CD    =  B.ADM_CD                                                                                      " +
 "    AND A.NO BETWEEN B.NO -4 AND B.NO                                                                                " +
-"    AND A.FACI_CD IN ( " + siteIds + "  )                                                                  			  "; 
-if(firstSearch.equals("date")){
-	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               " ;
-	sql += "  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                         ";
+"    AND A.FACI_CD IN ( " + siteIds + "  )                                                                  			  "+
+"    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               "+
+"  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                         ";
 }else{
-	sql += " AND ROWNUM <= 1	";
-    sql += " ORDER BY  WORK_DT_VAL DESC ";
+	sql = "		select '9999' AS NO , MAX(WORK_DT) AS WORK_DT_VAL from VPLA_FACI_PIPE_TRANSFER where faci_CD IN ("+siteIds+")	";	
 }
-//}else{
-//	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
-//}
 
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
@@ -162,6 +159,9 @@ if(firstSearch.equals("date")){
 	JSONObject jsonRecord = null;
 	
 	String preSeq = "";
+	String preSeq2 = "9999";
+	String check = "";
+	
 	String FACI_CD = "";
 	String FACI_NM = "";
 	
@@ -201,134 +201,140 @@ if(firstSearch.equals("date")){
 	int cnt = 0;
 	//out.print(rs);
 	while(rs.next()) {
+		if(!preSeq2.equals(rs.getString("NO"))){
+			cnt++;
+			
+			if(!preSeq.equals("") && !preSeq.equals(rs.getString("NO"))){
+				
+				cnt = 1;
+				
+				//System.out.println(preSite + preDate);
+				jsonRecord = new JSONObject();
 		
-		cnt++;
-		
-		if(!preSeq.equals("") && !preSeq.equals(rs.getString("NO"))){
+				//jsonRecord.put("parentId", parentId);
+				jsonRecord.put("FACI_CD", FACI_CD);
+				jsonRecord.put("FACI_NM", FACI_NM);
+		  		jsonRecord.put("WORK_DT_VAL", WORK_DT_VAL);
+		  		jsonRecord.put("WORK_DT_GRAPH", WORK_DT_GRAPH);
+		  		jsonRecord.put("PIPE_NUM", PIPE_NUM);
+		  		jsonRecord.put("PIPE_TYPE", PIPE_TYPE);
+		  		jsonRecord.put("AMT_VAL", AMT_VAL);
+		  		jsonRecord.put("AMT_GRAPH", AMT_GRAPH);
+		  		jsonRecord.put("BOD_VAL", BOD_VAL);
+		  		jsonRecord.put("BOD_GRAPH", BOD_GRAPH);
+		  		jsonRecord.put("COD_VAL", COD_VAL);
+		  		jsonRecord.put("COD_GRAPH", COD_GRAPH);
+		  		jsonRecord.put("SS_VAL", SS_VAL);
+		  		jsonRecord.put("SS_GRAPH", SS_GRAPH);
+		  		jsonRecord.put("TN_VAL", TN_VAL);
+		  		jsonRecord.put("TN_GRAPH", TN_GRAPH);
+		  		jsonRecord.put("TP_VAL", TP_VAL);
+		  		jsonRecord.put("TP_GRAPH", TP_GRAPH);
+		  		jsonRecord.put("COLI_VAL", COLI_VAL);
+		  		jsonRecord.put("COLI_GRAPH", COLI_GRAPH);
+		  		jsonRecord.put("BYPASS_AMT_VAL", BYPASS_AMT_VAL);
+		  		jsonRecord.put("BYPASS_AMT_GRAPH", BYPASS_AMT_GRAPH); 
+		  		jsonRecord.put("CONNECT_FACI_NM", CONNECT_FACI_NM);
+		  		
+		  		jsonArr.add(jsonRecord);
+		  		
+		  		WORK_DT_GRAPH = new JSONArray();
+		  		AMT_GRAPH = new JSONArray();
+		  		BOD_GRAPH = new JSONArray();
+		  		COD_GRAPH  = new JSONArray();
+		  		SS_GRAPH  = new JSONArray();
+		  		TN_GRAPH  = new JSONArray();
+		  		TP_GRAPH  = new JSONArray();
+		  		COLI_GRAPH  = new JSONArray();
+		  		BYPASS_AMT_GRAPH  = new JSONArray();
+			}
 			
-			cnt = 1;
+				FACI_CD  = rs.getString("FACI_CD");
+				FACI_NM  = rs.getString("FACI_NM");
+				
+				WORK_DT_VAL = rs.getString("WORK_DT_VAL");
+				Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("WORK_DT_GRAPH"));
+				WORK_DT_GRAPH.add(Chart_Data_tmp);
+				
+				PIPE_NUM  = rs.getString("PIPE_NUM");
+				PIPE_TYPE  = rs.getString("PIPE_TYPE");
+				
+				
+				AMT_VAL  = rs.getString("AMT_VAL");
+				Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("AMT_GRAPH"));
+				AMT_GRAPH.add(Chart_Data_tmp);
+				
+				
+				BOD_VAL = rs.getString("BOD_VAL");
+				Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("BOD_GRAPH"));
+				BOD_GRAPH.add(Chart_Data_tmp);
+				
+				
+				COD_VAL = rs.getString("COD_VAL");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("COD_GRAPH"));
+				COD_GRAPH.add(Chart_Data_tmp);
+				
+				
+				SS_VAL = rs.getString("SS_VAL");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("SS_GRAPH"));
+				SS_GRAPH.add(Chart_Data_tmp);
+		  		//CHART_TN.add(rs.getString("CHART_TN"));
+		  		
+		  		
+		  		TN_VAL = rs.getString("TN_VAL");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("TN_GRAPH"));
+				TN_GRAPH.add(Chart_Data_tmp);
+		  		//CHART_TP.add(rs.getString("CHART_TP"));
+		  		
+		  		
+		  		TP_VAL = rs.getString("TP_VAL");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("TP_GRAPH"));
+				TP_GRAPH.add(Chart_Data_tmp);
+		  		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
+		  		
+		  		
+		  		COLI_VAL = rs.getString("COLI_VAL");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("COLI_GRAPH"));
+				COLI_GRAPH.add(Chart_Data_tmp);
+		  		//CHART_PH.add(rs.getString("CHART_PH")); 
+		  		
+		  		
+		  		BYPASS_AMT_VAL = rs.getString("BYPASS_AMT_VAL");
+		  		Chart_Data_tmp = new JSONArray();
+				Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
+				Chart_Data_tmp.add(rs.getString("BYPASS_AMT_GRAPH"));
+				BYPASS_AMT_GRAPH.add(Chart_Data_tmp);
+		  		//CHART_SS.add(rs.getString("CHART_SS"));
+		  		
+		  		
+		  		CONNECT_FACI_NM = rs.getString("CONNECT_FACI_NM");
+				
+		  		
+			 if(!preSeq.equals(rs.getString("NO")))
+				preSeq = rs.getString("NO"); 
+		}else{
 			
-			//System.out.println(preSite + preDate);
-			jsonRecord = new JSONObject();
-	
-			//jsonRecord.put("parentId", parentId);
-			jsonRecord.put("FACI_CD", FACI_CD);
-			jsonRecord.put("FACI_NM", FACI_NM);
-	  		jsonRecord.put("WORK_DT_VAL", WORK_DT_VAL);
-	  		jsonRecord.put("WORK_DT_GRAPH", WORK_DT_GRAPH);
-	  		jsonRecord.put("PIPE_NUM", PIPE_NUM);
-	  		jsonRecord.put("PIPE_TYPE", PIPE_TYPE);
-	  		jsonRecord.put("AMT_VAL", AMT_VAL);
-	  		jsonRecord.put("AMT_GRAPH", AMT_GRAPH);
-	  		jsonRecord.put("BOD_VAL", BOD_VAL);
-	  		jsonRecord.put("BOD_GRAPH", BOD_GRAPH);
-	  		jsonRecord.put("COD_VAL", COD_VAL);
-	  		jsonRecord.put("COD_GRAPH", COD_GRAPH);
-	  		jsonRecord.put("SS_VAL", SS_VAL);
-	  		jsonRecord.put("SS_GRAPH", SS_GRAPH);
-	  		jsonRecord.put("TN_VAL", TN_VAL);
-	  		jsonRecord.put("TN_GRAPH", TN_GRAPH);
-	  		jsonRecord.put("TP_VAL", TP_VAL);
-	  		jsonRecord.put("TP_GRAPH", TP_GRAPH);
-	  		jsonRecord.put("COLI_VAL", COLI_VAL);
-	  		jsonRecord.put("COLI_GRAPH", COLI_GRAPH);
-	  		jsonRecord.put("BYPASS_AMT_VAL", BYPASS_AMT_VAL);
-	  		jsonRecord.put("BYPASS_AMT_GRAPH", BYPASS_AMT_GRAPH); 
-	  		jsonRecord.put("CONNECT_FACI_NM", CONNECT_FACI_NM);
-	  		
-	  		jsonArr.add(jsonRecord);
-	  		
-	  		WORK_DT_GRAPH = new JSONArray();
-	  		AMT_GRAPH = new JSONArray();
-	  		BOD_GRAPH = new JSONArray();
-	  		COD_GRAPH  = new JSONArray();
-	  		SS_GRAPH  = new JSONArray();
-	  		TN_GRAPH  = new JSONArray();
-	  		TP_GRAPH  = new JSONArray();
-	  		COLI_GRAPH  = new JSONArray();
-	  		BYPASS_AMT_GRAPH  = new JSONArray();
-		}
-		//else{
-			//parentId = rs.getString("parentId");
-			FACI_CD  = rs.getString("FACI_CD");
-			FACI_NM  = rs.getString("FACI_NM");
-			
+			check = preSeq2;
 			WORK_DT_VAL = rs.getString("WORK_DT_VAL");
-			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("WORK_DT_GRAPH"));
-			WORK_DT_GRAPH.add(Chart_Data_tmp);
 			
-			PIPE_NUM  = rs.getString("PIPE_NUM");
-			PIPE_TYPE  = rs.getString("PIPE_TYPE");
-			
-			
-			AMT_VAL  = rs.getString("AMT_VAL");
-			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("AMT_GRAPH"));
-			AMT_GRAPH.add(Chart_Data_tmp);
-			
-			
-			BOD_VAL = rs.getString("BOD_VAL");
-			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("BOD_GRAPH"));
-			BOD_GRAPH.add(Chart_Data_tmp);
-			
-			
-			COD_VAL = rs.getString("COD_VAL");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("COD_GRAPH"));
-			COD_GRAPH.add(Chart_Data_tmp);
-			
-			
-			SS_VAL = rs.getString("SS_VAL");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("SS_GRAPH"));
-			SS_GRAPH.add(Chart_Data_tmp);
-	  		//CHART_TN.add(rs.getString("CHART_TN"));
-	  		
-	  		
-	  		TN_VAL = rs.getString("TN_VAL");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("TN_GRAPH"));
-			TN_GRAPH.add(Chart_Data_tmp);
-	  		//CHART_TP.add(rs.getString("CHART_TP"));
-	  		
-	  		
-	  		TP_VAL = rs.getString("TP_VAL");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("TP_GRAPH"));
-			TP_GRAPH.add(Chart_Data_tmp);
-	  		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
-	  		
-	  		
-	  		COLI_VAL = rs.getString("COLI_VAL");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("COLI_GRAPH"));
-			COLI_GRAPH.add(Chart_Data_tmp);
-	  		//CHART_PH.add(rs.getString("CHART_PH")); 
-	  		
-	  		
-	  		BYPASS_AMT_VAL = rs.getString("BYPASS_AMT_VAL");
-	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
-			Chart_Data_tmp.add(rs.getString("BYPASS_AMT_GRAPH"));
-			BYPASS_AMT_GRAPH.add(Chart_Data_tmp);
-	  		//CHART_SS.add(rs.getString("CHART_SS"));
-	  		
-	  		
-	  		CONNECT_FACI_NM = rs.getString("CONNECT_FACI_NM");
-			
-	  		
-		 if(!preSeq.equals(rs.getString("NO")))
-			preSeq = rs.getString("NO"); 
+		}
+		
   		
 	}
 	
@@ -359,8 +365,9 @@ if(firstSearch.equals("date")){
 		jsonRecord.put("BYPASS_AMT_VAL", BYPASS_AMT_VAL);
 		jsonRecord.put("BYPASS_AMT_GRAPH", BYPASS_AMT_GRAPH); 
 		jsonRecord.put("CONNECT_FACI_NM", CONNECT_FACI_NM);
-	}
-	else {
+	}else if(cnt == 0 && check == "9999"){
+		jsonRecord.put("WORK_DT_VAL", WORK_DT_VAL);
+	}else{
 		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
 	}
 	

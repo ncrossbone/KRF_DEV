@@ -81,6 +81,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
 		        				//console.info(jsonData.data[0]);
 		        				
 		        				var dateSplit = jsonData.data[0].WORK_DT_VAL;
+		        				if(dateSplit == null){
+		        					me.gridCtl.addCls("dj-mask-noneimg");
+		        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+		        					return;
+		        				}
+		        				
 		        				var afterVal = dateSplit.split("-");
 		        				//console.info(afterVal);
 		        				
