@@ -108,7 +108,6 @@ if(firstSearch.equals("date")){
 	sql += "    )  WHERE ROWNUM <= 1  ORDER BY WORK_DT_VAL DESC               " ;
 }
 
-		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    
    stmt = con.createStatement();
