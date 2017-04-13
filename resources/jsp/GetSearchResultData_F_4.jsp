@@ -26,7 +26,6 @@ try{
 	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
-	//out.print(parentIds);
 	//총이송량
 	
 if(firstSearch.equals("noDate")){
@@ -35,72 +34,72 @@ if(firstSearch.equals("noDate")){
 	sql = "";
 }
 sql += " SELECT 																																																" +
-" 		 A.FACI_CD                                                                                            " +
-" 	   , A.NO                                                                                                 " +
-"      , A.FACI_NM /* 처리시설명 */                                                                           " +
-"      , A.WORK_DT AS WORK_DT_VAL /* 운영일자 */                                                              " +
-"      , A.WORK_DT AS CHART_DATE  /* 운영일자 */                                                              " +
-"      , B.WORK_DT AS WORK_DT_GRAPH /* 운영일자 */                                                            " +
-"      , A.PIPE_NUM /* 유입구번호 */                                                                          " +
-"      , A.AMT  AS AMT_VAL /* 유량(㎥/일) */                                    " +
-"      , B.AMT  AS AMT_GRAPH /* 유량(㎥/일) */                                  " +
-"      , A.BOD  AS BOD_VAL /* BOD(㎎/ℓ) */                                     " +
-"      , B.BOD  AS BOD_GRAPH /* BOD(㎎/ℓ) */                                   " +
-"      , A.COD  AS COD_VAL /* COD(㎎/ℓ) */                                     " +
-"      , B.COD  AS COD_GRAPH /* COD(㎎/ℓ) */                                   " +
-"      , A.SS  AS SS_VAL /* SS(㎎/ℓ) */                                        " +
-"      , B.SS  AS SS_GRAPH /* SS(㎎/ℓ) */                                      " +
-"      , A.TN  AS TN_VAL /* TN(㎎/ℓ) */                                        " +
-"      , B.TN  AS TN_GRAPH /* TN(㎎/ℓ) */                                      " +
-"      , A.TP  AS TP_VAL /* TP(㎎/ℓ) */                                        " +
-"      , B.TP  AS TP_GRAPH /* TP(㎎/ℓ) */                                      " +
-"      , A.COLI  AS COLI_VAL /* 대장균군수(총대장균군수) */                        " +
-"      , B.COLI  AS COLI_GRAPH /* 대장균군수(총대장균군수) */                      " +
-"   FROM (SELECT RANK() OVER(PARTITION BY FACI_CD, PIPE_NUM ORDER BY FACI_CD, PIPE_NUM, WORK_DT DESC) AS NO,  " +
-"                TT.ADM_CD,                                                                                   " +
-"                T.YYYY,                                                                                      " +
-"                FACI_CD,                                                                                     " +
-"                FACI_NM,                                                                                     " +
-"                WORK_DT,                                                                                     " +
-"                PIPE_NUM,                                                                                    " +
-"                AMT,                                                                                         " +
-"                BOD,                                                                                         " +
-"                COD,                                                                                         " +
-"                SS,                                                                                          " +
-"                TN,                                                                                          " +
-"                TP,                                                                                          " +
-"                COLI                                                                                         " +
-"           FROM VPLA_FACI_IN_TOTAL T ,                                                                       " +
-"                COM_DISTRICT_RAW TT,                                                                         " +
-"                KESTI_WATER_ALL_MAP C                                                                        " +
-"          WHERE T.ADM_CD = C.ADM_CD                                                                          " +
-"            AND T.ADM_CD = TT.ADM_CD                                                                         " +
-"        ) A                                                                                                  " +
-"      , (SELECT RANK() OVER(PARTITION BY FACI_CD, PIPE_NUM ORDER BY FACI_CD, PIPE_NUM, WORK_DT DESC) AS NO,  " +
-"                TT.ADM_CD,                                                                                   " +
-"                T.YYYY,                                                                                      " +
-"                FACI_CD,                                                                                     " +
-"                FACI_NM,                                                                                     " +
-"                WORK_DT,                                                                                     " +
-"                PIPE_NUM,                                                                                    " +
-"                AMT,                                                                                         " +
-"                BOD,                                                                                         " +
-"                COD,                                                                                         " +
-"                SS,                                                                                          " +
-"                TN,                                                                                          " +
-"                TP,                                                                                          " +
-"                COLI                                                                                         " +
-"           FROM VPLA_FACI_IN_TOTAL T ,                                                                       " +
-"                COM_DISTRICT_RAW TT,                                                                         " +
-"                KESTI_WATER_ALL_MAP C                                                                        " +
-"          WHERE T.ADM_CD = C.ADM_CD                                                                          " +
-"            AND T.ADM_CD = TT.ADM_CD                                                                         " +
-"        ) B                                                                                                  " +
-"  WHERE A.FACI_CD   =  B.FACI_CD                                                                             " +
-"    AND A.PIPE_NUM  =  B.PIPE_NUM                                                                            " +
-"    AND A.ADM_CD    =  B.ADM_CD                                                                              " +
-"    AND A.NO BETWEEN B.NO -4 AND B.NO                                                                        " +
-"    AND A.FACI_CD IN (" + siteIds + ")                                                                             " ; 
+sql += "  		 A.FACI_CD                                                                                            ";
+sql += "  	   , A.NO                                                                                                 ";
+sql += "       , A.FACI_NM /* 처리시설명 */                                                                           ";
+sql += "       , A.WORK_DT AS WORK_DT_VAL /* 운영일자 */                                                              ";
+sql += "       , A.WORK_DT AS CHART_DATE  /* 운영일자 */                                                              ";
+sql += "       , B.WORK_DT AS WORK_DT_GRAPH /* 운영일자 */                                                            ";
+sql += "       , A.PIPE_NUM /* 유입구번호 */                                                                          ";
+sql += "       , A.AMT  AS AMT_VAL /* 유량(㎥/일) */                                    ";
+sql += "       , B.AMT  AS AMT_GRAPH /* 유량(㎥/일) */                                  ";
+sql += "       , A.BOD  AS BOD_VAL /* BOD(㎎/ℓ) */                                     ";
+sql += "       , B.BOD  AS BOD_GRAPH /* BOD(㎎/ℓ) */                                   ";
+sql += "       , A.COD  AS COD_VAL /* COD(㎎/ℓ) */                                     ";
+sql += "       , B.COD  AS COD_GRAPH /* COD(㎎/ℓ) */                                   ";
+sql += "       , A.SS  AS SS_VAL /* SS(㎎/ℓ) */                                        ";
+sql += "       , B.SS  AS SS_GRAPH /* SS(㎎/ℓ) */                                      ";
+sql += "       , A.TN  AS TN_VAL /* TN(㎎/ℓ) */                                        ";
+sql += "       , B.TN  AS TN_GRAPH /* TN(㎎/ℓ) */                                      ";
+sql += "       , A.TP  AS TP_VAL /* TP(㎎/ℓ) */                                        ";
+sql += "       , B.TP  AS TP_GRAPH /* TP(㎎/ℓ) */                                      ";
+sql += "       , A.COLI  AS COLI_VAL /* 대장균군수(총대장균군수) */                        ";
+sql += "       , B.COLI  AS COLI_GRAPH /* 대장균군수(총대장균군수) */                      ";
+sql += "    FROM (SELECT RANK() OVER(PARTITION BY FACI_CD, PIPE_NUM ORDER BY FACI_CD, PIPE_NUM, WORK_DT DESC) AS NO,  ";
+sql += "                 TT.ADM_CD,                                                                                   ";
+sql += "                 T.YYYY,                                                                                      ";
+sql += "                 FACI_CD,                                                                                     ";
+sql += "                 FACI_NM,                                                                                     ";
+sql += "                 WORK_DT,                                                                                     ";
+sql += "                 PIPE_NUM,                                                                                    ";
+sql += "                 AMT,                                                                                         ";
+sql += "                 BOD,                                                                                         ";
+sql += "                 COD,                                                                                         ";
+sql += "                 SS,                                                                                          ";
+sql += "                 TN,                                                                                          ";
+sql += "                 TP,                                                                                          ";
+sql += "                 COLI                                                                                         ";
+sql += "            FROM VPLA_FACI_IN_TOTAL T ,                                                                       ";
+sql += "                 COM_DISTRICT_RAW TT,                                                                         ";
+sql += "                 KESTI_WATER_ALL_MAP C                                                                        ";
+sql += "           WHERE T.ADM_CD = C.ADM_CD                                                                          ";
+sql += "             AND T.ADM_CD = TT.ADM_CD                                                                         ";
+sql += "         ) A                                                                                                  ";
+sql += "       , (SELECT RANK() OVER(PARTITION BY FACI_CD, PIPE_NUM ORDER BY FACI_CD, PIPE_NUM, WORK_DT DESC) AS NO,  ";
+sql += "                 TT.ADM_CD,                                                                                   ";
+sql += "                 T.YYYY,                                                                                      ";
+sql += "                 FACI_CD,                                                                                     ";
+sql += "                 FACI_NM,                                                                                     ";
+sql += "                 WORK_DT,                                                                                     ";
+sql += "                 PIPE_NUM,                                                                                    ";
+sql += "                 AMT,                                                                                         ";
+sql += "                 BOD,                                                                                         ";
+sql += "                 COD,                                                                                         ";
+sql += "                 SS,                                                                                          ";
+sql += "                 TN,                                                                                          ";
+sql += "                 TP,                                                                                          ";
+sql += "                 COLI                                                                                         ";
+sql += "            FROM VPLA_FACI_IN_TOTAL T ,                                                                       ";
+sql += "                 COM_DISTRICT_RAW TT,                                                                         ";
+sql += "                 KESTI_WATER_ALL_MAP C                                                                        ";
+sql += "           WHERE T.ADM_CD = C.ADM_CD                                                                          ";
+sql += "             AND T.ADM_CD = TT.ADM_CD                                                                         ";
+sql += "         ) B                                                                                                  ";
+sql += "   WHERE A.FACI_CD   =  B.FACI_CD                                                                             ";
+sql += "     AND A.PIPE_NUM  =  B.PIPE_NUM                                                                            ";
+sql += "     AND A.ADM_CD    =  B.ADM_CD                                                                              ";
+sql += "     AND A.NO BETWEEN B.NO -4 AND B.NO                                                                        ";
+sql += "     AND A.FACI_CD IN ("+siteIds+")                                                                             " ;
 if(firstSearch.equals("date")){
 	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               " ;
 	sql += "  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                  " ;
@@ -210,28 +209,28 @@ if(firstSearch.equals("date")){
 			
 			AMT_VAL  = rs.getString("AMT_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("AMT_GRAPH"));
 			AMT_GRAPH.add(Chart_Data_tmp);
 			
 			
 			BOD_VAL = rs.getString("BOD_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("BOD_GRAPH"));
 			BOD_GRAPH.add(Chart_Data_tmp);
 			
 			
 			COD_VAL = rs.getString("COD_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("COD_GRAPH"));
 			COD_GRAPH.add(Chart_Data_tmp);
 			
 			
 			SS_VAL = rs.getString("SS_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("SS_GRAPH"));
 			SS_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TN.add(rs.getString("CHART_TN"));
@@ -239,7 +238,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		TN_VAL = rs.getString("TN_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("TN_GRAPH"));
 			TN_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TP.add(rs.getString("CHART_TP"));
@@ -247,7 +246,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		TP_VAL = rs.getString("TP_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("TP_GRAPH"));
 			TP_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
@@ -255,7 +254,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		COLI_VAL = rs.getString("COLI_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("COLI_GRAPH"));
 			COLI_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_PH.add(rs.getString("CHART_PH")); 

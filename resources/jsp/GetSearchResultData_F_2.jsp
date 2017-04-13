@@ -180,7 +180,7 @@ if(firstSearch.equals("date")){
 }
 //	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'               " ;
 //}
-
+	
 		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    //out.print(sql);
@@ -300,42 +300,42 @@ if(firstSearch.equals("date")){
 			
 			DISCHARGE_AMT_PHYS_VAL  = rs.getString("DISCHARGE_AMT_PHYS_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("DISCHARGE_AMT_PHYS_GRAPH"));
 			DISCHARGE_AMT_PHYS_GRAPH.add(Chart_Data_tmp);
 			
 			
 			DISCHARGE_AMT_BIO_VAL  = rs.getString("DISCHARGE_AMT_BIO_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("DISCHARGE_AMT_BIO_GRAPH"));
 			DISCHARGE_AMT_BIO_GRAPH.add(Chart_Data_tmp);
 			
 			
 			DISCHARGE_AMT_HIGHTEC_VAL  = rs.getString("DISCHARGE_AMT_HIGHTEC_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("DISCHARGE_AMT_HIGHTEC_GRAPH"));
 			DISCHARGE_AMT_HIGHTEC_GRAPH.add(Chart_Data_tmp);
 			
 			
 			BOD_VAL = rs.getString("BOD_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("BOD_GRAPH"));
 			BOD_GRAPH.add(Chart_Data_tmp);
 			
 			
 			COD_VAL = rs.getString("COD_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("COD_GRAPH"));
 			COD_GRAPH.add(Chart_Data_tmp);
 			
 			
 			SS_VAL = rs.getString("SS_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("SS_GRAPH"));
 			SS_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TN.add(rs.getString("CHART_TN"));
@@ -343,7 +343,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		TN_VAL = rs.getString("TN_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("TN_GRAPH"));
 			TN_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TP.add(rs.getString("CHART_TP"));
@@ -351,7 +351,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		TP_VAL = rs.getString("TP_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("TP_GRAPH"));
 			TP_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
@@ -359,7 +359,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		COLI_VAL = rs.getString("COLI_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("COLI_GRAPH"));
 			COLI_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_PH.add(rs.getString("CHART_PH")); 

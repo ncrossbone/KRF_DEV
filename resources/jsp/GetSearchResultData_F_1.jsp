@@ -265,28 +265,28 @@ if(firstSearch.equals("date")){
 			
 			AMT_VAL  = rs.getString("AMT_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("AMT_GRAPH"));
 			AMT_GRAPH.add(Chart_Data_tmp);
 			
 			
 			BOD_VAL = rs.getString("BOD_VAL");
 			Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("BOD_GRAPH"));
 			BOD_GRAPH.add(Chart_Data_tmp);
 			
 			
 			COD_VAL = rs.getString("COD_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("COD_GRAPH"));
 			COD_GRAPH.add(Chart_Data_tmp);
 			
 			
 			SS_VAL = rs.getString("SS_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("SS_GRAPH"));
 			SS_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TN.add(rs.getString("CHART_TN"));
@@ -294,7 +294,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		TN_VAL = rs.getString("TN_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("TN_GRAPH"));
 			TN_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TP.add(rs.getString("CHART_TP"));
@@ -302,7 +302,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		TP_VAL = rs.getString("TP_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("TP_GRAPH"));
 			TP_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_TEMP.add(rs.getString("CHART_TEMP"));
@@ -310,7 +310,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		COLI_VAL = rs.getString("COLI_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("COLI_GRAPH"));
 			COLI_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_PH.add(rs.getString("CHART_PH")); 
@@ -318,7 +318,7 @@ if(firstSearch.equals("date")){
 	  		
 	  		BYPASS_AMT_VAL = rs.getString("BYPASS_AMT_VAL");
 	  		Chart_Data_tmp = new JSONArray();
-			Chart_Data_tmp.add(cnt + rs.getString("CHART_DATE").replace("-", ""));
+			Chart_Data_tmp.add(cnt + rs.getString("WORK_DT_GRAPH").replace("-", ""));
 			Chart_Data_tmp.add(rs.getString("BYPASS_AMT_GRAPH"));
 			BYPASS_AMT_GRAPH.add(Chart_Data_tmp);
 	  		//CHART_SS.add(rs.getString("CHART_SS"));

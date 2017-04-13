@@ -55,10 +55,10 @@ try{
 	sql += "    AND A.WORK_DT = B.WORK_DT                                                                                                                             ";
 	sql += "    AND A.IN_PL_TYPE = B.IN_PL_TYPE                                                                                                                       ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                                                           ";
-	if(defaultChart.equals("1")){
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'                                                                    ";
+	if(defaultChart.equals("0")){
+	/* 	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '201310' AND '201312'                                                                    ";
 	}else{
-		sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startDate+"' AND '"+endDate+"'                                                                    ";
+	 */	sql += "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startDate+"' AND '"+endDate+"'                                                                    ";
 	}
 	sql += "    AND ITEM_NAME = '"+selectItem+"'                                                                                                                            ";
 	sql += "  AND ITEM_VALUE IS NOT NULL   ";

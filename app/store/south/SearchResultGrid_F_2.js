@@ -62,7 +62,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
-			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetSearchResultData_F_2.jsp',
@@ -72,7 +71,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 	        		async: false, // 비동기 = async: true, 동기 = async: false
 	        		//rootProperty : 'items',
 	        		success : function(response, opts) {
-	        			
 	        			jsonData = Ext.util.JSON.decode( response.responseText );
 
 	        			if(jsonData.data.length > 0){
@@ -80,6 +78,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 		        				
 		        				var dateSplit = jsonData.data[0].WORK_DT_VAL;
+		        				
 		        				var afterVal = dateSplit.split("-");
 		        				
 		        				startYear = afterVal[0];
@@ -98,6 +97,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 		        				endMonth = afterVal[1];
 		        			}
 	        			}
+	        		},
+	        		failure: function(form, action) {
+	        			console.info("error");
 	        		}
 	        	});
 				
@@ -109,7 +111,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 				Ext.getCmp("cmbEndMonth").setValue(endMonth);
 			}
 			
-			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_F_2.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
@@ -120,6 +121,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
         		success : function(response, opts) {
         			
         			jsonData = Ext.util.JSON.decode( response.responseText );
+        			console.info(jsonData.data);
 
         			if(jsonData.data.length > 0){
         				
