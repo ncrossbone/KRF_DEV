@@ -102,7 +102,6 @@ sql += "  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT             
 	sql = " select '9999' AS NO , MAX(WORK_DT) AS WORK_DT_VAL from VPLA_FACI_IN_TOTAL where faci_cd IN ("+siteIds+")  " ;
 }
 
-		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    
    stmt = con.createStatement();

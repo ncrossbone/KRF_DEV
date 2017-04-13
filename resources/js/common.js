@@ -593,8 +593,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	//var b003 = Ext.getCmp("select_B003");
 	//b003.setHidden(true);
-	
-	
 	var hiddenGrid = Ext.getCmp("F_CHANGE");
 	var cmbStartYear = Ext.getCmp("cmbStartYear");
 	var cmbStartMonth = Ext.getCmp("cmbStartMonth");
@@ -831,8 +829,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			}
 			
 		}
-		
-		//console.info(test);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
 			siteIds: grdCtl.siteIds,

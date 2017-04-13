@@ -35,7 +35,7 @@ sql = " SELECT 																																																						" +
 "      , A.NO /* 순번 참고용 */                                                                                     " +
 "      , A.FACI_NM /* 처리시설명*/                                                                                  " +
 "      , A.WORK_DT AS WORK_DT_VAL    /* 운영일자*/                                                                  " +
-"      , A.WORK_DT AS CHART_DATE    /* 운영일자*/                                                                  " +
+"      , A.WORK_DT AS CHART_DATE  /* 운영일자*/                                                                  " +
 "      , B.WORK_DT AS WORK_DT_GRAPH  /* 운영일자(추이변화)*/                                                        " +
 "      , A.IN_PL_TYPE /* 유입원 */                                                                                  " +
 "      , A.AMT   AS AMT_VAL    /* 유량(㎥/일) */                                      " +

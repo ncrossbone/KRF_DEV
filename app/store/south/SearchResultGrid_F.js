@@ -34,7 +34,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F', {
 	
 	listeners: {
 		load: function(store) {
-			
 			var me = this;
 			var startYear = startMonth = endYear = endMonth = "";
 			
