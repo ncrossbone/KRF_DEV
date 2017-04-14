@@ -197,18 +197,17 @@ Ext.application({
 			 * station, stationType 필수 파라메터 */
 			var params = Ext.urlDecode(location.search.substring(1));
 			if(params.stationType != undefined){
-				
-				var paramIdx = _paramInfo.map(function(obj){
+				/*var paramIdx = _paramInfo.map(function(obj){
 					
 					return obj.stationType;
-				}).indexOf(params.stationType);
-				
+				}).indexOf(params.stationType);*/
+				var paramIdx = 0;
 				if(paramIdx > -1){
 					
-					var colNm = _paramInfo[paramIdx].colName;
-					var layerId = _paramInfo[paramIdx].layerId;
+					/*var colNm = _paramInfo[paramIdx].colName;
+					var layerId = _paramInfo[paramIdx].layerId;*/
 					var siteIds = params.station.split("|");
-					var where = colNm + " IN (";
+					var where = "JIJUM_CODE IN (";
 					
 					for(var i = 0; i < siteIds.length; i++){
 						
@@ -217,7 +216,6 @@ Ext.application({
 							where += "'" + siteIds[i] + "', ";
 						}
 					}
-					
 					where = where.substring(0, where.length - 2) + ")";
 					
 					require(["esri/tasks/query",
@@ -233,7 +231,7 @@ Ext.application({
 		    	        		 PictureMarkerSymbol,
 		    	        		 graphicsUtils){
 						
-						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + layerId);
+						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/88");
 						var query = new Query();
 						query.returnGeometry = true;
 						query.outFields = ["*"];

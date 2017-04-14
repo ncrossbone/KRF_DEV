@@ -1123,7 +1123,6 @@ ShowSearchResultReach = function(catIds){
 			width: windowWidth,
 			y: windowY
 	};
-	
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
 	searchResultWindow.show();
@@ -1201,7 +1200,6 @@ ShowSearchResultReach = function(catIds){
 	query.where = "CAT_DID IN (" + catIds + ")";
 	//console.info(query.where);
 	query.outFields = ["*"];
-	
 	// 로딩바 표시
 	Ext.getCmp("searchResultReachGridContainer").removeCls("dj-mask-noneimg");
 	Ext.getCmp("searchResultReachGridContainer").addCls("dj-mask-withimg");

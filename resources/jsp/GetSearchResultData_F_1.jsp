@@ -144,6 +144,7 @@ if(firstSearch.equals("date")){
 "    AND A.FACI_CD IN ( " + siteIds + "  )                                                                  			  "+
 "    AND SUBSTR(A.WORK_DT, 1, 4)||SUBSTR(A.WORK_DT, 6, 2) BETWEEN '"+startYYYYMM+"' AND '"+endYYYYMM+"'               "+
 "  ORDER BY A.FACI_NM, A.PIPE_NUM, A.WORK_DT DESC, B.WORK_DT                                                         ";
+	
 }else{
 	sql = "		select '9999' AS NO , MAX(WORK_DT) AS WORK_DT_VAL from VPLA_FACI_PIPE_TRANSFER where faci_CD IN ("+siteIds+")	";	
 }
