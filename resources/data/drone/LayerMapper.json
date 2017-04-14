@@ -109,8 +109,8 @@
 		"MeasureDate": "2016-06-2주", // 측정지점 측정 일자
 		"ChlaLayerId": "10",			 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-06-10",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"PhyLayerId": "32",		 // 피코시안 레이어 아이디
+		"PhyDate": "2016-06-10"		 // 피코시안 레이어 일자
 	}, {
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지

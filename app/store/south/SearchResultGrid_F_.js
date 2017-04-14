@@ -133,7 +133,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 	        				
 	        				store.setData(jsonData.data);
-		        			
 	        				// 로딩바 숨김
 	        				if(me.gridCtl != null){
 	        					
