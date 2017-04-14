@@ -121,8 +121,8 @@
 		"MeasureDate": "2016-10-2주", // 측정지점 측정 일자
 		"ChlaLayerId": "12",			 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-10-11",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"PhyLayerId": "26",		 // 피코시안 레이어 아이디
+		"PhyDate": "2016-10-11"		 // 피코시안 레이어 일자
 	}, {
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
@@ -133,8 +133,8 @@
 		"MeasureDate": "2016-10-3주", // 측정지점 측정 일자
 		"ChlaLayerId": "14",			 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-10-19",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"PhyLayerId": "28",		 // 피코시안 레이어 아이디
+		"PhyDate": "2016-10-19"		 // 피코시안 레이어 일자
 	}],
 	R01_2: [{
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
@@ -388,8 +388,8 @@
 		"MeasureDate": "2016-08-1주", // 측정지점 측정 일자
 		"ChlaLayerId": "28",		 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-08-05",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"PhyLayerId": "20",		 // 피코시안 레이어 아이디
+		"PhyDate": "2016-08-05"		 // 피코시안 레이어 일자
 	}, {
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
@@ -436,8 +436,8 @@
 		"MeasureDate": "2016-10-1주", // 측정지점 측정 일자
 		"ChlaLayerId": "36",		 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-10-06",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"PhyLayerId": "24",		 // 피코시안 레이어 아이디
+		"PhyDate": "2016-10-06"		 // 피코시안 레이어 일자
 	}, {		
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
@@ -448,8 +448,8 @@
 		"MeasureDate": "2016-10-2주", // 측정지점 측정 일자
 		"ChlaLayerId": "38",		 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-10-14",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"PhyLayerId": "30",		 // 피코시안 레이어 아이디
+		"PhyDate": "2016-10-14"		 // 피코시안 레이어 일자
 	}],
 	
 	R05: [{
@@ -474,8 +474,8 @@
 		"MeasureDate": "2015-09-3주", // 측정지점 측정 일자
 		"ChlaLayerId": "58",			 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-09-13",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"PhyLayerId": "22",		 // 피코시안 레이어 아이디
+		"PhyDate": "2016-09-13"		 // 피코시안 레이어 일자
 	}, {		
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지

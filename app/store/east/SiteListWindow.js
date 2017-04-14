@@ -458,7 +458,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	getPollLoadString: function(){
 		
 		/* 외부망 부하량 검색 막기 */
-		//return "";
+		return "";
 		
 		////console.info("dd");
 		//alert("dd");

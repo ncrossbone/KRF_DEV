@@ -27,6 +27,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	tmpEvtLineGrp: [], // KRAD 라인 이벤트 임시 배열
 	arrEvtLineGrp: [], // KRAD 라인 이벤트 그래픽 배열
 	
+	cmDnRchDid: [], // 양지점 공통으로 만나는 하류지점
+	cmRiRchDid: [], // 양지점 공통으로 만나는 하류지점 오른쪽 상류
+	cmLeRchDid: [], // 양지점 공통으로 만나는 하류지점 왼쪽 상류
+	
 	downGrpLayer: null, // 하류 그래픽
 	tmpGrpLayer: null, // 임시 그래픽 레이어
 	symGrpLayer: null, // 심볼 그래픽 레이어
@@ -1179,8 +1183,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    			/* 좌/우측 하류 동시 존재 시 한번만 입력되도록 push 플래그 설정 */
 				    			var isPush = true;
 				    			
-				    			//  me.arrDownGrp = 시작지점 끝지점이 완료된후 
 				    			
+				    			//  me.arrDownGrp = 시작지점 끝지점이 완료된후
+				    			// 시작지점 끝지점이 동일할경우 break
 				    			for(var dnCnt = 0; dnCnt < me.arrDownGrp.length; dnCnt++){
 				    				if(me.arrDownGrp[dnCnt][0].attributes.RCH_DID == tmpArr[0].attributes.RCH_DID){
 				    					isPush = false;
@@ -1188,6 +1193,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    				}
 				    			}
 				    			/* 좌/우측 하류 동시 존재 시 한번만 입력되도록 push 플래그 설정 끝 */
+				    			
 				    			
 				    			var lastIdx = -1;
 				    			
@@ -1201,18 +1207,20 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    					var commIdx = me.arrDownGrp[dnCnt].map(function(obj){
 				    						return obj.attributes.RCH_DID;
 				    					}).indexOf(tmpRchDid);
-				    					
 				    					if(commIdx > -1){
-				    						
 				    						var cIdx = me.arrCommGrp.map(function(obj){
 				    							return obj.attributes.RCH_DID;
 				    						}).indexOf(tmpRchDid);
 				    						
 				    						if(cIdx == -1){
+				    							
 				    							// 좌/우측 하류 동시 존재 시 한번만 입력되도록..
 				    							if(isPush == true){
 				    								// 공통 하류 배열 담기..
 				    								me.arrCommGrp.push(tmpArr[tmpCnt]);
+				    								
+				    								
+				    								
 				    							}
 				    						}
 				    						
@@ -1259,6 +1267,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						    					return;
 						    				}
 						    				else{
+						    					
+						    					//공통 하류 rchDid 담기
+			    								me.cmDnRchDid.push(tmpRchDid);
+			    								//공통 하류 지점에 우측상류
+			    								me.cmRiRchDid.push(tmpArr[tmpCnt].attributes.LU_RCH_DID);
+			    								//공통 하류 지점에 좌측상류
+			    								me.cmLeRchDid.push(tmpArr[tmpCnt].attributes.RU_RCH_DID);
+			    								
+			    								
 						    					// 상류 검색
 						    					me.setReachUpLine(commRchDid, 0, false);
 						    					
@@ -1302,6 +1319,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	});
     },
     searchCnt: 0, // 검색 카운트
+    
+    
+    
+    
     /* 상류 리치라인 조회 및 그리기
      * rchDid: 검색될 리치 아이디(DID)
      * cnt: 상류검색 카운트 */
