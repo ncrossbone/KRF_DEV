@@ -1304,8 +1304,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 								    			
 								    			
 								    			
-								    			
-								    			
+								    			console.info("공통하류"+tmpRchDid)
+			    								console.info("시작"+me.stRchDids);
+			    								console.info("끝"+me.edRchDids);
 								    			
 								    			//return;
 	    										//if(me.isNotBon == true){}else{
