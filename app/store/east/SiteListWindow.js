@@ -664,11 +664,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			pollutionString += "	\"children\": [\n";
 			
+			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length > 0){
 				
 				pollutionString += "	  { \n";
 				pollutionString += "	\"id\": \"pollution_01\",\n";
-				pollutionString += "	\"title\": \"생활계\",\n";
+				pollutionString += "	\"title\": \"생활계\",\n"; // 외부망 생활계 안보이게
+				pollutionString += "	\"visible\": \"false\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_01\",\n";
 				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>생활계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";

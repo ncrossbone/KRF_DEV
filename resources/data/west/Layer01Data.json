@@ -122,7 +122,7 @@
 		"siteAddrCol": "ADDR",
 		"layerCode": "B001",
 	}]
-}, */{
+}, {
 	"id": "12",
 	"text": "퇴적물조사지점",
 	"cls": 'khLee-x-tree-node-text-bold',
@@ -141,7 +141,7 @@
 		"siteAddrCol": "채취지점_",
 		"layerCode": "C001",
 	}]
-},{
+},*/{
 	"id": "33",
 	"text": "방사선조사지점",
 	"cls": 'khLee-x-tree-node-text-bold',
@@ -371,7 +371,7 @@
 		"siteAddrCol": "주소",
 		"layerCode": "F002",
 	}]
-}, {
+}, /*{
 	"id": "44",
 	"text": "비점오염원",
 	"cls": 'khLee-x-tree-node-text-bold',
@@ -387,7 +387,7 @@
 		"checked": false,
 		"siteIdCol": "지점코드"
 	}]
-}, {
+}, */{
 	"id": "47",
 	"text": "하천망도",
 	"cls": 'khLee-x-tree-node-text-bold',
@@ -525,7 +525,7 @@
 		"checked": false,
 		"siteIdCol": "ADM_CD"
 	}]
-}, {
+}, /* {
 	"id": "65",
 	"text": "식생도(전국)",
 	"cls": 'khLee-x-tree-node-text-bold',
@@ -555,7 +555,7 @@
 		"leaf": true,
 		"checked": false
 	}]
-}, {
+},{
 	"id": "73",
 	"text": "수질보호구역",
 	"cls": 'khLee-x-tree-node-text-bold',
@@ -605,7 +605,7 @@
 		"leaf": true,
 		"checked": false
 	}]
-}, {
+}, */ {
 	"id": "82",
 	"text": "총량관리단위유역",
 	"cls": 'khLee-x-tree-node-text-bold',

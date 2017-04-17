@@ -1607,6 +1607,13 @@ ResetButtonClick = function(){
 	
 	_krad.isSearchStop = true;
 	
+	_krad.cmRiRchDid = [];
+	_krad.cmLeRchDid = [];
+	_krad.isNotBon = false;
+	_krad.isNotBon1 = false;
+	_krad.isNotBon2 = false;
+	_krad.clickFS = [];
+	
 	//---north
 	// 항공영상 초기화
 	KRF_DEV.global.DroneFn.onClickResetButton();
