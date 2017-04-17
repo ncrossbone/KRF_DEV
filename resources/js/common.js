@@ -1173,7 +1173,7 @@ ShowSearchResultReach = function(catIds){
 	/* khLee 추가 2016/11/15 */
 	if(catIds == ""){
 		
-    	var catDids = coreMap.reachLayerAdmin_v3_New.arrAreaGrp.map(function(obj){
+    	var catDids = _krad.arrAreaGrp.map(function(obj){
     		return obj.attributes.CAT_DID;
     	});
     	
