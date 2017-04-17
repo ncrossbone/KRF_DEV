@@ -20,6 +20,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	listeners: {
 		
 		load: function(store) {
+			console.info(store);
 			var me = GetCoreMap();
 			var a = Ext.getCmp("btnADMSelect");
 			
@@ -112,12 +113,12 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			}
 			
 			if(store.searchType == "selectReach"){
+				
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
 				
 				
-				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
-					
+				if(_krad.arrAreaGrp.length > 0){
 					//queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId);
 					
 					this.catDid = [];
@@ -131,16 +132,16 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					
 					var tmpExtIds = [];
 					this.catDid = [];
-					for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
-						this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
-						catWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
+					for(var i = 0; i < _krad.arrAreaGrp.length; i++){
+						this.catDid.push(_krad.arrAreaGrp[i].attributes.CAT_DID);
+						catWhere += "'" + _krad.arrAreaGrp[i].attributes.CAT_DID + "', ";
 						
-						if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 
-								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != null){
+						if(_krad.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 
+								_krad.arrAreaGrp[i].attributes.EXT_DATA_ID != null){
 							
-							var extIdx = tmpExtIds.indexOf(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
+							var extIdx = tmpExtIds.indexOf(_krad.arrAreaGrp[i].attributes.EXT_DATA_ID);
 							if(extIdx == -1){
-								tmpExtIds.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
+								tmpExtIds.push(_krad.arrAreaGrp[i].attributes.EXT_DATA_ID);
 							}
 						}
 					}
