@@ -1520,7 +1520,6 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	}
 	
 	var layerId = "";
-	
 	if(parentNodeId == "Cat"){ // 집수구역
 		
 		layerId = _reachAreaLayerId;
@@ -1606,6 +1605,9 @@ ResetButtonClick = function(){
 	var txtBox = Ext.getCmp("textSearchText");
 	txtBox.setValue("");
 	
+	
+	
+	//리치검색시 초기화 해야될 목록
 	_krad.isSearchStop = true;
 	
 	_krad.cmRiRchDid = [];
@@ -1635,6 +1637,8 @@ ResetButtonClick = function(){
 
 	_krad.arr2RRchDid = "";
 	_krad.arr2LRchDid = "";
+	
+	_krad.areaGrpLayer.setVisibility(true);  //초기화시 집수구역 visibility 켜기
 	
 	//---north
 	// 항공영상 초기화
