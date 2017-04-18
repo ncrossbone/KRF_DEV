@@ -15,7 +15,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickSmart: function(obj, el, evt){
 		// 버튼 On/Off
 		var currCtl = SetBtnOnOff(el.id);
-		
+		var west_container = Ext.getCmp("west_container");
 		
 		// 본류, 지류 설정창
 		var popCtl = Ext.getCmp("searchConfig");
@@ -24,19 +24,29 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		if(popCtl == undefined){
 			popCtl = Ext.create("KRF_DEV.view.center.SearchConfig");
+			
 		}
 		
 		if(popHeader == undefined){
 			popHeader = Ext.create("KRF_DEV.view.center.SearchConfigHeader");
+			
 		}
-		
 		
 		// 설정창 show
 		if(currCtl.btnOnOff == "on"){
 			popHeader.show();
 			popCtl.show();
+			if(west_container.collapsed=="left"){
+				popCtl.setX(west_container.width - 212);	
+				popHeader.setX(west_container.width - 212);
+			}else{
+				popCtl.setX(west_container.width + 86);	
+				popHeader.setX(west_container.width + 86);
+				
+			}
 			
-			
+			popCtl.setY(200);
+			popHeader.setY(170);
 			SetWestCollapseXY("show");
 		}
 		else{

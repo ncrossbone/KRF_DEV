@@ -214,13 +214,13 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		listCtl_Total.doLayout();
 		// khLee 임시 끝 - 클릭시 리스트 초기화
 		*/
-		
 		// 검색설정 버튼 On/Off
 		var btnMenu01 = Ext.getCmp("btnMenu01");
 		var currCtl = SetBtnOnOff(btnMenu01.id);
 		
 		// 팝업 이미지 (임시)
 		var popCtl = Ext.getCmp("searchConfig");
+		var popHeader = Ext.getCmp("searchConfigHeader");
 		
 		if(popCtl == undefined){
 			
@@ -231,12 +231,21 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 			
 		}
 		
+		if(popHeader == undefined){
+			popHeader = Ext.create("KRF_DEV.view.center.SearchConfigHeader",{
+				x: 387,
+				y: 170
+			});
+			
+		}
 		// 팝업 이미지 show, hide
 		if(currCtl.btnOnOff == "on"){
+			popHeader.show();
 			popCtl.show();
 		}
 		else{
 			popCtl.hide();
+			popHeader.hide();
 		}
 		
 	}

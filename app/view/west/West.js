@@ -21,6 +21,7 @@ Ext.define('KRF_DEV.view.west.West', {
     title: '화면 제어판',
     collapsible: true,
     split: true,
+    splitterResize:false,
     header: false,
     //collapseMode: 'undefined',
     //hideCollapseTool: true,

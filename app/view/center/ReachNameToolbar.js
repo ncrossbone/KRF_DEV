@@ -27,8 +27,8 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
     /* 사이즈 지정 끝 */
     floating: true,
     //border: 0,
-    x:486,
-    y:172,
+   /* x:486,
+    y:172,*/
     //html:"<div style='top:30px; left:2px; position:absolute; font:normal 11px 돋움; color:#3c5775;'>IE는 시작 끝 포인터가 보이지 않습니다.</div>",
     //style: 'padding: 0px;',
     
