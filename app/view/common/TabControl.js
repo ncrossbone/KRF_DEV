@@ -661,7 +661,14 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					pollutionResultTab.setHidden(false);	
 					
 				}else{
-					resultTab.setHidden(false);		//일반 검색pollResultTab
+					
+					if(tab.id=="searchResultReach_container"){
+						Ext.getCmp("resultTab").hide();
+					}else{
+						Ext.getCmp("resultTab").show();
+					}
+					
+					//resultTab.setHidden(false);		//일반 검색pollResultTab
 					
 					pollSearchTab.setHidden(true);	//방유량 (년도/검색)
 					pollResultTab.setHidden(true);	//방유량 검색조건
@@ -700,12 +707,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 				}
 				
-				if(tab.id=="searchResultReach_container"){
-					
-					Ext.getCmp("resultTab").hide();
-				}else{
-					Ext.getCmp("resultTab").show();
-				}
+				
 				
 								
 				

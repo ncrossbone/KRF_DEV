@@ -177,11 +177,16 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 						click: function(){
 							var tmLegendWindow = Ext.getCmp("tmLegendWindow");
 					    	// 레전드 윈도우 보이기
-							if(tmLegendWindow.hidden == true){
-								tmLegendWindow.setHidden(false);
+							if(tmLegendWindow!=undefined){
+								if(tmLegendWindow.hidden == true){
+									tmLegendWindow.setHidden(false);
+								}else{
+									tmLegendWindow.setHidden(true);
+								}
 							}else{
-								tmLegendWindow.setHidden(true);
+								Ext.create("KRF_DEV.view.map.TMLegendWindow").show();
 							}
+							
 					    	
 						}
 					}

@@ -522,7 +522,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		
     		on(selectionToolbar, "DrawEnd", function (evt) {
     			if(me.map.getLevel() < 11){
-    				alert("11레벨 이하에서는 동작하지 않습니다.");
+    				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
     			}else{
     				me.mapClickEvt = evt;
     				me.setRchIdsWithEvent();
