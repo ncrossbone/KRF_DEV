@@ -182,14 +182,26 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     
     clickCnt: function(clickType){
     	var me = this;
+    	
+    	
+    	var reachClose = Ext.getCmp('reach_close');
+    	reachClose.setVisible(true);
+    	
     	if(me.clickFS.length != 0){
     		for(var i = 0 ; i < me.clickFS.length ; i++){
-    			if(me.clickFS[i] == clickType){
-    				alert("시작지점이 존재합니다");
-    				me.realTimeStBtnChk = false;
-    			}else if(me.clickFS[i] == clickType){
-    				alert("끝지점이 존재합니다.");
-    				me.realTimeEnBtnChk = false;
+    			
+    			if(clickType == "startPoint"){
+    				if(me.clickFS[i] == "startPoint"){
+        				alert("시작지점이 존재합니다");
+        				me.realTimeStBtnChk = false;
+        			}
+    			}
+    			
+    			if(clickType == "endPoint"){
+    				if(me.clickFS[i] == "endPoint"){
+        				alert("끝지점이 존재합니다.");
+        				me.realTimeEnBtnChk = false;
+        			}
     			}
     		}
     		
@@ -210,7 +222,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		}
     		me.clickFS.push(clickType);
     	}
-    	console.info(me.clickFS);
+    	
     },
     
     setKradOnOff: function(kradLayer){
@@ -369,7 +381,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	var isMapClickEvt = false;
     	me.isShowPopup = false;
     	
-    	var reachClose = Ext.getCmp('reach_close');
+    	//var reachClose = Ext.getCmp('reach_close');
     	
     	if(me.btnObj != undefined && me.btnObj != null){
     		
@@ -387,7 +399,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		}else{
 		    			KRF_DEV.global.Obj.showSimpleTooltip("해당 리치를 클릭해주세요");
 		    		}
-		    		reachClose.setVisible(true);
+		    		//reachClose.setVisible(true);
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38, url(./resources/images/symbol/btn_start01.cur),auto');
 		    	}
@@ -399,7 +411,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		}else{
 		    			KRF_DEV.global.Obj.showSimpleTooltip("해당 리치를 클릭해주세요");
 		    		}
-		    		reachClose.setVisible(true);
+		    		//reachClose.setVisible(true);
 		    	}
 	    	}
 	    	/* 커서 설정 끝 */

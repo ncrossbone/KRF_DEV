@@ -1308,13 +1308,13 @@ ShowSearchResultReach = function(catIds){
 var vrow = "";
 
 PollSelectedFocus = function(catId){
-	console.info("catId ::"+catId);
+	
 	if(catId == undefined || catId == null || catId == ""){
 		return;
 	}
 	
 	var tabpanels = Ext.getCmp("tabpanels");
-	console.info(tabpanels.activeTab);
+	
 	
 	var container = "";
 	var value =	"";
@@ -1340,7 +1340,7 @@ PollSelectedFocus = function(catId){
 		container = container.items.items[0];
 		
 		var pollStore = container.getStore();
-		console.info(pollStore);
+		
 		
 		var row = "";
 		
@@ -1531,8 +1531,6 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 		
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
-		console.info(parentNodeId);
-		console.info(layer01Info);
 		if(layer01Info.length > 0){
 			layerId = layer01Info[0].id;
 		}
@@ -2106,7 +2104,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			objInfo.translateX = 0;
 			objInfo.translateY = 0;
 			
-			console.info(objInfo);
 			outObjInfos.push(objInfo);
 		}
 		

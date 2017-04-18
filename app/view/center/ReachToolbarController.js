@@ -131,7 +131,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	onClickStartReach: function(obj, el, evt){
 		// 맵 클릭 이벤트 켜기
 		_krad.clickCnt("startPoint");
-		console.info(_krad.realTimeStBtnChk);
+		
 		if(_krad.realTimeStBtnChk == false){
 			return;
 		}
@@ -153,7 +153,6 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 끝위치 버튼 클릭
 	onClickEndReach: function(obj, el, evt){
 		_krad.clickCnt("endPoint");
-		console.info(_krad.realTimeEnBtnChk);
 		if(_krad.realTimeEnBtnChk == false){
 			return;
 		}
