@@ -17,22 +17,15 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
-			//id: 'grdSearchResult',
-			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
 			cls: 'khLee-x-column-header-text',
-			//height: 195,
-			//plugins: 'bufferedrenderer',
 			siteIds: "",
 			parentIds: [],
-			//height: '100%',
 			header: {
 				height: 5
 			},
 			title: '검색결과',
 			siteId: '',
-			//store: 'KRF_DEV.store.south.SearchResultGrid',
-			//store: Ext.create('KRF_DEV.store.south.SearchResultGrid'),
 			beforeRender: function(){
 				
 				var me = this;

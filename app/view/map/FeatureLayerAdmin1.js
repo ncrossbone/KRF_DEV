@@ -208,11 +208,13 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     		width = 25;
     		height= 61;
     	}else if(clickValue == "start"){
+    		_krad.clickCnt("startPoint");
     		url = "./resources/images/symbol/btn_start01.png";
     		width = 26;
     		height = 38;
     		
     	}else if(clickValue == "end"){
+    		_krad.clickCnt("endPoint");
     		url = "./resources/images/symbol/btn_end01.png";
     		width = 26;
     		height = 38;
