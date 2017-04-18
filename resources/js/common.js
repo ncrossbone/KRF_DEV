@@ -1521,18 +1521,15 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	
 	var layerId = "";
 	if(parentNodeId == "Cat"){ // 집수구역
-		
 		layerId = _reachAreaLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
 		layerId = _reachLineLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedRchLine', layerId, nodeId);
 		return;
 	}else{
-		
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
-		console.info(parentNodeId);
-		console.info(layer01Info);
+		
 		if(layer01Info.length > 0){
 			layerId = layer01Info[0].id;
 		}
@@ -1681,7 +1678,14 @@ ResetButtonClick = function(){
 	SetBtnOnOff("btnFlowLayer","on");
 	SetBtnOnOff("btnReachLayer","on");
 	
+	/* 사이트 정보 팝업 띄우기 */
+	var popCtl = Ext.getCmp("popSiteInfo");
 	
+	// 팝업 띄워져있으면 닫기
+	if(popCtl != undefined){
+		
+		popCtl.close();
+	}
 }
 
 
