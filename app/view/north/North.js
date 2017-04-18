@@ -140,6 +140,7 @@ Ext.define('KRF_DEV.view.north.North', {
                                         cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
                                         style:"border:solid 10px #E6E6E6;",
                                         closable: false,
+                                        constrain: true,
                                         header:{
                                             items:[{
                                                 xtype:'image',

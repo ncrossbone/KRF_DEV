@@ -9,7 +9,7 @@ Ext.define('KRF_DEV.view.east.PollutionMapSetValue', {
 	//title: '지점 목록',
 	
 	title: '오염원 지도 보기설정',
-	
+	constrain: true,
 	cls: 'khLee-window-panel-header khLee-x-window-default khLee-x-grid-locked ',
 	//bodyStyle: 'border: 0px;',
 	

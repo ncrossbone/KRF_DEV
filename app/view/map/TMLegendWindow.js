@@ -4,7 +4,7 @@ Ext.define('KRF_DEV.view.map.TMLegendWindow', {
 	xtype : 'tmlegendwindow',
 	id: 'tmLegendWindow',
 	title: '범례',
-	
+	constrain: true,
 	//cls: 'khLee-window-panel-header khLee-x-window-default ',
 	//bodyStyle: 'border: 0px;',
 	
