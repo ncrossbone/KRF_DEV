@@ -94,8 +94,6 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 				imgSaveUrl: me.imgSaveUrl,
 				mode:mode};
 		
-		//console.info(JSON.stringify(obj).length);
-		
 		$.ajax({
 			type: "POST",
 			url: me.printUrl,

@@ -143,14 +143,14 @@
 	}]
 },*/{
 	"id": "33",
-	"text": "방사선조사지점",
+	"text": "방사성물질조사지점",
 	"cls": 'khLee-x-tree-node-text-bold',
 	"iconCls": "layerNoneImg",
 	"checked": false,
 	"expanded": true,
 	"children": [{
 		"id": "35",
-		"text": "하천수",
+		"text": "하천",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer77",
 		"leaf": true,
@@ -161,7 +161,7 @@
 		"layerCode": "G001",
 	},{
 		"id": "34",
-		"text": "호소수",
+		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer78",
 		"leaf": true,

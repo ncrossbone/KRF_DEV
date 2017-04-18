@@ -1615,6 +1615,27 @@ ResetButtonClick = function(){
 	_krad.isNotBon2 = false;
 	_krad.clickFS = [];
 	
+	_krad.arrDownGrpStart = "";
+	_krad.arrDownGrpEnd = "";
+
+	_krad.cmRiRchDid = [];
+	_krad.cmLeRchDid = [];
+
+	_krad.bonStLine = "";
+	_krad.bonEnLine = "";
+
+
+	_krad.stRchDids = [];
+	_krad.edRchDids = [];
+	_krad.falseDid1 = "";
+	_krad.falseDid2 = "";
+
+	_krad.arr1RRchDid = "";
+	_krad.arr1LRchDid = "";
+
+	_krad.arr2RRchDid = "";
+	_krad.arr2LRchDid = "";
+	
 	//---north
 	// 항공영상 초기화
 	KRF_DEV.global.DroneFn.onClickResetButton();

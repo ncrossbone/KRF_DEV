@@ -20,7 +20,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 	listeners: {
 		
 		load: function(store) {
-			console.info(store);
+			
 			var me = GetCoreMap();
 			var a = Ext.getCmp("btnADMSelect");
 			
