@@ -54,7 +54,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             		
 	            	if(node.record.data.leaf == true){
 						if(node.record.data.id != undefined){
-
+							
 							// 집수구역, 지점 이동, 리치정보 하이라이트
 							var me = this.up("window");
 							me.moveCommon(record);
