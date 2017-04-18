@@ -14,6 +14,7 @@ Ext.define('KRF_DEV.view.east.WindowSiteNChart', {
     
     //title: '지점및차트정보',
     //header: false,
+    constrain: true,
     header: {
     	titlePosition: 2,
     	items: [{

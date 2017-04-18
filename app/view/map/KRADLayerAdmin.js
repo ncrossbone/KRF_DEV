@@ -490,15 +490,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	me.isShowPopup = false;
     	
     	KRF_DEV.global.Obj.showSimpleTooltip("선택할 영역을 드래그하세요.");
-    	
+    	var isLevel = false;
     	require(["esri/toolbars/draw",
 	         "dojo/on"], function(Draw, on, bundle){
     		
     		var mapClickObj = on(me.map, "mouse-up", function(evt){
         		
         		if(me.map.getLevel() < 11){
-    				
-    				alert("11레벨 이하에서는 동작하지 않습니다.");
     				mapClickObj.remove();
     				return;
     			}
@@ -514,18 +512,15 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		}
     		
     		on(selectionToolbar, "DrawEnd", function (evt) {
-    			
-    			me.mapClickEvt = evt;
-    			
-    			me.setRchIdsWithEvent();
-    			
-    			//console.info(evt);
+    			if(me.map.getLevel() < 11){
+    				alert("11레벨 이하에서는 동작하지 않습니다.");
+    			}else{
+    				me.mapClickEvt = evt;
+    				me.setRchIdsWithEvent();
+    			}
     			selectionToolbar.deactivate();
-    			
-    			// 버튼 off
-    	    	SetBtnOnOff(btnId, "off");
-    	    	
-    	    	KRF_DEV.global.Obj.hideSimpleTooltip();
+    			SetBtnOnOff(btnId, "off");
+    			KRF_DEV.global.Obj.hideSimpleTooltip();
     		});
     	});
     },

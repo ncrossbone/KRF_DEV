@@ -17,7 +17,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 	coreMap:null,
 	gridStore:null,
 	favoriteInfo:null,
-	
+	constrain: true,
 	width: 400,
 	height: 305,
 	x: 390,

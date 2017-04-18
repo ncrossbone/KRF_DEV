@@ -18,6 +18,7 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 	width: 520,
 	height: 305,
 	closable: false,
+	constrain: true,
 	style:"padding-top:10px",
 	header:{
 		items:[{

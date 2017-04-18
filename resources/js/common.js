@@ -1120,6 +1120,7 @@ ShowSearchResultReach = function(catIds){
 			renderTo: centerContainer.el,
 			id: 'searchResultWindow',
 			title: '검색결과',
+			constrain: true,
 			width: windowWidth,
 			y: windowY
 	};

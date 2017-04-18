@@ -7,6 +7,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
     width : 205,
     height : 200,
     header: true,
+    constrain: true,
     title: '기간설정',
     controller: 'chartPanelDateController',
     //x: x,
