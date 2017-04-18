@@ -596,6 +596,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		listeners:{
 			'tabchange': function (tabPanel, tab){
 				
+				
 				// 그리드별 조회조건 컨트롤 셋팅
 				KRF_DEV.global.TabFn.searchConditionCtl(tab.down("grid"));
 				
@@ -699,7 +700,12 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 				}
 				
-				
+				if(tab.id=="searchResultReach_container"){
+					
+					Ext.getCmp("resultTab").hide();
+				}else{
+					Ext.getCmp("resultTab").show();
+				}
 				
 								
 				
