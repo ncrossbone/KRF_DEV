@@ -35,6 +35,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	isNotBon1: false, //공통하루에 시작지점이 존재함
 	isNotBon2: false, //공통하루에 시작지점이 존재함
 	
+	realTimeStBtnChk: true,
+	realTimeEnBtnChk: true,
+	
 	arrDownGrpStart: "",
 	arrDownGrpStartBon: "",
 	arrDownGrpEnd: "",
@@ -179,7 +182,35 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     
     clickCnt: function(clickType){
     	var me = this;
-    	me.clickFS.push(clickType);
+    	if(me.clickFS.length != 0){
+    		for(var i = 0 ; i < me.clickFS.length ; i++){
+    			if(me.clickFS[i] == clickType){
+    				alert("시작지점이 존재합니다");
+    				me.realTimeStBtnChk = false;
+    			}else if(me.clickFS[i] == clickType){
+    				alert("끝지점이 존재합니다.");
+    				me.realTimeEnBtnChk = false;
+    			}
+    		}
+    		
+    		if(me.realTimeStBtnChk && me.realTimeEnBtnChk){
+    			if(clickType == "startPoint"){
+					realTimeStBtnChk = true;
+	    		}else if(clickType == "endPoint"){
+	    			realTimeEnBtnChk = true;
+	    		}
+	    		me.clickFS.push(clickType);
+    		}
+	    		
+    	}else{
+    		if(clickType == "startPoint"){
+				realTimeStBtnChk = true;
+    		}else if(clickType == "endPoint"){
+    			realTimeEnBtnChk = true;
+    		}
+    		me.clickFS.push(clickType);
+    	}
+    	console.info(me.clickFS);
     },
     
     setKradOnOff: function(kradLayer){
@@ -401,7 +432,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    			
 				    			if(me.map.getLevel() < 11){
 				    				
-				    				alert("11레벨 이하에서는 동작하지 않습니다.");
+				    				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
 				    				// 이벤트 초기화
 				    				initKradEvt();
 				    				me.isShowPopup = false;

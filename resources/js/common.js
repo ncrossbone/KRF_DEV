@@ -1640,6 +1640,9 @@ ResetButtonClick = function(){
 	
 	_krad.areaGrpLayer.setVisibility(true);  //초기화시 집수구역 visibility 켜기
 	
+	_krad.realTimeStBtnChk = true;
+	_krad.realTimeEnBtnChk = true;
+	
 	//---north
 	// 항공영상 초기화
 	KRF_DEV.global.DroneFn.onClickResetButton();
