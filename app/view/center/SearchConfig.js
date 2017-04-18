@@ -14,7 +14,7 @@ Ext.define('KRF_DEV.view.center.SearchConfig', {
 	
 	header: false,
 	closable: false,
-	
+	resizable:false,
 	style: "border: 0px;",
 	layout: {
 		type: 'vbox'
