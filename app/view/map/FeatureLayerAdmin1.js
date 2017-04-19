@@ -201,7 +201,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
     	var textSearchText_End = Ext.getCmp("textSearchText_End");
     	//  reachNameToolbar (툴바 id)  , textSearchText_Start,textSearchText_End( 명칭찾기 id )
-    	
     	var url , width, height = "";
     	if(clickValue == "none"){
     		url = "./resources/images/symbol/spot_09.png";
@@ -209,12 +208,20 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     		height= 61;
     	}else if(clickValue == "start"){
     		_krad.clickCnt("startPoint");
+    		
+    		if(_krad.realTimeStBtnChk == false){
+    			return;
+    		}
     		url = "./resources/images/symbol/btn_start01.png";
     		width = 26;
     		height = 38;
     		
     	}else if(clickValue == "end"){
     		_krad.clickCnt("endPoint");
+    		
+    		if(_krad.realTimeEnBtnChk == false){
+    			return;
+    		}
     		url = "./resources/images/symbol/btn_end01.png";
     		width = 26;
     		height = 38;

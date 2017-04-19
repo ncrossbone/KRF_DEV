@@ -35,6 +35,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	isNotBon1: false, //공통하루에 시작지점이 존재함
 	isNotBon2: false, //공통하루에 시작지점이 존재함
 	
+	realTimeStBtnChk: true,
+	realTimeEnBtnChk: true,
+	
 	arrDownGrpStart: "",
 	arrDownGrpStartBon: "",
 	arrDownGrpEnd: "",
@@ -179,7 +182,47 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     
     clickCnt: function(clickType){
     	var me = this;
-    	me.clickFS.push(clickType);
+    	
+    	
+    	var reachClose = Ext.getCmp('reach_close');
+    	reachClose.setVisible(true);
+    	
+    	if(me.clickFS.length != 0){
+    		for(var i = 0 ; i < me.clickFS.length ; i++){
+    			
+    			if(clickType == "startPoint"){
+    				if(me.clickFS[i] == "startPoint"){
+        				alert("시작지점이 존재합니다");
+        				me.realTimeStBtnChk = false;
+        			}
+    			}
+    			
+    			if(clickType == "endPoint"){
+    				if(me.clickFS[i] == "endPoint"){
+        				alert("끝지점이 존재합니다.");
+        				me.realTimeEnBtnChk = false;
+        			}
+    			}
+    		}
+    		
+    		if(me.realTimeStBtnChk && me.realTimeEnBtnChk){
+    			if(clickType == "startPoint"){
+					realTimeStBtnChk = true;
+	    		}else if(clickType == "endPoint"){
+	    			realTimeEnBtnChk = true;
+	    		}
+	    		me.clickFS.push(clickType);
+    		}
+	    		
+    	}else{
+    		if(clickType == "startPoint"){
+				realTimeStBtnChk = true;
+    		}else if(clickType == "endPoint"){
+    			realTimeEnBtnChk = true;
+    		}
+    		me.clickFS.push(clickType);
+    	}
+    	
     },
     
     setKradOnOff: function(kradLayer){
@@ -338,7 +381,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	var isMapClickEvt = false;
     	me.isShowPopup = false;
     	
-    	var reachClose = Ext.getCmp('reach_close');
+    	//var reachClose = Ext.getCmp('reach_close');
     	
     	if(me.btnObj != undefined && me.btnObj != null){
     		
@@ -356,7 +399,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		}else{
 		    			KRF_DEV.global.Obj.showSimpleTooltip("해당 리치를 클릭해주세요");
 		    		}
-		    		reachClose.setVisible(true);
+		    		//reachClose.setVisible(true);
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png),auto');
 		    		//Ext.get('_mapDiv__gc').setStyle('cursor','url(./resources/images/symbol/btn_start01.png) 13 38, url(./resources/images/symbol/btn_start01.cur),auto');
 		    	}
@@ -368,7 +411,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    		}else{
 		    			KRF_DEV.global.Obj.showSimpleTooltip("해당 리치를 클릭해주세요");
 		    		}
-		    		reachClose.setVisible(true);
+		    		//reachClose.setVisible(true);
 		    	}
 	    	}
 	    	/* 커서 설정 끝 */
@@ -401,7 +444,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				    			
 				    			if(me.map.getLevel() < 11){
 				    				
-				    				alert("11레벨 이하에서는 동작하지 않습니다.");
+				    				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
 				    				// 이벤트 초기화
 				    				initKradEvt();
 				    				me.isShowPopup = false;
