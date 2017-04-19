@@ -239,7 +239,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			
+        			store.startYear = startYear;
+        			store.startMonth = startMonth;
+        			store.endYear = endYear;
+        			store.endMonth = endMonth;
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
         			//console.info(jsonData.data);

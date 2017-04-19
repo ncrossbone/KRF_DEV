@@ -241,7 +241,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
         		async: false, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
-
+        			store.startYear = startYear;
+        			store.startMonth = startMonth;
+        			store.endYear = endYear;
+        			store.endMonth = endMonth;
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){
@@ -249,7 +252,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 	        				
 	        				store.setData(jsonData.data);
-		        			
+		        			console.info(store);
 	        				// 로딩바 숨김
 	        				if(me.gridCtl != null){
 	        					
