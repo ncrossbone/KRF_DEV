@@ -174,6 +174,8 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'C' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 			}
 			
+			query.orderByFields = ["LAYER_CODE ASC"];
+			//query.OrderByFields = "LAYER_CODE ASC";
 			query.outFields = ["*"];
 			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
 			//console.info(query.where);
