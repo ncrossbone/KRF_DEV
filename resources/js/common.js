@@ -220,6 +220,7 @@ ReachInfoBinding = function(objs){
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	
 	var yFieldName = "";
+	var chartId = ""; // 부모아이디
 	//console.info(parentId);
 	////console.info(tabIdx);
 	
@@ -266,6 +267,20 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
+		
+		
+		
+		//환경기초시설 표출시 라벨 표시
+		/*var fName = Ext.getCmp("selectFName"); //selectFName
+		var fbar = Ext.getCmp("selectF-Name"); //selectF-Name
+		if(parentId == "F"){
+			fName.setText("방류유량");
+			fbar.setText(">");
+		}else{
+			fName.setText("");
+			fbar.setText("");
+		}*/
+		
 		
 		if(parentId == "A"){
 			series.setXField("WMCYMD");
@@ -323,17 +338,24 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			chartStore.orgParentId = orgParentId;
 			chartStore.load();
 			siteChartCtl.setStore(chartStore);
+			console.info(chartStore);
 		}
+		
+		chartId = parentId; 
 	}
 	else{
 		KRF_DEV.getApplication().chartFlag = "0";
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
 		var chartStore = siteChartCtl.getStore();
 		chartStore.load();
+		console.info(chartStore);
+		if(chartStore.parentId == "F"){
+			chartId = chartStore.parentId;
+		}
+		
 	}
 	
-	//console.info(yFieldName);
-	SetItemLabelText(yFieldName);
+	SetItemLabelText(yFieldName,chartId);
 
 }
 
@@ -353,17 +375,28 @@ HideWindowSiteNChart = function(){
 
 }
 
-SetItemLabelText = function(itemNm){
+SetItemLabelText = function(itemNm,chartId){
 	
 	if(itemNm == undefined || itemNm == ""){
 		//item 선택
 		var selectItem = Ext.getCmp("selectItem");
 		itemNm = selectItem.lastValue;
+		
+		/*var f_Chart = Ext.getCmp("f_Chart");
+		var fName = Ext.getCmp("selectFName"); //selectFName
+		var fbar = Ext.getCmp("selectF-Name"); //selectF-Name
+		if(chartId == "F"){
+			fName.setText(f_Chart.rawValue);
+			fbar.setText(">");
+		}else{
+			fName.setText("");
+			fbar.setText("");
+		}*/
+		
 	}
 	//console.info(itemNm);
 	//var itemNm = "";
 	//var itemNm = "ITEM_VALUE";
-	
 	if(itemNm == "ITEM_BOD"){
 		itemNm = "BOD(㎎/L)";
 	}else if(itemNm == "ITEM_COD"){
@@ -432,6 +465,8 @@ SetItemLabelText = function(itemNm){
 		itemNm = "어도 방류량(㎥/sec)";
 	}else if(itemNm == "ETCOTF"){
 		itemNm = "기타 방류량(㎥/sec)";
+	}else if(itemNm == "ITEM_AMT"){
+		itemNm = "유량(㎥/일)";
 	}
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
@@ -442,7 +477,20 @@ SetItemLabelText = function(itemNm){
 	axes.fields = "ITEM_VALUE";
 	//console.info(itemNm)
 	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
-	siteItemText.setText(itemNm);
+	
+	var f_Chart = Ext.getCmp("f_Chart");
+	console.info(f_Chart);
+	if(chartId == "F"){
+		if(f_Chart == undefined){
+			siteItemText.setText("방류유량 > "+itemNm);
+		}else{
+			siteItemText.setText(f_Chart.rawValue + " > " + itemNm);
+		}
+	}else{
+		siteItemText.setText(itemNm);
+	}
+	
+	//siteItemText.setText(itemNm);
 }
 
 // 차트 라벨 맥시멈 등 셋팅 및 스토어 로드
@@ -598,6 +646,16 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	var cmbStartMonth = Ext.getCmp("cmbStartMonth");
 	var cmbEndYear = Ext.getCmp("cmbEndYear");
 	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
+	
+	/*var fName = Ext.getCmp("selectFName"); //selectFName
+	var fbar = Ext.getCmp("selectF-Name"); //selectF-Name
+	if(parentCheck == "F"){
+		console.info(fName);
+		console.info(fbar);
+	}else{
+		
+	}*/
+	
 	if(parentCheck == "A"){	
 		
 		////console.info(sYearCtl.setValue("2013"));
@@ -679,48 +737,9 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		var pointValue = "";
 		
 		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
-		
 		//0~2 , 11~16 공통
-		if(test == "" ||test == "1" || test == "관거이송량"){
+		if(test == "" ||test == "1" || test == "방류유량"){
 			test = "";
-			var arrayF = ['3','4','13','14','27','28','29'];
-			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
-			var point = ['14','16','18','20','22','24','26','28'];
-			
-			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
-				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
-			}
-			
-			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
-				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
-			}
-			
-			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
-				
-				if(point[pointArray] == 14){
-					pointValue = 13.2;
-				}else if(point[pointArray] == 16){
-					pointValue = 17.6;
-				}else if(point[pointArray] == 18){
-					pointValue = 9.9;
-				}else if(point[pointArray] == 20){
-					pointValue = 418.0;
-				}else if(point[pointArray] == 22){
-					pointValue = 110.0;
-				}else if(point[pointArray] == 24){
-					pointValue = 49.5;
-				}else if(point[pointArray] == 26){
-					pointValue = 5.5;
-				}else{
-					pointValue = 33.0;
-				}
-				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
-			}
-			
-			
-			
-		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
 			
 			var arrayT = ['3','4','5','13','14','27','28','29'];
 			var arrayF = ['6','7','8','9','10','11','12','30','31'];
@@ -759,7 +778,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			}
 			
 			
-		}else if(test == "3"){
+			
+		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
+			
+			
 			
 			var arrayT = ['3','4','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['5','13','14'];
@@ -793,8 +815,9 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
+		}else if(test == "3"){
 			
-		}else{
+			
 			
 			var arrayT = ['4','5','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['3','13','14'];
@@ -823,6 +846,45 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 534.6;
 				}else if(point[pointArray] == 26){
 					pointValue = 184800.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
+				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
+			}
+			
+		}else{
+			
+			
+			
+			var arrayF = ['3','4','13','14','27','28','29'];
+			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
+			var point = ['14','16','18','20','22','24','26','28'];
+			
+			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
+				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
+			}
+			
+			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
+				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 13.2;
+				}else if(point[pointArray] == 16){
+					pointValue = 17.6;
+				}else if(point[pointArray] == 18){
+					pointValue = 9.9;
+				}else if(point[pointArray] == 20){
+					pointValue = 418.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 110.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 49.5;
+				}else if(point[pointArray] == 26){
+					pointValue = 5.5;
+				}else{
+					pointValue = 33.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
 				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);

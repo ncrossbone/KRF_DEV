@@ -34,25 +34,31 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				width: 10
 			}, {
 				xtype: 'image',
-				src: './resources/images/button/arrow.gif'
+				style: 'margin: 8px 12px !important;',
+				src: './resources/images/button/blit.png'
 			}, {
 				xtype: 'label',
 				id : 'selectName',
-				style: 'font-weight: bold; padding-left: 15px;',
+				style: 'font-weight: bold; padding-left: 7px; margin: 3px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				//store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
 				//width: 175,
-				width: "55%",
+				width: "40%",
 				height: 25
+			}, {
+				xtype: 'image',
+				style: 'margin: 11px 12px !important;',
+				src: './resources/images/button/dot.gif'
 			},{
 				xtype: 'label',
 				id : 'selectItemName',
-				style: 'font-weight: bold; padding-left: 10px;',
+				style: 'font-family: 돋움;font-size: 12px; margin: 5px;',
+				//style: 'font-weight: bold; padding-left: 10px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
 				text: 'BOD(㎎/ℓ)',
 				//width: 125,
-				width: "20%",
+				width: "32%",
 				height: 25
 			},{
 				xtype: 'image',

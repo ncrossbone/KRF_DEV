@@ -204,20 +204,23 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					}
 				}
 			},{
+				xtype: 'container',
+				width: 10
+			},,{
 				xtype: 'combo',
 				id: 'F_CHANGE',
 				valueField: 'id',
 				displayField: 'name',
 				store: Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
-					data: [{id: '1', name: '관거이송량'}
-						,{id: '2', name: '방류유량'}
-						,{id: '3', name: '직접이송량'}
-						,{id: '4', name: '총유입량'}]
+					data: [{id: '1', name: '방류유량'}
+						,{id: '2', name: '직접이송량'}
+						,{id: '3', name: '총유입량'}
+						,{id: '4', name: '관거이송량'}]
 				}),
 				//store: ['', '관거이송량','방류유량','직접이송량','총유입량'],
-				value: '관거이송량',
-				width: 85,
+				value: '방류유량',
+				width: 100,
 				height: 19,
 				hidden: true,
 				style: 'cursor:pointer;border:0px !important;',

@@ -125,10 +125,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			store.startYear = startYear;
-        			store.startMonth = startMonth;
-        			store.endYear = endYear;
-        			store.endMonth = endMonth;
+        			
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){
@@ -147,22 +144,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
 	        				if(me.gridCtl != null){
 	        					
 	        					me.gridCtl.addCls("dj-mask-noneimg");
-	        					me.gridCtl.mask("해1당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-
-	        					startYear = "2013";
-	        					startMonth = "01";
-	        					endYear = "2013";
-	        					endMonth = "12";
-	        					
-	        					store.startYear = startYear;
-	                			store.startMonth = startMonth;
-	                			store.endYear = endYear;
-	                			store.endMonth = endMonth;
-	        					
-	        					Ext.getCmp("cmbStartYear").setValue("2013"); 
-	        					Ext.getCmp("cmbStartMonth").setValue("01");
-	        					Ext.getCmp("cmbEndYear").setValue("2013");
-	        					Ext.getCmp("cmbEndMonth").setValue("12");
+	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 	        				}
 	        			}
         			}
@@ -171,7 +153,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
         				if(me.gridCtl != null){
         					
         					me.gridCtl.addCls("dj-mask-noneimg");
-        					me.gridCtl.mask("해2당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
         				}
         			}
         		},

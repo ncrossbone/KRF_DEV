@@ -18,17 +18,28 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	    	
 	    	var f_Chart = Ext.getCmp("f_Chart");
 	    	var f_ChartText = Ext.getCmp("f_ChartText");
-	    	
+	    	var selectYear = Ext.getCmp("selectYear");
+	    	var selectYear2 = Ext.getCmp("selectYear2");
 	    	var parentChk = KRF_DEV.getApplication().parentFlag;
 			var chartFlag_D = KRF_DEV.getApplication().chartFlag_D;
 			if(parentChk == "F"){
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = false;
 	    		f_ChartText.hidden = false;
+	    		
+	    		var year = ['','2012','2013'];
+	    		selectYear.setStore(year);
+	    		selectYear.setValue('2012');
+	    		selectYear2.setStore(year);
+	    		selectYear2.setValue('2013');
 	    	}else{
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = true;
 	    		f_ChartText.hidden = true;
+	    		
+	    		var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+	    		selectYear.setStore(year);
+	    		selectYear2.setStore(year);
 	    	}
 	    	
 	    	//console.info(parentChk);
@@ -265,48 +276,6 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	        	},
 	        	items: [{
 					xtype: 'combo',
-					id : 'selectItem',
-					//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
-					valueField: 'id',
-					displayField: 'name',
-					store: Ext.create('Ext.data.Store', {
-						fields: ['id', 'name'],
-						data: [{id: 'ITEM_BOD', name: 'BOD'}
-							,{id: 'ITEM_DOC', name: 'DO'}
-							,{id: 'ITEM_COD', name: 'COD'}
-							,{id: 'ITEM_TN', name: 'T-N'}
-							,{id: 'ITEM_TP', name: 'T-P'}
-							,{id: 'ITEM_TEMP', name: '수온'}
-							,{id: 'ITEM_PH', name: 'pH'}
-							,{id: 'ITEM_SS', name: 'SS'}
-							,{id: 'ITEM_CLOA', name: '클로로필a'}]
-					}),
-					value: '',
-					width: 105,
-					height: 25
-					
-	        	},{
-					xtype: 'container',
-					width: 10
-					
-	        	},{
-					xtype: 'label',
-					text: '항목'
-				}]
-	    	}]
-    	},{
-			xtype: 'container',
-			height: 5
-		},{
-    		items:[{
-    			xtype: 'container',
-	        	layout: {
-	        		type: 'hbox',
-	        		align: 'middle',
-	        		pack: 'middle'
-	        	},
-	        	items: [{
-					xtype: 'combo',
 					id : 'f_Chart',
 					//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
 					valueField: 'id',
@@ -328,6 +297,48 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 				},{
 					xtype: 'label',
 					id: 'f_ChartText',
+					text: '항목'
+				}]
+	    	}]
+    	},{
+			xtype: 'container',
+			height: 5
+		},{
+    		items:[{
+    			xtype: 'container',
+	        	layout: {
+	        		type: 'hbox',
+	        		align: 'middle',
+	        		pack: 'middle'
+	        	},
+	        	items: [{
+					xtype: 'combo',
+					id : 'selectItem',
+					//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
+					valueField: 'id',
+					displayField: 'name',
+					store: Ext.create('Ext.data.Store', {
+						fields: ['id', 'name'],
+						data: [{id: 'ITEM_BOD', name: 'BOD'}
+							,{id: 'ITEM_DOC', name: 'DO'}
+							,{id: 'ITEM_COD', name: 'COD'}
+							,{id: 'ITEM_TN', name: 'T-N'}
+							,{id: 'ITEM_TP', name: 'T-P'}
+							,{id: 'ITEM_TEMP', name: '수온'}
+							,{id: 'ITEM_PH', name: 'pH'}
+							,{id: 'ITEM_SS', name: 'SS'}
+							,{id: 'ITEM_CLOA', name: '클로로필a'}]
+					}),
+					value: '',
+					width: 115,
+					height: 25
+					
+	        	},{
+					xtype: 'container',
+					width: 10
+					
+	        	},{
+					xtype: 'label',
 					text: '항목'
 				}]
 	    	}]
