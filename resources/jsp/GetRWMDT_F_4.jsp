@@ -54,7 +54,7 @@ try{
 	sql += "        ) B                                                                                                                                                     ";
 	sql += "  WHERE A.FACI_CD = B.FACI_CD                                                                                                                                   ";
 	sql += "    AND A.WORK_DT = B.WORK_DT                                                                                                                                   ";
-	sql += "    AND A.PIPE_NUM IN (0,NULL)                                                                                                                             ";
+	sql += "    AND A.PIPE_NUM IN (0,1,NULL)                                                                                                                             ";
 	sql += "    AND A.PIPE_NUM = B. PIPE_NUM                                                                                                                                ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                                                                 ";
 	if(defaultChart.equals("0")){

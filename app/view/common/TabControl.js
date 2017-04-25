@@ -628,6 +628,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					cmbStartYear.setStore(store);
 					cmbEndYear.setStore(store);
 					
+					
 					if(tab.parentId == "D"){
 						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
 							Ext.getCmp("cmbStartYear").setValue("2017"); 
@@ -661,25 +662,28 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				}else{
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
 					
+					
+					
 					var store = ['2012','2013'];
 					
 					var cmbStartYear = Ext.getCmp("cmbStartYear");
 					var cmbEndYear = Ext.getCmp("cmbEndYear");
 					cmbStartYear.setStore(store);
 					cmbEndYear.setStore(store);
-					if(tab.items.items[0].items.items[0].store.data.length == 0){
+					if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
 						Ext.getCmp("cmbStartYear").setValue("2013"); 
     					Ext.getCmp("cmbStartMonth").setValue("01");
     					Ext.getCmp("cmbEndYear").setValue("2013");
     					Ext.getCmp("cmbEndMonth").setValue("12");
 					}else{
-						Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].store.startYear); 
-						Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].store.startMonth);
-						Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].store.endYear);
-						Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].store.endMonth);
+						Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear); 
+						Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
+						Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
+						Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+						Ext.getCmp("F_CHANGE").setRawValue(tab.items.items[0].items.items[0].items.items[0].store.gubunNm);
 					}
 					
-					
+					//console.info(hiddenGrid);
 					
 					hiddenGrid.setHidden(false);
 				}

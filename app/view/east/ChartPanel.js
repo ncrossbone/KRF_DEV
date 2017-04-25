@@ -33,10 +33,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				xtype: 'container',
 				width: 10
 			}, {
-				xtype: 'image',
-				style: 'margin: 8px 12px !important;',
-				src: './resources/images/button/blit.png'
-			}, {
 				xtype: 'label',
 				id : 'selectName',
 				style: 'font-weight: bold; padding-left: 7px; margin: 3px;',
@@ -45,10 +41,6 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				//width: 175,
 				width: "40%",
 				height: 25
-			}, {
-				xtype: 'image',
-				style: 'margin: 11px 12px !important;',
-				src: './resources/images/button/dot.gif'
 			},{
 				xtype: 'label',
 				id : 'selectItemName',

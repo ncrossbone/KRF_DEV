@@ -53,7 +53,7 @@ try{
 	sql += "          GROUP BY FACI_CD, WORK_DT                                                                                                                         ";
 	sql += "        ) B                                                                                                                                                 ";
 	sql += "  WHERE A.FACI_CD = B.FACI_CD                                                                                                                               ";
-	sql += "    AND A.PIPE_NUM IN (0,NULL)                                                                                                                             ";
+	sql += "    AND A.PIPE_NUM IN (0,1,NULL)                                                                                                                             ";
 	sql += "    AND A.PIPE_NUM = B.PIPE_NUM                                                                                                                             ";
 	sql += "    AND A.WORK_DT = B.WORK_DT                                                                                                                               ";
 	sql += "    AND A.FACI_CD = '"+recordId+"'                                                                                                                             ";
@@ -77,8 +77,7 @@ try{
 	sql += "   FROM TMP_TBL                                                                                                                                             ";
 	if(defaultChart.equals("1")){
 		sql += "  WHERE RN <= 10                                                                                                                                            ";
-	}
-                             
+	}                            
 
 
 	//System.out.println(sql);		

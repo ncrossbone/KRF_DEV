@@ -163,8 +163,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					,{id: 'ITEM_BOD', name: 'BOD'}
 					,{id: 'ITEM_COD', name: 'COD'}
 					,{id: 'ITEM_SS', name: 'SS'}
-					,{id: 'ITEM_TN', name: 'T-N'}
-					,{id: 'ITEM_TP', name: 'T-P'}
+					,{id: 'ITEM_TN', name: 'TN'}
+					,{id: 'ITEM_TP', name: 'TP'}
 					,{id: 'ITEM_COLI', name: '대장균군수'}]
 				})
 				itemCtl.setValue("AMT_PHYS");
@@ -288,7 +288,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 							,{id: '4', name: '관거이송량'}]
 					}),
 					value: '방류유량',
-					width: 115,
+					width: 135,
 					height: 25
 				},{
 					xtype: 'container',
@@ -330,7 +330,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 							,{id: 'ITEM_CLOA', name: '클로로필a'}]
 					}),
 					value: '',
-					width: 115,
+					width: 135,
 					height: 25
 					
 	        	},{

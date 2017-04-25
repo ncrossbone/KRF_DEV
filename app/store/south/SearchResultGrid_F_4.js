@@ -120,7 +120,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_4', {
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			
+        			store.startYear = startYear;
+        			store.startMonth = startMonth;
+        			store.endYear = endYear;
+        			store.endMonth = endMonth;
+        			store.gubunNm = "관거이송량";
         			jsonData = Ext.util.JSON.decode( response.responseText );
         			
         			if(jsonData.data.length > 0){
@@ -141,6 +145,21 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_4', {
 	        					
 	        					me.gridCtl.addCls("dj-mask-noneimg");
 	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        					startYear = "2013";
+	        					startMonth = "01";
+	        					endYear = "2013";
+	        					endMonth = "12";
+	        					
+	        					store.startYear = startYear;
+	                			store.startMonth = startMonth;
+	                			store.endYear = endYear;
+	                			store.endMonth = endMonth;
+	                			console.info(store);
+	        					
+	        					Ext.getCmp("cmbStartYear").setValue(startYear); 
+	        					Ext.getCmp("cmbStartMonth").setValue(startMonth);
+	        					Ext.getCmp("cmbEndYear").setValue(endYear);
+	        					Ext.getCmp("cmbEndMonth").setValue(endMonth);
 	        				}
 	        			}
         			}

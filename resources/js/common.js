@@ -51,6 +51,72 @@ SetBtnOnOff = function(btnId, strOnOff){
 	
 }
 
+chromePopClose = function(){
+	
+	
+	var chromePop = Ext.getCmp("chromePop");
+	
+	var selectPop;
+	
+	selectPop = confirm("하루동안 이창을 띄우지 않겠습니까.");
+	
+	
+	
+	if(selectPop){
+		
+		console.info(window.chromePop);
+		
+		setCookie( "chromePop", "done" , 1);  // 오른쪽 숫자는 쿠키를 유지할 기간을 설정합니다
+
+
+		
+		if(chromePop != undefined){
+			chromePop.close();
+		}
+	}else{
+		if(chromePop != undefined){
+			chromePop.close();
+		}
+	}
+	
+	
+	
+
+}
+
+
+setCookie = function( name, value, expiredays ) 
+{ 
+		var todayDate = new Date(); 
+		todayDate.setDate( todayDate.getDate() + expiredays ); 
+		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 
+}
+
+
+
+
+getCookie = function( name ) {  
+	   var nameOfCookie = name + "=";
+			var x = 0;
+			while ( x <= document.cookie.length )
+			{
+					var y = (x+nameOfCookie.length);
+					if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+							if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+									endOfCookie = document.cookie.length;
+							return unescape( document.cookie.substring( y, endOfCookie ) );
+					}
+					x = document.cookie.indexOf( " ", x ) + 1;
+					if ( x == 0 )
+							break;
+			}
+			return "";
+  
+}
+
+
+
+
 // 코어맵 오브젝트 가져오기
 GetCoreMap = function(){
 	var me = KRF_DEV.getApplication().coreMap;
@@ -263,7 +329,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		
 		var siteText = Ext.getCmp("selectName");  // 지점명
 		//지점명 표출
-		siteText.setText(test);
+		siteText.setText("ㆍ"+test);
 		
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
@@ -398,11 +464,11 @@ SetItemLabelText = function(itemNm,chartId){
 	//var itemNm = "";
 	//var itemNm = "ITEM_VALUE";
 	if(itemNm == "ITEM_BOD"){
-		itemNm = "BOD(㎎/L)";
+		itemNm = "BOD(㎎/ℓ)";
 	}else if(itemNm == "ITEM_COD"){
-		itemNm = "COD(㎎/L)";
+		itemNm = "COD(㎎/ℓ)";
 	}else if(itemNm == "ITEM_DOC"){
-		itemNm = "DO(㎎/L)";
+		itemNm = "DO(㎎/ℓ)";
 	}else if(itemNm == "ITEM_DOW"){
 		itemNm = "수심(cm)";
 	}else if(itemNm == "WL"){
@@ -420,9 +486,9 @@ SetItemLabelText = function(itemNm,chartId){
 	}else if(itemNm == "SWL"){
 		itemNm = "보 상류수위(m)";
 	}else if(itemNm == "ITEM_TN"){
-		itemNm = "T-N (㎎/L)";
+		itemNm = "T-N (㎎/ℓ)";
 	}else if(itemNm == "ITEM_TP"){
-		itemNm = "T-P (㎎/L)";
+		itemNm = "T-P (㎎/ℓ)";
 	}else if(itemNm == "ITEM_TEMP"){
 		itemNm = "수온(℃)";
 	}else if(itemNm == "ITEM_PH"){
@@ -482,12 +548,12 @@ SetItemLabelText = function(itemNm,chartId){
 	console.info(f_Chart);
 	if(chartId == "F"){
 		if(f_Chart == undefined){
-			siteItemText.setText("방류유량 > "+itemNm);
+			siteItemText.setText("ㆍ방류유량 > "+itemNm);
 		}else{
-			siteItemText.setText(f_Chart.rawValue + " > " + itemNm);
+			siteItemText.setText("ㆍ"+f_Chart.rawValue + " > " + itemNm);
 		}
 	}else{
-		siteItemText.setText(itemNm);
+		siteItemText.setText("ㆍ"+itemNm);
 	}
 	
 	//siteItemText.setText(itemNm);
@@ -735,11 +801,15 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		var hiddenT = "";
 		var pointArray = "";
 		var pointValue = "";
-		
+		//console.info("here");rawValue
+		//Ext.getCmp("F_CHANGE").setRawValue("방류유량");
+		console.info(Ext.getCmp("F_CHANGE"));
 		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
 		//0~2 , 11~16 공통
 		if(test == "" ||test == "1" || test == "방류유량"){
 			test = "";
+			
+			Ext.getCmp("F_CHANGE").setRawValue("방류유량");
 			
 			var arrayT = ['3','4','5','13','14','27','28','29'];
 			var arrayF = ['6','7','8','9','10','11','12','30','31'];
@@ -781,7 +851,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
 			
-			
+			Ext.getCmp("F_CHANGE").setRawValue("직접이송량");
 			
 			var arrayT = ['3','4','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['5','13','14'];
@@ -817,7 +887,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 		}else if(test == "3"){
 			
-			
+			Ext.getCmp("F_CHANGE").setRawValue("총유입량");
 			
 			var arrayT = ['4','5','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['3','13','14'];
@@ -853,7 +923,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 		}else{
 			
-			
+			Ext.getCmp("F_CHANGE").setRawValue("관거이송량");
 			
 			var arrayF = ['3','4','13','14','27','28','29'];
 			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
