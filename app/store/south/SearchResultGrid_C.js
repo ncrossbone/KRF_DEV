@@ -95,7 +95,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
-			
+			console.info(firstSearch);
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetSearchResultData_C.jsp',
@@ -112,22 +112,28 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 		        				
-		        				////console.info(jsonData.data);
-		        				//store.setData(jsonData.data);
-		        				startYear = jsonData.data[0].WMYR;
-		        				if(jsonData.data[0].WMOM == "1"){
-		        					jsonData.data[0].WMOM = "12";
+		        				var dateSplit = jsonData.data[0].WMYR;
+		        				var afterVal = dateSplit.split(".");
+		        				startYear = afterVal[0];
+		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
+		        					startMonth = "12";
 		        					startYear = startYear-1;
 		        				}else{
-		        					startMonth = jsonData.data[0].WMOM-1;
+		        					startMonth = afterVal[1]-1;
 		        				}
 		        				
 		        				if(startMonth < 10){
 		        					startMonth = "0"+startMonth;
 		        				}
 		        				
-		        				endYear = jsonData.data[0].WMYR;
-		        				endMonth = jsonData.data[0].WMOM;
+		        				endYear = afterVal[0];
+		        				endMonth = afterVal[1];
+		        				
+		        				console.info(startYear);
+		        				console.info(startMonth);
+		        				console.info(endYear);
+		        				console.info(endMonth);
+		        				
 		        			}
 	        			}
 	        		},
@@ -152,7 +158,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			
+        			store.startYear = startYear;
+        			store.startMonth = startMonth;
+        			store.endYear = endYear;
+        			store.endMonth = endMonth;
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){

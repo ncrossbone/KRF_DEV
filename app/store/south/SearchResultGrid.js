@@ -170,11 +170,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			}
 			
 			
-			//console.info(startYear);
-			//console.info(startMonth);
-			//console.info(endYear);
-			//console.info(endMonth);
-			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetSearchResultData.jsp',
@@ -192,20 +187,32 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 		        				
-		        				startYear = jsonData.data[0].WMYR;
-		        				if(jsonData.data[0].WMOD == "1"){
-		        					jsonData.data[0].WMOD = "12";
+		        				
+		        				var dateSplit = jsonData.data[0].WMCYMD;
+		        				
+		        				if(dateSplit == null){
+		        					me.gridCtl.addCls("dj-mask-noneimg");
+		        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+		        					return;
+		        				}
+		        				
+		        				var afterVal = dateSplit.split(".");
+		        				
+		        				
+		        				startYear = afterVal[0];
+		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
+		        					startMonth = "12";
 		        					startYear = startYear-1;
 		        				}else{
-		        					startMonth = jsonData.data[0].WMOD-1;
+		        					startMonth = afterVal[1]-1;
 		        				}
 		        				
 		        				if(startMonth < 10){
 		        					startMonth = "0"+startMonth;
 		        				}
 		        				
-		        				endYear = jsonData.data[0].WMYR;
-		        				endMonth = jsonData.data[0].WMOD;
+		        				endYear = afterVal[0];
+		        				endMonth = afterVal[1];
 		        				
 		        			}
 	        			}
@@ -232,7 +239,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			
+        			store.startYear = startYear;
+        			store.startMonth = startMonth;
+        			store.endYear = endYear;
+        			store.endMonth = endMonth;
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
         			//console.info(jsonData.data);

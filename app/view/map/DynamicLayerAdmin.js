@@ -38,7 +38,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     },
     applyRenderer: function(renderer){
     	
-    	alert("dd");
+    	
     },
     
     // 레이어 on/off 핸들러 정의

@@ -44,7 +44,7 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 	execute:function(mode){
 		
 		var me = this;
-		
+		var svgInfo = $('#'+me.mapDivId+' svg').parent().html();
 		var layerIds = me.map.layerIds;
 		var imageInfos = [];
 		
@@ -88,13 +88,12 @@ dojo.declare("KRF_DEV.view.map.task.CustomPrintTask", null, {
 		var strImgInfo = JSON.stringify(imageInfos);
 		
 		var obj = {imageInfos:strImgInfo,
+				svgInfo:svgInfo,
 				width:$('#'+me.mapDivId).width(),
 				height:$('#'+me.mapDivId).height(),
 				arcServiceUrl:me.arcServiceUrl,
 				imgSaveUrl: me.imgSaveUrl,
 				mode:mode};
-		
-		//console.info(JSON.stringify(obj).length);
 		
 		$.ajax({
 			type: "POST",

@@ -55,6 +55,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 
         	window.clearInterval(timerId);
         	
+        	/* 외부망 항공사진 주석 */
         	me.dynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin1', me.map);
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
@@ -180,6 +181,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	favoriteExe:function(data){
+		//console.info(data);
+		
 		var me = this;
 		var extentJson = data.EXTENT;
 		var extent = new esri.geometry.Extent(extentJson);
@@ -197,43 +200,43 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		deferred.then(function(value){
 			var deferred2 = me.map.setLevel(level);
 			deferred2.then(function(value){
-				if(me.reachLayerAdmin_v3_New.lineGrpLayer){
-					me.reachLayerAdmin_v3_New.lineGrpLayer.clear();
-					me.reachLayerAdmin_v3_New.arrLineGrp = [];
+				if(_krad.lineGrpLayer){
+					_krad.lineGrpLayer.clear();
+					_krad.arrLineGrp = [];
 					for(var i=0; i<reachLineGArr.length; i++){
-						me.reachLayerAdmin_v3_New.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
-						me.reachLayerAdmin_v3_New.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
+						_krad.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
+						_krad.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
 					}
 				}
-				if(me.reachLayerAdmin_v3_New.areaGrpLayer){
-					me.reachLayerAdmin_v3_New.areaGrpLayer.clear();
-					me.reachLayerAdmin_v3_New.arrAreaGrp = [];
+				if(_krad.areaGrpLayer){
+					_krad.areaGrpLayer.clear();
+					_krad.arrAreaGrp = [];
 					for(var i=0; i<reachAreaGArr.length; i++){
-						me.reachLayerAdmin_v3_New.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
-						me.reachLayerAdmin_v3_New.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
+						_krad.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
+						_krad.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
 					}
 				}
 				
-				if(me.reachLayerAdmin_v3_New.pointGrpLayer){
-					me.reachLayerAdmin_v3_New.pointGrpLayer.clear();
+				if(_krad.tmpGrpLayer){
+					_krad.tmpGrpLayer.clear();
 					for(var i=0; i<pointGArr.length; i++){
-						me.reachLayerAdmin_v3_New.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
+						_krad.tmpGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 				
-				if(me.reachLayerAdmin_v3_New.symbolGrpLayer){
-					me.reachLayerAdmin_v3_New.symbolGrpLayer.clear();
+				if(_krad.symGrpLayer){
+					_krad.symGrpLayer.clear();
 					for(var i=0; i<symbolGArr.length; i++){
-						me.reachLayerAdmin_v3_New.symbolGrpLayer.add(new esri.Graphic(JSON.parse(symbolGArr[i])));
+						_krad.symGrpLayer.add(new esri.Graphic(JSON.parse(symbolGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 				
-				if(me.reachLayerAdmin_v3_New.downLineLayer){
-					me.reachLayerAdmin_v3_New.downLineLayer.clear();
+				if(_krad.downGrpLayer){
+					_krad.downGrpLayer.clear();
 					for(var i=0; i<downLineGArr.length; i++){
-						me.reachLayerAdmin_v3_New.downLineLayer.add(new esri.Graphic(JSON.parse(downLineGArr[i])));
+						_krad.downGrpLayer.add(new esri.Graphic(JSON.parse(downLineGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}

@@ -26,8 +26,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 				,{id: 'ITEM_BOD', name: 'BOD'}
 				,{id: 'ITEM_COD', name: 'COD'}
 				,{id: 'ITEM_SS', name: 'SS'}
-				,{id: 'ITEM_TN', name: 'T-N'}
-				,{id: 'ITEM_TP', name: 'T-P'}
+				,{id: 'ITEM_TN', name: 'TN'}
+				,{id: 'ITEM_TP', name: 'TP'}
 				,{id: 'ITEM_COLI', name: '대장균군수'}]
 			});
 			itemCtl.setValue("AMT_PHYS");
@@ -35,27 +35,27 @@ Ext.define('KRF_DEV.view.east.ChartPanelDateController', {
 			
 			var store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
-				data: [{id: 'ITEM_AMT', name: 'AMT'}
+				data: [{id: 'ITEM_AMT', name: '유량'}
 				,{id: 'ITEM_BOD', name: 'BOD'}
 				,{id: 'ITEM_COD', name: 'COD'}
 				,{id: 'ITEM_SS', name: 'SS'}
-				,{id: 'ITEM_TN', name: 'T-N'}
-				,{id: 'ITEM_TP', name: 'T-P'}
-				,{id: 'ITEM_COLI', name: 'COLI'}]
+				,{id: 'ITEM_TN', name: 'TN'}
+				,{id: 'ITEM_TP', name: 'TP'}
+				,{id: 'ITEM_COLI', name: '대장균군수'}]
 			});	
 			itemCtl.setValue("ITEM_AMT");
 		}else if(f_Chart.lastValue == "4"){
 			
 			var store = Ext.create('Ext.data.Store', {
 				fields: ['id', 'name'],
-				data: [{id: 'ITEM_AMT', name: 'AMT'}
+				data: [{id: 'ITEM_AMT', name: '유량'}
 				,{id: 'ITEM_BOD', name: 'BOD'}
 				,{id: 'ITEM_COD', name: 'COD'}
 				,{id: 'ITEM_SS', name: 'SS'}
-				,{id: 'ITEM_TN', name: 'T-N'}
-				,{id: 'ITEM_TP', name: 'T-P'}
-				,{id: 'ITEM_COLI', name: 'COLI'}
-				,{id: 'ITEM_BYPASS_AMT', name: 'BYPASS_AMT'}]
+				,{id: 'ITEM_TN', name: 'TN'}
+				,{id: 'ITEM_TP', name: 'TP'}
+				,{id: 'ITEM_COLI', name: '대장균군수'}
+				,{id: 'ITEM_BYPASS_AMT', name: '미처리배제유량'}]
 			});	
 			itemCtl.setValue("ITEM_AMT");
 		}

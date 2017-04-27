@@ -114,10 +114,7 @@ try{
 	sql += "         WHERE A.ITEM_CODE = B.ITEM_CODE                                                                                    ";
 	sql += "        )                                                                                                                   ";
 	sql += "  WHERE 1=1                                                                                                                 ";
-	if(defaultChart.equals("1")){
-		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '201510'                                                                                  ";
-		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '201512'                                                                                  ";
-	}else{
+	if(defaultChart.equals("0")){
 		sql += "   AND SUBSTR(BASE_TIME, 1, 6) >= '"+startDate+"'                                                                                  ";
 		sql += "   AND SUBSTR(BASE_TIME, 1, 6) <= '"+endDate+"'                                                                                  ";
 	}
@@ -138,13 +135,8 @@ try{
 	sql += "       '','','','','',                                                                                                      ";
 	sql += "       MAX(ITEM_VALUE) + MAX(ITEM_VALUE) / 10                                                                               ";
 	sql += "   FROM TMP_TBL                                                                                                             ";
-	if(defaultChart.equals("1")){
-		sql += "  WHERE ROWNUM <= 10                                                                                                        ";
-	}
 
 
-		
-   //out.print(sql);
    //System.out.println(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);

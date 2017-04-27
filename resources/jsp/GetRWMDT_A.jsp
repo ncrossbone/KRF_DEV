@@ -65,9 +65,7 @@ try{
 	sql += "    AND A.WMCD  = SUBSTR(C.WMWK,1,1)                                                                ";
 	sql += "    AND C.WMCYMD IS NOT NULL                                                                        ";
 	sql += "    AND A.PT_NO = '"+recordId+"'                                                              ";
-	if(defaultChart.equals("1")){
-		sql += "    AND A.WMYR||'.'||A.WMOD BETWEEN '2014.01' AND '2015.12'                                 ";
-	}else{
+	if(defaultChart.equals("0")){
 		sql += "    AND A.WMYR||'.'||A.WMOD BETWEEN '"+a+"."+c+"' AND '"+b+"."+d+"'                                  ";
 	}
 	sql += "    AND ITEM_NAME = '"+selectItem+"'                                                                ";

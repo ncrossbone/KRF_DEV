@@ -17,7 +17,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 	coreMap:null,
 	gridStore:null,
 	favoriteInfo:null,
-	
+	constrain: true,
 	width: 400,
 	height: 305,
 	x: 390,
@@ -122,54 +122,53 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 								var date = new Date();
 								
 								var reachLineGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3_New.lineGrpLayer){
-									var reachLineGraphicArr = self.coreMap.reachLayerAdmin_v3_New.lineGrpLayer.graphics;
+								if(_krad.lineGrpLayer){
+									var reachLineGraphicArr = _krad.lineGrpLayer.graphics;
 									for(var i=0; i<reachLineGraphicArr.length; i++){
 										reachLineGArr.push(JSON.stringify(reachLineGraphicArr[i].toJson()));
 									}
 								}
 								
 								var reachAreaGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3_New.areaGrpLayer){
-									var reachAreaGraphicArr = self.coreMap.reachLayerAdmin_v3_New.areaGrpLayer.graphics;
+								if(_krad.areaGrpLayer){
+									var reachAreaGraphicArr = _krad.areaGrpLayer.graphics;
 									for(var i=0; i<reachAreaGraphicArr.length; i++){
 										reachAreaGArr.push(JSON.stringify(reachAreaGraphicArr[i].toJson()));
 									}
 								}
 								
 								var pointGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3_New.pointGrpLayer){
-									var pointGraphicArr = self.coreMap.reachLayerAdmin_v3_New.pointGrpLayer.graphics;
+								if(_krad.tmpGrpLayer){
+									var pointGraphicArr = _krad.tmpGrpLayer.graphics;
 									for(var i=0; i<pointGraphicArr.length; i++){
 										pointGArr.push(JSON.stringify(pointGraphicArr[i].toJson()));
 									}
 								}
 								
 								var symbolGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3_New.symbolGrpLayer){
-									var symbolGraphicArr = self.coreMap.reachLayerAdmin_v3_New.symbolGrpLayer.graphics;
+								if(_krad.symGrpLayer){
+									var symbolGraphicArr = _krad.symGrpLayer.graphics;
 									for(var i=0; i<symbolGraphicArr.length; i++){
 										symbolGArr.push(JSON.stringify(symbolGraphicArr[i].toJson()));
 									}
 								}
 								
 								var downLineGArr = [];
-								if(self.coreMap.reachLayerAdmin_v3_New.downLineLayer){
-									var downGraphicArr = self.coreMap.reachLayerAdmin_v3_New.downLineLayer.graphics;
+								if(_krad.downGrpLayer){
+									var downGraphicArr = _krad.downGrpLayer.graphics;
 									for(var i=0; i<downGraphicArr.length; i++){
 										downLineGArr.push(JSON.stringify(downGraphicArr[i].toJson()));
 									}
 								}
 								
 								var yyyymmdd = date.yyyymmdd();
-								
 								var saveObj = {UID:dojo.dojox.uuid.generateRandomUuid(), NAME:val, DATE:yyyymmdd, EXTENT:extent.toJson(), LEVEL:level,
 										reachLineGArr:reachLineGArr,
 										reachAreaGArr:reachAreaGArr,
 										pointGArr:pointGArr,
 										symbolGArr:symbolGArr,
 										downLineGArr:downLineGArr};
-								
+								console.info(saveObj);
 								//self.favoriteInfo = [];
 								self.favoriteInfo.push(saveObj);
 								//console.info(self.favoriteInfo);

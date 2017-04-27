@@ -72,6 +72,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 			}
 			
 			if(firstSearch == "noDate"){
+				
 				Ext.Ajax.request({
 	        		url: './resources/jsp/GetSearchResultData_B.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
@@ -89,21 +90,19 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 		        				
 		        				
 		        				var dateSplit = jsonData.data[0].WMCYMD;
-		        				console.info(dateSplit);
-		        				
 		        				if(dateSplit == null){
 		        					me.gridCtl.addCls("dj-mask-noneimg");
 		        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 		        					return;
 		        				}
 		        				
-	        					var afterVal = [];
+		        				var afterVal = [];
 	        					afterVal.push(dateSplit.substring(0,4));
-	        					afterVal.push(dateSplit.substring(5,7));;
+	        					afterVal.push(dateSplit.substring(4,6));
 		        				
 		        				startYear = afterVal[0];
-		        				if(afterVal[1] == "1"){
-		        					afterVal[1] = "12";
+		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
+		        					startMonth = "12";
 		        					startYear = startYear-1;
 		        				}else{
 		        					startMonth = afterVal[1]-1;
@@ -117,26 +116,21 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
 		        				endMonth = afterVal[1];
 		        				
 		        			}
-		        			else{
-		        				
-		        				me.gridCtl.unmask();
-	        					me.gridCtl.addCls("dj-mask-noneimg");
-	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-		        			}
 	        			}
-	        		},
-	        		failure: function(form, action) {
-	    					me.gridCtl.mask("오류가 발생하였습니다.");
 	        		}
+	        			
 	        	});
-				
-				firstSearch = "date";
-				Ext.getCmp("cmbStartYear").setValue(startYear); 
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
-				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
-			}
 			
+				
+			firstSearch = "date";
+			Ext.getCmp("cmbStartYear").setValue(startYear); 
+			Ext.getCmp("cmbStartMonth").setValue(startMonth);
+			Ext.getCmp("cmbEndYear").setValue(endYear);
+			Ext.getCmp("cmbEndMonth").setValue(endMonth);
+			
+			
+			}
+		
 			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_B.jsp',
@@ -147,6 +141,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			//console.info("dlfja");
+        			store.startYear = startYear;
+        			store.startMonth = startMonth;
+        			store.endYear = endYear;
+        			store.endMonth = endMonth;
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){
@@ -188,7 +186,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
     				}
         		}
         	});
-			
 			
 		}
     },

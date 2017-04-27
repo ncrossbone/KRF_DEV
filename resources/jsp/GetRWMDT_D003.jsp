@@ -50,11 +50,12 @@ try{
 	sql += "             FROM FWDY A,                                                     ";
 	sql += "               FWOBSIF D                                                      ";
 	sql += "             WHERE A.WLOBSCD = D.FWOBSCD                                      ";
-	if(defaultChart.equals("1")){
+	if(defaultChart.equals("0")){
+	/* if(defaultChart.equals("1")){
 		sql += "               AND SUBSTR(TO_CHAR( A.YMDH , 'YYYYMMDD'), 1, 6) >='201410'     ";
 		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) <='201510'      ";
 	}else{
-		sql += "               AND SUBSTR(TO_CHAR( A.YMDH , 'YYYYMMDD'), 1, 6) >='"+startDate+"'     ";
+	 */	sql += "               AND SUBSTR(TO_CHAR( A.YMDH , 'YYYYMMDD'), 1, 6) >='"+startDate+"'     ";
 		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) <='"+endDate+"'      ";
 	}
 	sql += "               AND A.WLOBSCD = '"+recordId+"'                                      ";

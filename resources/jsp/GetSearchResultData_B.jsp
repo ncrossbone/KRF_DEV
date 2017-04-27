@@ -31,9 +31,9 @@ try{
 	
 	String firstSearch = request.getParameter("firstSearch");
 	//out.print(parentIds);
-	//SELECT SUBSTR(TRANS_TIME, 1, 7) AS WMCYMD FROM TMS_HOURDATA WHERE FACT_CODE ='44A0291'
-			
-if(firstSearch.equals("date")){			
+	
+	
+	if(firstSearch.equals("date")){
 	sql = " SELECT A.RN																																																											";
 	sql += "      , A.WS_NM /* 히든 */                                                                                                        ";
 	sql += "      , A.AM_NM /* 히든 */                                                                                                        ";
@@ -178,10 +178,10 @@ if(firstSearch.equals("date")){
 	sql += "    AND A.WAST_NO = B.WAST_NO                                                                                                     ";
 	sql += "    AND B.RN BETWEEN A.RN AND A.RN + 4                                                                                            ";
 	sql += "  ORDER BY A.PT_NO, A.WAST_NO, A.RN, B.RN DESC                                                                                    ";
-}else{
-	//SELECT SUBSTR(TRANS_TIME, 1, 7) AS WMCYMD FROM TMS_HOURDATA WHERE FACT_CODE ='44A0291'
-	sql = "  SELECT '9999' AS RN , MAX(SUBSTR(TRANS_TIME, 1, 7)) AS WMCYMD FROM TMS_HOURDATA WHERE FACT_CODE IN ("+siteIds+")  ";
-}
+	}else{
+		sql = "  select '9999' as   RN , max(BASE_TIME) as WMCYMD  from TMS_HOURDATA WHERE FACT_CODE IN ("+siteIds+")  ";
+	}
+		
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
    //out.print(sql);
    //System.out.println(sql);
@@ -195,6 +195,7 @@ if(firstSearch.equals("date")){
 	String preSeq = "";
 	String preSeq2 = "9999";
 	String check = "";
+	
 	
 	String WS_NM = "";
 	String AM_NM = "";
@@ -244,7 +245,9 @@ if(firstSearch.equals("date")){
 	int cnt = 0;
 	//out.print(rs);
 	while(rs.next()) {
+		
 		if(!preSeq2.equals(rs.getString("RN"))){
+		
 			cnt++;
 			if(!preSeq.equals("") && !preSeq.equals(rs.getString("RN"))){
 				
@@ -299,8 +302,7 @@ if(firstSearch.equals("date")){
 		  		CHART_TOC = new JSONArray();
 		  		
 			}
-			//else{
-				//parentId = rs.getString("parentId");
+			
 				WS_NM  = rs.getString("WS_NM");
 				AM_NM  = rs.getString("AM_NM");
 				AS_NM  = rs.getString("AS_NM");
@@ -379,15 +381,19 @@ if(firstSearch.equals("date")){
 		  		RI_NM = rs.getString("RI_NM");
 		  		
 				
+				
+		  		
 		  		
 			 if(!preSeq.equals(rs.getString("RN")))
-				preSeq = rs.getString("RN"); 	
+				preSeq = rs.getString("RN"); 
+  		
 		}else{
+			
 			check = preSeq2;
 			WMCYMD = rs.getString("WMCYMD");
+			
 		}
 		
-  		
 	}
 	
 	jsonRecord = new JSONObject();
@@ -425,7 +431,7 @@ if(firstSearch.equals("date")){
 		
 		
 	}else if(cnt == 0 && check == "9999"){
-		jsonRecord.put("WMCYMD",WMCYMD);
+		jsonRecord.put("WMCYMD",WMCYMD);	
 	}else{
 		jsonRecord.put("msg", "데이터가 존재하지 않습니다.");
 	}

@@ -61,7 +61,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu04',
-            groupId: 'startBtn',
+	    	groupId: 'startBtn',
 	    	title: '시작위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
@@ -73,7 +73,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu05',
-            groupId: 'endBtn',
+	    	groupId: 'endBtn',
 	    	title: '끝위치',
 	    	width: this.itemWidth,
 	    	height: this.itemHeight,
