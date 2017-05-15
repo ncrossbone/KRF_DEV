@@ -13,10 +13,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 			'MCNT',
 			'JOSANAME',
 			'ITEM_DOW_VAL',
-			/*'ITEM_TEMP_VAL',
-			'ITEM_DO_VAL',
-			'ITEM_PH_VAL',
-			'ITEM_EC_VAL',*/
 			
 			'ITEM_DOW_SURF_VAL',
 			'ITEM_TEMP_SURF_VAL',

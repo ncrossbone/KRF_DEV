@@ -23,10 +23,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_', {
     
     autoLoad: true,
     
-    buffered: true,
+    //buffered: true,
     pageSize: 100,
 
-	remoteSort: true,
+	//remoteSort: true,
 	
 	siteIds: "",
 	parentIds: [],

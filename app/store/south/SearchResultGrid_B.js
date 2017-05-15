@@ -12,14 +12,29 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
         'FACT_KIND_NAME',
         'FACT_CAPACITY',
         'WMCYMD',
-        'CURR_BOD',
-        'CURR_COD',
-        'CURR_SS',
-        'CURR_TN',
-        'CURR_TP',
-        'CURR_PH',
-        'CURR_FLW',
-        'CURR_TOC',
+        {name: 'CURR_BOD', type: 'number'},
+        'CHART_BOD',
+        {name: 'CURR_COD', type: 'number'},
+        'CHART_COD',
+        
+        {name: 'CURR_SS', type: 'number'},
+        'CHART_SS',
+        
+        {name: 'CURR_TN', type: 'number'},
+        'CHART_TN',
+        
+        {name: 'CURR_TP', type: 'number'},
+        'CHART_TP',
+        
+        {name: 'CURR_PH', type: 'number'},
+        'CHART_PH',
+        
+        {name: 'CURR_FLW', type: 'number'},
+        'CHART_FLW',
+        
+        {name: 'CURR_TOC', type: 'number'},
+        'CHART_TOC',
+        
         'DO_NM',
         'CTY_NM',
         'DONG_NM',
@@ -30,16 +45,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B', {
     
     autoLoad: true,
     
-    buffered: true,
+    //buffered: true, // 버퍼드 스토어 지정
     pageSize: 100,
 
-	remoteSort: true,
+	//remoteSort: true,
 	
 	siteIds: "",
 	parentIds: [],
 	gridCtl: null,
-	
-	isFirst: true,
 	
 	listeners: {
 		load: function(store) {

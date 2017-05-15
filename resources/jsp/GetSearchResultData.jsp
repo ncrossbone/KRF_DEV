@@ -400,7 +400,7 @@ try{
 	sql += "         AND    B.WMWK = C.WMWK                                                                       ";
 	sql += "         AND    B.WMYR || B.WMOD >= '"+startYYYYMM+"'                                                          ";
 	sql += "         AND    B.WMYR || B.WMOD <= '"+endYYYYMM+"'                                                          ";
-	sql += "         AND    SUBSTR(A.PT_NO, 1, 7) IN ("+siteIds+")                                                  ";
+	sql += "         AND    SUBSTR(A.PT_NO, 1, 7) IN ( " + siteIds + "  )                                                  ";
 	sql += "         AND    C.WMCYMD IS NOT NULL                                                                  ";
 	sql += "        ) A                                                                                           ";
 	sql += "      , (                                                                                             ";
@@ -485,7 +485,7 @@ try{
 	sql += "         AND    B.WMWK = C.WMWK                                                                   ";
 	sql += "         AND    B.WMYR || B.WMOD >= TO_CHAR(TO_DATE('"+startYYYYMM+"' ,'YYYYMM')-360,'YYYYMM')             ";
 	sql += "         AND    B.WMYR || B.WMOD <= '"+endYYYYMM+"'                                                      ";
-	sql += "         AND    SUBSTR(A.PT_NO, 1, 7) IN ("+siteIds+")                                              ";
+	sql += "         AND    SUBSTR(A.PT_NO, 1, 7) IN ( " + siteIds + "  )                                              ";
 	sql += "         AND    C.WMCYMD IS NOT NULL                                                              ";
 	sql += "        ) B                                                                                       ";
 	sql += "     , KESTI_WATER_ALL_MAP C                                                                      ";
@@ -495,7 +495,7 @@ try{
 	sql += "   AND SUBSTR(A.ADMCODE, 1, 10) = C.ADM_CD(+)     ";
 	sql += "			) ORDER BY PT_NO, RN, RN_2 DESC                ";
 	}else{
-		sql = "	SELECT '99999' AS RN , max(wmyr||'.'||wmod) as WMCYMD  FROM RWMDTI_NEW WHERE PT_NO IN ("+siteIds+")	";
+		sql = "	SELECT '99999' AS RN , max(wmyr||'.'||wmod) as WMCYMD  FROM RWMDTI_NEW WHERE PT_NO IN ( " + siteIds + "  )	";
 	}
    //out.print(sql);
    

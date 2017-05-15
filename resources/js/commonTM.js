@@ -1101,7 +1101,6 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 	var pollutiongrdContainer = undefined; //재검색 초기화
 	pollutiongrdContainer = Ext.getCmp("searchResult"+recordId+"_container");
 
-
 	if(pollutiongrdContainer == null || pollutiongrdContainer == undefined){
 		pollutiongrdContainer = Ext.create("KRF_DEV.view.south.pollution.SearchResultGrid_"+recordId, pollutionOptions);
 		tab.insert(1, pollutiongrdContainer);
@@ -1112,7 +1111,7 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 	var pollutiongrdCtl = pollutiongrdContainer.items.items[0]; // 그리드 컨테이너
 	pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
 	
-	console.info(catDid);
+	console.info(storeNm);
 	var	pollutionstore = Ext.create("KRF_DEV.store.east."+storeNm,{
 			catDid : catDid,
 			selectValue: value,
@@ -1261,6 +1260,42 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 				
 			}
 		}else if(recordId == "pollution_03"){
+			
+			//산업계 그리드 컬럼이 많아 json에서 따로 관리
+			
+			if(value == "11" ){
+				value = "1";
+			}else if(value == "22" ){
+				value = "2";
+			}else if(value == "33" ){
+				value = "3";
+			}else if(value == "44" ){
+				value = "4";
+			}
+			
+			var jsonData = "";
+			
+			Ext.Ajax.request({
+			   	url: 'resources/jsp/pollution/json/pollution03_'+value+'.json',
+			   	method: 'POST',
+			   	success: function(transport){
+			   		jsonData = Ext.util.JSON.decode( transport.responseText );
+			   		
+			   		//컬럼 재배열
+			   		pollutiongrdCtl.reconfigure(pollutionstore,jsonData);
+			   	},
+			   	failure: function(transport){
+			   			alert("Error: " - transport.responseText);
+			   	}
+			});
+			
+			
+			/*console.info(JSON.parse(store.data.items))
+			pollutiongrdCtl.reconfigure(pollutionstore,store);*/
+			//reconfigure(store,column)
+			
+			/*
+			
 			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
 				pollutiongrdCtl.columns[k].setHidden(false);
 			}
@@ -1318,7 +1353,7 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 					pollutiongrdCtl.columns[i].setHidden(true);
 				}
 			}
-		}else if(recordId == "pollution_04"){
+		*/}else if(recordId == "pollution_04"){
 			for(var k = 0 ;k<pollutiongrdCtl.columns.length;k++){
 				pollutiongrdCtl.columns[k].setHidden(false);
 			}

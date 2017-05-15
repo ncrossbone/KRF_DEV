@@ -493,8 +493,13 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				for(var i=0; i<dataArr.length; i++){
 					// khLee 수정 값 변경
 					var strData = JSON.stringify(dataArr[i].data);
-					strData = strData.replace(/888888888/gi, "\"\"");
-					strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+					
+					//고려 해봐야함
+					if(strData == "888888888" || strData == "999999999"){
+						strData = strData.replace(/888888888/gi, "\"\"");
+						strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+					}
+					
 					var convertData = JSON.parse(strData);
 					//datas.push(dataArr[i].data);
 					datas.push(convertData);
@@ -591,15 +596,13 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		id: 'tabpanels',
 		//title: 'tab1',
 		style: 'background-color: #157fcb;',
-		//header: false
 		//closable: true,
-	    
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
-		
 		listeners:{
+			
+			
 			'tabchange': function (tabPanel, tab){
-				
-				
+				console.info(tabPanel);
 				// 그리드별 조회조건 컨트롤 셋팅
 				KRF_DEV.global.TabFn.searchConditionCtl(tab.down("grid"));
 				

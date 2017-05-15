@@ -48,8 +48,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	arr2RRchDid:"",
 	arr2LRchDid:"",
 	
-	bonLine : [],
-	
 	bonStLine : "",
 	bonEnLine : "",
 	
@@ -1394,41 +1392,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     },
     searchCnt: 0, // 검색 카운트
     
-    // 공통하류에서 좌우측 상류에 geoTrib검색
-    /*searchGeoBonLine: function(){
-    	
-    	
-    	우측 : me.cmRiRchDid;
-		좌측 : me.cmLeRchDid
-		
-    	me = this;
-    	
-    	require(["esri/tasks/query",
-	         "esri/tasks/QueryTask"],
-	         function(Query,
-	        		 QueryTask){
-		
-	   	var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
-			var query = new Query();
-			query.returnGeometry = true;
-			query.outFields = ["*"];
-			query.where = "RCH_DID IN ('"+me.cmRiRchDid+"','"+me.cmLeRchDid+"') ";
-			
-			// 리치라인 조회
-			queryTask.execute(query, function(featureSet){
-				if(featureSet.features.length > 0){
-					for(var i = 0; i < featureSet.features.length;i++){
-						me.bonLine.push(featureSet.features[i]);
-						if(featureSet.features[i].attributes.GEO_TRIB != 0){
-							me.isNotBon = true; // 공통하루에 본류가 존재하지 않음
-						}
-					}
-				}
-			});
-		});
-    	
-    	return me.isNotBon ;
-    },*/
+    
     
     
     /* 상류 리치라인 조회 및 그리기

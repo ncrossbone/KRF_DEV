@@ -3,29 +3,29 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
     fields: [
-			'WS_NM',
-			'AM_NM',
-			'AS_NM',
-			'PT_NO',
-			'PT_NM',
-			'WMCYMD',
-			'CHART_DATE',
-			'CHART_WL',
-			'CURR_WL',
-			'CHART_MXWL',
-			'CURR_MXWL',
-			'CHART_MNWL',
-			'CURR_MNWL'
+    	'WS_NM',
+		'AM_NM',
+		'AS_NM',
+		'PT_NO',
+		'PT_NM',
+		'WMCYMD',
+		'CHART_DATE',
+		'CHART_WL',
+		{name: 'CURR_WL', type: 'number'},
+		'CHART_MXWL',
+		{name: 'CURR_MXWL', type: 'number'},
+		'CHART_MNWL',
+		{name: 'CURR_MNWL', type: 'number'}
     ],
     
     siteId: '',
     
     autoLoad: true,
     
-    buffered: true,
+    //buffered: true,
     pageSize: 100,
 
-	remoteSort: true,
+	//remoteSort: true,
 	
 	siteIds: "",
 	parentIds: [],
@@ -49,11 +49,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 					'WMCYMD',
 					'CHART_DATE',
 					'CHART_WL',
-					'CURR_WL',
+					{name: 'CURR_WL', type: 'number'},
 					'CHART_MXWL',
-					'CURR_MXWL',
+					{name: 'CURR_MXWL', type: 'number'},
 					'CHART_MNWL',
-					'CURR_MNWL'
+					{name: 'CURR_MNWL', type: 'number'}
                    ]
 			}else if(store.orgParentIds == "D002"){
 				requestUrl = "./resources/jsp/GetSearchResultData_D_2.jsp";

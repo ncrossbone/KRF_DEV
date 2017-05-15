@@ -128,7 +128,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 	gridCtl: null,
 	
 	listeners: {
-		load: function(store, a, b, c, d, e) {
+		load: function(store) {
 			
 			var me = this;
 			
@@ -168,6 +168,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 				me.gridCtl.addCls("dj-mask-withimg");
 				me.gridCtl.mask("loading", "loading...");
 			}
+			
 			
 			
 			if(firstSearch == "noDate"){
