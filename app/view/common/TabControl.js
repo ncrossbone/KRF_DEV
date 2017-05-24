@@ -602,7 +602,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			
 			
 			'tabchange': function (tabPanel, tab){
-				console.info(tabPanel);
+				
 				// 그리드별 조회조건 컨트롤 셋팅
 				KRF_DEV.global.TabFn.searchConditionCtl(tab.down("grid"));
 				

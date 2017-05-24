@@ -52,6 +52,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_NameController_Rich', {
 		query.returnGeometry = false;
 		
 		query.where = where;
+		query.orderByFields = ["LAYER_CODE ASC"];
 		
 		query.outFields = ["*"];
 		queryTask.execute(query, function(result){

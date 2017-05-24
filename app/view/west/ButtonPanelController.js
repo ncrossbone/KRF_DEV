@@ -64,13 +64,16 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	// 정보창 클릭
 	onClickInfo: function(obj, el, evt){
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
+		
 		
 		//추가 160704 pdj
 		var listWinCtl = Ext.getCmp("siteListWindow");
 		var windowSiteNChart = Ext.getCmp("windowSiteNChart");
 		
 		if(listWinCtl != undefined){
+			
+			var currCtl = SetBtnOnOff(el.id);
+			
 			if(currCtl.btnOnOff == "off"){
 				listWinCtl.hide();
 				if(windowSiteNChart != undefined){
@@ -88,6 +91,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 					
 				//Ext.ShowSiteListWindow("test");
 			}
+		}else{
+			alert("검색된 정보가 없습니다.");
 		}
 		
 	},
@@ -95,7 +100,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	// 검색결과창 클릭
 	onClickResult: function(obj, el, evt){
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
+		
 		//console.info(el.id);
 		var searchResultWindow = Ext.getCmp("searchResultWindow");
 		/*
@@ -107,6 +112,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		}
 		*/
 		if(searchResultWindow != undefined){
+			var currCtl = SetBtnOnOff(el.id);
 			if(currCtl.btnOnOff == "on"){
 				//ShowSearchResult(_searchType);
 				searchResultWindow.show();
@@ -115,6 +121,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				//HideSearchResult();
 				searchResultWindow.hide();
 			}
+		}else{
+			alert("검색된 검색결과가 없습니다.");
 		}
 			
 		

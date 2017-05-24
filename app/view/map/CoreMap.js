@@ -74,6 +74,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	_rchArea = Ext.create('KRF_DEV.view.map.SearchReachArea');
         	// 리치노드 전역 Object Setting
         	_rchNode = Ext.create('KRF_DEV.view.map.SearchReachNode');
+        	//
+        	_toolbarCtl = Ext.create('KRF_DEV.view.center.ReachToolbarController');
         	
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	

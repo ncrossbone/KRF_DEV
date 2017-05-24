@@ -1670,8 +1670,11 @@ ResetButtonClick = function(){
 	
 	//지점목록 remove
 	var treeCtl = Ext.getCmp("siteListTree");
-	treeCtl.getStore().remove();
-	treeCtl.store.load();
+	if(treeCtl != undefined){
+		treeCtl.getStore().remove();
+		treeCtl.store.load();
+	}
+	
 	
 	
 	HideWindowSiteNChart(); // 지점정보, 차트창 닫기
@@ -1716,7 +1719,7 @@ ResetButtonClick = function(){
 	
 	
 	//리치검색시 초기화 해야될 목록
-	_krad.isSearchStop = true;
+	_krad.isSearchStop = false;
 	
 	_krad.cmRiRchDid = [];
 	_krad.cmLeRchDid = [];
@@ -1739,7 +1742,9 @@ ResetButtonClick = function(){
 	_krad.edRchDids = [];
 	_krad.falseDid1 = "";
 	_krad.falseDid2 = "";
-
+	
+	_krad.arrAreaGrp = [];
+	
 	_krad.arr1RRchDid = "";
 	_krad.arr1LRchDid = "";
 
@@ -1750,6 +1755,16 @@ ResetButtonClick = function(){
 	
 	_krad.realTimeStBtnChk = true;
 	_krad.realTimeEnBtnChk = true;
+	
+	_krad.countInfo = []; //count 정보
+	
+	_krad.maxSelect = false;
+	
+	
+	var reachs_close = Ext.getCmp("reachs_close");
+	var reache_close = Ext.getCmp("reache_close");
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
 	
 	//---north
 	// 항공영상 초기화
@@ -1909,6 +1924,17 @@ ResetStEdSiteName = function(){
 	
 	textSearchText_Start.setValue("");
 	textSearchText_End.setValue("");
+	
+	var reachCountToolbar = Ext.getCmp("reachCountToolbar");
+	
+	if(reachCountToolbar != undefined){
+		reachCountToolbar.items.items[0].setValue("");
+		reachCountToolbar.items.items[1].setValue("");
+	}
+	
+	_krad.stCnt = 0;
+	_krad.edCnt = 0;
+	_krad.arrCnt = 0;
 }
 
 var westPreWidth = 0;
@@ -1989,6 +2015,13 @@ SetWestCollapseXY = function(option){
 		}
 	}
 	
+	var reachCountSToolbar = Ext.getCmp("reachCountSToolbar");
+	var reachCountEToolbar = Ext.getCmp("reachCountEToolbar");
+	if(reachCountSToolbar != undefined && reachCountEToolbar != undefined){
+		
+		reachCountSToolbar.setX(reachCountSToolbar.getX() + offsetWidth);
+		reachCountEToolbar.setX(reachCountEToolbar.getX() + offsetWidth);
+	}
 	
 	
 	
@@ -2005,6 +2038,8 @@ SetWestCollapseXY = function(option){
 				reachNameToolbar.setX(486 - 300);
 			}
 		}
+		
+		
 		
 		// 툴팁 XY 셋팅
 		setTooltipXY();

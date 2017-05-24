@@ -195,13 +195,13 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
     	
     	var me = this;
-    	
     	//	시작지점 끝지점 선택시 --- 명칭찾기,toolbar지점이름 변경
     	var reachNameToolbar = Ext.getCmp("reachNameToolbar");
     	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
     	var textSearchText_End = Ext.getCmp("textSearchText_End");
     	//  reachNameToolbar (툴바 id)  , textSearchText_Start,textSearchText_End( 명칭찾기 id )
     	var url , width, height = "";
+    	
     	if(clickValue == "none"){
     		url = "./resources/images/symbol/spot_09.png";
     		width = 25;
@@ -212,17 +212,26 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     		if(_krad.realTimeStBtnChk == false){
     			return;
     		}
-    		url = "./resources/images/symbol/btn_start01.png";
+    		//_krad.stCnt++;
+    		
+    		_krad.stCnt ++;
+    		var sCnt = _krad.stCnt;
+    		
+    		url = "./resources/images/symbol/btn_s"+sCnt+".png";
     		width = 26;
     		height = 38;
     		
     	}else if(clickValue == "end"){
     		_krad.clickCnt("endPoint");
+    		//_krad.edCnt++;
+    		
+    		_krad.edCnt ++;
+    		var eCnt = _krad.edCnt;
     		
     		if(_krad.realTimeEnBtnChk == false){
     			return;
     		}
-    		url = "./resources/images/symbol/btn_end01.png";
+    		url = "./resources/images/symbol/btn_e"+eCnt+".png";
     		width = 26;
     		height = 38;
     	}
@@ -441,7 +450,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					_krad.mapClickEvt = {mapPoint: point};
 					// 검색설정 JSON 셋팅 (_krad.searchConfigInfoJson)
 					_krad.getSearchConfigInfo();
-	    			
 	    			/* 검색설정 "상류" 체크 시 */
 	    			if(_krad.searchConfigInfoJson.isUpDraw == true){
 	    				

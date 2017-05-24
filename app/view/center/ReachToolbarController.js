@@ -129,12 +129,20 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	},
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
+		
+		if(_krad.maxSelect == true){
+    		alert("최대 5개 까지 선택 가능합니다.");
+    		return;
+    	}
+		
 		// 맵 클릭 이벤트 켜기
 		_krad.clickCnt("startPoint");
+		
 		
 		if(_krad.realTimeStBtnChk == false){
 			return;
 		}
+		
 		_krad.onMapClickEvt("startPoint", el.id);
 		
 		// 부하량 주제도 off
@@ -152,6 +160,11 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	
 	// 끝위치 버튼 클릭
 	onClickEndReach: function(obj, el, evt){
+		if(_krad.maxSelect  == true){
+    		alert("최대 5개 까지 선택 가능합니다.");
+    		return;
+    	}
+		
 		_krad.clickCnt("endPoint");
 		if(_krad.realTimeEnBtnChk == false){
 			return;
