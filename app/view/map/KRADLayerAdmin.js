@@ -142,114 +142,122 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			me.drawSymbol_A = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID, new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2), new Color([0, 0, 255, 0.3]));
 			me.drawSymbol_empty = new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 255]), 2);
 			
+			console.info(Ext.browser.is.Chrome);
+			
+			var yoffset = "";
+			if(Ext.browser.is.Chrome){
+				xoffset = -11; 
+			}else{
+				xoffset = 0;
+			}
 			
 			me.stSymbol1 = new PictureMarkerSymbol({
 	 		    "angle": 0,
-	 		    "xoffset": -11,
+	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
 	 		    "url": "./resources/images/symbol/btn_start1.png",
 	 		    "contentType": "image/png",
-	 		    "width": 22,
+	 		    "width": 26,
 	 		    "height": 32
 	 		});
 			
 			me.edSymbol1 = new PictureMarkerSymbol({
 			    "angle": 0,
-			    "xoffset": -11,
+			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
 			    "url": "./resources/images/symbol/btn_end1.png",
 			    "contentType": "image/png",
-			    "width": 22,
+			    "width": 26,
 	 		    "height": 32
 			});
 			
 			me.stSymbol2 = new PictureMarkerSymbol({
 	 		    "angle": 0,
-	 		    "xoffset": -11,
+	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
 	 		    "url": "./resources/images/symbol/btn_start2.png",
 	 		    "contentType": "image/png",
-	 		   "width": 22,
+	 		   "width": 26,
 	 		    "height": 32
 	 		});
 			
 			me.edSymbol2 = new PictureMarkerSymbol({
 			    "angle": 0,
-			    "xoffset": -11,
+			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
 			    "url": "./resources/images/symbol/btn_end2.png",
 			    "contentType": "image/png",
-			    "width": 22,
+			    "width": 26,
 	 		    "height": 32
 			});
 			
 			me.stSymbol3 = new PictureMarkerSymbol({
 	 		    "angle": 0,
-	 		    "xoffset": -11,
+	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
 	 		    "url": "./resources/images/symbol/btn_start3.png",
 	 		    "contentType": "image/png",
-	 		   "width": 22,
+	 		   "width": 26,
 	 		    "height": 32
 	 		});
 			
 			me.edSymbol3 = new PictureMarkerSymbol({
 			    "angle": 0,
-			    "xoffset": -11,
+			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
 			    "url": "./resources/images/symbol/btn_end3.png",
 			    "contentType": "image/png",
-			    "width": 22,
+			    "width": 26,
 	 		    "height": 32
 			});
 			
 			me.stSymbol4 = new PictureMarkerSymbol({
 	 		    "angle": 0,
-	 		    "xoffset": -11,
+	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
 	 		    "url": "./resources/images/symbol/btn_start4.png",
 	 		    "contentType": "image/png",
-	 		   "width": 22,
+	 		   "width": 26,
 	 		    "height": 32
 	 		});
 			
 			me.edSymbol4 = new PictureMarkerSymbol({
 			    "angle": 0,
-			    "xoffset": -11,
+			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
 			    "url": "./resources/images/symbol/btn_end4.png",
 			    "contentType": "image/png",
-			    "width": 22,
+			    "width": 26,
 	 		    "height": 32
 			});
 			
 			me.stSymbol5 = new PictureMarkerSymbol({
 	 		    "angle": 0,
-	 		    "xoffset": -11,
+	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
 	 		    "url": "./resources/images/symbol/btn_start5.png",
 	 		    "contentType": "image/png",
-	 		   "width": 22,
+	 		   "width": 26,
 	 		    "height": 32
 	 		});
 			
 			me.edSymbol5 = new PictureMarkerSymbol({
 			    "angle": 0,
-			    "xoffset": -11,
+			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
 			    "url": "./resources/images/symbol/btn_end5.png",
 			    "contentType": "image/png",
-			    "width": 22,
+			    "width": 26,
 	 		    "height": 32
 			});
 			
@@ -1253,7 +1261,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				
 				var reache_close = Ext.getCmp("reache_close");
 				reache_close.setHidden(false);
-				reache_close.setSrc("./resources/images/symbol/btn_num"+me.stCnt+".png");
+				reache_close.setSrc("./resources/images/symbol/btn_num"+me.edCnt+".png");
 				
 				/*var reachCountToolbar = Ext.getCmp("reachCountToolbar");
 				
@@ -1573,7 +1581,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						    					reachs_close.setSrc("./resources/images/symbol/btn_num"+me.stCnt+".png");
 						    					
 						    					reache_close.setHidden(false);
-						    					reache_close.setSrc("./resources/images/symbol/btn_num"+me.stCnt+".png");
+						    					reache_close.setSrc("./resources/images/symbol/btn_num"+me.edCnt+".png");
 					    					}
 					    					
 					    					
