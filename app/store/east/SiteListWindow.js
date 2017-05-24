@@ -168,7 +168,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				}
 			}
 			
-			//표출 X 항목 : 수질자동측정지점(B) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
+			//표출 X 항목 : 수질자동측정지점(B) ,수생태계(E) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
 			/*if(store.searchType != "paramSearch"){
 				//alert("1");
 				query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'C' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
@@ -256,7 +256,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
 					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "("+groupFeature.length+")\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-					if(groupFeature[0].attributes.GROUP_CODE == "G"){
+					if(groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E"){
 						jsonStr += "				\"srchBtnDisabled\": true,\n";
 					}
 					if(cnt == 0){
@@ -301,7 +301,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "("+layerFeatures.length+")\",\n";
-						if(layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y"){
+						if(layerFeatures[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y"){
 							jsonStr += "				\"srchBtnDisabled\": true,\n";
 						}
 						if(layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null){
@@ -328,7 +328,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 								jsonStr += "				\"leaf\": true,\n";
 								jsonStr += "				\"checked\": null\n";
-								if(layerFeature.attributes.GROUP_CODE == "G"){
+								if(layerFeature.attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E"){
 									jsonStr += "			,   \"infoBtnDisabled\": false,\n";
 									jsonStr += "				\"chartBtnDisabled\": true,\n";
 									jsonStr += "				\"srchBtnDisabled\": true\n";

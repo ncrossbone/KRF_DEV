@@ -55,8 +55,9 @@ chromePopClose = function(){
 	
 	
 	var chromePop = Ext.getCmp("chromePop");
+	chromePop.close();
 	
-	var selectPop;
+	/*var selectPop;
 	
 	selectPop = confirm("하루동안 이창을 띄우지 않겠습니까.");
 	
@@ -76,7 +77,7 @@ chromePopClose = function(){
 		if(chromePop != undefined){
 			chromePop.close();
 		}
-	}
+	}*/
 	
 	
 	
