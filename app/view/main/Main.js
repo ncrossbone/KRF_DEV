@@ -125,7 +125,7 @@ var obj = window.chromePop;
  			
 	 		//if(Ext.browser.is.Chrome == false){
 	 		//if(Ext.browser.is.IE == true ){ // IE11 아래 버전 막기
-	 		if(Ext.browser.is.IE == true && Ext.browser.version.major < 11){ // IE11 아래 버전 막기
+	 		if(Ext.browser.is.IE == true && Ext.browser.version.major < 10){ // IE11 아래 버전 막기
  			//if(Ext.browser.is.IE == true){
 	 			
 	 			Ext.create("Ext.window.Window", {
