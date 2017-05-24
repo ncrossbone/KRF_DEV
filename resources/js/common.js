@@ -53,8 +53,8 @@ SetBtnOnOff = function(btnId, strOnOff){
 
 chromePopClose = function(){
 	
-	
 	var chromePop = Ext.getCmp("chromePop");
+	/*var chromePop = Ext.getCmp("chromePop");
 	
 	var selectPop;
 	
@@ -77,8 +77,8 @@ chromePopClose = function(){
 		if(chromePop != undefined){
 			chromePop.close();
 		}
-	}
-	
+	}*/
+	chromePop.close();
 	
 	
 
