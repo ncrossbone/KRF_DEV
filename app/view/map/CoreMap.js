@@ -29,9 +29,13 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	y: -80,
 	
 	initComponent: function() {
+		
+		
+		
 		this.on('render', this.mapRendered, this);
 		this.callParent();
 	},
+	
 	
 	mapRendered: function(p){
         var me = this;   
@@ -87,9 +91,18 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
 		}, 1);
+        
+        
+        //console.info(changingImage);
+        
+        
     },
     
     baseMapInit: function(){
+    	
+    	
+    	
+    	
 		var me = this;
 		dojo.declare('CustomMapsLayer', esri.layers.TiledMapServiceLayer, {
 		    constructor: function(opts) {
@@ -158,6 +171,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		  });
 		me.baseMap = new CustomMapsLayer();
 		this.map.addLayer(me.baseMap);
+		
+		
+		
 	},
 	
 	extentMove:function(extent, level){
