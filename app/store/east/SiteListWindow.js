@@ -167,13 +167,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					return;
 				}
 			}
-			
+		
 			//표출 X 항목 : 수질자동측정지점(B) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
 			if(store.searchType != "paramSearch"){
 				//alert("1");
 				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'E' AND GROUP_CODE <> 'C'AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
 			}
-			console.info(query.where);
+			
 			query.orderByFields = ["LAYER_CODE ASC"];
 			//query.OrderByFields = "LAYER_CODE ASC";
 			query.outFields = ["*"];

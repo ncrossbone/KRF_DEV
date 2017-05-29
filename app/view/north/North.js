@@ -244,7 +244,7 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn2_off.png'
-	}, {
+	}, /*{
 		xtype: 'image',
     	title: '로그아웃',
     	width: 69,
@@ -272,7 +272,7 @@ Ext.define('KRF_DEV.view.north.North', {
     		}
     	},
     	src: './resources/images/button/top_btn3_off.png'
-	}, {
+	},*/ {
 		xtype: 'image',
     	title: '매뉴얼',
     	width: 69,
