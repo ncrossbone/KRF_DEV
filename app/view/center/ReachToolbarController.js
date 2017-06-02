@@ -187,6 +187,15 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 초기화 버튼 클릭
 	onClickReset: function(obj, el, evt){
 		//console.info("dkjdf");
+		var reachs_close = Ext.getCmp("reachs_close");
+		var reache_close = Ext.getCmp("reache_close");
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
+		
+		_krad.stCnt = 0;
+		_krad.edCnt = 0;
+		_krad.arrCnt = 0;
+		
 		ResetButtonClick();
 		initKradEvt();
 		

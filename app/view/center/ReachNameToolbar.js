@@ -66,6 +66,16 @@ Ext.define('KRF_DEV.view.center.ReachNameToolbar', {
     					SetBtnOnOff(_krad.btnId,"off");
     					initKradEvt();
     					ResetButtonClick();
+    					
+    					var reachs_close = Ext.getCmp("reachs_close");
+    					var reache_close = Ext.getCmp("reache_close");
+    					reachs_close.setHidden(true);
+    					reache_close.setHidden(true);
+    					
+    					_krad.stCnt = 0;
+    					_krad.edCnt = 0;
+    					_krad.arrCnt = 0;
+    					
     					Ext.getCmp("reach_close").setVisible(false);
 
     				}

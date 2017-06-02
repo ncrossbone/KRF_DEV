@@ -684,7 +684,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	}else{
 		var parentCheck = parentIds[0].parentId.substring(0,1);
 	}
-	
+	console.info(parentCheck);
 	options = {
 			//id: titleText,
 			id: gridId + "_container",
@@ -1681,7 +1681,6 @@ ResetButtonClick = function(){
 	HideWindowSiteNChart(); // 지점정보, 차트창 닫기
 	HideSearchResult(); // 검색결과 닫기
 	HideFavoriteWin(); // 즐겨찾기창 닫기
-	
 	ResetStEdSiteName(); // 시작위치 끝위치 하천명 초기화
 	
 	var combo = Ext.getCmp("cmbWater1");
@@ -1926,12 +1925,17 @@ ResetStEdSiteName = function(){
 	textSearchText_Start.setValue("");
 	textSearchText_End.setValue("");
 	
-	var reachCountToolbar = Ext.getCmp("reachCountToolbar");
+	/*var reachCountToolbar = Ext.getCmp("reachCountToolbar");
 	
 	if(reachCountToolbar != undefined){
 		reachCountToolbar.items.items[0].setValue("");
 		reachCountToolbar.items.items[1].setValue("");
-	}
+	}*/
+	
+	var reachs_close = Ext.getCmp("reachs_close");
+	var reache_close = Ext.getCmp("reache_close");
+	reachs_close.setHidden(true);
+	reache_close.setHidden(true);
 	
 	_krad.stCnt = 0;
 	_krad.edCnt = 0;

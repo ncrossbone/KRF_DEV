@@ -72,6 +72,7 @@ initKradEvt = function(){
 	_krad.offMapClickEvt();
 	_krad.offTmpGrpEvt();
 	_krad.offMapDragEvt();
+	
 	// 커서 디폴트
 	Ext.get('_mapDiv__gc').setStyle('cursor','default');
 }

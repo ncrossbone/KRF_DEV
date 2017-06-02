@@ -153,6 +153,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.stSymbol1 = new PictureMarkerSymbol({
 	 		    "angle": 0,
+	 		    "gubun" : "start",
 	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
@@ -164,6 +165,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.edSymbol1 = new PictureMarkerSymbol({
 			    "angle": 0,
+			    "gubun" : "end",
 			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
@@ -175,6 +177,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.stSymbol2 = new PictureMarkerSymbol({
 	 		    "angle": 0,
+	 		   "gubun" : "start",
 	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
@@ -186,6 +189,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.edSymbol2 = new PictureMarkerSymbol({
 			    "angle": 0,
+			    "gubun" : "end",
 			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
@@ -197,6 +201,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.stSymbol3 = new PictureMarkerSymbol({
 	 		    "angle": 0,
+	 		   "gubun" : "start",
 	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
@@ -208,6 +213,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.edSymbol3 = new PictureMarkerSymbol({
 			    "angle": 0,
+			    "gubun" : "end",
 			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
@@ -219,6 +225,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.stSymbol4 = new PictureMarkerSymbol({
 	 		    "angle": 0,
+	 		   "gubun" : "start",
 	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
@@ -230,6 +237,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.edSymbol4 = new PictureMarkerSymbol({
 			    "angle": 0,
+			    "gubun" : "end",
 			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
@@ -241,6 +249,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.stSymbol5 = new PictureMarkerSymbol({
 	 		    "angle": 0,
+	 		   "gubun" : "start",
 	 		    "xoffset": xoffset,
 	 		    "yoffset": 14,
 	 		    "type": "esriPMS",
@@ -252,6 +261,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			me.edSymbol5 = new PictureMarkerSymbol({
 			    "angle": 0,
+			    "gubun" : "end",
 			    "xoffset": xoffset,
 			    "yoffset": 14,
 			    "type": "esriPMS",
@@ -300,21 +310,55 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	reachClose.setVisible(true);
     	
     	//최대 5개 선택되었을 경우
-    	
-    	
+    	console.info("st::"+me.stCnt)
+    	console.info("ed::"+me.edCnt)
+    	console.info(me.clickFS)
     	if(me.clickFS.length != 0){
     		for(var i = 0 ; i < me.clickFS.length ; i++){
     			
     			if(clickType == "startPoint"){
     				if(me.clickFS[i] == "startPoint"){
-        				alert("시작지점이 존재합니다");
+        				
+    					var chkYn = false;
+    					
+        				for(var a = 0 ; a < me.symGrpLayer.graphics.length ; a++){
+        					if(me.symGrpLayer.graphics[a].symbol.gubun == "start"){
+        						console.info(me.symGrpLayer.graphics[a].symbol.url.substr(35,1));
+        						
+        						if(me.symGrpLayer.graphics[a].symbol.url.substr(35,1) == me.stCnt){
+        							chkYn = true;
+        						} 
+        					}
+        				}
+        				console.info(chkYn);
+        				console.info(me.stCnt);
+        				
+        				if(chkYn == true){
+        					alert("시작지점이 존재합니다");
+        				}else{
+        					alert("시작지점을 선택해주세요 ");
+        				}
+        				
         				me.realTimeStBtnChk = false;
         			}
     			}
     			
     			if(clickType == "endPoint"){
     				if(me.clickFS[i] == "endPoint"){
-        				alert("끝지점이 존재합니다.");
+
+    					for(var a = 0 ; a < me.symGrpLayer.graphics.length ; a++){
+        					if(me.symGrpLayer.graphics[a].symbol.gubun == "start"){
+        						if(me.symGrpLayer.graphics[a].symbol.url.substr(35,1) == me.stCnt){
+        							chkYn = true;
+        						} 
+        					}
+        				}
+        				if(chkYn == true){
+        					alert("끝지점이 존재합니다");
+        				}else{
+        					alert("끝지점을 선택해주세요 ");
+        				}
+        				
         				me.realTimeEnBtnChk = false;
         			}
     			}
@@ -484,6 +528,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     					if(Ext.getCmp(btnId).btnOnOff=="off"){
     						me.btnObj =	SetBtnOnOff(btnId,"on");
     						if(drawOption == "startPoint"){
+    							console.info("1")
     							me.stCnt ++;
     						}else if(drawOption == "endPoint"){
     							me.edCnt ++;
@@ -500,6 +545,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     				//처음 버튼 눌렀을 때
     				me.btnObj = SetBtnOnOff(btnId);
     				if(drawOption == "startPoint"){
+    					console.info("2")
 						me.stCnt ++;
 					}else if(drawOption == "endPoint"){
 						me.edCnt ++;
@@ -1221,6 +1267,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					rCountEToolbar = Ext.create('KRF_DEV.view.center.ReachCountEToolbar');
 					rCountEToolbar.show();
 				}*/
+				
 				var reachs_close = Ext.getCmp("reachs_close");
 				reachs_close.setHidden(false);
 				reachs_close.setSrc("./resources/images/symbol/btn_num"+me.stCnt+".png");

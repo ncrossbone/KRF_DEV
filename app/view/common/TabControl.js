@@ -599,8 +599,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		//closable: true,
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
 		listeners:{
-			
-			
 			'tabchange': function (tabPanel, tab){
 				
 				// 그리드별 조회조건 컨트롤 셋팅
