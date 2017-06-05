@@ -296,141 +296,23 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
 
     	    			me.layer.on("mouse-over", function(evt){
     	    				//evt.layer.enableMouseEvents();
-                            var t = 
-                                "   <em class=\"viewtit1\">i¸¡i??i†Œeª… : ${i¸¡i??i†Œeª…}</em>                                               " +
-                                "   <table class=\"tst04\">                                                                                                                                            " +
-                        "       <colgroup>                                                                                " +
-                        "           <col width=\"100\">                                                                   " +
-                        "           <col width=\"83\">                                                                    " +
-                        "           <col width=\"83\">                                                                  " +
-                        "           <col />                                                                             " +
-                        "       </colgroup>                                                                             " +
-                        "       <thead>                                                                                   " +
-                        "           <tr>                                                                                  " +
-                        "               <th>i¸¡i??i?¼i??</th>                                                                 " +
-                        "               <th>chl-a<br />(a??a?￥)</th>                                                      " +
-                        "               <th>i??i?¨<br />(a??)</th>                                                         " +
-                        "               <th>e?¨i¡°e￥?i?¸i?￢i??<br />(cells/a??)</th>                                           " +
-                        "           </tr>                                                                               " +
-                        "       </thead>                                                                                " +
-                        "       <tbody>                                                                                 " +
-                        "           <th>${WMCYMD}</th>                                                                   " +
-                        "           <td>${ITEM_SURFACE_CLOA}</td>                                                                           " +
-                        "           <td>${ITEM_TEMP_SURF}</td>                                                                           " +
-                        "           <td>${ITEM_BLUE_GREEN_ALGAE}</td>                                                                           " +
-                        "       </tbody>                                                                                " +
-                        "   </table>                                                                                    " ;
-                           
-                            if(evt.graphic.attributes.i¸¡i??i†Œeª… == "iŒ”e?¹i?¸(eŒ?i??)"){
-                               var t2 = 
-                                    "   <em class=\"viewtit2\">i¡°e￥?e²½e³´ e°œe?¹ e?´i?­</em>                                               " +
-                                    "   <table class=\"tst04\">                                                                     " +
-                                    "       <colgroup>                                                                                " +
-                                    "           <col width=\"100\">                                                                   " +
-                                    "           <col width=\"125\">                                                                   " +
-                                    "           <col width=\"125\">                                                                 " +
-                                    "       </colgroup>                                                                             " +
-                                    "       <thead>                                                                                   " +
-                                    "           <tr>                                                                                  " +
-                                    "               <th>e°œe?¹e?¨e³?</th>                                                                 " +
-                                    "               <th>2015e…?</th>                                                                 " +
-                                    "               <th>2016e…?                                                                      " +
-                                    "           </tr>                                                                               " +
-                                    "       </thead>                                                                                " +
-                                    "       <tbody>                                                                                 " +
-                                    "           <tr>                                                                                  " +
-                                    "               <th>i￡¼i??e³´/e´€i?￢</th>                                                            " +
-                                    "               <td><b>i´?43i?¼</b><span>8.19~9.30</span></td>          " +
-                                    "               <td>-</td>                                                                       " +
-                                    "           </tr>                                                                               " +
-                                    "           <tr>                                                                                " +
-                                    "               <th>e²½e³´/e²½e³?</th>                                                                    " +
-                                    "               <td>-</td>                                                                       " +
-                                    "               <td>-</td>                                                                       " +
-                                    "           </tr>                                                                               " +
-                                    "           <tr>                                                                                " +
-                                    "               <th>eŒ€e°œi??</th>                                                                   " +
-                                    "               <td>-</td>                                                                       " +
-                                    "               <td>-</td>                                                                       " +
-                                    "           </tr>                                                                               " +
-                                    "       </tbody>                                                                                " +
-                                    "   </table>                                                                                    " ;
-                           }else if(evt.graphic.attributes.i¸¡i??i†Œeª… == "iŒ”e?¹i?¸(i?¼e´‰e|￢)"){
-                               var t2 = 
-                                   "   <em class=\"viewtit2\">i¡°e￥?e²½e³´ e°œe?¹ e?´i?­</em>                                               " +
-                                   "   <table class=\"tst04\">                                                                     " +
-                                   "       <colgroup>                                                                                " +
-                                   "           <col width=\"100\">                                                                   " +
-                                   "           <col width=\"125\">                                                                   " +
-                                   "           <col width=\"125\">                                                                 " +
-                                   "       </colgroup>                                                                             " +
-                                   "       <thead>                                                                                   " +
-                                   "           <tr>                                                                                  " +
-                                   "               <th>e°œe?¹e?¨e³?</th>                                                                 " +
-                                   "               <th>2015e…?</th>                                                                 " +
-                                   "               <th>2016e…?                                                                      " +
-                                   "           </tr>                                                                               " +
-                                   "       </thead>                                                                                " +
-                                   "       <tbody>                                                                                 " +
-                                   "           <tr>                                                                                  " +
-                                   "               <th>i￡¼i??e³´/e´€i?￢</th>                                                            " +
-                                   "               <td><b>i´?21i?¼</b><span>8.19~9.8</span></td>          " +
-                                   "               <td>-</td>                                                                       " +
-                                   "           </tr>                                                                               " +
-                                   "           <tr>                                                                                " +
-                                   "               <th>e²½e³´/e²½e³?</th>                                                                    " +
-                                   "               <td>-</td>                                                                       " +
-                                   "               <td>-</td>                                                                       " +
-                                   "           </tr>                                                                               " +
-                                   "           <tr>                                                                                " +
-                                   "               <th>eŒ€e°œi??</th>                                                                   " +
-                                   "               <td>-</td>                                                                       " +
-                                   "               <td>-</td>                                                                       " +
-                                   "           </tr>                                                                               " +
-                                   "       </tbody>                                                                                " +
-                                   "   </table>                                                                                    " ;
-                          }else if(evt.graphic.attributes.i¸¡i??i†Œeª… == "i¶?i²œi?¸(eŒ?i??e￥?)" || evt.graphic.attributes.i¸¡i??i†Œeª… == "i¶?i²œi?¸(i?ⓒi?°i·¨i??i?￥)"){
-                           var t2 = 
-                                  "   <em class=\"viewtit2\">i¡°e￥?e²½e³´ e°œe?¹ e?´i?­</em>                                               " +
-                                  "   <table class=\"tst04\">                                                                     " +
-                                  "       <colgroup>                                                                                " +
-                                  "           <col width=\"100\">                                                                   " +
-                                  "           <col width=\"125\">                                                                   " +
-                                  "           <col width=\"125\">                                                                 " +
-                                  "       </colgroup>                                                                             " +
-                                  "       <thead>                                                                                   " +
-                                  "           <tr>                                                                                  " +
-                                  "               <th>e°œe?¹e?¨e³?</th>                                                                 " +
-                                  "               <th>2015e…?</th>                                                                 " +
-                                  "               <th>2016e…?                                                                      " +
-                                  "           </tr>                                                                               " +
-                                  "       </thead>                                                                                " +
-                                  "       <tbody>                                                                                 " +
-                                  "           <tr>                                                                                  " +
-                                  "               <th>i￡¼i??e³´/e´€i?￢</th>                                                            " +
-                                  "               <td>-</td>          " +
-                                  "               <td>-</td>                                                                       " +
-                                  "           </tr>                                                                               " +
-                                  "           <tr>                                                                                " +
-                                  "               <th>e²½e³´/e²½e³?</th>                                                                    " +
-                                  "               <td>-</td>                                                                       " +
-                                  "               <td>-</td>                                                                       " +
-                                  "           </tr>                                                                               " +
-                                  "           <tr>                                                                                " +
-                                  "               <th>eŒ€e°œi??</th>                                                                   " +
-                                  "               <td>-</td>                                                                       " +
-                                  "               <td>-</td>                                                                       " +
-                                  "           </tr>                                                                               " +
-                                  "       </tbody>                                                                                " +
-                                  "   </table>                                                                                    " ;
-                         }
-                           
-                          if(t2 != undefined){
-                              t = t+t2;
-                          }
-                          
-                          
-
+    	    				var t = "<table class=\"view_form\">" +
+								          "<tr>" +
+								          "<td class=\"no_Data\" colspan=\"4\"><span class=\"site_name\">측정소명 : ${측정소명}</span> <span class=\"info_txt\">${emptyMsg}</span></td>" +
+						     			 "</tr>" +
+			  	    		          "<tr>" +
+					          			   "<th>측정일자</th>" +
+					          			   "<th>chl-a<br>(㎎/㎥)</th>" +
+					          			   "<th>수온<br>(℃)</th>" +
+					          			   "<th>남조류세포수<br>(cells/㎖)</th>" +
+					          			 "</tr>" +
+					          			 "<tr>" +
+					          			   "<td><b>${WMCYMD}</b></td>" +
+					          			   "<td><b>${ITEM_SURFACE_CLOA}</b></td>" +
+					          			   "<td><b>${ITEM_TEMP_SURF}</b></td>" +
+					          			   "<td style=\"border-right: 0px;\"><b>${ITEM_BLUE_GREEN_ALGAE}</b></td>" +
+					          			 "</tr>" +
+					          		   "</table>";
     	    		          //console.info(evt.graphic.attributes);
     	    		          var content, highlightGraphic;
     	    		          
