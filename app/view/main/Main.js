@@ -188,7 +188,8 @@ var obj = window.chromePop;
     	/* >>>> khLee Drone 툴바 추가 20160613 */
     	var droneToolbar = Ext.create('KRF_DEV.view.center.drone.DroneToolbar', {
     		x: 390,
-    		y: Ext.getBody().getHeight() / 2 - 8
+    		//y: Ext.getBody().getHeight() / 2 - 8
+    		y: 97
     	});
     	this.add(droneToolbar);
     	//KRF_DEV.getApplication().contCenterContainer.add(droneToolbar);

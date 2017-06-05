@@ -294,24 +294,176 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', {
         		        */
 
     	    			me.layer.on("mouse-over", function(evt){
+    	    				if(evt.graphic.attributes.측정소명 == "대청호(청주취수장)"){
+    	    					evt.graphic.attributes.측정소명 = "대청호(문의)";
+    	    				}
     	    				//evt.layer.enableMouseEvents();
-    	    				var t = "<table class=\"view_form\">" +
-								          "<tr>" +
-								          "<td class=\"no_Data\" colspan=\"4\"><span class=\"site_name\">측정소명 : ${측정소명}</span> <span class=\"info_txt\">${emptyMsg}</span></td>" +
-						     			 "</tr>" +
-			  	    		          "<tr>" +
-					          			   "<th>측정일자</th>" +
-					          			   "<th>chl-a<br>(㎎/㎥)</th>" +
-					          			   "<th>수온<br>(℃)</th>" +
-					          			   "<th>남조류세포수<br>(cells/㎖)</th>" +
-					          			 "</tr>" +
-					          			 "<tr>" +
-					          			   "<td><b>${WMCYMD}</b></td>" +
-					          			   "<td><b>${ITEM_SURFACE_CLOA}</b></td>" +
-					          			   "<td><b>${ITEM_TEMP_SURF}</b></td>" +
-					          			   "<td style=\"border-right: 0px;\"><b>${ITEM_BLUE_GREEN_ALGAE}</b></td>" +
-					          			 "</tr>" +
-					          		   "</table>";
+    	    				var t =
+    	    				  "   <em class=\"viewtit1\">측정소명 : ${측정소명}</em>                                               " +
+      	  					  "   <table class=\"tst04\">																																			" +
+		      	  	          "   	<colgroup>                                                                                " +
+		      	  	          "       	<col width=\"100\">                                                                   " +
+		      	  	          "       	<col width=\"83\">                                                                    " +
+		      	  	          "           <col width=\"83\">                                                                  " +
+		      	  	          "           <col />                                                                             " +
+		      	  	          "       </colgroup>                                                                             " +
+		      	  	          "   	<thead>                                                                                   " +
+		      	  	          "       	<tr>                                                                                  " +
+		      	  	          "           	<th>측정일자</th>                                                                 " +
+		      	  	          "               <th>chl-a<br />(㎎㎥)</th>                                                      " +
+		      	  	          "               <th>수온<br />(℃)</th>                                                         " +
+		      	  	          "               <th>남조류세포수<br />(cells/㎖)</th>                                           " +
+		      	  	          "           </tr>                                                                               " +
+		      	  	          "       </thead>                                                                                " +
+		      	  	          "       <tbody>                                                                                 " +
+		      	  	          "       	<th>${WMCYMD}</th>                                                                   " +
+		      	  	          "           <td>${ITEM_SURFACE_CLOA}</td>                                                                           " +
+		      	  	          "           <td>${ITEM_TEMP_SURF}</td>                                                                           " +
+		      	  	          "           <td>${ITEM_BLUE_GREEN_ALGAE}</td>                                                                           " +
+		      	  	          "       </tbody>                                                                                " +
+		      	  	          "   </table>                                                                                    " ;
+      	  				 
+      	    				if(evt.graphic.attributes.측정소명 == "대청호(회남대교)"){
+      	  					 var t2 = 
+      	  				          "   <em class=\"viewtit2\">조류경보 발령 내역</em>                                               " +
+      	  				          "   <table class=\"tst04\">                                                                     " +
+      	  				          "   	<colgroup>                                                                                " +
+      	  				          "       	<col width=\"100\">                                                                   " +
+      	  				          "       	<col width=\"125\">                                                                   " +
+      	  				          "           <col width=\"125\">                                                                 " +
+      	  				          "       </colgroup>                                                                             " +
+      	  				          "   	<thead>                                                                                   " +
+      	  				          "       	<tr>                                                                                  " +
+      	  				          "           	<th>발령단계</th>                                                                 " +
+      	  				          "               <th>2015년</th>                                                                 " +
+      	  				          "               <th>2016년                                                                      " +
+      	  				          "           </tr>                                                                               " +
+      	  				          "       </thead>                                                                                " +
+      	  				          "       <tbody>                                                                                 " +
+      	  				          "       	<tr>                                                                                  " +
+      	  				          "               <th>주의보/관심</th>                                                            " +
+      	  				          "               <td><b>총14일</b><span>7.29~8.11</span></td>          " +
+      	  				          "               <td><b>총64일</b><span>8.3~10.5</span></td>                                                                       " +
+      	  				          "           </tr>                                                                               " +
+      	  				          "           <tr>                                                                                " +
+      	  				          "   			<th>경보/경계</th>                                                                    " +
+      	  				          "               <td>-</td>                                                                       " +
+      	  				          "               <td>-</td>                                                                       " +
+      	  				          "           </tr>                                                                               " +
+      	  				          "           <tr>                                                                                " +
+      	  				          "           	<th>대발생</th>                                                                   " +
+      	  				          "               <td>-</td>                                                                       " +
+      	  				          "               <td>-</td>                                                                       " +
+      	  				          "           </tr>                                                                               " +
+      	  				          "       </tbody>                                                                                " +
+      	  				          "   </table>                                                                                    " ;
+      	  				 }else if(evt.graphic.attributes.측정소명 == "대청호(추동)"){
+      	  					 var t2 = 
+     	  				          "   <em class=\"viewtit2\">조류경보 발령 내역</em>                                               " +
+     	  				          "   <table class=\"tst04\">                                                                     " +
+     	  				          "   	<colgroup>                                                                                " +
+     	  				          "       	<col width=\"100\">                                                                   " +
+     	  				          "       	<col width=\"125\">                                                                   " +
+     	  				          "           <col width=\"125\">                                                                 " +
+     	  				          "       </colgroup>                                                                             " +
+     	  				          "   	<thead>                                                                                   " +
+     	  				          "       	<tr>                                                                                  " +
+     	  				          "           	<th>발령단계</th>                                                                 " +
+     	  				          "               <th>2015년</th>                                                                 " +
+     	  				          "               <th>2016년                                                                      " +
+     	  				          "           </tr>                                                                               " +
+     	  				          "       </thead>                                                                                " +
+     	  				          "       <tbody>                                                                                 " +
+     	  				          "       	<tr>                                                                                  " +
+     	  				          "               <th>주의보/관심</th>                                                            " +
+     	  				          "               <td><b>총40일</b><span>10.2~11.10</span></td>          " +
+     	  				          "               <td><b>총84일</b><span>8.3~10.25</span></td>                                                                       " +
+     	  				          "           </tr>                                                                               " +
+     	  				          "           <tr>                                                                                " +
+     	  				          "   			<th>경보/경계</th>                                                                    " +
+     	  				          "               <td>-</td>                                                                       " +
+     	  				          "               <td>-</td>                                                                       " +
+     	  				          "           </tr>                                                                               " +
+     	  				          "           <tr>                                                                                " +
+     	  				          "           	<th>대발생</th>                                                                   " +
+     	  				          "               <td>-</td>                                                                       " +
+     	  				          "               <td>-</td>                                                                       " +
+     	  				          "           </tr>                                                                               " +
+     	  				          "       </tbody>                                                                                " +
+     	  				          "   </table>                                                                                    " ;
+     	  				 }else if(evt.graphic.attributes.측정소명 == "대청호(문의)"){
+      	  					 var t2 = 
+    	  				          "   <em class=\"viewtit2\">조류경보 발령 내역</em>                                               " +
+    	  				          "   <table class=\"tst04\">                                                                     " +
+    	  				          "   	<colgroup>                                                                                " +
+    	  				          "       	<col width=\"100\">                                                                   " +
+    	  				          "       	<col width=\"125\">                                                                   " +
+    	  				          "           <col width=\"125\">                                                                 " +
+    	  				          "       </colgroup>                                                                             " +
+    	  				          "   	<thead>                                                                                   " +
+    	  				          "       	<tr>                                                                                  " +
+    	  				          "           	<th>발령단계</th>                                                                 " +
+    	  				          "               <th>2015년</th>                                                                 " +
+    	  				          "               <th>2016년                                                                      " +
+    	  				          "           </tr>                                                                               " +
+    	  				          "       </thead>                                                                                " +
+    	  				          "       <tbody>                                                                                 " +
+    	  				          "       	<tr>                                                                                  " +
+    	  				          "               <th>주의보/관심</th>                                                            " +
+    	  				          "               <td><b>총14일</b><span>10.28~11.10</span></td>          " +
+    	  				          "               <td><b>총91일</b><span>8.3~11.1</span></td>                                                                       " +
+    	  				          "           </tr>                                                                               " +
+    	  				          "           <tr>                                                                                " +
+    	  				          "   			<th>경보/경계</th>                                                                    " +
+    	  				          "               <td>-</td>                                                                       " +
+    	  				          "               <td>-</td>                                                                       " +
+    	  				          "           </tr>                                                                               " +
+    	  				          "           <tr>                                                                                " +
+    	  				          "           	<th>대발생</th>                                                                   " +
+    	  				          "               <td>-</td>                                                                       " +
+    	  				          "               <td>-</td>                                                                       " +
+    	  				          "           </tr>                                                                               " +
+    	  				          "       </tbody>                                                                                " +
+    	  				          "   </table>                                                                                    " ;
+    	  				 }else if(evt.graphic.attributes.측정소명 == "보령호(취수탑)"){
+      	  					 var t2 = 
+   	  				          "   <em class=\"viewtit2\">조류경보 발령 내역</em>                                               " +
+   	  				          "   <table class=\"tst04\">                                                                     " +
+   	  				          "   	<colgroup>                                                                                " +
+   	  				          "       	<col width=\"100\">                                                                   " +
+   	  				          "       	<col width=\"125\">                                                                   " +
+   	  				          "           <col width=\"125\">                                                                 " +
+   	  				          "       </colgroup>                                                                             " +
+   	  				          "   	<thead>                                                                                   " +
+   	  				          "       	<tr>                                                                                  " +
+   	  				          "           	<th>발령단계</th>                                                                 " +
+   	  				          "               <th>2015년</th>                                                                 " +
+   	  				          "               <th>2016년                                                                      " +
+   	  				          "           </tr>                                                                               " +
+   	  				          "       </thead>                                                                                " +
+   	  				          "       <tbody>                                                                                 " +
+   	  				          "       	<tr>                                                                                  " +
+   	  				          "               <th>주의보/관심</th>                                                            " +
+   	  				          "               <td>-</td>          " +
+   	  				          "               <td>-</td>                                                                       " +
+   	  				          "           </tr>                                                                               " +
+   	  				          "           <tr>                                                                                " +
+   	  				          "   			<th>경보/경계</th>                                                                    " +
+   	  				          "               <td>-</td>                                                                       " +
+   	  				          "               <td>-</td>                                                                       " +
+   	  				          "           </tr>                                                                               " +
+   	  				          "           <tr>                                                                                " +
+   	  				          "           	<th>대발생</th>                                                                   " +
+   	  				          "               <td>-</td>                                                                       " +
+   	  				          "               <td>-</td>                                                                       " +
+   	  				          "           </tr>                                                                               " +
+   	  				          "       </tbody>                                                                                " +
+   	  				          "   </table>                                                                                    " ;
+   	  				 }
+      	  				 
+      	  				if(t2 != undefined){
+      	  					t = t+t2;
+      	  				}
     	    		          //console.info(evt.graphic.attributes);
     	    		          var content, highlightGraphic;
     	    		          

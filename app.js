@@ -643,7 +643,12 @@ Ext.application({
 			var rNameToolbar = Ext.getCmp("reachNameToolbar");
 			var sConfig = Ext.getCmp("searchConfig");
 			var kConfig = Ext.getCmp("kradSchConf");
-			console.info(kConfig);
+			
+			var droneToolbar = Ext.getCmp("droneToolbar");
+			if(droneToolbar.getY()==202){
+				droneToolbar.setY(droneToolbar.getY() - 105);
+			}
+			
 			cContainer.remove(rToolbar, false);
 			if(rNameToolbar != undefined && rNameToolbar != null)
 				rNameToolbar.close();
