@@ -158,21 +158,21 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 			
 		      console.info(size.width);
 		      if(size.width < 1700){
-		    	  var xmax = 15264494.91554893;
-		    	  var xmin = 13644029.915903272;
-		    	  var ymax = 4607909.446139407;
-		    	  var ymin = 3935263.59722989;
-		      }else if(size.width > 1700 && size.width < 1850){
+		    	  var xmax = 15228416.63819833;
+		    	  var xmin = 13607951.638552671;
+		    	  var ymax = 4677314.267822344;
+		    	  var ymin = 4079882.454745436;
+		      }else if(size.width > 1700 && size.width <= 1850){
 		    	  var xmax = 15236977.585366268;
 		    	  var xmin = 13616512.58572061;
 		    	  var ymax = 4616470.393307347;
 		    	  var ymin = 3943824.5443978296;
-		      }else if(size.width > 1850 && size.width < 2100){
+		      }else if(size.width > 1850 && size.width <= 2100){
 		    	  var xmax = 15164209.534438783;
 		    	  var xmin = 13543744.534793125;
 		    	  var ymax = 4692907.42159252;
 		    	  var ymin = 4020261.5726830023;
-		      }else if(size.width > 2100 && size.width < 2300){
+		      }else if(size.width > 2100 && size.width <= 2300){
 		    	  var xmax = 15074625.33728856;
 		    	  var xmin = 13454771.833869183;
 		    	  var ymax = 4719507.5074357595;
