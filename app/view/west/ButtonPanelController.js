@@ -13,9 +13,23 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 
 		var currCtl = SetBtnOnOff(el.id);
 		var droneCtl = Ext.getCmp("droneToolbar");
+        var btnModeReach = Ext.getCmp("btnModeReach");
+
 		//console.info(droneCtl);
 		
 		if(currCtl.btnOnOff == "on"){
+            
+            droneCtl.show();
+            
+            if(btnModeReach.btnOnOff=="on" && droneCtl.getY()==97){
+                droneCtl.setY(droneCtl.getY() + 105);
+            }
+
+            if(btnModeReach.btnOnOff=="off" && droneCtl.getY()==202){
+                droneCtl.setY(droneCtl.getY() - 105);
+            }
+            
+
 			droneCtl.show();
 			Layer01OnOff(_reachNodeLayerId, "off");
 			Layer01OnOff(_reachLineLayerId, "off");
@@ -241,6 +255,17 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	KRF_DEV.getApplication().fireEvent('drawEnd');
 	    	
 			Ext.ShowReachToolbar(evtArgs, el);
+
+			var droneToolbar = Ext.getCmp("droneToolbar");
+            var reachToolbar = Ext.getCmp("reachToolbar");
+            //Ext.getCmp("");
+            //console.info(droneToolbar.getY());
+            if(!reachToolbar.hidden && droneToolbar.getY()==97){
+                
+                droneToolbar.setY(droneToolbar.getY() + 105);
+                
+            }
+
 			//Ext.HideSiteListWindow();
 			//HideWindowSiteNChart();
 			//Ext.HideSiteInfoWindow();

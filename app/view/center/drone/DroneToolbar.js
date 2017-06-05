@@ -35,14 +35,15 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	id: "toolbarCont",
     	/* 헤더 셋팅 Open, Close 버튼 */
     	header: {
-        	html: "<img src='./resources/images/drone/btn_arrow_open2.png' />",
+        	html: "<img src='./resources/images/drone/btn_arrow_close2.png' />",
         	listeners: {
         		el: {
         			click: function(){
         				
         				var toolbarCont = Ext.getCmp("toolbarCont");
 
-        				if(toolbarCont.collapsed == true || toolbarCont.collapsed == "left"){
+        				if(toolbarCont.expanded == false || toolbarCont.collapsed == "right"){
+
         					toolbarCont.expand();
         					toolbarCont.updateHeaderPosition("right");
         					toolbarCont.header.setHtml("<img src='./resources/images/drone/btn_arrow_close2.png' />");
@@ -69,9 +70,9 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	layout: {
     		type: "hbox"
     	},
-    	headerPosition: 'left',
-    	collapsed: true,
-    	width: 14,
+    	headerPosition: 'right',
+    	expanded: true,
+    	width: 938,
     	items: [{
     		xtype: "container",
     		width: 5

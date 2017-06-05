@@ -2028,7 +2028,13 @@ SetWestCollapseXY = function(option){
 		reachCountEToolbar.setX(reachCountEToolbar.getX() + offsetWidth);
 	}
 	
-	
+      var droneToolbar = Ext.getCmp("droneToolbar");
+      if(droneToolbar != undefined){          
+          if(droneToolbar.hidden == false){
+              droneToolbar.setX(droneToolbar.getX() + offsetWidth);
+          }
+      }
+
 	
 	if(option != "show"){
 		

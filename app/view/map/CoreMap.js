@@ -137,12 +137,49 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		        	  wkid: 102100
 		          }
 		      });
-		      
-		      me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
-		    	  xmin: 13051204.69152676,
-		    	  ymin: 3309091.461517964,
-		    	  xmax: 15889117.943692,
-		    	  ymax: 5341704.9176768325,
+              
+              
+              var size = {
+                      width: window.innerWidth || document.body.clientWidth,
+                      height: window.innerHeight || document.body.clientHeight 
+                    }
+            
+              if(size.width < 1700){
+                  var xmax = 15264494.91554893;
+                  var xmin = 13644029.915903272;
+                  var ymax = 4607909.446139407;
+                  var ymin = 3935263.59722989;
+              }else if(size.width > 1700 && size.width < 1850){
+                  var xmax = 15236977.585366268;
+                  var xmin = 13616512.58572061;
+                  var ymax = 4616470.393307347;
+                  var ymin = 3943824.5443978296;
+              }else if(size.width > 1850 && size.width < 2100){
+                  var xmax = 15164209.534438783;
+                  var xmin = 13543744.534793125;
+                  var ymax = 4692907.42159252;
+                  var ymin = 4020261.5726830023;
+              }else if(size.width > 2100 && size.width < 2300){
+                  var xmax = 15074625.33728856;
+                  var xmin = 13454771.833869183;
+                  var ymax = 4719507.5074357595;
+                  var ymin = 3903160.045350118;
+              }else if(size.width > 2300){
+                  var xmax = 15034878.082580235;
+                  var xmin = 13413801.586708296;
+                  var ymax = 4748553.578184113;
+                  var ymin = 3822748.291594104;
+              }
+                
+              
+              
+              me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
+                
+                  xmin: xmin,
+                  ymin: ymin,
+                  xmax: xmax,
+                  ymax: ymax,
+
 		          spatialReference: {
 		        	  wkid: 102100
 		          }
