@@ -236,6 +236,7 @@ Ext.application({
 						query.returnGeometry = true;
 						query.outFields = ["*"];
 						query.where = where;
+						
 						// 리치라인 조회
 						
 						queryTask.execute(query, function(featureSet){

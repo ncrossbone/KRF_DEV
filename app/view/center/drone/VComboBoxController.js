@@ -83,8 +83,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var phyLayerId = "";
 		
 		Ext.defer(function(){
-			var store = cboDroneDate.getStore();
 			
+			var store = cboDroneDate.getStore();
 			droneLayerId = store.data.items[0].data.DroneLayerId;
 			drone = store.data.items[0].data;
 			measureDate = store.data.items[0].data.MeasureDate;
@@ -98,7 +98,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			}*/
 			
 			me.defaultDate(droneLayerId,measureDate,drone,phyLayerId);
-		}, 1);
+		}, 100);
 		
 	},
 	
