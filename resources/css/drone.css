@@ -56,11 +56,11 @@
 	background: #ffffff !important;
 	padding: 6px 8px;
 }
-table { border-collapse: collapse; }
+.view_form { border-collapse: collapse; }
 
-table> thead> tr> th:last-child, table> thead> tr> td:last-child, table> tbody> tr> th:last-child, table> tbody> tr> td:last-child {border-right: 0px; }
+.view_form> thead> tr> th:last-child, .view_form> thead> tr> td:last-child, .view_form> tbody> tr> th:last-child, .view_form> tbody> tr> td:last-child {border-right: 0px; }
  
-table> thead> tr> th, table> thead> tr> td, table> tbody> tr> th, table> tbody> tr> td { padding: 5px 3px; border-bottom: 1px solid #ddd;border-right: 1px solid #ddd; text-align: center; }
+.view_form> thead> tr> th, .view_form> thead> tr> td, .view_form> tbody> tr> th, .view_form> tbody> tr> td { padding: 5px 3px; border-bottom: 1px solid #ddd;border-right: 1px solid #ddd; text-align: center; }
 
 .tst04 { width: 350px; font-size: 12px; }
 .tst04> thead> tr { background: #59657f; }
