@@ -70,6 +70,10 @@ Ext.define("KRF_DEV.global.DroneFn", {
 		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
 		me.initVComboBox(cboDroneWBSite);
 		
+		// 피코시아닌 초기화
+		var cboDronePhy = Ext.getCmp("cboDronePhy");
+		me.initVComboBox(cboDronePhy);
+		
 		// 레이어선택 초기화
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
 		me.initVComboBox(cboDroneLayer);

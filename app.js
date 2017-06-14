@@ -192,10 +192,13 @@ Ext.application({
 	launch : function() {
 		
 		Ext.onReady(function(){
+			
 			//console.info(encodeURIComponent("121342134|fsljdk|ffff"));
 			/* 물환경 상세조회 시 화면 이동 및 심볼 표시
 			 * station, stationType 필수 파라메터 */
-			var params = Ext.urlDecode(location.search.substring(1));
+			
+			var getParam = location.search.substring(1);
+			var params = Ext.urlDecode(getParam);
 			if(params.stationType != undefined){
 				/*var paramIdx = _paramInfo.map(function(obj){
 					
@@ -238,7 +241,6 @@ Ext.application({
 						query.where = where;
 						
 						// 리치라인 조회
-						
 						queryTask.execute(query, function(featureSet){
 							
 							if(featureSet.features.length > 0){
@@ -281,26 +283,6 @@ Ext.application({
 								}, 500);
 								coreMap.map.addLayer(graphicLayer);
 								Ext.ShowSiteListWindow("paramSearch");
-								//var timer = window.setInterval(function(){
-									/*var cenPoint = new esri.geometry.Point({ "x": featureSet.features[0].attributes.TM_X, "y": featureSet.features[0].attributes.TM_Y});
-									coreMap.map.centerAt(cenPoint);*/
-									//console.info(coreMap.map.extent);
-									//window.clearInterval(timer);
-								//}, 1000);
-								
-								/*Ext.defer(function(){
-									
-									var level = coreMap.map.getLevel() - 1;
-									
-									if(level > 12){
-										coreMap.map.setLevel(12);
-									}
-									else{
-										coreMap.map.setLevel(level);
-									}
-									
-									//coreMap.map.addLayer(graphicLayer);
-								}, 500);*/
 							}
 						});
 					});
