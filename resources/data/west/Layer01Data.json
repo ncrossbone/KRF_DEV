@@ -158,7 +158,7 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "G001",
+		"layerCode": "I001",
 	},{
 		"id": "35",
 		"text": "상수원구간",
@@ -169,7 +169,7 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "G002",
+		"layerCode": "I002",
 	},{
 		"id": "36",
 		"text": "친수활동구간",
@@ -180,7 +180,7 @@
 		"siteIdCol": "측정소코드",
 		"siteNmCol": "지점명",
 		"siteAddrCol": "주소",
-		"layerCode": "G002",
+		"layerCode": "I003",
 	}]
 },{
 	"id": "37",
