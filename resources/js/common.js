@@ -1767,6 +1767,7 @@ ResetButtonClick = function(){
 		reache_close.setHidden(true);
 	
 	//---north
+	
 	// 항공영상 초기화
 	KRF_DEV.global.DroneFn.onClickResetButton();
 	
@@ -1830,7 +1831,6 @@ Layer01OnOff = function(layerId, onoff){
 	var node = treeCtl.getStore().getNodeById(layerId);
 	
 	var isChecked = false;
-	
 	if(onoff == "on"){
 		node.set("checked", true);
 	}

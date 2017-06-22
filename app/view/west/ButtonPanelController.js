@@ -39,6 +39,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 
 		}else{
 			// 항공영상 초기화
+			droneCtl.hide();
 			KRF_DEV.global.DroneFn.onClickResetButton();
 			droneCtl.hide();
 			Ext.defer(function(){

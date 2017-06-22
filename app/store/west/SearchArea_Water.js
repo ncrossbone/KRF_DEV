@@ -20,17 +20,17 @@ Ext.define('KRF_DEV.store.west.SearchArea_Water', {
 			idColumn = "";
 
 			
-			if (store.layerId == '57') {
+			if (store.layerId == '61') {
 				idColumn = "WS_CD";
 				nameColumn = "대권역";
 				whereStr = "1=1";
 			}
-			if (store.layerId == '58') {
+			if (store.layerId == '62') {
 				idColumn = "MW_CODE";
 				nameColumn = "MW_NAME";
 				whereStr = "WS_CD = '" + store.parentId + "'";
 			}
-			if (store.layerId == '59') {
+			if (store.layerId == '63') {
 				idColumn = "SW_CODE";
 				nameColumn = "SW_NAME";
 				whereStr = "MBSNCD = '" + store.parentId + "'";

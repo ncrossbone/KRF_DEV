@@ -36,7 +36,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 			},
 			items : [{
 				id : 'cmbWater1',
-				layerId : '57',
+				layerId : '61',
 				xtype : 'combo',
 				tarCmbId : 'cmbWater2',
 				lnkBtnId : 'btnWater1',
@@ -76,7 +76,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 			},
 			items : [{
 				id : 'cmbWater2',
-				layerId : '58',
+				layerId : '62',
 				xtype : 'combo',
 				tarCmbId : 'cmbWater3',
 				lnkBtnId : 'btnWater2',
@@ -116,7 +116,7 @@ Ext.define('KRF_DEV.view.west.SearchArea_Water', {
 			},
 			items : [{
 				id : 'cmbWater3',
-				layerId : '59',
+				layerId : '63',
 				xtype : 'combo',
 				tarCmbId : '',
 				lnkBtnId : 'btnWater3',
