@@ -27,7 +27,6 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				droneCtl.setY(droneCtl.getY() - 105);
 			}
 			
-			console.info(droneCtl);
 			droneCtl.show();
 			
 			Layer01OnOff(_reachNodeLayerId, "off");
@@ -36,6 +35,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			SetBtnOnOff("btnFlowLayer","off");
 			SetBtnOnOff("btnReachLayer","off");
 		}else{
+			droneCtl.hide();
 			// 항공영상 초기화
 			KRF_DEV.global.DroneFn.onClickResetButton();
 			droneCtl.hide();

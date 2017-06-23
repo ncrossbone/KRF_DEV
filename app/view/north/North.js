@@ -59,7 +59,7 @@ Ext.define('KRF_DEV.view.north.North', {
     }, { 
 		xtype: 'image',
 		id: 'btnReachLayer',
-		layerId: '46',
+		layerId: '54',
 		groupId: 'grpReach',
     	title: '리치라인',
         style:'cursor:pointer;',
