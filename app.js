@@ -234,7 +234,7 @@ Ext.application({
 		    	        		 PictureMarkerSymbol,
 		    	        		 graphicsUtils){
 						
-						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/88");
+						var queryTask = new QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId);
 						var query = new Query();
 						query.returnGeometry = true;
 						query.outFields = ["*"];
