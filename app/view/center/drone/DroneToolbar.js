@@ -305,9 +305,12 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	var x = 0;
 		var y = 14;
 		
-    	comboCtl.removeAll();
-    	comboCtl.x = x;
-    	comboCtl.y = y;
-    	comboCtl.initComponent();
+		if(comboCtl != undefined){
+			comboCtl.removeAll();
+	    	comboCtl.x = x;
+	    	comboCtl.y = y;
+	    	comboCtl.initComponent();
+		}
+    	
     }
 });

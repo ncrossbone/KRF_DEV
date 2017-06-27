@@ -1665,6 +1665,9 @@ ResetButtonClick = function(){
 	
 	catTMLayerOnOff("off");
 	
+	//부하량 배열 초기화
+	me.reachLayerAdmin_v3_New.arrAreaGrp = [];
+	
 	pollutionLayerOnOff("off","");
 	
 	Ext.HideSiteListWindow(); // 지점 리스트 창 닫기

@@ -611,9 +611,9 @@ showCatTMLayer = function(year, colName){
 	
 	var coreMap = GetCoreMap();
 	
+	
 	var arrAreaGrp = coreMap.reachLayerAdmin_v3_New.arrAreaGrp;
 	var inStrCatDids = "";
-	
 	for(var i = 0; i < arrAreaGrp.length; i++){
 		
 		inStrCatDids += "'" + arrAreaGrp[i].attributes.CAT_DID + "', ";
@@ -976,10 +976,7 @@ PollLoadSearchResult = function(value){
 
 		var rchMap = GetCoreMap();
 		var tmpAreaGrp = rchMap.reachLayerAdmin_v3_New.arrAreaGrp;
-		
 		var catDid = [];
-		
-		
 		if(tmpAreaGrp != null){
 			for(i = 0; i < tmpAreaGrp.length;i++){
 				catDid.push(tmpAreaGrp[i].attributes.CAT_DID);

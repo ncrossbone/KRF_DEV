@@ -473,7 +473,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		
 		
 		var btnId = "catTMOnOff";
-		
 		if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
 			
 			var pollLoadString = "{\n";
