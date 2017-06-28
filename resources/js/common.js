@@ -1618,9 +1618,7 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
-	console.info("parentNodeId : " +parentNodeId);
-	console.info("nodeId : " +nodeId);
-	console.info("clickValue : " +clickValue);
+	
 	//console.info(nodeId);
 	if(nodeId == undefined || nodeId == null || nodeId == ""){
 		return;
