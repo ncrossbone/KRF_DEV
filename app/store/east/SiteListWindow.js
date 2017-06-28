@@ -167,7 +167,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					return;
 				}
 			}
-			console.info(store.searchType);
+			
 			//표출 X 항목 : 수질자동측정지점(B) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
 			if(store.searchType != "paramSearch"){
 				//alert("1");

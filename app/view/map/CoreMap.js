@@ -156,7 +156,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 					  height: window.innerHeight || document.body.clientHeight 
 					}
 			
-		      console.info(size.width);
+		      
 		      if(size.width < 1700){
 		    	  var xmax = 15228416.63819833;
 		    	  var xmin = 13607951.638552671;
@@ -334,13 +334,13 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	onExtentChange: function(extent, a, b, obj, c){
 		
 		var coreMap = GetCoreMap();
-		console.info(coreMap.map.extent);
+		
 		//console.info(extent);
 		var size = {
 				  width: window.innerWidth || document.body.clientWidth,
 				  height: window.innerHeight || document.body.clientHeight 
 				}
-		console.info(size);
+		
 		// 툴팁 XY 셋팅
 		setTooltipXY();
 	}

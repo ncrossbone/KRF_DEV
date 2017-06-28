@@ -679,51 +679,61 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     execLineFeature: function(featureSet){
     	var me = this;
     	
-    	for(var i = 0; i < featureSet.features.length; i++){
-    		
-    		var feature = featureSet.features[i];
-			
-    		if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle"){
-    			
-    			var catDid = feature.attributes.CAT_DID;
-    			
-    			// 그래픽 그리기
-    			me.drawGraphic(feature, "reachLine");
-    			// 집수구역 그리기
-    			me.setReachArea(catDid);
-    			// 버튼 끄기
-    			SetBtnOnOff(me.btnObj.id, "off");
-    			// 이벤트 초기화
-				initKradEvt();
-    		}
-    		else if(me.drawOption == "removePoint"){
-    			
-				// 라인 지운다
-				me.removeGraphic(feature, "reachLine");
-				// 집수구역 지운다
-				me.removeGraphic(feature, "reachArea");
-    			// 버튼 끄기
-    			SetBtnOnOff(me.btnObj.id, "off");
-    			// 이벤트 초기화
+    	
+        if(me.drawOption == "endPoint" || me.drawOption == "startPoint"){
+        	
+        	var feature = featureSet.features[0];
+        	
+        	me.rchIds.push(feature.attributes.RCH_ID);
+			me.clickedReachLines.push(feature); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
+		
+			if(_krad.kradInfo.length == 0){
+				me.setClickEvt(_krad.mapClickEvt, "Reach");
+				// 이벤트 초기화
 				initKradEvt();
 			}
-    		else{
-    			//console.info(feature.attributes.RCH_ID);
+			else{
+				
+				me.showPopup();
+			}
+        }else{
+
+			//console.info(feature.attributes.RCH_ID);
+        	for(var i = 0; i < featureSet.features.length; i++){
+        		
+        		var feature = featureSet.features[i];
     			
-    			me.rchIds.push(feature.attributes.RCH_ID);
-    			me.clickedReachLines.push(feature); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
-    		
-    			if(_krad.kradInfo.length == 0){
-    				me.setClickEvt(_krad.mapClickEvt, "Reach");
-    				// 이벤트 초기화
-					initKradEvt();
-    			}
-    			else{
-    				
-    				me.showPopup();
+        		if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle"){
+        			
+        			var catDid = feature.attributes.CAT_DID;
+        			
+        			// 그래픽 그리기
+        			me.drawGraphic(feature, "reachLine");
+        			// 집수구역 그리기
+        			me.setReachArea(catDid);
+        			// 버튼 끄기
+        			SetBtnOnOff(me.btnObj.id, "off");
+        			// 이벤트 초기화
+    				initKradEvt();
+        		}
+        		else if(me.drawOption == "removePoint"){
+        			
+    				// 라인 지운다
+    				me.removeGraphic(feature, "reachLine");
+    				// 집수구역 지운다
+    				me.removeGraphic(feature, "reachArea");
+        			// 버튼 끄기
+        			SetBtnOnOff(me.btnObj.id, "off");
+        			// 이벤트 초기화
+    				initKradEvt();
     			}
     		}
-		}
+			
+		
+        }
+
+    	
+    	
     	
     	if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "removePoint"){
     		
