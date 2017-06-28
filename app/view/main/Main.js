@@ -137,11 +137,13 @@ Ext.define('KRF_DEV.view.main.Main', {
     	
     	this.setControlSize(); // 사이즈 조절
     	this.on("resize", this.setControlSize); // 이벤트 생성
+    	
+    	droneToolbar.hide();
     },
     
     // 메인 컨테이너 사이즈 조절
     setControlSize: function(){
-    	
+    	//alert("11");
     	var northContainer = KRF_DEV.getApplication().northContainer;
     	var westBtnContainer = KRF_DEV.getApplication().westBtnContainer;
     	var contContainer = KRF_DEV.getApplication().contContainer;
@@ -156,27 +158,41 @@ Ext.define('KRF_DEV.view.main.Main', {
     	contContainer.setHeight(Ext.getBody().getViewSize().height - northContainer.height);
     	
     	/* Drone 툴바 위치 조절 */
-    	var droneCtl = Ext.getCmp("droneToolbar");
+    	/*var droneCtl = Ext.getCmp("droneToolbar");
     	
     	var droneToolX = droneCtl.x;
     	var droneToolWidth = droneCtl.width;
-    	var bodyWidth = Ext.getBody().getWidth();
+    	var bodyWidth = Ext.getBody().getWidth();*/
     	
-    	if(droneToolX + droneToolWidth > bodyWidth){
+    	//console.info(droneToolX);
+    	//droneCtl.x = 390;
+    	//droneCtl.y = 97;
+    	
+    	//console.info(droneCtl.x);
+    	//console.info(contWestContainer.width);
+    	//console.info(bodyWidth - contWestContainer.width);
+    	//console.info(contWestContainer.width + droneToolWidth);
+    	
+    	//if(bodyWidth - contWestContainer.width > contWestContainer.width + droneToolWidth){
+    		//droneCtl.setX(contWestContainer.width);
+    	//}
+    	//console.info(droneToolWidth);
+    	//console.info(bodyWidth - droneToolWidth);
+    	/*if(droneToolX + droneToolWidth > bodyWidth){
     		
     		droneCtl.setX(bodyWidth - droneToolWidth);
-    	}
+    	}*/
     	
-    	var droneToolY = droneCtl.y;
+    	/*var droneToolY = droneCtl.y;
     	var droneToolHeight = droneCtl.height;
-    	var bodyHeight = Ext.getBody().getHeight();
+    	var bodyHeight = Ext.getBody().getHeight();*/
     	
-    	if(droneToolY + droneToolHeight > bodyHeight){
+    	/*if(droneToolY + droneToolHeight > bodyHeight){
     		
     		droneCtl.setY(bodyHeight - droneToolHeight);
-    	}
+    	}*/
     	//default 숨김
-    	droneCtl.hide();
+    	//droneCtl.hide();
     	/* Drone 툴바 위치 조절 끝 */
     }
 });
