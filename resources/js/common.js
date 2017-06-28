@@ -1618,7 +1618,9 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
-	
+	console.info("parentNodeId : " +parentNodeId);
+	console.info("nodeId : " +nodeId);
+	console.info("clickValue : " +clickValue);
 	//console.info(nodeId);
 	if(nodeId == undefined || nodeId == null || nodeId == ""){
 		return;
@@ -1643,9 +1645,12 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 		}
 	}
 	
-	// 피처 레이어 생성/갱신
-	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
+	console.info(layerId);
+	console.info(nodeId);
+	console.info(clickValue);
 	
+	// 피처 레이어 생성/갱신
+	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);
 	// 주제도 레이어 키기
 	Layer01OnOff(layerId, "on");
 }

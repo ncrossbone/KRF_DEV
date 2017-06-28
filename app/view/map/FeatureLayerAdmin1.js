@@ -194,6 +194,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
     	
+    	
     	var me = this;
     	//	시작지점 끝지점 선택시 --- 명칭찾기,toolbar지점이름 변경
     	var reachNameToolbar = Ext.getCmp("reachNameToolbar");

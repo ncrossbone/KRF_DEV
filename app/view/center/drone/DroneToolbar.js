@@ -22,8 +22,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     bodyStyle: "padding: 0 !important; background-color: transparent;", // 백그라운드 투명
     
     draggable: true,
-    floating: true,
-    shadow: false,
+    /*floating: true,
+    shadow: false,*/
     
     //width: 806,
     height: 80,

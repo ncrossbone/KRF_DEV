@@ -369,7 +369,7 @@ Ext.application({
 
 		// 지점 목록 창 띄우기
 		Ext.ShowSiteListWindow = function(searchText, searchType) {
-
+			console.info("!");
 			var me = GetCoreMap();
 
 			//console.info(searchText);
