@@ -138,7 +138,7 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         		}		
         			store.loadData(jsonData.data);
         			store.arrMax = jsonData.maxdata;
-        			
+        			//console.info(jsonData.data);
         			if(jsonData.data.length > 0){
 	        			// 차트 컨트롤에 max 데이터 셋팅
 	        			SetChartMaxData(store);

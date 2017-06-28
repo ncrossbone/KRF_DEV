@@ -131,6 +131,10 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	             left: 30,
 	             right:30
 	        }, 
+	        /*interactions: {
+	            type: 'crosszoom',
+	            zoomOnPanGesture: false
+	        },*/
 	        width: 450,
 	        height: 250,
 	        padding: '10 0 0 0',
