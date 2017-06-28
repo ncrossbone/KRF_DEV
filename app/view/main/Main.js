@@ -227,10 +227,9 @@ var obj = window.chromePop;
     	var droneToolWidth = droneCtl.width;
     	var bodyWidth = Ext.getBody().getWidth();
     	
-    	if(droneToolX + droneToolWidth > bodyWidth){
-    		
+    	/*if(droneToolX + droneToolWidth > bodyWidth){
     		droneCtl.setX(bodyWidth - droneToolWidth);
-    	}
+    	}*/
     	
     	var droneToolY = droneCtl.y;
     	var droneToolHeight = droneCtl.height;
