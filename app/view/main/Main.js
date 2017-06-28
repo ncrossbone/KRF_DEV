@@ -58,7 +58,7 @@ Ext.define('KRF_DEV.view.main.Main', {
  		if(document.URL != "http://112.218.1.243:20003/KRF_IE/"){
  			
 	 		//if(Ext.browser.is.Chrome == false){
-	 		if(Ext.browser.is.IE == true && Ext.browser.version.major < 9){ // IE11 아래 버전 막기
+	 		if(Ext.browser.is.IE == true && Ext.browser.version.major < 10){ // IE11 아래 버전 막기
  			//if(Ext.browser.is.IE == true){
 	 			
 	 			Ext.create("Ext.window.Window", {
@@ -178,6 +178,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     	//}
     	//console.info(droneToolWidth);
     	//console.info(bodyWidth - droneToolWidth);
+
     	/*if(droneToolX + droneToolWidth > bodyWidth){
     		
     		droneCtl.setX(bodyWidth - droneToolWidth);
