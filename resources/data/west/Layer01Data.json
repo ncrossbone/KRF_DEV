@@ -212,7 +212,7 @@
 		"siteAddrCol": "주소",
 		"layerCode": "G001",
 	},{
-		"id": "38",
+		"id": "40",
 		"text": "호소",
 		"cls": "khLee-x-tree-node-text-small-nounder",
 		"iconCls": "layerIconSize layer78",
