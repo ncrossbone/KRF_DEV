@@ -15,21 +15,25 @@
 	"baseMapUrl_vworld_intra": "http://10.101.95.129/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맵 서비스 내부 (참고용)
 	"baseMapUrl_vworld_test": "http://112.218.1.243:20080/2d/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맵 서비스 테스트 서버 (참고용)
 	"baseMapUrl_vworld_old": "http://xdworld.vworld.kr:8080/2d/Base/201301/#level#/#col#/#row#.png", // 배경맵 서비스 예전버전 2013년
-	"reachFlowLayerId" : "52", // 리치흐름 레이어 아이디
-	"reachNodeLayerId" : "53", // 리치노드 레이어 아이디
-	"reachLineLayerId" : "54", // 리치라인 레이어 아이디
-	"reachAreaLayerId" : "55", // 집수구역 레이어 아이디
-	"admSidoLayerId" : "65", // 시/도 레이어 아이디
-	"admSigunguLayerId" : "66", // 시/군/구 레이어 아이디
-	"admDongLayerId" : "67", // 읍/면/동 레이어 아이디
-	"admRiLayerId" : "68", // 리 레이어 아이디
-	"areaWSLayerId" : "61", // 대권역 레이어 아이디
-	"areaAMLayerId" : "62", // 중권역 레이어 아이디
-	"areaASLayerId" : "63", // 소권역 레이어 아이디
+	
+	"reachFlowLayerId" : "53", // 리치흐름 레이어 아이디
+	"reachNodeLayerId" : "54", // 리치노드 레이어 아이디
+	"reachLineLayerId" : "55", // 리치라인 레이어 아이디
+	"reachAreaLayerId" : "56", // 집수구역 레이어 아이디
+	"admSidoLayerId" : "66", // 시/도 레이어 아이디
+	"admSigunguLayerId" : "67", // 시/군/구 레이어 아이디
+	"admDongLayerId" : "68", // 읍/면/동 레이어 아이디
+	"admRiLayerId" : "69", // 리 레이어 아이디
+	"areaWSLayerId" : "62", // 대권역 레이어 아이디
+	"areaAMLayerId" : "63", // 중권역 레이어 아이디
+	"areaASLayerId" : "64", // 소권역 레이어 아이디
+	"toLegend" : "71", // 식생도 레이어 아이디
+	"sicLegend" : "73", // 토지피복도 레이어 아이디
+	
 	"kradCatSearchId" : "21", // KRAD CAT_SEARCH
 	"kradCatExtMetaData" : "23", // KRAD METADATA
 	"kradCatExtDataInfo" : "27", // KRAD DATA_INFO
-	"siteInfoLayerId" : "92", // 레이어별 지점정보 레이어 아이디
+	"siteInfoLayerId" : "93", // 레이어별 지점정보 레이어 아이디
 	"arcServiceUrl":"http://112.217.167.123:20002/arcgis",
 	"MapserviceUrl1" : "http://112.217.167.123:20002/arcgis/rest/services/drone_dev/MapServer",
 	"MapserviceUrlChlo" : "http://112.217.167.123:20002/arcgis/rest/services/Chlorophyll_a/MapServer",

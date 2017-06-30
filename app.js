@@ -29,6 +29,10 @@ var _areaASLayerId = null; // 소권역 레이어 아이디
 var _nameLayerId = null; // 시도 레이어 아이디
 var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
+
+var _toLegend = null; //식생도
+var _sicLegend = null; //토지피복도
+
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
 var _MapserviceUrl1 = null;
 var _kradMapserviceUrl = null;
@@ -110,6 +114,8 @@ store.load(function(a, b, c) {
 		_kradCatExtMetaData = record.data.kradCatExtMetaData;
 		_cursorX = "";
 		_cursorY = "";
+		_toLegend =  record.data.toLegend;
+		_sicLegend = record.data.sicLegend;
 		
 		$(document).bind("click", function(event){
 			
@@ -238,7 +244,7 @@ Ext.application({
 		    	        		 PictureMarkerSymbol,
 		    	        		 graphicsUtils){
 						
-						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/92");
+						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _siteInfoLayerId);
 						var query = new Query();
 						query.returnGeometry = true;
 						query.outFields = ["*"];

@@ -91,17 +91,17 @@ Ext.define('KRF_DEV.view.west.SearchArea_WaterController',{
 
 		var centerCtl = Ext.getCmp("center_container");
 
-		if (searchLayerId == '61') {
+		if (searchLayerId == _areaWSLayerId) {
 			idColumn = "WS_CD";
 			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + combo.rawValue);
 		}
-		if (searchLayerId == '62') {
+		if (searchLayerId == _areaAMLayerId) {
 			idColumn = "MW_CODE";
 
 			var wsCtl = Ext.getCmp("cmbWater1");
 			centerCtl.setTitle('&nbsp;&nbsp;<img src="./resources/images/button/icon_home.png" /> ' + wsCtl.rawValue + " > " + combo.rawValue);
 		}
-		if (searchLayerId == '63') {
+		if (searchLayerId == _areaASLayerId) {
 			idColumn = "SW_CODE";
 
 			var wsCtl = Ext.getCmp("cmbWater1");
