@@ -4,7 +4,9 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	dynamicLayer1:null,
 	dynamicLayer2:null,
 	
-	fLayers: [63, 65, 71, 72, 73, 74, 75, 76, 80], // 투명도 주기위한 레이어 아이디
+     //읍면동 / 식생도 / 특밸대책지역 / 오수처리대책 / 상수원보고구역 / 배출시설제한 / 수변구역 / 그린벨트 /총량관리
+    fLayers: [67, 71, 79, 80, 81, 82, 83, 84, 88], // 투명도 주기위한 레이어 아이디
+
 	
 	constructor: function(map) {
         var me = this;
@@ -75,8 +77,8 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     	var initX = 385;
     	var initY = Ext.getBody().getHeight();
     	Ext.each(selectInfo, function(selectObj, index, eObjs) {
-    		
-    		if(selectObj.data.id == "63"){
+
+    		if(selectObj.data.id == _toLegend){
     			
     			Ext.create("KRF_DEV.view.map.LegendWindow", {
     				
@@ -91,8 +93,8 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     			initX = initX + 550;
     		}
     		
-    		if(selectObj.data.id == "65"){
-    			
+    		if(selectObj.data.id == _sicLegend){
+
     			Ext.create("KRF_DEV.view.map.LegendWindow", {
     				
     				id: "legendwindow_65",

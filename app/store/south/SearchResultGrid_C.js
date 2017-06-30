@@ -111,7 +111,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 	        			if(jsonData.data.length > 0){
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
-		        				
+		        				if(dateSplit == null){
+			        				if(me.gridCtl != null){
+				        				me.gridCtl.addCls("dj-mask-noneimg");
+				        				me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+			        				}
+		        				}
+
 		        				////console.info(jsonData.data);
 		        				//store.setData(jsonData.data);
 		        				startYear = jsonData.data[0].WMYR;

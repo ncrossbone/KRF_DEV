@@ -512,7 +512,7 @@
 		"visible": "false"
 	}, {
 		"id" : "reachLine",
-		"layerId": ["53", "54"],
+		"layerId": ["54", "55"],
 		"layerName": "리치라인",
 		"layerOnOff": "off",
 		"image1": "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
