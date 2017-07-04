@@ -53,6 +53,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     
     // 레이어 on/off 핸들러 정의
     dynamicLayerOnOffHandler: function(selectInfo){
+    	
     	var me = this;
     	
     	var layers1 = [-1];
@@ -116,8 +117,8 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     			
     			layers1.push(selectObj.data.id);
     		}
+    		
 		});
-    	
     	me.dynamicLayer1.setVisibleLayers(layers1);
     	me.dynamicLayer2.setVisibleLayers(layers2);
     },

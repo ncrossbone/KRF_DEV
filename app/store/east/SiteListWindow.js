@@ -172,8 +172,38 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			if(store.searchType != "paramSearch"){
 				//alert("1");
 				query.where += "	AND  GROUP_CODE <> 'B' AND  GROUP_CODE <> 'E' AND GROUP_CODE <> 'C' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
+				
 			}
 			
+			
+			if(store.paramType == "MA"){
+				query.where += " AND LAYER_CODE = 'A001' ";
+			}else if(store.paramType == "MB"){
+				query.where += " AND LAYER_CODE = 'A002' ";
+			}else if(store.paramType == "MD"){
+				query.where += " AND LAYER_CODE = 'A003' ";
+			}else if(store.paramType == "ME"){
+				query.where += " AND LAYER_CODE = 'A004' ";
+			}else if(store.paramType == "MF"){
+				query.where += " AND LAYER_CODE = 'A005' ";
+			}else if(store.paramType == "MT"){
+				query.where += " AND LAYER_CODE IN ('A001','A002') ";
+			}else if(store.paramType == "SD"){
+				query.where += " AND LAYER_CODE IN ('C001','C002') ";
+			}else if(store.paramType == "OW"){
+				query.where += " AND LAYER_CODE = 'D001' ";
+			}else if(store.paramType == "OR"){
+				query.where += " AND LAYER_CODE = 'D006' ";
+			}else if(store.paramType == "OD"){
+				query.where += " AND LAYER_CODE = 'D004' ";
+			}else if(store.paramType == "OF"){
+				query.where += " AND LAYER_CODE = 'D003' ";
+			}else if(store.paramType == "TC"){
+				query.where += " AND LAYER_CODE = 'E001' ";
+			}else if(store.paramType == "AG"){
+				query.where += " AND LAYER_CODE IN ('I001','I002','I003') ";
+			}
+				
 			query.orderByFields = ["LAYER_CODE ASC"];
 			//query.OrderByFields = "LAYER_CODE ASC";
 			query.outFields = ["*"];

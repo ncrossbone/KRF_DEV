@@ -96,7 +96,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	btnOnImg: './resources/images/button/left_menu04_on.png',
 	    	btnOffImg: './resources/images/button/left_menu04.png',
 	    	src: './resources/images/button/left_menu04.png'
-	    }, /*{
+	    }, {
 	    	xtype: 'image',
 	    	id: 'btnSearchDrone',
 	    	groupId: 'group6',
@@ -110,7 +110,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	btnOnImg: './resources/images/button/left_menu08_on.png',
 	    	btnOffImg: './resources/images/button/left_menu08.png',
 	    	src: './resources/images/button/left_menu08.png'
-	    }, */'->', {
+	    }, '->', {
 	    	xtype: 'image',
 	    	id: 'btnModeNomal',
 	    	groupId: 'group4',

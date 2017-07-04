@@ -29,6 +29,8 @@ var _areaASLayerId = null; // 소권역 레이어 아이디
 var _nameLayerId = null; // 시도 레이어 아이디
 var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
+var _streamSectionLayerId = null; //하천단면 레이어 아이디
+var _streamNetworkLayerId = null; //하천망 레이어 아이디
 
 var _toLegend = null; //식생도
 var _sicLegend = null; //토지피복도
@@ -109,7 +111,8 @@ store.load(function(a, b, c) {
 		_cursorY = "";
 		_toLegend =  record.data.toLegend;
 		_sicLegend = record.data.sicLegend;
-
+		_streamSectionLayerId = record.data.StreamSectionLayerId;
+		_streamNetworkLayerId = record.data.StreamSectionLayerId;
 		
 		$(document).bind("click", function(event){
 			
@@ -207,6 +210,7 @@ Ext.application({
 			var getParam = location.search.substring(1);
 			var params = Ext.urlDecode(getParam);
 			if(params.stationType != undefined){
+				
 				/*var paramIdx = _paramInfo.map(function(obj){
 					
 					return obj.stationType;
@@ -227,6 +231,7 @@ Ext.application({
 						}
 					}
 					where = where.substring(0, where.length - 2) + ")";
+					
 					
 					require(["esri/tasks/query",
 		    	         "esri/tasks/QueryTask",
@@ -289,7 +294,7 @@ Ext.application({
 									//coreMap.map.addLayer(graphicLayer);
 								}, 500);
 								coreMap.map.addLayer(graphicLayer);
-								Ext.ShowSiteListWindow("paramSearch");
+								Ext.ShowSiteListWindow("paramSearch",params.stationType);
 							}
 						});
 					});
@@ -429,6 +434,10 @@ Ext.application({
 				store = Ext.create('KRF_DEV.store.east.SiteListWindow',{
 					async:false
 				});
+			}
+			
+			if(searchText == "paramSearch"){
+				store.paramType = searchType;
 			}
 			//var store = treeCtl.getStore();
 			store.searchType = searchText;

@@ -160,12 +160,12 @@ ReachLayerOnOff = function(btnId, layerId){
 	////console.info(record);
 	if(currCtl.btnOnOff == "on"){
 		
-		if(layerId == "46"){
+		if(layerId == _streamSectionLayerId){
 			node.set("checked", true);
 			treeCtl.fireEvent('checkchange', node, true, btnId);
 		}
 		
-		if(layerId == "47"){
+		if(layerId == _streamNetworkLayerId){
 			node.set("checked", false);
 			treeCtl.fireEvent('checkchange', node, false, btnId);
 			
@@ -200,12 +200,12 @@ ReachLayerOnOff = function(btnId, layerId){
 	}
 	else{
 		
-		if(layerId == "46"){
+		if(layerId == _streamSectionLayerId){
 			node.set("checked", false);
 			treeCtl.fireEvent('checkchange', node, false, btnId);
 		}
 		
-		if(layerId == "47"){
+		if(layerId == _streamNetworkLayerId){
 			me.reachLayerAdmin.reachArealayer.setVisibility(false);
 			
 			if(graphics != undefined && graphics.length > 0){
@@ -1774,6 +1774,7 @@ ResetButtonClick = function(){
 	
 	//---north
 	// 항공영상 초기화
+	
 	KRF_DEV.global.DroneFn.onClickResetButton();
 	
 	// 항공영상 On/Off
@@ -1799,7 +1800,11 @@ ResetButtonClick = function(){
 			Layer01OnOff(_reachNodeLayerId, "on");
 			Layer01OnOff(_reachLineLayerId, "on");
 			Layer01OnOff(_reachFlowLayerId, "on");
-		}, 100);
+			
+			//상위 버튼 초기화
+			SetBtnOnOff("btnFlowLayer","on");
+			SetBtnOnOff("btnReachLayer","on");
+		}, 300);
 	}
 	
 	// 물환경 연동 마커 초기화
@@ -1809,9 +1814,7 @@ ResetButtonClick = function(){
 		paramMarker.hide();
 	}
 	
-	//상위 버튼 초기화
-	SetBtnOnOff("btnFlowLayer","on");
-	SetBtnOnOff("btnReachLayer","on");
+	
 	
 	/* 사이트 정보 팝업 띄우기 */
 	var popCtl = Ext.getCmp("popSiteInfo");
@@ -1827,7 +1830,6 @@ ResetButtonClick = function(){
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId, onoff){
 	
-	//console.info(layerId);
 	if(layerId == undefined || layerId == null || layerId == ""){
 		return;
 	}
