@@ -328,6 +328,27 @@
 		"layerCode": "E001",
 	}]
 }, {
+	"id": "76",
+	"text": "하천",
+	"visible" : false,
+	"cls": 'khLee-x-tree-node-text-bold',
+	"iconCls": "layerNoneImg",
+	"checked": false,
+	"expanded": true,
+	"children": [{
+		"id": "77",
+		"text": "수생태계조사지점",
+		"visible" : false,
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer23",
+		"leaf": true,
+		"checked": false,
+		"siteIdCol": "조사지코드",
+		"siteNmCol": "조사지명",
+		"siteAddrCol": "ADDR",
+		"layerCode": "E001",
+	}]
+}, {
 	"id": "25",
 	"text": "환경기초시설",
 	"cls": 'khLee-x-tree-node-text-bold',

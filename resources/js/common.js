@@ -1769,8 +1769,11 @@ ResetButtonClick = function(){
 	
 	var reachs_close = Ext.getCmp("reachs_close");
 	var reache_close = Ext.getCmp("reache_close");
+	if(reachs_close != undefined && reache_close != undefined){
 		reachs_close.setHidden(true);
 		reache_close.setHidden(true);
+	}
+		
 	
 	//---north
 	
@@ -1800,6 +1803,8 @@ ResetButtonClick = function(){
 			Layer01OnOff(_reachNodeLayerId, "on");
 			Layer01OnOff(_reachLineLayerId, "on");
 			Layer01OnOff(_reachFlowLayerId, "on");
+			Layer01OnOff(_lakeLayerId, "on");
+			
 		}, 100);
 	}
 	
@@ -1940,8 +1945,12 @@ ResetStEdSiteName = function(){
 	
 	var reachs_close = Ext.getCmp("reachs_close");
 	var reache_close = Ext.getCmp("reache_close");
-	reachs_close.setHidden(true);
-	reache_close.setHidden(true);
+	
+	if(reachs_close != undefined && reache_close != undefined){
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
+	}
+	
 	
 	_krad.stCnt = 0;
 	_krad.edCnt = 0;
