@@ -31,6 +31,7 @@ var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
 var _streamSectionLayerId = null; //하천단면 레이어 아이디
 var _streamNetworkLayerId = null; //하천망 레이어 아이디
+var _lakeLayerId = null; //호소 레이어 아이디
 
 var _toLegend = null; //식생도
 var _sicLegend = null; //토지피복도
@@ -113,6 +114,7 @@ store.load(function(a, b, c) {
 		_sicLegend = record.data.sicLegend;
 		_streamSectionLayerId = record.data.StreamSectionLayerId;
 		_streamNetworkLayerId = record.data.StreamSectionLayerId;
+		_lakeLayerId = record.data.LakeLayerId;
 		
 		$(document).bind("click", function(event){
 			

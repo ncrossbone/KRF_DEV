@@ -31,6 +31,7 @@
     "areaASLayerId" : "64", // 소권역 레이어 아이디
     "toLegend" : "71", // 식생도 레이어 아이디
     "sicLegend" : "73", // 토지피복도 레이어 아이디
+    "LakeLayerId" : "77", // 토지피복도 레이어 아이디
 
 	"kradCatSearchId" : "21", // KRAD CAT_SEARCH
 	"kradCatExtMetaData" : "23", // KRAD METADATA

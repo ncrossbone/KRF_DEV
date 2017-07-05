@@ -1796,15 +1796,17 @@ ResetButtonClick = function(){
 			droneCtl.hide();
 		}
 		
+		//초기화시 디폴트 레이어 디퍼로드
 		Ext.defer(function(){
-			Layer01OnOff(_reachNodeLayerId, "on");
-			Layer01OnOff(_reachLineLayerId, "on");
-			Layer01OnOff(_reachFlowLayerId, "on");
+			Layer01OnOff(_reachNodeLayerId, "on");  //리치노드
+			Layer01OnOff(_reachLineLayerId, "on");  //리치라인
+			Layer01OnOff(_reachFlowLayerId, "on");  //리치흐름
+			Layer01OnOff(_lakeLayerId, "on");  //리치흐름
 			
 			//상위 버튼 초기화
 			SetBtnOnOff("btnFlowLayer","on");
 			SetBtnOnOff("btnReachLayer","on");
-		}, 300);
+		}, 500);
 	}
 	
 	// 물환경 연동 마커 초기화

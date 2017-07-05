@@ -440,6 +440,24 @@
 		"siteIdCol": "지점코드"
 	}]
 }, */{
+	"id": "76",
+	"text": "호소",
+	"cls": 'khLee-x-tree-node-text-bold',
+	"iconCls": "layerNoneImg",
+	"visible": false,
+	"checked": true,
+	"expanded": true,
+	"children": [{
+		"id": "77",
+		"visible": false,
+		"text": "호소",
+		"cls": "khLee-x-tree-node-text-small-nounder",
+		"iconCls": "layerIconSize layer42",
+		"leaf": true,
+		"checked": true,
+		"siteIdCol": "지점코드"
+	}]
+},{
 	"id": "52",
 	"text": "하천망도",
 	"cls": 'khLee-x-tree-node-text-bold',
