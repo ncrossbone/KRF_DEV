@@ -113,6 +113,15 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	// 집수구역, 지점 이동, 리치정보 하이라이트
 				var me = this.up("window");
 				me.moveCommon(record);
+				
+				
+				var clickText = record.raw.text;
+            	var clickId = record.raw.id;
+            	var clickData = clickText.split('(');
+            	var clickParentId = record.raw.parentId;
+            	
+             	setActionInfo(clickParentId[0] , clickParentId , clickData[0] , clickId , "검색결과");
+				
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
             	
@@ -281,7 +290,36 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
         								,record.childNodes[i].data.storeNm,year);
         					}	
         				}
+        				
             	}
+            	
+            	//session DATA
+            	
+            	
+            	if(record.id == "pollution_01"
+					||record.id == "pollution_02"
+					||record.id == "pollution_03"
+					||record.id == "pollution_04"
+					||record.id == "pollution_05"
+					||record.id == "pollution_06"
+					||record.id == "pollution_07"){
+            		
+                	var clickId = record.raw.id;
+                	var clickParentId = record.raw.parentId;
+                	
+                	console.info(clickParentId)
+                	console.info(clickId)
+                	
+            		setActionInfo(clickParentId , "오염원" , clickId , "" , "검색결과");
+            	}else{
+            		var clickText = record.raw.text;
+                	var clickId = record.raw.id;
+                	var clickData = clickText.split('(');
+                	var clickParentId = record.raw.parentId;
+                	
+                	setActionInfo(clickParentId[0] , clickParentId , clickData[0] , clickId , "검색결과");
+            	}
+            	
             },
             isDisabled: function(view, rowIdx, colIdx, item, record) {
             	

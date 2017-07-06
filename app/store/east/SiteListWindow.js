@@ -575,7 +575,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		});
 		store3.load();
 		
-		
 		//토지계
 		var store4 = Ext.create('KRF_DEV.store.east.PollutionResult_04_Catdid',{
 			async:false,
@@ -583,7 +582,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			year : year
 		});
 		store4.load();
-		
 		//양식계
 		var store5 = Ext.create('KRF_DEV.store.east.PollutionResult_05_Catdid',{
 			async:false,
@@ -632,7 +630,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		me.reachLayerAdmin_v3_New.arrAreaPollution_07.push(store7.data.items);
 		
 		
-	
+		
 		me.reachLayerAdmin_v3_New.arrAreaPollution.push(
 				["01",me.reachLayerAdmin_v3_New.arrAreaPollution_01],
 				["02",me.reachLayerAdmin_v3_New.arrAreaPollution_02],

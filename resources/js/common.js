@@ -684,7 +684,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	}else{
 		var parentCheck = parentIds[0].parentId.substring(0,1);
 	}
-	console.info(parentCheck);
 	options = {
 			//id: titleText,
 			id: gridId + "_container",
@@ -1643,10 +1642,6 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 		}
 	}
 	
-	console.info(layerId);
-	console.info(nodeId);
-	console.info(clickValue);
-	
 	// 피처 레이어 생성/갱신
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);
 	// 주제도 레이어 키기
@@ -2456,3 +2451,24 @@ getLayer01Info = function(attrName, attrValue, childNodes, layer01Infos){
 	return layer01Infos;
 }
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
+//params: { node : node , parentId : parentId , data:data , id : id , type : type},
+
+setActionInfo = function(node, parentId , data , id ,type){
+	//1DEP 일시
+	if(node == 0){
+		node = id;
+	}
+	
+	Ext.Ajax.request({
+		url: './resources/jsp/ClickSession.jsp',
+		params: { node : node , parentId : parentId , data:data , id : id , type : type},
+		async: false, // 비동기 = async: true, 동기 = async: false
+		//rootProperty : 'items',
+		success : function(response, opts) {
+			console.info("success");
+		},
+		failure: function(form, action) {
+			
+		}
+	});
+}
