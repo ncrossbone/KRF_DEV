@@ -90,6 +90,9 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						click: function(obj, el, evt){
 							
 							var siteCharttest = Ext.getCmp('siteCharttest');
+							
+							setActionInfo(siteCharttest.store.parentId , siteCharttest.store.orgParentId , "" , siteCharttest.store.siteCD , "차트저장");
+							
 							//siteCharttest.download({
 							siteCharttest.download({
 								type: 'image/svg+xml',

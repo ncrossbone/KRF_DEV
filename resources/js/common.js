@@ -291,6 +291,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	////console.info(tabIdx);
 	
 	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
+		
 		var orgParentId = parentId
 		
 		parentId = parentId.substring(0,1);
@@ -333,20 +334,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
-		
-		
-		
-		//환경기초시설 표출시 라벨 표시
-		/*var fName = Ext.getCmp("selectFName"); //selectFName
-		var fbar = Ext.getCmp("selectF-Name"); //selectF-Name
-		if(parentId == "F"){
-			fName.setText("방류유량");
-			fbar.setText(">");
-		}else{
-			fName.setText("");
-			fbar.setText("");
-		}*/
-		
 		
 		if(parentId == "A"){
 			series.setXField("WMCYMD");
@@ -412,12 +399,17 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	else{
 		KRF_DEV.getApplication().chartFlag = "0";
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
+		
+		
 		var chartStore = siteChartCtl.getStore();
 		chartStore.load();
 		
 		if(chartStore.parentId == "F"){
 			chartId = chartStore.parentId;
 		}
+		
+		//클릭 session
+		setActionInfo(siteChartCtl.store.parentId , siteChartCtl.store.orgParentId , "" , siteChartCtl.store.siteCD , "차트검색");
 		
 	}
 	
@@ -1146,6 +1138,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	
 	}
+	
 
 }
 
@@ -2450,9 +2443,10 @@ getLayer01Info = function(attrName, attrValue, childNodes, layer01Infos){
 	
 	return layer01Infos;
 }
+
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
 //params: { node : node , parentId : parentId , data:data , id : id , type : type},
-
+//클릭 이벤트 session
 setActionInfo = function(node, parentId , data , id ,type){
 	//1DEP 일시
 	if(node == 0){
@@ -2465,10 +2459,9 @@ setActionInfo = function(node, parentId , data , id ,type){
 		async: false, // 비동기 = async: true, 동기 = async: false
 		//rootProperty : 'items',
 		success : function(response, opts) {
-			console.info("success");
 		},
 		failure: function(form, action) {
-			
+			console.info(error);
 		}
 	});
 }
