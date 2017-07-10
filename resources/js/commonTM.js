@@ -1068,13 +1068,11 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 	
 	var catDid = [];
 	
-	if(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)][1][0].length > 0){
-		for(var i = 0 ; i < coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)][1][0].length ;i++){
-			catDid.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)][1][0][i].data.CAT_DID);
+	if(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)-1][1][0].length > 0){
+		for(var i = 0 ; i < coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)-1][1][0].length ;i++){
+			catDid.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)-1][1][0][i].data.CAT_DID);
 		}
 	}
-	
-	
 	
 	var options = {
 			id: 'searchResultTab',
@@ -1108,7 +1106,6 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 	var pollutiongrdCtl = pollutiongrdContainer.items.items[0]; // 그리드 컨테이너
 	pollutiongrdCtl = pollutiongrdCtl.items.items[0]; // 그리드 컨트롤
 	
-	console.info(storeNm);
 	var	pollutionstore = Ext.create("KRF_DEV.store.east."+storeNm,{
 			catDid : catDid,
 			selectValue: value,

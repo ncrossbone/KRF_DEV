@@ -32,6 +32,7 @@ var _arcServiceUrl = null;
 
 var _toLegend = null; //식생도
 var _sicLegend = null; //토지피복도
+var _lakeLayerId = null; //호소레이어 아이디
 
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
 var _MapserviceUrl1 = null;
@@ -116,6 +117,7 @@ store.load(function(a, b, c) {
 		_cursorY = "";
 		_toLegend =  record.data.toLegend;
 		_sicLegend = record.data.sicLegend;
+		_lakeLayerId = record.data.lakeLayerId;
 		
 		$(document).bind("click", function(event){
 			

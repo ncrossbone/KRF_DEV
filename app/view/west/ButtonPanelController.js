@@ -34,6 +34,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Layer01OnOff(_reachNodeLayerId, "off");
 			Layer01OnOff(_reachLineLayerId, "off");
 			Layer01OnOff(_reachFlowLayerId, "off");
+			Layer01OnOff(_lakeLayerId, "off");
+			
             SetBtnOnOff("btnFlowLayer","off");
             SetBtnOnOff("btnReachLayer","off");
 
@@ -46,6 +48,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				Layer01OnOff(_reachNodeLayerId, "on");
 				Layer01OnOff(_reachLineLayerId, "on");
 				Layer01OnOff(_reachFlowLayerId, "on");
+				Layer01OnOff(_lakeLayerId, "on");
 				
 	            SetBtnOnOff("btnFlowLayer","on");
 	            SetBtnOnOff("btnReachLayer","on");

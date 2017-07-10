@@ -291,6 +291,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	////console.info(tabIdx);
 	
 	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
+		
 		var orgParentId = parentId
 		
 		parentId = parentId.substring(0,1);
@@ -333,20 +334,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
-		
-		
-		
-		//환경기초시설 표출시 라벨 표시
-		/*var fName = Ext.getCmp("selectFName"); //selectFName
-		var fbar = Ext.getCmp("selectF-Name"); //selectF-Name
-		if(parentId == "F"){
-			fName.setText("방류유량");
-			fbar.setText(">");
-		}else{
-			fName.setText("");
-			fbar.setText("");
-		}*/
-		
 		
 		if(parentId == "A"){
 			series.setXField("WMCYMD");
@@ -412,12 +399,17 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	else{
 		KRF_DEV.getApplication().chartFlag = "0";
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
+		
+		
 		var chartStore = siteChartCtl.getStore();
 		chartStore.load();
 		
 		if(chartStore.parentId == "F"){
 			chartId = chartStore.parentId;
 		}
+		
+		//클릭 session
+		setActionInfo(siteChartCtl.store.parentId , siteChartCtl.store.orgParentId , "" , siteChartCtl.store.siteCD , "차트검색");
 		
 	}
 	
@@ -684,7 +676,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	}else{
 		var parentCheck = parentIds[0].parentId.substring(0,1);
 	}
-	console.info(parentCheck);
 	options = {
 			//id: titleText,
 			id: gridId + "_container",
@@ -1147,6 +1138,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	
 	}
+	
 
 }
 
@@ -1643,10 +1635,6 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 		}
 	}
 	
-	console.info(layerId);
-	console.info(nodeId);
-	console.info(clickValue);
-	
 	// 피처 레이어 생성/갱신
 	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);
 	// 주제도 레이어 키기
@@ -1769,8 +1757,11 @@ ResetButtonClick = function(){
 	
 	var reachs_close = Ext.getCmp("reachs_close");
 	var reache_close = Ext.getCmp("reache_close");
+	if(reachs_close != undefined && reache_close != undefined){
 		reachs_close.setHidden(true);
 		reache_close.setHidden(true);
+	}
+		
 	
 	//---north
 	
@@ -1800,6 +1791,8 @@ ResetButtonClick = function(){
 			Layer01OnOff(_reachNodeLayerId, "on");
 			Layer01OnOff(_reachLineLayerId, "on");
 			Layer01OnOff(_reachFlowLayerId, "on");
+			Layer01OnOff(_lakeLayerId, "on");
+			
 		}, 100);
 	}
 	
@@ -1940,8 +1933,12 @@ ResetStEdSiteName = function(){
 	
 	var reachs_close = Ext.getCmp("reachs_close");
 	var reache_close = Ext.getCmp("reache_close");
-	reachs_close.setHidden(true);
-	reache_close.setHidden(true);
+	
+	if(reachs_close != undefined && reache_close != undefined){
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
+	}
+	
 	
 	_krad.stCnt = 0;
 	_krad.edCnt = 0;
@@ -2446,4 +2443,25 @@ getLayer01Info = function(attrName, attrValue, childNodes, layer01Infos){
 	
 	return layer01Infos;
 }
+
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
+//params: { node : node , parentId : parentId , data:data , id : id , type : type},
+//클릭 이벤트 session
+setActionInfo = function(node, parentId , data , id ,type){
+	//1DEP 일시
+	if(node == 0){
+		node = id;
+	}
+	
+	Ext.Ajax.request({
+		url: './resources/jsp/ClickSession.jsp',
+		params: { node : node , parentId : parentId , data:data , id : id , type : type},
+		async: false, // 비동기 = async: true, 동기 = async: false
+		//rootProperty : 'items',
+		success : function(response, opts) {
+		},
+		failure: function(form, action) {
+			console.info(error);
+		}
+	});
+}
