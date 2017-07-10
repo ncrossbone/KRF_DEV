@@ -121,7 +121,24 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				height: 21,
 				src: './resources/images/button/btn_save.gif'
 			
-			}]
+			}/*,{
+				xtype:"button",
+				text:"undo",
+				handler:function(){
+					
+					var chart = Ext.getCmp("siteCharttest");
+					var interaction = Ext.ComponentQuery.query('interaction', chart)[0];
+					
+					//console.info(interaction);
+					var undoButton = interaction.getUndoButton();
+					var handler = undoButton.handler;
+					
+					if (handler) {
+						handler();
+					}
+					
+				}
+			}*/]
 		},  {
 	        //xtype: 'chart',
 			xtype: 'cartesian',
@@ -130,11 +147,13 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        innerPadding: {
 	             left: 30,
 	             right:30
-	        }, 
-	        /*interactions: {
+	        },
+	        
+	       /* interactions: {
 	            type: 'crosszoom',
 	            zoomOnPanGesture: false
 	        },*/
+	        
 	        width: 450,
 	        height: 250,
 	        padding: '10 0 0 0',
