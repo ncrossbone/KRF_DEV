@@ -1072,13 +1072,11 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 	var catDid = [];
 	//console.info(coreMap.reachLayerAdmin_v3_New.arrAreaPollution);
 	//console.info(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0]);
-	if(coreMap.reachLayerAdmin_v3_New.arrAreaPollution != undefined){
-		for(var i = 0 ; i < coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][1][0].length ;i++){
-			catDid.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[0][1][0][i].data.CAT_DID);
+    if(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)-1][1][0].length > 0){
+         for(var i = 0 ; i < coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)-1][1][0].length ;i++){
+             catDid.push(coreMap.reachLayerAdmin_v3_New.arrAreaPollution[recordId.substring(11,12)-1][1][0][i].data.CAT_DID);
 		}
 	}
-	
-	
 	
 	var options = {
 			id: 'searchResultTab',
@@ -1088,8 +1086,6 @@ PollutionSearchResult = function(value,recordId,title,storeNm,year){
 	var searchResultTab = GetTabControl(options);
 	var tab = searchResultTab.items.items[1];
 	//2016-08-24 리치검색시 방유량 그리드 생성
-	
-	console.info(recordId);
 	
 	var pollutionOptions = {
 			id: "searchResult"+recordId+"_container",

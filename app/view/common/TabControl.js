@@ -198,6 +198,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 							
 							KRF_DEV.getApplication().btnFlag = "date";
+						    var title = activeTab.title.split('(');
+						      
+						    setActionInfo(parentId[0] , parentId , title[0], "" , "검색결과");
 							
 							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 						}
@@ -243,6 +246,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						
 						var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 						
+						setActionInfo("pollLoad" , "pollLoad" , "부하량", "" , "검색결과");
+
 						ShowSearchResult(gridCtl.siteIds, parentId, "", gridId,fName.value);
 					}
 				}
@@ -396,6 +401,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							
 							var pollutionYear = Ext.getCmp("pollutionYear").value;
 							//pdj
+							
+							setActionInfo("pollution" , "pollution" , "오염원", "" , "검색결과");
+
 							var pollutionSelect = Ext.getCmp("pollutionSelect");
 							PollutionSearchResult(pollutionSelect.lastValue,activeTab.recordId,activeTab.title,activeTab.storeNm,pollutionYear);
 						}
@@ -457,6 +465,12 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var tabpanels = Ext.getCmp("tabpanels");
 				//console.info(tabpanels);
 				
+				var ClNodeName = tabpanels.activeTab.id;
+				var ClNode = tabpanels.activeTab.parentId;
+				var ClTitle =  tabpanels.activeTab.title;
+				ClTitle = ClTitle.split('(');
+
+				
 				if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
 					var value = Ext.getCmp("pollLoadSelect").value;
 					
@@ -469,8 +483,23 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					}else{
 						colArr = colArr;
 					}
+					ClNodeName = ClNodeName.split('_');
+					ClNodeName = ClNodeName[0];
+
+				}else{
+					 if(ClNodeName.split('_')[0] == "searchResultpollution"){
+                         ClNodeName = ClNodeName.split('_');
+                         ClNodeName = ClNodeName[0]
+                     }else{
+                         ClNodeName = ClNodeName.split('_');
+                         ClNodeName = ClNodeName[1];
+                     }
+
 				}
 				
+				//엑셀다운 클릭 session
+				setActionInfo(ClNode , "" , ClTitle[0] , ClNodeName , "엑셀다운");
+
 				
 				var hItem = grid.getHeaderContainer().config.items;
 				var gItem = [];
