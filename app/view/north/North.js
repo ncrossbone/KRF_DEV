@@ -239,6 +239,7 @@ Ext.define('KRF_DEV.view.north.North', {
     	listeners: {
     		el: {
     			click: function(){
+    				setActionInfo("" , "" , "" , "" , "화면저장");
     				GetCoreMap().capture();
     			}
     		}

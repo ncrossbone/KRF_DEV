@@ -96,10 +96,11 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	btnOnImg: './resources/images/button/left_menu04_on.png',
 	    	btnOffImg: './resources/images/button/left_menu04.png',
 	    	src: './resources/images/button/left_menu04.png'
-	    }, /*{
+	    }, {
 	    	xtype: 'image',
 	    	id: 'btnSearchDrone',
 	    	groupId: 'group6',
+	    	hidden : true, // 외부망 현제 막음 추후 삭제
 	    	title: '조류항공사진',
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
@@ -110,7 +111,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	btnOnImg: './resources/images/button/left_menu08_on.png',
 	    	btnOffImg: './resources/images/button/left_menu08.png',
 	    	src: './resources/images/button/left_menu08.png'
-	    }, */'->', {
+	    }, '->', {
 	    	xtype: 'image',
 	    	id: 'btnModeNomal',
 	    	groupId: 'group4',

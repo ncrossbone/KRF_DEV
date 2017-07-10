@@ -24,11 +24,11 @@ Ext.define('KRF_DEV.store.west.WestTabSearch_ADM_GRID', {
 				
 				idColumn = "ADM_CD";
 				
-				store.layerId = "54";
+				store.layerId = "67";
 				
-				if(store.layerId == '53'){ nameColumn = "DO_NM"; whereStr = "1=1" }
-				if(store.layerId == '54'){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD + "%'"}
-				if(store.layerId == '55'){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
+				if(store.layerId == '66'){ nameColumn = "DO_NM"; whereStr = "1=1" }
+				if(store.layerId == '67'){ nameColumn = "CTY_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD + "%'"}
+				if(store.layerId == '68'){ nameColumn = "DONG_NM"; whereStr = "ADM_CD LIKE '" + store.parentADMCD.substring(0,4) + "%'"}
 				
 				// id, name 셋팅이 안돼있으면 리턴
 				if(idColumn == undefined || nameColumn == undefined || whereStr == undefined)

@@ -160,12 +160,12 @@ ReachLayerOnOff = function(btnId, layerId){
 	////console.info(record);
 	if(currCtl.btnOnOff == "on"){
 		
-		if(layerId == "46"){
+		if(layerId == _streamSectionLayerId){
 			node.set("checked", true);
 			treeCtl.fireEvent('checkchange', node, true, btnId);
 		}
 		
-		if(layerId == "47"){
+		if(layerId == _streamNetworkLayerId){
 			node.set("checked", false);
 			treeCtl.fireEvent('checkchange', node, false, btnId);
 			
@@ -200,12 +200,12 @@ ReachLayerOnOff = function(btnId, layerId){
 	}
 	else{
 		
-		if(layerId == "46"){
+		if(layerId == _streamSectionLayerId){
 			node.set("checked", false);
 			treeCtl.fireEvent('checkchange', node, false, btnId);
 		}
 		
-		if(layerId == "47"){
+		if(layerId == _streamNetworkLayerId){
 			me.reachLayerAdmin.reachArealayer.setVisibility(false);
 			
 			if(graphics != undefined && graphics.length > 0){
@@ -419,9 +419,13 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			chartId = chartStore.parentId;
 		}
 		
+		//클릭 session
+		setActionInfo(siteChartCtl.store.parentId , siteChartCtl.store.orgParentId , "" , siteChartCtl.store.siteCD , "차트검색");
+		
 	}
 	
 	SetItemLabelText(yFieldName,chartId);
+	
 
 }
 
@@ -1774,6 +1778,7 @@ ResetButtonClick = function(){
 	
 	//---north
 	// 항공영상 초기화
+	
 	KRF_DEV.global.DroneFn.onClickResetButton();
 	
 	// 항공영상 On/Off
@@ -1795,11 +1800,17 @@ ResetButtonClick = function(){
 			droneCtl.hide();
 		}
 		
+		//초기화시 디폴트 레이어 디퍼로드
 		Ext.defer(function(){
-			Layer01OnOff(_reachNodeLayerId, "on");
-			Layer01OnOff(_reachLineLayerId, "on");
-			Layer01OnOff(_reachFlowLayerId, "on");
-		}, 100);
+			Layer01OnOff(_reachNodeLayerId, "on");  //리치노드
+			Layer01OnOff(_reachLineLayerId, "on");  //리치라인
+			Layer01OnOff(_reachFlowLayerId, "on");  //리치흐름
+			Layer01OnOff(_lakeLayerId, "on");  //리치흐름
+			
+			//상위 버튼 초기화
+			SetBtnOnOff("btnFlowLayer","on");
+			SetBtnOnOff("btnReachLayer","on");
+		}, 500);
 	}
 	
 	// 물환경 연동 마커 초기화
@@ -1809,9 +1820,7 @@ ResetButtonClick = function(){
 		paramMarker.hide();
 	}
 	
-	//상위 버튼 초기화
-	SetBtnOnOff("btnFlowLayer","on");
-	SetBtnOnOff("btnReachLayer","on");
+	
 	
 	/* 사이트 정보 팝업 띄우기 */
 	var popCtl = Ext.getCmp("popSiteInfo");
@@ -1827,7 +1836,6 @@ ResetButtonClick = function(){
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId, onoff){
 	
-	//console.info(layerId);
 	if(layerId == undefined || layerId == null || layerId == ""){
 		return;
 	}
@@ -2421,3 +2429,25 @@ getLayer01Info = function(attrName, attrValue, childNodes, layer01Infos){
 	return layer01Infos;
 }
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
+
+//params: { node : node , parentId : parentId , data:data , id : id , type : type},
+
+setActionInfo = function(node, parentId , data , id ,type){
+    //1DEP 일시
+    if(node == 0){
+        node = id;
+    }
+    
+    Ext.Ajax.request({
+        url: './resources/jsp/ClickSession.jsp',
+        params: { node : node , parentId : parentId , data:data , id : id , type : type},
+        async: false, // 비동기 = async: true, 동기 = async: false
+        //rootProperty : 'items',
+        success : function(response, opts) {
+            console.info("success");
+        },
+        failure: function(form, action) {
+            
+        }
+    });
+}

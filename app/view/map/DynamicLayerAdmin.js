@@ -5,7 +5,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	dynamicLayer2:null,
 	
      //읍면동 / 식생도 / 특밸대책지역 / 오수처리대책 / 상수원보고구역 / 배출시설제한 / 수변구역 / 그린벨트 /총량관리
-    fLayers: [67, 71, 79, 80, 81, 82, 83, 84, 88], // 투명도 주기위한 레이어 아이디
+    fLayers: [], // 투명도 주기위한 레이어 아이디
 
 	
 	constructor: function(map) {
@@ -17,7 +17,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		
 		me.map.addLayer(me.dynamicLayer1);
 		//me.dynamicLayer1.setVisibleLayers(["0","1","2","3","4","5","8","33","47","49","50","56","57","58","71","72","48"]);
-		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3_2);
+		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3);
         //me.layer = dynamicLayer1;
 		me.dynamicLayer2.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer2.visible = true;
@@ -25,7 +25,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		//me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
 		//me.layer.setVisibleLayers([53]); // 테스트
 		me.dynamicLayer2.setVisibleLayers([-1]);
-		me.map.addLayer(me.dynamicLayer2);
+		//me.map.addLayer(me.dynamicLayer2);
 			
 //		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
 //			opacity: 0.5
@@ -53,6 +53,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     
     // 레이어 on/off 핸들러 정의
     dynamicLayerOnOffHandler: function(selectInfo){
+    	
     	var me = this;
     	
     	var layers1 = [-1];
@@ -116,8 +117,8 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     			
     			layers1.push(selectObj.data.id);
     		}
+    		
 		});
-    	
     	me.dynamicLayer1.setVisibleLayers(layers1);
     	me.dynamicLayer2.setVisibleLayers(layers2);
     },
