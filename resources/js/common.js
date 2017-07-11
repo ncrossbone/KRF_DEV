@@ -133,7 +133,6 @@ ShowReachInfoWindow = function(){
 	
 	reachWinCtl.show();
 	
-	////console.info(infoWinCtl.visible);
 	
 	var reachWinX = Ext.getBody().getViewSize().width - reachWinCtl.width;
 	var reachWinY = Ext.getBody().getViewSize().height - reachWinCtl.height;
@@ -157,7 +156,6 @@ ReachLayerOnOff = function(btnId, layerId){
 	//var graphics = me.reachLayerAdmin.reachLinelayer.getSelectedFeatures();
 	var graphics = me.reachLayerAdmin_v3_New.lineGrpLayer.getSelectedFeatures();
 	
-	////console.info(record);
 	if(currCtl.btnOnOff == "on"){
 		
 		if(layerId == "46"){
@@ -180,7 +178,6 @@ ReachLayerOnOff = function(btnId, layerId){
 				}
 				
 				catIds = catIds.substring(0, catIds.length - 2);
-				////console.info(catIds);
 				
 				require(["esri/tasks/query", "esri/tasks/QueryTask"], function(Query, QueryTask){
 					queryTask = new QueryTask(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/47");
@@ -221,7 +218,6 @@ ReachLayerOnOff = function(btnId, layerId){
 
 // 집수구역 레이어 그리기
 AreaLayerDraw = function(featureSet){
-	////console.info(featureSet);
 	var me = GetCoreMap();
 	
 	require([
@@ -243,7 +239,6 @@ AreaLayerDraw = function(featureSet){
 
 // 리치정보 바인딩
 ReachInfoBinding = function(objs){
-	////console.info(objs);
 	if(objs == undefined || objs[0] == undefined)
 		return;
 	
@@ -287,8 +282,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	
 	var yFieldName = "";
 	var chartId = ""; // 부모아이디
-	//console.info(parentId);
-	////console.info(tabIdx);
 	
 	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
 		
@@ -369,7 +362,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			series.setXField("WMCYMD");
 			yFieldName = "SWL";
 		}
-		//console.info(yFieldName);
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
 		
@@ -421,7 +413,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 HideWindowSiteNChart = function(){
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	////console.info(winCtl);
 	if(winCtl != undefined)
 		//winCtl.close();
 		winCtl.hide();
@@ -452,7 +443,6 @@ SetItemLabelText = function(itemNm,chartId){
 		}*/
 		
 	}
-	//console.info(itemNm);
 	//var itemNm = "";
 	//var itemNm = "ITEM_VALUE";
 	if(itemNm == "ITEM_BOD"){
@@ -533,7 +523,6 @@ SetItemLabelText = function(itemNm,chartId){
 	
 	series.setYField("ITEM_VALUE");
 	axes.fields = "ITEM_VALUE";
-	//console.info(itemNm)
 	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
 	
 	var f_Chart = Ext.getCmp("f_Chart");
@@ -556,14 +545,10 @@ SetItemLabelText = function(itemNm,chartId){
 SetChartMaxData = function(store){
 	
 	var ITEM_VALUE = parseFloat(store.arrMax[0].ITEM_VALUE);
-	//console.info(store);
 	
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes   = chartCtl.axes[0];
-	//var series = chartCtl.series[0];
-	//var s = series.getYField();
-	//console.info(ITEM_VALUE);
 	axes.setMaximum(ITEM_VALUE);
 	
 		
@@ -612,14 +597,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		isFirst = true;
 	}
 	
-	//console.info("==================================");
-	//console.info("siteIds::"+siteIds);
-	//console.info("parentIds::"+parentIds);
-	//console.info("titleText::"+titleText);
-	//console.info("gridId::"+gridId);
-	//console.info(test);
-	//console.info(tooltipCk);
-	//console.info("==================================");
+	
 	// 리치검색 khLee 20151102 추가
 	
 	if(siteIds == "CAT"){
@@ -645,7 +623,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
-	//console.info(searchResultWindow);
 	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
 	
@@ -667,7 +644,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
-	////console.info(searchResultTab.items.items[1]);
 	
 	var orgParentId = parentIds[0].parentId;
 	
@@ -694,11 +670,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	if(parentCheck == "A"){	
 		
-		////console.info(sYearCtl.setValue("2013"));
 		//환경기초시설 검색값 히든처리
 		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -707,14 +683,12 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		//console.info(parentIds);
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
 		}
-		////console.info(grdCtl.parentIds)
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
@@ -745,6 +719,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					
 					grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B", options);
 					
+					grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
 					
 					tab.add(grdContainer);
 					//tab.insert(0, grdContainer);
@@ -761,9 +736,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				if(parentIds != ""){
 					grdCtl.parentIds = parentIds;
 				}
-				console.info(grdCtl);
-				//console.info(grdCtl.parentIds)
-				//console.info(isFirst);
+				
 				
 				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
 					siteIds: grdCtl.siteIds,
@@ -793,6 +766,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					
 					grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B001", options);
 					
+					grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
 					
 					tab.add(grdContainer);
 					//tab.insert(0, grdContainer);
@@ -834,6 +808,9 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		if(grdContainer == null || grdContainer == undefined){
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
+			
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+			
 			tab.add(grdContainer);
 		}
 		
@@ -857,7 +834,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		var hiddenT = "";
 		var pointArray = "";
 		var pointValue = "";
-		//console.info("here");rawValue
 		//Ext.getCmp("F_CHANGE").setRawValue("방류유량");		
 		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
 		//0~2 , 11~16 공통
@@ -899,7 +875,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 462.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 			
@@ -937,7 +912,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 184800.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 		}else if(test == "3"){
@@ -973,7 +947,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 184800.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 		}else{
@@ -1012,7 +985,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 33.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 		}
@@ -1042,6 +1014,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_C", options);
 			
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
 			
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
@@ -1060,8 +1033,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			grdCtl.parentIds = parentIds;
 		}
 		
-		//console.info(grdCtl.parentIds)
-		//console.info(grdCtl.siteIds);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_C", {
 			siteIds: grdCtl.siteIds,
@@ -1076,7 +1047,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	}else if(parentCheck == "D"){
 
-		//console.info(orgParentId);
 		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
@@ -1096,6 +1066,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_7", options);
 			}
 			
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+			
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -1105,10 +1077,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		//console.info(grdCtl);
-		//console.info(grdCtl.parentIds);
-		//console.info(parentIds);
-		//console.info(orgParentId);
 		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
@@ -1122,8 +1090,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			orgParentId = parentIds;
 		}
 		
-		//console.info(grdCtl.parentIds)
-		//console.info(grdCtl.siteIds);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_D", {
 			siteIds: grdCtl.siteIds,
@@ -1206,7 +1172,6 @@ GetTabControl = function(options){
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
-	//console.info(catIds);
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
@@ -1235,7 +1200,6 @@ ShowSearchResultReach = function(catIds){
 	var tabCtl = Ext.getCmp("searchResultTab");
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	////console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -1257,7 +1221,6 @@ ShowSearchResultReach = function(catIds){
 		//tab.add(grdContainer);
 		tab.insert(0, grdContainer);
 	}
-	//console.info(catIds);
 	tab.setActiveTab("searchResultReach_container");
 	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1274,8 +1237,6 @@ ShowSearchResultReach = function(catIds){
     	var catDids = _krad.arrAreaGrp.map(function(obj){
     		return obj.attributes.CAT_DID;
     	});
-    	
-    	//console.info(catDids);
     	
     	for(var i = 0; i < catDids.length; i++){
     		catIds += "'" + catDids[i] + "', ";
@@ -1296,7 +1257,6 @@ ShowSearchResultReach = function(catIds){
 	}
 	
 	query.where = "CAT_DID IN (" + catIds + ")";
-	//console.info(query.where);
 	query.outFields = ["*"];
 	// 로딩바 표시
 	Ext.getCmp("searchResultReachGridContainer").removeCls("dj-mask-noneimg");
@@ -1320,8 +1280,6 @@ ShowSearchResultReach = function(catIds){
 			var tmpCatDid = "";
 			
 			Ext.each(objLine.features, function(line){
-				
-				//console.info(obj.attributes.CAT_DID);
 				
 				var rowData = [];
 				
@@ -1474,10 +1432,7 @@ ReachSelectedFocus = function(catId){
 	var rchGridContainer = Ext.getCmp("searchResultReach_container");
 	var gridCtl = rchGridContainer.items.items[0];
 	gridCtl = gridCtl.items.items[0];
-	//console.info(gridCtl.getSelectionModel().getSelection()[0].get(''))
-	//console.info(catId);
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
-	//console.info(rowIdx);
 	//gridCtl.getSelectionModel().select(rowIdx);
 	//gridCtl.getView().getRow(rowIdx).scrollIntoView();
 }
@@ -1499,20 +1454,7 @@ GetCatArea = function(catDId){
 		return featureSet;
 	});
 	
-	//console.info("ddd");
-	
-	/*
-	for(var i = 0; i < 1000000; i++){
-		if(test == ""){
-			Ext.defer(function(){
-				//console.info("fldskjfa");
-			}, 1000, this);
-		}
-	}
-	*/
-	
-	//console.info(test);
-	
+		
 	return test;
 	
 }
@@ -1611,7 +1553,6 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	
-	//console.info(nodeId);
 	if(nodeId == undefined || nodeId == null || nodeId == ""){
 		return;
 	}
@@ -1646,7 +1587,6 @@ OpenMenualPop = function(){
 }
 
 ResetButtonClick = function(){
-	//console.info("dlkfj");
 	var me = GetCoreMap();
 	
 	// KRAD 레이어 그래픽 및 변수 초기화
@@ -1821,7 +1761,6 @@ ResetButtonClick = function(){
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId, onoff){
 	
-	//console.info(layerId);
 	if(layerId == undefined || layerId == null || layerId == ""){
 		return;
 	}
@@ -2088,7 +2027,6 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 	y = y - (50 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
 	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
-	//console.info(xoffset);
 	coreMap.map.centerAt(point);
 }
 
@@ -2167,7 +2105,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 	if(outObjInfos == null){
 		outObjInfos = [];
 	}
-	//console.info(obj);
 	var arrObj = [];
 	
 	if(obj[0] != undefined && obj[0] != null){
@@ -2183,7 +2120,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 		
 		for(var i = 0; i < arrObj.length; i++){
 			
-			//console.info(arrObj[i].tagName.toUpperCase());
 			
 			/*if(i < 35){
 				continue;
@@ -2193,11 +2129,7 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			
 			var imgObj = $("#" + arrObj[i].id);
 			
-			//console.info(imgObj.parent().css("opacity"));
-			//console.info(arrObj[i].id);
 			//if(arrObj[i].id.search("ReachLayerAdminBackground") != -1){
-				//console.info(arrObj[i].id.indexOf("ReachLayerAdminBackground"));
-				//console.info(imgObj.parent().css("opacity"));
 			//}
 
 			objInfo.width = imgObj.width();
@@ -2209,8 +2141,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			objInfo.src = imgObj[0].src;
 			objInfo.tagName = imgObj[0].tagName.toUpperCase();
 			objInfo.outerHTML = new XMLSerializer().serializeToString(imgObj[0]);
-			//console.info(obj.css("opacity"));
-			//console.info(objInfo.outerHTML);
 			
 			/*if(tagName == "IMG"){
 				
@@ -2219,20 +2149,14 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			else{
 				
 				var svgString = new XMLSerializer().serializeToString(imgObj[0]);
-				//console.info(svgString);
 				
 				// bota() : svg -> base64 encording
 				var imgsrc = 'data:image/svg+xml;base64,'+ btoa(svgString);
-				//console.info(imgsrc);
 				
 				objInfo.base64 = imgsrc;
 				objInfo.src = tagName;
 			}*/
 			
-			//console.info(imgObj.css('transform'));
-			//console.info(imgObj.css('-webkit-transform'));
-			//console.info(isNaN(parseInt(imgObj.css('left'))));
-			//console.info(imgObj.css('top'));
 			
 			if(imgObj.css('transform') != undefined && imgObj.css('transform') != null){
 				
@@ -2311,7 +2235,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 				eqlCnt++;
 				
 				if(eqlCnt > 15){
-					//console.info(outObjInfos);
 					callbackMethod.call(this, outObjInfos);
 					window.clearInterval(timerId);
 				}
@@ -2335,7 +2258,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 		}, 100);
 	}
 	
-	//console.info(arrObjInfos);
 	//return arrObjInfos;
 }
 
@@ -2352,7 +2274,6 @@ convertImgToBase64 = function(outObjInfo, callbackMethod){
 		img.crossOrigin = 'Anonymous';
 		
 		img.onload = function(){
-			//console.info("dd");
 			imgLoadCnt++;
 			canvas.height = img.height;
 			canvas.width = img.width;
@@ -2371,7 +2292,6 @@ convertImgToBase64 = function(outObjInfo, callbackMethod){
 		
 		// bota() : svg -> base64 encording
 		var dataURL = 'data:image/svg+xml;base64,'+ btoa(outObjInfo.outerHTML);
-		//console.info(imgsrc);
 		
 		callbackMethod.call(this, dataURL, outObjInfo);
 	}
@@ -2396,7 +2316,6 @@ postCall = function(outObjInfos, width, height, fileName){
 
 	$.post("./resources/jsp/_DivImgSave.jsp", obj, function(data){
 		
-		//console.info(data.fileName);
 		
 		if(chkoutObj == false){
 			postCall(outObjInfos, width, height, data.fileName);
