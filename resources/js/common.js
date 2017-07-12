@@ -582,6 +582,12 @@ ChangeTabIndex = function(tabIdx){
 	contCtl.setActiveItem(tabIdx);
 }
 
+ShowToolTipSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst){
+	//처음검색
+	KRF_DEV.getApplication().btnFlag = "noDate";
+	ShowSearchResult(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst);
+}
+
 // 검색결과창 띄우기
 ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst){
 	
