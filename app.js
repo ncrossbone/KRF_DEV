@@ -29,6 +29,11 @@ var _areaASLayerId = null; // 소권역 레이어 아이디
 var _nameLayerId = null; // 시도 레이어 아이디
 var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
+
+var _toLegend = null; //식생도
+var _sicLegend = null; //토지피복도
+var _lakeLayerId = null; //호소레이어 아이디
+
 var _isOffsetPoint = null; // 포인트 찍을때 offset 적용 여부
 var _MapserviceUrl1 = null;
 var _kradMapserviceUrl = null;
@@ -36,6 +41,11 @@ var _kradCatSearchId = null;
 var _kradCatExtDataInfo = null;
 var _kradCatExtMetaData = null;
 var _paramInfo = null; // 물환경 상세자료검색에서 넘기는 파라메터 정보
+
+var _pollution03_01 = null;
+var _pollution03_02 = null;
+var _pollution03_03 = null;
+var _pollution03_04 = null;
 
 /* Reach, KRAD 관련 object */
 var _krad = null; // Reach검색, KRAD검색 관련 object (공통)
@@ -103,6 +113,9 @@ store.load(function(a, b, c) {
 		_kradCatExtMetaData = record.data.kradCatExtMetaData;
 		_cursorX = "";
 		_cursorY = "";
+		_toLegend =  record.data.toLegend;
+		_sicLegend = record.data.sicLegend;
+		_lakeLayerId = record.data.lakeLayerId;
 		
 		$(document).bind("click", function(event){
 			
@@ -196,20 +209,18 @@ Ext.application({
 			/* 물환경 상세조회 시 화면 이동 및 심볼 표시
 			 * station, stationType 필수 파라메터 */
 			var params = Ext.urlDecode(location.search.substring(1));
-			
 			if(params.stationType != undefined){
-				
-				var paramIdx = _paramInfo.map(function(obj){
+				/*var paramIdx = _paramInfo.map(function(obj){
 					
 					return obj.stationType;
-				}).indexOf(params.stationType);
-				
+				}).indexOf(params.stationType);*/
+				var paramIdx = 0;
 				if(paramIdx > -1){
 					
-					var colNm = _paramInfo[paramIdx].colName;
-					var layerId = _paramInfo[paramIdx].layerId;
+					/*var colNm = _paramInfo[paramIdx].colName;
+					var layerId = _paramInfo[paramIdx].layerId;*/
 					var siteIds = params.station.split("|");
-					var where = colNm + " IN (";
+					var where = "JIJUM_CODE IN (";
 					
 					for(var i = 0; i < siteIds.length; i++){
 						
@@ -218,7 +229,6 @@ Ext.application({
 							where += "'" + siteIds[i] + "', ";
 						}
 					}
-					
 					where = where.substring(0, where.length - 2) + ")";
 					
 					require(["esri/tasks/query",
@@ -234,13 +244,13 @@ Ext.application({
 		    	        		 PictureMarkerSymbol,
 		    	        		 graphicsUtils){
 						
-						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + layerId);
+						var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _siteInfoLayerId);
 						var query = new Query();
 						query.returnGeometry = true;
 						query.outFields = ["*"];
 						query.where = where;
-						
 						// 리치라인 조회
+						
 						queryTask.execute(query, function(featureSet){
 							
 							if(featureSet.features.length > 0){
@@ -265,16 +275,8 @@ Ext.application({
 									var graphic = new Graphic(featureSet.features[i].geometry, symbol);
 									graphicLayer.add(graphic);
 								}
-								
 								var extent = graphicsUtils.graphicsExtent(graphicLayer.graphics);
 								coreMap.map.setExtent(extent);
-								
-								coreMap.map.addLayer(graphicLayer);
-								
-								var timer = window.setInterval(function(){
-									//console.info(coreMap.map.extent);
-									//window.clearInterval(timer);
-								}, 500);
 								
 								Ext.defer(function(){
 									
@@ -289,6 +291,28 @@ Ext.application({
 									
 									//coreMap.map.addLayer(graphicLayer);
 								}, 500);
+								coreMap.map.addLayer(graphicLayer);
+								Ext.ShowSiteListWindow("paramSearch");
+								//var timer = window.setInterval(function(){
+									/*var cenPoint = new esri.geometry.Point({ "x": featureSet.features[0].attributes.TM_X, "y": featureSet.features[0].attributes.TM_Y});
+									coreMap.map.centerAt(cenPoint);*/
+									//console.info(coreMap.map.extent);
+									//window.clearInterval(timer);
+								//}, 1000);
+								
+								/*Ext.defer(function(){
+									
+									var level = coreMap.map.getLevel() - 1;
+									
+									if(level > 12){
+										coreMap.map.setLevel(12);
+									}
+									else{
+										coreMap.map.setLevel(level);
+									}
+									
+									//coreMap.map.addLayer(graphicLayer);
+								}, 500);*/
 							}
 						});
 					});

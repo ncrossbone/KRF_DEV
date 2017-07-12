@@ -13,21 +13,55 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 
 		var currCtl = SetBtnOnOff(el.id);
 		var droneCtl = Ext.getCmp("droneToolbar");
+        var btnModeReach = Ext.getCmp("btnModeReach");
+
 		//console.info(droneCtl);
 		
 		if(currCtl.btnOnOff == "on"){
+            
+            droneCtl.show();
+            
+            if(btnModeReach.btnOnOff=="on" && droneCtl.getY()==97){
+                droneCtl.setY(droneCtl.getY() + 105);
+            }
+
+            if(btnModeReach.btnOnOff=="off" && droneCtl.getY()==202){
+                droneCtl.setY(droneCtl.getY() - 105);
+            }
+            
+
 			droneCtl.show();
 			Layer01OnOff(_reachNodeLayerId, "off");
 			Layer01OnOff(_reachLineLayerId, "off");
+			Layer01OnOff(_reachFlowLayerId, "off");
+			Layer01OnOff(_lakeLayerId, "off");
+			
+            SetBtnOnOff("btnFlowLayer","off");
+            SetBtnOnOff("btnReachLayer","off");
+
 		}else{
 			// 항공영상 초기화
+			droneCtl.hide();
 			KRF_DEV.global.DroneFn.onClickResetButton();
 			droneCtl.hide();
 			Ext.defer(function(){
 				Layer01OnOff(_reachNodeLayerId, "on");
 				Layer01OnOff(_reachLineLayerId, "on");
+				Layer01OnOff(_reachFlowLayerId, "on");
+				Layer01OnOff(_lakeLayerId, "on");
+				
+	            SetBtnOnOff("btnFlowLayer","on");
+	            SetBtnOnOff("btnReachLayer","on");
+
 			}, 100);
 		}
+		
+        // 물환경 연동 마커 초기화
+        var coreMap = GetCoreMap();
+        var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+        if(paramMarker!=undefined){
+            paramMarker.hide();
+        }
 	},
 	
 	
@@ -48,13 +82,16 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	// 정보창 클릭
 	onClickInfo: function(obj, el, evt){
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
+		
 		
 		//추가 160704 pdj
 		var listWinCtl = Ext.getCmp("siteListWindow");
 		var windowSiteNChart = Ext.getCmp("windowSiteNChart");
 		
 		if(listWinCtl != undefined){
+			
+			var currCtl = SetBtnOnOff(el.id);
+			
 			if(currCtl.btnOnOff == "off"){
 				listWinCtl.hide();
 				if(windowSiteNChart != undefined){
@@ -72,6 +109,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 					
 				//Ext.ShowSiteListWindow("test");
 			}
+		}else{
+			alert("검색된 정보가 없습니다.");
 		}
 		
 	},
@@ -79,7 +118,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	// 검색결과창 클릭
 	onClickResult: function(obj, el, evt){
 		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
+		
 		//console.info(el.id);
 		var searchResultWindow = Ext.getCmp("searchResultWindow");
 		/*
@@ -91,6 +130,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		}
 		*/
 		if(searchResultWindow != undefined){
+			var currCtl = SetBtnOnOff(el.id);
 			if(currCtl.btnOnOff == "on"){
 				//ShowSearchResult(_searchType);
 				searchResultWindow.show();
@@ -99,6 +139,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 				//HideSearchResult();
 				searchResultWindow.hide();
 			}
+		}else{
+			alert("검색된 검색결과가 없습니다.");
 		}
 			
 		
@@ -217,6 +259,17 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 	    	KRF_DEV.getApplication().fireEvent('drawEnd');
 	    	
 			Ext.ShowReachToolbar(evtArgs, el);
+
+			var droneToolbar = Ext.getCmp("droneToolbar");
+            var reachToolbar = Ext.getCmp("reachToolbar");
+            //Ext.getCmp("");
+            //console.info(droneToolbar.getY());
+            if(!reachToolbar.hidden && droneToolbar.getY()==97){
+                
+                droneToolbar.setY(droneToolbar.getY() + 105);
+                
+            }
+
 			//Ext.HideSiteListWindow();
 			//HideWindowSiteNChart();
 			//Ext.HideSiteInfoWindow();
@@ -459,5 +512,13 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
         	// 지점목록 보여주기
     		Ext.ShowSiteListWindow("test");
 		}
+		
+        
+        // 물환경 연동 마커 초기화
+        var coreMap = GetCoreMap();
+        var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+        if(paramMarker!=undefined){
+            paramMarker.hide();
+        }
 	}
 });

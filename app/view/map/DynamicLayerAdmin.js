@@ -4,7 +4,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	dynamicLayer1:null,
 	dynamicLayer2:null,
 	
-	fLayers: [63, 65, 71, 72, 73, 74, 75, 76, 80], // 투명도 주기위한 레이어 아이디
+	fLayers: [67, 71, 79, 80, 81, 82, 83, 84, 88], // 투명도 주기위한 레이어 아이디
 	
 	constructor: function(map) {
         var me = this;
@@ -16,7 +16,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		//me.dynamicLayer1.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayer1);
 		
-		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3_2);
+		me.dynamicLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_v3);
         //me.layer = dynamicLayer1;
 		me.dynamicLayer2.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer2.visible = true;
@@ -77,7 +77,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     	var initY = Ext.getBody().getHeight();
     	Ext.each(selectInfo, function(selectObj, index, eObjs) {
     		
-    		if(selectObj.data.id == "63"){
+    		if(selectObj.data.id == _toLegend){
     			
     			Ext.create("KRF_DEV.view.map.LegendWindow", {
     				
@@ -92,7 +92,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     			initX = initX + 550;
     		}
     		
-    		if(selectObj.data.id == "65"){
+    		if(selectObj.data.id == _sicLegend){
     			
     			Ext.create("KRF_DEV.view.map.LegendWindow", {
     				

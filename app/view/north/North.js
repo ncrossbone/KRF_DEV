@@ -45,6 +45,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		layerId: 'baseMap',
 		groupId: 'grpBase',
     	title: '배경맵',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickBaseLayer' } },
@@ -58,9 +59,10 @@ Ext.define('KRF_DEV.view.north.North', {
     }, { 
 		xtype: 'image',
 		id: 'btnReachLayer',
-		layerId: '46',
+		layerId: '55',
 		groupId: 'grpReach',
     	title: '리치라인',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickReachLayer' } },
@@ -76,13 +78,14 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnAreaLayer',
 		groupId: 'grpArea',
     	title: '집수구역',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickAreaLayer' } },
-    	btnOnOff: 'on',
+    	btnOnOff: 'off',
     	btnOnImg: './resources/images/button/btn_top_02_on.png',
     	btnOffImg: './resources/images/button/btn_top_02_off.png',
-    	src: './resources/images/button/btn_top_02_on.png'
+    	src: './resources/images/button/btn_top_02_off.png'
     }, {
     	xtype: 'container',
     	width: 5
@@ -91,13 +94,14 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnFlowLayer',
 		groupId: 'grpFlow',
     	title: '리치흐름',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickFlowLayer' } },
-    	btnOnOff: 'off',
+    	btnOnOff: 'on',
     	btnOnImg: './resources/images/button/btn_top_04_on.png',
     	btnOffImg: './resources/images/button/btn_top_04_off.png',
-    	src: './resources/images/button/btn_top_04_off.png'
+    	src: './resources/images/button/btn_top_04_on.png'
     }, {
     	xtype: 'container',
     	width: 5
@@ -106,6 +110,7 @@ Ext.define('KRF_DEV.view.north.North', {
 		id: 'btnLayerReset',
 		groupId: 'grpReset',
     	title: '초기화',
+        style:'cursor:pointer;',
     	width: 32,
     	height: 32,
     	listeners: { el: { click: 'onClickReset' } },
@@ -119,6 +124,7 @@ Ext.define('KRF_DEV.view.north.North', {
     }, {
 		xtype: 'image',
     	title: '공지사항',
+        style:'cursor:pointer;',
     	width: 69,
     	height: 37,
     	listeners: {
@@ -174,6 +180,7 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: 'Q&A',
     	width: 69,
     	height: 37,
+        style:'cursor:pointer;',
     	listeners: {
     		el: {
     			click: function(){
@@ -211,11 +218,13 @@ Ext.define('KRF_DEV.view.north.North', {
 	}*/, {
 		xtype: 'image',
     	title: '저장',
+        style:'cursor:pointer;',
     	width: 69,
     	height: 37,
     	listeners: {
     		el: {
     			click: function(){
+    				setActionInfo("" , "" , "" , "" , "화면저장");
     				GetCoreMap().capture();
     			}
     		}
@@ -254,6 +263,7 @@ Ext.define('KRF_DEV.view.north.North', {
     	title: '매뉴얼',
     	width: 69,
     	height: 37,
+        style:'cursor:pointer;',
     	listeners: {
     		el: {
     			click: function(){

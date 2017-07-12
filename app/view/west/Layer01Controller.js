@@ -14,6 +14,7 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 		var me = this;
 		me.node = node;
 		me.checked = checked;
+
 		
 		if(btnId == undefined || btnId == null){
 			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
