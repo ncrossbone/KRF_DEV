@@ -148,7 +148,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					return;
 				}
 			}
-			
+			query.orderByFields = ["LAYER_CODE ASC"];
 			query.outFields = ["*"];
 			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
 			//console.info(query.where);

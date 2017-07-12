@@ -21,6 +21,12 @@ Ext.define("KRF_DEV.global.DroneFn", {
 		
 		//맵 불러오기
 		var activeLayer = me.map.getLayer("DynamicLayer3");
+		
+		if(activeLayer == undefined || activeLayer == null){
+			
+			return;
+		}
+		
 		activeLayer.setVisibility(false);
 		
 		
@@ -65,9 +71,13 @@ Ext.define("KRF_DEV.global.DroneFn", {
 		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
 		me.initVComboBox(cboDroneWBSite);
 		
-		// 레이어선택 초기화
-		var cboDroneLayer = Ext.getCmp("cboDroneLayer");
-		me.initVComboBox(cboDroneLayer);
+		// 조류측정자료 초기화
+		var cboDroneWBSite = Ext.getCmp("cboDroneWBSite");
+		me.initVComboBox(cboDroneWBSite);
+		
+		// 피코시아닌 초기화
+		var choDronePhy = Ext.getCmp("choDronePhy");
+		me.initVComboBox(choDronePhy);
 		
 		//if(Ext.getCmp("btnSearchDrone").btnOnOff == "on"){
 			this.LayerVisibility();

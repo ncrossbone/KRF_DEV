@@ -2,6 +2,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
     extend : 'Ext.data.Store',
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
+    // -----퇴적물조사지점-----
     fields: [
 			'PT_NO',
 			'PT_NM',
@@ -12,10 +13,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 			'MCNT',
 			'JOSANAME',
 			'ITEM_DOW_VAL',
-			/*'ITEM_TEMP_VAL',
-			'ITEM_DO_VAL',
-			'ITEM_PH_VAL',
-			'ITEM_EC_VAL',*/
 			
 			'ITEM_DOW_SURF_VAL',
 			'ITEM_TEMP_SURF_VAL',
@@ -67,6 +64,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 	listeners: {
 		load: function(store) {
 			
+			var me = this;
+			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
 			
 			var startYear = startMonth = endYear = endMonth = "";
@@ -92,21 +91,87 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
+			console.info(firstSearch);
+			if(firstSearch == "noDate"){
+				Ext.Ajax.request({
+	        		url: './resources/jsp/GetSearchResultData_C.jsp',
+	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch:firstSearch},
+	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		//rootProperty : 'items',
+	        		success : function(response, opts) {
+	        			
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+	
+	        			if(jsonData.data.length > 0){
+	        				
+		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+		        				
+		        				var dateSplit = jsonData.data[0].WMYR;
+		        				if(dateSplit == null){
+		        					if(me.gridCtl != null){
+			        					me.gridCtl.addCls("dj-mask-noneimg");
+			        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+			        				}
+		        				}
+		        				
+		        				var afterVal = dateSplit.split(".");
+		        				startYear = afterVal[0];
+		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
+		        					startMonth = "12";
+		        					startYear = startYear-1;
+		        				}else{
+		        					startMonth = afterVal[1]-1;
+		        				}
+		        				
+		        				if(startMonth < 10){
+		        					startMonth = "0"+startMonth;
+		        				}
+		        				
+		        				endYear = afterVal[0];
+		        				endMonth = afterVal[1];
+		        				
+		        				console.info(startYear);
+		        				console.info(startMonth);
+		        				console.info(endYear);
+		        				console.info(endMonth);
+		        				
+		        			}
+	        			}
+	        		},
+	        		failure: function(form, action) {
+	        			
+	        		}
+	        	});
+				
+				
+				firstSearch = "date";
+				Ext.getCmp("cmbStartYear").setValue(startYear); 
+				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("cmbEndYear").setValue(endYear);
+				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+			}
+			
 			Ext.Ajax.request({
         		url: './resources/jsp/GetSearchResultData_C.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch:firstSearch},
-        		async: true, // 비동기 = async: true, 동기 = async: false
+        		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
-        			
+        			store.startYear = startYear;
+        			store.startMonth = startMonth;
+        			store.endYear = endYear;
+        			store.endMonth = endMonth;
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 	        				
+	        				//console.info(jsonData.data);
 	        				store.setData(jsonData.data);
 		        			
 	        				// 로딩바 숨김

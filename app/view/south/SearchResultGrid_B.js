@@ -4,7 +4,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_B', {
 	//extend : 'Ext.grid.Panel',
 	
 	xtype: 'south-grid-searchresult',
-	
 	id: 'searchResultContainer_B',
 	
 	height: '100%',

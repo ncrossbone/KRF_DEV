@@ -7,6 +7,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
     width : 205,
     height : 200,
     header: true,
+    constrain: true,
     title: '기간설정',
     controller: 'chartPanelDateController',
     //x: x,
@@ -17,17 +18,28 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	    	
 	    	var f_Chart = Ext.getCmp("f_Chart");
 	    	var f_ChartText = Ext.getCmp("f_ChartText");
-	    	
+	    	var selectYear = Ext.getCmp("selectYear");
+	    	var selectYear2 = Ext.getCmp("selectYear2");
 	    	var parentChk = KRF_DEV.getApplication().parentFlag;
 			var chartFlag_D = KRF_DEV.getApplication().chartFlag_D;
 			if(parentChk == "F"){
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = false;
 	    		f_ChartText.hidden = false;
+	    		
+	    		var year = ['','2012','2013'];
+	    		selectYear.setStore(year);
+	    		selectYear.setValue('2012');
+	    		selectYear2.setStore(year);
+	    		selectYear2.setValue('2013');
 	    	}else{
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = true;
 	    		f_ChartText.hidden = true;
+	    		
+	    		var year = ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'];
+	    		selectYear.setStore(year);
+	    		selectYear2.setStore(year);
 	    	}
 	    	
 	    	//console.info(parentChk);
@@ -151,8 +163,8 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					,{id: 'ITEM_BOD', name: 'BOD'}
 					,{id: 'ITEM_COD', name: 'COD'}
 					,{id: 'ITEM_SS', name: 'SS'}
-					,{id: 'ITEM_TN', name: 'T-N'}
-					,{id: 'ITEM_TP', name: 'T-P'}
+					,{id: 'ITEM_TN', name: 'TN'}
+					,{id: 'ITEM_TP', name: 'TP'}
 					,{id: 'ITEM_COLI', name: '대장균군수'}]
 				})
 				itemCtl.setValue("AMT_PHYS");
@@ -182,7 +194,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 				xtype: 'combo',
 				id : 'selectYear',
 				//..fieldLabel: '<b>년</b> ',
-				store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
+				store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
 				value: '2014',
 				//labelWidth: 30,
 				//labelAlign: 'right',
@@ -223,7 +235,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	        		xtype: 'combo',
 					id : 'selectYear2',
 					//fieldLabel: '<b>년</b> ',
-					store: ['', '2010', '2011', '2012', '2013', '2014', '2015'],
+					store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
 					value: '2015',
 					//labelWidth: 30,
 					//labelAlign: 'right',
@@ -264,6 +276,43 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	        	},
 	        	items: [{
 					xtype: 'combo',
+					id : 'f_Chart',
+					//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
+					valueField: 'id',
+					displayField: 'name',
+					store: Ext.create('Ext.data.Store', {
+						fields: ['id', 'name'],
+						data: [{id: '1', name: '방류유량'}
+							,{id: '2', name: '직접이송량'}
+							,{id: '3', name: '총유입량'}
+							,{id: '4', name: '관거이송량'}]
+					}),
+					value: '방류유량',
+					width: 135,
+					height: 25
+				},{
+					xtype: 'container',
+					width: 10
+						
+				},{
+					xtype: 'label',
+					id: 'f_ChartText',
+					text: '항목'
+				}]
+	    	}]
+    	},{
+			xtype: 'container',
+			height: 5
+		},{
+    		items:[{
+    			xtype: 'container',
+	        	layout: {
+	        		type: 'hbox',
+	        		align: 'middle',
+	        		pack: 'middle'
+	        	},
+	        	items: [{
+					xtype: 'combo',
 					id : 'selectItem',
 					//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
 					valueField: 'id',
@@ -281,7 +330,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 							,{id: 'ITEM_CLOA', name: '클로로필a'}]
 					}),
 					value: '',
-					width: 105,
+					width: 135,
 					height: 25
 					
 	        	},{
@@ -290,43 +339,6 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					
 	        	},{
 					xtype: 'label',
-					text: '항목'
-				}]
-	    	}]
-    	},{
-			xtype: 'container',
-			height: 5
-		},{
-    		items:[{
-    			xtype: 'container',
-	        	layout: {
-	        		type: 'hbox',
-	        		align: 'middle',
-	        		pack: 'middle'
-	        	},
-	        	items: [{
-					xtype: 'combo',
-					id : 'f_Chart',
-					//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>항목 :</b> ',
-					valueField: 'id',
-					displayField: 'name',
-					store: Ext.create('Ext.data.Store', {
-						fields: ['id', 'name'],
-						data: [{id: '1', name: '방류유량'}
-							,{id: '2', name: '직접이송량'}
-							,{id: '3', name: '총유입량'}
-							,{id: '4', name: '관거이송량'}]
-					}),
-					value: '방류유량',
-					width: 115,
-					height: 25
-				},{
-					xtype: 'container',
-					width: 10
-						
-				},{
-					xtype: 'label',
-					id: 'f_ChartText',
 					text: '항목'
 				}]
 	    	}]

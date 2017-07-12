@@ -222,10 +222,10 @@ ReachInfoBinding = function(objs){
 ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 	
 	var yFieldName = "";
-	//console.info(parentId);
-	////console.info(tabIdx);
+	var chartId = ""; // 부모아이디
 	
 	if(parentId != ""){ // 기간설정 검색 버튼 클릭 시 공백
+		
 		var orgParentId = parentId
 		
 		parentId = parentId.substring(0,1);
@@ -264,7 +264,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 		
 		var siteText = Ext.getCmp("selectName");  // 지점명
 		//지점명 표출
-		siteText.setText(test);
+		siteText.setText("ㆍ"+test);
 		
 		//각쿼리당 초기값 설정
 		var series = siteChartCtl.series[0];
@@ -303,7 +303,6 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			series.setXField("WMCYMD");
 			yFieldName = "SWL";
 		}
-		//console.info(yFieldName);
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
 		
@@ -325,25 +324,36 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			chartStore.orgParentId = orgParentId;
 			chartStore.load();
 			siteChartCtl.setStore(chartStore);
+			
 		}
+		
+		chartId = parentId; 
 	}
 	else{
 		KRF_DEV.getApplication().chartFlag = "0";
 		var siteChartCtl = Ext.getCmp("siteCharttest");  //차트 ID
+		
+		
 		var chartStore = siteChartCtl.getStore();
 		chartStore.load();
+		
+		if(chartStore.parentId == "F"){
+			chartId = chartStore.parentId;
+		}
+		
+		//클릭 session
+		setActionInfo(siteChartCtl.store.parentId , siteChartCtl.store.orgParentId , "" , siteChartCtl.store.siteCD , "차트검색");
+		
 	}
 	
-	//console.info(yFieldName);
-	SetItemLabelText(yFieldName);
+	SetItemLabelText(yFieldName,chartId);
 
 }
 
-// 지점/차트 정보 창 닫기
+//지점/차트 정보 창 닫기
 HideWindowSiteNChart = function(){
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
-	////console.info(winCtl);
 	if(winCtl != undefined)
 		//winCtl.close();
 		winCtl.hide();
@@ -355,23 +365,33 @@ HideWindowSiteNChart = function(){
 
 }
 
-SetItemLabelText = function(itemNm){
+SetItemLabelText = function(itemNm,chartId){
 	
 	if(itemNm == undefined || itemNm == ""){
 		//item 선택
 		var selectItem = Ext.getCmp("selectItem");
 		itemNm = selectItem.lastValue;
+		
+		/*var f_Chart = Ext.getCmp("f_Chart");
+		var fName = Ext.getCmp("selectFName"); //selectFName
+		var fbar = Ext.getCmp("selectF-Name"); //selectF-Name
+		if(chartId == "F"){
+			fName.setText(f_Chart.rawValue);
+			fbar.setText(">");
+		}else{
+			fName.setText("");
+			fbar.setText("");
+		}*/
+		
 	}
-	//console.info(itemNm);
 	//var itemNm = "";
 	//var itemNm = "ITEM_VALUE";
-	
 	if(itemNm == "ITEM_BOD"){
-		itemNm = "BOD(㎎/L)";
+		itemNm = "BOD(㎎/ℓ)";
 	}else if(itemNm == "ITEM_COD"){
-		itemNm = "COD(㎎/L)";
+		itemNm = "COD(㎎/ℓ)";
 	}else if(itemNm == "ITEM_DOC"){
-		itemNm = "DO(㎎/L)";
+		itemNm = "DO(㎎/ℓ)";
 	}else if(itemNm == "ITEM_DOW"){
 		itemNm = "수심(cm)";
 	}else if(itemNm == "WL"){
@@ -389,9 +409,9 @@ SetItemLabelText = function(itemNm){
 	}else if(itemNm == "SWL"){
 		itemNm = "보 상류수위(m)";
 	}else if(itemNm == "ITEM_TN"){
-		itemNm = "T-N (㎎/L)";
+		itemNm = "T-N (㎎/ℓ)";
 	}else if(itemNm == "ITEM_TP"){
-		itemNm = "T-P (㎎/L)";
+		itemNm = "T-P (㎎/ℓ)";
 	}else if(itemNm == "ITEM_TEMP"){
 		itemNm = "수온(℃)";
 	}else if(itemNm == "ITEM_PH"){
@@ -434,6 +454,8 @@ SetItemLabelText = function(itemNm){
 		itemNm = "어도 방류량(㎥/sec)";
 	}else if(itemNm == "ETCOTF"){
 		itemNm = "기타 방류량(㎥/sec)";
+	}else if(itemNm == "ITEM_AMT"){
+		itemNm = "유량(㎥/일)";
 	}
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
@@ -442,9 +464,21 @@ SetItemLabelText = function(itemNm){
 	
 	series.setYField("ITEM_VALUE");
 	axes.fields = "ITEM_VALUE";
-	//console.info(itemNm)
 	var siteItemText = Ext.getCmp("selectItemName");  // 항목명
-	siteItemText.setText(itemNm);
+	
+	var f_Chart = Ext.getCmp("f_Chart");
+	
+	if(chartId == "F"){
+		if(f_Chart == undefined){
+			siteItemText.setText("ㆍ방류유량 > "+itemNm);
+		}else{
+			siteItemText.setText("ㆍ"+f_Chart.rawValue + " > " + itemNm);
+		}
+	}else{
+		siteItemText.setText("ㆍ"+itemNm);
+	}
+	
+	//siteItemText.setText(itemNm);
 }
 
 // 차트 라벨 맥시멈 등 셋팅 및 스토어 로드
@@ -452,14 +486,10 @@ SetItemLabelText = function(itemNm){
 SetChartMaxData = function(store){
 	
 	var ITEM_VALUE = parseFloat(store.arrMax[0].ITEM_VALUE);
-	//console.info(store);
 	
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
 	var axes   = chartCtl.axes[0];
-	//var series = chartCtl.series[0];
-	//var s = series.getYField();
-	//console.info(ITEM_VALUE);
 	axes.setMaximum(ITEM_VALUE);
 	
 		
@@ -508,14 +538,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		isFirst = true;
 	}
 	
-	//console.info("==================================");
-	//console.info("siteIds::"+siteIds);
-	//console.info("parentIds::"+parentIds);
-	//console.info("titleText::"+titleText);
-	//console.info("gridId::"+gridId);
-	//console.info(test);
-	//console.info(tooltipCk);
-	//console.info("==================================");
+	
 	// 리치검색 khLee 20151102 추가
 	
 	if(siteIds == "CAT"){
@@ -541,16 +564,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
-	//console.info(searchResultWindow);
 	searchResultWindow.show();
 	KRF_DEV.getApplication().searchResultWindow = searchResultWindow;
 	
-	//console.info(siteIds);
-	//console.info(parentIds);
-	//console.info(gridId);
 	
-	//centerContainer.add(searchResultWindow.show()); // window 보이기
-	////console.info(gridId);
 	if(gridId == undefined)
 		return;
 	
@@ -561,14 +578,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	};
 	
 	var tabCtl = Ext.getCmp("searchResultTab");
-	////console.info(KRF_DEV.getApplication().btnFlag);
+	
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
 	
-	////console.info(searchResultTab.items.items[1]);
 	
 	var orgParentId = parentIds[0].parentId;
 	
@@ -577,10 +593,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	}else{
 		var parentCheck = parentIds[0].parentId.substring(0,1);
 	}
-	
 	options = {
-			//id: "searchResultContainer",
+			//id: titleText,
 			id: gridId + "_container",
+			//tabId: gridId + "_container",
 			title: titleText, //_searchType,
 			parentId: parentCheck,
 			//closable : true,
@@ -589,43 +605,31 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	var tab = searchResultTab.items.items[1];
 	
-	//console.info(tab);
 	var gridStore = null;
 	var grdContainer = Ext.getCmp(gridId + "_container");
 	
-	//var b003 = Ext.getCmp("select_B003");
-	//b003.setHidden(true);
-	
-	
-	var hiddenGrid = Ext.getCmp("F_CHANGE");
-	var cmbStartYear = Ext.getCmp("cmbStartYear");
-	var cmbStartMonth = Ext.getCmp("cmbStartMonth");
-	var cmbEndYear = Ext.getCmp("cmbEndYear");
-	var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 	
 	if(parentCheck == "A"){	
 		
-		////console.info(sYearCtl.setValue("2013"));
 		//환경기초시설 검색값 히든처리
 		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid", options);
-			//searchResultTab.add(grdContainer);
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
+		
 		tab.setActiveTab(gridId + "_container");
+			
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		//console.info(parentIds);
 		if(siteIds != ""){
 			grdCtl.siteIds = siteIds;
 		}
 		if(parentIds != ""){
 			grdCtl.parentIds = parentIds;
 		}
-		////console.info(grdCtl.parentIds)
-		console.info(grdCtl);
 		
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid", {
@@ -636,16 +640,104 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		
 		//grdCtl.getView().bindStore(gridStore);
 		grdCtl.setStore(gridStore);
+		
 	
+	}else if(parentCheck == "B"){
+		//hiddenGrid.setHidden(true);
+		
+		//id값 분기 - ph
+		var idCheck = "";
+		
+		if(parentIds[0].parentId == undefined){
+			idCheck = parentIds;
+		}else{
+			idCheck = parentIds[0].parentId;
+		}
+		
+		if(idCheck!="B001"){
+			
+				if(grdContainer == null || grdContainer == undefined){
+					
+					grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B", options);
+					
+					grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+					
+					tab.add(grdContainer);
+					//tab.insert(0, grdContainer);
+				}
+				tab.setActiveTab(gridId + "_container");
+				
+				var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+				grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+				//grdCtl.id = gridId;
+				
+				if(siteIds != ""){
+					grdCtl.siteIds = siteIds;
+				}
+				if(parentIds != ""){
+					grdCtl.parentIds = parentIds;
+				}
+				
+				
+				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
+					siteIds: grdCtl.siteIds,
+					parentIds: grdCtl.parentIds,
+					firstSession: test,
+					isFirst: isFirst,
+					gridCtl: grdCtl
+				});
+				
+				//grdCtl.getView().bindStore(gridStore);
+				grdCtl.setStore(gridStore);
+		}else{
+			//test value - ph
+			//options.title = "수질자동측정망";
+			options = {
+			//id: "searchResultContainer",
+			id: gridId + "_container",
+			title: titleText, //_searchType,
+			parentId: parentCheck,
+			//closable : true,
+			autoResize: true,
+			idCheck:idCheck
+			};
+			//b003.setHidden(false);
+			
+			if(grdContainer == null || grdContainer == undefined){
+					
+					grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B001", options);
+					
+					grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+					
+					tab.add(grdContainer);
+					//tab.insert(0, grdContainer);
+				}
+				tab.setActiveTab(gridId + "_container");
+				var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+				grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+				//grdCtl.id = gridId;
+				
+				if(siteIds != ""){
+					grdCtl.siteIds = siteIds;
+				}
+				if(parentIds != ""){
+					grdCtl.parentIds = parentIds;
+				}
+				
+				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B001", {
+					siteIds: grdCtl.siteIds,
+					parentIds: grdCtl.parentIds,
+					firstSession: test,
+					isFirst: isFirst,
+					gridCtl: grdCtl
+				});
+				
+				//grdCtl.getView().bindStore(gridStore);
+				grdCtl.setStore(gridStore);
+		}
 	}else if(parentCheck == "F"){
 		
 		var firstSearch =  KRF_DEV.getApplication().btnFlag;
-		if(firstSearch == "noDate"){
-			cmbStartYear.setValue("2012");
-			cmbStartMonth.setValue("09");
-			cmbEndYear.setValue("2012");
-			cmbEndMonth.setValue("12");
-		}
 		
 		//cmbStartYear.setValue("2015");
 		//cmbStartMonth.setValue("2015");
@@ -657,10 +749,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		if(grdContainer == null || grdContainer == undefined){
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_F", options);
+			
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+			
 			tab.add(grdContainer);
-			//tab.insert(0, grdContainer);
 		}
-		////console.info(grdContainer);
 		
 		
 		var ResultGrid_F = Ext.getCmp(gridId + "_container");
@@ -682,50 +775,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		var hiddenT = "";
 		var pointArray = "";
 		var pointValue = "";
-		
+		//Ext.getCmp("F_CHANGE").setRawValue("방류유량");		
 		//DISCHARGE_AMT_PHYS_VAL.hideable = false;
-		
 		//0~2 , 11~16 공통
-		if(test == "" ||test == "1" || test == "관거이송량"){
+		if(test == "" ||test == "1" || test == "방류유량"){
 			test = "";
-			var arrayF = ['3','4','13','14','27','28','29'];
-			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
-			var point = ['14','16','18','20','22','24','26','28'];
 			
-			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
-				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
-			}
-			
-			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
-				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
-			}
-			
-			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
-				
-				if(point[pointArray] == 14){
-					pointValue = 13.2;
-				}else if(point[pointArray] == 16){
-					pointValue = 17.6;
-				}else if(point[pointArray] == 18){
-					pointValue = 9.9;
-				}else if(point[pointArray] == 20){
-					pointValue = 418.0;
-				}else if(point[pointArray] == 22){
-					pointValue = 110.0;
-				}else if(point[pointArray] == 24){
-					pointValue = 49.5;
-				}else if(point[pointArray] == 26){
-					pointValue = 5.5;
-				}else{
-					pointValue = 33.0;
-				}
-				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
-			}
-			
-			
-			
-		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
+			Ext.getCmp("F_CHANGE").setRawValue("방류유량");
 			
 			var arrayT = ['3','4','5','13','14','27','28','29'];
 			var arrayF = ['6','7','8','9','10','11','12','30','31'];
@@ -760,11 +816,13 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 462.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
 			
-		}else if(test == "3"){
+			
+		}else if(test == "2"){   //ResultGrid_F.columns[].setHidden(false);
+			
+			Ext.getCmp("F_CHANGE").setRawValue("직접이송량");
 			
 			var arrayT = ['3','4','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['5','13','14'];
@@ -795,11 +853,11 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 184800.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
 			}
 			
+		}else if(test == "3"){
 			
-		}else{
+			Ext.getCmp("F_CHANGE").setRawValue("총유입량");
 			
 			var arrayT = ['4','5','6','7','8','9','10','11','12','27','28','29','30','31'];
 			var arrayF = ['3','13','14'];
@@ -830,12 +888,47 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 					pointValue = 184800.0;
 				}
 				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
-				//console.info(grdCtl.columns[point[pointArray]].widget.chartRangeMax);
+			}
+			
+		}else{
+			
+			Ext.getCmp("F_CHANGE").setRawValue("관거이송량");
+			
+			var arrayF = ['3','4','13','14','27','28','29'];
+			var arrayT = ['5','6','7','8','9','10','11','12','30','31'];
+			var point = ['14','16','18','20','22','24','26','28'];
+			
+			for(hiddenF = 0 ; hiddenF<arrayF.length ; hiddenF++){
+				grdCtl.columns[arrayF[hiddenF]].setHidden(false);
+			}
+			
+			for(hiddenT = 0 ; hiddenT<arrayT.length ; hiddenT++){
+				grdCtl.columns[arrayT[hiddenT]].setHidden(true);
+			}
+			
+			for(pointArray = 0 ; pointArray<point.length ; pointArray++){
+				
+				if(point[pointArray] == 14){
+					pointValue = 13.2;
+				}else if(point[pointArray] == 16){
+					pointValue = 17.6;
+				}else if(point[pointArray] == 18){
+					pointValue = 9.9;
+				}else if(point[pointArray] == 20){
+					pointValue = 418.0;
+				}else if(point[pointArray] == 22){
+					pointValue = 110.0;
+				}else if(point[pointArray] == 24){
+					pointValue = 49.5;
+				}else if(point[pointArray] == 26){
+					pointValue = 5.5;
+				}else{
+					pointValue = 33.0;
+				}
+				grdCtl.columns[point[pointArray]].widget.chartRangeMax = pointValue;
 			}
 			
 		}
-		
-		//console.info(test);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
 			siteIds: grdCtl.siteIds,
@@ -844,117 +937,25 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			gridCtl: grdCtl
 		});
 		
-		grdCtl.getView().bindStore(gridStore);
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
 		
-	}else if(parentCheck == "B"){
-		//hiddenGrid.setHidden(true);
-		
-		//id값 분기 - ph
-		var idCheck = "";
-		
-		if(parentIds[0].parentId == undefined){
-			idCheck = parentIds;
-		}else{
-			idCheck = parentIds[0].parentId;
-		}
-		//console.info(idCheck);
-		//test value - ph
-		//idCheck = "B003";
-		
-		if(idCheck!="B001"){
-			
-				if(grdContainer == null || grdContainer == undefined){
-					
-					grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B", options);
-					
-					
-					tab.add(grdContainer);
-					//tab.insert(0, grdContainer);
-				}
-				tab.setActiveTab(gridId + "_container");
-				
-				var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
-				grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-				//grdCtl.id = gridId;
-				
-				if(siteIds != ""){
-					grdCtl.siteIds = siteIds;
-				}
-				if(parentIds != ""){
-					grdCtl.parentIds = parentIds;
-				}
-				
-				//console.info(grdCtl.parentIds)
-				//console.info(isFirst);
-				
-				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B", {
-					siteIds: grdCtl.siteIds,
-					parentIds: grdCtl.parentIds,
-					firstSession: test,
-					isFirst: isFirst,
-					gridCtl: grdCtl
-				});
-				
-				grdCtl.getView().bindStore(gridStore);
-		}else{
-			//test value - ph
-			//options.title = "수질자동측정망";
-			options = {
-			//id: "searchResultContainer",
-			id: gridId + "_container",
-			title: titleText, //_searchType,
-			parentId: parentCheck,
-			//closable : true,
-			autoResize: true,
-			idCheck:idCheck
-			};
-			//b003.setHidden(false);
-			
-			if(grdContainer == null || grdContainer == undefined){
-					
-					grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_B001", options);
-					
-					
-					tab.add(grdContainer);
-					//tab.insert(0, grdContainer);
-				}
-				tab.setActiveTab(gridId + "_container");
-				var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
-				grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-				//grdCtl.id = gridId;
-				
-				if(siteIds != ""){
-					grdCtl.siteIds = siteIds;
-				}
-				if(parentIds != ""){
-					grdCtl.parentIds = parentIds;
-				}
-				
-				gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_B001", {
-					siteIds: grdCtl.siteIds,
-					parentIds: grdCtl.parentIds,
-					firstSession: test,
-					isFirst: isFirst,
-					gridCtl: grdCtl
-				});
-				
-				grdCtl.getView().bindStore(gridStore);
-		}
 	}else if(parentCheck == "C"){
 		
 		var firstSearch =  KRF_DEV.getApplication().btnFlag;
-		if(firstSearch == "noDate"){
+		/*if(firstSearch == "noDate"){
 			cmbStartYear.setValue("2013");
 			cmbStartMonth.setValue("10");
 			cmbEndYear.setValue("2013");
 			cmbEndMonth.setValue("12");
-		}
+		}*/
 
 		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
 			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_C", options);
 			
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
 			
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
@@ -973,8 +974,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			grdCtl.parentIds = parentIds;
 		}
 		
-		//console.info(grdCtl.parentIds)
-		//console.info(grdCtl.siteIds);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_C", {
 			siteIds: grdCtl.siteIds,
@@ -983,12 +982,12 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			gridCtl: grdCtl
 		});
 		
-		grdCtl.getView().bindStore(gridStore);
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
 	
 	
 	}else if(parentCheck == "D"){
 
-		//console.info(orgParentId);
 		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
 			
@@ -1008,6 +1007,8 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_D_7", options);
 			}
 			
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+			
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -1017,10 +1018,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
 		
 		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
-		//console.info(grdCtl);
-		//console.info(grdCtl.parentIds);
-		//console.info(parentIds);
-		//console.info(orgParentId);
 		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
 		
 		if(siteIds != ""){
@@ -1034,8 +1031,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			orgParentId = parentIds;
 		}
 		
-		//console.info(grdCtl.parentIds)
-		//console.info(grdCtl.siteIds);
 		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_D", {
 			siteIds: grdCtl.siteIds,
@@ -1044,11 +1039,14 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			gridCtl: grdCtl
 		});
 		
-		grdCtl.getView().bindStore(gridStore);
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
 	
 	
 	
 	}
+	
+
 }
 
 // 검색결과창 닫기
@@ -1572,7 +1570,19 @@ ResetButtonClick = function(){
 	
 	catTMLayerOnOff("off");
 	
+	//부하량 배열 초기화
+	me.reachLayerAdmin_v3_New.arrAreaGrp = [];
+	
 	pollutionLayerOnOff("off","");
+	
+	Ext.HideSiteListWindow(); // 지점 리스트 창 닫기
+	
+	//지점목록 remove
+	var treeCtl = Ext.getCmp("siteListTree");
+	if(treeCtl != undefined){
+		treeCtl.getStore().remove();
+		treeCtl.store.load();
+	}
 	
 	Ext.HideSiteListWindow(); // 지점 리스트 창 닫기
 	HideWindowSiteNChart(); // 지점정보, 차트창 닫기
@@ -1624,22 +1634,48 @@ ResetButtonClick = function(){
 	var droneCtl = Ext.getCmp("droneToolbar");
 	//console.info(droneCtl);
 	// 항공영상 tool 숨기기
-	if(currCtl.btnOnOff == "on"){
-		droneCtl.show();
-	}else{
-		droneCtl.hide();
+	if(currCtl != undefined && droneCtl != undefined){
+		
+		// 항공영상 tool 숨기기
+		if(currCtl.btnOnOff == "on"){
+			droneCtl.show();
+		}else{
+			droneCtl.hide();
+		}
+		
+		Ext.defer(function(){
+			Layer01OnOff(_reachNodeLayerId, "on");
+			Layer01OnOff(_reachLineLayerId, "on");
+			Layer01OnOff(_reachFlowLayerId, "on");
+			Layer01OnOff(_lakeLayerId, "on");
+			
+		}, 100);
 	}
 	
-	Ext.defer(function(){
-		Layer01OnOff(_reachNodeLayerId, "on");
-		Layer01OnOff(_reachLineLayerId, "on");
-	}, 100);
+	// 물환경 연동 마커 초기화
+	var coreMap = GetCoreMap();
+	var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+	if(paramMarker!=undefined){
+		paramMarker.hide();
+	}
+	
+	//상위 버튼 초기화
+	SetBtnOnOff("btnFlowLayer","on");
+	SetBtnOnOff("btnReachLayer","on");
+	
+	/* 사이트 정보 팝업 띄우기 */
+	var popCtl = Ext.getCmp("popSiteInfo");
+	
+	// 팝업 띄워져있으면 닫기
+	if(popCtl != undefined){
+		
+		popCtl.close();
+	}
 }
 
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId, onoff){
 	
-	//console.info(layerId);
 	if(layerId == undefined || layerId == null || layerId == ""){
 		return;
 	}
@@ -1648,7 +1684,6 @@ Layer01OnOff = function(layerId, onoff){
 	var node = treeCtl.getStore().getNodeById(layerId);
 	
 	var isChecked = false;
-	
 	if(onoff == "on"){
 		node.set("checked", true);
 	}

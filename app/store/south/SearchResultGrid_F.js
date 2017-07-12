@@ -23,10 +23,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F', {
     
     autoLoad: true,
     
-    buffered: true,
+    //buffered: true,
     pageSize: 100,
 
-	remoteSort: true,
+	//remoteSort: true,
 	
 	siteIds: "",
 	parentIds: [],
@@ -34,7 +34,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F', {
 	
 	listeners: {
 		load: function(store) {
-			
+			var me = this;
 			var startYear = startMonth = endYear = endMonth = "";
 			
 			startYear = Ext.getCmp("cmbStartYear").value;

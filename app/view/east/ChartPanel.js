@@ -33,34 +33,25 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				xtype: 'container',
 				width: 10
 			}, {
-				xtype: 'image',
-				src: './resources/images/button/arrow.gif'
-			}, {
 				xtype: 'label',
 				id : 'selectName',
-				style: 'font-weight: bold; padding-left: 15px;',
+				style: 'font-weight: bold; padding-left: 7px; margin: 3px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				//store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
 				//width: 175,
-				width: "55%",
+				width: "40%",
 				height: 25
-			},{
-				xtype: 'container',
-				width: 10
-				//flex: 1
 			},{
 				xtype: 'label',
 				id : 'selectItemName',
-				style: 'font-weight: bold; padding-left: 15px;',
+				style: 'font-family: 돋움;font-size: 12px; margin: 5px;',
+				//style: 'font-weight: bold; padding-left: 10px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
 				text: 'BOD(㎎/ℓ)',
 				//width: 125,
-				width: "20%",
+				width: "32%",
 				height: 25
-			}, {
-				xtype: 'container',
-				width:  17
 			},{
 				xtype: 'image',
 				id: 'btnShowSearchWindow',
@@ -99,6 +90,9 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						click: function(obj, el, evt){
 							
 							var siteCharttest = Ext.getCmp('siteCharttest');
+							
+							setActionInfo(siteCharttest.store.parentId , siteCharttest.store.orgParentId , "" , siteCharttest.store.siteCD , "차트저장");
+							
 							//siteCharttest.download({
 							siteCharttest.download({
 								type: 'image/svg+xml',
@@ -130,7 +124,24 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				height: 21,
 				src: './resources/images/button/btn_save.gif'
 			
-			}]
+			}/*,{
+				xtype:"button",
+				text:"undo",
+				handler:function(){
+					
+					var chart = Ext.getCmp("siteCharttest");
+					var interaction = Ext.ComponentQuery.query('interaction', chart)[0];
+					
+					//console.info(interaction);
+					var undoButton = interaction.getUndoButton();
+					var handler = undoButton.handler;
+					
+					if (handler) {
+						handler();
+					}
+					
+				}
+			}*/]
 		},  {
 	        //xtype: 'chart',
 			xtype: 'cartesian',
@@ -139,7 +150,13 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        innerPadding: {
 	             left: 30,
 	             right:30
-	        }, 
+	        },
+	        
+	       /* interactions: {
+	            type: 'crosszoom',
+	            zoomOnPanGesture: false
+	        },*/
+	        
 	        width: 450,
 	        height: 250,
 	        padding: '10 0 0 0',
