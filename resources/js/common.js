@@ -1,4 +1,4 @@
-﻿//  버튼 on/off
+//  버튼 on/off
 SetBtnOnOff = function(btnId, strOnOff){
 	var currCtl = Ext.getCmp(btnId);
 	if(currCtl == undefined){
@@ -580,6 +580,12 @@ ChangeTabIndex = function(tabIdx){
 	
 	var contCtl = Ext.getCmp("infoContents");
 	contCtl.setActiveItem(tabIdx);
+}
+
+ShowToolTipSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst){
+	//처음검색
+	KRF_DEV.getApplication().btnFlag = "noDate";
+	ShowSearchResult(siteIds, parentIds, titleText, gridId, test, tooltipCk, isFirst);
 }
 
 // 검색결과창 띄우기

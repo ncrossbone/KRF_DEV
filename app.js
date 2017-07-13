@@ -1,4 +1,4 @@
-﻿var _testUrl = null;
+var _testUrl = null;
 var _serviceUrl = null;
 /**
  * testlkj
