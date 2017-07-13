@@ -24,8 +24,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
 	
 	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
-	//height: 1100,
-	height: "109%",
+	height: 1250,
+	//height: "109%",
 	x: -378,
 	y: -80,
 	
