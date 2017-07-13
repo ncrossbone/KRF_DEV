@@ -23,11 +23,19 @@ try{
 	String endYear = request.getParameter("endYear");
 	String endMonth = request.getParameter("endMonth");
 	
+	String firstSearch = request.getParameter("firstSearch");
+	
 	String startYYYYMM = startYear + startMonth;
 	String endYYYYMM = endYear + endMonth;
 	//out.print(parentIds);
-	
-sql = " SELECT A.RN /* 순번 */																																								";
+	//유량관측소
+
+if(firstSearch.equals("date")){
+	sql = "";
+}else{
+	sql = "	SELECT * FROM ( ";
+}
+sql += " SELECT A.RN /* 순번 */																																								";
 sql += "      , A.WS_NM /* 대권역 */                                                                          ";
 sql += "      , A.AM_NM /* 중권역 */                                                                          ";
 sql += "      , A.AS_NM /* 소권역 */                                                                          ";
@@ -70,8 +78,10 @@ sql += "                        ROUND(AVG(ECPC)/1, 3) ECPC                      
 sql += "                 FROM   DMDY A,                                                                       ";
 sql += "                        DMOBSIF D                                                                     ";
 sql += "                 WHERE  A.DMOBSCD = D.DMOBSCD                                                         ";
-sql += "                 AND    SUBSTR(A.YMD, 1, 6) >='"+startYYYYMM+"'                                     ";
-sql += "                 AND    SUBSTR(A.YMD, 1, 6) <='"+endYYYYMM+"'                                     ";
+if(firstSearch.equals("date")){
+	sql += "                 AND    SUBSTR(A.YMD, 1, 6) >='"+startYYYYMM+"'                                     ";
+	sql += "                 AND    SUBSTR(A.YMD, 1, 6) <='"+endYYYYMM+"'                                     ";
+}
 sql += "                 AND    A.DMOBSCD  IN ( "+siteIds+"  )                                            ";
 sql += "                 GROUP BY SUBSTR(YMD,1,4)||'.'||SUBSTR(YMD,5,2)||'.'||SUBSTR(YMD,7,2), A.DMOBSCD , OBSNM ) A,                                                 ";
 sql += "                KESTI_WATER_ALL_MAP B,                                                                ";
@@ -104,8 +114,10 @@ sql += "                        ROUND(AVG(ECPC)/1, 3) ECPC                      
 sql += "                 FROM   DMDY A,                                                                       ";
 sql += "                        DMOBSIF D                                                                     ";
 sql += "                 WHERE  A.DMOBSCD = D.DMOBSCD                                                         ";
-sql += "                 AND    SUBSTR(A.YMD, 1, 6) >='"+startYYYYMM+"'                                                ";
-sql += "                 AND    SUBSTR(A.YMD, 1, 6) <='"+endYYYYMM+"'                                                ";
+if(firstSearch.equals("date")){
+	sql += "                 AND    SUBSTR(A.YMD, 1, 6) >='"+startYYYYMM+"'                                                ";
+	sql += "                 AND    SUBSTR(A.YMD, 1, 6) <='"+endYYYYMM+"'                                                ";
+}
 sql += "                 AND    A.DMOBSCD IN ( "+siteIds+" )                                                        ";
 sql += "                 GROUP BY SUBSTR(YMD,1,4)||'.'||SUBSTR(YMD,5,2)||'.'||SUBSTR(YMD,7,2), A.DMOBSCD , OBSNM ) A,                                                 ";
 sql += "                KESTI_WATER_ALL_MAP B,                                                                ";
@@ -115,8 +127,12 @@ sql += "         AND    A.ADM_CD = C.ADM_CD                                     
 sql += "        ) B                                                                                           ";
 sql += "  WHERE A.PT_NO = B.PT_NO                                                                             ";
 sql += "    AND A.RN BETWEEN B.RN -4 AND B.RN                                                                 ";
-sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                          ";
-		
+if(firstSearch.equals("date")){
+	sql += "  ORDER BY A.PT_NO, A.WMCYMD DESC, B.WMCYMD                                                          ";
+}else{
+	sql += "  ORDER BY A.WMCYMD DESC                                                         ";
+	sql += "  ) WHERE ROWNUM <= 1                                 ";
+}
    //out.print(sql);    sql += "AND A.PT_NO IN (" + siteIds + ") ";
 		//out.print(sql);   
 		stmt = con.createStatement();

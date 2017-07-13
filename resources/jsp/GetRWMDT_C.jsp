@@ -30,7 +30,7 @@ try{
 	String selectItem = request.getParameter("selectItem");
 	
 	sql = " WITH TMP_TBL AS (																																																																																																			";
-	sql += " SELECT RANK() OVER(PARTITION BY PT_NO||ITEM_NAME ORDER BY WMCYMD DESC) AS RN,/* 순번 */                                                                                                                          ";
+	sql += " SELECT RANK() OVER(PARTITION BY PT_NO||ITEM_NAME ORDER BY WMCYMD ASC) AS RN,/* 순번 */                                                                                                                          ";
 	sql += "         PT_NO, PT_NM, WMYR, WMOM AS WMOD, WMCYMD, WMWK, CODE_CTN, ITEM_NAME, ITEM_VALUE                                                                                                                                ";
 	sql += "   FROM (SELECT A.PT_NO, PT_NM, WMYR, WMOM , WMYR||'.'||WMOM||'.'||WMOM AS WMCYMD                                                                                                                                       ";
 	sql += "              , CASE WHEN WMWK = '1' THEN '상반기' WHEN WMWK = '2' THEN '하반기' END WMWK                                                                                                                               ";
@@ -51,17 +51,15 @@ try{
 	sql += "            AND B.JOSACODE = C.CODE                                                                                                                                                                                     ";
 	sql += "            AND C.CODE_ID  = 'ORG001'                                                                                                                                                                                   ";
 	sql += "        )                                                                                                                                                                                                               ";
-	sql += " WHERE PT_NO = '2022R50'                                                                                                                                                                                                ";
-	if(defaultChart.equals("1")){
-		sql += "   AND WMYR||WMOM BETWEEN '201001' AND '201512'                                                                                                                                                                         ";
-	}else{
+	sql += " WHERE PT_NO = '"+recordId+"'                                                                                                                                                                                                ";
+	if(defaultChart.equals("0")){
 		sql += "   AND WMYR||WMOM BETWEEN '"+startDate+"' AND '"+endDate+"'                                                                                                                                                                         ";	
 	}
-	sql += " ORDER BY WMYR DESC , WMOM DESC                                                                                                                                                                                         ";
+	sql += " ORDER BY WMYR asc , WMOM asc                                                                                                                                                                                         ";
 	sql += " )                                                                                                                                                                                                                      ";
 	sql += " SELECT RN, PT_NO, PT_NM, WMYR, WMOD, WMCYMD, WMWK, CODE_CTN, ITEM_NAME, TO_NUMBER(ITEM_VALUE) AS ITEM_VALUE                                                                                                            ";
 	sql += "   FROM TMP_TBL                                                                                                                                                                                                         ";
-	sql += "  WHERE ITEM_NAME = 'ITEM_COD'                                                                                                                                                                                          ";
+	sql += "  WHERE ITEM_NAME = '"+selectItem+"'                                                                                                                                                                                          ";
 	sql += "  AND ITEM_VALUE IS NOT NULL   ";
 	if(defaultChart.equals("1")){
 		sql += "    AND ROWNUM <= 10                                                                                                                                                                                                    ";
@@ -70,15 +68,12 @@ try{
 	sql += " SELECT 999 AS RN, '','','','','','','',''                                                                                                                                                                              ";
 	sql += "      , MAX(ITEM_VALUE) + MAX(ITEM_VALUE) / 10                                                                                                                                                                          ";
 	sql += "   FROM TMP_TBL                                                                                                                                                                                                         ";
-	sql += "  WHERE ITEM_NAME = '"+recordId+"'                                                                                                                                                                                          ";
+	sql += "  WHERE ITEM_NAME = '"+selectItem+"'                                                                                                                                                                                          ";
 	if(defaultChart.equals("1")){
 		sql += "    AND ROWNUM <= 10                                                                                                                                                                                                    ";
 	}
-                             
-
-
-	//System.out.println(sql);	
-   //out.print(sql);
+    
+	//System.out.println(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
 	JSONObject jsonObj  = new JSONObject();

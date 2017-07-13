@@ -1,10 +1,10 @@
-/* drone toolbar item z-index (extjs ±âº» 19000) */
+/* drone toolbar item z-index (extjs ï¿½âº» 19000) */
 .drone-toolbar #droneToolbar {
 	position: relative !important;
 	z-index: 20000 !important;
 }
 
-/* combo item z-index (extjs ±âº» 19000) */
+/* combo item z-index (extjs ï¿½âº» 19000) */
 .drone-combolist div[id*="cboDrone"] {
 	position: relative !important;
 	z-index: 30000 !important;
@@ -13,7 +13,7 @@
 .view_form {
 	width:  350px;
 	border-collapse: collapse;
-	font-family:'µ¸¿ò';
+	font-family:'ï¿½ï¿½ï¿½ï¿½';
 	font-size: 12px;
 }
 
@@ -56,3 +56,20 @@
 	background: #ffffff !important;
 	padding: 6px 8px;
 }
+
+ .view_form { border-collapse: collapse; }
+ 
+ .view_form> thead> tr> th:last-child, .view_form> thead> tr> td:last-child, .view_form> tbody> tr> th:last-child, .view_form> tbody> tr> td:last-child {border-right: 0px; }
+  
+ .view_form> thead> tr> th, .view_form> thead> tr> td, .view_form> tbody> tr> th, .view_form> tbody> tr> td { padding: 5px 3px; border-bottom: 1px solid #ddd;border-right: 1px solid #ddd; text-align: center; }
+ 
+ .tst04 { width: 350px; font-size: 12px; }
+ .tst04> thead> tr { background: #59657f; }
+ .tst04> thead> tr> th { color: #fff; font-weight: bold; }
+ .tst04> tbody> tr> th { background: #f3f7ff; color: #333; font-weight: bold; }
+ .tst04> tbody> tr> td { color: #333; }
+ .tst04 b { display: block; margin-bottom: 3px; }
+ .tst04 span { display: block; } 
+ .viewBg04 th { background: #1047a9; }
+ .viewtit1 { margin: 0px 0px 5px 0px; font-style: normal; display:block; font-size: 12px; font-weight: bold; color: #000; padding-left: 12px; background: url(../../resources/images/drone/view_blit.png) left 1px no-repeat; }
+ .viewtit2 { margin: 20px 0px 5px 0px; font-style: normal; display:block; font-size: 12px; font-weight: bold; color: #000; padding-left: 12px; background: url(../../resources/images/drone/view_blit.png) left 1px no-repeat; }

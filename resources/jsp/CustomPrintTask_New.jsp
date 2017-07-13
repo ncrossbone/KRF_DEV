@@ -8,8 +8,12 @@
 <%@page import="java.awt.image.BufferedImage"%>
 <%@page import="java.io.*"%>
 <%@page import="java.net.URL"%>
+<%@page import="java.nio.file.Paths"%>
 <%@page import="javax.imageio.ImageIO"%>
 <%@page import="java.awt.*"%>
+<%@page import="org.apache.batik.transcoder.image.PNGTranscoder"%>
+<%@page import="org.apache.batik.transcoder.TranscoderInput"%>
+<%@page import="org.apache.batik.transcoder.TranscoderOutput"%>
 
 <%
 	/* url로 받아서 이미지 변환/저장하는 로직.. */
@@ -28,11 +32,21 @@
 		
 		if(fileName==null){
 			
+			String svgInfo = request.getParameter("svgInfo");
+			int start = svgInfo.indexOf("<svg");
+			int end = svgInfo.indexOf("</svg");
+			svgInfo = svgInfo.substring(start, end+6);
+			svgInfo = svgInfo.replace("xmlns=\"http://www.w3.org/2000/svg\"", "");
+			svgInfo = svgInfo.replaceAll("<svg", "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?> <svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" ");
+			
+			svgInfo = svgInfo.replaceAll("./resources/","http://localhost:8070/KRF_DEV/resources/");
 			int width = Integer.parseInt(request.getParameter("width"));
 			int height = Integer.parseInt(request.getParameter("height"));
 			ImageInfo[] imageInfos = gson.fromJson(request.getParameter("imageInfos"), ImageInfo[].class);
 			
 			String randomId =  UUID.randomUUID().toString();
+			String svgFileName = "svg_" + randomId + ".svg";
+			String svgPngFileName = "svg_" + randomId + ".png";
 			String resultPngFileName = "result_" + randomId + ".png";
 			
 			File desti = new File(imgSavePath);
@@ -40,6 +54,26 @@
 				desti.mkdirs(); 
 			}
 		    
+			
+			BufferedWriter writer =
+				new BufferedWriter(
+					new OutputStreamWriter(
+						new FileOutputStream(imgSavePath + "\\" + svgFileName), "UTF8"));
+		    writer.write(svgInfo);
+		    writer.flush();
+		    writer.close();
+		    
+		    String svg_URI_input = Paths.get(imgSavePath + "\\" + svgFileName).toUri().toURL().toString();
+	        TranscoderInput input_svg_image = new TranscoderInput(svg_URI_input);     
+		    
+		    OutputStream png_ostream = new FileOutputStream(imgSavePath + "\\" + svgPngFileName);
+		    TranscoderOutput output_png_image = new TranscoderOutput(png_ostream);  
+		      
+		    
+		    
+			
+			
+			
 		    BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		    Graphics2D graphic = newImage.createGraphics();
 		    Color color = graphic.getColor();
@@ -62,6 +96,18 @@
 	            // 그래픽 그리기
 	            graphic.drawImage(baseImage, imageInfos[i].translateX, imageInfos[i].translateY, null);
 		    }
+			try{
+				PNGTranscoder my_converter = new PNGTranscoder();  
+				my_converter.transcode(input_svg_image, output_png_image);
+				png_ostream.flush();
+				png_ostream.close();  
+				
+				BufferedImage svgImg = ImageIO.read(new File(imgSavePath + "\\" + svgPngFileName));
+				graphic.drawImage(svgImg, null, 0, 0);
+		    }catch(Exception e){
+				System.out.println("error");
+				e.printStackTrace();
+			}
 		    
 		    graphic.dispose();
 		    

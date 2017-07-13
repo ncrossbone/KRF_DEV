@@ -65,7 +65,6 @@ Ext.define('KRF_DEV.store.east.PollutionResult_01', {
 				url= './resources/jsp/pollution/PollutionSelect_01_04.jsp';
 			}
 			
-			console.info(store.year)
 			Ext.Ajax.request({
         		url: url,
         		params: { 

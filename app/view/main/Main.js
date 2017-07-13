@@ -4,10 +4,7 @@ Ext.define('KRF_DEV.view.main.Main', {
 
     xtype: 'app-main',
     
-    requires:['KRF_DEV.view.south.SearchResultGrid_Reach',
-              'KRF_DEV.view.south.SearchResultGrid',
-              'KRF_DEV.view.south.SearchResultGrid_B',
-              'Ext.grid.filters.Filters'],
+    requires:['Ext.grid.filters.Filters'],
     
     viewModel: {
         type: 'main'
@@ -61,7 +58,7 @@ Ext.define('KRF_DEV.view.main.Main', {
  		if(document.URL != "http://112.218.1.243:20003/KRF_IE/"){
  			
 	 		//if(Ext.browser.is.Chrome == false){
-	 		if(Ext.browser.is.IE == true && Ext.browser.version.major < 11){ // IE11 아래 버전 막기
+	 		if(Ext.browser.is.IE == true && Ext.browser.version.major < 10){ // IE11 아래 버전 막기
  			//if(Ext.browser.is.IE == true){
 	 			
 	 			Ext.create("Ext.window.Window", {
@@ -127,7 +124,9 @@ Ext.define('KRF_DEV.view.main.Main', {
     	/* >>>> khLee Drone 툴바 추가 20160613 */
     	var droneToolbar = Ext.create('KRF_DEV.view.center.drone.DroneToolbar', {
     		x: 390,
-    		y: Ext.getBody().getHeight() / 2 - 8
+    		//y: Ext.getBody().getHeight() / 2 - 8
+    		y: 97
+
     	});
     	this.add(droneToolbar);
     	//KRF_DEV.getApplication().contCenterContainer.add(droneToolbar);
@@ -138,11 +137,13 @@ Ext.define('KRF_DEV.view.main.Main', {
     	
     	this.setControlSize(); // 사이즈 조절
     	this.on("resize", this.setControlSize); // 이벤트 생성
+    	
+    	//droneToolbar.hide();
     },
     
     // 메인 컨테이너 사이즈 조절
     setControlSize: function(){
-    	
+    	//alert("11");
     	var northContainer = KRF_DEV.getApplication().northContainer;
     	var westBtnContainer = KRF_DEV.getApplication().westBtnContainer;
     	var contContainer = KRF_DEV.getApplication().contContainer;
@@ -158,24 +159,39 @@ Ext.define('KRF_DEV.view.main.Main', {
     	
     	/* Drone 툴바 위치 조절 */
     	var droneCtl = Ext.getCmp("droneToolbar");
-    	
+    	/*
     	var droneToolX = droneCtl.x;
     	var droneToolWidth = droneCtl.width;
-    	var bodyWidth = Ext.getBody().getWidth();
+    	var bodyWidth = Ext.getBody().getWidth();*/
     	
-    	if(droneToolX + droneToolWidth > bodyWidth){
+    	//console.info(droneToolX);
+    	//droneCtl.x = 390;
+    	//droneCtl.y = 97;
+    	
+    	//console.info(droneCtl.x);
+    	//console.info(contWestContainer.width);
+    	//console.info(bodyWidth - contWestContainer.width);
+    	//console.info(contWestContainer.width + droneToolWidth);
+    	
+    	//if(bodyWidth - contWestContainer.width > contWestContainer.width + droneToolWidth){
+    		//droneCtl.setX(contWestContainer.width);
+    	//}
+    	//console.info(droneToolWidth);
+    	//console.info(bodyWidth - droneToolWidth);
+
+    	/*if(droneToolX + droneToolWidth > bodyWidth){
     		
     		droneCtl.setX(bodyWidth - droneToolWidth);
-    	}
+    	}*/
     	
-    	var droneToolY = droneCtl.y;
+    	/*var droneToolY = droneCtl.y;
     	var droneToolHeight = droneCtl.height;
-    	var bodyHeight = Ext.getBody().getHeight();
+    	var bodyHeight = Ext.getBody().getHeight();*/
     	
-    	if(droneToolY + droneToolHeight > bodyHeight){
+    	/*if(droneToolY + droneToolHeight > bodyHeight){
     		
     		droneCtl.setY(bodyHeight - droneToolHeight);
-    	}
+    	}*/
     	//default 숨김
     	droneCtl.hide();
     	/* Drone 툴바 위치 조절 끝 */

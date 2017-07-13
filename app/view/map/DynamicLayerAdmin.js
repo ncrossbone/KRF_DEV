@@ -3,7 +3,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	layer:null,
 	dynamicLayer1:null,
 	dynamicLayer2:null,
-	
+	//읍면동 / 식생도 / 특밸대책지역 / 오수처리대책 / 상수원보고구역 / 배출시설제한 / 수변구역 / 그린벨트 /총량관리
 	fLayers: [67, 71, 79, 80, 81, 82, 83, 84, 88], // 투명도 주기위한 레이어 아이디
 	
 	constructor: function(map) {
@@ -21,8 +21,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		me.dynamicLayer2.id = "DynamicLayer2"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayer2.visible = true;
 		me.dynamicLayer2.opacity = 0.5;
-		//me.layer.setVisibleLayers([45, 46, 53]); // 리치노드, 리치라인, 대권역 default
-		//me.layer.setVisibleLayers([53]); // 테스트
 		me.dynamicLayer2.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayer2);
 			
@@ -38,7 +36,7 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     },
     applyRenderer: function(renderer){
     	
-    	alert("dd");
+    	
     },
     
     // 레이어 on/off 핸들러 정의
@@ -122,7 +120,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     },
     
     getLayerIdx: function(layerId){
-    	
     	for(var i = 0; i < this.fLayers.length; i++){
     		
     		if(layerId == this.fLayers[i]){

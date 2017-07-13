@@ -1319,7 +1319,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
     	
     	var me = this;
     	var isDraw = true;
-    	
     	for(var i = 0; i < me.arrAreaGrp.length; i++){
     		
     		var curCatDid = graphic.attributes.CAT_DID; // 현재 CAT ID
@@ -1337,7 +1336,6 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	    	// 그래픽 그린다.
 	    	graphic.setSymbol(symbol);
 			me.addGraphics(graphic, layerId);
-			
 			// 배열에 넣기
 			me.arrAreaGrp.push(graphic);
     	}

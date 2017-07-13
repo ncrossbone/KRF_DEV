@@ -1,7 +1,6 @@
-//  버튼 on/off
+﻿//  버튼 on/off
 SetBtnOnOff = function(btnId, strOnOff){
 	var currCtl = Ext.getCmp(btnId);
-	
 	if(currCtl == undefined){
 		return;
 	}
@@ -23,7 +22,6 @@ SetBtnOnOff = function(btnId, strOnOff){
 	else{
 		currCtl.btnOnOff = strOnOff;
 	}
-	
 	for(i = 0; i < items.length; i++){
 		
 		if(currCtl.btnOnOff == "on"){
@@ -53,6 +51,72 @@ SetBtnOnOff = function(btnId, strOnOff){
 	
 }
 
+chromePopClose = function(){
+	
+	
+	var chromePop = Ext.getCmp("chromePop");
+	chromePop.close();
+	
+	/*var selectPop;
+	
+	selectPop = confirm("하루동안 이창을 띄우지 않겠습니까.");
+	
+	
+	
+	if(selectPop){
+		
+		
+		setCookie( "chromePop", "done" , 1);  // 오른쪽 숫자는 쿠키를 유지할 기간을 설정합니다
+
+
+		
+		if(chromePop != undefined){
+			chromePop.close();
+		}
+	}else{
+		if(chromePop != undefined){
+			chromePop.close();
+		}
+	}*/
+	
+	
+	
+
+}
+
+
+setCookie = function( name, value, expiredays ) 
+{ 
+		var todayDate = new Date(); 
+		todayDate.setDate( todayDate.getDate() + expiredays ); 
+		document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";" 
+}
+
+
+
+
+getCookie = function( name ) {  
+	   var nameOfCookie = name + "=";
+			var x = 0;
+			while ( x <= document.cookie.length )
+			{
+					var y = (x+nameOfCookie.length);
+					if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+							if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+									endOfCookie = document.cookie.length;
+							return unescape( document.cookie.substring( y, endOfCookie ) );
+					}
+					x = document.cookie.indexOf( " ", x ) + 1;
+					if ( x == 0 )
+							break;
+			}
+			return "";
+  
+}
+
+
+
+
 // 코어맵 오브젝트 가져오기
 GetCoreMap = function(){
 	var me = KRF_DEV.getApplication().coreMap;
@@ -69,7 +133,6 @@ ShowReachInfoWindow = function(){
 	
 	reachWinCtl.show();
 	
-	////console.info(infoWinCtl.visible);
 	
 	var reachWinX = Ext.getBody().getViewSize().width - reachWinCtl.width;
 	var reachWinY = Ext.getBody().getViewSize().height - reachWinCtl.height;
@@ -93,7 +156,6 @@ ReachLayerOnOff = function(btnId, layerId){
 	//var graphics = me.reachLayerAdmin.reachLinelayer.getSelectedFeatures();
 	var graphics = me.reachLayerAdmin_v3_New.lineGrpLayer.getSelectedFeatures();
 	
-	////console.info(record);
 	if(currCtl.btnOnOff == "on"){
 		
 		if(layerId == "46"){
@@ -116,7 +178,6 @@ ReachLayerOnOff = function(btnId, layerId){
 				}
 				
 				catIds = catIds.substring(0, catIds.length - 2);
-				////console.info(catIds);
 				
 				require(["esri/tasks/query", "esri/tasks/QueryTask"], function(Query, QueryTask){
 					queryTask = new QueryTask(KRF_DEV.app.arcServiceUrl + "/rest/services/reach/MapServer/47");
@@ -157,7 +218,6 @@ ReachLayerOnOff = function(btnId, layerId){
 
 // 집수구역 레이어 그리기
 AreaLayerDraw = function(featureSet){
-	////console.info(featureSet);
 	var me = GetCoreMap();
 	
 	require([
@@ -179,7 +239,6 @@ AreaLayerDraw = function(featureSet){
 
 // 리치정보 바인딩
 ReachInfoBinding = function(objs){
-	////console.info(objs);
 	if(objs == undefined || objs[0] == undefined)
 		return;
 	
@@ -350,7 +409,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 
 }
 
-//지점/차트 정보 창 닫기
+// 지점/차트 정보 창 닫기
 HideWindowSiteNChart = function(){
 	
 	var winCtl = Ext.getCmp("windowSiteNChart");
@@ -1094,7 +1153,6 @@ GetWindowControl = function(options){
 
 // TabControl 오브젝트 리턴
 GetTabControl = function(options){
-	
 	var tabCtl = Ext.getCmp(options.id);
 	
 	if(tabCtl == undefined){
@@ -1114,7 +1172,6 @@ GetTabControl = function(options){
 // 리치정보 검색결과 탭 추가
 // catIds : 집수구역 아이디 문자열 (공백이면 리치 선택했을때..)
 ShowSearchResultReach = function(catIds){
-	//console.info(catIds);
 	var centerContainer = KRF_DEV.getApplication().contCenterContainer; // view.main.Main.js 전역
 	var windowWidth = centerContainer.getWidth();
 	var windowHeight = 300;
@@ -1125,10 +1182,10 @@ ShowSearchResultReach = function(catIds){
 			renderTo: centerContainer.el,
 			id: 'searchResultWindow',
 			title: '검색결과',
+			constrain: true,
 			width: windowWidth,
 			y: windowY
 	};
-	
 	// window 창 생성
 	var searchResultWindow = this.GetWindowControl(options);
 	searchResultWindow.show();
@@ -1143,7 +1200,6 @@ ShowSearchResultReach = function(catIds){
 	var tabCtl = Ext.getCmp("searchResultTab");
 	// TabControl 생성
 	var searchResultTab = GetTabControl(options);
-	////console.info(searchResultTab);
 	
 	if(tabCtl == undefined)
 		searchResultWindow.add(searchResultTab); // window에 tab추가
@@ -1165,7 +1221,6 @@ ShowSearchResultReach = function(catIds){
 		//tab.add(grdContainer);
 		tab.insert(0, grdContainer);
 	}
-	//console.info(catIds);
 	tab.setActiveTab("searchResultReach_container");
 	
 	var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
@@ -1179,11 +1234,9 @@ ShowSearchResultReach = function(catIds){
 	/* khLee 추가 2016/11/15 */
 	if(catIds == ""){
 		
-    	var catDids = coreMap.reachLayerAdmin_v3_New.arrAreaGrp.map(function(obj){
+    	var catDids = _krad.arrAreaGrp.map(function(obj){
     		return obj.attributes.CAT_DID;
     	});
-    	
-    	//console.info(catDids);
     	
     	for(var i = 0; i < catDids.length; i++){
     		catIds += "'" + catDids[i] + "', ";
@@ -1204,9 +1257,7 @@ ShowSearchResultReach = function(catIds){
 	}
 	
 	query.where = "CAT_DID IN (" + catIds + ")";
-	//console.info(query.where);
 	query.outFields = ["*"];
-	
 	// 로딩바 표시
 	Ext.getCmp("searchResultReachGridContainer").removeCls("dj-mask-noneimg");
 	Ext.getCmp("searchResultReachGridContainer").addCls("dj-mask-withimg");
@@ -1229,8 +1280,6 @@ ShowSearchResultReach = function(catIds){
 			var tmpCatDid = "";
 			
 			Ext.each(objLine.features, function(line){
-				
-				//console.info(obj.attributes.CAT_DID);
 				
 				var rowData = [];
 				
@@ -1314,13 +1363,13 @@ ShowSearchResultReach = function(catIds){
 var vrow = "";
 
 PollSelectedFocus = function(catId){
-	console.info("catId ::"+catId);
+	
 	if(catId == undefined || catId == null || catId == ""){
 		return;
 	}
 	
 	var tabpanels = Ext.getCmp("tabpanels");
-	console.info(tabpanels.activeTab);
+	
 	
 	var container = "";
 	var value =	"";
@@ -1346,7 +1395,7 @@ PollSelectedFocus = function(catId){
 		container = container.items.items[0];
 		
 		var pollStore = container.getStore();
-		console.info(pollStore);
+		
 		
 		var row = "";
 		
@@ -1383,10 +1432,7 @@ ReachSelectedFocus = function(catId){
 	var rchGridContainer = Ext.getCmp("searchResultReach_container");
 	var gridCtl = rchGridContainer.items.items[0];
 	gridCtl = gridCtl.items.items[0];
-	//console.info(gridCtl.getSelectionModel().getSelection()[0].get(''))
-	//console.info(catId);
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
-	//console.info(rowIdx);
 	//gridCtl.getSelectionModel().select(rowIdx);
 	//gridCtl.getView().getRow(rowIdx).scrollIntoView();
 }
@@ -1408,20 +1454,7 @@ GetCatArea = function(catDId){
 		return featureSet;
 	});
 	
-	//console.info("ddd");
-	
-	/*
-	for(var i = 0; i < 1000000; i++){
-		if(test == ""){
-			Ext.defer(function(){
-				//console.info("fldskjfa");
-			}, 1000, this);
-		}
-	}
-	*/
-	
-	//console.info(test);
-	
+		
 	return test;
 	
 }
@@ -1520,26 +1553,21 @@ ChkSearchCondition = function(sType, siteIds, parentId, titleText, gridId){
 
 siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	
-	//console.info(nodeId);
 	if(nodeId == undefined || nodeId == null || nodeId == ""){
 		return;
 	}
 	
 	var layerId = "";
-	
 	if(parentNodeId == "Cat"){ // 집수구역
-		
 		layerId = _reachAreaLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedCatArea', layerId, nodeId);
 		layerId = _reachLineLayerId;
 		KRF_DEV.getApplication().fireEvent('setSelectedRchLine', layerId, nodeId);
 		return;
 	}else{
-		
 		/* 레이어 정보 가져오기 */
 		var layer01Info = getLayer01Info("layerCode", parentNodeId, null, null);
-		console.info(parentNodeId);
-		console.info(layer01Info);
+
 		if(layer01Info.length > 0){
 			layerId = layer01Info[0].id;
 		}
@@ -1549,8 +1577,7 @@ siteMovePoint = function(parentNodeId, nodeId , clickValue){
 	}
 	
 	// 피처 레이어 생성/갱신
-	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);	
-	
+	KRF_DEV.getApplication().fireEvent('setSelectedSite', layerId, nodeId, clickValue);
 	// 주제도 레이어 키기
 	Layer01OnOff(layerId, "on");
 }
@@ -1560,7 +1587,6 @@ OpenMenualPop = function(){
 }
 
 ResetButtonClick = function(){
-	//console.info("dlkfj");
 	var me = GetCoreMap();
 	
 	// KRAD 레이어 그래픽 및 변수 초기화
@@ -1584,11 +1610,11 @@ ResetButtonClick = function(){
 		treeCtl.store.load();
 	}
 	
-	Ext.HideSiteListWindow(); // 지점 리스트 창 닫기
+	
+	
 	HideWindowSiteNChart(); // 지점정보, 차트창 닫기
 	HideSearchResult(); // 검색결과 닫기
 	HideFavoriteWin(); // 즐겨찾기창 닫기
-	
 	ResetStEdSiteName(); // 시작위치 끝위치 하천명 초기화
 	
 	var combo = Ext.getCmp("cmbWater1");
@@ -1624,7 +1650,60 @@ ResetButtonClick = function(){
 	var txtBox = Ext.getCmp("textSearchText");
 	txtBox.setValue("");
 	
-	_krad.isSearchStop = true;
+	
+	
+	//리치검색시 초기화 해야될 목록
+	_krad.isSearchStop = false;
+	
+	_krad.cmRiRchDid = [];
+	_krad.cmLeRchDid = [];
+	_krad.isNotBon = false;
+	_krad.isNotBon1 = false;
+	_krad.isNotBon2 = false;
+	_krad.clickFS = [];
+	
+	_krad.arrDownGrpStart = "";
+	_krad.arrDownGrpEnd = "";
+
+	_krad.cmRiRchDid = [];
+	_krad.cmLeRchDid = [];
+
+	_krad.bonStLine = "";
+	_krad.bonEnLine = "";
+
+
+	_krad.stRchDids = [];
+	_krad.edRchDids = [];
+	_krad.falseDid1 = "";
+	_krad.falseDid2 = "";
+	
+	_krad.arrAreaGrp = [];
+	
+	_krad.arr1RRchDid = "";
+	_krad.arr1LRchDid = "";
+
+	_krad.arr2RRchDid = "";
+	_krad.arr2LRchDid = "";
+	
+	_krad.areaGrpLayer.setVisibility(true);  //초기화시 집수구역 visibility 켜기
+	
+	_krad.realTimeStBtnChk = true;
+	_krad.realTimeEnBtnChk = true;
+	
+	_krad.countInfo = []; //count 정보
+	
+	_krad.maxSelect = false;
+	
+	
+	var reachs_close = Ext.getCmp("reachs_close");
+	var reache_close = Ext.getCmp("reache_close");
+	if(reachs_close != undefined && reache_close != undefined){
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
+	}
+		
+	
+	//---north
 	
 	// 항공영상 초기화
 	KRF_DEV.global.DroneFn.onClickResetButton();
@@ -1632,8 +1711,13 @@ ResetButtonClick = function(){
 	// 항공영상 On/Off
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
-	//console.info(droneCtl);
-	// 항공영상 tool 숨기기
+	
+	//리치 시작 끝 close 끄기
+	if(Ext.getCmp("reach_close")!=undefined){
+		Ext.getCmp("reach_close").setVisible(false);
+	}
+	
+	
 	if(currCtl != undefined && droneCtl != undefined){
 		
 		// 항공영상 tool 숨기기
@@ -1672,6 +1756,7 @@ ResetButtonClick = function(){
 		popCtl.close();
 	}
 }
+
 
 // 주제도 레이어 on/off
 Layer01OnOff = function(layerId, onoff){
@@ -1777,6 +1862,26 @@ ResetStEdSiteName = function(){
 	
 	textSearchText_Start.setValue("");
 	textSearchText_End.setValue("");
+	
+	/*var reachCountToolbar = Ext.getCmp("reachCountToolbar");
+	
+	if(reachCountToolbar != undefined){
+		reachCountToolbar.items.items[0].setValue("");
+		reachCountToolbar.items.items[1].setValue("");
+	}*/
+	
+	var reachs_close = Ext.getCmp("reachs_close");
+	var reache_close = Ext.getCmp("reache_close");
+	
+	if(reachs_close != undefined && reache_close != undefined){
+		reachs_close.setHidden(true);
+		reache_close.setHidden(true);
+	}
+	
+	
+	_krad.stCnt = 0;
+	_krad.edCnt = 0;
+	_krad.arrCnt = 0;
 }
 
 var westPreWidth = 0;
@@ -1857,8 +1962,21 @@ SetWestCollapseXY = function(option){
 		}
 	}
 	
+	var reachCountSToolbar = Ext.getCmp("reachCountSToolbar");
+	var reachCountEToolbar = Ext.getCmp("reachCountEToolbar");
+	if(reachCountSToolbar != undefined && reachCountEToolbar != undefined){
+		
+		reachCountSToolbar.setX(reachCountSToolbar.getX() + offsetWidth);
+		reachCountEToolbar.setX(reachCountEToolbar.getX() + offsetWidth);
+	}
 	
-	
+      var droneToolbar = Ext.getCmp("droneToolbar");
+      if(droneToolbar != undefined){          
+          if(droneToolbar.hidden == false){
+              droneToolbar.setX(droneToolbar.getX() + offsetWidth);
+          }
+      }
+
 	
 	if(option != "show"){
 		
@@ -1873,6 +1991,8 @@ SetWestCollapseXY = function(option){
 				reachNameToolbar.setX(486 - 300);
 			}
 		}
+		
+		
 		
 		// 툴팁 XY 셋팅
 		setTooltipXY();
@@ -1907,7 +2027,6 @@ centerAtWithOffset = function(x, y, spatialReferrence){
 	y = y - (50 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
 	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
-	//console.info(xoffset);
 	coreMap.map.centerAt(point);
 }
 
@@ -1986,7 +2105,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 	if(outObjInfos == null){
 		outObjInfos = [];
 	}
-	//console.info(obj);
 	var arrObj = [];
 	
 	if(obj[0] != undefined && obj[0] != null){
@@ -2002,7 +2120,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 		
 		for(var i = 0; i < arrObj.length; i++){
 			
-			//console.info(arrObj[i].tagName.toUpperCase());
 			
 			/*if(i < 35){
 				continue;
@@ -2012,11 +2129,7 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			
 			var imgObj = $("#" + arrObj[i].id);
 			
-			//console.info(imgObj.parent().css("opacity"));
-			//console.info(arrObj[i].id);
 			//if(arrObj[i].id.search("ReachLayerAdminBackground") != -1){
-				//console.info(arrObj[i].id.indexOf("ReachLayerAdminBackground"));
-				//console.info(imgObj.parent().css("opacity"));
 			//}
 
 			objInfo.width = imgObj.width();
@@ -2028,8 +2141,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			objInfo.src = imgObj[0].src;
 			objInfo.tagName = imgObj[0].tagName.toUpperCase();
 			objInfo.outerHTML = new XMLSerializer().serializeToString(imgObj[0]);
-			//console.info(obj.css("opacity"));
-			//console.info(objInfo.outerHTML);
 			
 			/*if(tagName == "IMG"){
 				
@@ -2038,20 +2149,14 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			else{
 				
 				var svgString = new XMLSerializer().serializeToString(imgObj[0]);
-				//console.info(svgString);
 				
 				// bota() : svg -> base64 encording
 				var imgsrc = 'data:image/svg+xml;base64,'+ btoa(svgString);
-				//console.info(imgsrc);
 				
 				objInfo.base64 = imgsrc;
 				objInfo.src = tagName;
 			}*/
 			
-			//console.info(imgObj.css('transform'));
-			//console.info(imgObj.css('-webkit-transform'));
-			//console.info(isNaN(parseInt(imgObj.css('left'))));
-			//console.info(imgObj.css('top'));
 			
 			if(imgObj.css('transform') != undefined && imgObj.css('transform') != null){
 				
@@ -2089,7 +2194,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 			objInfo.translateX = 0;
 			objInfo.translateY = 0;
 			
-			console.info(objInfo);
 			outObjInfos.push(objInfo);
 		}
 		
@@ -2131,7 +2235,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 				eqlCnt++;
 				
 				if(eqlCnt > 15){
-					//console.info(outObjInfos);
 					callbackMethod.call(this, outObjInfos);
 					window.clearInterval(timerId);
 				}
@@ -2155,7 +2258,6 @@ getImageInfos = function(obj, outObjInfos, callbackMethod){
 		}, 100);
 	}
 	
-	//console.info(arrObjInfos);
 	//return arrObjInfos;
 }
 
@@ -2172,7 +2274,6 @@ convertImgToBase64 = function(outObjInfo, callbackMethod){
 		img.crossOrigin = 'Anonymous';
 		
 		img.onload = function(){
-			//console.info("dd");
 			imgLoadCnt++;
 			canvas.height = img.height;
 			canvas.width = img.width;
@@ -2191,7 +2292,6 @@ convertImgToBase64 = function(outObjInfo, callbackMethod){
 		
 		// bota() : svg -> base64 encording
 		var dataURL = 'data:image/svg+xml;base64,'+ btoa(outObjInfo.outerHTML);
-		//console.info(imgsrc);
 		
 		callbackMethod.call(this, dataURL, outObjInfo);
 	}
@@ -2216,7 +2316,6 @@ postCall = function(outObjInfos, width, height, fileName){
 
 	$.post("./resources/jsp/_DivImgSave.jsp", obj, function(data){
 		
-		//console.info(data.fileName);
 		
 		if(chkoutObj == false){
 			postCall(outObjInfos, width, height, data.fileName);
@@ -2263,4 +2362,25 @@ getLayer01Info = function(attrName, attrValue, childNodes, layer01Infos){
 	
 	return layer01Infos;
 }
+
 /* 레이어 정보(Layer01Data.json) 가져오기 끝 */
+//params: { node : node , parentId : parentId , data:data , id : id , type : type},
+//클릭 이벤트 session
+setActionInfo = function(node, parentId , data , id ,type){
+	//1DEP 일시
+	if(node == 0){
+		node = id;
+	}
+	
+	Ext.Ajax.request({
+		url: './resources/jsp/ClickSession.jsp',
+		params: { node : node , parentId : parentId , data:data , id : id , type : type},
+		async: false, // 비동기 = async: true, 동기 = async: false
+		//rootProperty : 'items',
+		success : function(response, opts) {
+		},
+		failure: function(form, action) {
+			console.info(error);
+		}
+	});
+}

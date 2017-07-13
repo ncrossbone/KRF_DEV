@@ -23,11 +23,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	tmGraphicLayerCat: null, // 집수구역 단위 주제도 그래픽 레이어
 	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
 	
-	//width: "100%",
-	//height: "100%",
-	
 	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
-	height: 1100,
+	//height: 1100,
+	height: "109%",
 	x: -378,
 	y: -80,
 	
@@ -58,6 +56,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 
         	window.clearInterval(timerId);
         	
+        	/* 외부망 항공사진 주석 */
         	me.dynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin1', me.map);
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
         	me.dynamicLayerAdmin = Ext.create('KRF_DEV.view.map.DynamicLayerAdmin', me.map);
@@ -76,6 +75,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	_rchArea = Ext.create('KRF_DEV.view.map.SearchReachArea');
         	// 리치노드 전역 Object Setting
         	_rchNode = Ext.create('KRF_DEV.view.map.SearchReachNode');
+        	//
+        	_toolbarCtl = Ext.create('KRF_DEV.view.center.ReachToolbarController');
         	
         	me.featureLayerAdmin = Ext.create('KRF_DEV.view.map.FeatureLayerAdmin1', me.map);
         	
@@ -88,10 +89,6 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
-    		
-    		/* 맵 영역 채우기 위해 맵 랜더 후 좌측 패널 Expand */
-    		//KRF_DEV.getApplication().contWestContainer.expand();
-    		/* 맵 영역 채우기 위해 맵 랜더 후 좌측 패널 Expand 끝 */
 		}, 1);
     },
     
@@ -140,12 +137,49 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		        	  wkid: 102100
 		          }
 		      });
-		      
-		      me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
-		    	  xmin: 13051204.69152676,
-		    	  ymin: 3309091.461517964,
-		    	  xmax: 15889117.943692,
-		    	  ymax: 5341704.9176768325,
+              
+              
+              var size = {
+                      width: window.innerWidth || document.body.clientWidth,
+                      height: window.innerHeight || document.body.clientHeight 
+                    }
+            
+              if(size.width < 1700){
+                  var xmax = 15264494.91554893;
+                  var xmin = 13644029.915903272;
+                  var ymax = 4607909.446139407;
+                  var ymin = 3935263.59722989;
+              }else if(size.width > 1700 && size.width < 1850){
+                  var xmax = 15236977.585366268;
+                  var xmin = 13616512.58572061;
+                  var ymax = 4616470.393307347;
+                  var ymin = 3943824.5443978296;
+              }else if(size.width > 1850 && size.width < 2100){
+                  var xmax = 15164209.534438783;
+                  var xmin = 13543744.534793125;
+                  var ymax = 4692907.42159252;
+                  var ymin = 4020261.5726830023;
+              }else if(size.width > 2100 && size.width < 2300){
+                  var xmax = 15074625.33728856;
+                  var xmin = 13454771.833869183;
+                  var ymax = 4719507.5074357595;
+                  var ymin = 3903160.045350118;
+              }else if(size.width > 2300){
+                  var xmax = 15034878.082580235;
+                  var xmin = 13413801.586708296;
+                  var ymax = 4748553.578184113;
+                  var ymin = 3822748.291594104;
+              }
+                
+              
+              
+              me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
+                
+                  xmin: xmin,
+                  ymin: ymin,
+                  xmax: xmax,
+                  ymax: ymax,
+
 		          spatialReference: {
 		        	  wkid: 102100
 		          }
@@ -187,6 +221,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	},
 	
 	favoriteExe:function(data){
+		//console.info(data);
+		
 		var me = this;
 		var extentJson = data.EXTENT;
 		var extent = new esri.geometry.Extent(extentJson);
@@ -204,43 +240,43 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		deferred.then(function(value){
 			var deferred2 = me.map.setLevel(level);
 			deferred2.then(function(value){
-				if(me.reachLayerAdmin_v3_New.lineGrpLayer){
-					me.reachLayerAdmin_v3_New.lineGrpLayer.clear();
-					me.reachLayerAdmin_v3_New.arrLineGrp = [];
+				if(_krad.lineGrpLayer){
+					_krad.lineGrpLayer.clear();
+					_krad.arrLineGrp = [];
 					for(var i=0; i<reachLineGArr.length; i++){
-						me.reachLayerAdmin_v3_New.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
-						me.reachLayerAdmin_v3_New.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
+						_krad.lineGrpLayer.add(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 그래픽 추가
+						_krad.arrLineGrp.push(new esri.Graphic(JSON.parse(reachLineGArr[i]))); // 배열추가
 					}
 				}
-				if(me.reachLayerAdmin_v3_New.areaGrpLayer){
-					me.reachLayerAdmin_v3_New.areaGrpLayer.clear();
-					me.reachLayerAdmin_v3_New.arrAreaGrp = [];
+				if(_krad.areaGrpLayer){
+					_krad.areaGrpLayer.clear();
+					_krad.arrAreaGrp = [];
 					for(var i=0; i<reachAreaGArr.length; i++){
-						me.reachLayerAdmin_v3_New.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
-						me.reachLayerAdmin_v3_New.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
+						_krad.areaGrpLayer.add(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 그래픽 추가
+						_krad.arrAreaGrp.push(new esri.Graphic(JSON.parse(reachAreaGArr[i]))); // 배열추가
 					}
 				}
 				
-				if(me.reachLayerAdmin_v3_New.pointGrpLayer){
-					me.reachLayerAdmin_v3_New.pointGrpLayer.clear();
+				if(_krad.tmpGrpLayer){
+					_krad.tmpGrpLayer.clear();
 					for(var i=0; i<pointGArr.length; i++){
-						me.reachLayerAdmin_v3_New.pointGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
+						_krad.tmpGrpLayer.add(new esri.Graphic(JSON.parse(pointGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 				
-				if(me.reachLayerAdmin_v3_New.symbolGrpLayer){
-					me.reachLayerAdmin_v3_New.symbolGrpLayer.clear();
+				if(_krad.symGrpLayer){
+					_krad.symGrpLayer.clear();
 					for(var i=0; i<symbolGArr.length; i++){
-						me.reachLayerAdmin_v3_New.symbolGrpLayer.add(new esri.Graphic(JSON.parse(symbolGArr[i])));
+						_krad.symGrpLayer.add(new esri.Graphic(JSON.parse(symbolGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}
 				
-				if(me.reachLayerAdmin_v3_New.downLineLayer){
-					me.reachLayerAdmin_v3_New.downLineLayer.clear();
+				if(_krad.downGrpLayer){
+					_krad.downGrpLayer.clear();
 					for(var i=0; i<downLineGArr.length; i++){
-						me.reachLayerAdmin_v3_New.downLineLayer.add(new esri.Graphic(JSON.parse(downLineGArr[i])));
+						_krad.downGrpLayer.add(new esri.Graphic(JSON.parse(downLineGArr[i])));
 						//me.reachLayerAdmin.addLineGraphic(new esri.Graphic(JSON.parse(reachLineGArr[i])));
 					}
 				}

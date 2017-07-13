@@ -12,13 +12,8 @@ Ext.define('KRF_DEV.view.drone.map.DynamicLayerAdmin1', {
         me.map = map;
         me.layer = new esri.layers.ArcGISDynamicMapServiceLayer(Ext.mapServiceUrl);
     	
-		me.layer.id = "DynamicLayer3";
-		me.layer.visible = true;
-		me.map.addLayer(me.layer);
-		me.layer.setVisibility(false);
-		
-		
-		me.layerAviation = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_Aviation);
+        
+        me.layerAviation = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_Aviation);
 		me.layerAviation.id = "AciationLayer";
 		me.layerAviation.visible = true;
 		me.map.addLayer(me.layerAviation);
@@ -37,6 +32,13 @@ Ext.define('KRF_DEV.view.drone.map.DynamicLayerAdmin1', {
 		me.layerPhyco.visible = true;
 		me.map.addLayer(me.layerPhyco);
 		me.layerPhyco.setVisibility(false);
+		
+
+        me.layer = new esri.layers.ArcGISDynamicMapServiceLayer(Ext.mapServiceUrl);
+		me.layer.id = "DynamicLayer3";
+		me.layer.visible = true;
+		me.map.addLayer(me.layer);
+		me.layer.setVisibility(false);
 		
     }
 });

@@ -194,26 +194,45 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
     
     setSelectedSiteHandler: function(layerId, siteId, clickValue){
     	
-    	var me = this;
     	
+    	var me = this;
     	//	시작지점 끝지점 선택시 --- 명칭찾기,toolbar지점이름 변경
     	var reachNameToolbar = Ext.getCmp("reachNameToolbar");
     	var textSearchText_Start = Ext.getCmp("textSearchText_Start");
     	var textSearchText_End = Ext.getCmp("textSearchText_End");
     	//  reachNameToolbar (툴바 id)  , textSearchText_Start,textSearchText_End( 명칭찾기 id )
-    	
     	var url , width, height = "";
+    	
     	if(clickValue == "none"){
     		url = "./resources/images/symbol/spot_09.png";
     		width = 25;
     		height= 61;
     	}else if(clickValue == "start"){
-    		url = "./resources/images/symbol/btn_start01.png";
+    		_krad.clickCnt("startPoint");
+    		
+    		if(_krad.realTimeStBtnChk == false){
+    			return;
+    		}
+    		//_krad.stCnt++;
+    		
+    		_krad.stCnt ++;
+    		var sCnt = _krad.stCnt;
+    		
+    		url = "./resources/images/symbol/btn_s"+sCnt+".png";
     		width = 26;
     		height = 38;
     		
     	}else if(clickValue == "end"){
-    		url = "./resources/images/symbol/btn_end01.png";
+    		_krad.clickCnt("endPoint");
+    		//_krad.edCnt++;
+    		
+    		_krad.edCnt ++;
+    		var eCnt = _krad.edCnt;
+    		
+    		if(_krad.realTimeEnBtnChk == false){
+    			return;
+    		}
+    		url = "./resources/images/symbol/btn_e"+eCnt+".png";
     		width = 26;
     		height = 38;
     	}
@@ -241,7 +260,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 			return;
 		}
 		/* 레이어 정보(Layer01Data.json) 가져와서 쿼리 조건 설정 끝 */
-		console.info(query);
+		//console.info(query);
 		queryTask.execute(query,  function(results){
 			//console.info(layerId);
 			Ext.each(results.features, function(obj, index) {
@@ -288,7 +307,7 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				me.moveGraphicLayer.clear();
 				me.moveGraphicLayer.id = "moveGraphicLayer" + siteId;
-				console.info(url);
+				//console.info(url);
 				if(clickValue == "none"){
 					var selectedSymbol = new esri.symbol.PictureMarkerSymbol({
 					    "angle": 0,
@@ -432,7 +451,6 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 					_krad.mapClickEvt = {mapPoint: point};
 					// 검색설정 JSON 셋팅 (_krad.searchConfigInfoJson)
 					_krad.getSearchConfigInfo();
-	    			
 	    			/* 검색설정 "상류" 체크 시 */
 	    			if(_krad.searchConfigInfoJson.isUpDraw == true){
 	    				

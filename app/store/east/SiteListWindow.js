@@ -22,7 +22,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		load: function(store) {
 			
 			var me = GetCoreMap();
-			
 			var a = Ext.getCmp("btnADMSelect");
 			
 			var nameInfo = Ext.getCmp("textSearchText");
@@ -58,7 +57,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
-			
+			//console.info(queryTask);
 			if(buttonInfo1.lastValue != null){
 				
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == "" ){
@@ -89,17 +88,37 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 
 			}
 			
-			
-			
-			
+			//물환경 연동
+			if(store.searchType == "paramSearch"){
+				
+				var params = Ext.urlDecode(location.search.substring(1));
+				var siteIds = params.station.split("|");
+				var inTxt = "";
+				for(var i = 0; i < siteIds.length; i++){
+					
+					if(siteIds[i] != ""){
+						
+						inTxt += "'" + siteIds[i] + "', ";
+					}
+				}
+				inTxt = inTxt.substring(0, inTxt.length - 2) + ")";
+				query.where = "JIJUM_CODE in (" + inTxt;
+			}else{
+				var coreMap = GetCoreMap();
+				var paramMarker = coreMap.map.getLayer("siteSymbolGraphic");
+				if(paramMarker!=undefined){
+					paramMarker.hide();
+				}
+				
+			}
 			
 			if(store.searchType == "selectReach"){
+				
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
 				
 				
-				if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
-					
+				if(_krad.arrAreaGrp.length > 0){
 					//queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId);
 					
 					this.catDid = [];
@@ -113,16 +132,16 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					
 					var tmpExtIds = [];
 					this.catDid = [];
-					for(var i = 0; i < me.reachLayerAdmin_v3_New.arrAreaGrp.length; i++){
-						this.catDid.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID);
-						catWhere += "'" + me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.CAT_DID + "', ";
+					for(var i = 0; i < _krad.arrAreaGrp.length; i++){
+						this.catDid.push(_krad.arrAreaGrp[i].attributes.CAT_DID);
+						catWhere += "'" + _krad.arrAreaGrp[i].attributes.CAT_DID + "', ";
 						
-						if(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 
-								me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID != null){
+						if(_krad.arrAreaGrp[i].attributes.EXT_DATA_ID != undefined && 
+								_krad.arrAreaGrp[i].attributes.EXT_DATA_ID != null){
 							
-							var extIdx = tmpExtIds.indexOf(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
+							var extIdx = tmpExtIds.indexOf(_krad.arrAreaGrp[i].attributes.EXT_DATA_ID);
 							if(extIdx == -1){
-								tmpExtIds.push(me.reachLayerAdmin_v3_New.arrAreaGrp[i].attributes.EXT_DATA_ID);
+								tmpExtIds.push(_krad.arrAreaGrp[i].attributes.EXT_DATA_ID);
 							}
 						}
 					}
@@ -148,15 +167,23 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					return;
 				}
 			}
+			
+			//표출 X 항목 : 수질자동측정지점(B) ,수생태계(E) , 퇴적물조사지점 (C), 기타측정지점-우량(D002) -AWS(D005) -지상기상(D006) -보관측소(D007)
+			/*if(store.searchType != "paramSearch"){
+				//alert("1");
+				query.where += "	AND  GROUP_CODE <> 'B' AND GROUP_CODE <> 'C' AND GROUP_CODE <> 'G' AND LAYER_CODE <> 'D002' AND LAYER_CODE <> 'D005' AND LAYER_CODE <> 'D006' AND LAYER_CODE <> 'D007'	";
+			}*/
+			
 			query.orderByFields = ["LAYER_CODE ASC"];
+			//query.OrderByFields = "LAYER_CODE ASC";
 			query.outFields = ["*"];
 			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
 			//console.info(query.where);
 			
 			// 로딩바 표시
-			Ext.getCmp("siteListWindow").removeCls("dj-mask-noneimg");
-			Ext.getCmp("siteListWindow").addCls("dj-mask-withimg");
-			Ext.getCmp("siteListWindow").mask("loading", "loading...");
+			Ext.getCmp("siteListTree").removeCls("dj-mask-noneimg");
+			Ext.getCmp("siteListTree").addCls("dj-mask-withimg");
+			Ext.getCmp("siteListTree").mask("loading", "loading...");
 			
 			queryTask.execute(query, function(result){
 				
@@ -229,7 +256,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
 					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "("+groupFeature.length+")\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-					if(groupFeature[0].attributes.GROUP_CODE == "G"){
+					if(groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E"){
 						jsonStr += "				\"srchBtnDisabled\": true,\n";
 					}
 					if(cnt == 0){
@@ -274,7 +301,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "("+layerFeatures.length+")\",\n";
-						if(layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y"){
+						if(layerFeatures[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y"){
 							jsonStr += "				\"srchBtnDisabled\": true,\n";
 						}
 						if(layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null){
@@ -301,7 +328,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 								jsonStr += "				\"leaf\": true,\n";
 								jsonStr += "				\"checked\": null\n";
-								if(layerFeature.attributes.GROUP_CODE == "G"){
+								if(layerFeature.attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E"){
 									jsonStr += "			,   \"infoBtnDisabled\": false,\n";
 									jsonStr += "				\"chartBtnDisabled\": true,\n";
 									jsonStr += "				\"srchBtnDisabled\": true\n";
@@ -417,25 +444,28 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				store.setRootNode(jsonData);
 				
 				// 로딩바 숨김
-				Ext.getCmp("siteListWindow").unmask();
+				Ext.getCmp("siteListTree").unmask();
 				
 				if(result.features.length == 0 && pollLoadString == "" && pollutionString == ""){
 					
-	        		Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
-					Ext.getCmp("siteListWindow").mask("데이터가 존재하지 않습니다.", "noData");
+	        		Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
+					Ext.getCmp("siteListTree").mask("데이터가 존재하지 않습니다.", "noData");
 	        	}
 				
 	        }, function(error){
 	        	
 	        	// 로딩바 숨김
-				Ext.getCmp("siteListWindow").unmask();
-				Ext.getCmp("siteListWindow").addCls("dj-mask-noneimg");
-				Ext.getCmp("siteListWindow").mask("지점정보 조회 오류 발생하였습니다.", "noData");
+				Ext.getCmp("siteListTree").unmask();
+				Ext.getCmp("siteListTree").addCls("dj-mask-noneimg");
+				Ext.getCmp("siteListTree").mask("지점정보 조회 오류 발생하였습니다.", "noData");
 	        });
 	  	}
 	},
 	
 	getPollLoadString: function(){
+		
+		
+		
 		////console.info("dd");
 		//alert("dd");
 		//, {\"id\": \"Z001\", \"text\": \"부하량\", \"expanded\": false, \"children\": [{\"id\": \"111111111\", \"text\": \"111111111\", \"catDId\": \"111111111\", \"cls\": \"khLee-x-tree-node-text-small\", \"iconCls\": \"layerNoneImg\", \"leaf\": true, \"checked\": null}]}
@@ -443,7 +473,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		
 		
 		var btnId = "catTMOnOff";
-		
 		if(me.reachLayerAdmin_v3_New.arrAreaGrp.length > 0){
 			
 			var pollLoadString = "{\n";
@@ -519,6 +548,9 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			return "";
 		}
 		
+		/* 외부망 오염원 검색 막기 */
+		//return "";
+		
 		//생활계
 		var store1 = Ext.create('KRF_DEV.store.east.PollutionResult_01_Catdid',{
 			async:false,
@@ -543,7 +575,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		});
 		store3.load();
 		
-		
 		//토지계
 		var store4 = Ext.create('KRF_DEV.store.east.PollutionResult_04_Catdid',{
 			async:false,
@@ -551,7 +582,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			year : year
 		});
 		store4.load();
-		
 		//양식계
 		var store5 = Ext.create('KRF_DEV.store.east.PollutionResult_05_Catdid',{
 			async:false,
@@ -600,7 +630,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 		me.reachLayerAdmin_v3_New.arrAreaPollution_07.push(store7.data.items);
 		
 		
-	
+		
 		me.reachLayerAdmin_v3_New.arrAreaPollution.push(
 				["01",me.reachLayerAdmin_v3_New.arrAreaPollution_01],
 				["02",me.reachLayerAdmin_v3_New.arrAreaPollution_02],
@@ -633,11 +663,13 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			pollutionString += "	\"children\": [\n";
 			
+			
 			if(me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length > 0){
 				
 				pollutionString += "	  { \n";
 				pollutionString += "	\"id\": \"pollution_01\",\n";
-				pollutionString += "	\"title\": \"생활계\",\n";
+				pollutionString += "	\"title\": \"생활계\",\n"; // 외부망 생활계 안보이게
+				pollutionString += "	\"visible\": \"true\",\n";
 				pollutionString += "	\"storeNm\": \"PollutionResult_01\",\n";
 				pollutionString += "	\"text\": \"<span style='vertical-align:top;'>생활계(" + me.reachLayerAdmin_v3_New.arrAreaPollution_01[0].length + ")</span>";
 				pollutionString += " <span style='vertical-align:middle;'>&nbsp;&nbsp;";

@@ -185,8 +185,6 @@ try{
 	
 	
 	
-	
-	
     
 //System.out.println(sql);
 stmt = con.createStatement();

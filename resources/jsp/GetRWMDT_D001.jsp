@@ -50,11 +50,12 @@ try{
 	sql += "             FROM WLDY A,                                                   ";
 	sql += "               WLOBSIF D                                                    ";
 	sql += "             WHERE A.WLOBSCD = D.WLOBSCD                                    ";
-	if(defaultChart.equals("1")){
+	if(defaultChart.equals("0")){
+	/* if(defaultChart.equals("1")){
 		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) >='201410'    ";
 		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) <='201510'    ";
 	}else{
-		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) >='"+startDate+"'    ";
+	 */	sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) >='"+startDate+"'    ";
 		sql += "               AND SUBSTR(TO_CHAR(A.YMDH , 'YYYYMMDD'), 1, 6) <='"+endDate+"'    ";
 	}
 	sql += "               AND A.WLOBSCD = '"+recordId+"'                                    ";
@@ -82,12 +83,7 @@ try{
 	sql += "   '',                                                                      ";
 	sql += "   NVL(MAX(ITEM_VALUE), 0) + NVL(MAX(ITEM_VALUE), 0) / 10                   ";
 	sql += " FROM TMP_TBL                                                               ";                                                                                                                                                    
-                             
 
-
-	//System.out.println(sql);
-   //out.print(sql);
-   //System.out.println(sql);
    stmt = con.createStatement();   
    rs = stmt.executeQuery(sql);
 	JSONObject jsonObj  = new JSONObject();

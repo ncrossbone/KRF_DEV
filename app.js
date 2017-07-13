@@ -1,4 +1,4 @@
-var _testUrl = null;
+﻿var _testUrl = null;
 var _serviceUrl = null;
 /**
  * testlkj
@@ -53,8 +53,10 @@ var _rchUpSearch = null; // 상류검색 관련 object (검색설정 "상류" �
 var _rchNode = null; // ReachNode검색 관련 object
 var _rchLine = null; // ReachLine검색 관련 object
 var _rchArea = null; // ReachArea검색 관련 object
-/* Reach, KRAD 관련 object 끝 */
 
+var _toolbarCtl = null;
+
+/* Reach, KRAD 관련 object 끝 */
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
 
@@ -375,7 +377,7 @@ Ext.application({
 
 		// 지점 목록 창 띄우기
 		Ext.ShowSiteListWindow = function(searchText, searchType) {
-
+			
 			var me = GetCoreMap();
 
 			//console.info(searchText);
@@ -614,6 +616,12 @@ Ext.application({
 		Ext.ShowReachToolbar = function(evtArgs, el) {
 			
 			var rNameToolbar = Ext.getCmp("ReachNameToolbar");
+			
+			var rCountToolbar = Ext.getCmp("ReachCountToolbar");
+			
+			//var rCountSToolbar = Ext.getCmp("ReachCountSToolbar");
+			//var rCountEToolbar = Ext.getCmp("ReachCountEToolbar");
+			
 			var rToolbar = Ext.getCmp("reachToolbar");
 			var sConfig = Ext.getCmp("searchConfig");
 			
@@ -634,6 +642,25 @@ Ext.application({
 				rNameToolbar.show();
 			}
 			
+			/*if(rCountToolbar == undefined){
+				rCountToolbar = Ext.create('KRF_DEV.view.center.ReachCountToolbar');
+				rCountToolbar.show();
+			}*/
+			
+			var rCountSToolbar = Ext.getCmp("ReachCountSToolbar");
+			var rCountEToolbar = Ext.getCmp("ReachCountEToolbar");
+			if(rCountSToolbar == undefined){
+				rCountSToolbar = Ext.create('KRF_DEV.view.center.ReachCountSToolbar');
+				rCountSToolbar.show();
+				
+			}
+			
+			if(rCountEToolbar == undefined){
+				rCountEToolbar = Ext.create('KRF_DEV.view.center.ReachCountEToolbar');
+				rCountEToolbar.show();
+				
+			}
+			
 			if(sConfig == undefined){
 				sConfig = Ext.create("KRF_DEV.view.center.SearchConfig");
 				//sConfig.show();
@@ -648,12 +675,21 @@ Ext.application({
 			var cContainer = Ext.getCmp("center_container");
 			var rToolbar = Ext.getCmp("reachToolbar");
 			var rNameToolbar = Ext.getCmp("reachNameToolbar");
+			var rCountToolbar = Ext.getCmp("reachCountToolbar");
 			var sConfig = Ext.getCmp("searchConfig");
 			var kConfig = Ext.getCmp("kradSchConf");
-			console.info(kConfig);
+			              
+			var droneToolbar = Ext.getCmp("droneToolbar");
+			if(droneToolbar.getY()==202){
+			   droneToolbar.setY(droneToolbar.getY() - 105);
+			}
+			              
+
 			cContainer.remove(rToolbar, false);
 			if(rNameToolbar != undefined && rNameToolbar != null)
 				rNameToolbar.close();
+			if(rCountToolbar != undefined && rCountToolbar != null)
+				rCountToolbar.close();
 			if(sConfig != undefined && sConfig != null)
 				sConfig.close();
 			if(kConfig != undefined && kConfig != null)
