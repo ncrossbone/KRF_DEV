@@ -48,11 +48,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			var endPoint = Ext.getCmp("textSearchText_End");
 			//var catDid = [];
 			
-			//http://cetech.iptime.org:6080/arcgis/rest/services/Layer2/MapServer
-			//var queryTask = new esri.tasks.QueryTask('http://112.218.1.243:20002/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
-			//var queryTask = new esri.tasks.QueryTask('http://cetech.iptime.org:6080/arcgis/rest/services/reach/MapServer/84'); // 레이어 URL
-			//var queryTask = new esri.tasks.QueryTask(_mapServiceUrl + '/' + _siteInfoLayerId); // 레이어 URL v2
-			//_kradMapserviceUrl + '/' + _kradCatSearchId
 			var queryTask = new esri.tasks.QueryTask(_mapServiceUrl_v3 + '/' + _siteInfoLayerId); // 레이어 URL v3
 			//var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();
