@@ -161,7 +161,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        }
 						    }
 						    
-						),
+						),listeners: {
+					        click: {
+					            element: 'el', //bind to the underlying el property on the panel
+					            fn: function(a){ console.log(a); }
+					        }
+					    },
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
 						chartRangeMax: 5.8,
 						chartRangeMin: 0,

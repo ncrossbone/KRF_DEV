@@ -122,6 +122,21 @@ Ext.define('KRF_DEV.view.north.North', {
     	xtype: 'container',
     	width: 50
     }, {
+		xtype: 'button',
+    	title: '검색결과test',
+        style:'cursor:pointer;',
+    	width: 69,
+    	height: 37,
+    	listeners: {
+    		el: {
+    			click: function(){
+    				
+    				testResult();
+    				
+    			}
+    		}
+    	}			
+	}, {
 		xtype: 'image',
     	title: '공지사항',
         style:'cursor:pointer;',
