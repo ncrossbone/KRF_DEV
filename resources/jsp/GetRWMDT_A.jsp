@@ -183,7 +183,6 @@ try{
 	jsonObj.put("data", jsonArr);
    //console.info(jsonObj);
    //System.out.println(jsonObj);
-   System.out.println(sql);
    out.print(jsonObj);
    //out.print("success");
 }catch(Exception ex){
