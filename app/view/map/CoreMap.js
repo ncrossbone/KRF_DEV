@@ -24,8 +24,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
 	
 	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
-	//height: 1100,
-	height: "109%",
+	height: 1250, // ?? 기준맞춰야할듯
+	//height: "109%",
 	x: -378,
 	y: -80,
 	
@@ -67,7 +67,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.ReachLayerAdmin_v3_New', me.map); // v3 New
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
-        	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
+        	//me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
         	
         	// KRAD 전역 Object Setting
         	_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
@@ -334,7 +334,6 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	onExtentChange: function(extent, a, b, obj, c){
 		
 		var coreMap = GetCoreMap();
-		
 		//console.info(extent);
 		var size = {
 				  width: window.innerWidth || document.body.clientWidth,
