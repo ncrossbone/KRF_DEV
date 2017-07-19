@@ -17,6 +17,35 @@ Ext.define('KRF_DEV.view.west.Layer01Controller', {
 		
 		//me.northLink(node);
 		
+		//53 - 리치흐름, 55 - 리치라인
+		//btnReachLayer - 리치라인
+		//btnFlowLayer - 리치흐름
+		
+		if(node.id == "53"){
+			var btnFlowLayer = Ext.getCmp("btnFlowLayer");
+			
+			if(checked){
+				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_on.png");
+				btnFlowLayer.btnOnOff = "off";
+			}else{
+				btnFlowLayer.setSrc("./resources/images/button/btn_top_04_off.png");
+				btnFlowLayer.btnOnOff = "on";
+			}
+			
+		}
+		
+		if(node.id == "55"){
+			var btnReachLayer = Ext.getCmp("btnReachLayer");
+			
+			if(checked){
+				btnReachLayer.setSrc("./resources/images/button/btn_top_01_on.png");
+				btnReachLayer.btnOnOff = "off";
+			}else{
+				btnReachLayer.setSrc("./resources/images/button/btn_top_01_off.png");
+				btnReachLayer.btnOnOff = "on";
+			}
+		}
+		
 		if(btnId == undefined || btnId == null){
 			// 레이어 연결 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
 			//this.setLinkBtn(btnId);
