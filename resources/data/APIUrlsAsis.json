@@ -97,5 +97,12 @@
    "SessionOut":"./resources/jsp/SessionOut.jsp",
    "setConfig":"./resources/jsp/setConfig.jsp",
    "SetSearchConfig":"./resources/jsp/SetSearchConfig.jsp",
-   "SHA_256":"./resources/jsp/SHA_256.jsp"
+   "SHA_256":"./resources/jsp/SHA_256.jsp",
+   "init": function(prefix){
+               for(var key in this){
+                   if(typeof(this[key]) == 'string'){
+                       this[key] = prefix +this[key];
+                   }
+               }
+           }
 }
