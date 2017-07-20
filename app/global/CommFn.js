@@ -236,7 +236,7 @@ Ext.define("KRF_DEV.global.CommFn", {
 			fileNm = "검색결과";
 		}
 		var xhr = new XMLHttpRequest();
-		xhr.open('POST', 'http://localhost:8080/krf/common/excelDown', true);
+		xhr.open('POST', _API.excelDown, true);
 		xhr.responseType = 'blob';
 		xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 		xhr.onload = function(e) {
