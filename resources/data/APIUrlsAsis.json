@@ -1,5 +1,4 @@
 {  
-   "getConfig":"./resources/jsp/GetConfig.jsp",
    "drone_GetRWMDT_MeasureDate":"./resources/jsp/drone/GetRWMDT_MeasureDate.jsp",
    "drone_GetRWMDT":"./resources/jsp/drone/GetRWMDT.jsp",
    "drone_main":"./resources/jsp/drone/main.jsp",
@@ -68,7 +67,7 @@
    "GetSearchPollLoadResultData_CAT":"./resources/jsp/GetSearchPollLoadResultData_CAT.jsp",
    "GetSearchPollLoadResultData_Result":"./resources/jsp/GetSearchPollLoadResultData_Result.jsp",
    "GetSearchPollLoadResultData_SMAT":"./resources/jsp/GetSearchPollLoadResultData_SMAT.jsp",
-   "GetSearchPollLoadResultData_Standard_Basin":"./resources/jsp/GetSearchPollLoadResultData_Standar.jsp",
+   "GetSearchPollLoadResultData_Standard_Basin":"./resources/jsp/GetSearchPollLoadResultData_Standard_Basin.jsp",
    "GetSearchPollLoadResultData_SW":"./resources/jsp/GetSearchPollLoadResultData_SW.jsp",
    "GetSearchPollLoadResultData_Total":"./resources/jsp/GetSearchPollLoadResultData_Total.jsp",
    "GetSearchPollLoadResultData":"./resources/jsp/GetSearchPollLoadResultData.jsp",

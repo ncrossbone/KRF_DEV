@@ -97,7 +97,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', {
     					var jsonData;
     					
     					Ext.Ajax.request({
-                    		url: './resources/jsp/drone/GetRWMDT.jsp',    // To Which url you wanna POST.
+                    		url: _API.drone_GetRWMDT, //'./resources/jsp/drone/GetRWMDT.jsp',    // To Which url you wanna POST.
                     		params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
                     		async: false, // 비동기 = async: true, 동기 = async: false
                     		success : function(response, opts) {

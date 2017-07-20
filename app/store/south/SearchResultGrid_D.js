@@ -39,7 +39,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			var requestUrl = "";
 			
 			if(store.orgParentIds == "D001"){
-				requestUrl = "./resources/jsp/GetSearchResultData_D_1.jsp";
+				requestUrl = _API.GetSearchResultData_D_1; //"./resources/jsp/GetSearchResultData_D_1.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -56,7 +56,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 					{name: 'CURR_MNWL', type: 'number'}
                    ]
 			}else if(store.orgParentIds == "D002"){
-				requestUrl = "./resources/jsp/GetSearchResultData_D_2.jsp";
+				requestUrl = _API.GetSearchResultData_D_2; //"./resources/jsp/GetSearchResultData_D_2.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -67,7 +67,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_RF'
 				                       ]
 			}else if(store.orgParentIds == "D003"){
-				requestUrl = "./resources/jsp/GetSearchResultData_D_3.jsp";
+				requestUrl = _API.GetSearchResultData_D_3; //"./resources/jsp/GetSearchResultData_D_3.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -79,7 +79,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										{name: 'CHART_FW', type: 'number'}										
 				                       ]
 			}else if(store.orgParentIds == "D004"){
-				requestUrl = "./resources/jsp/GetSearchResultData_D_4.jsp";
+				requestUrl = _API.GetSearchResultData_D_4; //"./resources/jsp/GetSearchResultData_D_4.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -94,7 +94,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_ECPC'
 				                       ]
 			}else if(store.orgParentIds == "D005"){
-				requestUrl = "./resources/jsp/GetSearchResultData_D_5.jsp";
+				requestUrl = _API.GetSearchResultData_D_5; //"./resources/jsp/GetSearchResultData_D_5.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -113,7 +113,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_RNDAY'
 				                       ]
 			}else if(store.orgParentIds == "D006"){
-				requestUrl = "./resources/jsp/GetSearchResultData_D_6.jsp";
+				requestUrl = _API.GetSearchResultData_D_6; //"./resources/jsp/GetSearchResultData_D_6.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -126,7 +126,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_SIDAY'
 				                       ]
 			}else if(store.orgParentIds == "D007"){
-				requestUrl = "./resources/jsp/GetSearchResultData_D_7.jsp";
+				requestUrl = _API.GetSearchResultData_D_7; //"./resources/jsp/GetSearchResultData_D_7.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',

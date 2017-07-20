@@ -26,7 +26,7 @@ Ext.define('KRF_DEV.store.east.SiteInfoPanel', {
 			Ext.getCmp("siteinfotest").mask("loading", "loading...");
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
+        		url: _API.GetRWMDT, //'./resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
         		//params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
         		params: {recordId: recordId},
         		async: true, // 비동기 = async: true, 동기 = async: false

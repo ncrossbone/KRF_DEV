@@ -142,7 +142,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow', {
 								//1. data params로 넘어가지 않는 문제.
 								//2. 넘어갈 시 clob 타입에 단순 횡으로 입력시 4000byte.
 								Ext.Ajax.request({
-									url : "./resources/jsp/FavoriteInfo.jsp",
+									url : _API.FavoriteInfo, //"./resources/jsp/FavoriteInfo.jsp",
 									method : "POST",
 									success : function(result, request) {
 										Ext.Msg.alert("cc", "cc");
