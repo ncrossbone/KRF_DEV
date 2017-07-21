@@ -168,7 +168,7 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 										pointGArr:pointGArr,
 										symbolGArr:symbolGArr,
 										downLineGArr:downLineGArr};
-								console.info(saveObj);
+								//console.info(saveObj);
 								//self.favoriteInfo = [];
 								self.favoriteInfo.push(saveObj);
 								//console.info(self.favoriteInfo);
