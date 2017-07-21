@@ -426,8 +426,9 @@ Ext.define('KRF_DEV.view.map.FeatureLayerAdmin1', {
 				
 				var btnNomal = Ext.getCmp("btnModeNomal");
 				if(btnNomal.btnOnOff == "on"){
-					var aEl = Ext.get('reachTable');
-					aEl.dom.hidden = true;
+					document.getElementById('reachTable').style.display = "none";
+				}else{
+					document.getElementById('reachTable').style.display = "blank";
 				}
 				
 				if(clickValue == "start" || clickValue == "end"){

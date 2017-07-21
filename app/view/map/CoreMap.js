@@ -24,8 +24,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
 	
 	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
-	//height: 1100,
-	height: "109%",
+	height: 1250,
+	//height: "109%",
 	x: -378,
 	y: -80,
 	
@@ -63,7 +63,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	me.reachLayerAdmin_v3_New = Ext.create('KRF_DEV.view.map.ReachLayerAdmin_v3_New', me.map); // v3 New
         	me.searchLayerAdmin = Ext.create('KRF_DEV.view.map.SearchLayerAdmin', me.map, me.geometryService);
         	me.graphicsLayerAdmin = Ext.create('KRF_DEV.view.map.GraphicsLayerAdmin', me.map);
-        	me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
+        	//me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
         	
         	// KRAD 전역 Object Setting
         	_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
@@ -84,7 +84,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	KRF_DEV.getApplication().coreMap = me;
         	
         	require(["KRF_DEV/view/map/task/CustomPrintTask"], function() {
-            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", "./resources/jsp/CustomPrintTask_New.jsp", "./resources/jsp/proxy.jsp", _arcServiceUrl, "/resources/saveImgTemp/capture");
+        		//"./resources/jsp/CustomPrintTask_New.jsp"
+            	me.printTask = new KRF_DEV.view.map.task.CustomPrintTask(me.map, "_mapDiv_", _API.CustomPrintTask_New, "./resources/jsp/proxy.jsp", _arcServiceUrl, "/resources/saveImgTemp/capture");
             });
         	
         	// Extent Change Event

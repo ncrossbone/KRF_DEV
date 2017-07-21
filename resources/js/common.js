@@ -994,7 +994,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			}
 			
 		}
-		
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_F_"+test+"", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,

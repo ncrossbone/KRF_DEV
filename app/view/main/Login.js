@@ -54,7 +54,7 @@ Ext.define("KRF_DEV.view.main.Login", {
 //hyeok
 					Ext.Ajax.request({
 
-						url : "./resources/jsp/IsIdCheck.jsp?id=" + id,
+						url : _API.IsIdCheck+'?id='+id, //"./resources/jsp/IsIdCheck.jsp?id=" + id,
 						method : "GET",
 						success : function(result, request) {
 
@@ -64,13 +64,13 @@ Ext.define("KRF_DEV.view.main.Login", {
 								//암호화 된 password 가져오기
 								Ext.Ajax.request({
 
-									url : "./resources/jsp/GetPassword.jsp?id="+id,
+									url : _API.GetPassword+'?id='+id, // "./resources/jsp/GetPassword.jsp?id="+id,
 									method : "GET",
 									success : function(result, request) {
 										getPwd=result.responseText;
 										Ext.Ajax.request({
 											//입력한 password 암호화
-											url : "./resources/jsp/SHA_256.jsp?pwd="+pw,
+											url : _API.SHA_256+'?pwd='+pw, //"./resources/jsp/SHA_256.jsp?pwd="+pw,
 											method : "GET",
 											success : function(result, request) {
 
@@ -80,7 +80,7 @@ Ext.define("KRF_DEV.view.main.Login", {
 												if(getPwd.trim()==encPw.trim()){
 													Ext.Ajax.request({
 														//session에 id저장 및 log기록
-														url : "./resources/jsp/LogSession.jsp?id="+id,
+														url : _API.LogSession+'?id='+id, //"./resources/jsp/LogSession.jsp?id="+id,
 														method : "GET",
 														success : function(result, request) {
 															window.location = './index.html';

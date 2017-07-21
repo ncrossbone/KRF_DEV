@@ -173,7 +173,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData.jsp',
+	        		url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
@@ -231,9 +231,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 				Ext.getCmp("cmbEndMonth").setValue(endMonth);
 			}
 			
+			var start = start = startYear + startMonth;
+			var end = end = endYear + endMonth;
+			
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetSearchResultData.jsp',
+        		url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
@@ -308,9 +311,12 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 	
 	        				}
 	        				
-	        				store.setData(jsonData.data);
 	        				
-		        			// 로딩바 숨김
+	        				
+	        				store.setData(jsonData.data);
+	        				//Ext.util.JSON.decode
+	        				
+	        				// 로딩바 숨김
 	        				if(me.gridCtl != null){
 	        					
 	        					me.gridCtl.unmask();
@@ -342,7 +348,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
     					me.gridCtl.mask("오류가 발생하였습니다.");
     				}
         		}
-        	});
+        	});*/
 			
 			//store.setData(jsonData.items);
 			//store.data.items.add(jsonData.data);

@@ -89,7 +89,7 @@ Ext.define('KRF_DEV.store.south.LoadList', {
 		load: function(store, a, b, c, d, e) {
 			Ext.Ajax.request({
         		//url: url,
-				url: './resources/jsp/LoadColunmList.jsp',
+				url: _API.LoadColunmList, //'./resources/jsp/LoadColunmList.jsp',
         		//params: params,
         		//params: { adm1: WS_CD},
         		async: true, // 비동기 = async: true, 동기 = async: false

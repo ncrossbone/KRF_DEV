@@ -41,33 +41,14 @@
 <!-- KRAD 관련 공통 스크립트 -->
 <script type="text/javascript" src="./resources/js/commonKRAD.js"></script>
 
+<!-- 검색겨로가 관련 공통 스크립트 -->
+<script type="text/javascript" src="./resources/js/commonResult.js"></script>
+
 <script type="text/javascript" src="./resources/lib/JSLINQ.js"></script>
 <script type="text/javascript" src="./resources/lib/jquery/jquery-1.11.3.min.js"></script>
 
 <!-- The line below must be kept intact for Sencha Cmd to build your application -->
 <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
-
-
-<script>
-	jQuery.ajax({
-	    url: "resources/jsp/sessionData.jsp",
-	    type: 'POST',
-	    //data: { ip: ip},
-	    //params: { ip: ip},
-	    //dataType: 'json',
-	    async: false,
-	    traditional: true,
-	    success: function (r) {
-	    	//console.info(r);
-	    	//alert("success");
-	    },
-	    error: function (xhr, status, error) {
-	    	console.info(xhr);
-	    	console.info(status);
-	    	console.info(error);
-	    }   
-	});
-</script>
 
 <style type="text/css">
 #west_container-splitter {
