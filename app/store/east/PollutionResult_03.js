@@ -192,14 +192,14 @@ Ext.define('KRF_DEV.store.east.PollutionResult_03', {
 			var url = ""
 			
 			
-				if(store.selectValue == "11" || store.selectValue == ""){
-				url= './resources/jsp/pollution/PollutionSelect_03_01.jsp';
+			if(store.selectValue == "11" || store.selectValue == ""){
+				url= _API.PollutionSelect_03_01; //'./resources/jsp/pollution/PollutionSelect_03_01.jsp';
 			}else if(store.selectValue == "22"){
-				url= './resources/jsp/pollution/PollutionSelect_03_02.jsp';
+				url= _API.PollutionSelect_03_02; //'./resources/jsp/pollution/PollutionSelect_03_02.jsp';
 			}else if(store.selectValue == "33"){
-				url= './resources/jsp/pollution/PollutionSelect_03_03.jsp';
+				url= _API.PollutionSelect_03_03; //'./resources/jsp/pollution/PollutionSelect_03_03.jsp';
 			}else{
-				url= './resources/jsp/pollution/PollutionSelect_03_04.jsp';
+				url= _API.PollutionSelect_03_04; //'./resources/jsp/pollution/PollutionSelect_03_04.jsp';
 			}
 			
 			

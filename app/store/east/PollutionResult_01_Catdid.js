@@ -53,7 +53,7 @@ Ext.define('KRF_DEV.store.east.PollutionResult_01_Catdid', {
 			var arrData = [];
 			
 			Ext.Ajax.request({
-				url: './resources/jsp/pollution/PollutionSelect_01_Catdid.jsp',
+				url: _API.PollutionSelect_01_Catdid, //'./resources/jsp/pollution/PollutionSelect_01_Catdid.jsp',
         		params: { 
         			catDid: store.catDid,
         			year: store.year

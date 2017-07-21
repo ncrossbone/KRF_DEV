@@ -58,14 +58,14 @@ Ext.define('KRF_DEV.store.east.PollutionResult_02', {
 			var url = ""
 			
 			
-				if(store.selectValue == "11" || store.selectValue == ""){
-				url= './resources/jsp/pollution/PollutionSelect_02_01.jsp';
+			if(store.selectValue == "11" || store.selectValue == ""){
+				url= _API.PollutionSelect_02_01; //'./resources/jsp/pollution/PollutionSelect_02_01.jsp';
 			}else if(store.selectValue == "22"){
-				url= './resources/jsp/pollution/PollutionSelect_02_02.jsp';
+				url= _API.PollutionSelect_02_02; //'./resources/jsp/pollution/PollutionSelect_02_02.jsp';
 			}else if(store.selectValue == "33"){
-				url= './resources/jsp/pollution/PollutionSelect_02_03.jsp';
+				url= _API.PollutionSelect_02_03; //'./resources/jsp/pollution/PollutionSelect_02_03.jsp';
 			}else{
-				url= './resources/jsp/pollution/PollutionSelect_02_04.jsp';
+				url= _API.PollutionSelect_02_04; //'./resources/jsp/pollution/PollutionSelect_02_04.jsp';
 			}
 			
 			

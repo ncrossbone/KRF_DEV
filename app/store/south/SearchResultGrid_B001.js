@@ -165,9 +165,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			var url ="";
 			
 			if(con=="01"){
-				url = './resources/jsp/GetSearchResultData_B001.jsp';
+				url = _API.GetSearchResultData_B001;  //'./resources/jsp/GetSearchResultData_B001.jsp';
 			}else{
-				url = './resources/jsp/GetSearchResultData_B001_fix.jsp';
+				url = _API.GetSearchResultData_B001_fix; //'./resources/jsp/GetSearchResultData_B001_fix.jsp';
 			}
 			
 			// 로딩중 메세지

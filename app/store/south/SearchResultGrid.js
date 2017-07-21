@@ -173,8 +173,9 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData.jsp',
-	        		params: {startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+	        		url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
+	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
+	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
 	        		async: false, // 비동기 = async: true, 동기 = async: false
 	        		//rootProperty : 'items',
@@ -235,33 +236,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			
 			
 			Ext.Ajax.request({
-        		url: 'http://localhost:8071/krf/searchResult/searchResult_A',
-        		params: {start: start,end: end, siteId: store.siteIds},
-        		async: false, // 비동기 = async: true, 동기 = async: false
-        		//rootProperty : 'items',
-        		success : function(response, opts) {
-        			store.startYear = startYear;
-        			store.startMonth = startMonth;
-        			store.endYear = endYear;
-        			store.endMonth = endMonth;
-        			
-        			jsonData = Ext.util.JSON.decode( response.responseText );
-        			console.info(jsonData);
-        			
-        			var result = testResult(jsonData);
-        			
-        			store.setData(result);
-        			
-        			// 로딩바 숨김
-    				if(me.gridCtl != null){
-    					
-    					me.gridCtl.unmask();
-    				}
-        		}
-			});
-			
-			/*Ext.Ajax.request({
-        		url: './resources/jsp/GetSearchResultData.jsp',
+        		url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},

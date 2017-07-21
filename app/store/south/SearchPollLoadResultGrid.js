@@ -260,13 +260,13 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
 			var pollYear = Ext.getCmp("pollYear").value;
 			
 			if(store.selectValue == 11 ){
-				url= './resources/jsp/GetSearchPollLoadResultData_Total.jsp';
+				url= _API.GetSearchPollLoadResultData_Total; //'./resources/jsp/GetSearchPollLoadResultData_Total.jsp';
 				params= {pollYear: pollYear, catDid:store.catDid }
 			}else if(store.selectValue == 22){
-				url= './resources/jsp/GetSearchPollLoadResultData_Standard_Basin.jsp';
+				url= _API.GetSearchPollLoadResultData_Standard_Basin; //'./resources/jsp/GetSearchPollLoadResultData_Standard_Basin.jsp';
 				params= {pollYear: pollYear, catDid:store.catDid }
 			}else if( store.selectValue == 33 || store.selectValue == ""){ 
-				url= './resources/jsp/GetSearchPollLoadResultData_CAT.jsp';
+				url= _API.GetSearchPollLoadResultData_CAT; //'./resources/jsp/GetSearchPollLoadResultData_CAT.jsp';
 				params= {pollYear: pollYear, catDid:store.catDid }
 			}else{
 				url= './resources/jsp/GetSearchPollLoadResultData_CAT_Detail.jsp';
