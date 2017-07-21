@@ -355,7 +355,7 @@ Ext.application({
 			$.ajax({
 			    url: _API.sessionData, //"resources/jsp/sessionData.jsp", //
 			    type: 'POST',
-			    async: false,
+			    async: true,
 			    traditional: true,
 			    success: function (r) {
 			    },
