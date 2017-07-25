@@ -112,10 +112,10 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			Ext.Ajax.request({
         		url: requestUrl,    // To Which url you wanna POST.
         		params: {recordId: recordId
-        			, selectYear: selectYear
-        			, selectYear2: selectYear2
-        			, selectMonth: selectMonth
-        			, selectMonth2: selectMonth2
+                    , recordYear: selectYear
+                    , recordYear2: selectYear2
+                    , recordMonth: selectMonth
+                    , recordMonth2: selectMonth2
         			, defaultChart: defaultChart
         			, selectItem: selectItem
         			},

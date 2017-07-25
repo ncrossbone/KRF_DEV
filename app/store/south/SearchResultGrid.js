@@ -348,7 +348,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
     					me.gridCtl.mask("오류가 발생하였습니다.");
     				}
         		}
-        	});*/
+        	});
 			
 			//store.setData(jsonData.items);
 			//store.data.items.add(jsonData.data);
