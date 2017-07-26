@@ -97,11 +97,11 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			var jsonData = "";
 			
 			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
-				requestUrl = "./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+                requestUrl = _API['GetRWMDT_'+store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			}else if(store.parentId == "F"){
-				requestUrl = "./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
+                requestUrl = _API['GetRWMDT_'+f_parentId]; //"./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
 			}else if(org_D_firstID == "D"){
-				requestUrl = "./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
+                requestUrl = _API['GetRWMDT_'+store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			}
 			
 			// 로딩바 표시

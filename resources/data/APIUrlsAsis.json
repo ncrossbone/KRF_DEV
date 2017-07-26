@@ -68,7 +68,7 @@
    "GetSearchPollLoadResultData_CAT":"./resources/jsp/GetSearchPollLoadResultData_CAT.jsp",
    "GetSearchPollLoadResultData_Result":"./resources/jsp/GetSearchPollLoadResultData_Result.jsp",
    "GetSearchPollLoadResultData_SMAT":"./resources/jsp/GetSearchPollLoadResultData_SMAT.jsp",
-   "GetSearchPollLoadResultData_Standard_Basin":"./resources/jsp/GetSearchPollLoadResultData_Standar.jsp",
+      "GetSearchPollLoadResultData_Standard_Basin":"./resources/jsp/GetSearchPollLoadResultData_Standard_Basin.jsp",
    "GetSearchPollLoadResultData_SW":"./resources/jsp/GetSearchPollLoadResultData_SW.jsp",
    "GetSearchPollLoadResultData_Total":"./resources/jsp/GetSearchPollLoadResultData_Total.jsp",
    "GetSearchPollLoadResultData":"./resources/jsp/GetSearchPollLoadResultData.jsp",
@@ -98,5 +98,12 @@
    "SessionOut":"./resources/jsp/SessionOut.jsp",
    "setConfig":"./resources/jsp/setConfig.jsp",
    "SetSearchConfig":"./resources/jsp/SetSearchConfig.jsp",
-   "SHA_256":"./resources/jsp/SHA_256.jsp"
+   "SHA_256":"./resources/jsp/SHA_256.jsp",
+   "init": function(prefix){
+               for(var key in this){
+                   if(typeof(this[key]) == 'string'){
+                       this[key] = prefix +this[key];
+                   }
+               }
+           }
 }

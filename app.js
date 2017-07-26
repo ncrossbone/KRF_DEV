@@ -189,7 +189,7 @@ var apiStore = Ext.create('Ext.data.Store', {
 	}],
 	proxy: {
 		type: 'ajax',
-		url: './resources/data/APIUrlsAsis.json',
+        url: './resources/data/APIUrlsTobe.json',
 		reader: {
 			type: 'json'
 		}
@@ -198,6 +198,9 @@ var apiStore = Ext.create('Ext.data.Store', {
 
 apiStore.load(function(a, b, c) {
 	_API = a[0].data;
+	
+    // API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
+    a[0].data.init('http://localhost:8080');
 });
 
 
@@ -331,6 +334,19 @@ Ext.application({
 				}
 			}
 			/* 물환경 상세조회 시 화면 이동 및 심볼 표시 끝 */
+			
+            
+            // 접속 IP 로그남김
+            $.ajax({
+                url: _API.sessionData, //"resources/jsp/sessionData.jsp", //
+                type: 'POST',
+                async: true,
+                traditional: true,
+                success: function (r) {
+                },
+                error: function (xhr, status, error) {
+                }   
+            });
 		});
 		
 		/*

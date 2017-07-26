@@ -42,7 +42,7 @@ Ext.define('KRF_DEV.view.map.LabelLayerAdmin', {
 		*/
 		
 		Ext.Ajax.request({
-    		url: './resources/jsp/GetLabelLayerAdmin.jsp',
+            url: _API.GetLabelLayerAdmin, //'./resources/jsp/GetLabelLayerAdmin.jsp',
     		async: true, // 비동기 = async: true, 동기 = async: false
     		timeout: 300000, // timeout 5분
     		success : function(response, opts) {

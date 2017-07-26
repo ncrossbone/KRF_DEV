@@ -50,27 +50,6 @@
 <script id="microloader" type="text/javascript" src="bootstrap.js"></script>
 
 
-<script>
-	jQuery.ajax({
-	    url: "resources/jsp/sessionData.jsp",
-	    type: 'POST',
-	    //data: { ip: ip},
-	    //params: { ip: ip},
-	    //dataType: 'json',
-	    async: false,
-	    traditional: true,
-	    success: function (r) {
-	    	//console.info(r);
-	    	//alert("success");
-	    },
-	    error: function (xhr, status, error) {
-	    	console.info(xhr);
-	    	console.info(status);
-	    	console.info(error);
-	    }   
-	});
-</script>
-
 <style type="text/css">
 /* 처음 로딩시 window 화면 못잡음 임의적으로 height 지정 */
 #chromePop-innerCt .x-autocontainer-innerCt{ 

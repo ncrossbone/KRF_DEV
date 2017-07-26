@@ -269,7 +269,7 @@ Ext.define('KRF_DEV.store.south.SearchPollLoadResultGrid', {
                 url= _API.GetSearchPollLoadResultData_CAT; //'./resources/jsp/GetSearchPollLoadResultData_CAT.jsp';
 				params= {pollYear: pollYear, catDid:store.catDid }
 			}else{
-                url= _API.GetSearchPollLoadResultData_CAT_Detail; //'./resources/jsp/GetSearchPollLoadResultData_CAT.jsp';
+                url= _API.GetSearchPollLoadResultData_CAT_Detail; //'./resources/jsp/GetSearchPollLoadResultData_CAT_Detail.jsp';
 				params= {pollYear: pollYear, catDid:store.catDid }
 			}
 			
