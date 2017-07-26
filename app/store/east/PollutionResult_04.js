@@ -84,14 +84,14 @@ Ext.define('KRF_DEV.store.east.PollutionResult_04', {
 			var url = ""
 			
 				if(store.selectValue == "11" || store.selectValue == ""){
-				url= './resources/jsp/pollution/PollutionSelect_04_01.jsp';
-			}else if(store.selectValue == "22"){
-				url= './resources/jsp/pollution/PollutionSelect_04_02.jsp';
-			}else if(store.selectValue == "33"){
-				url= './resources/jsp/pollution/PollutionSelect_04_03.jsp';
-			}else{
-				url= './resources/jsp/pollution/PollutionSelect_04_04.jsp';
-			}
+					url= _API.PollutionSelect_04_01; //'./resources/jsp/pollution/PollutionSelect_04_01.jsp';
+				}else if(store.selectValue == "22"){
+					url= _API.PollutionSelect_04_02; //'./resources/jsp/pollution/PollutionSelect_04_02.jsp';
+				}else if(store.selectValue == "33"){
+					url= _API.PollutionSelect_04_03; //'./resources/jsp/pollution/PollutionSelect_04_03.jsp';
+				}else{
+					url= _API.PollutionSelect_04_04; //'./resources/jsp/pollution/PollutionSelect_04_04.jsp';
+				}
 			//console.info(url);
 			Ext.Ajax.request({
         		url: url,

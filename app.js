@@ -173,6 +173,34 @@ kradStore.load(function(a, b, c) {
 	//console.info(_kradInfo);
 });
 
+
+
+
+/*
+* 박철 추가 API URL 를 JSON으로 관리
+*/
+var _API = null;
+
+var apiStore = Ext.create('Ext.data.Store', {
+	autoLoad: true,
+
+	fields : [{
+		name : 'apiUrls'
+	}],
+	proxy: {
+		type: 'ajax',
+		url: './resources/data/APIUrlsAsis.json',
+		reader: {
+			type: 'json'
+		}
+	}
+});
+
+apiStore.load(function(a, b, c) {
+	_API = a[0].data;
+});
+
+
 /*
  * This file is generated and updated by Sencha Cmd. You can edit this file as
  * needed for your application, but these edits will have to be merged by Sencha

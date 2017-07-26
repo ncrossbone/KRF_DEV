@@ -60,7 +60,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
 			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
-	        		url: './resources/jsp/GetSearchResultData_F_3.jsp',
+                    url: _API.GetSearchResultData_F_3, //'./resources/jsp/GetSearchResultData_F_3.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
@@ -113,7 +113,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_3', {
 			
 			
 			Ext.Ajax.request({
-        		url: './resources/jsp/GetSearchResultData_F_3.jsp',
+                url: _API.GetSearchResultData_F_3, //'./resources/jsp/GetSearchResultData_F_3.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},

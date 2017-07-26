@@ -227,31 +227,31 @@ Ext.define("KRF_DEV.global.CommFn", {
 			
 			return {year: year, month: month, day: day, hour: hour};
 		}
-	},
-	/**
-	 * 엑셀파일 다운로드
-	 */
-	excelDown: function(fileNm, headName, header, datas){
-		if(fileNm == null){
-			fileNm = "검색결과";
-		}
-		var xhr = new XMLHttpRequest();
-		xhr.open('POST', 'http://localhost:8080/krf/common/excelDown', true);
-		xhr.responseType = 'blob';
-		xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-		xhr.onload = function(e) {
-		    if (this.status == 200) {
-		        var blob = new Blob([this.response], {type: 'application/vnd.ms-excel'});
-		        var downloadUrl = URL.createObjectURL(blob);
-		        var a = document.createElement("a");
-		        a.href = downloadUrl;
-		        a.download = fileNm+".xls";
-		        document.body.appendChild(a);
-		        a.click();
-		    } else {
-		        alert('엑셀다운로드 실패')
-		    }
-		};
-		xhr.send(JSON.stringify({"headName":JSON.stringify(headName), "header":JSON.stringify(header), "datas":JSON.stringify(datas)}));
+    },
+    /**
+     * 엑셀파일 다운로드
+     */
+    excelDown: function(fileNm, headName, header, datas){
+        if(fileNm == null){
+            fileNm = "검색결과";
+        }
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', _API.excelDown, true);
+        xhr.responseType = 'blob';
+        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        xhr.onload = function(e) {
+            if (this.status == 200) {
+                var blob = new Blob([this.response], {type: 'application/vnd.ms-excel'});
+                var downloadUrl = URL.createObjectURL(blob);
+                var a = document.createElement("a");
+                a.href = downloadUrl;
+                a.download = fileNm+".xls";
+                document.body.appendChild(a);
+                a.click();
+            } else {
+                alert('엑셀다운로드 실패')
+            }
+        };
+        xhr.send(JSON.stringify({"headName":JSON.stringify(headName), "header":JSON.stringify(header), "datas":JSON.stringify(datas)}));
 	}
 });
