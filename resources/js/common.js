@@ -2376,16 +2376,16 @@ setActionInfo = function(node, parentId , data , id ,type){
 	if(node == 0){
 		node = id;
 	}
-	
+	//ClickSession
+	//_API[]
 	Ext.Ajax.request({
-		url: './resources/jsp/ClickSession.jsp',
+		url: _API.ClickSession,
 		params: { node : node , parentId : parentId , data:data , id : id , type : type},
 		async: false, // 비동기 = async: true, 동기 = async: false
 		//rootProperty : 'items',
 		success : function(response, opts) {
 		},
 		failure: function(form, action) {
-			console.info(error);
 		}
 	});
 }

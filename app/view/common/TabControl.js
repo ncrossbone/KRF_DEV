@@ -612,7 +612,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				//if(grid.download=='sleep'){
 					this.status = 'download';
 					//"./resources/jsp/excelDown.jsp"
-					$.post(_API.excelDown, {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
+					/*$.post(_API.excelDown, {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
 						//grid.download = 'download';
 						$('#__fileDownloadIframe__').remove();
 						$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
@@ -621,7 +621,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						winCtl.unmask();
 			   		},"json").error(function(){
 			   			//grid.download = 'download';
-			   		});
+			   		});*/
+					KRF_DEV.global.CommFn.excelDown(null,headName,header,datas);
+					winCtl.unmask();
 //				}else{
 //					alert("다운로드중입니다.");
 //				}
