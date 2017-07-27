@@ -76,6 +76,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				height: 25
 			}, {
 				xtype: 'label',
+				id: 'startLabel',
 				text: '월'
 			},{
 				xtype:"panel",
@@ -135,6 +136,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				height: 25
 			}, {
 				xtype: 'label',
+				id: 'endLabel',
 				text: '월'
 			},{
 				xtype:"panel",
@@ -664,16 +666,34 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var cmbStartYear = Ext.getCmp("cmbStartYear");
 					var cmbEndYear = Ext.getCmp("cmbEndYear");
-					cmbStartYear.setStore(store);
-					cmbEndYear.setStore(store);
 					
 					
-					if(tab.parentId == "D" || tab.parentId == "B" || tab.parentId == "C"){
+					if(tab.parentId == "C"){
+						Ext.getCmp("cmbStartMonth").setStore(["1","2"]);
+						Ext.getCmp("cmbEndMonth").setStore(["1","2"]);
+					}else{
+						Ext.getCmp("cmbStartMonth").setStore(KRF_DEV.global.CommFn.bindComboMonth("Asc", ""));
+						Ext.getCmp("cmbEndMonth").setStore(KRF_DEV.global.CommFn.bindComboMonth("Asc", ""));
+					}
+					
+					if(tab.parentId == "D" || tab.parentId == "B" ){
 						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
-							Ext.getCmp("cmbStartYear").setValue("2017"); 
-	    					Ext.getCmp("cmbStartMonth").setValue("01");
+							Ext.getCmp("cmbStartYear").setValue("2017");
+							Ext.getCmp("cmbStartMonth").setValue("01");
 	    					Ext.getCmp("cmbEndYear").setValue("2017");
 	    					Ext.getCmp("cmbEndMonth").setValue("04");
+						}else{
+							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear); 
+							Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
+							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
+							Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+						}
+					}else if(tab.parentId == "C"){
+						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
+							Ext.getCmp("cmbStartYear").setValue("2017");
+							Ext.getCmp("cmbStartMonth").setValue("1");
+	    					Ext.getCmp("cmbEndYear").setValue("2017");
+	    					Ext.getCmp("cmbEndMonth").setValue("2");
 						}else{
 							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear); 
 							Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
@@ -694,9 +714,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						}
 					}
 					
-					
-					
-					
 					hiddenGrid.setHidden(true);
 				}else{
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
@@ -707,6 +724,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var cmbStartYear = Ext.getCmp("cmbStartYear");
 					var cmbEndYear = Ext.getCmp("cmbEndYear");
+					
 					cmbStartYear.setStore(store);
 					cmbEndYear.setStore(store);
 					if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
@@ -772,6 +790,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						Ext.getCmp("resultTab").show();
 					}
 					
+					var startLabel = Ext.getCmp("startLabel");
+					var endLabel = Ext.getCmp("endLabel");
+					if(tab.parentId == "C"){
+						startLabel.setText("반기");
+						endLabel.setText("반기");
+					}else{
+						startLabel.setText("월");
+						endLabel.setText("월");
+					}
 					//resultTab.setHidden(false);		//일반 검색pollResultTab
 					
 					pollSearchTab.setHidden(true);	//방유량 (년도/검색)

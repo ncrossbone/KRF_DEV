@@ -200,7 +200,7 @@ apiStore.load(function(a, b, c) {
 	_API = a[0].data;
 	
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-	a[0].data.init('http://localhost:8080');
+	a[0].data.init('http://localhost:8071');
 	
 });
 

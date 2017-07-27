@@ -174,8 +174,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
 	        		url: _API.GetSearchResultData, //'./resources/jsp/GetSearchResultData.jsp',
-	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
+	        		params: {startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
 	        		async: false, // 비동기 = async: true, 동기 = async: false
 	        		//rootProperty : 'items',
@@ -230,9 +229,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
 				Ext.getCmp("cmbEndYear").setValue(endYear);
 				Ext.getCmp("cmbEndMonth").setValue(endMonth);
 			}
-			
-			var start = start = startYear + startMonth;
-			var end = end = endYear + endMonth;
 			
 			
 			Ext.Ajax.request({
@@ -348,7 +344,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid', {
     					me.gridCtl.mask("오류가 발생하였습니다.");
     				}
         		}
-        	});*/
+        	});
 			
 			//store.setData(jsonData.items);
 			//store.data.items.add(jsonData.data);
