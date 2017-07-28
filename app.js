@@ -204,6 +204,8 @@ apiStore.load(function(a, b, c) {
 	
 });
 
+// 박철 추가 Ext Ajax timeout 설정 10분
+Ext.Ajax._timeout = 10*60*1000;
 
 /*
  * This file is generated and updated by Sencha Cmd. You can edit this file as
