@@ -2354,7 +2354,7 @@ setActionInfo = function(node, parentId , data , id ,type){
     Ext.Ajax.request({
         url: _API.ClickSession,
         params: { node : node , parentId : parentId , data:data , id : id , type : type},
-        async: false, // 비동기 = async: true, 동기 = async: false
+        async: true, // 비동기 = async: true, 동기 = async: false
         failure: function(form, action) {
         }
     });
