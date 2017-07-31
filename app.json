@@ -168,11 +168,12 @@
      *      },
      *
      */
-	"loader": {
-           "cache": "1.0.1",
-           "cacheParam": "_ver"
-      },
-
+     /*
+	  *"loader": {
+      *    "cache": "1.0.1",
+      *     "cacheParam": "_ver"
+      *},
+	  */
     /**
      * override objects for setting build environment specific 
      * settings.
