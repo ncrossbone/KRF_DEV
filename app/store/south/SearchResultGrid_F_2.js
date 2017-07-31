@@ -25,10 +25,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
     
     autoLoad: true,
     
-    buffered: true,
+    //buffered: true,
     pageSize: 100,
 
-	remoteSort: true,
+	//remoteSort: true,
 	
 	siteIds: "",
 	parentIds: [],
@@ -64,7 +64,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
-                    url: _API.GetSearchResultData_F_2, //'./resources/jsp/GetSearchResultData_F_2.jsp',
+	        		url: _API.GetSearchResultData_F_2, //'./resources/jsp/GetSearchResultData_F_2.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
@@ -118,7 +118,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_2', {
 			}
 			
 			Ext.Ajax.request({
-                url: _API.GetSearchResultData_F_2, //'./resources/jsp/GetSearchResultData_F_2.jsp',
+        		url: _API.GetSearchResultData_F_2, //'./resources/jsp/GetSearchResultData_F_2.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
