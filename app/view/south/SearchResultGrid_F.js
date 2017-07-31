@@ -17,17 +17,24 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
+			//id: 'grdSearchResult_F',
+			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
 			cls: 'khLee-x-column-header-text',
+			//id : 'ResultGrid_F',
 			height: 215,
 			loadMask: true,
+			//plugins: 'bufferedrenderer',
 			siteIds: "",
 			parentIds: [],
+			//height: '100%',
 			header: {
 				height: 5
 			},
 			title: '검색결과',
 			siteId: '',
+			//store: 'KRF_DEV.store.south.SearchResultGrid',
+			//store: Ext.create('KRF_DEV.store.south.SearchResultGrid'),
 			beforeRender: function(){
 				
 				var me = this;
@@ -119,7 +126,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'DISCHARGE_AMT_PHYS_GRAPH',
+					dataIndex: 'CHART_DISCHARGE_AMT_PHYS',
 					hidden : true,
 					xtype: 'widgetcolumn',
 					widget: {
@@ -161,7 +168,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'DISCHARGE_AMT_BIO_GRAPH',
+					dataIndex: 'CHART_DISCHARGE_AMT_BIO',
 					hidden : true,
 					xtype: 'widgetcolumn',
 					widget: {
@@ -203,7 +210,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'DISCHARGE_AMT_HIGHTEC_GRAPH',
+					dataIndex: 'CHART_DISCHARGE_AMT_HIGHTEC',
 					hidden : true,
 					xtype: 'widgetcolumn',
 					widget: {
@@ -245,7 +252,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'AMT_GRAPH',
+					dataIndex: 'CHART_AMT',
 					hidden : true,
 					xtype: 'widgetcolumn',
 					widget: {
@@ -286,7 +293,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'BOD_GRAPH',
+					dataIndex: 'CHART_BOD',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -327,7 +334,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'COD_GRAPH',
+					dataIndex: 'CHART_COD',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -369,7 +376,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'SS_GRAPH',
+					dataIndex: 'CHART_SS',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -409,7 +416,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'TN_GRAPH',
+					dataIndex: 'CHART_TN',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -451,7 +458,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'TP_GRAPH',
+					dataIndex: 'CHART_TP',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -493,7 +500,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'COLI_GRAPH',
+					dataIndex: 'CHART_COLI',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -536,7 +543,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'BYPASS_AMT_GRAPH',
+					dataIndex: 'CHART_BYPASS_AMT',
 					hidden : true,
 					xtype: 'widgetcolumn',
 					widget: {
