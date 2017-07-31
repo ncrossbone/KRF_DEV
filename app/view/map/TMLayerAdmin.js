@@ -82,7 +82,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 				
 				layerId = "1";
 			}
-			console.info(_mapServiceUrl_v3_TM);
+			
 			var queryTask = new QueryTask(_mapServiceUrl_v3_TM + "/" + layerId);
 			
 			var query = new Query();
@@ -163,7 +163,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		tmCatGraphic.setSymbol(tmCatFillSymbol);
 		        		// 폴리곤 그래픽 추가
 		        		me.tmGraphicLayerCat.add(tmCatGraphic);
-		        		console.info(tmCatGraphic);
+		        		
 		        		/* 폴리곤 중심점 가져오기 */
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
@@ -179,7 +179,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        				new esri.Color([255,255,255])).setAlign(esri.symbol.Font.ALIGN_START).setAngle(0).setFont(
 		        						new esri.symbol.Font("9pt", null, null, null, "굴림").setWeight(esri.symbol.Font.WEIGHT_BOLD)).setOffset(0, -20);
 		        		// 라벨 그래픽 생성
-		        		console.info(tmCatLabelSymbol);
+		        		
 		        		var tmCatLabelGraphic = new Graphic(centerPoint, tmCatLabelSymbol);
 		        		// 집수구역 부하량 속성 데이터 카피
 		        		tmCatLabelGraphic.attributes = tmCatGraphic.attributes;
@@ -217,7 +217,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
                     range = attrs.range;
                     
                     // 집수구역별 부하량 폴리곤 그래픽 스타일 셋팅
-                    console.info(attrs.CAT_DID);
+                    
                     me.setAttributeInit(evt.node, "polySymbol_" + attrs.CAT_DID, attrs.color);
                     
                     // 범례와 연계하기 위해 클래스 지정 (가상)
@@ -239,7 +239,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 	        	//클릭 이벤트
 	        	on(me.tmGraphicLayerCat, "click", function(evt){
 	        		
-	        		console.info(evt.graphic.attributes.CAT_DID);
+	        		
 	        		
 	        		var value = Ext.getCmp("pollLoadSelect").value;
 	        		
@@ -370,7 +370,7 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
     	var coreMap = GetCoreMap();
     	var me = this;
     	var test = Ext.getCmp("tmLegendWindow");
-    	console.info(test);
+    	
     	// 레전드 윈도우 생성
     	var tmLegendWindow = Ext.create("KRF_DEV.view.map.TMLegendWindow");
     	// 레전드 윈도우 보이기

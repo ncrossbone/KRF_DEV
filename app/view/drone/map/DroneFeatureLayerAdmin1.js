@@ -103,26 +103,24 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 			var jsonData;
 			
 			Ext.Ajax.request({
-        		url: _API.drone_GetRWMDT, // './resources/jsp/drone/GetRWMDT.jsp',    // To Which url you wanna POST.
-        		params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
-        		async: false, // 비동기 = async: true, 동기 = async: false
-        		success : function(response, opts) {
-        			//console.info(response.responseText);
-        			//return;
-        			if(response.responseText.trim() == 'error'){
+                url: _API.drone_GetRWMDT,
+                method: 'GET',
+                params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
+                success: function(conn, response, options, eOpts) {
+                	if(response.responseText.trim() == 'error'){
         				alert("오류가 발생하였습니다. 관리자에게 문의하세요.");
         				return;
         			}
         			//alert(response.responseText);
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			//alert(jsonData.data[0].ITEM_SURFACE_CLOA);
-        		},
-        		failure: function(form, action) {
-        			//alert(form.responseText);
-        			alert("오류가 발생하였습니다.");
-        		}
-        	});
+                },
+                failure: function(conn, response, options, eOpts) {
+                    Packt.util.Util.showErrorMsg(conn.responseText);
+                }
+            });
+			
+			
 			//console.info(jsonData.data.length);
 			if(jsonData != undefined && jsonData != null){
 				for(var jsonCnt = 0; jsonCnt < jsonData.data.length; jsonCnt++){

@@ -1000,7 +1000,6 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 			firstSession: test,
 			gridCtl: grdCtl
 		});
-		
 		//grdCtl.getView().bindStore(gridStore);
 		grdCtl.setStore(gridStore);
 		

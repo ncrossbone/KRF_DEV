@@ -75,6 +75,18 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				width: 50,
 				height: 25
 			}, {
+				xtype: 'combo',
+				id: 'cmbStartBan',
+				valueField: 'id',
+				displayField: 'name',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: '1', name: '상'}
+						,{id: '2', name: '하'}]
+				}),
+				width: 50,
+				height: 25
+			}, {
 				xtype: 'label',
 				id: 'startLabel',
 				text: '월'
@@ -132,6 +144,18 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				xtype: 'combo',
 				id: 'cmbEndMonth',
 				store: KRF_DEV.global.CommFn.bindComboMonth("Asc", ""),
+				width: 50,
+				height: 25
+			}, {
+				xtype: 'combo',
+				id: 'cmbEndBan',
+				valueField: 'id',
+				displayField: 'name',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: '1', name: '상'}
+						,{id: '2', name: '하'}]
+				}),
 				width: 50,
 				height: 25
 			}, {
@@ -669,14 +693,13 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					var cmbStartYear = Ext.getCmp("cmbStartYear");
 					var cmbEndYear = Ext.getCmp("cmbEndYear");
 					
+					var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+					var cmbEndMonth = Ext.getCmp("cmbEndMonth");
 					
-					if(tab.parentId == "C"){
-						Ext.getCmp("cmbStartMonth").setStore(["1","2"]);
-						Ext.getCmp("cmbEndMonth").setStore(["1","2"]);
-					}else{
-						Ext.getCmp("cmbStartMonth").setStore(KRF_DEV.global.CommFn.bindComboMonth("Asc", ""));
-						Ext.getCmp("cmbEndMonth").setStore(KRF_DEV.global.CommFn.bindComboMonth("Asc", ""));
-					}
+					var cmbStartBan = Ext.getCmp("cmbStartBan");
+					var cmbEndBan = Ext.getCmp("cmbEndBan");
+					
+					
 					
 					if(tab.parentId == "D" || tab.parentId == "B" ){
 						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
@@ -693,14 +716,14 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					}else if(tab.parentId == "C"){
 						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
 							Ext.getCmp("cmbStartYear").setValue("2017");
-							Ext.getCmp("cmbStartMonth").setValue("1");
+							Ext.getCmp("cmbStartBan").setValue("상");
 	    					Ext.getCmp("cmbEndYear").setValue("2017");
-	    					Ext.getCmp("cmbEndMonth").setValue("2");
+	    					Ext.getCmp("cmbEndBan").setValue("하");
 						}else{
 							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear); 
-							Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
+							Ext.getCmp("cmbStartBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
 							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
-							Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+							Ext.getCmp("cmbEndBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
 						}
 					}else{
 						if(tab.items.items[0].items.items[0].store.data.length == 0){
@@ -794,13 +817,25 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var startLabel = Ext.getCmp("startLabel");
 					var endLabel = Ext.getCmp("endLabel");
+					
 					if(tab.parentId == "C"){
 						startLabel.setText("반기");
 						endLabel.setText("반기");
+						cmbStartMonth.setHidden(true);
+						cmbEndMonth.setHidden(true);
+						cmbStartBan.setHidden(false);
+						cmbEndBan.setHidden(false);
 					}else{
 						startLabel.setText("월");
 						endLabel.setText("월");
+						cmbStartMonth.setHidden(false);
+						cmbEndMonth.setHidden(false);
+						cmbStartBan.setHidden(true);
+						cmbEndBan.setHidden(true);
 					}
+
+					
+					
 					//resultTab.setHidden(false);		//일반 검색pollResultTab
 					
 					pollSearchTab.setHidden(true);	//방유량 (년도/검색)

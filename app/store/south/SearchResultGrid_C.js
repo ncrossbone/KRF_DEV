@@ -6,7 +6,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
     fields: [
     	'PT_NM'
     	,'WMYR'
-    	,'WMW'
+    	,'WMWK'
     	,'WMOM'
     	,'WMOD'
     	,'WMCTM'
@@ -169,6 +169,18 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
     	,'CHART_TOLUENE'
     	,'CHART_M_P_XYLENE'
     	,'CHART_O_XYLENE'
+    	,'PCA_CLASS'
+    	,'TN_CLASS'
+    	,'TP_CLASS'
+    	,'PB_CLASS'
+    	,'ZN_CLASS'
+    	,'CU_CLASS'
+    	,'CR_CLASS'
+    	,'NI_CLASS'
+    	,'AS_CLASS'
+    	,'CU_CLASS'
+    	,'HG_CLASS'
+    	,'CODE_CTN'
     ],
     
     siteId: '',
@@ -194,9 +206,19 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 			var startYear = startMonth = endYear = endMonth = "";
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartMonth").value;
+			startMonth = Ext.getCmp("cmbStartBan").value;
+			if(startMonth == "상"){
+				startMonth = 1;
+			}else{
+				startMonth = 2;
+			}
 			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndMonth").value;
+			endMonth = Ext.getCmp("cmbEndBan").value;
+			if(endMonth == "상"){
+				endMonth = 1;
+			}else{
+				endMonth = 2;
+			}
 			
 			var jsonData = "";
 			var arrData = [];
@@ -263,9 +285,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				
 				firstSearch = "date";
 				Ext.getCmp("cmbStartYear").setValue(startYear); 
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("cmbStartBan").setValue(startMonth);
+				
 				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				Ext.getCmp("cmbEndBan").setValue(endMonth);
 			}
 			
 			Ext.Ajax.request({
@@ -276,17 +299,30 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         		async: false, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
+        			
         			store.startYear = startYear;
-        			store.startMonth = startMonth;
         			store.endYear = endYear;
-        			store.endMonth = endMonth;
+        			console.info(startMonth)
+        			console.info(endMonth)
+        			if(startMonth == 1){
+        				store.startMonth = "상";
+        			}else{
+        				store.startMonth = "하";
+        			}
+        			
+        			if(endMonth == 1){
+        				store.endMonth = "상";
+        			}else{
+        				store.endMonth = "하";
+        			}
+        			
+        			
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 	        				
-	        				console.info(jsonData.data);
 	        				store.setData(jsonData.data);
 		        			
 	        				// 로딩바 숨김

@@ -88,7 +88,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				filter: {type: 'numeric'/*, fields: {}*/}
 			}, { 
 				text      : '반기',
-				dataIndex : 'WMW',
+				dataIndex : 'WMWK',
 				width: 70,
 				filter: {type: 'numeric'/*, fields: {}*/}
 			}, { 
@@ -104,11 +104,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			}, { 
 				text      : '재취시간',
 				dataIndex : 'WMCTM',
+				hidden: true,
 				width: 110,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, { 
 				text      : '오염단계',
 				dataIndex : 'POLL_STEP',
+				hidden: true,
 				width: 110,
 				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			}, {
@@ -341,6 +343,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				}]
 			}, {
 				text : '저층-수심',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DOW_LOW',
@@ -379,6 +382,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				}]
 			}, {
 				text : '저층-수온',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TEMP_LOW',
@@ -417,6 +421,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				}]
 			}, {
 				text : '저층-DO',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DO_LOW',
@@ -455,6 +460,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				}]
 			}, {
 				text : '저층-ph',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PH_LOW',
@@ -493,6 +499,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 				}]
 			}, {
 				text : '저층-전기전도도',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_EC_LOW',
@@ -777,6 +784,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : '완전연소 가능량 등급',
+				hidden: true,
+				dataIndex : 'PCA_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'COD(%)',
@@ -903,7 +916,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
-			},{
+			}, { 
+				text      : 'T-N 등급',
+				hidden: true,
+				dataIndex : 'TN_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+			}, {
 
 				text : 'T-P(㎎/㎏)',
 				columns: [{
@@ -945,7 +964,13 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
-			},{
+			}, { 
+				text      : 'T-P 등급',
+				hidden: true,
+				dataIndex : 'TP_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
+			}, {
 
 				text : 'SRP(㎎/㎏)',
 				columns: [{
@@ -1029,6 +1054,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'Pb 등급',
+				hidden: true,
+				dataIndex : 'TP_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'Zn(㎎/㎏)',
@@ -1071,6 +1102,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'Zn 등급',
+				hidden: true,
+				dataIndex : 'TP_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'Cu(㎎/㎏)',
@@ -1113,6 +1150,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'Cu 등급',
+				hidden: true,
+				dataIndex : 'CU_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'Cr(㎎/㎏)',
@@ -1155,6 +1198,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'Cr 등급',
+				hidden: true,
+				dataIndex : 'CR_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'Ni(㎎/㎏)',
@@ -1197,6 +1246,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'Ni 등급',
+				hidden: true,
+				dataIndex : 'NI_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'As(㎎/㎏)',
@@ -1239,6 +1294,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'As 등급',
+				hidden: true,
+				dataIndex : 'AS_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'Cd(㎎/㎏)',
@@ -1281,6 +1342,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'Cd 등급',
+				hidden: true,
+				dataIndex : 'CD_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'Hg(㎎/㎏)',
@@ -1323,6 +1390,12 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, { 
+				text      : 'HG 등급',
+				hidden: true,
+				dataIndex : 'Hg_CLASS',
+				width: 110,
+				filter: {type: 'string', itemDefaults: {emptyText: 'Search for...'}}
 			},{
 
 				text : 'Al(%)',
@@ -1410,6 +1483,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Chlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CL_2_PHENYL',
@@ -1452,6 +1526,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Dichlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_2_CL_2_PHENYL',
@@ -1494,6 +1569,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Trichlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_3_CL_2_PHENYL',
@@ -1536,6 +1612,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Tetrachlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_4_CL_2_PHENYL',
@@ -1578,6 +1655,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Pentachlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_5_CL_2_PHENYL',
@@ -1620,6 +1698,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Hexachlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_6_CL_2_PHENYL',
@@ -1662,6 +1741,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Heptachlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_7_CL_2_PHENYL',
@@ -1704,6 +1784,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Octachlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_8_CL_2_PHENYL',
@@ -1746,6 +1827,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Nonachlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_9_CL_2_PHENYL',
@@ -1788,6 +1870,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Decachlorobiphenyl(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_10_CL_2_PHENYL',
@@ -1872,6 +1955,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Naphthalene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_NAPTHALENE',
@@ -1914,6 +1998,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Acenaphthylene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ACENAPTHALENE',
@@ -1956,6 +2041,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Acenaphthene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ACENAPTHENE',
@@ -1998,6 +2084,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Fluorene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_FLUORENE',
@@ -2040,6 +2127,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Phenanthrene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PHENANTHRENE',
@@ -2082,6 +2170,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Anthracene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ANTHRACENE',
@@ -2124,6 +2213,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Fluoranthene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_FLUORANTHENE',
@@ -2166,6 +2256,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Pyrene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_PYRENE',
@@ -2208,6 +2299,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Benzo[a]anthracene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BENZO_A_ANTHRACENE',
@@ -2250,6 +2342,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Chrysene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CRYSENE',
@@ -2292,6 +2385,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Benzo[b]fluoranthene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BENZO_B_FLUORANTHENE',
@@ -2334,6 +2428,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Benzo[k]fluoranthene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BENZO_F_FLUORANTHENE',
@@ -2376,6 +2471,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Benzo[a]pyrene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BENZO_A_PYRENE',
@@ -2418,6 +2514,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Indeno[1,2,3-cd]pyrene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_INDENO_1_2_3_CD_PYRENE',
@@ -2460,6 +2557,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Dibenzo[a,h]anthracene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_DIBENZO_A_H_ANTHRACENE',
@@ -2502,6 +2600,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Benzo[g,h,i]perylene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BENZO_G_H_I_PERYLENE',
@@ -2544,6 +2643,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Total PAHs(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TOTAL_PAHS',
@@ -2586,6 +2686,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : "o,p'-DDE(㎍/㎏)",
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_O_P_DDE',
@@ -2628,6 +2729,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : "p,p'-DDE(㎍/㎏)",
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_P_P_DDE',
@@ -2670,6 +2772,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : "o,p'-DDD(㎍/㎏)",
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_P_P_DDD',
@@ -2712,6 +2815,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : "o,p'-DDT(㎍/㎏)",
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_O_P_DDT',
@@ -2754,6 +2858,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : "p,p'-DDT(㎍/㎏)",
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_P_P_DDT',
@@ -2838,6 +2943,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : '1,1,1-Trichloroethane(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_1_1_1_TRICHLOROETHANE',
@@ -2880,6 +2987,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : '1,2-Dichloroethane(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_1_2_DICHLOROETHANE',
@@ -2922,6 +3031,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Benzene(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_BENZENE',
@@ -2964,6 +3075,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Carbon tetrachloride(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CARBON_TETRA_CHLORIDE',
@@ -3006,6 +3119,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Chloroform(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_CHLOROFORM',
@@ -3048,6 +3163,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Ethylbenzene(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_ETHYL_BENZENE',
@@ -3090,6 +3207,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Methyl Chloride(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_METHYL_CHLORIDE',
@@ -3132,6 +3251,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Tetrachloroethylene(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TETRA_CHLORO_ETHYLENE',
@@ -3174,6 +3295,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Trichloroethylene(㎍/㎏)',
+
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TRI_CHLORO_ETHYLENE',
@@ -3216,6 +3339,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'Toluene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_TOLUENE',
@@ -3258,6 +3382,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'm,p-Xylene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_M_P_XYLENE',
@@ -3300,6 +3425,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 			},{
 
 				text : 'o-Xylene(㎍/㎏)',
+				hidden: true,
 				columns: [{
 					text     : '측정값',
 					dataIndex: 'CURR_O_XYLENE',
@@ -3339,6 +3465,11 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_C', {
 					}
 				}]
 			
+			}, {
+				text      : '조사기관',
+				dataIndex : 'CODE_CTN',
+				width: 110,
+				filter: {type: 'numeric'/*, fields: {}*/}
 			}]
 		}]
 	}],
