@@ -201,13 +201,13 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							
 							KRF_DEV.getApplication().btnFlag = "date";
 							
-							console.info(activeTab);
-							console.info(parentId);
+//							console.info(activeTab);
+//							console.info(parentId);
 							
 							var title = activeTab.title.split('(');
-							console.info(title[0]);
-							console.info(parentId[0]);
-							console.info(parentId);
+//							console.info(title[0]);
+//							console.info(parentId[0]);
+//							console.info(parentId);
 							
 							setActionInfo(parentId[0] , parentId , title[0], "" , "검색결과");
 							
@@ -465,8 +465,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var activeTab = tabCtl.getActiveTab();
 				var gridContainer = activeTab.items.items[0];
 				var grid = gridContainer.down('gridpanel');
-				console.info(gridContainer);
-				console.info(grid);
+//				console.info(gridContainer);
+//				console.info(grid);
 //				if(!grid.download){
 //					grid.download = 'sleep';
 //				}
@@ -475,7 +475,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				
 				//console.info(colArr);
 				var tabpanels = Ext.getCmp("tabpanels");
-				console.info(tabpanels);
+//				console.info(tabpanels);
 				
 				var ClNodeName = tabpanels.activeTab.id;
 				var ClNode = tabpanels.activeTab.parentId;

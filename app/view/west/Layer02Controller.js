@@ -11,7 +11,7 @@ Ext.define('KRF_DEV.view.west.Layer02Controller', {
 	},
 	
 	onCheckChanged: function(node, checked, btnId) {
-		console.info("1");
+//		console.info("1");
 		var me = this;
 		me.node = node;
 		me.checked = checked;
@@ -35,7 +35,7 @@ Ext.define('KRF_DEV.view.west.Layer02Controller', {
 	},
 	
 	checkAllChildren: function(node, checked) {
-		console.info("2");
+//		console.info("2");
 		var me = this;
 		var children = node.childNodes;
 		Ext.each(children, function(child, index, eObjs) {
@@ -48,7 +48,7 @@ Ext.define('KRF_DEV.view.west.Layer02Controller', {
 	
 	// 레이어 연결된 버튼 셋팅 (버튼클릭 시 btnId넘겨주자.)
 	setLinkBtn: function(btnId){
-		console.info("3");
+//		console.info("3");
 		var me = this;
 		var btnCtl = null;
 		

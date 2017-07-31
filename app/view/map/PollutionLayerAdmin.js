@@ -60,7 +60,7 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 				layerId = "1";
 			}
 			var queryTask = new QueryTask(_mapServiceUrl_v3_TM +"/" + layerId);
-			console.info(_mapServiceUrl_v3_TM);
+//			console.info(_mapServiceUrl_v3_TM);
 			var query = new Query();
 	        query.returnGeometry = true;
 	        query.outFields = ["*"];
@@ -72,9 +72,9 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        queryTask.execute(query, function(tmCatFeatureSet){
 	        	
 	        	
-	        	console.info(year);
+//	        	console.info(year);
 	        	var tmpCatDids = inStrCatDids.replace(/'/g, "").split(", ");
-	        	console.info(kind);
+//	        	console.info(kind);
 	        	//각 계에 해당하는 store 생성
 	        	 var store = Ext.create('KRF_DEV.store.east.PollutionResult_0'+kind+'_Catdid',{
 	    			async:false,
@@ -156,13 +156,13 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
         		);
         		
 	        	var tmCatFeatures = tmCatFeatureSet.features;
-	        	console.info(tmCatFeatureSet.features);
+//	        	console.info(tmCatFeatureSet.features);
 	        	var range = 15;
 	        	
 	        	/* 범위, 값 매핑 오브젝트 생성 */
 	        	var quantizeObj = "";
 	        	quantizeObj = getQuantizeObj(tmCatFeatureSet, colName, range, kind);
-	        	console.info(quantizeObj);
+//	        	console.info(quantizeObj);
 	        	//console.info("min : " + minVal + ", max : " + maxVal + ", range : " + range);
 	        	//console.info(quantizeObj);
 	        	for(var range = 0; range < quantizeObj.length; range++){
@@ -245,7 +245,7 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	        	on(me.pollutionGraphicLayerCat, "click", function(evt){
 	        		
 	        		//////console.info(evt.graphic.attributes.CAT_DID);
-	        		console.info(evt.graphic.attributes.CAT_DID);
+//	        		console.info(evt.graphic.attributes.CAT_DID);
 	        		var value = Ext.getCmp("pollutionSelect").value;
 	        		if(value == 11 || value == 22){
 	        			return;

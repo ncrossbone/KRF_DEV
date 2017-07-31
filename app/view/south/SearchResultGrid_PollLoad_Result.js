@@ -66,7 +66,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 						var coreMap = GetCoreMap();
 						var tmLayerAdmin = coreMap.tmLayerAdmin;
 						
-						console.info(coreMap);
+//						console.info(coreMap);
 						
 		        		if(value == 11){
 		        			return;
@@ -139,7 +139,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_PollLoad_Result', {
 					if(c.data.ADDR == "총계"){
 						return value = "";
 					}else{
-						console.info("else");
+//						console.info("else");
 						return Ext.util.Format.number(value, '0.00');
 					}
 					

@@ -214,7 +214,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
-			console.info(firstSearch);
+//			console.info(firstSearch);
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
 	        		url: _API.GetSearchResultData_C, //'./resources/jsp/GetSearchResultData_C.jsp',
@@ -286,7 +286,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 	        				
-	        				console.info(jsonData.data);
+//	        				console.info(jsonData.data);
 	        				store.setData(jsonData.data);
 		        			
 	        				// 로딩바 숨김
