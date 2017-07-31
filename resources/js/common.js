@@ -336,7 +336,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			yFieldName = "ITEM_COD";
 		}else if(parentId == "C"){
 			series.setXField("WMCYMD");
-			yFieldName = "ITEM_DOW";
+			yFieldName = "ITEM_COD";
 		}else if(parentId == "F"){
 			series.setXField("WMCYMD");
 			yFieldName = "ITEM_BOD";
@@ -515,6 +515,30 @@ SetItemLabelText = function(itemNm,chartId){
 		itemNm = "기타 방류량(㎥/sec)";
 	}else if(itemNm == "ITEM_AMT"){
 		itemNm = "유량(㎥/일)";
+	}else if(itemNm == "ITEM_TOC"){
+		itemNm = "TOC (%)";
+	}else if(itemNm == "ITEM_SRP"){
+		itemNm = "SRP (㎎/㎏)";
+	}else if(itemNm == "ITEM_PB"){
+		itemNm = "Pb (㎎/㎏)";
+	}else if(itemNm == "ITEM_ZN"){
+		itemNm = "Zn (㎎/㎏)";
+	}else if(itemNm == "ITEM_CU"){
+		itemNm = "Cu (㎎/㎏)";
+	}else if(itemNm == "ITEM_CR"){
+		itemNm = "Cr (㎎/㎏)";
+	}else if(itemNm == "ITEM_NI"){
+		itemNm = "Ni (㎎/㎏)";
+	}else if(itemNm == "ITEM_AS"){
+		itemNm = "As (㎎/㎏)";
+	}else if(itemNm == "ITEM_CD"){
+		itemNm = "Cd (㎎/㎏)";
+	}else if(itemNm == "ITEM_HG"){
+		itemNm = "Hg (㎎/㎏)";
+	}else if(itemNm == "ITEM_AL"){
+		itemNm = "Al (%)";
+	}else if(itemNm == "ITEM_LI"){
+		itemNm = "Li (㎎/㎏)";
 	}
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
