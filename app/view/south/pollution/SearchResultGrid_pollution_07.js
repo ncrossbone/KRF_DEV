@@ -68,7 +68,7 @@ Ext.define('KRF_DEV.view.south.pollution.SearchResultGrid_pollution_07', {
 					click: function(tblView, el, rowCnt, colCnt, row){
 						
 						var value = Ext.getCmp("pollutionSelect").value;
-						console.info(value);
+//						console.info(value);
 						var coreMap = GetCoreMap();
 						var pollutionLayerAdmin = coreMap.pollutionLayerAdmin;
 						

@@ -158,8 +158,6 @@ Ext.define('KRF_DEV.view.main.Main', {
     	contContainer.setHeight(Ext.getBody().getViewSize().height - northContainer.height);
     	
     	/* Drone 툴바 위치 조절 */
-    	/*var droneCtl = Ext.getCmp("droneToolbar");
-    	droneCtl.hide();*/
     	/*
     	var droneToolX = droneCtl.x;
     	var droneToolWidth = droneCtl.width;

@@ -28,7 +28,7 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 			
 			if(checked == true){
 				//GetCoreMap().kradLayerAdmin.setDynamicLayer();
-				console.info("true");
+//				console.info("true");
 				_krad.setKradOnOff();
 			}
 			else{
@@ -136,9 +136,9 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 				                    	return;
 				                    }
 				        			var jsonConf = JSON.parse(confInfo);
-				        			console.info(jsonConf);
-				        			
-				        			console.info(store);
+//				        			console.info(jsonConf);
+//				        			
+//				        			console.info(store);
 				        			store.queryBy(function(record) {
 				        				for(var i = 0; i < jsonConf.length;i++){
 					        				if(jsonConf[i].TITLE == record.data.TITLE){
@@ -234,7 +234,7 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 					                    	return;
 					                    }
 					        			var jsonConf2 = JSON.parse(confInfo2);
-					        			console.info(jsonConf2);
+//					        			console.info(jsonConf2);
 					        			
 					        			store2.queryBy(function(record2) {
 					        				for(var i = 0; i < jsonConf2.length;i++){
@@ -273,7 +273,7 @@ Ext.define('KRF_DEV.view.krad.kradSchConf', {
 							
 							var confInfo = localStorage['_kradExtInfo_'];
 		        			var jsonConf = JSON.parse(confInfo);
-							console.info(jsonConf);
+//							console.info(jsonConf);
 							
 							_krad.setKradOnOff();
 							

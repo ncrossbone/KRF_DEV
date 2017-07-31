@@ -236,7 +236,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
-			console.info(firstSearch);
+//			console.info(firstSearch);
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
 	        		url: _API.GetSearchResultData_C, //'./resources/jsp/GetSearchResultData_C.jsp',
@@ -296,7 +296,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch:firstSearch},
-        		async: false, // 비동기 = async: true, 동기 = async: false
+        		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
@@ -322,7 +322,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         			if(jsonData.data.length > 0){
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
-	        				
+
 	        				store.setData(jsonData.data);
 		        			
 	        				// 로딩바 숨김
