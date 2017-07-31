@@ -138,7 +138,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     	this.setControlSize(); // 사이즈 조절
     	this.on("resize", this.setControlSize); // 이벤트 생성
     	
-    	//droneToolbar.hide();
+    	droneToolbar.hide();
     },
     
     // 메인 컨테이너 사이즈 조절
@@ -158,7 +158,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     	contContainer.setHeight(Ext.getBody().getViewSize().height - northContainer.height);
     	
     	/* Drone 툴바 위치 조절 */
-    	var droneCtl = Ext.getCmp("droneToolbar");
+    	//var droneCtl = Ext.getCmp("droneToolbar");
     	/*
     	var droneToolX = droneCtl.x;
     	var droneToolWidth = droneCtl.width;
@@ -193,7 +193,7 @@ Ext.define('KRF_DEV.view.main.Main', {
     		droneCtl.setY(bodyHeight - droneToolHeight);
     	}*/
     	//default 숨김
-    	droneCtl.hide();
+    	//droneCtl.hide();
     	/* Drone 툴바 위치 조절 끝 */
     }
 });

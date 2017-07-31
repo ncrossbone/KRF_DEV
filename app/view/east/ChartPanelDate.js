@@ -20,18 +20,68 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	    	var f_ChartText = Ext.getCmp("f_ChartText");
 	    	var selectYear = Ext.getCmp("selectYear");
 	    	var selectYear2 = Ext.getCmp("selectYear2");
+	    	
+	    	var startChartDate = Ext.getCmp("startChartDate");
+	    	var endChartDate = Ext.getCmp("endChartDate");
+	    	
+	    	//퇴적물 콤보 박스
+	    	var cStartChartDate = Ext.getCmp("cStartChartDate");
+	    	var cEndChartDate = Ext.getCmp("cEndChartDate");
+	    	
 	    	var parentChk = KRF_DEV.getApplication().parentFlag;
 			var chartFlag_D = KRF_DEV.getApplication().chartFlag_D;
+			
+			startChartDate.hidden = false;
+    		endChartDate.hidden = false;
+    		
+    		//퇴적물 콤보 박스 히든
+    		cStartChartDate.hidden = true;
+    		cEndChartDate.hidden = true;
+    		
 			if(parentChk == "F"){
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = false;
 	    		f_ChartText.hidden = false;
-	    		
 	    		var year = ['','2012','2013'];
 	    		selectYear.setStore(year);
 	    		selectYear.setValue('2012');
 	    		selectYear2.setStore(year);
 	    		selectYear2.setValue('2013');
+	    	}else if(parentChk == "C"){
+	    		
+	    		f_Chart.hidden = true;
+	    		f_ChartText.hidden = true;
+	    		startChartDate.hidden = true;
+	    		endChartDate.hidden = true;
+	    		
+	    		cStartChartDate.hidden = false;
+	    		cEndChartDate.hidden = false;
+	    		
+	    		var dateArr = [];
+	    		var nowDate = KRF_DEV.global.CommFn.nowDate.getYear();
+	    		var minDate = 2010;
+	    		
+	    		var cnt = -1;
+	    		
+	    		for(var i = minDate; i <= nowDate; i++){
+	    			
+	    			dateArr.push({id:i + "1",name:i + "상반기"});
+	    			dateArr.push({id:i + "2",name:i + "하반기"});
+	    			
+	    			cnt++;
+	    		}
+	    		
+	    		var store = Ext.create('Ext.data.Store',{
+					fields: ['id', 'name'],
+					data:dateArr
+				});
+	    		
+	    		cStartChartDate.bindStore(store);
+	    		cStartChartDate.setValue(dateArr[cnt * 2 - 2].id);
+	    		
+	    		cEndChartDate.bindStore(store);
+	    		cEndChartDate.setValue(dateArr[cnt * 2 + 1].id);
+	    		
 	    	}else{
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = true;
@@ -75,17 +125,23 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 			}else if(parentChk == "C"){
 				var store = Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
-					data: [{id: 'ITEM_DOW', name: '수심'}
-						,{id: 'ITEM_TEMP', name: '수온'}
-						,{id: 'ITEM_DOC', name: 'DO'}
-						,{id: 'ITEM_PH', name: 'pH'}
-						,{id: 'ITEM_EC', name: '전기전도도'}
-						,{id: 'ITEM_COD', name: 'COD'}
+					data: [{id: 'ITEM_COD', name: 'COD'}
 						,{id: 'ITEM_TOC', name: 'TOC'}
-						,{id: 'ITEM_TN', name: 'T-N'}
-						,{id: 'ITEM_TP', name: 'T-P'}]
+						,{id: 'ITEM_TN', name: 'TN'}
+						,{id: 'ITEM_TP', name: 'TP'}
+						,{id: 'ITEM_SRP', name: 'SRP'}
+						,{id: 'ITEM_PB', name: 'PB'}
+						,{id: 'ITEM_ZN', name: 'ZN'}
+						,{id: 'ITEM_CU', name: 'CU'}
+						,{id: 'ITEM_CR', name: 'CR'}
+						,{id: 'ITEM_NI', name: 'NI'}
+						,{id: 'ITEM_AS', name: 'AS'}
+						,{id: 'ITEM_CD', name: 'CD'}
+						,{id: 'ITEM_HG', name: 'HG'}
+						,{id: 'ITEM_AL', name: 'AL'}
+						,{id: 'ITEM_LI', name: 'LI'}]
 				})
-				itemCtl.setValue("ITEM_DOW");
+				itemCtl.setValue("ITEM_COD");
 			}else if(parentChk == "D"){
 				if(chartFlag_D == "D001"){
 					var store = Ext.create('Ext.data.Store', {
@@ -185,6 +241,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
     	},
     	items: [{
         	xtype: 'container',
+        	id:"startChartDate",
         	layout: {
         		type: 'hbox',
         		align: 'left',
@@ -226,6 +283,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 		},{
     		items:[{
     			xtype: 'container',
+    			id:"endChartDate",
 	        	layout: {
 	        		type: 'hbox',
 	        		align: 'left',
@@ -263,6 +321,22 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					text: '월 까지'
 				}]
     		}]
+    	},{
+    		xtype:"combo",
+    		width:150,
+    		height:25,
+    		valueField: 'id',
+			displayField: 'name',
+    		id:"cStartChartDate",
+    		editable:false
+    	},{
+    		xtype:"combo",
+    		width:150,
+    		height:25,
+    		valueField: 'id',
+			displayField: 'name',
+    		id:"cEndChartDate",
+    		editable:false
     	},{
 			xtype: 'container',
 			height: 5
