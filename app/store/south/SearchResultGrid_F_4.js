@@ -154,7 +154,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_F_4', {
 	                			store.startMonth = startMonth;
 	                			store.endYear = endYear;
 	                			store.endMonth = endMonth;
-	                			console.info(store);
+//	                			console.info(store);
 	        					
 	        					Ext.getCmp("cmbStartYear").setValue(startYear); 
 	        					Ext.getCmp("cmbStartMonth").setValue(startMonth);

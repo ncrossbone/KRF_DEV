@@ -235,8 +235,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
 					  var clickId = record.raw.id;
 					  var clickParentId = record.raw.parentId;
 					  
-					  console.info(clickParentId)
-					  console.info(clickId)
+//					  console.info(clickParentId)
+//					  console.info(clickId)
 					  
 					  setActionInfo(clickParentId , "오염원" , clickId , "" , "검색결과");
 				  }else{

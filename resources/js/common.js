@@ -2293,7 +2293,8 @@ postCall = function(outObjInfos, width, height, fileName){
 
 	var obj = {width:width, height:height, fileName: fileName, imageInfos:JSON.stringify(paramInfos)};
 
-	$.post("./resources/jsp/_DivImgSave.jsp", obj, function(data){
+	//"./resources/jsp/_DivImgSave.jsp"//
+	$.post(_API._DivImgSave, obj, function(data){
 		
 		if(chkoutObj == false){
 			postCall(outObjInfos, width, height, data.fileName);
