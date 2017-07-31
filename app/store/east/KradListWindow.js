@@ -129,7 +129,7 @@ Ext.define('KRF_DEV.store.east.KradListWindow', {
 				jsonStr += "]\n";
 				jsonStr += "}]}";
 				
-				console.info(jsonStr);
+//				console.info(jsonStr);
 				
 				var jsonData = "";
 				jsonData = Ext.util.JSON.decode(jsonStr);

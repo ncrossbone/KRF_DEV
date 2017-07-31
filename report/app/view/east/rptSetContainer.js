@@ -104,7 +104,7 @@ Ext.define('Report.view.east.rptSetContainer', {
 	    				}
 	    				
 						if(radio=="1"){
-							console.info("lkjfsd");
+//							console.info("lkjfsd");
 							Ext.getCmp("_rptMapDiv_").report(paramCode, startYear, endYear);
 						}else{
 							startYear = Ext.getCmp("cmbRptPeriodStYear").getValue() + "." + Ext.getCmp("cmbRptPeriodStMonth").getValue();

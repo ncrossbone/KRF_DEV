@@ -2342,8 +2342,8 @@ postCall = function(outObjInfos, width, height, fileName){
 	}
 
 	var obj = {width:width, height:height, fileName: fileName, imageInfos:JSON.stringify(paramInfos)};
-
-	$.post("./resources/jsp/_DivImgSave.jsp", obj, function(data){
+	//"./resources/jsp/_DivImgSave.jsp"
+	$.post(_API._DivImgSave, obj, function(data){
 		
 		
 		if(chkoutObj == false){
@@ -2405,7 +2405,7 @@ setActionInfo = function(node, parentId , data , id ,type){
 	Ext.Ajax.request({
 		url: _API.ClickSession,
 		params: { node : node , parentId : parentId , data:data , id : id , type : type},
-		async: false, // 비동기 = async: true, 동기 = async: false
+		async: true, // 비동기 = async: true, 동기 = async: false
 		//rootProperty : 'items',
 		success : function(response, opts) {
 		},

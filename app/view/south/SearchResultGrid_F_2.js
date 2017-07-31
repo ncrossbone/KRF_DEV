@@ -108,7 +108,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'DISCHARGE_AMT_PHYS_GRAPH',
+					dataIndex: 'CHART_DISCHARGE_AMT_PHYS',
 					
 					xtype: 'widgetcolumn',
 					widget: {
@@ -148,7 +148,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'DISCHARGE_AMT_BIO_GRAPH',
+					dataIndex: 'CHART_DISCHARGE_AMT_BIO',
 					
 					xtype: 'widgetcolumn',
 					widget: {
@@ -188,7 +188,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'DISCHARGE_AMT_HIGHTEC_GRAPH',
+					dataIndex: 'CHART_DISCHARGE_AMT_HIGHTEC',
 					
 					xtype: 'widgetcolumn',
 					widget: {
@@ -227,7 +227,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'BOD_GRAPH',
+					dataIndex: 'CHART_BOD',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -266,7 +266,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'COD_GRAPH',
+					dataIndex: 'CHART_COD',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -306,7 +306,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'SS_GRAPH',
+					dataIndex: 'CHART_SS',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -346,7 +346,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'TN_GRAPH',
+					dataIndex: 'CHART_TN',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -386,7 +386,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'TP_GRAPH',
+					dataIndex: 'CHART_TP',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -426,7 +426,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_F_2', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'COLI_GRAPH',
+					dataIndex: 'CHART_COLI',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
