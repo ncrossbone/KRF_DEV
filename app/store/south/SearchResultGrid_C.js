@@ -4,52 +4,183 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
     //  {name:  type: 'number'},
     // -----퇴적물조사지점-----
     fields: [
-			'PT_NO',
-			'PT_NM',
-			'WMYR',
-			'WMOM',
-			'WMCYMD_VAL',
-			'WMCYMD_GRAPH',
-			'MCNT',
-			'JOSANAME',
-			'ITEM_DOW_VAL',
-			/*'ITEM_TEMP_VAL',
-			'ITEM_DO_VAL',
-			'ITEM_PH_VAL',
-			'ITEM_EC_VAL',*/
-			
-			'ITEM_DOW_SURF_VAL',
-			'ITEM_TEMP_SURF_VAL',
-			'ITEM_DO_SURF_VAL',
-			'ITEM_PH_SURF_VAL',
-			'ITEM_EC_SURF_VAL',
-			'ITEM_DOW_LOW_VAL',
-			'ITEM_TEMP_LOW_VAL',
-			'ITEM_DO_LOW_VAL',
-			'ITEM_PH_LOW_VAL',
-			'ITEM_EC_LOW_VAL',
-			'ITEM_TRANSPARENCY_VAL',
-			
-			'ITEM_FSD_VAL',
-			'ITEM_FST_VAL',
-			'ITEM_FCL_VAL',
-			'ITEM_WTC_VAL',
-			'ITEM_PCA_VAL',
-			'ITEM_COD_VAL',
-			'ITEM_TOC_VAL',
-			'ITEM_TN_VAL',
-			'ITEM_TP_VAL',
-			'ITEM_SRP_VAL',
-			'ITEM_PB_VAL',
-			'ITEM_ZN_VAL',
-			'ITEM_CU_VAL',
-			'ITEM_CR_VAL',
-			'ITEM_NI_VAL',
-			'ITEM_AS_VAL',
-			'ITEM_CD_VAL',
-			'ITEM_HG_VAL',
-			'ITEM_AL_VAL',
-			'ITEM_LI_VAL'
+    	'PT_NM'
+    	,'WMYR'
+    	,'WMWK'
+    	,'WMOM'
+    	,'WMOD'
+    	,'WMCTM'
+    	,'POLL_STEP'
+    	,'CURR_DOW'
+    	,'CURR_DOW_SURF'
+    	,'CURR_TEMP_SURF'
+    	,'CURR_DO_SURF'
+    	,'CURR_PH_SURF'
+    	,'CURR_EC_SURF'
+    	,'CURR_DOW_LOW'
+    	,'CURR_TEMP_LOW'
+    	,'CURR_DO_LOW'
+    	,'CURR_PH_LOW'
+    	,'CURR_EC_LOW'
+    	,'CURR_TRANSPARENCY'
+    	,'CURR_FSD'
+    	,'CURR_FST'
+    	,'CURR_FCL'
+    	,'CURR_WTC'
+    	,'CURR_PCA'
+    	,'CURR_COD'
+    	,'CURR_TOC'
+    	,'CURR_TN'
+    	,'CURR_TP'
+    	,'CURR_SRP'
+    	,'CURR_PB'
+    	,'CURR_ZN'
+    	,'CURR_CU'
+    	,'CURR_CR'
+    	,'CURR_NI'
+    	,'CURR_AS'
+    	,'CURR_CD'
+    	,'CURR_HG'
+    	,'CURR_AL'
+    	,'CURR_LI'
+    	,'CURR_CL_2_PHENYL'
+    	,'CURR_2_CL_2_PHENYL'
+    	,'CURR_3_CL_2_PHENYL'
+    	,'CURR_4_CL_2_PHENYL'
+    	,'CURR_5_CL_2_PHENYL'
+    	,'CURR_6_CL_2_PHENYL'
+    	,'CURR_7_CL_2_PHENYL'
+    	,'CURR_8_CL_2_PHENYL'
+    	,'CURR_9_CL_2_PHENYL'
+    	,'CURR_10_CL_2_PHENYL'
+    	,'CURR_TOT_PCBS'
+    	,'CURR_NAPTHALENE'
+    	,'CURR_ACENAPTHALENE'
+    	,'CURR_ACENAPTHENE'
+    	,'CURR_FLUORENE'
+    	,'CURR_PHENANTHRENE'
+    	,'CURR_ANTHRACENE'
+    	,'CURR_FLUORANTHENE'
+    	,'CURR_PYRENE'
+    	,'CURR_BENZO_A_ANTHRACENE'
+    	,'CURR_CRYSENE'
+    	,'CURR_BENZO_B_FLUORANTHENE'
+    	,'CURR_BENZO_F_FLUORANTHENE'
+    	,'CURR_BENZO_A_PYRENE'
+    	,'CURR_INDENO_1_2_3_CD_PYRENE'
+    	,'CURR_DIBENZO_A_H_ANTHRACENE'
+    	,'CURR_BENZO_G_H_I_PERYLENE'
+    	,'CURR_TOTAL_PAHS'
+    	,'CURR_O_P_DDE'
+    	,'CURR_P_P_DDE'
+    	,'CURR_O_P_DDD'
+    	,'CURR_P_P_DDD'
+    	,'CURR_O_P_DDT'
+    	,'CURR_P_P_DDT'
+    	,'CURR_TOTAL_DDT'
+    	,'CURR_1_1_1_TRICHLOROETHANE'
+    	,'CURR_1_2_DICHLOROETHANE'
+    	,'CURR_BENZENE'
+    	,'CURR_CARBON_TETRA_CHLORIDE'
+    	,'CURR_CHLOROFORM'
+    	,'CURR_ETHYL_BENZENE'
+    	,'CURR_METHYL_CHLORIDE'
+    	,'CURR_TETRA_CHLORO_ETHYLENE'
+    	,'CURR_TRI_CHLORO_ETHYLENE'
+    	,'CURR_TOLUENE'
+    	,'CURR_M_P_XYLENE'
+    	,'CURR_O_XYLENE'
+    	,'CHART_DOW'
+    	,'CHART_DOW_SURF'
+    	,'CHART_TEMP_SURF'
+    	,'CHART_DO_SURF'
+    	,'CHART_PH_SURF'
+    	,'CHART_EC_SURF'
+    	,'CHART_DOW_LOW'
+    	,'CHART_TEMP_LOW'
+    	,'CHART_DO_LOW'
+    	,'CHART_PH_LOW'
+    	,'CHART_EC_LOW'
+    	,'CHART_TRANSPARENCY'
+    	,'CHART_FSD'
+    	,'CHART_FST'
+    	,'CHART_FCL'
+    	,'CHART_WTC'
+    	,'CHART_PCA'
+    	,'CHART_COD'
+    	,'CHART_TOC'
+    	,'CHART_TN'
+    	,'CHART_TP'
+    	,'CHART_SRP'
+    	,'CHART_PB'
+    	,'CHART_ZN'
+    	,'CHART_CU'
+    	,'CHART_CR'
+    	,'CHART_NI'
+    	,'CHART_AS'
+    	,'CHART_CD'
+    	,'CHART_HG'
+    	,'CHART_AL'
+    	,'CHART_LI'
+    	,'CHART_CL_2_PHENYL'
+    	,'CHART_2_CL_2_PHENYL'
+    	,'CHART_3_CL_2_PHENYL'
+    	,'CHART_4_CL_2_PHENYL'
+    	,'CHART_5_CL_2_PHENYL'
+    	,'CHART_6_CL_2_PHENYL'
+    	,'CHART_7_CL_2_PHENYL'
+    	,'CHART_8_CL_2_PHENYL'
+    	,'CHART_9_CL_2_PHENYL'
+    	,'CHART_10_CL_2_PHENYL'
+    	,'CHART_TOT_PCBS'
+    	,'CHART_NAPTHALENE'
+    	,'CHART_ACENAPTHALENE'
+    	,'CHART_ACENAPTHENE'
+    	,'CHART_FLUORENE'
+    	,'CHART_PHENANTHRENE'
+    	,'CHART_ANTHRACENE'
+    	,'CHART_FLUORANTHENE'
+    	,'CHART_PYRENE'
+    	,'CHART_BENZO_A_ANTHRACENE'
+    	,'CHART_CRYSENE'
+    	,'CHART_BENZO_B_FLUORANTHENE'
+    	,'CHART_BENZO_F_FLUORANTHENE'
+    	,'CHART_BENZO_A_PYRENE'
+    	,'CHART_INDENO_1_2_3_CD_PYRENE'
+    	,'CHART_DIBENZO_A_H_ANTHRACENE'
+    	,'CHART_BENZO_G_H_I_PERYLENE'
+    	,'CHART_TOTAL_PAHS'
+    	,'CHART_O_P_DDE'
+    	,'CHART_P_P_DDE'
+    	,'CHART_O_P_DDD'
+    	,'CHART_P_P_DDD'
+    	,'CHART_O_P_DDT'
+    	,'CHART_P_P_DDT'
+    	,'CHART_TOTAL_DDT'
+    	,'CHART_1_1_1_TRICHLOROETHANE'
+    	,'CHART_1_2_DICHLOROETHANE'
+    	,'CHART_BENZENE'
+    	,'CHART_CARBON_TETRA_CHLORIDE'
+    	,'CHART_CHLOROFORM'
+    	,'CHART_ETHYL_BENZENE'
+    	,'CHART_METHYL_CHLORIDE'
+    	,'CHART_TETRA_CHLORO_ETHYLENE'
+    	,'CHART_TRI_CHLORO_ETHYLENE'
+    	,'CHART_TOLUENE'
+    	,'CHART_M_P_XYLENE'
+    	,'CHART_O_XYLENE'
+    	,'PCA_CLASS'
+    	,'TN_CLASS'
+    	,'TP_CLASS'
+    	,'PB_CLASS'
+    	,'ZN_CLASS'
+    	,'CU_CLASS'
+    	,'CR_CLASS'
+    	,'NI_CLASS'
+    	,'AS_CLASS'
+    	,'CU_CLASS'
+    	,'HG_CLASS'
+    	,'CODE_CTN'
     ],
     
     siteId: '',
@@ -75,9 +206,19 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 			var startYear = startMonth = endYear = endMonth = "";
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
-			startMonth = Ext.getCmp("cmbStartMonth").value;
+			startMonth = Ext.getCmp("cmbStartBan").value;
+			if(startMonth == "상"){
+				startMonth = 1;
+			}else{
+				startMonth = 2;
+			}
 			endYear = Ext.getCmp("cmbEndYear").value;
-			endMonth = Ext.getCmp("cmbEndMonth").value;
+			endMonth = Ext.getCmp("cmbEndBan").value;
+			if(endMonth == "상"){
+				endMonth = 1;
+			}else{
+				endMonth = 2;
+			}
 			
 			var jsonData = "";
 			var arrData = [];
@@ -95,10 +236,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
-			
+//			console.info(firstSearch);
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
-                    url: _API.GetSearchResultData_C, //'./resources/jsp/GetSearchResultData_C.jsp',
+	        		url: _API.GetSearchResultData_C, //'./resources/jsp/GetSearchResultData_C.jsp',
 	        		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
 	        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch:firstSearch},
@@ -111,29 +252,28 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 	        			if(jsonData.data.length > 0){
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+		        				
+		        				var dateSplit = jsonData.data[0].WMYR;
 		        				if(dateSplit == null){
-			        				if(me.gridCtl != null){
-				        				me.gridCtl.addCls("dj-mask-noneimg");
-				        				me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+		        					if(me.gridCtl != null){
+			        					me.gridCtl.addCls("dj-mask-noneimg");
+			        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
 			        				}
 		        				}
-
-		        				////console.info(jsonData.data);
-		        				//store.setData(jsonData.data);
-		        				startYear = jsonData.data[0].WMYR;
-		        				if(jsonData.data[0].WMOM == "1" || jsonData.data[0].WMOM == "01"){
-		        					startMonth = "12";
+		        				
+		        				var afterVal = dateSplit.split(".");
+		        				startYear = afterVal[0];
+		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
+		        					startMonth = "2";
 		        					startYear = startYear-1;
 		        				}else{
-		        					startMonth = jsonData.data[0].WMOM-1;
+		        					startMonth = afterVal[1]-1;
 		        				}
 		        				
-		        				if(startMonth < 10){
-		        					startMonth = "0"+startMonth;
-		        				}
 		        				
-		        				endYear = jsonData.data[0].WMYR;
-		        				endMonth = jsonData.data[0].WMOM;
+		        				endYear = afterVal[0];
+		        				endMonth = afterVal[1];
+		        				
 		        			}
 	        			}
 	        		},
@@ -145,13 +285,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
 				
 				firstSearch = "date";
 				Ext.getCmp("cmbStartYear").setValue(startYear); 
-				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				Ext.getCmp("cmbStartBan").setValue(startMonth);
+				
 				Ext.getCmp("cmbEndYear").setValue(endYear);
-				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				Ext.getCmp("cmbEndBan").setValue(endMonth);
 			}
 			
 			Ext.Ajax.request({
-                url: _API.GetSearchResultData_C, //'./resources/jsp/GetSearchResultData_C.jsp',
+        		url: _API.GetSearchResultData_C, //'./resources/jsp/GetSearchResultData_C.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch:firstSearch},
@@ -159,13 +300,29 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         		//rootProperty : 'items',
         		success : function(response, opts) {
         			
+        			store.startYear = startYear;
+        			store.endYear = endYear;
+        			console.info(startMonth)
+        			console.info(endMonth)
+        			if(startMonth == 1){
+        				store.startMonth = "상";
+        			}else{
+        				store.startMonth = "하";
+        			}
+        			
+        			if(endMonth == 1){
+        				store.endMonth = "상";
+        			}else{
+        				store.endMonth = "하";
+        			}
+        			
+        			
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){
         				
 	        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
-	        				
-	        				//console.info(jsonData.data);
+
 	        				store.setData(jsonData.data);
 		        			
 	        				// 로딩바 숨김

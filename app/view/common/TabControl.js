@@ -75,7 +75,20 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				width: 50,
 				height: 25
 			}, {
+				xtype: 'combo',
+				id: 'cmbStartBan',
+				valueField: 'id',
+				displayField: 'name',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: '1', name: '상'}
+						,{id: '2', name: '하'}]
+				}),
+				width: 50,
+				height: 25
+			}, {
 				xtype: 'label',
+				id: 'startLabel',
 				text: '월'
 			},{
 				xtype:"panel",
@@ -134,7 +147,20 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				width: 50,
 				height: 25
 			}, {
+				xtype: 'combo',
+				id: 'cmbEndBan',
+				valueField: 'id',
+				displayField: 'name',
+				store: Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: '1', name: '상'}
+						,{id: '2', name: '하'}]
+				}),
+				width: 50,
+				height: 25
+			}, {
 				xtype: 'label',
+				id: 'endLabel',
 				text: '월'
 			},{
 				xtype:"panel",
@@ -198,9 +224,17 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 							
 							KRF_DEV.getApplication().btnFlag = "date";
-						    var title = activeTab.title.split('(');
-						      
-						    setActionInfo(parentId[0] , parentId , title[0], "" , "검색결과");
+							
+//							console.info(activeTab);
+//							console.info(parentId);
+							
+							var title = activeTab.title.split('(');
+//							console.info(title[0]);
+//							console.info(parentId[0]);
+//							console.info(parentId);
+							
+							setActionInfo(parentId[0] , parentId , title[0], "" , "검색결과");
+							
 							
 							ShowSearchResult(gridCtl.siteIds, parentId, "", gridId, fName.value, undefined, false);
 						}
@@ -246,8 +280,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						
 						var gridId = activeTab.id.replace("_container", ""); // _container는 common.ShowSearchResult 에서 붙이는걸로...
 						
-						setActionInfo("pollLoad" , "pollLoad" , "부하량", "" , "검색결과");
-
 						ShowSearchResult(gridCtl.siteIds, parentId, "", gridId,fName.value);
 					}
 				}
@@ -321,6 +353,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							//pdj
 							var pollLoadSelect = Ext.getCmp("pollLoadSelect");
 							PollLoadSearchResult(pollLoadSelect.lastValue);
+							
+							setActionInfo("pollLoad" , "pollLoad" , "부하량", "" , "검색결과");
 							
 							//PollLoadSearchResult();
 						}
@@ -401,10 +435,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							
 							var pollutionYear = Ext.getCmp("pollutionYear").value;
 							//pdj
+							var pollutionSelect = Ext.getCmp("pollutionSelect");
 							
 							setActionInfo("pollution" , "pollution" , "오염원", "" , "검색결과");
-
-							var pollutionSelect = Ext.getCmp("pollutionSelect");
+							
 							PollutionSearchResult(pollutionSelect.lastValue,activeTab.recordId,activeTab.title,activeTab.storeNm,pollutionYear);
 						}
 					}
@@ -455,6 +489,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var activeTab = tabCtl.getActiveTab();
 				var gridContainer = activeTab.items.items[0];
 				var grid = gridContainer.down('gridpanel');
+//				console.info(gridContainer);
+//				console.info(grid);
 //				if(!grid.download){
 //					grid.download = 'sleep';
 //				}
@@ -463,13 +499,12 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				
 				//console.info(colArr);
 				var tabpanels = Ext.getCmp("tabpanels");
-				//console.info(tabpanels);
+//				console.info(tabpanels);
 				
 				var ClNodeName = tabpanels.activeTab.id;
 				var ClNode = tabpanels.activeTab.parentId;
 				var ClTitle =  tabpanels.activeTab.title;
 				ClTitle = ClTitle.split('(');
-
 				
 				if(tabpanels.activeTab.id == "searchResultPollLoad_container"){
 					var value = Ext.getCmp("pollLoadSelect").value;
@@ -483,23 +518,22 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					}else{
 						colArr = colArr;
 					}
+					
 					ClNodeName = ClNodeName.split('_');
 					ClNodeName = ClNodeName[0];
-
+					
 				}else{
-					 if(ClNodeName.split('_')[0] == "searchResultpollution"){
-                         ClNodeName = ClNodeName.split('_');
-                         ClNodeName = ClNodeName[0]
-                     }else{
-                         ClNodeName = ClNodeName.split('_');
-                         ClNodeName = ClNodeName[1];
-                     }
-
+					if(ClNodeName.split('_')[0] == "searchResultpollution"){
+						ClNodeName = ClNodeName.split('_');
+						ClNodeName = ClNodeName[0]
+					}else{
+						ClNodeName = ClNodeName.split('_');
+						ClNodeName = ClNodeName[1];
+					}
 				}
 				
 				//엑셀다운 클릭 session
 				setActionInfo(ClNode , "" , ClTitle[0] , ClNodeName , "엑셀다운");
-
 				
 				var hItem = grid.getHeaderContainer().config.items;
 				var gItem = [];
@@ -522,8 +556,13 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				for(var i=0; i<dataArr.length; i++){
 					// khLee 수정 값 변경
 					var strData = JSON.stringify(dataArr[i].data);
-					strData = strData.replace(/888888888/gi, "\"\"");
-					strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+					
+					//고려 해봐야함
+					if(strData == "888888888" || strData == "999999999"){
+						strData = strData.replace(/888888888/gi, "\"\"");
+						strData = strData.replace(/999999999/gi, "\"정량한계미만\"");
+					}
+					
 					var convertData = JSON.parse(strData);
 					//datas.push(dataArr[i].data);
 					datas.push(convertData);
@@ -596,8 +635,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				
 				//if(grid.download=='sleep'){
 					this.status = 'download';
-                    //"./resources/jsp/excelDown.jsp"
-                    /*$.post(_API.excelDown, {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
+					//"./resources/jsp/excelDown.jsp"
+					/*$.post(_API.excelDown, {headName:JSON.stringify(headName), header:JSON.stringify(header), datas:JSON.stringify(datas)}, function(data){
 						//grid.download = 'download';
 						$('#__fileDownloadIframe__').remove();
 						$('body').append('<iframe src='+data.url+' id="__fileDownloadIframe__" name="__fileDownloadIframe__" width="0" height="0" style="display:none;"/>');
@@ -607,8 +646,8 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			   		},"json").error(function(){
 			   			//grid.download = 'download';
 			   		});*/
-                    KRF_DEV.global.CommFn.excelDown(null,headName,header,datas);
-                    winCtl.unmask();
+					KRF_DEV.global.CommFn.excelDown(null,headName,header,datas);
+					winCtl.unmask();
 //				}else{
 //					alert("다운로드중입니다.");
 //				}
@@ -623,14 +662,10 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 		id: 'tabpanels',
 		//title: 'tab1',
 		style: 'background-color: #157fcb;',
-		//header: false
 		//closable: true,
-	    
 		cls: 'khLee-tab-active khLee-tab-unselectable khLee-tab',
-		
 		listeners:{
 			'tabchange': function (tabPanel, tab){
-				
 				
 				// 그리드별 조회조건 컨트롤 셋팅
 				KRF_DEV.global.TabFn.searchConditionCtl(tab.down("grid"));
@@ -639,6 +674,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var b001 = Ext.getCmp("select_B001");
 				var startDayTime = Ext.getCmp("startDayTime");
 				var endDayTime = Ext.getCmp("endDayTime");
+				
+				var cmbStartYear = Ext.getCmp("cmbStartYear");
+				var cmbEndYear = Ext.getCmp("cmbEndYear");
+				
+				var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+				var cmbEndMonth = Ext.getCmp("cmbEndMonth");
+				
+				var cmbStartBan = Ext.getCmp("cmbStartBan");
+				var cmbEndBan = Ext.getCmp("cmbEndBan");
 				
 					if(tab.id=="grid_B001_container" || tab.idCheck=="B001"){
 						b001.setHidden(false);
@@ -655,16 +699,14 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var store = ['2010','2011','2012','2013','2014','2015','2016','2017'];
 					
-					var cmbStartYear = Ext.getCmp("cmbStartYear");
-					var cmbEndYear = Ext.getCmp("cmbEndYear");
-					cmbStartYear.setStore(store);
-					cmbEndYear.setStore(store);
 					
 					
-					if(tab.parentId == "D"){
+					
+					
+					if(tab.parentId == "D" || tab.parentId == "B" ){
 						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
-							Ext.getCmp("cmbStartYear").setValue("2017"); 
-	    					Ext.getCmp("cmbStartMonth").setValue("01");
+							Ext.getCmp("cmbStartYear").setValue("2017");
+							Ext.getCmp("cmbStartMonth").setValue("01");
 	    					Ext.getCmp("cmbEndYear").setValue("2017");
 	    					Ext.getCmp("cmbEndMonth").setValue("04");
 						}else{
@@ -672,6 +714,18 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							Ext.getCmp("cmbStartMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
 							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
 							Ext.getCmp("cmbEndMonth").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+						}
+					}else if(tab.parentId == "C"){
+						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
+							Ext.getCmp("cmbStartYear").setValue("2017");
+							Ext.getCmp("cmbStartBan").setValue("상");
+	    					Ext.getCmp("cmbEndYear").setValue("2017");
+	    					Ext.getCmp("cmbEndBan").setValue("하");
+						}else{
+							Ext.getCmp("cmbStartYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear); 
+							Ext.getCmp("cmbStartBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
+							Ext.getCmp("cmbEndYear").setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
+							Ext.getCmp("cmbEndBan").setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
 						}
 					}else{
 						if(tab.items.items[0].items.items[0].store.data.length == 0){
@@ -687,9 +741,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						}
 					}
 					
-					
-					
-					
 					hiddenGrid.setHidden(true);
 				}else{
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
@@ -700,6 +751,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var cmbStartYear = Ext.getCmp("cmbStartYear");
 					var cmbEndYear = Ext.getCmp("cmbEndYear");
+					
 					cmbStartYear.setStore(store);
 					cmbEndYear.setStore(store);
 					if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
@@ -764,6 +816,27 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					}else{
 						Ext.getCmp("resultTab").show();
 					}
+					
+					var startLabel = Ext.getCmp("startLabel");
+					var endLabel = Ext.getCmp("endLabel");
+					
+					if(tab.parentId == "C"){
+						startLabel.setText("반기");
+						endLabel.setText("반기");
+						cmbStartMonth.setHidden(true);
+						cmbEndMonth.setHidden(true);
+						cmbStartBan.setHidden(false);
+						cmbEndBan.setHidden(false);
+					}else{
+						startLabel.setText("월");
+						endLabel.setText("월");
+						cmbStartMonth.setHidden(false);
+						cmbEndMonth.setHidden(false);
+						cmbStartBan.setHidden(true);
+						cmbEndBan.setHidden(true);
+					}
+
+					
 					
 					//resultTab.setHidden(false);		//일반 검색pollResultTab
 					
