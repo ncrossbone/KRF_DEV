@@ -674,6 +674,15 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var b001 = Ext.getCmp("select_B001");
 				var startDayTime = Ext.getCmp("startDayTime");
 				var endDayTime = Ext.getCmp("endDayTime");
+				var cmbStartYear = Ext.getCmp("cmbStartYear");
+				var cmbEndYear = Ext.getCmp("cmbEndYear");
+				
+				var cmbStartMonth = Ext.getCmp("cmbStartMonth");
+				var cmbEndMonth = Ext.getCmp("cmbEndMonth");
+				
+				var cmbStartBan = Ext.getCmp("cmbStartBan");
+				var cmbEndBan = Ext.getCmp("cmbEndBan");
+				
 				
 					if(tab.id=="grid_B001_container" || tab.idCheck=="B001"){
 						b001.setHidden(false);
@@ -690,14 +699,7 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var store = ['2010','2011','2012','2013','2014','2015','2016','2017'];
 					
-					var cmbStartYear = Ext.getCmp("cmbStartYear");
-					var cmbEndYear = Ext.getCmp("cmbEndYear");
 					
-					var cmbStartMonth = Ext.getCmp("cmbStartMonth");
-					var cmbEndMonth = Ext.getCmp("cmbEndMonth");
-					
-					var cmbStartBan = Ext.getCmp("cmbStartBan");
-					var cmbEndBan = Ext.getCmp("cmbEndBan");
 					
 					
 					
