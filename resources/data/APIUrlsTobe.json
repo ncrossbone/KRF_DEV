@@ -1,4 +1,4 @@
-{  
+{   "domain" : "http://localhost:8080",
     "drone_GetRWMDT_MeasureDate":"./resources/jsp/drone/GetRWMDT_MeasureDate.jsp",
     "drone_GetRWMDT":"#host#/krf/drone/getRWMDT",
     "drone_main":"./resources/jsp/drone/main.jsp",
@@ -99,6 +99,9 @@
     "SetSearchConfig":"./resources/jsp/SetSearchConfig.jsp",
     "SHA_256":"#host#/krf/common/sha256",
     init: function(host){
+              if(host != null){
+                  this.domain = host;
+              }
 	          for(var key in this){
                    if(typeof(this[key]) == 'string'){
                        this[key] = this[key].replace('#host#', host);
