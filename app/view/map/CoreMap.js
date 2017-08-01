@@ -6,7 +6,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	id: '_mapDiv_',
 	
 	requires: [
-		'KRF_DEV.view.map.DynamicLayerAdmin'
+		'KRF_DEV.view.map.DynamicLayerAdmin',
+		'Ext.chart.*',
+		'Ext.window.MessageBox'
 	],
 	
 	map:null,
@@ -93,7 +95,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
     		// 차트 부분의 리소스를 로딩해 놓는다
-    		Ext.create('KRF_DEV.view.east.WindowSiteNChart',{});
+//    		Ext.create('KRF_DEV.view.east.WindowSiteNChart',{});
 		}, 1);
         
         

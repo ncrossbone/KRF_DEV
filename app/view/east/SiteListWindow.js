@@ -75,8 +75,8 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             	var test = record.data.text;
             	var chkText = record.id;
             	var parentId = record.data.parentId;
-            	
-            	ShowWindowSiteNChart(1, chkText, test, parentId);
+
+            	ShowWindowSiteNChart(1, chkText, test, parentId, record.data.chartBtnDisabled);
             	
             	// 집수구역, 지점 이동, 리치정보 하이라이트
 				var me = this.up("window");
