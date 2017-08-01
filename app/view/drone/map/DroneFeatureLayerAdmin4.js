@@ -102,11 +102,11 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin4', {
     					Ext.Ajax.request({
                     		url: _API.drone_GetRWMDT, //'./resources/jsp/drone/GetRWMDT.jsp',    // To Which url you wanna POST.
                     		params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
-                    		async: false, // 비동기 = async: true, 동기 = async: false
-                    		success : function(response, opts) {
-                    			//console.info(response.responseText);
-                    			//return;
-                    			if(response.responseText.trim() == 'error'){
+                    		dataType: "text/html",
+                            method: 'GET',
+                            async: false,
+                            success: function(response) {
+                            	if('error' == response.responseText){
                     				alert("오류가 발생하였습니다. 관리자에게 문의하세요.");
                     				return;
                     			}
