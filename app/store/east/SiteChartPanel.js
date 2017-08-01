@@ -123,8 +123,9 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         		success : function(response, opts) {
         			
         			if('error' == response.responseText){
-        				Ext.getCmp("siteCharttest").unmask();
         				Ext.Msg.alert("알림","차트정보 조회중 예외가 발생했습니다.");
+        				Ext.getCmp("siteCharttest").unmask();
+        				Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
         				return;
         			}
         			// JSON Object로 변경
