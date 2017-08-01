@@ -93,7 +93,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
     		// 차트 부분의 리소스를 로딩해 놓는다
-    		Ext.create('KRF_DEV.view.east.WindowSiteNChart',{});
+//    		Ext.create('KRF_DEV.view.east.WindowSiteNChart',{});
 		}, 1);
         
         
