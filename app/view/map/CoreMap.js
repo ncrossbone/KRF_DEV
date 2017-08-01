@@ -6,7 +6,9 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	id: '_mapDiv_',
 	
 	requires: [
-		'KRF_DEV.view.map.DynamicLayerAdmin'
+		'KRF_DEV.view.map.DynamicLayerAdmin',
+		'Ext.chart.*',
+		'Ext.window.MessageBox'
 	],
 	
 	map:null,
