@@ -302,8 +302,6 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_C', {
         			
         			store.startYear = startYear;
         			store.endYear = endYear;
-        			console.info(startMonth)
-        			console.info(endMonth)
         			if(startMonth == 1){
         				store.startMonth = "상";
         			}else{

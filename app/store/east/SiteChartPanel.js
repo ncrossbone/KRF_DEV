@@ -134,6 +134,8 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         		success : function(response, opts) {
         			if('error' == response.responseText){
         				Ext.Msg.alert("알림","차트정보를 조회하지 못했습니다.");
+        				Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
+        				Ext.getCmp("siteCharttest").mask("차트정보를 조회하지 못했습니다.", "noData");
         				return;
         			}
         			// JSON Object로 변경
