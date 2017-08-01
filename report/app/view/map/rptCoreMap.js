@@ -61,7 +61,7 @@ Ext.define('Report.view.map.rptCoreMap', {
 			me.printTask = Ext.create("KRF_DEV.view.map.task.CustomPrintTask",
         			me.map,
         			"_rptMapDiv_",
-        			"../resources/jsp/CustomPrintTask_New.jsp",
+        			'.'+_API.CustomPrintTask_New, //"../resources/jsp/CustomPrintTask_New.jsp",
         			"../resources/jsp/proxy.jsp",
         			//"./proxy.jsp",
         			_arcServiceUrl,
