@@ -265,6 +265,9 @@ Ext.define('KRF_DEV.view.east.FavoriteWindow_v3', {
 //									var extent = new esri.geometry.Extent(extentJson);
 //									var level = grid.selection.data.LEVEL;
 //									self.coreMap.extentMove(extent, level);
+									if(grid == null || grid.selection == null){
+										return;
+									}
 									self.coreMap.favoriteExe(grid.selection.data);
 								}
 							}
