@@ -276,9 +276,8 @@ ReachInfoBinding = function(objs){
 }
 
 
-
 //지점/차트 정보 창 띄우기
-ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
+ShowWindowSiteNChart = function(tabIdx, title, test, parentId, chartFlag){
 	
 	var yFieldName = "";
 	var chartId = ""; // 부모아이디
@@ -386,17 +385,22 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId){
 			store.load();
 			siteinfoCtl.setStore(store);
 		}
-		// 차트정보 스토어 로드
-		if(siteChartCtl != undefined){
-			//var chartStore = siteChartCtl.getStore();
-			var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
-			chartStore.siteCD = title;
-			chartStore.yFieldName = yFieldName;
-			chartStore.parentId = parentId;
-			chartStore.orgParentId = orgParentId;
-			chartStore.load();
-			siteChartCtl.setStore(chartStore);
-		}
+        if(!chartFlag){
+            // 차트정보 스토어 로드
+    		if(siteChartCtl != undefined){
+    			//var chartStore = siteChartCtl.getStore();
+    			var chartStore = Ext.create('KRF_DEV.store.east.SiteChartPanel');
+    			chartStore.siteCD = title;
+    			chartStore.yFieldName = yFieldName;
+    			chartStore.parentId = parentId;
+    			chartStore.orgParentId = orgParentId;
+    			chartStore.load();
+    			siteChartCtl.setStore(chartStore);
+    		}
+        }else{
+            Ext.getCmp("siteCharttest").addCls("dj-mask-noneimg");
+            Ext.getCmp("siteCharttest").mask("차트정보가 없습니다.", "noData");
+        }
 		
 		chartId = parentId; 
 	}
@@ -435,10 +439,17 @@ HideWindowSiteNChart = function(){
 }
 
 SetItemLabelText = function(itemNm,chartId){
-	
+    
 	if(itemNm == undefined || itemNm == ""){
 		//item 선택
 		var selectItem = Ext.getCmp("selectItem");
+		if(selectItem == null || selectItem.lastValue == null){
+	        var siteItemText = Ext.getCmp("selectItemName");  // 항목명
+	        if(siteItemText != null){
+	            siteItemText.setText("");    
+	        }
+	        return;
+	    }
 		itemNm = selectItem.lastValue;
 		
 		/*var f_Chart = Ext.getCmp("f_Chart");

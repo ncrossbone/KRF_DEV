@@ -122,20 +122,25 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			
+        			if('error' == response.responseText){
+        				Ext.getCmp("siteCharttest").unmask();
+        				Ext.Msg.alert("알림","차트정보 조회중 예외가 발생했습니다.");
+        				return;
+        			}
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        		if(store.parentId == "A"){	
-        			for(var ndReplace = 0 ; ndReplace<jsonData.data.length ; ndReplace++){
-        				
-        				var itemValue = "ITEM_VALUE";
-        				if(jsonData.data[ndReplace].ITEM_VALUE == 999999999){
-        					jsonData.data[ndReplace].ITEM_VALUE = 0;
-        					jsonData.data[ndReplace].ITEM_VALUE_1 = "정량한계미만 ";
-        				}
-        				
-        			};
-        				
-        		}		
+	        		if(store.parentId == "A"){	
+	        			for(var ndReplace = 0 ; ndReplace<jsonData.data.length ; ndReplace++){
+	        				
+	        				var itemValue = "ITEM_VALUE";
+	        				if(jsonData.data[ndReplace].ITEM_VALUE == 999999999){
+	        					jsonData.data[ndReplace].ITEM_VALUE = 0;
+	        					jsonData.data[ndReplace].ITEM_VALUE_1 = "정량한계미만 ";
+	        				}
+	        				
+	        			};
+	        				
+	        		}		
         			store.loadData(jsonData.data);
         			store.arrMax = jsonData.maxdata;
         			

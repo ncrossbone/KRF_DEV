@@ -48,7 +48,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				//style: 'font-weight: bold; padding-left: 10px;',
 				//fieldLabel: '<img src="./resources/images/button/blit_st_01.png" /> <b>년도</b> ',
 				store: Ext.create('KRF_DEV.store.east.SiteChartPanel'),
-				text: 'BOD(㎎/ℓ)',
+				text: '',
 				//width: 125,
 				width: "32%",
 				height: 25
