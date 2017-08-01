@@ -11,6 +11,16 @@ Ext.define("KRF_DEV.global.CommFn", {
 	config: {
 		globalTest: 0 // 테스트용 변수
 	},
+	catLayerNmMap :{"A":"수질측정지점",
+					"B":"수질자동측정지점",
+					"C":"퇴적물조사지점",
+					"D":"기타측정지점",
+					"E":"수생태계",
+					"F":"환경기초시설",
+					"G":"방사선측정지점",
+					"I":"조류모니터링"
+	},
+	
 	/* 연도 콤보 바인딩 현재 날짜 기준
 	 * preYear : 시작년도
 	 * sort : 정렬방법("Asc", "Desc")
