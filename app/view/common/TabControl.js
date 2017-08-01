@@ -646,7 +646,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 			   		},"json").error(function(){
 			   			//grid.download = 'download';
 			   		});*/
-					KRF_DEV.global.CommFn.excelDown(null,headName,header,datas);
+                    var catLayerNm = KRF_DEV.global.CommFn.catLayerNmMap[ClNode];
+                    catLayerNm = catLayerNm == null ? "":catLayerNm+"_";
+                    KRF_DEV.global.CommFn.excelDown(catLayerNm+ClTitle[0] ,headName,header,datas);
 					winCtl.unmask();
 //				}else{
 //					alert("다운로드중입니다.");
