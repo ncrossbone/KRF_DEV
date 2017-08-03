@@ -146,10 +146,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -202,10 +199,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -255,10 +249,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -308,10 +299,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -361,10 +349,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -414,10 +399,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -467,10 +449,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -520,11 +499,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	////console.info(xVal);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -577,10 +552,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} </p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -630,10 +602,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -684,10 +653,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -738,10 +704,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -792,10 +755,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -846,10 +806,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -900,10 +857,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -954,10 +908,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1008,10 +959,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1062,10 +1010,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1116,10 +1061,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1170,10 +1112,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1224,10 +1163,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1278,10 +1214,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1332,10 +1265,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1386,10 +1316,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1440,10 +1367,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1494,10 +1418,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1548,10 +1469,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1602,10 +1520,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1656,10 +1571,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1710,10 +1622,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1764,10 +1673,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1818,10 +1724,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1872,10 +1775,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1926,10 +1826,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -1980,10 +1877,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2034,10 +1928,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2088,10 +1979,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2142,10 +2030,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2196,10 +2081,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2250,10 +2132,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2304,10 +2183,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2358,10 +2234,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2412,10 +2285,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2466,10 +2336,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2520,10 +2387,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2574,10 +2438,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2628,10 +2489,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2682,10 +2540,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2736,10 +2591,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2790,10 +2642,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
@@ -2844,10 +2693,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
