@@ -1475,6 +1475,8 @@ ReachSelectedFocus = function(catId){
 	var gridCtl = rchGridContainer.items.items[0];
 	gridCtl = gridCtl.items.items[0];
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
+    gridCtl.getView().getRow(rowIdx).scrollIntoView();
+
 	
 }
 
