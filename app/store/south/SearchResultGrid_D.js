@@ -149,12 +149,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			}
 			
 			
-			var startYear = startMonth = endYear = endMonth = "";
+			var startYear = startMonth = startDay = endYear = endMonth = endDay ="";
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
 			startMonth = Ext.getCmp("cmbStartMonth").value;
+			startDay = Ext.getCmp("startDay").value;
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
+			endDay = Ext.getCmp("endDay").value;
 			
 			var jsonData = "";
 			var arrData = [];
@@ -184,7 +186,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	        		success : function(response, opts) {
 
 	        			jsonData = Ext.util.JSON.decode( response.responseText );
-
+	        			
 	        			if(jsonData.data.length > 0){
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
@@ -201,25 +203,33 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 		        					var afterVal = [];
 		        					afterVal.push(dateSplit.substring(0,4));
 		        					afterVal.push(dateSplit.substring(4,6));
+		        					afterVal.push(dateSplit.substring(6,8));
+		        					afterVal.push(dateSplit.substring(8,10));
 		        				}else{
 			        				var afterVal = dateSplit.split(".");
 		        				}
 		        				
 		        				startYear = afterVal[0];
-		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
-		        					startMonth = "12";
-		        					startYear = startYear-1;
+		        				
+		        				if(store.orgParentIds == "D007"){
+		        					var sDate = new Date(afterVal[0],parseInt(afterVal[1])-1,afterVal[2]);
+		        					// 보관측소는 하루전 기본 하루전 데이터 조회
+		        					sDate.setDate(sDate.getDate()-1);
+		        					startYear = sDate.getFullYear();
+		        					startMonth = KRF_DEV.global.CommFn.lpad(sDate.getMonth()+1, '0', 2) ;
+		        					startDay = KRF_DEV.global.CommFn.lpad(sDate.getDate(), '0', 2) ;
 		        				}else{
-		        					startMonth = afterVal[1]-1;
+		        					if(afterVal[1] == "1" || afterVal[1] == "01"){
+			        					startMonth = "12";
+			        					startYear = startYear-1;
+			        				}else{
+			        					startMonth = afterVal[1]-1;
+			        				}
+		        					startMonth = KRF_DEV.global.CommFn.lpad(startMonth, '0', 2) ;
 		        				}
-		        				
-		        				if(startMonth < 10){
-		        					startMonth = "0"+startMonth;
-		        				}
-		        				
 		        				endYear = afterVal[0];
 		        				endMonth = afterVal[1];
-		        				
+		        				endDay = afterVal[2];
 		        			}
 	        			}
 	        		}
@@ -229,8 +239,17 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 				firstSearch = "date";
 				Ext.getCmp("cmbStartYear").setValue(startYear); 
 				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				
 				Ext.getCmp("cmbEndYear").setValue(endYear);
 				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				
+				if(startDay != null && startDay != ""){
+					Ext.getCmp("startDay").setValue(startDay);	
+				}
+				
+				if(endDay != null && endDay != ""){
+					Ext.getCmp("endDay").setValue(endDay);	
+				}
 			}
 				
 			
@@ -238,13 +257,18 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
         		url: requestUrl,
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
+        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch, startDay:startDay, endDay:endDay},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			store.startYear = startYear;
         			store.startMonth = startMonth;
         			store.endYear = endYear;
         			store.endMonth = endMonth;
+        			if('error' == response.responseText){
+        				me.gridCtl.addCls("dj-mask-noneimg");
+    					me.gridCtl.mask("오류가 발생하였습니다.");
+        				return;
+        			}
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){

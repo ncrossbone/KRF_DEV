@@ -263,5 +263,41 @@ Ext.define("KRF_DEV.global.CommFn", {
 		    }
 		};
 		xhr.send(JSON.stringify({"headName":JSON.stringify(headName), "header":JSON.stringify(header), "datas":JSON.stringify(datas)}));
-	}
+	},
+	lpad: function(src, fix, width) {
+			if(src == null || fix == null){
+				return src;
+			}
+			src = src + '';
+			return src.length >= width ? src : new Array(width - src.length + 1).join(fix) + src;
+    },
+    rpad: function(src, fix, width) {
+	    	if(src == null || fix == null){
+				return src;
+			}
+	    	src = src + '';
+		  	return src.length >= width ? src : src + new Array(width - src.length + 1).join(fix) ;
+    },
+
+    dateFormatter: function(src){
+    	if(src == null){
+    		return '';
+    	}
+    	var des = '';
+    	
+    	for(var i=0; i<src.length; i++){
+    		var n = src.charAt(i);
+    		if(i==4 || i==6 ){
+    			des += '.';
+    		}
+    		if(i==8){
+    			des += ' ';
+    		}
+    		if(i== 10 || i==12 ){
+    			des += ':';
+    		}
+    		des += n;
+    	}
+    	return des;
+    }
 });

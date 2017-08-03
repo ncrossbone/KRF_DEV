@@ -200,15 +200,16 @@ apiStore.load(function(a, b, c) {
 	_API = a[0].data;
 	
 	// API URL 앞에 분을 문자열을 넣을 수 있다. http://localhost:8080 ...
-	a[0].data.init('http://localhost:8071');
+	a[0].data.init('http://localhost:8080');
 	
 });
 
 // 박철 추가 Ext Ajax timeout 설정 10분
 Ext.Ajax._timeout = 10*60*1000;
 
-//박철 추가 cache 추가  추후에 변경사항이 있으면 cache:1.0.1 -> 1.0.2 ... 올릴것
-Ext.manifest.loader = {"cache":"1.0.1", "cacheParam":"_ver"}
+// 박철 추가 cache 추가  추후에 변경사항이 있으면 cache:1.0.1 -> 1.0.2 ... 올릴것
+// 개발 or 운영 반영할때만 주석 풀것
+//Ext.manifest.loader = {"cache":"1.0.12", "cacheParam":"_ver"}
 
 /*
  * This file is generated and updated by Sencha Cmd. You can edit this file as

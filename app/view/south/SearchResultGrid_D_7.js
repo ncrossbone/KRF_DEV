@@ -107,7 +107,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_SWL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, '0');
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -124,18 +124,17 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
 						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+						valueSpots: {'0:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -145,7 +144,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_OWL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, '0');
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -162,18 +161,17 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
 						        }
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
 						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+						valueSpots: {'0:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -200,8 +198,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0');
@@ -238,8 +235,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0');
@@ -276,8 +272,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -314,8 +309,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -352,8 +346,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -390,8 +383,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -428,8 +420,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -466,8 +457,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -504,8 +494,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -542,8 +531,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    '</tpl>',
 						    {
 							    formatX: function(xVal){
-							    	xVal = xVal.substring(1, 5) + "." + xVal.substring(5, 7) + "." + xVal.substring(7, 9);
-							    	return xVal;
+							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
 							    },
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
@@ -564,6 +552,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 		this.callParent();
 		
 		// 검색조건 컨트롤 초기화
-		KRF_DEV.global.TabFn.searchConditionInit("", this.down("grid"));
+		KRF_DEV.global.TabFn.searchConditionInit("D7", this.down("grid"));
 	}
 });

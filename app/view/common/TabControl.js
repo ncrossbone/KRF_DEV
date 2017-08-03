@@ -100,6 +100,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 						align: 'middle'
 				},
 				items:[{
+					xtype: 'container',
+					width: 10
+				},{
 					xtype:'combo',
 					id:"startDay",
 					store: KRF_DEV.global.CommFn.bindComboDay("Asc", ""),
@@ -109,6 +112,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				},{
 					xtype:"label",
 					text:"일"
+				},{
+					xtype: 'container',
+					width: 10
 				},{
 					xtype:'combo',
 					id:"startTime",
@@ -172,6 +178,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					align:"center"
 				},
 				items:[{
+					xtype: 'container',
+					width: 10
+				},{
 					xtype:'combo',
 					id:"endDay",
 					store: KRF_DEV.global.CommFn.bindComboDay("Asc", ""),
@@ -181,6 +190,9 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				},{
 					xtype:"label",
 					text:"일"
+				},{
+					xtype: 'container',
+					width: 10
 				},{
 					xtype:'combo',
 					id:"endTime",
@@ -209,6 +221,11 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 							var tabCtl = Ext.getCmp("searchResultTab");
 							tabCtl = tabCtl.items.items[1];
 							var activeTab = tabCtl.getActiveTab();
+							
+							var d7Flag = activeTab.down("grid").parentIds;
+							if('D007' == d7Flag){
+								Ext.Msg.alert('알림', '기타측정지점-보관측소는 검색하는데 시간이 오래(조회기간에 비례) 걸립니다.');
+							}
 							
 							// 검색조건 셋팅 (필수!!)
 							KRF_DEV.global.TabFn.searchConditionSet(activeTab.down("grid"));
@@ -701,11 +718,14 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					
 					var store = ['2010','2011','2012','2013','2014','2015','2016','2017'];
 					
-					
-					
-					
-					
 					if(tab.parentId == "D" || tab.parentId == "B" ){
+						try{
+							if(tab.items.items[0].id.indexOf('_D7_') >= 0){
+								Ext.getCmp("startDayTime").setHidden(false);
+								Ext.getCmp("endDayTime").setHidden(false);
+							}
+						}catch(e){ }
+						
 						if(tab.items.items[0].items.items[0].items.items[0].store.data.length == 0){
 							Ext.getCmp("cmbStartYear").setValue("2017");
 							Ext.getCmp("cmbStartMonth").setValue("01");
@@ -746,8 +766,6 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 					hiddenGrid.setHidden(true);
 				}else{
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
-					
-					
 					
 					var store = ['2012','2013'];
 					

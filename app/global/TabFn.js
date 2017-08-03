@@ -35,7 +35,7 @@ Ext.define("KRF_DEV.global.TabFn", {
 			cmbEndMonth.setValue(KRF_DEV.global.CommFn.nowDate.getMonth());
 		}
 		else{
-			
+		
 			cmbStartYear.setValue(KRF_DEV.global.CommFn.nowDate.addMonth(-3).year);
 			cmbStartMonth.setValue(KRF_DEV.global.CommFn.nowDate.addMonth(-3).month);
 			
@@ -75,7 +75,7 @@ Ext.define("KRF_DEV.global.TabFn", {
 		var cmbEndMonth = conditionCont.down("#cmbEndMonth");
 		var cmbEndDay = conditionCont.down("#endDay");
 		var cmbEndHour = conditionCont.down("#endTime");
-		
+
 		if(grid.searchCondition != undefined){
 			
 			cmbStartYear.setValue(grid.searchCondition.startYear);
@@ -98,7 +98,7 @@ Ext.define("KRF_DEV.global.TabFn", {
 		var cmbEndMonth = conditionCont.down("#cmbEndMonth");
 		var cmbEndDay = conditionCont.down("#endDay");
 		var cmbEndHour = conditionCont.down("#endTime");
-		
+
 		grid.searchCondition = {};
 		
 		grid.searchCondition.startYear = cmbStartYear.getValue();
