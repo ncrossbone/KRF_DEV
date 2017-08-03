@@ -123,9 +123,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+							    formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
@@ -160,9 +158,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
@@ -197,9 +193,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
@@ -234,9 +228,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0');
 						            return yVal;
@@ -271,9 +263,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
@@ -308,9 +298,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
@@ -345,9 +333,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
@@ -382,9 +368,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
@@ -419,9 +403,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
@@ -456,9 +438,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
@@ -493,9 +473,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
@@ -530,9 +508,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-							    formatX: function(xVal){
-							    	return KRF_DEV.global.CommFn.dateFormatter(xVal.substr(1));
-							    },
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
 						        	yVal = Ext.util.Format.number(yVal, '0.00');
 						            return yVal;
