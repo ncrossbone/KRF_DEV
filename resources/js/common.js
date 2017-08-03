@@ -1476,7 +1476,7 @@ ReachSelectedFocus = function(catId){
 	gridCtl = gridCtl.items.items[0];
 	var rowIdx = gridCtl.getStore().find("CAT_DID", catId);
 	//gridCtl.getSelectionModel().select(rowIdx);
-	//gridCtl.getView().getRow(rowIdx).scrollIntoView();
+	gridCtl.getView().getRow(rowIdx).scrollIntoView();
 }
 
 GetCatArea = function(catDId){
