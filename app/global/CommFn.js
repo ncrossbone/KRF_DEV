@@ -279,9 +279,12 @@ Ext.define("KRF_DEV.global.CommFn", {
 		  	return src.length >= width ? src : src + new Array(width - src.length + 1).join(fix) ;
     },
 
-    dateFormatter: function(src){
+    dateFormatter: function(src, chartFlag){
     	if(src == null){
     		return '';
+    	}
+    	if(!chartFlag){
+    		src = src.substr(1);	
     	}
     	var des = '';
     	
