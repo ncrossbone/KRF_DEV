@@ -199,7 +199,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 		        					return;
 		        				}
 		        				
-		        				if(store.orgParentIds == "D006" || store.orgParentIds == "D001"|| store.orgParentIds == "D005"|| store.orgParentIds == "D007"){
+		        				if( store.orgParentIds == "D001"|| store.orgParentIds == "D004" || store.orgParentIds == "D005"|| store.orgParentIds == "D006" || store.orgParentIds == "D007"){
 		        					var afterVal = [];
 		        					afterVal.push(dateSplit.substring(0,4));
 		        					afterVal.push(dateSplit.substring(4,6));
