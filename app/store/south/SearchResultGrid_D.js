@@ -3,29 +3,29 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
     //extend : 'Ext.data.BufferedStore', 
     //  {name:  type: 'number'},
     fields: [
-			'WS_NM',
-			'AM_NM',
-			'AS_NM',
-			'PT_NO',
-			'PT_NM',
-			'WMCYMD',
-			'CHART_DATE',
-			'CHART_WL',
-			'CURR_WL',
-			'CHART_MXWL',
-			'CURR_MXWL',
-			'CHART_MNWL',
-			'CURR_MNWL'
+    	'WS_NM',
+		'AM_NM',
+		'AS_NM',
+		'PT_NO',
+		'PT_NM',
+		'WMCYMD',
+		'CHART_DATE',
+		'CHART_WL',
+		{name: 'CURR_WL', type: 'number'},
+		'CHART_MXWL',
+		{name: 'CURR_MXWL', type: 'number'},
+		'CHART_MNWL',
+		{name: 'CURR_MNWL', type: 'number'}
     ],
     
     siteId: '',
     
     autoLoad: true,
     
-    buffered: true,
+    //buffered: true,
     pageSize: 100,
 
-	remoteSort: true,
+	//remoteSort: true,
 	
 	siteIds: "",
 	parentIds: [],
@@ -39,7 +39,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			var requestUrl = "";
 			
 			if(store.orgParentIds == "D001"){
-                requestUrl = _API.GetSearchResultData_D_1; //"./resources/jsp/GetSearchResultData_D_1.jsp";
+				requestUrl = _API.GetSearchResultData_D_1; //"./resources/jsp/GetSearchResultData_D_1.jsp";
 				store.config.fields = [
 					'WS_NM',
 					'AM_NM',
@@ -49,14 +49,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 					'WMCYMD',
 					'CHART_DATE',
 					'CHART_WL',
-					'CURR_WL',
+					{name: 'CURR_WL', type: 'number'},
 					'CHART_MXWL',
-					'CURR_MXWL',
+					{name: 'CURR_MXWL', type: 'number'},
 					'CHART_MNWL',
-					'CURR_MNWL'
+					{name: 'CURR_MNWL', type: 'number'}
                    ]
 			}else if(store.orgParentIds == "D002"){
-                requestUrl = _API.GetSearchResultData_D_2; //"./resources/jsp/GetSearchResultData_D_2.jsp";
+				requestUrl = _API.GetSearchResultData_D_2; //"./resources/jsp/GetSearchResultData_D_2.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -67,7 +67,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_RF'
 				                       ]
 			}else if(store.orgParentIds == "D003"){
-                requestUrl = _API.GetSearchResultData_D_3; //"./resources/jsp/GetSearchResultData_D_3.jsp";
+				requestUrl = _API.GetSearchResultData_D_3; //"./resources/jsp/GetSearchResultData_D_3.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -79,7 +79,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										{name: 'CHART_FW', type: 'number'}										
 				                       ]
 			}else if(store.orgParentIds == "D004"){
-                requestUrl = _API.GetSearchResultData_D_4; //"./resources/jsp/GetSearchResultData_D_4.jsp";
+				requestUrl = _API.GetSearchResultData_D_4; //"./resources/jsp/GetSearchResultData_D_4.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -94,7 +94,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_ECPC'
 				                       ]
 			}else if(store.orgParentIds == "D005"){
-                requestUrl = _API.GetSearchResultData_D_5; //"./resources/jsp/GetSearchResultData_D_5.jsp";
+				requestUrl = _API.GetSearchResultData_D_5; //"./resources/jsp/GetSearchResultData_D_5.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -113,7 +113,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_RNDAY'
 				                       ]
 			}else if(store.orgParentIds == "D006"){
-                requestUrl = _API.GetSearchResultData_D_6; //"./resources/jsp/GetSearchResultData_D_6.jsp";
+				requestUrl = _API.GetSearchResultData_D_6; //"./resources/jsp/GetSearchResultData_D_6.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -126,7 +126,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 										'CURR_SIDAY'
 				                       ]
 			}else if(store.orgParentIds == "D007"){
-                requestUrl = _API.GetSearchResultData_D_7; //"./resources/jsp/GetSearchResultData_D_7.jsp";
+				requestUrl = _API.GetSearchResultData_D_7; //"./resources/jsp/GetSearchResultData_D_7.jsp";
 				store.config.fields = [
 										'WS_NM',
 										'AM_NM',
@@ -149,12 +149,14 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 			}
 			
 			
-			var startYear = startMonth = endYear = endMonth = "";
+			var startYear = startMonth = startDay = endYear = endMonth = endDay ="";
 			
 			startYear = Ext.getCmp("cmbStartYear").value;
 			startMonth = Ext.getCmp("cmbStartMonth").value;
+			startDay = Ext.getCmp("startDay").value;
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
+			endDay = Ext.getCmp("endDay").value;
 			
 			var jsonData = "";
 			var arrData = [];
@@ -184,7 +186,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 	        		success : function(response, opts) {
 
 	        			jsonData = Ext.util.JSON.decode( response.responseText );
-
+	        			
 	        			if(jsonData.data.length > 0){
 	        				
 		        			if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
@@ -197,29 +199,37 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 		        					return;
 		        				}
 		        				
-		        				if(store.orgParentIds == "D006" || store.orgParentIds == "D001"|| store.orgParentIds == "D005"|| store.orgParentIds == "D007"){
+		        				if( store.orgParentIds == "D001"|| store.orgParentIds == "D004" || store.orgParentIds == "D005"|| store.orgParentIds == "D006" || store.orgParentIds == "D007"){
 		        					var afterVal = [];
 		        					afterVal.push(dateSplit.substring(0,4));
 		        					afterVal.push(dateSplit.substring(4,6));
+		        					afterVal.push(dateSplit.substring(6,8));
+		        					afterVal.push(dateSplit.substring(8,10));
 		        				}else{
 			        				var afterVal = dateSplit.split(".");
 		        				}
 		        				
 		        				startYear = afterVal[0];
-		        				if(afterVal[1] == "1" || afterVal[1] == "01"){
-		        					startMonth = "12";
-		        					startYear = startYear-1;
+		        				
+		        				if(store.orgParentIds == "D007"){
+		        					var sDate = new Date(afterVal[0],parseInt(afterVal[1])-1,afterVal[2]);
+		        					// 보관측소는 하루전 기본 하루전 데이터 조회
+		        					sDate.setDate(sDate.getDate()-1);
+		        					startYear = sDate.getFullYear();
+		        					startMonth = KRF_DEV.global.CommFn.lpad(sDate.getMonth()+1, '0', 2) ;
+		        					startDay = KRF_DEV.global.CommFn.lpad(sDate.getDate(), '0', 2) ;
 		        				}else{
-		        					startMonth = afterVal[1]-1;
+		        					if(afterVal[1] == "1" || afterVal[1] == "01"){
+			        					startMonth = "12";
+			        					startYear = startYear-1;
+			        				}else{
+			        					startMonth = afterVal[1]-1;
+			        				}
+		        					startMonth = KRF_DEV.global.CommFn.lpad(startMonth, '0', 2) ;
 		        				}
-		        				
-		        				if(startMonth < 10){
-		        					startMonth = "0"+startMonth;
-		        				}
-		        				
 		        				endYear = afterVal[0];
 		        				endMonth = afterVal[1];
-		        				
+		        				endDay = afterVal[2];
 		        			}
 	        			}
 	        		}
@@ -229,8 +239,17 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
 				firstSearch = "date";
 				Ext.getCmp("cmbStartYear").setValue(startYear); 
 				Ext.getCmp("cmbStartMonth").setValue(startMonth);
+				
 				Ext.getCmp("cmbEndYear").setValue(endYear);
 				Ext.getCmp("cmbEndMonth").setValue(endMonth);
+				
+				if(startDay != null && startDay != ""){
+					Ext.getCmp("startDay").setValue(startDay);	
+				}
+				
+				if(endDay != null && endDay != ""){
+					Ext.getCmp("endDay").setValue(endDay);	
+				}
 			}
 				
 			
@@ -238,13 +257,18 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_D', {
         		url: requestUrl,
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
+        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch, startDay:startDay, endDay:endDay},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			store.startYear = startYear;
         			store.startMonth = startMonth;
         			store.endYear = endYear;
         			store.endMonth = endMonth;
+        			if('error' == response.responseText){
+        				me.gridCtl.addCls("dj-mask-noneimg");
+    					me.gridCtl.mask("오류가 발생하였습니다.");
+        				return;
+        			}
         			jsonData = Ext.util.JSON.decode( response.responseText );
 
         			if(jsonData.data.length > 0){

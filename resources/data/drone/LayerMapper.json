@@ -329,6 +329,18 @@
 		"ChlaDate": "2016-09-23",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "10",		 // 피코시안 레이어 아이디
 		"PhyDate": "2016-09-23"		 // 피코시안 레이어 일자
+	},{
+		"layerOnOff": "off",		 // 레이어 On/Off 여부
+		"layerSymbolImg": "",		 // 레이어 심볼 이미지
+		"layerOnChkImg": "",		 // 레이어 On 체크박스 이미지
+		"layerOffChkImg": "",		 // 레이어 Off 체크박스 이미지
+		"DroneLayerId": "39",		 // 항공영상 레이어 아이디
+		"DroneDate": "2017-06-05",	 // 항공영상 레이어 일자
+		"MeasureDate": "2017-06-1주", // 측정지점 측정 일자
+		"ChlaLayerId": "62",			 // 클로로필a 초분광영상 레이어 아이디
+		"ChlaDate": "2017-06-05",		 // 클로로필a 초분광영상 레이어 일자
+		"PhyLayerId": "34",		 // 피코시안 레이어 아이디
+		"PhyDate": "2017-06-05"		 // 피코시안 레이어 일자
 	}],
 	R04: [{
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
@@ -436,8 +448,8 @@
 		"MeasureDate": "2016-10-1주", // 측정지점 측정 일자
 		"ChlaLayerId": "36",		 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-10-06",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "24",		 // 피코시안 레이어 아이디
-		"PhyDate": "2016-10-06"		 // 피코시안 레이어 일자
+		"PhyLayerId": "",		 // 피코시안 레이어 아이디
+		"PhyDate": ""		 // 피코시안 레이어 일자
 	}, {		
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
@@ -474,8 +486,8 @@
 		"MeasureDate": "2016-09-3주", // 측정지점 측정 일자
 		"ChlaLayerId": "58",			 // 클로로필a 초분광영상 레이어 아이디
 		"ChlaDate": "2016-09-13",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "22",		 // 피코시안 레이어 아이디
-		"PhyDate": "2016-09-13"		 // 피코시안 레이어 일자
+		"PhyLayerId": "",		 // 피코시안 레이어 아이디
+		"PhyDate": ""		 // 피코시안 레이어 일자
 	}, {		
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
@@ -488,18 +500,30 @@
 		"ChlaDate": "2016-09-21",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "",		 // 피코시안 레이어 아이디
 		"PhyDate": ""		 // 피코시안 레이어 일자
-	},{
+	}, {
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
 		"layerOnChkImg": "",		 // 레이어 On 체크박스 이미지
 		"layerOffChkImg": "",		 // 레이어 Off 체크박스 이미지
-		"DroneLayerId": "",		 // 항공영상 레이어 아이디
-		"DroneDate": "2017-06-05",	 // 항공영상 레이어 일자
-		"MeasureDate": "2017-06-1주", // 측정지점 측정 일자
-		"ChlaLayerId": "",			 // 클로로필a 초분광영상 레이어 아이디
-		"ChlaDate": "",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "",		 // 피코시안 레이어 아이디
-		"PhyDate": ""		 // 피코시안 레이어 일자
+		"DroneLayerId": "40",		 // 항공영상 레이어 아이디
+		"DroneDate": "2017-07-27",	 // 항공영상 레이어 일자
+		"MeasureDate": "2017-07-4주", // 측정지점 측정 일자
+		"ChlaLayerId": "64",			 // 클로로필a 초분광영상 레이어 아이디
+		"ChlaDate": "2017-07-27",		 // 클로로필a 초분광영상 레이어 일자
+		"PhyLayerId": "36",		 // 피코시안 레이어 아이디
+		"PhyDate": "2017-07-27"		 // 피코시안 레이어 일자
+	}, {
+		"layerOnOff": "off",		 // 레이어 On/Off 여부
+		"layerSymbolImg": "",		 // 레이어 심볼 이미지
+		"layerOnChkImg": "",		 // 레이어 On 체크박스 이미지
+		"layerOffChkImg": "",		 // 레이어 Off 체크박스 이미지
+		"DroneLayerId": "41",		 // 항공영상 레이어 아이디
+		"DroneDate": "2017-08-04",	 // 항공영상 레이어 일자
+		"MeasureDate": "2017-08-1주", // 측정지점 측정 일자
+		"ChlaLayerId": "66",			 // 클로로필a 초분광영상 레이어 아이디
+		"ChlaDate": "2017-08-04",		 // 클로로필a 초분광영상 레이어 일자
+		"PhyLayerId": "38",		 // 피코시안 레이어 아이디
+		"PhyDate": "2017-08-04"		 // 피코시안 레이어 일자
 	}],
 		
 	
@@ -525,7 +549,21 @@
 		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_02.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "true"
-	},  {
+	}, {
+		"layerId": "1",
+		"layerName": "취수장",
+		"layerOnOff": "on",
+		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"image2": "<img src='./resources/images/drone/layer_icon_03.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"visible": "true"
+	}, {
+		"layerId": "0",
+		"layerName": "정수장",
+		"layerOnOff": "on",
+		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"image2": "<img src='./resources/images/drone/layer_icon_04.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
+		"visible": "true"
+	}, {
 		"layerId": "Drone",
 		"layerName": "항공사진",
 		"layerOnOff": "on",
