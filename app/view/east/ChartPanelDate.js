@@ -59,7 +59,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	    		
 	    		var dateArr = [];
 	    		var nowDate = KRF_DEV.global.CommFn.nowDate.getYear();
-	    		var minDate = 2010;
+	    		var minDate = 2013;
 	    		
 	    		var cnt = -1;
 	    		
