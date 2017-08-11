@@ -137,7 +137,7 @@ try{
 </title>
 <link href="./css/BasicSet.css" rel="stylesheet" type="text/css" />
 <link href="./css/board.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="/js/board.js"></script>
+<script type="text/javascript" src="./js/board.js"></script>
 
 <div class="boardArea" style='margin-top:20px; margin-left:10px;'>
 	<div class="fullFrame H20">
