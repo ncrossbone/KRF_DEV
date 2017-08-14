@@ -1988,38 +1988,39 @@ SetWestCollapseXY = function(option){
 	}
 }
 
-// offset 적용한 센터이동
+
+//offset 적용한 센터이동
 centerAtWithOffset = function(x, y, spatialReferrence){
 	
 	var coreMap = GetCoreMap();
-	
-	var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
-	var curLevel = coreMap.map.getLevel();
-	
-	if(coreMap.map.getLevel() < 12){
-		coreMap.map.setLevel(12);
-		curLevel = 12;
-	}
-	//alert(x);
-	var reachToolHeight = 0;
-	if(Ext.getCmp("reachToolbar") != undefined)
-		reachToolHeight = Ext.getCmp("reachToolbar").getHeight();
-	var resolution = tileInfo.lods[curLevel].resolution;
-	var xoffset = (1920 - Ext.getBody().getWidth()) / 2 * resolution;
-	var yoffset = (1080 - Ext.getBody().getHeight()) / 2 * resolution;
-	
-	x = x + xoffset;
-	y = y - yoffset + (reachToolHeight * resolution);
-	
-	// 2016-04-05 추가
-	x = x + (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
-	y = y - (50 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
+//	
+//	var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
+//	var curLevel = coreMap.map.getLevel();
+//	
+//	if(coreMap.map.getLevel() < 12){
+//		coreMap.map.setLevel(12);
+//		curLevel = 12;
+//	}
+//	//alert(x);
+//	var reachToolHeight = 0;
+//	if(Ext.getCmp("reachToolbar") != undefined)
+//		reachToolHeight = Ext.getCmp("reachToolbar").getHeight();
+//	var resolution = tileInfo.lods[curLevel].resolution;
+//	var xoffset = (1920 - Ext.getBody().getWidth()) / 2 * resolution;
+//	var yoffset = (1080 - Ext.getBody().getHeight()) / 2 * resolution;
+//	
+//	x = x + xoffset;
+//	y = y - yoffset + (reachToolHeight * resolution);
+//	
+//	// 2016-04-05 추가
+//	x = x + (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+//	y = y - (250 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
 	
 	var point = new esri.geometry.Point(x, y, spatialReferrence);
 	coreMap.map.centerAt(point);
 }
 
-// 툴팁 XY 셋팅
+//툴팁 XY 셋팅
 setTooltipXY = function(){
 	
 	var me = GetCoreMap();
@@ -2035,17 +2036,23 @@ setTooltipXY = function(){
 		var resolution = me.tileInfo.lods[curLevel].resolution;
 		var extent = me.map.extent;
 		
-		var siteX = popCtl.point.x;
-		var siteY = popCtl.point.y;
+//		var siteX = popCtl.point.x;
+//		var siteY = popCtl.point.y;
+//		
+//		var xPx = ((extent.xmax - extent.xmin) - (extent.xmax - siteX)) / resolution;
+//		var yPx = ((extent.ymax - extent.ymin) - (siteY - extent.ymin)) / resolution;
+//		
+//		var centerGeo = extent.getCenter();
+//
+//		var popWidth = popCtl.getWidth();
+//		var popHeight = popCtl.getHeight();
+//		
+//		xPx = xPx - popWidth / 2;
+//		yPx = yPx - popHeight;
 		
-		var xPx = ((extent.xmax - extent.xmin) - (extent.xmax - siteX)) / resolution;
-		var yPx = ((extent.ymax - extent.ymin) - (siteY - extent.ymin)) / resolution;
-		
-		var popWidth = popCtl.getWidth();
-		var popHeight = popCtl.getHeight();
-		
-		xPx = xPx - popWidth / 2;
-		yPx = yPx - popHeight;
+		var centerPoint = esri.geometry.toScreenPoint(extent,Ext.getCmp('_mapDiv_').width, Ext.getCmp('_mapDiv_').height, popCtl.point);
+		xPx = centerPoint.x-popCtl.getWidth()/2;
+		yPx = centerPoint.y-popCtl.getHeight()+67;
 		
 		// 이미지 사이즈 절반만큼 offset
 		xPx += 11;
@@ -2068,6 +2075,86 @@ setTooltipXY = function(){
 		popCtl.setY(yPx);
 	}
 }
+// offset 적용한 센터이동
+//centerAtWithOffset = function(x, y, spatialReferrence){
+//	
+//	var coreMap = GetCoreMap();
+//	
+//	var tileInfo = KRF_DEV.getApplication().coreMap.tileInfo;
+//	var curLevel = coreMap.map.getLevel();
+//	
+//	if(coreMap.map.getLevel() < 12){
+//		coreMap.map.setLevel(12);
+//		curLevel = 12;
+//	}
+//	//alert(x);
+//	var reachToolHeight = 0;
+//	if(Ext.getCmp("reachToolbar") != undefined)
+//		reachToolHeight = Ext.getCmp("reachToolbar").getHeight();
+//	var resolution = tileInfo.lods[curLevel].resolution;
+//	var xoffset = (1920 - Ext.getBody().getWidth()) / 2 * resolution;
+//	var yoffset = (1080 - Ext.getBody().getHeight()) / 2 * resolution;
+//	
+//	x = x + xoffset;
+//	y = y - yoffset + (reachToolHeight * resolution);
+//	
+//	// 2016-04-05 추가
+//	x = x + (225 * resolution); // center.js map width 2200 -> 2650으로 변경 (450/2만큼 좌측으로)
+//	y = y - (50 * resolution); // center.js map width 1000 -> 1100으로 변경 (100/2만큼 위로)
+//	
+//	var point = new esri.geometry.Point(x, y, spatialReferrence);
+//	coreMap.map.centerAt(point);
+//}
+//
+//// 툴팁 XY 셋팅
+//setTooltipXY = function(){
+//	
+//	var me = GetCoreMap();
+//	
+//	if(me != undefined)
+//		me.setX(9); // 좌측 패널 resize, collapse, expand시 맵 left 고정 2016-04-05
+//	
+//	var popCtl = Ext.getCmp("popSiteInfo");
+//	
+//	if(popCtl != undefined && popCtl != null){
+//		
+//		var curLevel = me.map.getLevel();
+//		var resolution = me.tileInfo.lods[curLevel].resolution;
+//		var extent = me.map.extent;
+//		
+//		var siteX = popCtl.point.x;
+//		var siteY = popCtl.point.y;
+//		
+//		var xPx = ((extent.xmax - extent.xmin) - (extent.xmax - siteX)) / resolution;
+//		var yPx = ((extent.ymax - extent.ymin) - (siteY - extent.ymin)) / resolution;
+//		
+//		var popWidth = popCtl.getWidth();
+//		var popHeight = popCtl.getHeight();
+//		
+//		xPx = xPx - popWidth / 2;
+//		yPx = yPx - popHeight;
+//		
+//		// 이미지 사이즈 절반만큼 offset
+//		xPx += 11;
+//		yPx += 11;
+//		
+//		/* 상단 map left 고정으로인해 필요없게 되었음.. 2016-04-05
+//		var westContainer = Ext.getCmp("west_container");
+//		
+//		if(westContainer.collapsed != false){
+//			
+//			xPx = xPx - westContainer.initWidth;
+//		}
+//		else{
+//			
+//			xPx = xPx - (westContainer.initWidth - westContainer.getWidth());
+//		}
+//		*/
+//		
+//		popCtl.setX(xPx);
+//		popCtl.setY(yPx);
+//	}
+//}
 
 //지점정보 툴팁 닫기
 closePopSiteInfo = function(){
