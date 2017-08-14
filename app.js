@@ -52,6 +52,9 @@ var _rchLine = null; // ReachLine검색 관련 object
 var _rchArea = null; // ReachArea검색 관련 object
 /* Reach, KRAD 관련 object 끝 */
 
+var _chartDateInfo = [];
+
+
 var store = Ext.create('Ext.data.Store', {
 	autoLoad : true,
 

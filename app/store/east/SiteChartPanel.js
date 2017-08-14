@@ -122,6 +122,9 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			
+    
+
+        			
         			if('error' == response.responseText){
         				Ext.Msg.alert("알림","차트정보 조회중 예외가 발생했습니다.");
         				Ext.getCmp("siteCharttest").unmask();
@@ -130,6 +133,20 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
         			}
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
+
+        			/*
+        			* 차트 가장 마지막 날짜 전역변수 설정 (설정창 날짜 바인딩을 위한 배열)
+        			* ITEMS_NAME = 항목값
+        			* WMCYMD  = 날짜 ( ex) 2013.12.23 )
+        			* F 환경기초시설 구분은 미확
+        			*/
+        			_chartDateInfo = [];
+        			_chartDateInfo.push(jsonData.data[0]);
+        			_chartDateInfo.push(jsonData.data[jsonData.data.length-1]);
+        			if(store.parentId == "F"){
+        			_chartDateInfo[0].f_gubun = f_parentId;
+        			}
+        			
 	        		if(store.parentId == "A"){	
 	        			for(var ndReplace = 0 ; ndReplace<jsonData.data.length ; ndReplace++){
 	        				

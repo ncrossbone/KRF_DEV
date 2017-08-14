@@ -171,6 +171,40 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 			}
 			
 			itemCtl.bindStore(store);
+			
+			if(_chartDateInfo.length != 0){
+			    
+			    var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
+			    var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
+			    
+			    var startYear , startMonth , endYear , endMonth ;
+			    
+			    startYear = startChartDate[0];
+			    startMonth = startChartDate[1];
+			    endYear = endChartDate[0];
+			    endMonth = endChartDate[1];
+			    
+			    var selectYear = Ext.getCmp("selectYear");
+			    var selectMonth = Ext.getCmp("selectMonth");
+			    var selectYear2 = Ext.getCmp("selectYear2");
+			    var selectMonth2 = Ext.getCmp("selectMonth2");
+			    
+			    selectYear.setValue(startYear);
+			    selectMonth.setValue(startMonth);
+			    selectYear2.setValue(endYear);
+			    selectMonth2.setValue(endMonth);
+			    
+			    if(_chartDateInfo[0].f_gubun != undefined){
+			        var gubun  = _chartDateInfo[0].f_gubun.substring(2,3);
+			        Ext.getCmp("f_Chart").setValue(gubun);
+			    }else{
+			        itemCtl.setValue = _chartDateInfo[0].ITEM_NAME;
+			    }
+			    
+			}
+
+
+			
     	this.on("beforeclose", function chartDateWinClose(){
     	});
     },
