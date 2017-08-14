@@ -332,6 +332,10 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 									jsonStr += "			,   \"infoBtnDisabled\": false,\n";
 									jsonStr += "				\"chartBtnDisabled\": true,\n";
 									jsonStr += "				\"srchBtnDisabled\": true\n";
+								}else if(layerFeature.attributes.LAYER_CODE == "B001"){
+									jsonStr += "			,   \"infoBtnDisabled\": false,\n";
+									jsonStr += "				\"chartBtnDisabled\": true,\n";
+									jsonStr += "				\"srchBtnDisabled\": false\n";
 								}
 								jsonStr += "			}, ";
 							}

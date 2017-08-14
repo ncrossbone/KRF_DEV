@@ -54,6 +54,8 @@ var _rchNode = null; // ReachNode검색 관련 object
 var _rchLine = null; // ReachLine검색 관련 object
 var _rchArea = null; // ReachArea검색 관련 object
 
+var _chartDateInfo = [];
+
 var _toolbarCtl = null;
 
 /* Reach, KRAD 관련 object 끝 */
