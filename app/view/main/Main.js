@@ -143,7 +143,6 @@ Ext.define('KRF_DEV.view.main.Main', {
     
     // 메인 컨테이너 사이즈 조절
     setControlSize: function(){
-    	//alert("11");
     	var northContainer = KRF_DEV.getApplication().northContainer;
     	var westBtnContainer = KRF_DEV.getApplication().westBtnContainer;
     	var contContainer = KRF_DEV.getApplication().contContainer;
@@ -156,6 +155,19 @@ Ext.define('KRF_DEV.view.main.Main', {
     	westBtnContainer.setHeight(Ext.getBody().getViewSize().height - northContainer.height);
     	contContainer.setWidth(Ext.getBody().getViewSize().width - westBtnContainer.width);
     	contContainer.setHeight(Ext.getBody().getViewSize().height - northContainer.height);
+    	
+    	try{
+    		var nc = Ext.getCmp('north_container');
+        	var wb = Ext.getCmp('west_buttonpanel');
+        	var cc = Ext.getCmp('cont_container');
+        	var wc = Ext.getCmp('west_container');
+        	var ccn= Ext.getCmp('center_container');
+        	var mapC = Ext.getCmp('_mapDiv_');
+        	ccn.setWidth(ccn.getWidth()+wb.getWidth()+wc.getWidth());
+    		mapC.setWidth(ccn.getWidth()+wb.getWidth()+wc.getWidth());
+    		mapC.setHeight(ccn.getHeight());
+    		KRF_DEV.getApplication().coreMap.map.resize();
+    	}catch(e){}
     	
     	/* Drone 툴바 위치 조절 */
     	/*

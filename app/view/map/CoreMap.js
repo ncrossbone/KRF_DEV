@@ -25,12 +25,12 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	tmGraphicLayerCat: null, // 집수구역 단위 주제도 그래픽 레이어
 	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
 	
-	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
-	height: 1250,
+//	width: 2650, // 센터이동 및 툴팁 2200에 맞춰져있음
+//	height: 1250,
 	//height: "109%",
-	x: -378,
-	y: -80,
-	
+//	x: -378,
+//	y: -80,
+//	
 	initComponent: function() {
 		this.on('render', this.mapRendered, this);
 		this.callParent();
@@ -44,7 +44,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
     	     	isDoubleClickZoom:false,
     	     	isPan:false,
     	 		logo:false,
-    	 		slider: true,
+    	 		slider: false,
     	 		showAttribution: false,
     	 		sliderPosition: "bottom-right",
     	 		sliderStyle: "large",
@@ -92,9 +92,15 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
-    		
+//    		var mapC = Ext.getCmp('_mapDiv_');
+//    		mapC.setWidth(Ext.getCmp('center_container').getWidth()+ Ext.getCmp('west_container').getWidth() + Ext.getCmp('west_buttonpanel').getWidth());
+//    		mapC.setHeight(Ext.getCmp('center_container').getHeight());
+//    		me.map.setExtent(me.map.extent);
     		// 차트 부분의 리소스를 로딩해 놓는다
 //    		Ext.create('KRF_DEV.view.east.WindowSiteNChart',{});
+    		
+    		// resize 이벤트가 발생해야 정상적으로 map 이 사이즈가 조정됨
+    		KRF_DEV.getApplication()._mainView.fireEvent('resize');
 		}, 1);
     },
     
@@ -149,34 +155,37 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
                       width: window.innerWidth || document.body.clientWidth,
                       height: window.innerHeight || document.body.clientHeight 
                     }
-            
+              var xmax, xmin, ymax, ymin;
+              
+              
               if(size.width < 1700){
-                  var xmax = 15264494.91554893;
-                  var xmin = 13644029.915903272;
-                  var ymax = 4607909.446139407;
-                  var ymin = 3935263.59722989;
+                  xmax = 14501959.12137605;
+                  xmin = 13607951.638552671;
+                  ymax = 4711863.804607241;
+                  ymin = 4267917.544326959;
               }else if(size.width > 1700 && size.width < 1850){
-                  var xmax = 15236977.585366268;
-                  var xmin = 13616512.58572061;
-                  var ymax = 4616470.393307347;
-                  var ymin = 3943824.5443978296;
+                  xmax = 14683267.752468478;
+                  xmin = 13616206.83760747;
+                  ymax = 4613718.660289081;
+                  ymin = 4100673.3264390025;
               }else if(size.width > 1850 && size.width < 2100){
-                  var xmax = 15164209.534438783;
-                  var xmin = 13543744.534793125;
-                  var ymax = 4692907.42159252;
-                  var ymin = 4020261.5726830023;
+                  xmax = 14712925.319443125;
+                  xmin = 13543744.534793127;
+                  ymax = 4689849.940461114;
+                  ymin = 4123604.4349245545;
               }else if(size.width > 2100 && size.width < 2300){
-                  var xmax = 15074625.33728856;
-                  var xmin = 13454771.833869183;
-                  var ymax = 4719507.5074357595;
-                  var ymin = 3903160.045350118;
+                  xmax = 15074625.33728856;
+                  xmin = 13454771.833869183;
+                  ymax = 4719507.5074357595;
+                  ymin = 3903160.045350118;
               }else if(size.width > 2300){
-                  var xmax = 15034878.082580235;
-                  var xmin = 13413801.586708296;
-                  var ymax = 4748553.578184113;
-                  var ymin = 3822748.291594104;
+            	  xmax = 15255933.968380988;
+                  xmin = 13365799.132945239;
+                  ymax = 4795638.7876077925;
+                  ymin = 3682715.6557756815;
               }
                 
+              console.log(xmax, xmin, ymax, ymin);
               
               
               me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
