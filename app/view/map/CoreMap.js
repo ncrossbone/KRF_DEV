@@ -155,8 +155,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
                       width: window.innerWidth || document.body.clientWidth,
                       height: window.innerHeight || document.body.clientHeight 
                     }
-              var xmax, xmin, ymax, ymin;
               
+              var xmax, xmin, ymax, ymin;
               
               if(size.width < 1700){
                   xmax = 14501959.12137605;
@@ -185,9 +185,6 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
                   ymin = 3682715.6557756815;
               }
                 
-              console.log(xmax, xmin, ymax, ymin);
-              
-              
               me.initialExtent = me.preExtent = this.initialExtent = new esri.geometry.Extent({
                 
                   xmin: xmin,
