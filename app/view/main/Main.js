@@ -252,6 +252,8 @@ var obj = window.chromePop;
     	
     	this.setControlSize(); // 사이즈 조절
     	this.on("resize", this.setControlSize); // 이벤트 생성
+    	
+    	droneToolbar.hide();
     },
     
     
@@ -285,16 +287,41 @@ var obj = window.chromePop;
     		KRF_DEV.getApplication().coreMap.map.resize();
     	}catch(e){}
     	
+    	
+    	var droneToolbar = Ext.getCmp('droneToolbar');
+    	
+		if(droneToolbar != undefined){
+			
+			var reachToolbar = Ext.getCmp("reachToolbar");
+			if(reachToolbar != undefined && droneToolbar.y == 97 && Ext.getCmp("btnModeReach").btnOnOff == "on"){
+				droneToolbar.setPosition(droneToolbar.x,droneToolbar.y + 105);
+			}else{
+            	droneToolbar.setPosition(droneToolbar.x,droneToolbar.y);
+            }
+			
+		}
+		
+		var chlLegend = Ext.getCmp("chlLegend"); //피코시아닌 범례
+		var phyLegend = Ext.getCmp("phyLegend"); //클로로필 범례
+
+    	if(chlLegend != undefined){
+    		chlLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
+    	}
+		
+		if(phyLegend != undefined){
+    		phyLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
+    	}
+    	
     	/* Drone 툴바 위치 조절 */
-    	var droneCtl = Ext.getCmp("droneToolbar");
+    	/*var droneCtl = Ext.getCmp("droneToolbar");
     	
     	var droneToolX = droneCtl.x;
     	var droneToolWidth = droneCtl.width;
     	var bodyWidth = Ext.getBody().getWidth();
     	
-    	/*if(droneToolX + droneToolWidth > bodyWidth){
+    	if(droneToolX + droneToolWidth > bodyWidth){
     		droneCtl.setX(bodyWidth - droneToolWidth);
-    	}*/
+    	}
     	
     	var droneToolY = droneCtl.y;
     	var droneToolHeight = droneCtl.height;
@@ -305,7 +332,7 @@ var obj = window.chromePop;
     		droneCtl.setY(bodyHeight - droneToolHeight);
     	}
     	//default 숨김
-    	droneCtl.hide();
+    	droneCtl.hide();*/
     	/* Drone 툴바 위치 조절 끝 */
     }
 });
