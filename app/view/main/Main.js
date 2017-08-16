@@ -172,8 +172,6 @@ Ext.define('KRF_DEV.view.main.Main', {
     	}catch(e){}
     	
     	var droneToolbar = Ext.getCmp('droneToolbar');
-    	
-    	console.info(droneToolbar);
 	
 		
 		if(droneToolbar != undefined){
