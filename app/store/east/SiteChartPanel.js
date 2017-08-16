@@ -68,13 +68,18 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			}else{
 				//퇴적물 분기
 				if(store.parentId == "C"){
-					var cStartChartDate = Ext.getCmp("cStartChartDate").lastValue;
-					var cEndChartDate = Ext.getCmp("cEndChartDate").lastValue;
 					
-					selectYear = cStartChartDate.substring(0,4);
-					selectYear2 = cEndChartDate.substring(0,4);
-					selectMonth = cStartChartDate.substring(4);
-					selectMonth2 = cEndChartDate.substring(4);
+					var cStartChartYear = Ext.getCmp("cStartChartYear").lastValue;
+					var cStartChartYearDetail = Ext.getCmp("cStartChartYearDetail").lastValue;
+					
+					var cEndChartYear = Ext.getCmp("cEndChartYear").lastValue;
+					var cEndChartYearDetail = Ext.getCmp("cEndChartYearDetail").lastValue;
+					
+					selectYear = cStartChartYear;
+					selectYear2 = cEndChartYear;
+					
+					selectMonth = cStartChartYearDetail;
+					selectMonth2 = cEndChartYearDetail;
 				}else{
 					selectYear = selectYear.lastValue;
 					selectYear2 = selectYear2.lastValue;
