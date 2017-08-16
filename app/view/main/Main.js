@@ -139,6 +139,8 @@ Ext.define('KRF_DEV.view.main.Main', {
     	this.on("resize", this.setControlSize); // 이벤트 생성
     	
     	droneToolbar.hide();
+    	console.info(this);
+    	
     },
     
     // 메인 컨테이너 사이즈 조절
@@ -168,6 +170,34 @@ Ext.define('KRF_DEV.view.main.Main', {
     		mapC.setHeight(ccn.getHeight());
     		KRF_DEV.getApplication().coreMap.map.resize();
     	}catch(e){}
+    	
+    	var droneToolbar = Ext.getCmp('droneToolbar');
+    	
+    	console.info(droneToolbar);
+	
+		
+		if(droneToolbar != undefined){
+			
+			var reachToolbar = Ext.getCmp("reachToolbar");
+			if(reachToolbar != undefined && droneToolbar.y == 97){
+				droneToolbar.setPosition(droneToolbar.x,droneToolbar.y + 105);
+			}else{
+            	droneToolbar.setPosition(droneToolbar.x,droneToolbar.y);
+            }
+			
+		}
+		
+		var chlLegend = Ext.getCmp("chlLegend"); //피코시아닌 범례
+		var phyLegend = Ext.getCmp("phyLegend"); //클로로필 범례
+
+    	if(chlLegend != undefined){
+    		chlLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
+    	}
+		
+		if(phyLegend != undefined){
+    		phyLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
+    	}
+    	
     	
     	/* Drone 툴바 위치 조절 */
     	/*
