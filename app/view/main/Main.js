@@ -139,7 +139,6 @@ Ext.define('KRF_DEV.view.main.Main', {
     	this.on("resize", this.setControlSize); // 이벤트 생성
     	
     	droneToolbar.hide();
-    	console.info(this);
     	
     },
     
@@ -173,11 +172,10 @@ Ext.define('KRF_DEV.view.main.Main', {
     	
     	var droneToolbar = Ext.getCmp('droneToolbar');
 	
-		
 		if(droneToolbar != undefined){
 			
 			var reachToolbar = Ext.getCmp("reachToolbar");
-			if(reachToolbar != undefined && droneToolbar.y == 97){
+			if(reachToolbar != undefined && droneToolbar.y == 97 && Ext.getCmp("btnModeReach").btnOnOff == "on"){
 				droneToolbar.setPosition(droneToolbar.x,droneToolbar.y + 105);
 			}else{
             	droneToolbar.setPosition(droneToolbar.x,droneToolbar.y);
