@@ -373,6 +373,9 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId, chartFlag){
 		}else if(orgParentId == "D007"){
 			series.setXField("WMCYMD");
 			yFieldName = "SWL";
+		}else if(orgParentId == "I"){
+			series.setXField("WMCYMD");
+			yFieldName = "SWL";
 		}
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
@@ -1145,6 +1148,44 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		grdCtl.getView().bindStore(gridStore);
 	
 	
+	
+	}else if(parentCheck == "I"){
+		
+
+		//hiddenGrid.setHidden(true);
+		if(grdContainer == null || grdContainer == undefined){
+			
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_I", options);
+			
+			//그리드 아이디 변경
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+			
+			tab.add(grdContainer);
+			//tab.insert(0, grdContainer);
+		}
+		
+		tab.setActiveTab(gridId + "_container");
+		
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		//grdCtl.id = gridId;  // 그리드 아이디를 주면 창 닫을때 죽어버린다.. 일단 주지 말자..
+		
+		if(siteIds != ""){
+			grdCtl.siteIds = siteIds;
+		}
+		if(parentIds != ""){
+			grdCtl.parentIds = parentIds;
+		}
+		
+		
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_I", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			firstSession: test,
+			gridCtl: grdCtl
+		});
+		
+		grdCtl.getView().bindStore(gridStore);
 	
 	}
 }

@@ -168,6 +168,13 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					,{id: 'ITEM_COLI', name: '대장균군수'}]
 				})
 				itemCtl.setValue("AMT_PHYS");
+			}else if(parentChk == "I"){
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: 'AMT_PHYS', name: '방류량_물리적'}
+					,{id: 'AMT_BIO', name: '방류량_생물학적'}]
+				})
+				itemCtl.setValue("AMT_PHYS");
 			}
 			
 			itemCtl.bindStore(store);
