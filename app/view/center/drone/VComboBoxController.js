@@ -9,6 +9,13 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	layer: ["0","1","3","2","4","10","11","12","13"],
 	onlayer: [],
 	clickItemId: "",
+	centerPointTemp:{
+		"R01_1":{x:14177081.816509107,y:4537988.1965055},// 북한강 
+		"R01_2":{x:14116237.941994082,y:4518420.317264488},// 한강하류
+		"R02":{x:14295100.153866833,y:4268778.720143207},// 낙동강
+		"R04":{x:14159807.04811665,y:4358514.054091838},// 금강
+		"R05":{x:14088109.11558513,y:4153051.3220612053}//영산강
+	},
 	//초기화 버튼
 	onClickResetButton: function(){
 
@@ -500,67 +507,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	
 	//수계 선택시 해당지점 이동
 	SetInitialExtent: function (areaNmae){
-		
 		var me = Ext.getCmp("_mapDiv_");
-	    
-	    var varXmin, varXmax, varYmin, varYmax, level;
-	    
-	    if(areaNmae == "R02"){
-	    	varXmin = 14162864.094933428;
-	    	varYmin = 4185768.1074254746;
-	    	varXmax = 14567980.344845016;
-	    	varYmax = 4353929.569652926;
-	    	level = 10;
-	    }
-	    
-	    if(areaNmae == "R01_1"){
-	    	varXmin = 14060591.785402454;
-	    	varYmin = 4442594.7852055635;
-	    	varXmax = 14465708.035314042;
-	    	varYmax = 4610756.247433016;
-	    	level = 10;
-	    }
-	    
-	    if(areaNmae == "R01_2"){
-	    	varXmin = 14005404.250980537;
-	    	varYmin = 4424402.772473685;
-	    	varXmax = 14410520.500892125;
-	    	varYmax = 4592564.234701138;
-	    	level = 10;
-	    	
-	    }
-	    
-	    if(areaNmae == "R04"){
-	    	varXmin = 14033380.203332923;
-	    	varYmin = 4263426.390905042;
-	    	varXmax = 14438496.453244511;
-	    	varYmax = 4431587.853132495;
-	    	level = 10;
-	    }
-	    
-	    //영산강
-	    if(areaNmae == "R05"){
-	    	varXmin=13957401.797217427;
-	    	varYmin=4066218.8579292106;
-	    	varXmax=14362518.047129015;
-	    	varYmax=4234380.320156664;
-	    	
-	    	level = 10;
-	    }
-	    
-		var extent = new esri.geometry.Extent({
-			xmin: varXmin,
-			ymin: varYmin,
-			xmax: varXmax,
-			ymax: varYmax,
-	        spatialReference: {
-	      	  wkid: 102100
-	        }
-	    });
-		
-		
-		
-		me.map.centerAndZoom(extent.getCenter(), level);
+		me.map.centerAndZoom(new esri.geometry.Point($.extend({type:'point', spatialReference:{wkid:102100}}, this.centerPointTemp[areaNmae])), 10);
 	},
 	
 	SetCenter: function(tmX,tmY){
