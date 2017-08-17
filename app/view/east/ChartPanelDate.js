@@ -224,6 +224,13 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					,{id: 'ITEM_COLI', name: '대장균군수'}]
 				})
 				itemCtl.setValue("AMT_PHYS");
+			}else if(parentChk == "I"){
+				var store = Ext.create('Ext.data.Store', {
+					fields: ['id', 'name'],
+					data: [{id: 'ITEM_COD', name: 'COD'}
+						,{id: 'ITEM_TOC', name: 'TOC'}]
+				})
+				itemCtl.setValue("ITEM_COD");
 			}
 			
 			itemCtl.bindStore(store);

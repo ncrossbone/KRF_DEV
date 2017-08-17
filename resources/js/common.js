@@ -361,6 +361,9 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId, chartFlag){
 		}else if(orgParentId == "D007"){
 			series.setXField("WMCYMD");
 			yFieldName = "SWL";
+		}else if(orgParentId == "I"){
+			/*series.setXField("WMCYMD");
+			yFieldName = "SWL";*/
 		}
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
@@ -1144,6 +1147,39 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		grdCtl.setStore(gridStore);
 	
 	
+	
+	}if(parentCheck == "I"){	
+		
+		//환경기초시설 검색값 히든처리
+		//hiddenGrid.setHidden(true);
+		if(grdContainer == null || grdContainer == undefined){
+			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_I", options);
+			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+			tab.add(grdContainer);
+			//tab.insert(0, grdContainer);
+		}
+		
+		tab.setActiveTab(gridId + "_container");
+			
+		var grdCtl = grdContainer.items.items[0]; // 그리드 컨테이너
+		grdCtl = grdCtl.items.items[0]; // 그리드 컨트롤
+		if(siteIds != ""){
+			grdCtl.siteIds = siteIds;
+		}
+		if(parentIds != ""){
+			grdCtl.parentIds = parentIds;
+		}
+		
+		
+		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_I", {
+			siteIds: grdCtl.siteIds,
+			parentIds: grdCtl.parentIds,
+			gridCtl: grdCtl
+		});
+		
+		//grdCtl.getView().bindStore(gridStore);
+		grdCtl.setStore(gridStore);
+		
 	
 	}
 	
