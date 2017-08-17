@@ -86,6 +86,7 @@
     "GetSearchResultData_F_2":"#host#/krf/searchResult/searchResult_F_2",
     "GetSearchResultData_F_3":"#host#/krf/searchResult/searchResult_F_3",
     "GetSearchResultData_F_4":"#host#/krf/searchResult/searchResult_F_4",
+    "GetSearchResultData_I":"#host#/krf/searchResult/searchResult_I",
     "GetSearchResultData":"#host#/krf/searchResult/searchResult_A",
     "ImgDelete":"./resources/jsp/ImgDelete.jsp",
     "IsIdCheck":"./resources/jsp/IsIdCheck.jsp",
