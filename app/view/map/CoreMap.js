@@ -149,10 +149,15 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 					}
 		      var xmax, xmin, ymax, ymin;
               
-              if(size.width < 1700){
+              if(size.width < 1700 && size.height < 700){
                   xmax = 14501959.12137605;
                   xmin = 13607951.638552671;
                   ymax = 4711863.804607241;
+                  ymin = 4267917.544326959;
+              }else if(size.width < 1700 && size.height >= 700){
+            	  xmax = 14501959.12137605;
+                  xmin = 13607951.638552671;
+                  ymax = 4571863.804607241;
                   ymin = 4267917.544326959;
               }else if(size.width > 1700 && size.width < 1850){
                   xmax = 14683267.752468478;
