@@ -512,21 +512,8 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	},
 	
 	SetCenter: function(tmX,tmY){
-		
-		//160705 pdj 임시방편  point
-		//console.info(tmX);
-		var v1 = parseFloat(tmX);
-		//console.info(v1+0.1);
-		v1 = v1+0.014;
-		var v2 = v1.toString();
-		//console.info(v2);
-		
 		var mapCtl = Ext.getCmp('_mapDiv_');
-		
-		var point = new esri.geometry.Point({ "x": v2, "y": tmY, " spatialReference": { " wkid": 102100} });
-		mapCtl.map.centerAndZoom(point, 15);
-		
-		
+		mapCtl.map.centerAndZoom(new esri.geometry.Point({ x: tmX, y: tmY, spatialReference: { wkid: 4326} }), 15);
 	},
 	
 	ChloPhycoOnOff: function(){

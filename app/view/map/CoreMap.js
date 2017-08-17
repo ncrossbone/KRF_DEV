@@ -92,12 +92,6 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
-//    		var mapC = Ext.getCmp('_mapDiv_');
-//    		mapC.setWidth(Ext.getCmp('center_container').getWidth()+ Ext.getCmp('west_container').getWidth() + Ext.getCmp('west_buttonpanel').getWidth());
-//    		mapC.setHeight(Ext.getCmp('center_container').getHeight());
-//    		me.map.setExtent(me.map.extent);
-    		// 차트 부분의 리소스를 로딩해 놓는다
-//    		Ext.create('KRF_DEV.view.east.WindowSiteNChart',{});
     		
     		// resize 이벤트가 발생해야 정상적으로 map 이 사이즈가 조정됨
     		KRF_DEV.getApplication()._mainView.fireEvent('resize');
