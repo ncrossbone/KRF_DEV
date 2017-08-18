@@ -97,7 +97,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0.0');
@@ -151,7 +151,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0.0');
@@ -201,7 +201,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
@@ -251,7 +251,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
@@ -301,7 +301,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
@@ -351,7 +351,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
@@ -401,7 +401,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0.0');
@@ -451,7 +451,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0.0');
@@ -504,7 +504,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{	
 							return Ext.util.Format.number(value, '0.0');
@@ -554,7 +554,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0.0');
@@ -604,7 +604,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
@@ -654,7 +654,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
@@ -704,7 +704,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
@@ -754,7 +754,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "정량한계미만";
 						}
 						else if(value == 888888888){
-							return "";
+							return "분석중";
 						}
 						else{
 							return Ext.util.Format.number(value, '0');
