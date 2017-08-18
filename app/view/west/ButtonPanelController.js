@@ -36,6 +36,14 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			Layer01OnOff(_reachFlowLayerId, "off");
 			Layer01OnOff(_lakeLayerId, "off");
 			
+			/* 수질측정지점 레이어 off */
+			Layer01OnOff("1", "off");
+			Layer01OnOff("2", "off");
+			Layer01OnOff("3", "off");
+			Layer01OnOff("4", "off");
+			Layer01OnOff("5", "off");
+			
+			
             SetBtnOnOff("btnFlowLayer","off");
             SetBtnOnOff("btnReachLayer","off");
 
@@ -44,6 +52,14 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			droneCtl.hide();
 			KRF_DEV.global.DroneFn.onClickResetButton();
 			droneCtl.hide();
+			
+			/* 수질측정지점 레이어 on */
+			Layer01OnOff("1", "on");
+			Layer01OnOff("2", "on");
+			Layer01OnOff("3", "on");
+			Layer01OnOff("4", "on");
+			Layer01OnOff("5", "on");
+			
 			Ext.defer(function(){
 				Layer01OnOff(_reachNodeLayerId, "on");
 				Layer01OnOff(_reachLineLayerId, "on");

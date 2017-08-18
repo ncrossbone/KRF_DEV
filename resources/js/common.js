@@ -1833,6 +1833,14 @@ ResetButtonClick = function(){
 		
 		popCtl.close();
 	}
+	
+	
+	/* 수질측정지점 레이어  on */
+	Layer01OnOff("1", "on");
+	Layer01OnOff("2", "on");
+	Layer01OnOff("3", "on");
+	Layer01OnOff("4", "on");
+	Layer01OnOff("5", "on");
 }
 
 
