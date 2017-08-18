@@ -24,9 +24,49 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_I', {
 		load: function(store) {
 			
 			var me = this;
+			var requestUrl = "";
+			
+			if(store.orgParentIds == "I001"){
+				requestUrl = _API.GetSearchResultData_I_1; 
+				store.config.fields = [
+					'PT_NO',
+					'PT_NM',
+					'CURR_WMCYMD',
+					'CHART_WMCYMD',
+					{name: 'CURR_ITEM_TEMP', type: 'number'},
+					'CHART_ITEM_TEMP',
+					{name: 'CURR_ITEM_PH', type: 'number'},
+					'CHART_ITEM_PH',
+					{name: 'CURR_ITEM_EC', type: 'number'},
+					'CHART_ITEM_EC',
+					{name: 'CURR_ITEM_DOC', type: 'number'},
+					'CHART_ITEM_DOC',
+					{name: 'CURR_ITEM_BOD', type: 'number'},
+					'CHART_ITEM_BOD',
+					{name: 'CURR_ITEM_COD', type: 'number'},
+					'CHART_ITEM_COD',
+					{name: 'CURR_ITEM_TP', type: 'number'},
+					'CHART_ITEM_TP',
+					{name: 'CURR_ITEM_AVERAGE_CLOA', type: 'number'},
+					'CHART_ITEM_AVERAGE_CLOA',
+					{name: 'CURR_ITEM_SURFACE_CLOA', type: 'number'},
+					'CHART_ITEM_SURFACE_CLOA',
+					{name: 'CURR_ITEM_SURF_BL_GR_ALGAE', type: 'number'},
+					'CHART_ITEM_SURF_BL_GR_ALGAE',
+					{name: 'CURR_ITEM_GEOSMIN', type: 'number'},
+					'CHART_ITEM_GEOSMIN',
+					{name: 'CURR_ITEM_2MIB', type: 'number'},
+					'CHART_ITEM_2MIB'
+                   ]
+			}else{
+				requestUrl = _API.GetSearchResultData_I_2; 
+				store.config.fields = [
+					'CHART_MNWL',
+					{name: 'CURR_MNWL', type: 'number'}
+                   ]
+			}
 			
 			var firstSearch =  KRF_DEV.getApplication().btnFlag;
-			
 			
 			var startYear = startMonth = endYear = endMonth = "";
 			
@@ -66,7 +106,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_I', {
 			
 			if(firstSearch == "noDate"){
 				Ext.Ajax.request({
-	        		url: _API.GetSearchResultData_I, //'./resources/jsp/GetSearchResultData.jsp',
+	        		url: requestUrl,
 	        		params: {startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
 	        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},
 	        		async: false, // 비동기 = async: true, 동기 = async: false
@@ -125,7 +165,7 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_I', {
 			
 			
 			Ext.Ajax.request({
-        		url: _API.GetSearchResultData_I, //'./resources/jsp/GetSearchResultData.jsp',
+        		url: requestUrl, //'./resources/jsp/GetSearchResultData.jsp',
         		params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
         			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
         			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},

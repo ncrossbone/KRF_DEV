@@ -361,9 +361,9 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId, chartFlag){
 		}else if(orgParentId == "D007"){
 			series.setXField("WMCYMD");
 			yFieldName = "SWL";
-		}else if(orgParentId == "I"){
-			/*series.setXField("WMCYMD");
-			yFieldName = "SWL";*/
+		}else if(parentId == "I"){
+			series.setXField("WMCYMD");
+			yFieldName = "ITEM_TEMP";
 		}
 		// 정보창 탭 체인지
 		ChangeTabIndex(tabIdx);
@@ -373,6 +373,7 @@ ShowWindowSiteNChart = function(tabIdx, title, test, parentId, chartFlag){
 			//var store = siteinfoCtl.getStore();
 			var store = Ext.create('KRF_DEV.store.east.SiteInfoPanel');
 			store.siteCD = title;
+			store.parentId = parentId;
 			store.load();
 			siteinfoCtl.setStore(store);
 		}
@@ -556,6 +557,10 @@ SetItemLabelText = function(itemNm,chartId){
 		itemNm = "Al (%)";
 	}else if(itemNm == "ITEM_LI"){
 		itemNm = "Li (㎎/㎏)";
+	}else if(itemNm == "ITEM_AVERAGE_CLOA"){
+		itemNm = "Chl-a(㎎/㎥)";
+	}else if(itemNm == "ITEM_SURFACE_BLUE_GREEN_ALGAE"){
+		itemNm = "유해남조류(cells/㎖)";
 	}
 	
 	var chartCtl = Ext.getCmp("siteCharttest");
@@ -1150,11 +1155,16 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	}if(parentCheck == "I"){	
 		
-		//환경기초시설 검색값 히든처리
-		//hiddenGrid.setHidden(true);
 		if(grdContainer == null || grdContainer == undefined){
-			grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_I", options);
+			
+			if(orgParentId == "I001"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_I", options);
+			}else if(orgParentId == "I002" || orgParentId == "I003"){
+				grdContainer = Ext.create("KRF_DEV.view.south.SearchResultGrid_I_2", options);
+			}
+			
 			grdContainer.items.items[0].id = grdContainer.items.items[0].id + "_" + gridId;
+			
 			tab.add(grdContainer);
 			//tab.insert(0, grdContainer);
 		}
@@ -1174,6 +1184,7 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 		gridStore = Ext.create("KRF_DEV.store.south.SearchResultGrid_I", {
 			siteIds: grdCtl.siteIds,
 			parentIds: grdCtl.parentIds,
+			orgParentIds: orgParentId,
 			gridCtl: grdCtl
 		});
 		
