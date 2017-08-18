@@ -31,12 +31,13 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin5', {
     					var layerDefinition = {  
     					          "displayFieldName": "호소명",  
     					          "geometryType": "esriGeometryPoint",  
+    					          "objectIdField": "OBJECTID_1",
     					          "spatialReference": {  
     					            "wkid": 4326  
     					          },  
     					          "fields": [{  
-    					            "name": "OBJECTID",  
-    					            "alias": "OBJECTID",  
+    					            "name": "OBJECTID_1",  
+    					            "alias": "OBJECTID_1",  
     					            "type": "esriFieldTypeOID"  
     					          }, {  
     					            "name": "측정소명",  
