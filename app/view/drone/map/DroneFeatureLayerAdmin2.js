@@ -159,146 +159,136 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
 				// me.layer.setSelectionSymbol(selectionSymbol);
 				/* Feature Layer 심볼 설정 끝 */
 
-    			me.layer.id = "DroneFeatureLayer2";
-    			// me.layer.visible = true;
-    			me.map.addLayer(me.layer,map.layerIds.length+1);
-    			
-    			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
-    			var layerStore = cboDroneLayer.getStore();
-    			var featureOnOff = "";
-    			
-    			layerStore.each(function(obj){
-    				if(obj.data.layerId == "3"){
-    					featureOnOff = obj.data.layerOnOff;
-    				}
-    				
-    				
-    			});
-    			// console.info(featureOnOff);
-    			
-    			if(featureOnOff == "off"){
-    				me.layer.setVisibility(false);
-    			}
-    			
-    			// Feature Layer에 필드를 추가해야 라벨에서 사용 가능...
-    			me.layer.fields.push({name: "emptyMsg", alias: "emptyMsg", type: "esriFieldTypeString"});
-    			me.layer.fields.push({name: "WMCYMD", alias: "WMCYMD", type: "esriFieldTypeString"});
-    			me.layer.fields.push({name: "ITEM_SURFACE_CLOA", alias: "ITEM_SURFACE_CLOA", type: "esriFieldTypeString"});
-    			me.layer.fields.push({name: "ITEM_TEMP_SURF", alias: "ITEM_TEMP_SURF", type: "esriFieldTypeString"});
-    			me.layer.fields.push({name: "ITEM_BLUE_GREEN_ALGAE", alias: "ITEM_BLUE_GREEN_ALGAE", type: "esriFieldTypeString"});
-    			
-    			/* 라벨설정 */
-    			require(["esri/Color",
-    			         "esri/symbols/TextSymbol",
-    			         "esri/renderers/SimpleRenderer",
-    			         "esri/layers/LabelLayer",
-    			         "esri/symbols/Font",
-    			         "dojo/on",
-    			         "dojo/dom-construct"],
-    			         function(Color,
-    			        		 TextSymbol,
-    			        		 SimpleRenderer,
-    			        		 LabelLayer,
-    			        		 Font,
-    			        		 on,
-    			        		 domConstruct){
-	    			// var statesColor = new Color("#666");
-    				var statesColor = new Color("red");
-	    			// create a text symbol to define the style of
-					// labels
-	    	        var statesLabel = new TextSymbol().setColor(statesColor);
-	    	        statesLabel.font.setSize("10pt").setWeight(Font.WEIGHT_BOLD); // WEIGHT_BOLD,
-																					// WEIGHT_BOLDER,
-																					// WEIGHT_LIGHTER,
-																					// WEIGHT_NORMAL
-	    	        statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline"
-																			// |
-																			// "line-through"
-																			// |
-																			// "none"
-	    	        // statesLabel.font.setVariant(Font.VARIANT_SMALLCAPS);
-	    	        statesLabel.xoffset = 0;
-	    	        statesLabel.yoffset = -40;
-	    	        var statesLabelRenderer = new SimpleRenderer(statesLabel);
-	    	        var labels = new LabelLayer({ 
-	    	        	id: "labels"
-	    	        });
-	    	        // labels.setOffset(100, 100);
-	    	        // tell the label layer to label the states feature
-					// layer
-	    	        // using the field named "STATE_NAME"
-	    	        labels.addFeatureLayer(me.layer, statesLabelRenderer, "{측정소명} chl-a:{ITEM_SURFACE_CLOA}");
-	    	        
-	    	        on(labels, 'graphic-node-add', function (graphic) {
-	    	        	
-		        		// graphic.node.setAttribute("fill", "black");
-		        		// graphic.node.setAttribute("stroke", "white");
-		        		// graphic.node.setAttribute("stroke-width",
-						// 2.5);
-		        		// graphic.node.setAttribute("stroke-opacity",
-						// 0.5);
-		        	
-		        		var SVGRect = graphic.node.getBBox();
-		        		// console.info(rect);
-		                var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-		                rect.setAttribute("x", SVGRect.x);
-		                rect.setAttribute("y", SVGRect.y + 40);
-		                rect.setAttribute("width", SVGRect.width);
-		                rect.setAttribute("height", SVGRect.height);
-		                rect.setAttribute("fill", "white");
-		                rect.setAttribute("fill-opacity", 0);
-		                // console.info(rect);
-		                domConstruct.place(rect, graphic.node, "before");
-		                
-	                });
-	    	        
-	    	        // add the label layer to the map
-	    	        me.map.addLayer(labels);
-	    	        // console.info(labels);
-	    	        
-	    	        for(var lblCnt = 0; lblCnt < labels.graphics.length; lblCnt++){
-	    	        	if(labels.graphics[lblCnt].symbol.text.indexOf("undefined") > -1){
-	    	        		// console.info(lblCnt);
-	    	        		// labels.graphics[lblCnt].visible = false;
-	    	        		// labels.graphics[lblCnt].symbol.text =
-							// labels.graphics[lblCnt].symbol.text.replace("undefined",
-							// "-");
-	    	        		// labels.remove(labels.graphics[lblCnt]);
-		    	        	// lblCnt--;
-	    	        		// labels.graphics[lblCnt].symbol.text = "";
-	    	        	}
-	    	        }
-    			});
-    			/* 라벨설정 끝 */
-    			
-    			var dialog, highlightSymbol;
-    			
-    			require(["dijit/TooltipDialog"], function(TooltipDialog){
-	    			dialog = new TooltipDialog({
-    		          // id: "tooltipDialog",
-    		          style: "position: absolute; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100"
-    		        });
-    		        dialog.startup();
-    			});
-    			
-    			require(["esri/symbols/SimpleFillSymbol",
-    			         "esri/symbols/SimpleLineSymbol",
-    			         "esri/Color"
-    			],
-    			function (SimpleFillSymbol,
-    			          SimpleLineSymbol,
-    			          Color){
-					highlightSymbol = new SimpleFillSymbol(
-							SimpleFillSymbol.STYLE_NULL,
-							new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
-									new Color([255,0,0]), 3),
-							new Color([125,125,125,0.35]));
-    			});
-    			/*
-				 * me.map.on("load", function(){
-				 * me.map.graphics.enableMouseEvents();
-				 * me.map.graphics.on("mouse-out", closeDialog); });
-				 */
+
+    	    			me.layer.id = "DroneFeatureLayer2";
+    	    			//me.layer.visible = true;
+    	    			me.map.addLayer(me.layer);
+    	    			
+    	    			var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
+    	    			var layerStore = cboDroneLayer.getStore();
+    	    			var featureOnOff = "";
+    	    			
+    	    			layerStore.each(function(obj){
+    	    				if(obj.data.layerId == "3"){
+    	    					featureOnOff = obj.data.layerOnOff;
+    	    				}
+    	    				
+    	    				
+    	    			});
+    	    			//console.info(featureOnOff);
+    	    			
+    	    			if(featureOnOff == "off"){
+    	    				me.layer.setVisibility(false);
+    	    			}
+    	    			
+    	    			// Feature Layer에 필드를 추가해야 라벨에서 사용 가능...
+    	    			me.layer.fields.push({name: "emptyMsg", alias: "emptyMsg", type: "esriFieldTypeString"});
+    	    			me.layer.fields.push({name: "WMCYMD", alias: "WMCYMD", type: "esriFieldTypeString"});
+    	    			me.layer.fields.push({name: "ITEM_SURFACE_CLOA", alias: "ITEM_SURFACE_CLOA", type: "esriFieldTypeString"});
+    	    			me.layer.fields.push({name: "ITEM_TEMP_SURF", alias: "ITEM_TEMP_SURF", type: "esriFieldTypeString"});
+    	    			me.layer.fields.push({name: "ITEM_BLUE_GREEN_ALGAE", alias: "ITEM_BLUE_GREEN_ALGAE", type: "esriFieldTypeString"});
+    	    			
+    	    			/* 라벨설정 */
+    	    			require(["esri/Color",
+    	    			         "esri/symbols/TextSymbol",
+    	    			         "esri/renderers/SimpleRenderer",
+    	    			         "esri/layers/LabelLayer",
+    	    			         "esri/symbols/Font",
+    	    			         "dojo/on",
+    	    			         "dojo/dom-construct"],
+    	    			         function(Color,
+    	    			        		 TextSymbol,
+    	    			        		 SimpleRenderer,
+    	    			        		 LabelLayer,
+    	    			        		 Font,
+    	    			        		 on,
+    	    			        		 domConstruct){
+    		    			//var statesColor = new Color("#666");
+    	    				var statesColor = new Color("red");
+    		    			// create a text symbol to define the style of labels
+    		    	        var statesLabel = new TextSymbol().setColor(statesColor);
+    		    	        statesLabel.font.setSize("10pt").setWeight(Font.WEIGHT_BOLD); // WEIGHT_BOLD, WEIGHT_BOLDER, WEIGHT_LIGHTER, WEIGHT_NORMAL
+    		    	        statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
+    		    	        //statesLabel.font.setVariant(Font.VARIANT_SMALLCAPS);
+    		    	        statesLabel.xoffset = 0;
+    		    	        statesLabel.yoffset = -40;
+    		    	        var statesLabelRenderer = new SimpleRenderer(statesLabel);
+    		    	        var labels = new LabelLayer({ 
+    		    	        	id: "labels"
+    		    	        });
+    		    	        //labels.setOffset(100, 100);
+    		    	        // tell the label layer to label the states feature layer 
+    		    	        // using the field named "STATE_NAME"
+    		    	        labels.addFeatureLayer(me.layer, statesLabelRenderer, "{측정소명} chl-a:{ITEM_SURFACE_CLOA}");
+    		    	        
+    		    	        on(labels, 'graphic-node-add', function (graphic) {
+    		    	        	
+    			        		//graphic.node.setAttribute("fill", "black");
+    			        		//graphic.node.setAttribute("stroke", "white");
+    			        		//graphic.node.setAttribute("stroke-width", 2.5);
+    			        		//graphic.node.setAttribute("stroke-opacity", 0.5);
+    			        	
+    			        		var SVGRect = graphic.node.getBBox();
+    			        		//console.info(rect);
+    			                var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    			                rect.setAttribute("x", SVGRect.x);
+    			                rect.setAttribute("y", SVGRect.y + 40);
+    			                rect.setAttribute("width", SVGRect.width);
+    			                rect.setAttribute("height", SVGRect.height);
+    			                rect.setAttribute("fill", "white");
+    			                rect.setAttribute("fill-opacity", 0);
+    			                //console.info(rect);
+    			                domConstruct.place(rect, graphic.node, "before");
+    			                
+    		                });
+    		    	        
+    		    	        // add the label layer to the map
+    		    	        me.map.addLayer(labels);
+    		    	        //console.info(labels);
+    		    	        
+    		    	        for(var lblCnt = 0; lblCnt < labels.graphics.length; lblCnt++){
+    		    	        	if(labels.graphics[lblCnt].symbol.text.indexOf("undefined") > -1){
+    		    	        		//console.info(lblCnt);
+    		    	        		//labels.graphics[lblCnt].visible = false;
+    		    	        		//labels.graphics[lblCnt].symbol.text = labels.graphics[lblCnt].symbol.text.replace("undefined", "-");
+    		    	        		//labels.remove(labels.graphics[lblCnt]);
+    			    	        	//lblCnt--;
+    		    	        		//labels.graphics[lblCnt].symbol.text = "";
+    		    	        	}
+    		    	        }
+    	    			});
+    	    			/* 라벨설정 끝 */
+    	    			
+    	    			var dialog, highlightSymbol;
+    	    			
+    	    			require(["dijit/TooltipDialog"], function(TooltipDialog){
+    		    			dialog = new TooltipDialog({
+    	    		          //id: "tooltipDialog",
+    	    		          style: "position: absolute; width: 377px; font: normal normal normal 10pt Helvetica;z-index:100"
+    	    		        });
+    	    		        dialog.startup();
+    	    			});
+    	    			
+    	    			require(["esri/symbols/SimpleFillSymbol",
+    	    			         "esri/symbols/SimpleLineSymbol",
+    	    			         "esri/Color"
+    	    			],
+    	    			function (SimpleFillSymbol,
+    	    			          SimpleLineSymbol,
+    	    			          Color){
+    						highlightSymbol = new SimpleFillSymbol(
+    								SimpleFillSymbol.STYLE_NULL,
+    								new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID,
+    										new Color([255,0,0]), 3),
+    								new Color([125,125,125,0.35]));
+    	    			});
+    	    			/*
+    	    			me.map.on("load", function(){
+    	    				me.map.graphics.enableMouseEvents();
+    	    				me.map.graphics.on("mouse-out", closeDialog);
+        		        });
+        		        */
+
 
     			me.layer.on("mouse-over", function(evt){
     				// evt.layer.enableMouseEvents();
