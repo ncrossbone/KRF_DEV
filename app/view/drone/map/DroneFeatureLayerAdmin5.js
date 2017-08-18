@@ -8,14 +8,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin5', {
         var me = this;
         me.map = map;
         
-        // store에서 맵서비스 URL 가져오기
-        var store = Ext.create('KRF_DEV.store.drone.AppVariable');
-    	store.load(function(){
-    		
-    		this.each(function(record, cnt, totCnt){
-    			//console.info(totCnt);
-    			if(cnt == 0){
-    				var queryTask = new esri.tasks.QueryTask(record.get('MapserviceUrl1') + "/" + Ext.featureLayerId); // 레이어 URL
+        			var queryTask = new esri.tasks.QueryTask(_MapserviceUrl1 + "/" + Ext.featureLayerId); // 레이어
     				var query = new esri.tasks.Query();
     				query.returnGeometry = true;
     				query.where = "수계코드 IN (40,50,60)";
@@ -350,8 +343,5 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin5', {
         		        });
     				});
 
-    			}
-    		});
-    	});
     }
 });

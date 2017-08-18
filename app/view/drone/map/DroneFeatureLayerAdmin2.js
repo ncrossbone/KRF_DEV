@@ -8,10 +8,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
         var me = this;
         me.map = map;
         
-        // store에서 맵서비스 URL 가져오기
-        var store = Ext.create('KRF_DEV.store.drone.AppVariable');
-    	store.load(function(storeInfo){
-			var queryTask = new esri.tasks.QueryTask(storeInfo[0].data.MapserviceUrl1 + "/" + Ext.featureLayerId); // 레이어
+			var queryTask = new esri.tasks.QueryTask(_MapserviceUrl1 + "/" + Ext.featureLayerId); // 레이어
 			var query = new esri.tasks.Query();
 			query.returnGeometry = true;
 			query.where = "수계코드 = 10 AND 측정소코드 NOT LIKE '1018%'";
@@ -459,6 +456,5 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
     				});
 		        });
 			});
-    	});
     }
 });

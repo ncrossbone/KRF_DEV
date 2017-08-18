@@ -7,8 +7,8 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 	constructor: function(map,itemValue) {
         var me = this;
         me.map = map;
-        //console.info(Ext.visibleLayers);
-        var queryTask = new esri.tasks.QueryTask(_MapserviceUrl1+"/3"); // 레이어 URL
+        
+        var queryTask = new esri.tasks.QueryTask(_MapserviceUrl1 + "/" + Ext.featureLayerId); // 레이어 URL
 		var query = new esri.tasks.Query();
 		query.returnGeometry = true;
 		query.where = "수계코드 = 20";
