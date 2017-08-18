@@ -1,11 +1,11 @@
-Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
+Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 	
 	extend: 'Ext.container.Container',
 	//extend : 'Ext.grid.Panel',
 
 	xtype: 'south-grid-searchresult',
 	
-	id: 'searchResultContainer_I',
+	id: 'searchResultContainer_I_2',
 	height: '100%',
 	width: '100%',
 	
@@ -81,7 +81,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						}
 					}
 				}
-			},{ 
+			}, { 
 				text      : '측정일자',
 				dataIndex : 'CURR_WMCYMD',
 				width: 90,
@@ -124,7 +124,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        		return yVal = "";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
-							        	return yVal + " (℃)";
+							        	return yVal + "(℃)";
 						        	}
 						        	
 						        }
@@ -141,10 +141,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 					}
 				}]
 			}, {
-				text : 'pH',
+				text : '클로로필a (㎎/㎥)',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'CURR_ITEM_PH',
+					dataIndex: 'CURR_ITEM_CLOA',
 					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
@@ -161,7 +161,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'CHART_ITEM_PH',
+					dataIndex: 'CHART_ITEM_CLOA',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -177,7 +177,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        		return yVal = "";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
-							        	return yVal;
+							        	return yVal + "(㎎/㎥)";
 						        	}
 						        }
 						    }
@@ -191,10 +191,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 					}
 				}]
 			}, {
-				text : '전기전도도(㎛hos/㎝)',
+				text : '유해남조류세포수(cells/㎖)',
 				columns: [{
 					text     : '측정값',
-					dataIndex: 'CURR_ITEM_EC',
+					dataIndex: 'CURR_ITEM_BL_GR_ALGAE',
 					width: 105,
 					renderer: function(value){
 						if(value == 999999999){
@@ -211,7 +211,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 				}, {
 					text: '추이변화',
 					width: 80,
-					dataIndex: 'CHART_ITEM_EC',
+					dataIndex: 'CHART_ITEM_BL_GR_ALGAE',
 					xtype: 'widgetcolumn',
 					widget: {
 						xtype: 'sparklineline',
@@ -219,309 +219,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						    '<tpl for=".">',
 						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
 						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
-						    '</tpl>',
-						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
-						        formatY: function(yVal){
-						        	if(yVal == null){
-						        		return yVal = "";
-						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
-							        	return yVal + " (㎛hos/㎝)";
-						        	}
-						        }
-						    }
-						),
-						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 11.2,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						tooltipSkipNull : false,  // false : null 포함
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : 'DO(㎎/L)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_ITEM_DOC',
-					width: 105,
-					renderer: function(value){
-						if(value == 999999999){
-							return "정량한계미만";
-						}
-						else if(value == 888888888){
-							return "분석중";
-						}
-						else{
-							return Ext.util.Format.number(value, '0.0');
-						}
-					},
-					filter: 'number'
-				}, {
-					text: '추이변화',
-					dataIndex: 'CHART_ITEM_DOC',
-					width: 80,
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
-						    '</tpl>',
-						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
-						        formatY: function(yVal){
-						        	if(yVal == null){
-						        		return yVal = "";
-						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
-							        	return yVal + " (㎎/L)";
-						        	}
-						        }
-						    }
-						),
-						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 6.628,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						tooltipSkipNull : false,  // false : null 포함
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : 'BOD(㎎/L)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_ITEM_BOD',
-					width: 105,
-					renderer: function(value){
-						if(value == 999999999){
-							return "정량한계미만";
-						}
-						else if(value == 888888888){
-							return "분석중";
-						}
-						else{
-							return Ext.util.Format.number(value, '0.0');
-						}
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_ITEM_BOD',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
-						    '</tpl>',
-						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
-						        formatY: function(yVal){
-						        	if(yVal == null){
-						        		return yVal = "";
-						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
-							        	return yVal + " (㎎/L)";
-						        	}
-						        }
-						    }
-						),
-						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 0.237,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						tooltipSkipNull : false,  // false : null 포함
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : 'T-P(㎎/L)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_ITEM_TP',
-					width: 105,
-					renderer: function(value){
-						if(value == 999999999){
-							return "정량한계미만";
-						}
-						else if(value == 888888888){
-							return "분석중";
-						}
-						else{
-							return Ext.util.Format.number(value, '0.000');
-						}
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_ITEM_TP',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
-						    '</tpl>',
-						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
-						        formatY: function(yVal){
-						        	if(yVal == null){
-						        		return yVal = "";
-						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
-							        	return yVal + " (㎎/L)";
-						        	}
-						        }
-						    }
-						),
-						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 28.8,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						tooltipSkipNull : false,  // false : null 포함
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : '평균 chl-a(㎎/㎥)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_ITEM_AVERAGE_CLOA',
-					width: 105,
-					renderer: function(value){
-						if(value == 999999999){
-							return "정량한계미만";
-						}
-						else if(value == 888888888){
-							return "분석중";
-						}
-						else{
-							return Ext.util.Format.number(value, '0.0');
-						}
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_ITEM_AVERAGE_CLOA',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
-						    '</tpl>',
-						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
-						        formatY: function(yVal){
-						        	if(yVal == null){
-						        		return yVal = "";
-						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
-							        	return yVal + "(㎎/㎥)";
-						        	}
-						        }
-						    }
-						),
-						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 9.5,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						tooltipSkipNull : false,  // false : null 포함
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : '표층 chl-a(㎎/㎥)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_ITEM_SURFACE_CLOA',
-					width: 105,
-					renderer: function(value){
-						if(value == 999999999){
-							return "정량한계미만";
-						}
-						else if(value == 888888888){
-							return "분석중";
-						}
-						else{
-							return Ext.util.Format.number(value, '0.0');
-						}
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_ITEM_SURFACE_CLOA',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
-						    '</tpl>',
-						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
-						        formatY: function(yVal){
-						        	if(yVal == null){
-						        		return yVal = "";
-						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
-							        	return yVal + "(㎎/㎥)";
-						        	}
-						        }
-						    }
-						),
-						//tipTpl: 'Value: {y:number("0.00")}',
-						renderer: function(value){
-							//console.info(value);
-						},
-						chartRangeMax: 27.7,
-						chartRangeMin: 0,
-						spotRadius: 1,
-						tooltipSkipNull : false,  // false : null 포함
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : '남조류세포수(cells/㎖)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_ITEM_SURF_BL_GR_ALGAE',
-					width: 105,
-					renderer: function(value){
-						if(value == 999999999){
-							return "정량한계미만";
-						}
-						else if(value == 888888888){
-							return "분석중";
-						}
-						else{	
-							return Ext.util.Format.number(value, '0');
-						}
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_ITEM_SURF_BL_GR_ALGAE',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} </p>',
 						    '</tpl>',
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
@@ -536,7 +233,57 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 30.4,
+						chartRangeMax: 11.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '마이크로시스틴-LR(PPB)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_MCYST_LR',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
+					},
+					filter: 'number'
+				}, {
+					text: '추이변화',
+					dataIndex: 'CHART_ITEM_MCYST_LR',
+					width: 80,
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + "(PPB)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.628,
 						chartRangeMin: 0,
 						spotRadius: 1,
 						tooltipSkipNull : false,  // false : null 포함
@@ -586,7 +333,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						    }
 						),
 						//tipTpl: 'Value: {y:number("0.00")}',
-						chartRangeMax: 6.2,
+						chartRangeMax: 0.237,
 						chartRangeMin: 0,
 						spotRadius: 1,
 						tooltipSkipNull : false,  // false : null 포함
@@ -631,6 +378,409 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(ng/L)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 28.8,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'pH',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_PH',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_PH',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal;
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 9.5,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : 'DO(㎎/L)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_DOC',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_DOC',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + "(㎎/L)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						renderer: function(value){
+							//console.info(value);
+						},
+						chartRangeMax: 27.7,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '투명도(m)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_TRANSPARENCY',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{	
+							return Ext.util.Format.number(value, '0.0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_TRANSPARENCY',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]} </p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + "(m)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 30.4,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '탁도(NTU)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_TURBIDITY',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0.0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_TURBIDITY',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0.0');
+							        	return yVal + "(NTU)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '남조류 Microcystis(cells/㎖)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_BGA_MICROCYSTIS',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_BGA_MICROCYSTIS',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + "(cells/㎖)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '남조류 Anabaena(cells/㎖)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_BGA_ANABAENA',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_BGA_ANABAENA',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + "(cells/㎖)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '남조류 Osillatoria(cells/㎖)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_BGA_OSILLATORIA',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_BGA_OSILLATORIA',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + "(cells/㎖)";
+						        	}
+						        }
+						    }
+						),
+						//tipTpl: 'Value: {y:number("0.00")}',
+						chartRangeMax: 6.2,
+						chartRangeMin: 0,
+						spotRadius: 1,
+						tooltipSkipNull : false,  // false : null 포함
+						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+					}
+				}]
+			}, {
+				text : '남조류 Aphanizomenon(cells/㎖)',
+				columns: [{
+					text     : '측정값',
+					dataIndex: 'CURR_ITEM_BGA_APHANIZOMENON',
+					width: 105,
+					renderer: function(value){
+						if(value == 999999999){
+							return "정량한계미만";
+						}
+						else if(value == 888888888){
+							return "분석중";
+						}
+						else{
+							return Ext.util.Format.number(value, '0');
+						}
+					},
+					filter: {type: 'numeric'/*, fields: {}*/}
+				}, {
+					text: '추이변화',
+					width: 80,
+					dataIndex: 'CHART_ITEM_BGA_APHANIZOMENON',
+					xtype: 'widgetcolumn',
+					widget: {
+						xtype: 'sparklineline',
+						tipTpl: new Ext.XTemplate(
+						    '<tpl for=".">',
+						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
+						        '<p>측 정 값 : {[this.formatY(values.y)]}</p>',
+						    '</tpl>',
+						    {
+						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+						        formatY: function(yVal){
+						        	if(yVal == null){
+						        		return yVal = "";
+						        	}else{
+						        		yVal = Ext.util.Format.number(yVal, '0');
+							        	return yVal + "(cells/㎖)";
 						        	}
 						        }
 						    }
