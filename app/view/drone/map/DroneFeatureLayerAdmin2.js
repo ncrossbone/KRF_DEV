@@ -236,12 +236,12 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin2', {
     			        		var SVGRect = graphic.node.getBBox();
     			        		//console.info(rect);
     			                var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-    			                rect.setAttribute("x", SVGRect.x);
+    			                /*rect.setAttribute("x", SVGRect.x);
     			                rect.setAttribute("y", SVGRect.y + 40);
     			                rect.setAttribute("width", SVGRect.width);
     			                rect.setAttribute("height", SVGRect.height);
     			                rect.setAttribute("fill", "white");
-    			                rect.setAttribute("fill-opacity", 0);
+    			                rect.setAttribute("fill-opacity", 0);*/
     			                //console.info(rect);
     			                domConstruct.place(rect, graphic.node, "before");
     			                
