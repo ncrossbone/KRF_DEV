@@ -285,7 +285,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					jsonStr += "		\"id\": \"" + groupFeature[0].attributes.GROUP_CODE + "\",\n";
 					jsonStr += "		\"text\": \"" + groupFeature[0].attributes.GROUP_NM + "("+groupFeature.length+")\",\n";
 					jsonStr += "		\"cls\": \"khLee-x-tree-node-text-bold\",\n";
-					if(groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "C" || groupFeature[0].attributes.GROUP_CODE == "I"){
+					if(groupFeature[0].attributes.GROUP_CODE == "G" || groupFeature[0].attributes.GROUP_CODE == "E" || groupFeature[0].attributes.GROUP_CODE == "C"){
 						jsonStr += "				\"srchBtnDisabled\": true,\n";
 					}
 					if(cnt == 0){
@@ -330,7 +330,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 						jsonStr += "{\n";
 						jsonStr += "			\"id\": \"" + layerFeatures[0].attributes.LAYER_CODE + "\",\n";
 						jsonStr += "			\"text\": \"" + layerFeatures[0].attributes.LAYER_NM + "("+layerFeatures.length+")\",\n";
-						if(layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "C" || layerFeatures[0].attributes.GROUP_CODE == "I"){
+						if(layerFeatures[0].attributes.GROUP_CODE == "G" || layerFeatures[0].attributes.GROUP_CODE == "E" || layerFeatures[0].attributes.EQ_EVENT_YN == "Y" || layerFeatures[0].attributes.GROUP_CODE == "C"){
 							jsonStr += "				\"srchBtnDisabled\": true,\n";
 						}
 						if(layerFeatures[0].attributes.isKradLayer != undefined && layerFeatures[0].attributes.isKradLayer != null){
@@ -357,7 +357,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 								jsonStr += "				\"iconCls\": \"layerNoneImg\",\n";
 								jsonStr += "				\"leaf\": true,\n";
 								jsonStr += "				\"checked\": null\n";
-								if(layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E" || layerFeature.attributes.GROUP_CODE == "C" || layerFeature.attributes.GROUP_CODE == "I"){
+								if(layerFeature.attributes.GROUP_CODE == "G" || layerFeature.attributes.GROUP_CODE == "E" || layerFeature.attributes.GROUP_CODE == "C"){
 									jsonStr += "			,   \"infoBtnDisabled\": true,\n";
 									jsonStr += "				\"chartBtnDisabled\": true,\n";
 									jsonStr += "				\"srchBtnDisabled\": true\n";

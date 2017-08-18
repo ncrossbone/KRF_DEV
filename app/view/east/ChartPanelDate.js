@@ -171,10 +171,11 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 			}else if(parentChk == "I"){
 				var store = Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
-					data: [{id: 'AMT_PHYS', name: '방류량_물리적'}
-					,{id: 'AMT_BIO', name: '방류량_생물학적'}]
+					data: [{id: 'ITEM_TEMP', name: '수온'}
+					,{id: 'ITEM_AVERAGE_CLOA', name: 'Chl-a'}
+					,{id: 'ITEM_SURFACE_BLUE_GREEN_ALGAE', name: '유해남조류'}]
 				})
-				itemCtl.setValue("AMT_PHYS");
+				itemCtl.setValue("ITEM_TEMP");
 			}
 			
 			itemCtl.bindStore(store);
@@ -205,7 +206,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 			        var gubun  = _chartDateInfo[0].f_gubun.substring(2,3);
 			        Ext.getCmp("f_Chart").setValue(gubun);
 			    }else{
-			        itemCtl.setValue = _chartDateInfo[0].ITEM_NAME;
+			        itemCtl.setValue(_chartDateInfo[0].ITEM_NAME);
 			    }
 			    
 			}

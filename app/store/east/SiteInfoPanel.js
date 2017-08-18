@@ -20,6 +20,12 @@ Ext.define('KRF_DEV.store.east.SiteInfoPanel', {
 			if(store.siteCD != undefined && store.siteCD != "")
 				recordId = store.siteCD;
 			
+            var parentId = "";
+            if(store.parentId != undefined){
+                parentId = store.parentId;
+            }
+
+			
 			var jsonData = "";
 			
 			// 로딩바 표시
@@ -28,7 +34,8 @@ Ext.define('KRF_DEV.store.east.SiteInfoPanel', {
 			Ext.Ajax.request({
                 url: _API.GetRWMDT, //'./resources/jsp/GetRWMDT.jsp',    // To Which url you wanna POST.
         		//params: { siteCodes: siteCodes, measureDate: measureDate, layerDate: layerDate },
-        		params: {recordId: recordId},
+                params: {recordId: recordId , parentId: parentId},
+
         		async: true, // 비동기 = async: true, 동기 = async: false
         		success : function(response, opts) {
         			

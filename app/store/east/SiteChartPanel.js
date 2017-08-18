@@ -96,7 +96,8 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 			
 			var jsonData = "";
 			
-			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C"){
+			if(store.parentId == "A" || store.parentId == "B" || store.parentId == "C" || store.parentId == "I"){
+
                 requestUrl = _API['GetRWMDT_'+store.parentId]; //"./resources/jsp/GetRWMDT_" + store.parentId + ".jsp";
 			}else if(store.parentId == "F"){
                 requestUrl = _API['GetRWMDT_'+f_parentId]; //"./resources/jsp/GetRWMDT_" + f_parentId + ".jsp";
