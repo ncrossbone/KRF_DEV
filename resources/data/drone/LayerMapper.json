@@ -353,7 +353,7 @@
 		"ChlaDate": "2017-08-12",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "40",		 // 피코시안 레이어 아이디
 		"PhyDate": "2017-08-12"		 // 피코시안 레이어 일자
-	},{
+	}/* ,{
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
 		"layerOnChkImg": "",		 // 레이어 On 체크박스 이미지
@@ -365,7 +365,7 @@
 		"ChlaDate": "2017-08-13",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "42",		 // 피코시안 레이어 아이디
 		"PhyDate": "2017-08-13"		 // 피코시안 레이어 일자
-	}],
+	} */],
 	R04: [{
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
 		"layerSymbolImg": "",		 // 레이어 심볼 이미지
