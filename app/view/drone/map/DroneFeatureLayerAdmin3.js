@@ -9,13 +9,9 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', {
         me.map = map;
         
         // store에서 맵서비스 URL 가져오기
-        var store = Ext.create('KRF_DEV.store.drone.AppVariable');
-    	store.load(function(){
-    		
-    		this.each(function(record, cnt, totCnt){
-    			//console.info(totCnt);
-    			if(cnt == 0){
-    				var queryTask = new esri.tasks.QueryTask(record.get('MapserviceUrl1') + "/" + Ext.featureLayerId); // 레이어 URL
+        var queryTask = new esri.tasks.QueryTask(_MapserviceUrl1 + "/" + Ext.featureLayerId); // 레이어
+    	
+    				
     				var query = new esri.tasks.Query();
     				query.returnGeometry = true;
     				query.where = "수계코드 = 10 AND 측정소코드 LIKE '1018%'";
@@ -30,13 +26,14 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', {
     					
     					var layerDefinition = {  
     					          "displayFieldName": "호소명",  
-    					          "geometryType": "esriGeometryPoint",  
+    					          "geometryType": "esriGeometryPoint",
+    	                          "objectIdField": "OBJECTID_1",
     					          "spatialReference": {  
     					            "wkid": 4326  
     					          },  
     					          "fields": [{  
-    					            "name": "OBJECTID",  
-    					            "alias": "OBJECTID",  
+    					            "name": "OBJECTID_1",  
+    					            "alias": "OBJECTID_1",  
     					            "type": "esriFieldTypeOID"  
     					          }, {  
     					            "name": "측정소명",  
@@ -666,8 +663,5 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', {
         		        });
     				});
 
-    			}
-    		});
-    	});
     }
 });

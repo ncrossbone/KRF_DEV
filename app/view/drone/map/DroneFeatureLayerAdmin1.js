@@ -7,31 +7,27 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 	constructor: function(map,itemValue) {
         var me = this;
         me.map = map;
-        //console.info(Ext.visibleLayers);
-        var queryTask = new esri.tasks.QueryTask(_MapserviceUrl1+"/3"); // 레이어 URL
+
+        var queryTask = new esri.tasks.QueryTask(_MapserviceUrl1 + "/" + Ext.featureLayerId); // 레이어 URL
 		var query = new esri.tasks.Query();
+		
 		query.returnGeometry = true;
 		query.where = "수계코드 = 20";
 		query.outFields = ["*"];
-		//console.info(Ext.mapServiceUrl + "/" + Ext.featureLayerId);
-		queryTask.execute(query,  function(results){
-			//console.info(Ext.mapServiceUrl + "/" + Ext.featureLayerId);
-			//console.info(results);
-		});
 		
-		queryTask.on("complete", function(featureSet) {
-			//console.info(Ext.mapServiceUrl + "/" + Ext.featureLayerId);
-			//console.info(featureSet);
-			
+		queryTask.execute(query,  function(results){});
+		
+		queryTask.on("complete", function(featureSet) {			
 			var layerDefinition = {  
 			          "displayFieldName": "호소명",  
-			          "geometryType": "esriGeometryPoint",  
+			          "geometryType": "esriGeometryPoint",
+                      "objectIdField": "OBJECTID_1",
 			          "spatialReference": {  
 			            "wkid": 4326  
 			          },  
 			          "fields": [{  
-			            "name": "OBJECTID",  
-			            "alias": "OBJECTID",  
+			            "name": "OBJECTID_1",  
+			            "alias": "OBJECTID_1",  
 			            "type": "esriFieldTypeOID"  
 			          }, {  
 			            "name": "측정소명",  
@@ -58,7 +54,6 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 			            "length": 254
 			          }]  
 			        }  
-			//console.info(featureSet.featureSet.features.length);
 			
 			var siteCodes = "";
 			var measureDate = "";
@@ -73,9 +68,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 			if(siteCodes.length > 0){
 				siteCodes = siteCodes.substring(0, siteCodes.length - 2);
 			}
-			
-			
-			////////////
+						
 			if(itemValue == null){
 				return;
 			}else{
@@ -89,16 +82,11 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 				
 			}
 			
-			
-				
-			
 			// 7월 2주차일때 표시되는 항공영상 일자와 다르게..
 			// 표시되는 항공영상 일자 : 2015-07-04
 			if(measureDate == "2015-07-2주"){
 				layerDate = "2015-07-06";
 			}
-			//console.info(measureDate);
-			//console.info(layerDate);
 			
 			var jsonData;
 			
@@ -113,20 +101,18 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
         				alert("오류가 발생하였습니다. 관리자에게 문의하세요.");
         				return;
         			}
-        			//alert(response.responseText);
+                	
         			// JSON Object로 변경
         			jsonData = Ext.util.JSON.decode( response.responseText );
-        			//alert(jsonData.data[0].ITEM_SURFACE_CLOA);
+        			
         		},
         		failure: function(form, action) {
-        			//alert(form.responseText);
         			alert("오류가 발생하였습니다.");
         		}
         	});
-			//console.info(jsonData.data.length);
+
 			if(jsonData != undefined && jsonData != null){
 				for(var jsonCnt = 0; jsonCnt < jsonData.data.length; jsonCnt++){
-					//console.info(jsonData.data[jsonCnt].ITEM_SURFACE_CLOA);
 					for(var featureCnt = 0; featureCnt < featureSet.featureSet.features.length; featureCnt++){
 						if(featureSet.featureSet.features[featureCnt].attributes != undefined){
 							if(jsonData.data[jsonCnt].PT_NO == featureSet.featureSet.features[featureCnt].attributes.측정소코드){
@@ -155,14 +141,12 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 				}
 			}
 			
-			//console.info(featureSet.featureSet.features.length);
 	        var featureCollection = {  
         		layerDefinition: layerDefinition,  
         		featureSet: featureSet.featureSet
 	        };
 			
 			me.layer = new esri.layers.FeatureLayer(featureCollection);
-			//me.layer.setDefinitionExpression("1=1");
 			
 			/*
 			var infoSymbol = new esri.symbol.PictureMarkerSymbol({

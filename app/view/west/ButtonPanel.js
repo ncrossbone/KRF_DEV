@@ -100,7 +100,7 @@ Ext.define('KRF_DEV.view.west.ButtonPanel', {
 	    	xtype: 'image',
 	    	id: 'btnSearchDrone',
 	    	groupId: 'group6',
-	    	hidden : true, // 외부망 현제 막음 추후 삭제
+	    	//hidden : true, // 외부망 현제 막음 추후 삭제
 	    	title: '조류항공사진',
 	    	style: 'left: 0px !important;',
 	    	width: this.itemWidth,
