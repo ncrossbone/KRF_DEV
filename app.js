@@ -656,16 +656,13 @@ Ext.application({
 			var west_container = Ext.getCmp("west_container");
 			
 			 //console.info(rToolbar);
-				if (rToolbar == undefined) {
-					rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar',{
-										// region: 'north',
-										id : 'reachToolbar',
-										cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
-									});
-				
-				
+			if (rToolbar == undefined) {
+				rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar',{
+									// region: 'north',
+									id : 'reachToolbar',
+									cls : 'khLee-x-reachtoolbar khLee-x-reachtollbar-default khLee-x-box-target'
+								});
 			}
-			//console.info(west_container.initWidth);
 			if(rNameToolbar == undefined){
 				rNameToolbar = Ext.create('KRF_DEV.view.center.ReachNameToolbar');
 				
@@ -687,7 +684,6 @@ Ext.application({
 			
 			var cContainer = Ext.getCmp("center_container");
 			cContainer.add(rToolbar);
-
 		}
 
 		Ext.HideReachToolbar = function() {
