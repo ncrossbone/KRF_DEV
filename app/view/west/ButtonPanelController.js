@@ -14,6 +14,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 		var currCtl = SetBtnOnOff(el.id);
 		var droneCtl = Ext.getCmp("droneToolbar");
 		var btnModeReach = Ext.getCmp("btnModeReach");
+		var westCon = Ext.getCmp('west_container')
+		
 		//console.info(droneCtl);
 		if(currCtl.btnOnOff == "on"){
 			
@@ -25,6 +27,12 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 
 			if(btnModeReach.btnOnOff=="off" && droneCtl.getY()==202){
 				droneCtl.setY(droneCtl.getY() - 105);
+			}
+			
+			if(!westCon.getCollapsed()){
+				droneCtl.setX(390);
+			}else{
+				droneCtl.setX(90);
 			}
 			
 			droneCtl.show();

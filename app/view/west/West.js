@@ -66,22 +66,21 @@ Ext.define('KRF_DEV.view.west.West', {
         },
         collapse: {
         	fn: function(el){
-        		
         		var coreMap = GetCoreMap();
-            	//console.info(coreMap.map.extent.getCenter());
-            	
         		// 컨트롤 XY 셋팅
         		SetWestCollapseXY("collapse");
+        		Ext.getCmp("droneToolbar").setX(90);
         	}
         },
         expand: {
         	fn: function(el){
-        		
         		var coreMap = GetCoreMap();
             	//console.info(coreMap.map.extent.getCenter());
             	
         		// 컨트롤 XY 셋팅
         		SetWestCollapseXY("expand");
+        		
+        		Ext.getCmp("droneToolbar").setX(390);
         	}
         }
     },
