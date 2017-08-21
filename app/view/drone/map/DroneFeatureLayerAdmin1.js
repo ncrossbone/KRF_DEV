@@ -224,7 +224,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
                 statesLabel.xoffset = 0;
                 statesLabel.yoffset = -40;
                 statesLabel.haloColor = new Color(new Color([255,255,255]));
-                statesLabel.haloSize = 3;
+                statesLabel.haloSize = 2;
 
     	        var statesLabelRenderer = new SimpleRenderer(statesLabel);
     	        var labels = new LabelLayer({ 
