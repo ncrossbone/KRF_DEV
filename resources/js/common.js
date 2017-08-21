@@ -1781,6 +1781,8 @@ ResetButtonClick = function(){
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
 	
+	Ext.getCmp("cboDroneLayer").down("combo").collapse();
+	
 	//리치 시작 끝 close 끄기
 	if(Ext.getCmp("reach_close")!=undefined){
 		Ext.getCmp("reach_close").setVisible(false);
