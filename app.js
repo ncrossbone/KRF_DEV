@@ -670,14 +670,15 @@ Ext.application({
 				rNameToolbar = Ext.create('KRF_DEV.view.center.ReachNameToolbar');
 				
 				rNameToolbar.show();
-				if(west_container.collapsed=="left"){
-					rNameToolbar.setX(west_container.width - 115);
-				}else{
-					rNameToolbar.setX(west_container.width + 185);
-				}
-				
-				rNameToolbar.setY(172);
 			}
+			
+			if(west_container.collapsed=="left"){
+				rNameToolbar.setX(west_container.width - 115);
+			}else{
+				rNameToolbar.setX(west_container.width + 185);
+			}
+			
+			rNameToolbar.setY(172);
 			
 			if(sConfig == undefined){
 				sConfig = Ext.create("KRF_DEV.view.center.SearchConfig");
