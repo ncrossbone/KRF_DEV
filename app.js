@@ -668,6 +668,8 @@ Ext.application({
 			
 			var rCountToolbar = Ext.getCmp("ReachCountToolbar");
 			
+			var westCon = Ext.getCmp('west_container');
+			
 			//var rCountSToolbar = Ext.getCmp("ReachCountSToolbar");
 			//var rCountEToolbar = Ext.getCmp("ReachCountEToolbar");
 			
@@ -691,6 +693,11 @@ Ext.application({
 				rNameToolbar.show();
 			}
 			
+			if(!westCon.getCollapsed()){
+				rNameToolbar.setX(486);
+            }else{
+            	rNameToolbar.setX(185);
+            }
 			/*if(rCountToolbar == undefined){
 				rCountToolbar = Ext.create('KRF_DEV.view.center.ReachCountToolbar');
 				rCountToolbar.show();
@@ -701,7 +708,7 @@ Ext.application({
 			if(rCountSToolbar == undefined){
 				rCountSToolbar = Ext.create('KRF_DEV.view.center.ReachCountSToolbar');
 				rCountSToolbar.show();
-				
+					
 			}
 			
 			if(rCountEToolbar == undefined){
