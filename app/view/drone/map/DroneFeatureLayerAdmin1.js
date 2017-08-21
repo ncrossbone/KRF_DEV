@@ -213,8 +213,8 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
     	        statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
     	        statesLabel.xoffset = 0;
     	        statesLabel.yoffset = -40;
-//    	        statesLabel.haloColor = new Color(new Color([255,255,255]));
-//    	        statesLabel.haloSize = 3;
+    	        statesLabel.haloColor = new Color(new Color([255,255,255]));
+    	        statesLabel.haloSize = 3;
     	        
     	        var statesLabelRenderer = new SimpleRenderer(statesLabel);
     	        var labels = new LabelLayer({ 
