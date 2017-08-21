@@ -311,14 +311,14 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		
 		if(record.data.layerId == "Phy"){
 			
-			store.data.items[3].data.layerOnOff = "off";
-			store.data.items[3].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
-			store.insert(index-1, store.data.items[3].data);
+			store.data.items[5].data.layerOnOff = "off";
+			store.data.items[5].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index-1, store.data.items[5].data);
 			store.insert(index, record);
 		}else if(record.data.layerId == "Chla"){
-			store.data.items[4].data.layerOnOff = "off";
-			store.data.items[4].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
-			store.insert(index+1, store.data.items[4].data);
+			store.data.items[6].data.layerOnOff = "off";
+			store.data.items[6].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index+1, store.data.items[6].data);
 			store.insert(index, record);
 		}else{
 			store.insert(index, record);
