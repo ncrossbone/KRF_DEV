@@ -204,14 +204,14 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', {
     	    			        		 on,
     	    			        		 domConstruct){
     		    			//var statesColor = new Color("#666");
-    	    				var statesColor = new Color("red");
-    		    			// create a text symbol to define the style of labels
-    		    	        var statesLabel = new TextSymbol().setColor(statesColor);
-    		    	        statesLabel.font.setSize("10pt").setWeight(Font.WEIGHT_BOLD); // WEIGHT_BOLD, WEIGHT_BOLDER, WEIGHT_LIGHTER, WEIGHT_NORMAL
-    		    	        statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
-    		    	        //statesLabel.font.setVariant(Font.VARIANT_SMALLCAPS);
-    		    	        statesLabel.xoffset = 0;
-    		    	        statesLabel.yoffset = -40;
+    	                    var statesLabel = new TextSymbol().setColor(new Color([222,0,38]));
+    	                    statesLabel.font.setSize("11pt").setWeight(Font.STYLE_ITALIC); // WEIGHT_BOLD, WEIGHT_BOLDER, WEIGHT_LIGHTER, WEIGHT_NORMAL
+    	                    statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
+    	                    statesLabel.xoffset = 0;
+    	                    statesLabel.yoffset = -40;
+    	                    statesLabel.haloColor = new Color(new Color([255,255,255]));
+    	                    statesLabel.haloSize = 3;
+
     		    	        var statesLabelRenderer = new SimpleRenderer(statesLabel);
     		    	        var labels = new LabelLayer({ 
     		    	        	id: "labels"
@@ -244,18 +244,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin3', {
     		    	        
     		    	        // add the label layer to the map
     		    	        me.map.addLayer(labels);
-    		    	        //console.info(labels);
     		    	        
-    		    	        for(var lblCnt = 0; lblCnt < labels.graphics.length; lblCnt++){
-    		    	        	if(labels.graphics[lblCnt].symbol.text.indexOf("undefined") > -1){
-    		    	        		//console.info(lblCnt);
-    		    	        		//labels.graphics[lblCnt].visible = false;
-    		    	        		//labels.graphics[lblCnt].symbol.text = labels.graphics[lblCnt].symbol.text.replace("undefined", "-");
-    		    	        		//labels.remove(labels.graphics[lblCnt]);
-    			    	        	//lblCnt--;
-    		    	        		//labels.graphics[lblCnt].symbol.text = "";
-    		    	        	}
-    		    	        }
     	    			});
     	    			/* 라벨설정 끝 */
     	    			
