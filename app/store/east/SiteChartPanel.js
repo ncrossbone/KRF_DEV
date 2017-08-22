@@ -66,13 +66,28 @@ Ext.define('KRF_DEV.store.east.SiteChartPanel', {
 				selectMonth2 = "";
 				
 			}else{
-				selectItem = selectItem.lastValue;
-				
-				selectYear = selectYear.lastValue;
-				selectYear2 = selectYear2.lastValue;
-				selectMonth = selectMonth.value;
-				selectMonth2 = selectMonth2.value;
-				
+                //퇴적물 분기
+                if(store.parentId == "C"){
+                    var cStartChartYear = Ext.getCmp("cStartChartYear").lastValue;
+                    var cStartChartYearDetail = Ext.getCmp("cStartChartYearDetail").lastValue;
+                    
+                    var cEndChartYear = Ext.getCmp("cEndChartYear").lastValue;
+                    var cEndChartYearDetail = Ext.getCmp("cEndChartYearDetail").lastValue;
+                    
+                    selectYear = cStartChartYear;
+                    selectYear2 = cEndChartYear;
+                    
+                    selectMonth = cStartChartYearDetail;
+                    selectMonth2 = cEndChartYearDetail;
+                }else{
+                    selectYear = selectYear.lastValue;
+                    selectYear2 = selectYear2.lastValue;
+                    selectMonth = selectMonth.value;
+                    selectMonth2 = selectMonth2.value;
+                }
+
+                selectItem = selectItem.lastValue;
+
 				if(selectYear > selectYear2){
 					alert("년도선택이 잘못되었습니다");
 					return;

@@ -20,8 +20,27 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	    	var f_ChartText = Ext.getCmp("f_ChartText");
 	    	var selectYear = Ext.getCmp("selectYear");
 	    	var selectYear2 = Ext.getCmp("selectYear2");
+	    	
+            var startChartDate = Ext.getCmp("startChartDate");
+            var endChartDate = Ext.getCmp("endChartDate");
+            
+            //퇴적물 콤보 박스
+            var cStartChartDate = Ext.getCmp("cStartChartDate");
+            var cEndChartDate = Ext.getCmp("cEndChartDate");
+            
+            var parentChk = KRF_DEV.getApplication().parentFlag;
+            var chartFlag_D = KRF_DEV.getApplication().chartFlag_D;
+            
+            startChartDate.hidden = false;
+            endChartDate.hidden = false;
+            
+            //퇴적물 콤보 박스 히든
+            cStartChartDate.hidden = true;
+            cEndChartDate.hidden = true;
+
 	    	var parentChk = KRF_DEV.getApplication().parentFlag;
 			var chartFlag_D = KRF_DEV.getApplication().chartFlag_D;
+			
 			if(parentChk == "F"){
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = false;
@@ -32,7 +51,42 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 	    		selectYear.setValue('2012');
 	    		selectYear2.setStore(year);
 	    		selectYear2.setValue('2013');
-	    	}else{
+            }else if(parentChk == "C"){
+            	
+                f_Chart.hidden = true;
+                f_ChartText.hidden = true;
+                startChartDate.hidden = true;
+                endChartDate.hidden = true;
+                
+                cStartChartDate.hidden = false;
+                cEndChartDate.hidden = false;
+                
+               /* var dateArr = [];
+                var nowDate = KRF_DEV.global.CommFn.nowDate.getYear();
+                var minDate = 2010;
+                
+                var cnt = -1;
+                
+                for(var i = minDate; i <= nowDate; i++){
+                    
+                    dateArr.push({id:i + "1",name:i + "상반기"});
+                    dateArr.push({id:i + "2",name:i + "하반기"});
+                    
+                    cnt++;
+                }
+                
+                var store = Ext.create('Ext.data.Store',{
+                    fields: ['id', 'name'],
+                    data:dateArr
+                });
+                
+                cStartChartDate.bindStore(store);
+                cStartChartDate.setValue(dateArr[cnt * 2 - 2].id);
+                
+                cEndChartDate.bindStore(store);
+                cEndChartDate.setValue(dateArr[cnt * 2 + 1].id);*/
+
+            }else{
 	    		//console.info(parentChk);
 	    		f_Chart.hidden = true;
 	    		f_ChartText.hidden = true;
@@ -75,17 +129,22 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 			}else if(parentChk == "C"){
 				var store = Ext.create('Ext.data.Store', {
 					fields: ['id', 'name'],
-					data: [{id: 'ITEM_DOW', name: '수심'}
-						,{id: 'ITEM_TEMP', name: '수온'}
-						,{id: 'ITEM_DOC', name: 'DO'}
-						,{id: 'ITEM_PH', name: 'pH'}
-						,{id: 'ITEM_EC', name: '전기전도도'}
-						,{id: 'ITEM_COD', name: 'COD'}
-						,{id: 'ITEM_TOC', name: 'TOC'}
-						,{id: 'ITEM_TN', name: 'T-N'}
-						,{id: 'ITEM_TP', name: 'T-P'}]
+                    data: [{id: 'ITEM_COD', name: 'COD'}
+                    ,{id: 'ITEM_TN', name: 'TN'}
+                    ,{id: 'ITEM_TP', name: 'TP'}
+                    ,{id: 'ITEM_SRP', name: 'SRP'}
+                    ,{id: 'ITEM_PB', name: 'PB'}
+                    ,{id: 'ITEM_ZN', name: 'ZN'}
+                    ,{id: 'ITEM_CU', name: 'CU'}
+                    ,{id: 'ITEM_CR', name: 'CR'}
+                    ,{id: 'ITEM_NI', name: 'NI'}
+                    ,{id: 'ITEM_AS', name: 'AS'}
+                    ,{id: 'ITEM_CD', name: 'CD'}
+                    ,{id: 'ITEM_HG', name: 'HG'}
+                    ,{id: 'ITEM_AL', name: 'AL'}
+                    ,{id: 'ITEM_LI', name: 'LI'}]
 				})
-				itemCtl.setValue("ITEM_DOW");
+                itemCtl.setValue("ITEM_COD");
 			}else if(parentChk == "D"){
 				if(chartFlag_D == "D001"){
 					var store = Ext.create('Ext.data.Store', {
@@ -182,25 +241,90 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 			
 			if(_chartDateInfo.length != 0){
 			    
-			    var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
-			    var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
-			    
-			    var startYear , startMonth , endYear , endMonth ;
-			    
-			    startYear = startChartDate[0];
-			    startMonth = startChartDate[1];
-			    endYear = endChartDate[0];
-			    endMonth = endChartDate[1];
-			    
-			    var selectYear = Ext.getCmp("selectYear");
-			    var selectMonth = Ext.getCmp("selectMonth");
-			    var selectYear2 = Ext.getCmp("selectYear2");
-			    var selectMonth2 = Ext.getCmp("selectMonth2");
-			    
-			    selectYear.setValue(startYear);
-			    selectMonth.setValue(startMonth);
-			    selectYear2.setValue(endYear);
-			    selectMonth2.setValue(endMonth);
+                if(parentChk != "C"){
+                    var startChartDate = _chartDateInfo[0].WMCYMD.split('.');
+                    var endChartDate = _chartDateInfo[1].WMCYMD.split('.');
+
+                    var startYear , startMonth , endYear , endMonth ;
+
+                    startYear = startChartDate[0];
+                    startMonth = startChartDate[1];
+                    endYear = endChartDate[0];
+                    endMonth = endChartDate[1];
+
+                    var selectYear = Ext.getCmp("selectYear");
+                    var selectMonth = Ext.getCmp("selectMonth");
+                    var selectYear2 = Ext.getCmp("selectYear2");
+                    var selectMonth2 = Ext.getCmp("selectMonth2");
+
+                    selectYear.setValue(startYear);
+                    selectMonth.setValue(startMonth);
+                    selectYear2.setValue(endYear);
+                    selectMonth2.setValue(endMonth);
+
+                    
+                }else{
+                    var startChartDate = _chartDateInfo[0].WMCYMD.split(' ');
+                    var endChartDate = _chartDateInfo[1].WMCYMD.split(' ');
+
+                    var startYear , startMonth , endYear , endMonth ;
+                    
+                    
+                    startYear = startChartDate[0];
+                    
+                    if(startChartDate[1]=="상반기"){
+                        startMonth = 1;
+                    }else{
+                        startMonth = 2;
+                    }
+                     
+                    
+                    endYear = endChartDate[0];
+                    
+                    if(endChartDate[1]=="상반기"){
+                        endMonth = 1;
+                    }else{
+                        endMonth = 2;
+                    }
+                    //endMonth = endChartDate[1];
+                    
+                    var cStartChartYear = Ext.getCmp("cStartChartYear");
+                    var cStartChartYearDetail = Ext.getCmp("cStartChartYearDetail");
+                    var cEndChartYear = Ext.getCmp("cEndChartYear");
+                    var cEndChartYearDetail = Ext.getCmp("cEndChartYearDetail");
+                    
+                    //testy = ['2010','2011'];
+                    //cStartChartYear.setStore(testy);
+                    cStartChartYear.setValue(startYear);
+                    cStartChartYearDetail.setValue(startMonth);
+                    cEndChartYear.setValue(endYear);
+                    cEndChartYearDetail.setValue(endMonth);
+                    //var nowDate = KRF_DEV.global.CommFn.nowDate.getYear();
+                    //var minDate = 2013;
+                    
+                    //var cnt = -1;
+                    
+                    /*for(var i = minDate; i <= nowDate; i++){
+                        
+                        dateArr.push({id:i + "1",name:i + "상반기"});
+                        dateArr.push({id:i + "2",name:i + "하반기"});
+                        
+                        cnt++;
+                    }*/
+                    
+                    /*var store = Ext.create('Ext.data.Store',{
+                        fields: ['id', 'name'],
+                        data:dateArr
+                    });*/
+                    
+                    //cStartChartDate.bindStore(store);
+                    //cStartChartDate.setValue(dateArr[cnt * 2 - 2].id);
+                    
+                    //cEndChartDate.bindStore(store);
+                    //cEndChartDate.setValue(dateArr[cnt * 2 + 1].id);
+                }
+
+
 			    
 			    if(_chartDateInfo[0].f_gubun != undefined){
 			        var gubun  = _chartDateInfo[0].f_gubun.substring(2,3);
@@ -227,6 +351,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
     	},
     	items: [{
         	xtype: 'container',
+            id:"startChartDate",
         	layout: {
         		type: 'hbox',
         		align: 'left',
@@ -268,6 +393,7 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 		},{
     		items:[{
     			xtype: 'container',
+                id:"endChartDate",
 	        	layout: {
 	        		type: 'hbox',
 	        		align: 'left',
@@ -342,7 +468,83 @@ Ext.define('KRF_DEV.view.east.ChartPanelDate', {
 					text: '항목'
 				}]
 	    	}]
-    	},{
+    	},{            
+            xtype:"container",
+            id:"cStartChartDate",
+            layout:{
+                type:"hbox"
+            },
+            items:[{
+                xtype:"combo",
+                width:90,
+                height:25,
+                store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+                //id:"cStartChartDate",
+                id:"cStartChartYear",
+                editable:false
+            },{
+                xtype: 'label',
+                text: '년'
+            },{
+                xtype: 'container',
+                width: 5
+            },{
+                xtype:"combo",
+                width:60,
+                height:25,
+                id:"cStartChartYearDetail",
+                valueField: 'id',
+                displayField: 'name',
+                store: Ext.create('Ext.data.Store',{
+                    fields: ['id', 'name'],
+                    data:[{id:1,name:"상"},{id:2,name:"하"}]
+                }),
+                editable:false
+            },{
+                xtype: 'label',
+                text: '반기'
+            }]
+        },{
+            xtype: 'container',
+            height: 5
+        },{
+            xtype:"container",
+            id:"cEndChartDate",
+            layout:{
+                type:"hbox"
+            },
+            items:[{
+                xtype:"combo",
+                width:90,
+                height:25,
+                store: ['', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017'],
+                id:"cEndChartYear",
+                //id:"cStartChartDate",
+                editable:false
+            },{
+                xtype: 'label',
+                text: '년'
+            },{
+                xtype: 'container',
+                width: 5
+            },{
+                xtype:"combo",
+                width:60,
+                height:25,
+                id:"cEndChartYearDetail",
+                valueField: 'id',
+                displayField: 'name',
+                store: Ext.create('Ext.data.Store',{
+                    fields: ['id', 'name'],
+                    data:[{id:1,name:"상"},{id:2,name:"하"}]
+                }),
+                //id:"cStartChartDate",
+                editable:false
+            },{
+                xtype: 'label',
+                text: '반기'
+            }]
+        },{
 			xtype: 'container',
 			height: 5
 		},{
