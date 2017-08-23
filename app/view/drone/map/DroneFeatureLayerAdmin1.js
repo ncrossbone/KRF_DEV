@@ -217,30 +217,18 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 			        		 Font,
 			        		 on,
 			        		 domConstruct){
-    			//var statesColor = new Color("#666");
-                var statesLabel = new TextSymbol().setColor(new Color([222,0,38]));
-                statesLabel.font.setSize("11pt").setWeight(Font.STYLE_ITALIC); // WEIGHT_BOLD, WEIGHT_BOLDER, WEIGHT_LIGHTER, WEIGHT_NORMAL
-                statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
-                statesLabel.xoffset = 0;
-                statesLabel.yoffset = -40;
-                statesLabel.haloColor = new Color(new Color([255,255,255]));
-                statesLabel.haloSize = 2;
-
-    	        var statesLabelRenderer = new SimpleRenderer(statesLabel);
+				
+				var statesLabelRenderer = KRF_DEV.global.DroneFn.getLabelRenderer();
+				
     	        var labels = new LabelLayer({ 
     	        	id: "labels"
     	        });
-    	        //labels.setOffset(100, 100);
     	        // tell the label layer to label the states feature layer 
     	        // using the field named "STATE_NAME"
-    	        //console.info(labels.addFeatureLayer(me.layer, statesLabelRenderer, "{측정소명} chl-a:{ITEM_SURFACE_CLOA}"));
-    	        //labels.addFeatureLayer(me.layer, statesLabelRenderer, "{측정소명} chl-a:{ITEM_SURFACE_CLOA}");
     	        labels.addFeatureLayer(me.layer, statesLabelRenderer, "{측정소명} chl-a : {ITEM_SURFACE_CLOA}");
-    	        //console.info(labels);
+    	        
     	        on(labels, 'graphic-node-add', function (graphic) {
-    	        	
 	        		var SVGRect = graphic.node.getBBox();
-	        		//console.info(rect);
 	                var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
 	                rect.setAttribute("x", SVGRect.x);
 	                rect.setAttribute("y", SVGRect.y + 40);

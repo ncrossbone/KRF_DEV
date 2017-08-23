@@ -8,6 +8,7 @@
  *    - https://wikidocs.net/3384 5.글로벌 변수 사용 */
 Ext.define("KRF_DEV.global.CommFn", {
 	singleton : true, // 요게 있어야 set, get 메서드 사용가능..
+	isIE: null,
 	config: {
 		globalTest: 0 // 테스트용 변수
 	},
@@ -277,7 +278,6 @@ Ext.define("KRF_DEV.global.CommFn", {
 	    	src = src + '';
 		  	return src.length >= width ? src : src + new Array(width - src.length + 1).join(fix) ;
 	},
-	
 	dateFormatter: function(src, chartFlag){
 		if(src == null){
 			return '';
@@ -301,5 +301,13 @@ Ext.define("KRF_DEV.global.CommFn", {
 			des += n;
 		}
 		return des;
+	},
+	isIEFunc: function(){
+		var agent = navigator.userAgent.toLowerCase();
+		if( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') > -1) || (agent.indexOf("msie") > -1) ){
+			this.isIE =  true;
+		}else{
+			this.isIE = false;
+		}
 	}
 });
