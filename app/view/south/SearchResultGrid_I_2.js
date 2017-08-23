@@ -254,10 +254,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+                            return Ext.util.Format.number(value, '0.0');
 						}
 					},
-					filter: 'number'
+                    filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
 					text: '추이변화',
 					dataIndex: 'CHART_ITEM_MCYST_LR',
@@ -276,7 +276,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+                                        yVal = Ext.util.Format.number(yVal, '0.0');
 							        	return yVal + "(PPB)";
 						        	}
 						        }
