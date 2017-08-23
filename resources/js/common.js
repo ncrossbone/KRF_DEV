@@ -1182,8 +1182,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	}else if(parentCheck == "I"){
 		
-
-		//hiddenGrid.setHidden(true);
+        if(typeof(parentIds) == 'string'){
+            orgParentId = parentIds;
+        }
+        
 		if(grdContainer == null || grdContainer == undefined){
 			
             if(orgParentId == "I001"){
