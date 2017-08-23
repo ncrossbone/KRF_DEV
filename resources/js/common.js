@@ -1155,6 +1155,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	}if(parentCheck == "I"){	
 		
+		if(typeof(parentIds) == 'string'){
+			orgParentId = parentIds;
+		}
+		
 		if(grdContainer == null || grdContainer == undefined){
 			
 			if(orgParentId == "I001"){
