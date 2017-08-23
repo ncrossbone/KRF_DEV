@@ -1,4 +1,4 @@
-{
+﻿{
 	area: [{
 		"areaName": "낙동강",
 		"areaValue": "R02"
@@ -567,14 +567,14 @@
 		"layerOnOff": "on",
 		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_03.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
-		"visible": "true"
+		"visible": "false"
 	}, {
 		"layerId": "0",
 		"layerName": "정수장",
 		"layerOnOff": "on",
 		"image1": "<img src='./resources/images/drone/chk_on.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"image2": "<img src='./resources/images/drone/layer_icon_04.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
-		"visible": "true"
+		"visible": "false"
 	}, {
 		"layerId": "Drone",
 		"layerName": "항공사진",
