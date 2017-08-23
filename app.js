@@ -243,9 +243,13 @@ Ext.application({
 		
 		Ext.onReady(function(){
 			
+			// IE 브라우저 체크
+			KRF_DEV.global.CommFn.isIEFunc();
+			
 			//console.info(encodeURIComponent("121342134|fsljdk|ffff"));
 			/* 물환경 상세조회 시 화면 이동 및 심볼 표시
 			 * station, stationType 필수 파라메터 */
+			
 			
 			var getParam = location.search.substring(1);
 			var params = Ext.urlDecode(getParam);

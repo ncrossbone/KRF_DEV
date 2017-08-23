@@ -244,5 +244,17 @@ Ext.define("KRF_DEV.global.DroneFn", {
 			}
 			
 		}, 1);
+	},
+	getLabelRenderer: function(){
+		var statesLabel = new esri.symbol.TextSymbol().setColor(new esri.Color([222,0,38]));
+        statesLabel.font.setSize("11pt").setWeight(esri.symbol.Font.STYLE_ITALIC); // WEIGHT_BOLD, WEIGHT_BOLDER, WEIGHT_LIGHTER, WEIGHT_NORMAL
+        statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
+        statesLabel.xoffset = 0;
+        statesLabel.yoffset = -40;
+        if(!KRF_DEV.global.CommFn.isIE){
+        	statesLabel.haloColor = new esri.Color([255,255,255]);
+            statesLabel.haloSize = 2;
+        }
+        return new esri.renderer.SimpleRenderer(statesLabel);
 	}
 });
