@@ -228,11 +228,13 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                renderer: function(storeItem, item) {
 	                	var series = Ext.getCmp("siteCharttest");
 	                	
-	                    //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('ITEM_BOD') + '%');
-	                	/*console.info(storeItem);
-	                	console.info(item);
-	                	console.info(series.series[0]._yField);*/
-	                	//console.info(storeItem);
+	                	var format = storeItem.get('ITEM_NAME').split('_')[1];
+	                	
+	                	var maVal = Ext.util.Format.number(storeItem.get(series.series[0]._yField), KRF_DEV.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId,format));
+	                	
+	                	this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + maVal);
+	                	
+	                	/*
 	                	if(storeItem.joined[0].parentId == "A"){
 			                	if(storeItem.get(series.series[0]._yField) == 0){
 			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField+"_1"));
@@ -242,7 +244,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                	}else{
 	                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));
 	                	}
-	                	
+	                	*/
 	                }
 	            }
 	        }]
