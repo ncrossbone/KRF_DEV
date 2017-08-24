@@ -101,7 +101,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			}*/
 			
 			me.defaultDate(droneLayerId,measureDate,drone,phyLayerId);
-		}, 300);
+		}, 1000);
 		
 	},
 	
