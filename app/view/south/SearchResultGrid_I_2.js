@@ -122,6 +122,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
 							        	return yVal + "(℃)";
@@ -175,6 +179,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
 							        	return yVal + "(㎎/㎥)";
@@ -225,6 +233,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(cells/㎖)";
@@ -275,6 +287,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(PPB)";
@@ -325,6 +341,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(ng/L)";
@@ -375,6 +395,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(ng/L)";
@@ -425,6 +449,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
 							        	return yVal;
@@ -475,6 +503,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
 							        	return yVal + "(㎎/L)";
@@ -528,6 +560,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
 							        	return yVal + "(m)";
@@ -578,6 +614,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0.0');
 							        	return yVal + "(NTU)";
@@ -628,6 +668,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(cells/㎖)";
@@ -678,6 +722,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(cells/㎖)";
@@ -728,6 +776,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(cells/㎖)";
@@ -778,6 +830,10 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
+						        	}else if(yVal == 999999999){
+						        		return "정량한계미만";
+						        	}else if(yVal == 888888888){
+						        		return "분석중";
 						        	}else{
 						        		yVal = Ext.util.Format.number(yVal, '0');
 							        	return yVal + "(cells/㎖)";
