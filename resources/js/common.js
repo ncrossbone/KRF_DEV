@@ -1155,6 +1155,10 @@ ShowSearchResult = function(siteIds, parentIds, titleText, gridId, test, tooltip
 	
 	}if(parentCheck == "I"){	
 		
+		if(typeof(parentIds) == 'string'){
+			orgParentId = parentIds;
+		}
+		
 		if(grdContainer == null || grdContainer == undefined){
 			
 			if(orgParentId == "I001"){
@@ -1801,6 +1805,8 @@ ResetButtonClick = function(){
 	var currCtl = SetBtnOnOff("btnSearchDrone", "off");
 	var droneCtl = Ext.getCmp("droneToolbar");
 	
+	Ext.getCmp("cboDroneLayer").down("combo").collapse();
+	
 	//리치 시작 끝 close 끄기
 	if(Ext.getCmp("reach_close")!=undefined){
 		Ext.getCmp("reach_close").setVisible(false);
@@ -1844,6 +1850,14 @@ ResetButtonClick = function(){
 		
 		popCtl.close();
 	}
+	
+	
+	/* 수질측정지점 레이어  on */
+	Layer01OnOff("1", "on");
+	Layer01OnOff("2", "on");
+	Layer01OnOff("3", "on");
+	Layer01OnOff("4", "on");
+	Layer01OnOff("5", "on");
 }
 
 

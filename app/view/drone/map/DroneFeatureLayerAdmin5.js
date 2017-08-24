@@ -180,14 +180,7 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin5', {
 			        		 Font,
 			        		 on,
 			        		 domConstruct){
-				var statesColor = new Color("red");
-				// create a text symbol to define the style of labels
-		        var statesLabel = new TextSymbol().setColor(statesColor);
-		        statesLabel.font.setSize("10pt").setWeight(Font.WEIGHT_BOLD); // WEIGHT_BOLD, WEIGHT_BOLDER, WEIGHT_LIGHTER, WEIGHT_NORMAL
-		        statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
-		        statesLabel.xoffset = 0;
-		        statesLabel.yoffset = -40;
-		        var statesLabelRenderer = new SimpleRenderer(statesLabel);
+				var statesLabelRenderer = KRF_DEV.global.DroneFn.getLabelRenderer();
 		        var labels = new LabelLayer({ 
 		        	id: "labels"
 		        });

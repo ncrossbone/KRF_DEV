@@ -327,6 +327,10 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	// Combo Item Click 시 아무것도 안하는 펑션..
 	onItemClickEmpty: function(item,record){
 	
+		if(item.id == "cboDroneSiteList-list"){
+			this.SetCenter(record.data.tmX,record.data.tmY);
+		}
+		
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
 		var layerStore = cboDroneLayer.getStore();
 		
@@ -361,6 +365,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			} 
 		});
 		
+		KRF_DEV.global.DroneFn.LayerVisibility();
 		/*var store = cboDroneLayer.getStore();
 		store.insert(index, record);*/
 		
@@ -513,7 +518,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	
 	SetCenter: function(tmX,tmY){
 		var mapCtl = Ext.getCmp('_mapDiv_');
-		mapCtl.map.centerAndZoom(new esri.geometry.Point({ x: tmX, y: tmY, spatialReference: { wkid: 4326} }), 15);
+		mapCtl.map.centerAndZoom(new esri.geometry.Point({ x: tmX, y: tmY, spatialReference: { wkid: 4326} }), 13);
 	},
 	
 	ChloPhycoOnOff: function(){

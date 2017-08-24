@@ -207,21 +207,15 @@ Ext.define('KRF_DEV.view.drone.map.DroneFeatureLayerAdmin1', {
 			        		 Font,
 			        		 on,
 			        		 domConstruct){
-				var statesColor = new Color("red");
     			// create a text symbol to define the style of labels
-    	        var statesLabel = new TextSymbol().setColor(statesColor);
-    	        statesLabel.font.setSize("11pt").setWeight(Font.WEIGHT_BOLD); // WEIGHT_BOLD, WEIGHT_BOLDER, WEIGHT_LIGHTER, WEIGHT_NORMAL
-    	        statesLabel.font.setFamily("굴림").setDecoration("none"); // "underline" | "line-through" | "none"
-    	        statesLabel.xoffset = 0;
-    	        statesLabel.yoffset = -40;
-    	        var statesLabelRenderer = new SimpleRenderer(statesLabel);
+                var statesLabelRenderer = KRF_DEV.global.DroneFn.getLabelRenderer();
+
     	        var labels = new LabelLayer({ 
     	        	id: "labels"
     	        });
     	        // tell the label layer to label the states feature layer 
     	        // using the field named "STATE_NAME"
     	        labels.addFeatureLayer(me.layer, statesLabelRenderer, "{측정소명} chl-a : {ITEM_SURFACE_CLOA}");
-    	        //console.info(labels);
     	        on(labels, 'graphic-node-add', function (graphic) {
     	        	
 	        		var SVGRect = graphic.node.getBBox();

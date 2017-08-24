@@ -206,7 +206,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	}, { // 레이어선택
         	xtype: "drone-vcombo",
         	labelSrc: './resources/images/drone/label_05.png',
-        	width:115,
+        	width:125,
         	id: "cboDroneLayer", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "layer",
