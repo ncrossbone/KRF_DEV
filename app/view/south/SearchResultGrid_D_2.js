@@ -17,6 +17,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_2', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
+			layerId : 'D002', 
 			//id: 'grdSearchResult',
 			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
@@ -122,7 +123,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_2', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'RF'));
 						            return yVal;
 						        }
 						    }

@@ -221,7 +221,8 @@ Ext.application({
 	requires: ["KRF_DEV.global.Obj",
 				"KRF_DEV.global.DroneFn",
 				"KRF_DEV.global.CommFn",
-				"KRF_DEV.global.TabFn"],
+				"KRF_DEV.global.TabFn",
+				"KRF_DEV.global.AttrFn"],
 	
 	// extend: 'KRF_DEV.Application',
 

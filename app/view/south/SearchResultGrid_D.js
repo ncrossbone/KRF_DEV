@@ -17,6 +17,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
+			layerId : 'D001',
 			//id: 'grdSearchResult',
 			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
@@ -107,7 +108,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 					dataIndex: 'CURR_WL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'WL'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -125,7 +126,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'WL'));
 						            return yVal;
 						        }
 						    }
@@ -142,7 +143,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 					dataIndex: 'CURR_MXWL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MXWL'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -160,7 +161,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MXWL'));
 						            return yVal;
 						        }
 						    }
@@ -177,7 +178,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 					dataIndex: 'CURR_MNXL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MNXL'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -195,7 +196,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MNXL'));
 						            return yVal;
 						        }
 						    }

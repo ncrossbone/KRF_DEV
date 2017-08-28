@@ -90,9 +90,10 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 						click: function(obj, el, evt){
 							
 							var siteCharttest = Ext.getCmp('siteCharttest');
-							//siteCharttest.download({
+							
 							setActionInfo(siteCharttest.store.parentId , siteCharttest.store.orgParentId , "" , siteCharttest.store.siteCD , "차트저장");
-
+							
+							//siteCharttest.download({
 							siteCharttest.download({
 								type: 'image/svg+xml',
 								filename : 'image'
@@ -123,7 +124,24 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 				height: 21,
 				src: './resources/images/button/btn_save.gif'
 			
-			}]
+			}/*,{
+				xtype:"button",
+				text:"undo",
+				handler:function(){
+					
+					var chart = Ext.getCmp("siteCharttest");
+					var interaction = Ext.ComponentQuery.query('interaction', chart)[0];
+					
+					//console.info(interaction);
+					var undoButton = interaction.getUndoButton();
+					var handler = undoButton.handler;
+					
+					if (handler) {
+						handler();
+					}
+					
+				}
+			}*/]
 		},  {
 	        //xtype: 'chart',
 			xtype: 'cartesian',
@@ -132,7 +150,13 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	        innerPadding: {
 	             left: 30,
 	             right:30
-	        }, 
+	        },
+	        
+	       /* interactions: {
+	            type: 'crosszoom',
+	            zoomOnPanGesture: false
+	        },*/
+	        
 	        width: 450,
 	        height: 250,
 	        padding: '10 0 0 0',
@@ -204,11 +228,23 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                renderer: function(storeItem, item) {
 	                	var series = Ext.getCmp("siteCharttest");
 	                	
-	                    //this.setTitle(storeItem.get('month') + ': ' + storeItem.get('ITEM_BOD') + '%');
-	                	/*console.info(storeItem);
-	                	console.info(item);
-	                	console.info(series.series[0]._yField);*/
-	                	//console.info(storeItem);
+	                	var format = '';
+	                	var itemNm = storeItem.get('ITEM_NAME');
+	                	if(itemNm.indexOf('AMT') > -1){
+	                		format = itemNm;
+	                	}else{
+	                		var itemNms = itemNm.split('_');
+	                		format = itemNms[0];
+	                		if(itemNms.length > 1){
+		                		format = itemNms.slice(1, itemNms.length).join('_');
+		                	}	
+	                	}
+	                	
+	                	var maVal = Ext.util.Format.number(storeItem.get(series.series[0]._yField), KRF_DEV.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId,format));
+	                	
+	                	this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + maVal);
+	                	
+	                	/*
 	                	if(storeItem.joined[0].parentId == "A"){
 			                	if(storeItem.get(series.series[0]._yField) == 0){
 			                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField+"_1"));
@@ -218,7 +254,7 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                	}else{
 	                		this.setTitle('측정일 : '+storeItem.get(series.series[0]._xField)+ '<br>' + '측정값 : ' + storeItem.get(series.series[0]._yField));
 	                	}
-	                	
+	                	*/
 	                }
 	            }
 	        }]

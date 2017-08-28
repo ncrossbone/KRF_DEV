@@ -16,6 +16,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
+			layerId: 'I',
 			//id: 'grdSearchResult',
 			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
@@ -100,7 +101,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TEMP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -122,12 +123,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TEMP'));
 							        	return yVal + " (℃)";
 						        	}
 						        	
@@ -158,7 +155,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PH'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -179,12 +176,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PH'));
 							        	return yVal;
 						        	}
 						        }
@@ -212,7 +205,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'EC'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -233,12 +226,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'EC'));
 							        	return yVal + " (㎛hos/㎝)";
 						        	}
 						        }
@@ -266,7 +255,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DOC'));
 						}
 					},
 					filter: 'number'
@@ -287,12 +276,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DOC'));
 							        	return yVal + " (㎎/L)";
 						        	}
 						        }
@@ -320,7 +305,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BOD'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -341,12 +326,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BOD'));
 							        	return yVal + " (㎎/L)";
 						        	}
 						        }
@@ -374,7 +355,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -395,12 +376,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TP'));
 							        	return yVal + " (㎎/L)";
 						        	}
 						        }
@@ -428,7 +405,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'AVERAGECLOA'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -449,12 +426,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'AVERAGECLOA'));
 							        	return yVal + "(㎎/㎥)";
 						        	}
 						        }
@@ -482,7 +455,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SURFACE_CLOA'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -503,12 +476,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SURFACE_CLOA'));
 							        	return yVal + "(㎎/㎥)";
 						        	}
 						        }
@@ -539,7 +508,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{	
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BL_GR_ALGAE'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -560,12 +529,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BL_GR_ALGAE'));
 							        	return yVal + "(cells/㎖)";
 						        	}
 						        }
@@ -593,7 +558,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'GEOSMIN'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -614,12 +579,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'GEOSMIN'));
 							        	return yVal + "(ng/L)";
 						        	}
 						        }
@@ -647,7 +608,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'2MIB'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -668,12 +629,8 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I', {
 						        formatY: function(yVal){
 						        	if(yVal == null){
 						        		return yVal = "";
-						        	}else if(yVal == 999999999){
-						        		return "정량한계미만";
-						        	}else if(yVal == 888888888){
-						        		return "분석중";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'2MIB'));
 							        	return yVal + "(ng/L)";
 						        	}
 						        }

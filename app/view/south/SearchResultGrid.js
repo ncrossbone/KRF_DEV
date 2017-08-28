@@ -9,6 +9,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 	height: '100%',
 	width: '100%',
 	
+	
 	items: [{
 		xtype: 'container',
 		id: 'searchResultContainer_A_Id',
@@ -16,6 +17,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
+			layerId : "A",
 			//id: 'grdSearchResult',
 			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
@@ -128,7 +130,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BOD'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -151,7 +153,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BOD'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        	
@@ -182,7 +184,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DOC'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -204,7 +206,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DOC'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -232,7 +234,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'COD'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -254,7 +256,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'COD'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -282,7 +284,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TN'));
 						}
 					},
 					filter: 'number'
@@ -304,7 +306,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TN'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -332,7 +334,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -354,7 +356,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TP'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -382,7 +384,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TEMP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -404,7 +406,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TEMP'));
 							        	return yVal + " ℃";
 						        	}
 						        }
@@ -432,7 +434,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PH'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -454,7 +456,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PH'));
 							        	return yVal;
 						        	}
 						        }
@@ -482,7 +484,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SS'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -504,7 +506,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SS'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -535,7 +537,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{	
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CLOA'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -557,7 +559,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CLOA'));
 							        	return yVal + " ㎎/㎥";
 						        	}
 						        }
@@ -585,7 +587,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TOC'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -607,7 +609,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TOC'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -636,7 +638,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'AMNT'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -658,7 +660,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'AMNT'));
 							        	return yVal + " ㎥/s";
 						        	}
 						        }
@@ -687,7 +689,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DNT'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -709,7 +711,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DNT'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -738,7 +740,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'NO3N'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -760,7 +762,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'NO3N'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -789,7 +791,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'NH3N'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -811,7 +813,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'NH3N'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -840,7 +842,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DTP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -862,7 +864,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DTP'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -891,7 +893,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'POP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -913,7 +915,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'POP'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -942,7 +944,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{	
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TRANS'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -964,7 +966,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TRANS'));
 							        	return yVal + " m";
 						        	}
 						        }
@@ -993,7 +995,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ALGOL'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1015,7 +1017,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ALGOL'));
 							        	return yVal + " 개체수/㎖";
 						        	}
 						        }
@@ -1044,7 +1046,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TCOLI'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1066,7 +1068,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TCOLI'));
 							        	return yVal + " 총대장균군수/100㎖";
 						        	}
 						        }
@@ -1095,7 +1097,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ECOLI'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1117,7 +1119,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ECOLI'));
 							        	return yVal + " 분원성대장균군수/100㎖";
 						        	}
 						        }
@@ -1146,7 +1148,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ANTIMON'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1168,7 +1170,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ANTIMON'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1197,7 +1199,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PHENOL'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1219,7 +1221,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PHENOL'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1248,7 +1250,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'COL'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1270,7 +1272,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'COL'));
 							        	return yVal + " 도";
 						        	}
 						        }
@@ -1299,7 +1301,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'NHEX'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1321,7 +1323,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'NHEX'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1350,7 +1352,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'FE'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1372,7 +1374,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'FE'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1401,7 +1403,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.00');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MN'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1423,7 +1425,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.00');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MN'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1452,7 +1454,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CD'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1474,7 +1476,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CD'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1503,7 +1505,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.00');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CN'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1525,7 +1527,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.00');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CN'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1554,7 +1556,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.00');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PB'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1576,7 +1578,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.00');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PB'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1605,7 +1607,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.00');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CR6'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1627,7 +1629,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.00');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CR6'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1656,7 +1658,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.00');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CR'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1678,7 +1680,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.00');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CR'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1707,7 +1709,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'AS'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1729,7 +1731,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'AS'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1758,7 +1760,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0000000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'HG'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1780,7 +1782,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'HG'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1809,7 +1811,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CU'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1831,7 +1833,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CU'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1860,7 +1862,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ZN'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1882,7 +1884,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ZN'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1911,7 +1913,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.00');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'FL'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1933,7 +1935,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.00');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'FL'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -1962,7 +1964,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ABS'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -1984,7 +1986,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ABS'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2013,7 +2015,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CL'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2035,7 +2037,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CL'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2064,7 +2066,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TCE'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2086,7 +2088,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TCE'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2115,7 +2117,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PCE'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2137,7 +2139,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PCE'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2166,7 +2168,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CCL4'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2188,7 +2190,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CCL4'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2217,7 +2219,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DCETH'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2239,7 +2241,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DCETH'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2268,7 +2270,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{	
-							return Ext.util.Format.number(value, '0.0000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DCM'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2290,7 +2292,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DCM'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2319,7 +2321,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BENZENE'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2341,7 +2343,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BENZENE'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2370,7 +2372,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CHCL3'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2392,7 +2394,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CHCL3'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2421,7 +2423,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'OP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2443,7 +2445,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'OP'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2472,7 +2474,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PCB'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2494,7 +2496,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PCB'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2523,7 +2525,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DEHP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2545,7 +2547,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DEHP'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2574,7 +2576,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DIOX'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2596,7 +2598,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DIOX'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2625,7 +2627,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'HCHO'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2647,7 +2649,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'HCHO'));
 							        	return yVal + " ㎎/L";
 						        	}
 						        }
@@ -2676,7 +2678,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 							return "";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.000');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'HCHO'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -2698,7 +2700,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.000');
+						        		yVal = Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'HCHO'));
 							        	return yVal + " ㎍/L";
 						        	}
 						        }

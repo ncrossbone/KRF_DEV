@@ -17,6 +17,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
+			layerId : 'D007',
 			//id: 'grdSearchResult',
 			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
@@ -107,7 +108,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_SWL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SWL'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -123,16 +124,16 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
 						    '</tpl>',
 						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
+							    formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SWL'));
 						            return yVal;
 						        }
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
 						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+						valueSpots: {'0:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -142,7 +143,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_OWL',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'OWL'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -160,14 +161,14 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'OWL'));
 						            return yVal;
 						        }
 						    }
 						),
 						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
 						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
+						valueSpots: {'0:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
 					}
 				}]
 			}, {
@@ -177,7 +178,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_SFW',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SFW'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -195,7 +196,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'SFW'));
 						            return yVal;
 						        }
 						    }
@@ -212,7 +213,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_ECPC',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ECPC'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -230,7 +231,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ECPC'));
 						            return yVal;
 						        }
 						    }
@@ -247,7 +248,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_INF',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'INF'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -265,7 +266,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'INF'));
 						            return yVal;
 						        }
 						    }
@@ -282,7 +283,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_TOTOTF',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TOTOTF'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -300,7 +301,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(global, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TOTOTF'));
 						            return yVal;
 						        }
 						    }
@@ -317,7 +318,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_EGOTF',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'EGOTF'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -335,42 +336,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
-						            return yVal;
-						        }
-						    }
-						),
-						//tipTpl: '{x:text("00000년00월00일")}: {y:number("0.00")}',
-						spotRadius: 1,
-						valueSpots: {'-100:': 'red'} // 포인트 간격 ('0:' 0이상인 포인트 찍기)
-					}
-				}]
-			}, {
-				text : '발전 방류량(㎥/sec)',
-				columns: [{
-					text     : '측정값',
-					dataIndex: 'CURR_EGOTF',
-					width: 100,
-					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
-					},
-					filter: {type: 'numeric'/*, fields: {}*/}
-				}, {
-					text: '추이변화',
-					width: 80,
-					dataIndex: 'CHART_EGOTF',
-					xtype: 'widgetcolumn',
-					widget: {
-						xtype: 'sparklineline',
-						tipTpl: new Ext.XTemplate(
-						    '<tpl for=".">',
-						        '<p>측정일자 : {[this.formatX(values.x)]}</p>',
-						        '<p>측 정 값 : {[this.formatY(values.y)]} ㎎/L</p>',
-						    '</tpl>',
-						    {
-						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
-						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'EGOTF'));
 						            return yVal;
 						        }
 						    }
@@ -387,7 +353,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_GTOTF',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'GTOTF'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -405,7 +371,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'GTOTF'));
 						            return yVal;
 						        }
 						    }
@@ -422,7 +388,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_CBOTF',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CBOTF'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -440,7 +406,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CBOTF'));
 						            return yVal;
 						        }
 						    }
@@ -456,7 +422,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					text     : '측정값',
 					dataIndex: 'CURR_FWOTF',
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'FWOTF'));
 					},
 					width: 100,
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -475,7 +441,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'FWOTF'));
 						            return yVal;
 						        }
 						    }
@@ -492,7 +458,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 					dataIndex: 'CURR_ETCOTF',
 					width: 100,
 					renderer: function(value){
-						return Ext.util.Format.number(value, '0.00');
+						return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ETCOTF'));
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
 				}, {
@@ -510,7 +476,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 						    {
 						    	formatX: KRF_DEV.global.CommFn.dateFormatter,
 						        formatY: function(yVal){
-						        	yVal = Ext.util.Format.number(yVal, '0.00');
+						        	yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'ETCOTF'));
 						            return yVal;
 						        }
 						    }
@@ -528,6 +494,6 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_D_7', {
 		this.callParent();
 		
 		// 검색조건 컨트롤 초기화
-		KRF_DEV.global.TabFn.searchConditionInit("", this.down("grid"));
+		KRF_DEV.global.TabFn.searchConditionInit("D7", this.down("grid"));
 	}
 });
