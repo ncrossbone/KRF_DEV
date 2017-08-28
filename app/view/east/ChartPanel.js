@@ -228,7 +228,17 @@ Ext.define('KRF_DEV.view.east.ChartPanel', {
 	                renderer: function(storeItem, item) {
 	                	var series = Ext.getCmp("siteCharttest");
 	                	
-	                	var format = storeItem.get('ITEM_NAME').split('_')[1];
+	                	var format = '';
+	                	var itemNm = storeItem.get('ITEM_NAME');
+	                	if(itemNm.indexOf('AMT') > -1){
+	                		format = itemNm;
+	                	}else{
+	                		var itemNms = itemNm.split('_');
+	                		format = itemNms[0];
+	                		if(itemNms.length > 1){
+		                		format = itemNms.slice(1, itemNms.length).join('_');
+		                	}	
+	                	}
 	                	
 	                	var maVal = Ext.util.Format.number(storeItem.get(series.series[0]._yField), KRF_DEV.global.AttrFn.getAttrFormat(storeItem.joined[0].parentId,format));
 	                	

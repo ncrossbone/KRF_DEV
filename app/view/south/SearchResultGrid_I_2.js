@@ -16,6 +16,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 		height: '100%',
 		items: [{
 			xtype: 'grid',
+			layerId : 'I',
 			//id: 'grdSearchResult',
 			//id: this.up('container').up('container'),
 			plugins: ['bufferedrenderer', 'gridfilters'],
@@ -100,7 +101,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TEMP'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -123,7 +124,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TEMP'));
 							        	return yVal + "(℃)";
 						        	}
 						        	
@@ -154,7 +155,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CLOA'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -176,7 +177,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'CLOA'));
 							        	return yVal + "(㎎/㎥)";
 						        	}
 						        }
@@ -204,7 +205,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BL_GR_ALGAE'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -226,7 +227,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BL_GR_ALGAE'));
 							        	return yVal + "(cells/㎖)";
 						        	}
 						        }
@@ -254,7 +255,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-                            return Ext.util.Format.number(value, '0.0');
+                            return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MCYST_LR'));
 						}
 					},
                     filter: {type: 'numeric'/*, fields: {}*/}
@@ -276,7 +277,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-                                        yVal = Ext.util.Format.number(yVal, '0.0');
+                                        yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'MCYST_LR'));
 							        	return yVal + "(PPB)";
 						        	}
 						        }
@@ -304,7 +305,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'GEOSMIN'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -326,7 +327,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'GEOSMIN'));
 							        	return yVal + "(ng/L)";
 						        	}
 						        }
@@ -354,7 +355,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'2MIB'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -376,7 +377,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'2MIB'));
 							        	return yVal + "(ng/L)";
 						        	}
 						        }
@@ -404,7 +405,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PH'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -426,7 +427,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'PH'));
 							        	return yVal;
 						        	}
 						        }
@@ -454,7 +455,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DOC'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -476,7 +477,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'DOC'));
 							        	return yVal + "(㎎/L)";
 						        	}
 						        }
@@ -507,7 +508,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{	
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TRANSPARENCY'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -529,7 +530,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TRANSPARENCY'));
 							        	return yVal + "(m)";
 						        	}
 						        }
@@ -557,7 +558,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0.0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TURBIDITY'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -579,7 +580,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0.0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'TURBIDITY'));
 							        	return yVal + "(NTU)";
 						        	}
 						        }
@@ -607,7 +608,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_MICROCYSTIS'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -629,7 +630,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_MICROCYSTIS'));
 							        	return yVal + "(cells/㎖)";
 						        	}
 						        }
@@ -657,7 +658,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_ANABAENA'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -679,7 +680,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_ANABAENA'));
 							        	return yVal + "(cells/㎖)";
 						        	}
 						        }
@@ -707,7 +708,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_OSILLATORIA'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -729,7 +730,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_OSILLATORIA'));
 							        	return yVal + "(cells/㎖)";
 						        	}
 						        }
@@ -757,7 +758,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 							return "분석중";
 						}
 						else{
-							return Ext.util.Format.number(value, '0');
+							return Ext.util.Format.number(value, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_APHANIZOMENON'));
 						}
 					},
 					filter: {type: 'numeric'/*, fields: {}*/}
@@ -779,7 +780,7 @@ Ext.define('KRF_DEV.view.south.SearchResultGrid_I_2', {
 						        	if(yVal == null){
 						        		return yVal = "";
 						        	}else{
-						        		yVal = Ext.util.Format.number(yVal, '0');
+						        		yVal = Ext.util.Format.number(yVal, KRF_DEV.global.AttrFn.getAttrFormat(this.config.layerId,'BGA_APHANIZOMENON'));
 							        	return yVal + "(cells/㎖)";
 						        	}
 						        }
