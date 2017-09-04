@@ -135,18 +135,6 @@
 		"ChlaDate": "2016-10-19",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "28",		 // 피코시안 레이어 아이디
 		"PhyDate": "2016-10-19"		 // 피코시안 레이어 일자
-	}, {
-		"layerOnOff": "off",		 // 레이어 On/Off 여부
-		"layerSymbolImg": "",		 // 레이어 심볼 이미지
-		"layerOnChkImg": "",		 // 레이어 On 체크박스 이미지
-		"layerOffChkImg": "",		 // 레이어 Off 체크박스 이미지
-		"DroneLayerId": "43",		 // 항공영상 레이어 아이디
-		"DroneDate": "2017-08-31",	 // 항공영상 레이어 일자
-		"MeasureDate": "2017-08-5주", // 측정지점 측정 일자
-		"ChlaLayerId": "70",			 // 클로로필a 초분광영상 레이어 아이디
-		"ChlaDate": "2017-08-31",		 // 클로로필a 초분광영상 레이어 일자
-		"PhyLayerId": "42",		 // 피코시안 레이어 아이디
-		"PhyDate": "2017-08-31"		 // 피코시안 레이어 일자
 	}],
 	R01_2: [{
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
@@ -365,6 +353,18 @@
 		"ChlaDate": "2017-08-12",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "40",		 // 피코시안 레이어 아이디
 		"PhyDate": "2017-08-12"		 // 피코시안 레이어 일자
+	}, {
+		"layerOnOff": "off",		 // 레이어 On/Off 여부
+		"layerSymbolImg": "",		 // 레이어 심볼 이미지
+		"layerOnChkImg": "",		 // 레이어 On 체크박스 이미지
+		"layerOffChkImg": "",		 // 레이어 Off 체크박스 이미지
+		"DroneLayerId": "43",		 // 항공영상 레이어 아이디
+		"DroneDate": "2017-08-31",	 // 항공영상 레이어 일자
+		"MeasureDate": "2017-08-5주", // 측정지점 측정 일자
+		"ChlaLayerId": "70",			 // 클로로필a 초분광영상 레이어 아이디
+		"ChlaDate": "2017-08-31",		 // 클로로필a 초분광영상 레이어 일자
+		"PhyLayerId": "42",		 // 피코시안 레이어 아이디
+		"PhyDate": "2017-08-31"		 // 피코시안 레이어 일자
 	}],
 	R04: [{
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
