@@ -703,15 +703,27 @@ Ext.define('KRF_DEV.view.common.TabControl', {
 				var cmbEndBan = Ext.getCmp("cmbEndBan");
 				
 				
-					if(tab.id=="grid_B001_container" || tab.idCheck=="B001"){
-						b001.setHidden(false);
-						startDayTime.setHidden(false);
-						endDayTime.setHidden(false);
-					}else{
-						b001.setHidden(true);
-						startDayTime.setHidden(true);
-						endDayTime.setHidden(true);
-					}
+				if(tab.id=="grid_B001_container" || tab.idCheck=="B001"){
+					b001.setHidden(false);
+					startDayTime.setHidden(false);
+					endDayTime.setHidden(false);
+					
+					cmbStartYear.setValue(tab.items.items[0].items.items[0].items.items[0].store.startYear);
+					cmbStartMonth.setValue(tab.items.items[0].items.items[0].items.items[0].store.startMonth);
+					Ext.getCmp("startDay").setValue(tab.items.items[0].items.items[0].items.items[0].store.startDay);
+					Ext.getCmp("startTime").setValue(tab.items.items[0].items.items[0].items.items[0].store.startTime);
+					
+					cmbEndYear.setValue(tab.items.items[0].items.items[0].items.items[0].store.endYear);
+					cmbEndMonth.setValue(tab.items.items[0].items.items[0].items.items[0].store.endMonth);
+					Ext.getCmp("endDay").setValue(tab.items.items[0].items.items[0].items.items[0].store.endDay);
+					Ext.getCmp("endTime").setValue(tab.items.items[0].items.items[0].items.items[0].store.endTime);
+					
+				}else{
+					b001.setHidden(true);
+					startDayTime.setHidden(true);
+					endDayTime.setHidden(true);
+				}
+				
 				if(tab.parentId != "F"){
 					//console.info("!!");
 					var hiddenGrid = Ext.getCmp("F_CHANGE");
