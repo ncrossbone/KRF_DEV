@@ -164,10 +164,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			var con = Ext.getCmp("select_B001").value;
 			var url ="";
 			
+			var start = "";
+			var end = "";
+			
 			if(con=="01"){
-                url = _API.GetSearchResultData_B001;  //'./resources/jsp/GetSearchResultData_B001.jsp';
+				url = _API.GetSearchResultData_B001;  //'./resources/jsp/GetSearchResultData_B001.jsp';
 			}else{
-                url = _API.GetSearchResultData_B001_fix; //'./resources/jsp/GetSearchResultData_B001_fix.jsp';
+				url = _API.GetSearchResultData_B001_fix; //'./resources/jsp/GetSearchResultData_B001_fix.jsp';
 			}
 			
 			// 로딩중 메세지
@@ -178,12 +181,106 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 				me.gridCtl.mask("loading", "loading...");
 			}
 			
+			if(firstSearch == "noDate"){
+				Ext.Ajax.request({
+	        		url: url,
+					params:{firstSearch: firstSearch,startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con, startFull:startFull, endFull:endFull},
+	        		async: false, // 비동기 = async: true, 동기 = async: false
+	        		//rootProperty : 'items',
+	        		success : function(response, opts) {
+	        			
+	        			jsonData = Ext.util.JSON.decode( response.responseText );
+	        			
+	        			if(jsonData.data.length > 0){
+	        				
+							if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
+								
+								
+								var endDate = jsonData.data[0].WMCYMD;
+								
+								if(con == "01"){
+									
+									var dtE = new Date(endDate.substring(0,4)
+											, endDate.substring(4,6)
+											, endDate.substring(6,8)
+											, endDate.substring(8,10));
+									
+									dtE.setMonth(dtE.getMonth() - 1);
+									endFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7) + dtE.toISOString().substring(8, 10) + "24";
+									
+									cmbEndYear.setValue(dtE.toISOString().substring(0, 4));
+									cmbEndMonth.setValue(dtE.toISOString().substring(5, 7));
+									endDay.setValue(dtE.toISOString().substring(8, 10));
+									endTime.setValue("24");
+									
+									
+									dtE.setMonth(dtE.getMonth() - 1);
+									startFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7) + dtE.toISOString().substring(8, 10) + "00";
+									
+									cmbStartYear.setValue(dtE.toISOString().substring(0, 4));
+									cmbStartMonth.setValue(dtE.toISOString().substring(5, 7));
+									startDay.setValue(dtE.toISOString().substring(8, 10));
+									startTime.setValue("00");
+									
+									
+								}else{
+									
+									var dtE = new Date(endDay.substring(0,4)
+											, endDay.substring(4,6));
+									
+									dtE.setMonth(dtE.getMonth() - 1);
+									endFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7);
+									cmbEndYear.setValue(dtE.toISOString().substring(0, 4));
+									cmbEndMonth.setValue(dtE.toISOString().substring(5, 7));
+									endDay.setValue("30");
+									endTime.setValue("24");
+									
+									
+									dtE.setMonth(dtE.getMonth() - 1);
+									startFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7);
+									cmbStartYear.setValue(dtE.toISOString().substring(0, 4));
+									cmbStartMonth.setValue(dtE.toISOString().substring(5, 7));
+									StartDay.setValue("01");
+									StartTime.setValue("00");
+									
+								}
+								
+								
+								
+								
+							}else{
+								
+								if(me.gridCtl != null){
+		        					
+		        					me.gridCtl.addCls("dj-mask-noneimg");
+		        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+		        				}
+							}
+	        			}else{
+	        				
+	        				if(me.gridCtl != null){
+	        					
+	        					me.gridCtl.addCls("dj-mask-noneimg");
+	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+	        				}
+	        			}
+	        		},
+	        		failure: function(form, action) {
+	        			
+	        			if(me.gridCtl != null){
+	    					
+	    					me.gridCtl.addCls("dj-mask-noneimg");
+	    					me.gridCtl.mask("오류가 발생하였습니다.");
+	    				}
+	        		}
+	        	});
+			}
+			
+			firstSearch = "date";
+			
 			Ext.Ajax.request({
         		url: url,
-        		/*params: { WS_CD: WS_CD, AM_CD: AM_CD, AS_CD: AS_CD
-        			, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth
-        			, ADM_CD: ADM_CD, siteIds: store.siteIds, firstSearch: firstSearch},*/
-				params:{startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con, startFull:startFull, endFull:endFull},
+				params:{firstSearch: firstSearch, startYear: startYear, startMonth: startMonth, endYear: endYear, endMonth: endMonth, siteIds: store.siteIds, con:con, startFull:startFull, endFull:endFull},
         		async: true, // 비동기 = async: true, 동기 = async: false
         		//rootProperty : 'items',
         		success : function(response, opts) {
@@ -195,6 +292,16 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 						if(jsonData.data[0].msg == undefined || jsonData.data[0].msg == ""){
 							
 							store.setData(jsonData.data);
+							
+							store.startYear = cmbStartYear.value; 
+							store.startMonth = cmbStartMonth.value;
+							store.startDay = startDay.value;
+							store.startTime = startTime.value;
+							
+							store.endYear = cmbEndYear.value;
+							store.endMonth = cmbEndMonth.value;
+							store.endDay = endDay.value;
+							store.endTime = endTime.value;
 							
 							// 로딩바 숨김
 	        				if(me.gridCtl != null){
