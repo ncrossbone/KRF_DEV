@@ -52,10 +52,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
 	    		type: "vbox"
 	    	},
 	    	items: [{
-	    		xtype: "image",
-	    		src: me.labelSrc,
+	    		xtype: "label",
+	    		text: me.labelText,
 	    		width: "100%",
-	    		height: me.labelHeight
+	    		height: me.labelHeight,
+	    		style:"color:#00fbff; font-weight:bold; background:#353f4b; padding: 3px 10px;"
 	    	}, {
 	    		xtype: 'combo',
 	    		width: "100%",
