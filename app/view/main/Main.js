@@ -129,6 +129,17 @@ Ext.define('KRF_DEV.view.main.Main', {
 
     	});
     	this.add(droneToolbar);
+    	
+    	
+    	var droneDetailExp = Ext.create('KRF_DEV.view.center.drone.DroneDetailExp', {
+    		x: 390,
+    		//y: Ext.getBody().getHeight() / 2 - 8
+    		y: 947
+
+    	});
+    	this.add(droneDetailExp);
+    	droneDetailExp.hide();
+    	
     	//KRF_DEV.getApplication().contCenterContainer.add(droneToolbar);
     	/* <<<< khLee Drone 툴바 추가 20160613 */
     	

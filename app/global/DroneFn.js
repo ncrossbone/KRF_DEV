@@ -13,7 +13,9 @@ Ext.define("KRF_DEV.global.DroneFn", {
 	},
 	//초기화 버튼
 	onClickResetButton: function(){
-
+		
+		Ext.getCmp("droneDetailExp").hide();
+		
 		var me = Ext.getCmp('_mapDiv_');
 		if(me.map == null){
 			return;
@@ -113,6 +115,35 @@ Ext.define("KRF_DEV.global.DroneFn", {
 			
 			
 			var cboDroneDate = Ext.getCmp("cboDroneDate").down("combo");
+			
+			// 2017-09-22 pdj : 항공영상날짜와 항공영상combo store를 비교하여 exp컬럼이 있으면 주의사항 popup 활성화
+			cboDroneDate.getStore().each(function(obj){
+				
+				if(obj.data.DroneDate == cboDroneDate.rawValue){
+					
+					if(obj.data.Exp != undefined){
+						Ext.getCmp("droneDetailExp").show();
+						Ext.getCmp("expLabelId").setText(obj.data.Exp);
+						
+        				var expToolbar = Ext.getCmp("expToolbar");
+        				if(expToolbar.expanded == false || expToolbar.collapsed == "right"){
+
+        					expToolbar.expand();
+        					expToolbar.updateHeaderPosition("right");
+        					expToolbar.header.setHtml("<img src='./resources/images/drone/icon_arrow_up.png' style='padding-left: 6px;/'>");
+        					expToolbar.setWidth(448);
+        					expToolbar.up("panel").setWidth(528);
+        					
+        				}
+						
+					}else{
+						Ext.getCmp("droneDetailExp").hide();
+					}
+				}
+				
+				
+			});
+			
 			var cboDroneArea = Ext.getCmp("cboDroneArea").down("combo");
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			var cboDronePhy = Ext.getCmp("cboDronePhy").down("combo");
@@ -244,6 +275,7 @@ Ext.define("KRF_DEV.global.DroneFn", {
 			if(layersPhycocyanin.length > 0){
 				Phycocyanin.setVisibleLayers(layersPhycocyanin);
 			}
+			
 			
 		}, 1);
     },
