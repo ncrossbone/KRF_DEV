@@ -56,7 +56,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
                 text: me.labelText,
 	    		width: "100%",
 	    		height: me.labelHeight,
-                style:"color:#00fbff; font-weight:bold; background:#353f4b; padding: 3px 10px;"
+                style:"cursor:pointer; color:#00fbff; font-weight:bold; background:url('./resources/images/drone/chk_on.png') 5px 2px no-repeat; background-color: #353f4b; padding: 3px 23px;"
 	    	}, {
 	    		xtype: 'combo',
 	    		width: "100%",

@@ -49,7 +49,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         					toolbarCont.expand();
         					toolbarCont.updateHeaderPosition("right");
         					toolbarCont.header.setHtml("<img src='./resources/images/drone/btn_arrow_close2.png' />");
-        					toolbarCont.setWidth(870);
+        					toolbarCont.setWidth(895);
         					toolbarCont.up("panel").setWidth(1003);
         				}
         				else{
@@ -74,7 +74,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	},
     	headerPosition: 'right',
     	expanded: true,
-    	width: 870,
+    	width: 895,
     	items: [{
     		xtype: "container",
     		width: 5
@@ -145,7 +145,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	id: "cboDronePhy", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_07.png',
             labelText:'피코시아닌',
-            width:110,
+            width:120,
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "",
         	fields: ["PhyLayerId", "PhyDate"],
@@ -198,7 +198,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	id: "cboDroneWBSite", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_04.png',
             labelText:'조류측정자료',
-            width:110,
+            width:125,
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "",
         	fields: ["MeasureDate"],
