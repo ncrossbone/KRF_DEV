@@ -46,7 +46,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         					toolbarCont.expand();
         					toolbarCont.updateHeaderPosition("right");
         					toolbarCont.header.setHtml("<img src='./resources/images/drone/btn_arrow_close2.png' />");
-        					toolbarCont.setWidth(938);
+        					toolbarCont.setWidth(870);
         					toolbarCont.up("panel").setWidth(1003);
         				}
         				else{
@@ -71,7 +71,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	},
     	headerPosition: 'right',
     	expanded:true,
-    	width: 938,
+    	width: 870,
     	items: [{
     		xtype: "container",
     		width: 5
@@ -79,7 +79,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	xtype: "drone-vcombo",
         	id: "cboDroneArea", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_01.png', // 라벨
-        	width:115,
+        	labelText:'수계선택',
+        	width:100,
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "area",
         	fields: ["areaName", "areaValue"],
@@ -93,7 +94,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	}, { // 지점목록
         	xtype: "drone-vcombo",
         	labelSrc: './resources/images/drone/label_06.png',
-            width:150,
+        	labelText:'지점목록',
+            width:120,
         	id: "cboDroneSiteList", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	fields: ["layerCd", "layerNm","level","tmX","tmY"],
         	displayField: "layerNm",
@@ -107,7 +109,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	xtype: "drone-vcombo",
         	id: "cboDroneDate", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_02.png',
-            width:115,
+        	labelText:'항공영상',
+            width:110,
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "",
         	fields: ["DroneLayerId", "DroneDate"],
@@ -122,7 +125,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	xtype: "drone-vcombo",
         	id: "cboDroneChla", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_03.png',
-        	width:115,
+        	labelText:'클로로필-a',
+        	width:110,
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "",
         	fields: ["ChlaLayerId", "ChlaDate"],
@@ -137,7 +141,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	xtype: "drone-vcombo",
         	id: "cboDronePhy", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_07.png',
-        	width:115,
+        	labelText:'피코시아닌',
+        	width:110,
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "",
         	fields: ["PhyLayerId", "PhyDate"],
@@ -189,7 +194,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	xtype: "drone-vcombo",
         	id: "cboDroneWBSite", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	labelSrc: './resources/images/drone/label_04.png',
-        	width:115,
+        	labelText:'조류측정자료',
+        	width:110,
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
         	dataRoot: "",
         	fields: ["MeasureDate"],
@@ -203,6 +209,7 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
     	}, { // 레이어선택
         	xtype: "drone-vcombo",
         	labelSrc: './resources/images/drone/label_05.png',
+        	labelText:'레이어선택',
         	width:125,
         	id: "cboDroneLayer", // 컨트롤 생성되는 시점에 id 꼭 지정할 것.
         	jsonUrl: "./resources/data/drone/LayerMapper.json",
