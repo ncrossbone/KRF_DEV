@@ -1822,6 +1822,7 @@ ResetButtonClick = function(){
 			droneCtl.show();
 		}else{
 			droneCtl.hide();
+            Ext.getCmp("droneDetailExp").hide();
 		}
 		
 		//초기화시 디폴트 레이어 디퍼로드
