@@ -147,6 +147,8 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 			endYear = Ext.getCmp("cmbEndYear").value;
 			endMonth = Ext.getCmp("cmbEndMonth").value;
 			
+			var sY ,sM ,sD ,sT , eY, eM , eD , et = "";
+			
 			
 			var jsonData = "";
 			var arrData = [];  
@@ -198,6 +200,13 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 								
 								var endDate = jsonData.data[0].WMCYMD;
 								
+								if(endDate == null){
+		        					if(me.gridCtl != null){
+			        					me.gridCtl.addCls("dj-mask-noneimg");
+			        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
+			        				}
+		        				}
+								
 								if(con == "01"){
 									
 									var dtE = new Date(endDate.substring(0,4)
@@ -213,6 +222,10 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 									endDay.setValue(dtE.toISOString().substring(8, 10));
 									endTime.setValue("24");
 									
+									eY = dtE.toISOString().substring(0, 4);
+									eM = dtE.toISOString().substring(5, 7);
+									eD = dtE.toISOString().substring(8, 10);
+									eT = "24";
 									
 									dtE.setMonth(dtE.getMonth() - 1);
 									startFull = dtE.toISOString().substring(0, 4) + dtE.toISOString().substring(5, 7) + dtE.toISOString().substring(8, 10) + "00";
@@ -221,6 +234,11 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 									cmbStartMonth.setValue(dtE.toISOString().substring(5, 7));
 									startDay.setValue(dtE.toISOString().substring(8, 10));
 									startTime.setValue("00");
+									
+									sY = dtE.toISOString().substring(0, 4);
+									sM = dtE.toISOString().substring(5, 7);
+									sD = dtE.toISOString().substring(8, 10);
+									sT = "00";
 									
 									
 								}else{
@@ -248,35 +266,29 @@ Ext.define('KRF_DEV.store.south.SearchResultGrid_B001', {
 								
 								
 								
-							}else{
-								
-								if(me.gridCtl != null){
-		        					
-		        					me.gridCtl.addCls("dj-mask-noneimg");
-		        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-		        				}
 							}
-	        			}else{
-	        				
-	        				if(me.gridCtl != null){
-	        					
-	        					me.gridCtl.addCls("dj-mask-noneimg");
-	        					me.gridCtl.mask("해당기간에 데이터가 존재하지 않습니다. <br> 다른기간으로 검색해 보세요.", "noData");
-	        				}
 	        			}
 	        		},
 	        		failure: function(form, action) {
 	        			
-	        			if(me.gridCtl != null){
-	    					
-	    					me.gridCtl.addCls("dj-mask-noneimg");
-	    					me.gridCtl.mask("오류가 발생하였습니다.");
-	    				}
 	        		}
 	        	});
+				
+				Ext.getCmp("cmbStartYear").setValue(sY); 
+				Ext.getCmp("cmbStartMonth").setValue(sM);
+				Ext.getCmp("startDay").setValue(sD);
+				Ext.getCmp("endTime").setValue(sT);
+				
+				Ext.getCmp("cmbEndYear").setValue(eY);
+				Ext.getCmp("cmbEndMonth").setValue(eM);
+				Ext.getCmp("endDay").setValue(eD);
+				Ext.getCmp("endTime").setValue(eT);
+				
+				
 			}
 			
 			firstSearch = "date";
+			
 			
 			Ext.Ajax.request({
         		url: url,

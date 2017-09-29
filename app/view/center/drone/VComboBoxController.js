@@ -33,6 +33,9 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		cboDroneDate.setValue(""); //동일데이터가 있을수 있음 
 //		cboDroneDate.emptyText = "선택하세요";
 		
+		//console.info(cboDroneDate.getStore().data.items[0].data);
+		//console.info(cboDroneDate.getStore());
+		
 		/* 클로로필a 바인딩 */
 		var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 		this.comboBind(newValue, cboDroneChla, "ChlaLayerId", "DESC");
@@ -92,13 +95,6 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			drone = store.data.items[0].data;
 			measureDate = store.data.items[0].data.MeasureDate;
 			phyLayerId = store.data.items[0].data.PhyLayerId;
-			/*for(var i = 0 ; i<store.data.items.length ; i++){
-				if(i == store.data.items.length-1){
-					droneLayerId = store.data.items[0].data.DroneLayerId;
-					drone = store.data.items[0].data;
-					measureDate = store.data.items[0].data.MeasureDate;
-				}
-			}*/
 			
 			me.defaultDate(droneLayerId,measureDate,drone,phyLayerId);
 		}, 1000);

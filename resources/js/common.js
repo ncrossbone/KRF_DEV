@@ -1820,6 +1820,7 @@ ResetButtonClick = function(){
 			droneCtl.show();
 		}else{
 			droneCtl.hide();
+			Ext.getCmp("droneDetailExp").hide();
 		}
 		
 		Ext.defer(function(){
