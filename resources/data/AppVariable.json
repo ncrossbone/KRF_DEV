@@ -1,15 +1,15 @@
 [{
-	"reachServiceUrl" : "http://211.114.21.35:8080/arcgis/rest/services/reach/MapServer", // 리치 서비스 v2
-	"reachServiceUrl_v3" : "http://211.114.21.35:8080/arcgis/rest/services/reach_V3/MapServer", // 리치 서비스 v3
-	"reachServiceUrl_v3_TM" : "http://211.114.21.35:8080/arcgis/rest/services/reach_V3_TM/MapServer", // 
-	"reachServiceUrl_v3_2" : "http://211.114.21.35:8080/arcgis/rest/services/reach_V3_2/MapServer", // 리치 서비스 v3 (투명도적용)
-	"reachServiceUrl_bak" : "http://211.114.21.35:8080/arcgis/rest/services/reach/MapServer", // 리치 서비스
-	"reachTestServiceUrl" : "http://211.114.21.35:8080/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
-	"mapServiceUrl_Rpt_Dim" : "http://211.114.21.35:8080/arcgis/rest/services/Gray_Report/MapServer", // 리포트용 Dim처리 맵 서비스 URL
-	"mapServiceUrl_Rpt_Site" : "http://211.114.21.35:8080/arcgis/rest/services/Report/MapServer", // 리포트용 맵 서비스 URL
-	"reachTestServiceUrl_bak" : "http://211.114.21.35:8080/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
-	"dimServiceUrl" : "http://211.114.21.35:8080/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
-	"dimServiceUrl_bak" : "http://211.114.21.35:8080/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
+	"reachServiceUrl" : "http://112.217.167.123:20002/arcgis/rest/services/reach/MapServer", // 리치 서비스 v2
+	"reachServiceUrl_v3" : "http://112.217.167.123:20002/arcgis/rest/services/reach_V3/MapServer", // 리치 서비스 v3
+	"reachServiceUrl_v3_TM" : "http://112.217.167.123:20002/arcgis/rest/services/reach_V3_TM/MapServer", // 
+	"reachServiceUrl_v3_2" : "http://112.217.167.123:20002/arcgis/rest/services/reach_V3_2/MapServer", // 리치 서비스 v3 (투명도적용)
+	"reachServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/reach/MapServer", // 리치 서비스
+	"reachTestServiceUrl" : "http://112.217.167.123:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
+	"mapServiceUrl_Rpt_Dim" : "http://112.217.167.123:20002/arcgis/rest/services/Gray_Report/MapServer", // 리포트용 Dim처리 맵 서비스 URL
+	"mapServiceUrl_Rpt_Site" : "http://112.217.167.123:20002/arcgis/rest/services/Report/MapServer", // 리포트용 맵 서비스 URL
+	"reachTestServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/reach_test/MapServer", // 시연용 테스트 서비스
+	"dimServiceUrl" : "http://112.217.167.123:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
+	"dimServiceUrl_bak" : "http://112.217.167.123:20002/arcgis/rest/services/Gray/MapServer", // dim처리 서비스
 	"baseMapUrl_vworld": "http://xdworld.vworld.kr:8080/2d/Base/201612/#level#/#col#/#row#.png", // 배경맵 서비스 (아래 외부, 내부, 테스트 중 택일)
 	"baseMapUrl_vworld_http": "http://xdworld.vworld.kr:8080/2d/Base/201612/#level#/#col#/#row#.png", // 배경맵 서비스 외부 (참고용)
 	"baseMapUrl_vworld_intra": "http://10.101.95.129/Base/201411/#level#/#level#/#col#/#row#.png", // 배경맵 서비스 내부 (참고용)
@@ -35,13 +35,13 @@
 	"kradCatExtMetaData" : "23", // KRAD METADATA
 	"kradCatExtDataInfo" : "27", // KRAD DATA_INFO
 	"siteInfoLayerId" : "93", // 레이어별 지점정보 레이어 아이디
-	"arcServiceUrl":"http://211.114.21.35:8080/arcgis",
-	"MapserviceUrl1" : "http://211.114.21.35:8080/arcgis/rest/services/drone_dev/MapServer",
-	"MapserviceUrlChlo" : "http://211.114.21.35:8080/arcgis/rest/services/Chlorophyll_a/MapServer",
-	"MapserviceUrlPhyco" : "http://211.114.21.35:8080/arcgis/rest/services/Phycocyanin/MapServer",
-	"MapserviceUrlAviation" : "http://211.114.21.35:8080/arcgis/rest/services/Aviation_image/MapServer",
+	"arcServiceUrl":"http://112.217.167.123:20002/arcgis",
+	"MapserviceUrl1" : "http://112.217.167.123:20002/arcgis/rest/services/drone_dev/MapServer",
+	"MapserviceUrlChlo" : "http://112.217.167.123:20002/arcgis/rest/services/Chlorophyll_a/MapServer",
+	"MapserviceUrlPhyco" : "http://112.217.167.123:20002/arcgis/rest/services/Phycocyanin/MapServer",
+	"MapserviceUrlAviation" : "http://112.217.167.123:20002/arcgis/rest/services/Aviation_image/MapServer",
 	"isOffsetPoint": true, // 포인트 찍을때 offset 적용 여부 (실서버 배포 시 false)
-	"kradMapservicUrl": "http://211.114.21.35:8080/arcgis/rest/services/KRAD/MapServer",
+	"kradMapservicUrl": "http://112.217.167.123:20002/arcgis/rest/services/KRAD/MapServer",
 	"paramInfo": [{ // 물환경 상세자료검색에서 넘기는 파라메터 정보
 		"stationType": "MA",
 		"layerId": "1",
