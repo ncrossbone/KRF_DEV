@@ -350,7 +350,7 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 	
 	// Combo Item Click 시 아무것도 안하는 펑션..
 	onItemClickEmpty: function(item,record){
-	
+
 		if(item.id == "cboDroneSiteList-list"){
 			this.SetCenter(record.data.tmX,record.data.tmY);
 		}

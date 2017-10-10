@@ -132,9 +132,8 @@ Ext.define('KRF_DEV.view.main.Main', {
     	
     	
     	var droneDetailExp = Ext.create('KRF_DEV.view.center.drone.DroneDetailExp', {
-    		x: 390,
-    		//y: Ext.getBody().getHeight() / 2 - 8
-    		y: 947
+    		x: 400,
+    		y: Ext.getBody().getViewSize().height - 41
 
     	});
     	this.add(droneDetailExp);
@@ -196,6 +195,7 @@ Ext.define('KRF_DEV.view.main.Main', {
 		
 		var chlLegend = Ext.getCmp("chlLegend"); //피코시아닌 범례
 		var phyLegend = Ext.getCmp("phyLegend"); //클로로필 범례
+		var droneDetailExp = Ext.getCmp("droneDetailExp");
 
     	if(chlLegend != undefined){
     		chlLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
@@ -205,7 +205,10 @@ Ext.define('KRF_DEV.view.main.Main', {
     		phyLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
     	}
     	
-    	
+		if(droneDetailExp != undefined){
+			droneDetailExp.setPosition(400,Ext.getBody().getViewSize().height - 41)
+		}
+    	console.info(Ext.getBody().getViewSize().width);
     	/* Drone 툴바 위치 조절 */
     	/*
     	var droneToolX = droneCtl.x;
