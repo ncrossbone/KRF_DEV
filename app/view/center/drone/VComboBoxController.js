@@ -117,6 +117,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			this.comboChange(droneLayerId, cboDroneChla, chlaLayerId);
 			
+			$("#check_cboDroneChla").css('background',"url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
+			$("#check_cboDroneChla").css('background-color',"#353f4b"); 
+			
+			$("#check_cboDronePhy").css('background',"url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDronePhy").css('background-color',"#353f4b");
 			
 			/* 조류측정자료 Set Value */
 			var measureDate = measureDate;
@@ -186,6 +191,11 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var cboDroneWBSite = Ext.getCmp("cboDroneWBSite").down("combo");
 			this.comboChange(newValue, cboDroneWBSite, measureDate);
 			
+			$("#check_cboDroneChla").css('background',"url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
+			$("#check_cboDroneChla").css('background-color',"#353f4b"); 
+			
+			$("#check_cboDronePhy").css('background',"url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDronePhy").css('background-color',"#353f4b");
 		}
 	},
 	
@@ -207,6 +217,12 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 			var chlaLayerId = item.lastSelectedRecords[0].data.ChlaLayerId;
 			var cboDroneChla = Ext.getCmp("cboDroneChla").down("combo");
 			this.comboChange(newValue, cboDroneChla, chlaLayerId);
+			
+			$("#check_cboDroneChla").css('background',"url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+			$("#check_cboDroneChla").css('background-color',"#353f4b"); 
+			
+			$("#check_cboDronePhy").css('background',"url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
+			$("#check_cboDronePhy").css('background-color',"#353f4b");
 			
 		}
 	},
@@ -323,19 +339,21 @@ Ext.define('KRF_DEV.view.center.drone.VComboBoxController', {
 		var cboDroneLayer = Ext.getCmp("cboDroneLayer").down("combo");
 		var store = cboDroneLayer.getStore();
 		
+		
 		if(record.data.layerId == "Phy"){
-			
-			store.data.items[5].data.layerOnOff = "off";
-			store.data.items[5].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
-			store.insert(index-1, store.data.items[5].data);
+			var storeIdx = store.data.items.map(function(a){ return a.id }).indexOf("droneChla");
+			store.data.items[storeIdx].data.layerOnOff = "off";
+			store.data.items[storeIdx].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index-1, store.data.items[storeIdx].data);
 			store.insert(index, record);
 			
 			$("#check_cboDroneChla").css('background',"url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
 			$("#check_cboDroneChla").css('background-color',"#353f4b");
 		}else if(record.data.layerId == "Chla"){
-			store.data.items[6].data.layerOnOff = "off";
-			store.data.items[6].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
-			store.insert(index+1, store.data.items[6].data);
+			var storeIdx = store.data.items.map(function(a){ return a.id }).indexOf("dronePhy");
+			store.data.items[storeIdx].data.layerOnOff = "off";
+			store.data.items[storeIdx].data.image1 = "<img src='./resources/images/drone/chk_off.png' style='vertical-align: middle; margin-bottom: 0.25em;' />";
+			store.insert(index+1, store.data.items[storeIdx].data);
 			store.insert(index, record);
 			
 			$("#check_cboDronePhy").css('background',"url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");

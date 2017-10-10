@@ -84,6 +84,12 @@ Ext.define("KRF_DEV.global.DroneFn", {
 		//if(Ext.getCmp("btnSearchDrone").btnOnOff == "on"){
 			this.LayerVisibility();
 		//}
+			
+		$("#check_cboDroneChla").css('background',"url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat");
+		$("#check_cboDroneChla").css('background-color',"#353f4b"); 
+		
+		$("#check_cboDronePhy").css('background',"url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat");
+		$("#check_cboDronePhy").css('background-color',"#353f4b");
 	
 	},
 	LayerVisibility: function(){
