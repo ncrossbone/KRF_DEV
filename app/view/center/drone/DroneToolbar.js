@@ -90,7 +90,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	displayField: "areaName",
         	valueField: "areaValue",
         	onChange: "onAreaChange",
-        	onItemClick: "onItemClickEmpty"
+        	onItemClick: "onItemClickEmpty",
+        	labelCss:"color:#00fbff; font-weight:bold; background-color: #353f4b; padding: 3px 7px;"
         }, {
     		xtype: "container",
     		width: 5
@@ -104,7 +105,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	displayField: "layerNm",
         	valueField: "layerCd",
         	onChange: "onBoChange",
-        	onItemClick: "onItemClickEmpty"
+        	onItemClick: "onItemClickEmpty",
+        	labelCss:"color:#00fbff; font-weight:bold; background-color: #353f4b; padding: 3px 7px;"
         }, {
     		xtype: "container",
     		width: 5
@@ -120,7 +122,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	displayField: "DroneDate",
         	valueField: "DroneLayerId",
         	onChange: "onDroneDateChange",
-        	onItemClick: "onItemClickEmpty"
+        	onItemClick: "onItemClickEmpty",
+        	labelCss:"cursor:pointer; color:#00fbff; font-weight:bold; background:url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat; background-color: #353f4b; padding: 3px 23px;"
         }, {
     		xtype: "container",
     		width: 5
@@ -136,7 +139,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	displayField: "ChlaDate",
         	valueField: "ChlaLayerId",
         	onChange: "onDroneChlaChange",
-        	onItemClick: "onItemClickEmpty"
+        	onItemClick: "onItemClickEmpty",
+        	labelCss:"cursor:pointer; color:#00fbff; font-weight:bold; background:url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat; background-color: #353f4b; padding: 3px 23px;"
         }, {
     		xtype: "container",
     		width: 5
@@ -152,7 +156,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	displayField: "PhyDate",
         	valueField: "PhyLayerId",
         	onChange: "onDronePhyChange",
-        	onItemClick: "onItemClickEmpty"/*,
+        	onItemClick: "onItemClickEmpty",
+        	labelCss:"cursor:pointer; color:#00fbff; font-weight:bold; background:url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat; background-color: #353f4b; padding: 3px 23px;"/*,
         	listeners:{
         		el:{
         			click: function(){
@@ -205,7 +210,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	displayField: "MeasureDate",
         	valueField: "MeasureDate",
         	onChange: "onDroneWBSiteChange",
-        	onItemClick: "onItemClickEmpty"
+        	onItemClick: "onItemClickEmpty",
+        	labelCss:"color:#00fbff; font-weight:bold; background-color: #353f4b; padding: 3px 7px;"
         }, {
     		xtype: "container",
     		width: 5
@@ -223,7 +229,8 @@ Ext.define('KRF_DEV.view.center.drone.DroneToolbar', {
         	onChange: "onComboChangeEmpty",
         	onItemClick: "onDroneLayerClick",
         	expanded: true,
-            noCollapse: true // 콤보 리스트가 닫히지 않게 한다.
+            noCollapse: true, // 콤보 리스트가 닫히지 않게 한다.
+        	labelCss:"color:#00fbff; font-weight:bold; background-color: #353f4b; padding: 3px 7px;"
         }, {
     		xtype: "container",
     		width: 15

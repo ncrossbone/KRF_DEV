@@ -56,7 +56,37 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
                 text: me.labelText,
 	    		width: "100%",
 	    		height: me.labelHeight,
-                style:"cursor:pointer; color:#00fbff; font-weight:bold; background:url('./resources/images/drone/chk_on.png') 5px 2px no-repeat; background-color: #353f4b; padding: 3px 23px;"
+	    		style:me.labelCss,
+	    		id:"check_" + me.id,
+                listeners:{
+                	el:{
+                		click:function(doc){
+                			if(doc.target.id=="check_cboDroneDate"||doc.target.id=="check_cboDroneChla"||doc.target.id=="check_cboDronePhy"){
+                				
+                				var imageUrl = "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat";
+                				
+                				if(doc.target.style.background.split('check_')[1].split('.')[0]=="off"){
+                					if(doc.target.id=="check_cboDroneChla"){
+                						$("#check_cboDronePhy").css('background',imageUrl);
+                						$("#check_cboDronePhy").css('background-color',"#353f4b");
+                						
+                					}
+                					
+                					if(doc.target.id=="check_cboDronePhy"){
+                						$("#check_cboDroneChla").css('background',imageUrl);
+                						$("#check_cboDroneChla").css('background-color',"#353f4b");
+                					}
+                					
+                					imageUrl="url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat";
+                				}
+                				
+                				
+                				$("#" + doc.target.id).css('background',imageUrl);
+                				$("#" + doc.target.id).css('background-color',"#353f4b");
+                			}
+                    	}
+                	}
+                }
 	    	}, {
 	    		xtype: 'combo',
 	    		width: "100%",
