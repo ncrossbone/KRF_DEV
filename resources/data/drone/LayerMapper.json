@@ -684,6 +684,7 @@
 		"image2": "<img src='./resources/images/drone/layer_icon_04.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "false"
 	}, {
+		"id":"dronePhoto",
 		"layerId": "Drone",
 		"layerName": "항공사진",
 		"layerOnOff": "on",
@@ -691,6 +692,7 @@
 		"image2": "<img src='./resources/images/drone/layer_icon_05.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "true"
 	}, {
+		"id":"droneChla",
 		"layerId": "Chla",
 		"layerName": "Chl-a",
 		"layerOnOff": "on",
@@ -698,6 +700,7 @@
 		"image2": "<img src='./resources/images/drone/layer_icon_06.png' style='vertical-align: middle; margin-bottom: 0.25em;' />",
 		"visible": "true"
 	}, {
+		"id":"dronePhy",
 		"layerId": "Phy",
 		"layerName": "피코시아닌",
 		"layerOnOff": "off",
