@@ -66,23 +66,35 @@ Ext.define('KRF_DEV.view.center.drone.VComboBox', {
                 				var imageUrl = "url('./resources/images/drone/icon_check_off.png') 5px 2px no-repeat";
                 				
                 				if(doc.target.style.background.split('check_')[1].split('.')[0]=="off"){
+                					
+                					//클로로필, 피코시아닌 toggle
                 					if(doc.target.id=="check_cboDroneChla"){
                 						$("#check_cboDronePhy").css('background',imageUrl);
                 						$("#check_cboDronePhy").css('background-color',"#353f4b");
-                						
-                					}
-                					
-                					if(doc.target.id=="check_cboDronePhy"){
+                					}else if(doc.target.id=="check_cboDronePhy"){
                 						$("#check_cboDroneChla").css('background',imageUrl);
-                						$("#check_cboDroneChla").css('background-color',"#353f4b");
+                						$("#check_cboDroneChla").css('background-color',"#353f4b");                						
                 					}
                 					
                 					imageUrl="url('./resources/images/drone/icon_check_on.png') 5px 2px no-repeat";
                 				}
                 				
-                				
                 				$("#" + doc.target.id).css('background',imageUrl);
                 				$("#" + doc.target.id).css('background-color',"#353f4b");
+                				
+                				var cmp = Ext.ComponentQuery.query('#cboDroneDate')[0];
+                                var store = Ext.getCmp("cboDroneLayer").down("combo").getStore();
+                                
+                                var storeId = "";
+                                switch (doc.target.id) {
+									case "check_cboDroneChla": storeId ="droneChla"; break;
+									case "check_cboDronePhy": storeId ="dronePhy"; break;
+									case "check_cboDroneDate": storeId ="dronePhoto"; break;
+									default: break;
+								}
+                				var idx = Ext.getCmp("cboDroneLayer").down("combo").getStore().data.items.map(function(a){ return a.id }).indexOf(storeId);
+                				cmp.getController('VComboBoxController').onDroneLayerClick(null,store.data.items[idx],null,idx,null);
+                				
                 			}
                     	}
                 	}
