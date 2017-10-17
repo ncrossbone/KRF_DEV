@@ -206,7 +206,8 @@ Ext.define('KRF_DEV.view.main.Main', {
     	}
     	
 		if(droneDetailExp != undefined){
-			droneDetailExp.setPosition(400,Ext.getBody().getViewSize().height - 41)
+            droneDetailExp.setPosition(droneToolbar.x + 65 , droneToolbar.y + 72)
+
 		}
     	/* Drone 툴바 위치 조절 */
     	/*
