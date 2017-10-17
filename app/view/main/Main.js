@@ -244,6 +244,15 @@ var obj = window.chromePop;
     		y: 97
     	});
     	this.add(droneToolbar);
+    	
+    	
+        var droneDetailExp = Ext.create('KRF_DEV.view.center.drone.DroneDetailExp', {
+            x: 390,
+            y: 947
+        });
+        this.add(droneDetailExp);
+        droneDetailExp.hide();
+
     	//KRF_DEV.getApplication().contCenterContainer.add(droneToolbar);
     	/* <<<< khLee Drone 툴바 추가 20160613 */
     	

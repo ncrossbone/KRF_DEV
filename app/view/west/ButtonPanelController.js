@@ -57,6 +57,8 @@ Ext.define('KRF_DEV.view.west.ButtonPanelController', {
 			KRF_DEV.global.DroneFn.onClickResetButton();
 			droneCtl.hide();
 			
+			Ext.getCmp("droneDetailExp").hide();
+
             /* 수질측정지점 레이어 on */
             Layer01OnOff("1", "on");
             Layer01OnOff("2", "on");
