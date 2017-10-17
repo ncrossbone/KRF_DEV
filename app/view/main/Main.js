@@ -247,8 +247,8 @@ var obj = window.chromePop;
     	
     	
         var droneDetailExp = Ext.create('KRF_DEV.view.center.drone.DroneDetailExp', {
-            x: 390,
-            y: 947
+        	x: 456,
+    		y: Ext.getBody().getViewSize().height - 818
         });
         this.add(droneDetailExp);
         droneDetailExp.hide();
@@ -312,6 +312,7 @@ var obj = window.chromePop;
 		
 		var chlLegend = Ext.getCmp("chlLegend"); //피코시아닌 범례
 		var phyLegend = Ext.getCmp("phyLegend"); //클로로필 범례
+		var droneDetailExp = Ext.getCmp("droneDetailExp");
 
     	if(chlLegend != undefined){
     		chlLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
@@ -320,7 +321,11 @@ var obj = window.chromePop;
 		if(phyLegend != undefined){
     		phyLegend.setPosition(Ext.getBody().getViewSize().width - 244,Ext.getBody().getViewSize().height - 61)
     	}
-    	
+    	console.info(droneToolbar.x);
+		if(droneDetailExp != undefined){
+			droneDetailExp.setPosition(droneToolbar.x + 65 , droneToolbar.y + 72)
+		}
+		
     	/* Drone 툴바 위치 조절 */
     	/*var droneCtl = Ext.getCmp("droneToolbar");
     	
