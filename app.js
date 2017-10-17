@@ -244,6 +244,10 @@ Ext.application({
 	launch : function() {
 		
 		Ext.onReady(function(){
+			
+			// 초기 로딩바 숨김
+			$('#pageloaddingDiv').hide();
+			
             // IE 브라우저 체크
             KRF_DEV.global.CommFn.isIEFunc();
             
