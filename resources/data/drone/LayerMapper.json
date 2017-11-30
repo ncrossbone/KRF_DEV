@@ -425,6 +425,18 @@
 		"ChlaDate": "2017-11-21",		 // 클로로필a 초분광영상 레이어 일자
 		"PhyLayerId": "76",		 // 피코시안 레이어 아이디
 		"PhyDate": "2017-11-21"		 // 피코시안 레이어 일자
+	}, {
+		"layerOnOff": "off",		 // 레이어 On/Off 여부
+		"layerSymbolImg": "",		 // 레이어 심볼 이미지
+		"layerOnChkImg": "",		 // 레이어 On 체크박스 이미지
+		"layerOffChkImg": "",		 // 레이어 Off 체크박스 이미지
+		"DroneLayerId": "61",		 // 항공영상 레이어 아이디
+		"DroneDate": "2017-11-27",	 // 항공영상 레이어 일자
+		"MeasureDate": "2017-11-5주", // 측정지점 측정 일자
+		"ChlaLayerId": "112",			 // 클로로필a 초분광영상 레이어 아이디
+		"ChlaDate": "2017-11-27",		 // 클로로필a 초분광영상 레이어 일자
+		"PhyLayerId": "78",		 // 피코시안 레이어 아이디
+		"PhyDate": "2017-11-27"		 // 피코시안 레이어 일자
 	}],
 	R04: [{
 		"layerOnOff": "off",		 // 레이어 On/Off 여부
