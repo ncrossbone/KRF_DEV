@@ -636,6 +636,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			    			// 검색설정 JSON 셋팅 (_krad.searchConfigInfoJson)
 			    			me.getSearchConfigInfo();
 			    			
+			    			console.info("상류체크 : "+_krad.searchConfigInfoJson.isUpDraw)
 			    			/* 검색설정 "상류" 체크 시 */
 			    			if(_krad.searchConfigInfoJson.isUpDraw == true){
 			    				
@@ -644,7 +645,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			    				me.isStopCheck();
 			    			}
 			    			else{ /* 검색설정 "상류" 체크 시 끝 */
-			    				
 			    				if(me.isShowPopup == true){
 					    			me.setRchIdsWithEvent();
 					    		}
@@ -751,6 +751,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	         "esri/geometry/Point",
     	         "esri/geometry/Extent"], function(Query, QueryTask, Point, Extent){
     		
+    		//console.info("시작 or 선택 클릭시 리치라인 55"+_mapServiceUrl_v3 + "/" + _reachLineLayerId);
 	    	var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachLineLayerId); // 리치라인 URL
 			var query = new Query();
 			query.returnGeometry = true;
@@ -764,7 +765,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			if((me.mapClickEvt.type != undefined && me.mapClickEvt.type == "point") || 
 			   (me.mapClickEvt.mapPoint != undefined && me.mapClickEvt.mapPoint.type != undefined && me.mapClickEvt.mapPoint.type == "point")){
-				
+				//console.info("if : 타입이 있는동시에 point다 || 맵포인트가 있고 타입이 있고 pont다");
 	        	var centerPoint = new Point(me.mapClickEvt.mapPoint.x, me.mapClickEvt.mapPoint.y, me.mapClickEvt.mapPoint.spatialReference);
 	        	var mapWidth = me.map.extent.getWidth();
 	        	var pixelWidth = mapWidth / me.map.width;
@@ -776,7 +777,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	        	
 	    	}
 			else{
-				
 				if(me.mapClickEvt.mapPoint != undefined && me.mapClickEvt.mapPoint != null){
 					query.geometry = me.mapClickEvt.mapPoint;
 					
@@ -793,11 +793,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			// 이벤트로 리치라인 조회
 			queryTask.execute(query, function(featureSet){
 				if(featureSet.features.length > 0){
-					
 					me.execLineFeature(featureSet);
 				}
 				else{
-					
 					var areaQueryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId); // 집수구역 URL
 					var areaQuery = new Query();
 					areaQuery.returnGeometry = true;
@@ -841,15 +839,17 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	});
     },
     execLineFeature: function(featureSet){
-    	
     	var me = this;
     	
     	if(me.drawOption == "endPoint" || me.drawOption == "startPoint"){
+    		//첫번쨰 feature 선택
+    		
     		var feature = featureSet.features[0];
     		
+    		//me.rchIds에 선택된 첫번째 RCH_ID 입력
     		me.rchIds.push(feature.attributes.RCH_ID);
 			me.clickedReachLines.push(feature); // 최초 클릭된(맵 클릭시마다) 리치라인 배열
-		
+			
 			if(_krad.kradInfo.length == 0){
 				me.setClickEvt(_krad.mapClickEvt, "Reach");
 				// 이벤트 초기화
@@ -961,8 +961,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					query.returnGeometry = true;
 					query.outFields = ["*"];
 					query.where = qWhere;
-					//console.info(me.kradServiceUrl + "/" + layerId);
-					//console.info(query.where);
 					queryTask.execute(query, function(featureSet){
 						
 						var features = featureSet.features;
@@ -1206,10 +1204,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			rchId = me.clickedReachLines[rIdx].attributes.RCH_ID;
 			rchIds.push(rchId);
 			rchDid = me.clickedReachLines[rIdx].attributes.RCH_DID;
+			
 			siteNm = me.clickedReachLines[rIdx].attributes.지점명 != undefined ? me.clickedReachLines[rIdx].attributes.지점명 :
 				(me.clickedReachLines[rIdx].attributes.시설명 != undefined ? me.clickedReachLines[rIdx].attributes.시설명 : 
 				(me.clickedReachLines[rIdx].attributes.RIV_NM != undefined ? me.clickedReachLines[rIdx].attributes.RIV_NM : ""));
 			siteNms.push(siteNm);
+			
 		}
 		
 		me.drawSymbol(geo); // 심볼 그리기
@@ -1301,6 +1301,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					reachCountToolbar.items.items[1].setValue(me.edCnt);
 				}*/
 			}
+			
 			if(rchDid != ""){
 				// 하류 및 공통하류 셋팅
 				me.setDownAndComm([rchDid], [], 0, "RCH_DID");
@@ -1380,6 +1381,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     },
     /* 하류 및 공통하류 셋팅 */
     setDownAndComm: function(rchIds, tmpArr, cnt, colNm){
+    	
     	var me = this;
     	require(["esri/tasks/query",
     	         "esri/tasks/QueryTask"],
@@ -1414,15 +1416,18 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			
 			// 리치라인 조회
 			queryTask.execute(query, function(featureSet){
+				
 				if(featureSet.features.length > 0){
 					
 					for(var fCnt = 0; fCnt < featureSet.features.length; fCnt++){
 						
 						var feature = featureSet.features[fCnt];
 						var rchDid = feature.attributes.RCH_DID;
+						//tmpArr를 map으로 돌려(tmpArr에 attributes.RCH_DID) rchDid와 같은게 있는지 확인
 						var tmpIdx = tmpArr.map(function(obj){
 							return obj.attributes.RCH_DID;
 						}).indexOf(rchDid);
+						
 						if(tmpIdx == -1){
 							
 							/* khLee 하류 그래픽 그리기 (필요없을때 삭제(주석) 요..) */
