@@ -240,7 +240,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	 		   "width": 26,
 	 		    "height": 32
 	 		});
-			
+				
 			me.edSymbol5 = new PictureMarkerSymbol({
 				"angle": 0,
 	 		    "yoffset": 14,
@@ -958,7 +958,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					
 					var queryTask = new QueryTask(me.kradServiceUrl + "/" + layerId);
 					var query = new Query();
-					query.returnGeometry = true;
+					query.returnGeometry = false;
 					query.outFields = ["*"];
 					query.where = qWhere;
 					queryTask.execute(query, function(featureSet){

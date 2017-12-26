@@ -167,7 +167,8 @@ Ext.define("KRF_DEV.view.map.TMLayerAdmin", {
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
 		        		// 발생부하량 BOD 합계
-		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
+		        		//var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
+		        		var gnrBodSu = tmCatGraphic.attributes[colName];
 		        		//console.info(colName);
 		        		// 라벨 텍스트 설정
 		        		//var gnrBodSulabel = Math.round(Number(gnrBodSu)) + "kg/일";

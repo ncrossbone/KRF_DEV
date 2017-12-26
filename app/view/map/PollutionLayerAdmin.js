@@ -91,7 +91,8 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 	    		for(var i = 0; i < tmCatFeatureSet.features.length; i++){
 	    			for(var j = 0; j < store.data.items.length; j++){
 		    			if(tmCatFeatureSet.features[i].attributes.CAT_DID == store.data.items[j].data.CAT_DID){
-		    				eval("tmCatFeatureSet.features[i].attributes."+colName +" = Number(store.data.items[j].data."+colName+")");
+		    				tmCatFeatureSet.features[i].attributes[colName] = Number(store.data.items[j].data[colName]);
+		    				//eval("tmCatFeatureSet.features[i].attributes."+colName +" = Number(store.data.items[j].data."+colName+")");
 		    						
 		    			}
 	    			}
@@ -181,7 +182,8 @@ Ext.define("KRF_DEV.view.map.PollutionLayerAdmin", {
 		        		var centerPoint = getCenterFromGraphic(tmCatGraphic);
 		        		
 		        		
-		        		var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
+		        		//var gnrBodSu = eval("tmCatGraphic.attributes." + colName);
+		        		var gnrBodSu = tmCatGraphic.attributes[colName];
 		        		
 		        		
 		        		var gnrBodSulabel = gnrBodSu + unint;

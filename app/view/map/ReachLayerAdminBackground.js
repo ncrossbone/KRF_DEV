@@ -1,7 +1,6 @@
 Ext.define('KRF_DEV.view.map.ReachLayerAdminBackground', {
 	map:null, 
 	layer:null,
-	dynamicLayer1: null,
 	
 	constructor: function(map) {
 		
