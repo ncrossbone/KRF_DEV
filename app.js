@@ -30,6 +30,8 @@ var _nameLayerId = null; // 시도 레이어 아이디
 var _siteInfoLayerId = null; // 지점정보 레이어 아이디
 var _arcServiceUrl = null;
 
+var _mapServiceUrl_SRiver = null; // 리치 맵 서비스 v3 (투명도적용)
+
 var _toLegend = null; //식생도
 var _sicLegend = null; //토지피복도
 var _lakeLayerId = null; //호소레이어 아이디
@@ -75,7 +77,6 @@ var store = Ext.create('Ext.data.Store', {
 
 	listeners : {
 		beforeload : function(a, b, c) {
-			// //console.info(this.data.record);
 			_testUrl = "sss";
 		}
 	}
@@ -120,6 +121,8 @@ store.load(function(a, b, c) {
 		_sicLegend = record.data.sicLegend;
 		_lakeLayerId = record.data.lakeLayerId;
 		
+		_mapServiceUrl_SRiver = record.data.sriver;
+		
 		$(document).bind("click", function(event){
 			
 			_cursorX = event.pageX;
@@ -135,7 +138,6 @@ store.load(function(a, b, c) {
 	        str += "<br/>pageX : " + event.pageX;
 	        str += ", pageY : " + event.pageY;
 	        
-			//console.info(str);
 			
 			/*offset: 이벤트가 걸려있는 DOM 객체를 기준으로 좌표를 출력한다.
 
@@ -174,7 +176,6 @@ var kradStore = Ext.create('Ext.data.Store', {
 kradStore.load(function(a, b, c) {
 	
 	_kradInfo = a[0].data;
-	//console.info(_kradInfo);
 });
 
 /*
@@ -341,7 +342,6 @@ Ext.application({
 								//var timer = window.setInterval(function(){
 									/*var cenPoint = new esri.geometry.Point({ "x": featureSet.features[0].attributes.TM_X, "y": featureSet.features[0].attributes.TM_Y});
 									coreMap.map.centerAt(cenPoint);*/
-									//console.info(coreMap.map.extent);
 									//window.clearInterval(timer);
 								//}, 1000);
 								
@@ -435,7 +435,6 @@ Ext.application({
 			
 			var me = GetCoreMap();
 
-			//console.info(searchText);
 
 			// 검샋시 다른 더튼값 초기화
 			var cmbArea1 = Ext.getCmp("cmbArea1");
@@ -448,7 +447,7 @@ Ext.application({
 			
 			var textSearchText_Start = Ext.getCmp("textSearchText_Start");
 			var textSearchText_End = Ext.getCmp("textSearchText_End");
-
+			
 			if (searchText == 'waterSearch') {// 수계검색시 행정구역 초기화
 				cmbArea1.setValue("");
 				cmbArea2.setValue("");
@@ -490,9 +489,7 @@ Ext.application({
 				//me.reachLayerAdmin.amCD_temp = searchText;
 			}
 
-			// //console.info(searchText);
 			listWinCtl = Ext.getCmp("siteListWindow");
-			//console.info(listWinCtl);
 			if (listWinCtl == undefined){
 				listWinCtl = Ext.create('KRF_DEV.view.east.SiteListWindow');
 			}	
@@ -502,6 +499,7 @@ Ext.application({
 			var store = null;
 			var treeCtl = Ext.getCmp("siteListTree");
 			//alert(searchType);
+			
 			if(searchType == "krad"){
 				store = Ext.create('KRF_DEV.store.east.KradListWindow');
 			}
@@ -531,7 +529,7 @@ Ext.application({
 		Ext.HideSiteListWindow = function(currCtl) {
 
 			listWinCtl = Ext.getCmp("siteListWindow");
-			//console.info(listWinCtl);
+			
 
 			if (listWinCtl != undefined)
 				//listWinCtl.hide();
@@ -560,7 +558,6 @@ Ext.application({
 
 			infoWinCtl.show();
 
-			// //console.info(infoWinCtl.visible);
 
 			var infoWinX = Ext.getBody().getViewSize().width
 					- infoWinCtl.width;
@@ -624,14 +621,11 @@ Ext.application({
 		});
 
 		var itemsApp = Ext.decode(responseApp.responseText);
-		//console.info(itemsApp);
 
 		for(var i = 0; i < itemsApp.length; i++){
-			//console.info(itemsApp[i].MapserviceUrl5);
 			if(itemsApp[i].MapserviceUrl1 != undefined)
 				Ext.mapServiceUrl = itemsApp[i].MapserviceUrl1;
 		}
-		//console.info(Ext.mapServiceUrl);
 		
 		
 		
@@ -682,7 +676,6 @@ Ext.application({
 			var rToolbar = Ext.getCmp("reachToolbar");
 			var sConfig = Ext.getCmp("searchConfig");
 			
-			 //console.info(rToolbar);
 				if (rToolbar == undefined) {
 					rToolbar = Ext.create('KRF_DEV.view.center.ReachToolbar',{
 										// region: 'north',
@@ -693,7 +686,6 @@ Ext.application({
 				
 			}
 				
-			////console.info(rNameToolbar);
 			if(rNameToolbar == undefined){
 				rNameToolbar = Ext.create('KRF_DEV.view.center.ReachNameToolbar');
 				rNameToolbar.show();
@@ -776,7 +768,6 @@ Ext.application({
 			}
 
 		});
-		//console.info(sessionInfo.trim());
 		if (sessionInfo.trim() == "false") {
 
 			this.callParent();

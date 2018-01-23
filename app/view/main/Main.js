@@ -209,6 +209,15 @@ Ext.define('KRF_DEV.view.main.Main', {
             droneDetailExp.setPosition(droneToolbar.x + 65 , droneToolbar.y + 72)
 
 		}
+		
+		
+		var siteListWindow = Ext.getCmp("siteListWindow");
+		
+		if(siteListWindow == undefined){
+			siteListWindow = Ext.create("KRF_DEV.view.east.SiteListWindow");
+			console.info(siteListWindow);
+			siteListWindow.hide();
+		}
     	/* Drone 툴바 위치 조절 */
     	/*
     	var droneToolX = droneCtl.x;

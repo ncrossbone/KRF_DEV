@@ -97,18 +97,80 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	// 리치추가 버튼 클릭
 	onClickAddReach: function(obj, el, evt){
 		
-		// 맵 클릭 이벤트 켜기
-		_krad.onMapClickEvt("addPoint", el.id);
+		//SetBtnOnOff("btnMenu02", "off");
 		
-		// 부하량 주제도 off
-		catTMLayerOnOff("off");
+		var btnMenu02 = Ext.getCmp("btnMenu02");
+		//console.info(btnMenu02.btnOnOff);
+		
+		if(btnMenu02.btnOnOff == "off"){
+		
+			// 맵 클릭 이벤트 켜기
+			_krad.onMapClickEvt("addPoint", el.id);
+			
+			// 부하량 주제도 off
+			catTMLayerOnOff("off");
+			
+		}else{
+			
+			//tmp에 저장되어 있는 graphic을 지우고 원래 graphic으로 배열을 넘겨준다.
+			
+			var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+			for(var i = 0 ; i < _krad.arrLineGrpTmp.length; i++){
+				_krad.drawGraphic2(_krad.arrLineGrpTmp[i], _krad.reachLineSym , _krad.lineGrpLayer , _krad.arrLineGrp, reachAdmin.arrLineGrp)
+			};
+			for(var j = 0 ; j < _krad.arrAreaGrpTmp.length; j++){
+				_krad.drawGraphic2(_krad.arrAreaGrpTmp[j], _krad.reachAreaSym, _krad.areaGrpLayer, _krad.arrAreaGrp, reachAdmin.arrAreaGrp);
+			};
+			
+			// 검색 종료 체크(지점목록,검색결과)
+			_krad.isStopCheck();
+			SetBtnOnOff("btnMenu02", "off");
+			
+			_krad.arrLineGrpTmp = [];
+			_krad.arrAreaGrpTmp = [];
+			reachAdmin.arrLineGrpTmp = [];
+			reachAdmin.arrAreaGrpTmp = [];
+			
+						
+		}
+		
+		
+		
+		
+		//me.drawGraphic2(graphic, me.addReachLineSym, me.lineGrpLayer, me.arrLineGrpTmp, reachAdmin.arrLineGrpTmp);
+		
+		//me.drawGraphic2(graphic, me.reachLineSym, me.lineGrpLayer, me.arrLineGrp, reachAdmin.arrLineGrp);
+		//graphic(tmp), symbol(기존), layer(기존), arrObj(기존), reachArr(기존)
+		//me.drawGraphic2(graphic, me.addReachAreaSym, me.areaGrpLayer, me.arrAreaGrpTmp, reachAdmin.arrAreaGrpTmp);
+		//graphic(tmp), symbol(기존), layer(기존), arrObj(기존), reachArr(기존)
+		//me.drawGraphic2(graphic, me.reachAreaSym, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp);
+		
+		
 	},
 	
 	// 구간제거 버튼 클릭
 	onClickRemoveReach: function(obj, el, evt){
 		
+		//console.info(el.id);
 		// 맵 클릭 이벤트 켜기
-		_krad.onMapClickEvt("removePoint", el.id);/*
+		//_krad.onMapClickEvt("removePoint", el.id);
+		//m.onMapClickEvt("removePoint", "btnMenu03");
+		
+		/*var btnMenu03 = Ext.getCmp("btnMenu03");
+		//console.info(btnMenu03.btnOnOff);
+		if(btnMenu03.btnOnOff == "off"){
+			
+		}else{
+			SetBtnOnOff("btnMenu03", "off");
+		}*/
+		
+		_krad.onMapClickEvt("removePoint", el.id);
+		
+		
+		
+		
+		/*
+		//SetBtnOnOff(me.btnObj.id, "off");
 		
 		// 리치 선택 종료
 		//GetCoreMap().reachLayerAdmin.drawEnd();
@@ -127,6 +189,14 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
 	},
+	
+	//하류제거
+	onClickRemoveReachLine: function(obj, el, evt){
+		
+		_krad.onMapClickEvt("reachLineRemove",el.id)
+		
+	},
+	
 	// 시작위치 버튼 클릭
 	onClickStartReach: function(obj, el, evt){
 		
@@ -186,7 +256,7 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 	
 	// 초기화 버튼 클릭
 	onClickReset: function(obj, el, evt){
-		//console.info("dkjdf");
+		////console.info("dkjdf");
 		var reachs_close = Ext.getCmp("reachs_close");
 		var reache_close = Ext.getCmp("reache_close");
 		reachs_close.setHidden(true);
@@ -382,6 +452,36 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");
+	},
+	
+	// 반경 선택 버튼
+	onClickRadius_2: function(obj, el, evt){
+		
+		
+		var btnMenu07 = Ext.getCmp("btnMenu07");
+		var btnMenu07_2 = Ext.getCmp("btnMenu07_2");
+		
+		
+		var radiusToolbar = Ext.getCmp("radiusToolbar");
+		if(radiusToolbar == undefined){
+			radiusToolbar = Ext.create("KRF_DEV.view.center.RadiusToolbar");
+		}
+		
+		//반경검색이 on일 경우 radiustoolbar show  , off일경우 툴바 hide
+		if(btnMenu07.btnOnOff == "on"){
+			radiusToolbar.show();
+			_krad.onMapDragEvt("radius", el.id);
+			// 부하량 주제도 off
+			catTMLayerOnOff("off");
+		}else{
+			SetBtnOnOff(el.id,"off");
+			radiusToolbar.hide();
+		}
+		
+		// 클릭시 현제 버튼이 off됬을경우 toolbar hide
+		if(btnMenu07_2.btnOnOff == "off"){
+			radiusToolbar.hide();
+		}
 	},
 
 	onClickButton: function(btn, el, evt) {

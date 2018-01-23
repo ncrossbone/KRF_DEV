@@ -108,6 +108,18 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	src: './resources/images/button/reach_menu03.png'
 	    }, {
 	    	xtype: 'image',
+	    	id: 'btnMenu03_2',
+	    	groupId: 'group1',
+	    	title: '하류제거',
+	    	width: this.itemWidth,
+	    	height: this.itemHeight,
+	    	listeners: { el: { click: 'onClickRemoveReachLine' } },
+	    	btnOnOff: 'off',
+	    	btnOnImg: './resources/images/button/reach_menu03_on.png',
+	    	btnOffImg: './resources/images/button/reach_menu03.png',
+	    	src: './resources/images/button/reach_menu03.png'
+	    }, {
+	    	xtype: 'image',
 	    	id: 'btnMenu06',
 	    	groupId: 'group1',
 	    	title: '드래그선택',
@@ -119,17 +131,31 @@ Ext.define('KRF_DEV.view.center.ReachToolbar', {
 	    	btnOffImg: './resources/images/button/reach_menu06.png',
 	    	src: './resources/images/button/reach_menu06.png'
 	    }, {
-	    	xtype: 'image',
-	    	id: 'btnMenu07',
-	    	groupId: 'group1',
-	    	title: '반경선택',
-	    	width: this.itemWidth,
-	    	height: this.itemHeight,
-	    	listeners: { el: { click: 'onClickRadius' } },
-	    	btnOnOff: 'off',
-	    	btnOnImg: './resources/images/button/reach_menu07_on.png',
-	    	btnOffImg: './resources/images/button/reach_menu07.png',
-	    	src: './resources/images/button/reach_menu07.png'
+	    	xtype: 'container',
+	    	layout: 'vbox',
+	    	items: [{
+	    		xtype: 'image',
+		    	id: 'btnMenu07',
+		    	groupId: 'group1',
+		    	title: '반경선택',
+		    	width: this.itemWidth,
+		    	height: this.itemHeight-10,
+		    	listeners: { el: { click: 'onClickRadius' } },
+		    	btnOnOff: 'off',
+		    	btnOnImg: './resources/images/button/reach_menu07_on.png',
+		    	btnOffImg: './resources/images/button/reach_menu07.png',
+		    	src: './resources/images/button/reach_menu07.png'
+	    	},{
+	    		xtype: 'image',
+		    	id: 'btnMenu07_2',
+		    	width: this.itemWidth,
+		    	listeners: { el: { click: 'onClickRadius_2' } },
+		    	height: 10,
+		    	btnOnOff: 'off',
+		    	btnOnImg: './resources/images/button/reach_menu07_on.png',
+		    	btnOffImg: './resources/images/button/reach_menu07.png',
+		    	src: './resources/images/button/reach_menu07.png'
+	    	}]
 	    }, {
 	    	xtype: 'image',
 	    	id: 'btnMenu08',

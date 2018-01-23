@@ -24,6 +24,7 @@ Ext.define("KRF_DEV.view.map.SearchReachArea", {
 			var query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];
+			console.info("3");
 			query.geometry = evt;
 			
 			queryTask.execute(query, function(featureSet){
@@ -47,6 +48,7 @@ Ext.define("KRF_DEV.view.map.SearchReachArea", {
 			var query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];
+			console.info("4");
 			query.where = where;
 			
 			// 리치라인 조회

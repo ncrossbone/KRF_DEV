@@ -106,7 +106,6 @@ Ext.define('KRF_DEV.view.map.GraphicsLayerAdmin', {
         //console.info("dd");
         // figure out which symbol to use
         var symbol;
-        
         if ( evt.geometry.type === "point") {
         	//symbol = markerSymbol;
         	if(me.graphicsLayerAdmin.isMulti == false)

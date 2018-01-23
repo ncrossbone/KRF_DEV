@@ -3,6 +3,8 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 	layer:null,
 	dynamicLayer1:null,
 	dynamicLayer2:null,
+	
+	dynamicLayerSRiver:null,
 	//읍면동 / 식생도 / 특밸대책지역 / 오수처리대책 / 상수원보고구역 / 배출시설제한 / 수변구역 / 그린벨트 /총량관리
 	fLayers: [67, 71, 79, 80, 81, 82, 83, 84, 88], // 투명도 주기위한 레이어 아이디
 	
@@ -22,7 +24,11 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		me.dynamicLayer2.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayer2);
 		
-		
+		me.dynamicLayerSRiver = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_SRiver);
+		me.dynamicLayerSRiver.id = "DynamicLayerSRiver"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
+		me.dynamicLayerSRiver.visible = true;
+		me.dynamicLayerSRiver.setVisibleLayers([0,2]);
+		me.map.addLayer(me.dynamicLayerSRiver);
 			
 //		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
 //			opacity: 0.5
@@ -45,7 +51,6 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
     	
     	
     	
-    	//? 
     },
     
     // 레이어 on/off 핸들러 정의

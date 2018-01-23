@@ -41,6 +41,29 @@ Ext.define('KRF_DEV.view.north.NorthController', {
 		
 	},
 	
+	onClickSRiver: function(obj, el, evt){
+		
+		//console.info(obj);
+		
+		var me = this;
+		//DynamicLayerSRiver
+		
+		var coreMap = Ext.getCmp("_mapDiv_");
+		var DynamicLayerSRiver = coreMap.map.getLayer("DynamicLayerSRiver");
+		
+		var btnLayerSRiver = Ext.getCmp("btnLayerSRiver").btnOnOff;
+		
+		if(btnLayerSRiver == "on"){
+			DynamicLayerSRiver.setVisibleLayers([-1]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "off";
+		}else{
+			DynamicLayerSRiver.setVisibleLayers([2]);
+			Ext.getCmp("btnLayerSRiver").btnOnOff = "on";
+		}
+		
+		
+	},
+	
 	// 집수구역 버튼 클릭
 	onClickAreaLayer: function(obj, el, evt){
 		

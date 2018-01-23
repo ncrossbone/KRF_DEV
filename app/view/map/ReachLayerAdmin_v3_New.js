@@ -21,6 +21,10 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 	arrEndLine: [], // 끝위치 라인 배열 (집수구역으로 선택 시 라인이 여러개일 수 있음)
 	arrLineGrp: [], // 리치라인 그래픽 배열
 	arrAreaGrp: [], // 집수구역 그래픽 배열
+	
+	arrLineGrpTmp: [], // 리치라인 그래픽 배열
+	arrAreaGrpTmp: [], // 집수구역 그래픽 배열
+	
 	arrStDownLine: [], // 시작위치 하류 배열
 	arrEdDownLine: [], // 끝위치 하류 배열
 	
@@ -930,6 +934,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			var query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];
+			console.info("1");
 			query.geometry = evt;
 			
 			// 집수구역 조회
@@ -958,6 +963,7 @@ Ext.define('KRF_DEV.view.map.ReachLayerAdmin_v3_New', {
 			var query = new Query();
 			query.returnGeometry = true;
 			query.outFields = ["*"];
+			console.info("2");
 
 			var catDid = lineFeature.attributes.CAT_DID;
 			query.where = "CAT_DID = '" + catDid + "'";

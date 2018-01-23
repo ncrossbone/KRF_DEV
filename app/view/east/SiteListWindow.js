@@ -48,8 +48,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             locked: true,
             listeners: {
             	click: function(grid, rowIndex, colIndex, actionItem, node, record, row){
-            		//console.info(tmBtnId);
-            		//console.info($("#catTMOnOff"));
             		
 	            	if(node.record.data.leaf == true){
 						if(node.record.data.id != undefined){
@@ -84,7 +82,6 @@ Ext.define('KRF_DEV.view.east.SiteListWindow', {
             // Only leaf level tasks may be edited
             isDisabled: function(view, rowIdx, colIdx, item, record) {
             	
-            	//console.info(record.data.infoBtnDisabled);
             	
             	if(record.data.infoBtnDisabled != undefined){
             		

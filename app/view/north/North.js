@@ -118,6 +118,14 @@ Ext.define('KRF_DEV.view.north.North', {
     	btnOnImg: './resources/images/button/btn_top_03_on.png',
     	btnOffImg: './resources/images/button/btn_top_03_off.png',
     	src: './resources/images/button/btn_top_03_off.png'
+    }, { 
+		xtype: 'button',
+		id: 'btnLayerSRiver',
+		toggleGroup: 'grpSRiver',
+		btnOnOff: 'on',
+    	text: '소하천',
+        style:'cursor:pointer;',
+    	listeners: { el: { click: 'onClickSRiver' } }
     }, {
     	xtype: 'container',
     	width: 50

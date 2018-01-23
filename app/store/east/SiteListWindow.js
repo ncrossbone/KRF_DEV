@@ -57,7 +57,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			//var queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId); // 레이어 URL v3 + krad
 			var query = new esri.tasks.Query();
 			query.returnGeometry = false;
-			//console.info(queryTask);
 			if(buttonInfo1.lastValue != null){
 				
 				if(buttonInfo3.lastValue == null || buttonInfo3.lastValue == "" ){
@@ -117,7 +116,6 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 				/* 리치모드 지점목록 조건 설정 */
 				var me = GetCoreMap();
 				
-				
 				if(_krad.arrAreaGrp.length > 0){
 					//queryTask = new esri.tasks.QueryTask(_kradMapserviceUrl + '/' + _kradCatSearchId);
 					
@@ -132,6 +130,7 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 					
 					var tmpExtIds = [];
 					this.catDid = [];
+					
 					for(var i = 0; i < _krad.arrAreaGrp.length; i++){
 						this.catDid.push(_krad.arrAreaGrp[i].attributes.CAT_DID);
 						catWhere += "'" + _krad.arrAreaGrp[i].attributes.CAT_DID + "', ";
@@ -176,7 +175,14 @@ Ext.define('KRF_DEV.store.east.SiteListWindow', {
 			
 			query.orderByFields = ["LAYER_CODE ASC"];
 			//query.OrderByFields = "LAYER_CODE ASC";
-			query.outFields = ["*"];
+			//query.outFields = ["*"];
+			query.outFields = ["GROUP_CODE"
+								,"GROUP_NM"
+								,"LAYER_CODE"
+								,"LAYER_NM"
+								,"JIJUM_CODE"
+								,"JIJUM_NM"
+								,"CAT_DID"];
 			//console.info(_kradMapserviceUrl + '/' + _kradCatSearchId);
 			//console.info(query.where);
 			

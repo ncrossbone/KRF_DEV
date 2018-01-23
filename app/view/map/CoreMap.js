@@ -22,6 +22,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 	printTask:null,
 	baseMap: null,
 	
+	geometryService:null,
+	
 	tmGraphicLayerCat: null, // 집수구역 단위 주제도 그래픽 레이어
 	tmLabelLayerCat: null, // 집수구역 단위 주제도 라벨 레이어
 	
@@ -58,6 +60,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 
         	window.clearInterval(timerId);
         	
+        	me.geometryService = new esri.tasks.GeometryService(_arcServiceUrl + "/rest/services/Utilities/Geometry/GeometryServer");
+        	
         	/* 외부망 항공사진 주석 */
         	me.dynamicLayerAdmin1 = Ext.create('KRF_DEV.view.drone.map.DynamicLayerAdmin1', me.map);
         	me.reachLayerAdmin_dim = Ext.create('KRF_DEV.view.map.ReachLayerAdminBackground', me.map); // Dim처리 레이어
@@ -68,7 +72,8 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	//me.labelLayerAdmin = Ext.create('KRF_DEV.view.map.LabelLayerAdmin', me.map);
         	
         	// KRAD 전역 Object Setting
-        	_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
+        	//_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map);
+        	_krad = Ext.create('KRF_DEV.view.map.KRADLayerAdmin', me.map , me.geometryService);
         	// 검색설정 "상류" 검색 전역 Object Setting
         	_rchUpSearch = Ext.create('KRF_DEV.view.map.SearchReachUp');
         	// 리치라인 전역 Object Setting
@@ -92,6 +97,7 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
         	
         	// Extent Change Event
     		dojo.connect(me.map, "onExtentChange", me.onExtentChange);
+    		//dojo.connect(me.map, "onClick", me.myClickHandler);
     		
     		// resize 이벤트가 발생해야 정상적으로 map 이 사이즈가 조정됨
     		KRF_DEV.getApplication()._mainView.fireEvent('resize');
@@ -333,5 +339,44 @@ Ext.define('KRF_DEV.view.map.CoreMap', {
 		
 		// 툴팁 XY 셋팅
 		setTooltipXY();
-	}
+	},
+	
+	/*myClickHandler: function(evt){
+		
+		var me = this;
+		
+		var btnLayerSRiverView = Ext.getCmp("btnLayerSRiverView").btnOnOff;
+		if(btnLayerSRiverView == "off"){
+			require(["esri/tasks/query",
+		         "esri/tasks/QueryTask",
+		         "esri/geometry/Point",
+		         "esri/geometry/Extent"], function(Query, QueryTask, Point, Extent){
+				
+					var queryTask = new QueryTask(_mapServiceUrl_v3 + "/" + _reachAreaLayerId); // 집수구역
+					var query = new Query();
+					query.returnGeometry = true;
+					query.outFields = ["*"];
+					query.geometry = evt.mapPoint;
+			    	queryTask.execute(query, function(featureSet){
+			    		if(featureSet.features.length > 0){
+			    			var coreMap = Ext.getCmp("_mapDiv_");
+			    			
+			    			var extent = esri.geometry.Polygon(featureSet.features[0].geometry).getExtent();
+							coreMap.map.setExtent(extent);
+							
+							//한번 확대후 button off
+							Ext.getCmp("btnLayerSRiverView").setPressed(false);
+							Ext.getCmp("btnLayerSRiverView").btnOnOff = "on";
+							
+			    		}
+					});
+				
+			});
+		}
+		
+		
+		
+		
+		
+	}*/
 });

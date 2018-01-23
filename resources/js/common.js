@@ -1350,7 +1350,14 @@ ShowSearchResultReach = function(catIds){
 	}
 	
 	query.where = "CAT_DID IN (" + catIds + ")";
-	query.outFields = ["*"];
+	//query.outFields = ["*"];
+	query.outFields = ["RCH_DID"
+						,"RCH_LEN"
+						,"RCH_LEN"
+						,"CAT_DID"
+						,"RIV_NM"
+						,"CUM_LEN"
+						,"GEO_TRIB"];
 	// 로딩바 표시
 	Ext.getCmp("searchResultReachGridContainer").removeCls("dj-mask-noneimg");
 	Ext.getCmp("searchResultReachGridContainer").addCls("dj-mask-withimg");
@@ -1364,7 +1371,8 @@ ShowSearchResultReach = function(catIds){
 	 
 		query2.where = "CAT_DID IN (" + catIds + ")";
 		
-		query2.outFields = ["*"];
+		//query2.outFields = ["*"];
+		query2.outFields = ["CAT_DID","AREA"];
 		
 		queryTask2.execute(query2, function(objArea){
 			
@@ -1794,7 +1802,13 @@ ResetButtonClick = function(){
 		reachs_close.setHidden(true);
 		reache_close.setHidden(true);
 	}
-		
+	
+	//리치추가 임시 tmp 제거
+	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+	_krad.arrLineGrpTmp = [];
+	_krad.arrAreaGrpTmp = [];
+	reachAdmin.arrLineGrpTmp = [];
+	reachAdmin.arrAreaGrpTmp = [];
 	
 	//---north
 	
