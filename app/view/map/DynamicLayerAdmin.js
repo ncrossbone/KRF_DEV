@@ -24,11 +24,11 @@ Ext.define('KRF_DEV.view.map.DynamicLayerAdmin', {
 		me.dynamicLayer2.setVisibleLayers([-1]);
 		me.map.addLayer(me.dynamicLayer2);
 		
-		me.dynamicLayerSRiver = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_SRiver);
+		/*me.dynamicLayerSRiver = new esri.layers.ArcGISDynamicMapServiceLayer(_mapServiceUrl_SRiver);
 		me.dynamicLayerSRiver.id = "DynamicLayerSRiver"; // view.west.WestTabLayer의 각 탭 페이지 id와 일치시키자..
 		me.dynamicLayerSRiver.visible = true;
 		me.dynamicLayerSRiver.setVisibleLayers([0,2]);
-		me.map.addLayer(me.dynamicLayerSRiver);
+		me.map.addLayer(me.dynamicLayerSRiver);*/
 			
 //		me.featureLayer71 = new esri.layers.FeatureLayer(_mapServiceUrl_v3 + "/71", {
 //			opacity: 0.5

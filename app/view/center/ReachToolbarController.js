@@ -130,61 +130,50 @@ Ext.define('KRF_DEV.view.center.ReachToolbarController', {
 			_krad.arrAreaGrpTmp = [];
 			reachAdmin.arrLineGrpTmp = [];
 			reachAdmin.arrAreaGrpTmp = [];
-			
 						
 		}
-		
-		
-		
-		
-		//me.drawGraphic2(graphic, me.addReachLineSym, me.lineGrpLayer, me.arrLineGrpTmp, reachAdmin.arrLineGrpTmp);
-		
-		//me.drawGraphic2(graphic, me.reachLineSym, me.lineGrpLayer, me.arrLineGrp, reachAdmin.arrLineGrp);
-		//graphic(tmp), symbol(기존), layer(기존), arrObj(기존), reachArr(기존)
-		//me.drawGraphic2(graphic, me.addReachAreaSym, me.areaGrpLayer, me.arrAreaGrpTmp, reachAdmin.arrAreaGrpTmp);
-		//graphic(tmp), symbol(기존), layer(기존), arrObj(기존), reachArr(기존)
-		//me.drawGraphic2(graphic, me.reachAreaSym, me.areaGrpLayer, me.arrAreaGrp, reachAdmin.arrAreaGrp);
-		
 		
 	},
 	
 	// 구간제거 버튼 클릭
 	onClickRemoveReach: function(obj, el, evt){
 		
-		//console.info(el.id);
-		// 맵 클릭 이벤트 켜기
-		//_krad.onMapClickEvt("removePoint", el.id);
-		//m.onMapClickEvt("removePoint", "btnMenu03");
 		
-		/*var btnMenu03 = Ext.getCmp("btnMenu03");
-		//console.info(btnMenu03.btnOnOff);
+		var btnMenu03 = Ext.getCmp("btnMenu03");
+		//console.info(btnMenu02.btnOnOff);
+		
 		if(btnMenu03.btnOnOff == "off"){
+			// 맵 클릭 이벤트 켜기
+			_krad.onMapClickEvt("removePoint", el.id);
+			
+			// 부하량 주제도 off
+			catTMLayerOnOff("off");
 			
 		}else{
+			
+			//tmp에 저장되어 있는 graphic을 지우고(검색종료 체크때 임시 graphic 삭제) 원래 graphic으로 배열을 넘겨준다.
+			var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
+			console.info(reachAdmin.arrLineGrpTmp);
+			for(var i = 0 ; i < _krad.arrLineGrpTmp.length; i++){				
+				_krad.removeGraphic(_krad.arrLineGrpTmp[i], "reachLine");
+			};
+			
+			for(var j = 0 ; j < _krad.arrAreaGrpTmp.length; j++){
+				_krad.removeGraphic(_krad.arrAreaGrpTmp[j], "reachArea");
+			};
+			
+			// 검색 종료 체크(지점목록,검색결과)
+			_krad.isStopCheck();
 			SetBtnOnOff("btnMenu03", "off");
-		}*/
+			
+			
+			_krad.arrLineGrpTmp = [];
+			_krad.arrAreaGrpTmp = [];
+			reachAdmin.arrLineGrpTmp = [];
+			reachAdmin.arrAreaGrpTmp = [];
+			
 		
-		_krad.onMapClickEvt("removePoint", el.id);
-		
-		
-		
-		
-		/*
-		//SetBtnOnOff(me.btnObj.id, "off");
-		
-		// 리치 선택 종료
-		//GetCoreMap().reachLayerAdmin.drawEnd();
-		GetCoreMap().reachLayerAdmin_v3_New.drawEnd();
-		
-		// 버튼 On/Off
-		var currCtl = SetBtnOnOff(el.id);
-		
-		if(currCtl.btnOnOff == "on"){
-			// 리치 선택 시작
-			//GetCoreMap().reachLayerAdmin.pointDraw("REMOVE", el.id);
-			//GetCoreMap().reachLayerAdmin_v3.pointDraw("REMOVE", el.id); // v3
-			GetCoreMap().reachLayerAdmin_v3_New.startDraw("removePoint"); // v3
-		}*/
+		}
 		
 		// 부하량 주제도 off
 		catTMLayerOnOff("off");

@@ -99,6 +99,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	addReachLineSym: null, // 리치 라인 심볼
 	addReachAreaSym: null, // 리치 집수구역 심볼
 	
+	removeReachLineSym: null, // 리치 라인 심볼
+	removeReachAreaSym: null, // 리치 집수구역 심볼
+	
 	reachLineSym_s: null, // 소하천 리치 라인 심볼
 	reachAreaSym_s: null, // 소하천 리치 집수구역 심볼
 	
@@ -129,6 +132,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	
 	geometryService:null,
 	geometry : null,
+	
+	firstLine : null,
 	
 	constructor: function(map, geometryService) {
 		
@@ -286,10 +291,16 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
 					new Color([255, 255, 0, 0.3]));
 			
+			//임시정장 
 			me.addReachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([237, 20, 91]), 5);
 			me.addReachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
 					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([0, 0, 0]), 2),
 					new Color([255, 255, 0, 0.3]));
+			
+			me.removeReachLineSym = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([1, 2, 3]), 0);
+			me.removeReachAreaSym = new SimpleFillSymbol(SimpleFillSymbol.STYLE_SOLID,
+					new SimpleLineSymbol(SimpleLineSymbol.STYLE_DASHDOT, new Color([1, 2, 3]), 0),
+					new Color([1, 2, 3, 4]));
 			
 			
 			me.reachLineSym_s = new SimpleLineSymbol(SimpleLineSymbol.STYLE_SOLID, new Color([100, 10, 31]), 5);
@@ -351,7 +362,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     					
         				for(var a = 0 ; a < me.symGrpLayer.graphics.length ; a++){
         					if(me.symGrpLayer.graphics[a].symbol.gubun == "start"){
-        						////console.info(me.symGrpLayer.graphics[a].symbol.url.substr(35,1));
         						
         						if(me.symGrpLayer.graphics[a].symbol.url.substr(35,1) == me.stCnt){
         							chkYn = true;
@@ -534,14 +544,13 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	initKradEvt();
     	
     	var me = this;
-    	//console.info(drawOption);
     	if(drawOption != undefined && drawOption != null && drawOption != ""){
     		
     		me.drawOption = drawOption;
     	}
     	
     	//me.btnObj = SetBtnOnOff(btnId);
-    	////console.info("3.me.btnObj.btnOnOff : " + me.btnObj.btnOnOff);
+    	
     	/* 버튼 On, Off */
     	if(btnId != undefined && btnId != null && btnId != ""){
     		if(drawOption!="startPoint" && drawOption!="endPoint"){
@@ -594,7 +603,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	//var reachClose = Ext.getCmp('reach_close');
     	if(me.btnObj != undefined && me.btnObj != null){
-    		//console.info(me.btnObj.btnOnOff);
 	    	/* 커서 설정 */
 	    	if(me.btnObj.btnOnOff == "on"){
 		    	
@@ -636,7 +644,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 		    	}*/
 	    	}
 	    	/* 커서 설정 끝 */
-	    	//console.info(isMapClickEvt);
 	    	if(isMapClickEvt == true){
 		    	/* 클릭 이벤트 설정 */
 		    	require(["dojo/on"],
@@ -874,7 +881,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     					alert("숫자만 입력 가능합니다.");
     					return;
     				}
-    				console.info(radiusText);
     				var params = new BufferParameters();
 	    			params.distances = [ radiusText ];
 	    			
@@ -942,7 +948,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
         			if(me.map.getLevel() < 11){
         				alert("현재 축척에서는 지원되지 않습니다. 확대해주세요.");
         			}else{
-        				console.info(evt);
         				me.mapClickEvt = evt;
         				me.setRchIdsWithEvent();
         			}
@@ -982,10 +987,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	        	
 	        	var queryExtent = new Extent(1, 1, tolerance, tolerance, me.mapClickEvt.mapPoint.spatialReference);
 	        	query.geometry = queryExtent.centerAt(centerPoint);
-	        	//console.info(me.mapClickEvt);
 				
 			}else{
-				//console.info("else");
 				if(feature.attributes.D_SRCH_ID == undefined){
 					query.where = "SRCH_ID = '" + feature.attributes.SCAT_ID + "'" ;
 				}else{
@@ -1003,13 +1006,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					var queryArea = new Query();
 					queryArea.returnGeometry = true;
 					queryArea.outFields = ["*"];
-					//console.info(me.mapClickEvt.mapPoint);
 					queryArea.geometry = me.mapClickEvt.mapPoint;
 		        	queryTaskArea.execute(queryArea, function(featureSetArea){
-		        		//console.info(featureSetArea.features);
-		        		//console.info(featureSetArea.features.length);
 						if(featureSetArea.features.length > 0){
-							//console.info(featureSetArea)
 							me.setSRchIdsWithEvent(featureSetArea.features[0]);
 						}else{
 							alert("소하천 집수구역이 없습니다.");
@@ -1052,8 +1051,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
      * 조회 완료 후 컨텍스트 메뉴 팝업 오픈 */
     setRchIdsWithEvent: function(featureSet){
     	var me = this;
-    	
-    	console.info(me.drawOption);
     	
     	require(["esri/tasks/query",
     	         "esri/tasks/QueryTask",
@@ -1104,8 +1101,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 						
 					}
 					else{
-						//console.info("me.mapClickEvt");
-						//console.info(me.mapClickEvt);
+						
 						query.geometry = me.mapClickEvt;
 						
 					}
@@ -1120,7 +1116,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			// 이벤트로 리치라인 조회
 			queryTask.execute(query, function(featureSet){
 				if(featureSet.features.length > 0){
-					console.info(featureSet);
+					
 					me.execLineFeature(featureSet);
 				}
 				else{
@@ -1173,7 +1169,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     execLineFeature: function(featureSet){
     	var me = this;
     	
-    	console.info(me.drawOption);
     	if(me.drawOption == "endPoint" || me.drawOption == "startPoint"){
     		//첫번쨰 feature 선택
     		
@@ -1218,14 +1213,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
         		}
         		else if(me.drawOption == "removePoint"){
         			
-    				// 라인 지운다
-    				me.removeGraphic(feature, "reachLine");
-    				// 집수구역 지운다
-    				me.removeGraphic(feature, "reachArea");
-        			// 버튼 끄기
-        			SetBtnOnOff(me.btnObj.id, "off");
-    				//me.onMapClickEvt("removePoint", "btnMenu03");
-        			// 이벤트 초기화
+        			var catDid = feature.attributes.CAT_DID;
+        			me.drawGraphic(feature, "removeReachLine");
+        			me.setReachAreaTmp(catDid);
+        			
     				//initKradEvt();
     			}else if(me.drawOption == "addPoint"){
     				
@@ -1242,7 +1233,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	
     	//if(me.drawOption == "addPoint" || me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "removePoint"){
-    	if(me.drawOption == "extent" || me.drawOption == "circle" || me.drawOption == "removePoint" || me.drawOption == "radius"){    		
+    	if(me.drawOption == "extent" || me.drawOption == "circle"|| me.drawOption == "radius"){    		
     		
     		me.map.graphics.clear();
 	    	// 검색 종료 체크
@@ -1450,7 +1441,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    	});
 		
 			me.mClickObj = on(me.tmpGrpLayer, "mouse-down", function(evt){
-				////console.info(evt);
 				// 변수 셋팅 및 하류조회
 				me.setClickEvt(evt, paramEvtType);
 	    	});
@@ -1548,11 +1538,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			geo = me.mapClickEvt.mapPoint;
 			
 			var rIdx = me.clickedReachLines.length - 1;
-			////console.info(me.clickedReachLines[rIdx].attributes);
 			rchId = me.clickedReachLines[rIdx].attributes.RCH_ID;
 			rchIds.push(rchId);
 			rchDid = me.clickedReachLines[rIdx].attributes.RCH_DID;
-			//console.info(me.clickedReachLines[rIdx].attributes.지점명);
 			siteNm = me.clickedReachLines[rIdx].attributes.지점명 != undefined ? me.clickedReachLines[rIdx].attributes.지점명 :
 				(me.clickedReachLines[rIdx].attributes.시설명 != undefined ? me.clickedReachLines[rIdx].attributes.시설명 : 
 				(me.clickedReachLines[rIdx].attributes.RIV_NM != undefined ? me.clickedReachLines[rIdx].attributes.RIV_NM : ""));
@@ -1592,7 +1580,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				//var rCountEToolbar = Ext.getCmp("ReachCountEToolbar");
 				/*if(rCountSToolbar == undefined){
 					rCountSToolbar = Ext.create('KRF_DEV.view.center.ReachCountSToolbar');
-					//console.info(rCountSToolbar);
 					rCountSToolbar.show();
 				}
 				
@@ -1604,7 +1591,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				var reachs_close = Ext.getCmp("reachs_close");
 				reachs_close.setHidden(false);
 				reachs_close.setSrc("./resources/images/symbol/btn_num"+me.stCnt+".png");
-				////console.info(reachs_close)
 				//reachs_close.setSrc("")
 				
 				/*var reachCountToolbar = Ext.getCmp("reachCountToolbar");
@@ -1709,7 +1695,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	
     	/** 검색설정(본류, 지류) 체크 **/
 		var confInfo = localStorage['_searchConfigInfo_'];
-		////console.info(confInfo);
 		if(confInfo != undefined && confInfo != null){
 			
 			var jsonConf = JSON.parse(confInfo);
@@ -1825,10 +1810,10 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    					// 좌/우측 하류 검색 종료 시
 				    		if(isEndLD == true && isEndRD == true){
 				    			
-				    			/////////////////////////
+				    			// 하류라인 지우기
 				    			if(me.drawOption == "reachLineRemove"){
 				    				
-				    				
+				    				// 집수구역 선택된곳에 첫번째 하류를 찾는 function
 				    				me.findReachLineTmp(tmpArr, 0, false);
 				    				
 					    			
@@ -2017,7 +2002,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     },
     searchCnt: 0, // 검색 카운트
     
-    
+    //선택된 집수구역에 가장 첫번째 집수구역을 찾는 function
     findReachLineTmp: function(tmpArr){
     	var me = this;
     	var reachAdmin = GetCoreMap().reachLayerAdmin_v3_New;
@@ -2038,6 +2023,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		if(tmpValue == -1){
     			firstAttributes = tmpArr[i].attributes;
     			firstLine = tmpArr[i].attributes.CAT_DID;
+    			me.firstLine = tmpArr[i].attributes.CAT_DID;
     			firstGeo = tmpArr[i].attributes.GEO_TRIB;
     		}
     		if(firstLine != ""){
@@ -2063,10 +2049,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     		}
     	};
 
-    	console.info("me.removeFirstBonBreak:"+me.removeFirstBonBreak);
-    	console.info("firstLine:"+firstLine);
     	if(firstLine != ""){
-    		
+    		// 상류 찾기
     		me.setReachUpLineTmp(firstLine);
     	}
     },
@@ -2097,18 +2081,33 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					
 					if(featureSet.features.length > 0){
 						
-						//featureSet.features.attributes.LD_RCH_DID
-						//featureSet.features.attributes.RU_RCH_DID
+						//그려진 집수구역에서 지금 찾은 상류중라인이 있는지 없는지 확인 
+						var tmpValue = reachAdmin.arrLineGrp.map(function(e) {
+				    		return e.attributes.CAT_DID; 
+				    	}).indexOf(featureSet.features[0].attributes.CAT_DID);
+						
+						//가장 처음 하류 라인에서 띄어 넘고 그다음 집수구역중에 끊어지는 라인에서 return;						
+						if(tmpValue == -1){
+							if(me.firstLine != featureSet.features[0].attributes.CAT_DID){
+								me.firstLine = null; //초기화
+								return;
+							}
+						}
+						
+						
 						for(var i = 0 ; i < reachAdmin.arrLineGrp.length ; i ++){
 							if(reachAdmin.arrLineGrp[i].attributes.CAT_DID == featureSet.features[0].attributes.CAT_DID){
+								//선택된 리치에서 본류를 찾아서 반대편 상류에서 break후 return;
 								if(me.firstBonBreak == featureSet.features[0].attributes.CAT_DID){
 									me.firstBonBreak = null;
 									return;
 								}
+								
 								me.removeGraphic(featureSet.features[0], "reachLine");
 								me.removeGraphic(featureSet.features[0], "reachArea");
 								breakFor = true;
 							}
+							
 							if(breakFor){
 								break;
 							}
@@ -2116,7 +2115,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 							
 						}
 						
-						
+						//클릭지점이 넘어서면 return;
 						if(me.removeFirstLine == featureSet.features[0].attributes.CAT_DID){
 				    		return;
 				    	}
@@ -2233,10 +2232,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 							}
 							//me.drawGraphic(me.sRiverAreaArray[sRiver], "reachArea_s");
 						}
-						//console.info(me.sRiverAreaArray);
 						if(me.sRiverAreaArray.length > 0){
 							for(var sRiverArea = 0 ; sRiverArea < me.sRiverAreaArray.length; sRiverArea++){
-								//console.info(me.sRiverAreaArray[sRiverArea]);
 								me.drawGraphic(me.sRiverAreaArray[sRiverArea], "reachArea_s");	
 							}
 						}
@@ -2295,8 +2292,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 	    				}
 	    				
 		    			
-	    				/*//console.info("시작라인에 본류가 존재하지 않는다" + me.isNotBon1);
-	    				//console.info("끝라인에 본류가 존재하지 않는다" + me.isNotBon2);*/
 		    			
 		    			if(me.isNotBon1 == true && me.isNotBon2 == true){
 		    				me.isNotBon = true;
@@ -2346,7 +2341,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 								}
 			    			}
 			    			
-			    			////console.info(startArrayCut[0]);
 			    			
 			    			if(startArrayCut[0] != undefined){
 			    				var point1bonRchDid = me.arrDownGrp[me.arrDownGrpStart][startArrayCut[0]].attributes.RCH_DID; // 하류를 따라가다 가장처음만나는 본류2
@@ -2394,7 +2388,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 								
 								evtType = "Line";
 								
-								////console.info(me.arrEvtLineGrp[arrIdx][eLineIdx]);
 								break;
 							}
 						}
@@ -2488,7 +2481,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					/* 검색, 그리기 조건 설정 끝 */
 					var isGeoTrib = me.chkGeoTrib(geoTrib);
 					
-					/*//console.info(isGeoTrib);*/
 					if(isGeoTrib == false){
 						evtType = "none";
 					}
@@ -2696,7 +2688,19 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	}
     	
     	
+    	////////////////////////////////////////////////////////////////////////////////////////////////
+    	//리치제거 tmp 임시로 그래픽 그리고 삭제완료할떄 한번에 삭제
+    	if(grpType == "removeReachLine"){
+    		
+    		me.drawGraphic2(graphic, me.removeReachLineSym, me.tmpGrpLayer, me.arrLineGrpTmp, reachAdmin.arrLineGrpTmp);
+    	}
     	
+    	if(grpType == "removeReachArea"){
+    		
+    		me.drawGraphic2(graphic, me.removeReachAreaSym, me.tmpGrpLayer, me.arrAreaGrpTmp, reachAdmin.arrAreaGrpTmp);
+    	}
+    	
+    	////////////////////////////////////////////////////////////////////////////////////////////////
     	//리치추가 tmp
     	if(grpType == "addReachLine"){
     		
@@ -2709,6 +2713,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	}
     	
     	////////////////////////////////////////////////////////////////////////////////////////////////
+    	
     	//소하천
     	if(grpType == "reachLine_s"){
     		
@@ -2760,11 +2765,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     },
     
     drawGraphic2: function(graphic, symbol, layer, arrObj, reachArr){
-    	//console.info(graphic);
-    	//console.info(symbol);
-    	//console.info(layer);
-    	//console.info(arrObj);
-    	//console.info(reachArr);
+    	
     	var me = this;
     	
     	var currId = graphic.attributes.LINE_EVENT_ID != undefined ? graphic.attributes.LINE_EVENT_ID :
@@ -2803,6 +2804,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     	if(grpType == "reachLine"){
     		
     		me.removeGraphic2(graphic, me.lineGrpLayer, me.arrLineGrp, reachAdmin.arrLineGrp);
+    								   
     	}
     	
     	if(grpType == "reachArea"){
@@ -2830,7 +2832,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			return objId;
 		}).indexOf(currId);
     	
-    	////console.info(grpIdx);
     		
 		var idx = arrObj.map(function(obj){
 			
@@ -2871,6 +2872,8 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 			reachArr.splice(rchIdx, 1);
 		}
     },
+    
+    
     /* 리치 집수구역 셋팅 */
     setReachArea: function(catDid){
     	
@@ -2922,7 +2925,12 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 					
 					// 집수구역 그리기
 					var feature = featureSet.features[i];
-					me.drawGraphic(feature, "addReachArea");
+					if(me.drawOption == "addPoint"){
+						me.drawGraphic(feature, "addReachArea");
+					}else if(me.drawOption == "removePoint"){
+						me.drawGraphic(feature, "removeReachArea");
+					}
+					
 				}
 			});
     	});
@@ -3056,13 +3064,11 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
 				query.returnGeometry = true;
 				query.outFields = ["*"];
 				query.where = "AREA_EVENT_ID = '" + evtId + "'";
-				////console.info(me.kradServiceUrl + "/" + aoLayerId);
-				////console.info(query.where);
+				
 				queryTask.execute(query, function(featureSet){
 					
 					var queryTaskAE = new QueryTask(me.kradServiceUrl + "/" + aeLayerId);
-					////console.info(me.kradServiceUrl + "/" + aeLayerId);
-					////console.info(query.where);
+					
 					queryTaskAE.execute(query, function(fSetAE){
 						
 						var aeFeatures = fSetAE.features; // AE 피처
@@ -3106,7 +3112,6 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     /* KRAD 조회 여부 */
 	fIsKRADSearch: function(){
 		
-		////console.info(localStorage['_searchConfigInfo_']);
 		if(localStorage['_searchConfigInfo_'] != undefined && localStorage['_searchConfigInfo_'] != null){
 			
 			var sConfInfo = JSON.parse(localStorage['_searchConfigInfo_']);
