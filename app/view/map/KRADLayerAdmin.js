@@ -2038,7 +2038,7 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     			if(k != 0){
     				//본류를 만났을때 본류에서 우측상류인지 죄측상류인지 확인하기위해 본류 전단계와 본류 좌우측 상류 비교
     				if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.LU_RCH_DID){//좌측일까??
-    					me.removeFirstBonBreak = tmpArr[k].attributes.RU_RCH_DID;
+    					me.firstBonBreak = tmpArr[k].attributes.RU_RCH_DID;
     				}else if(tmpArr[k-1].attributes.CAT_DID == tmpArr[k].attributes.RU_RCH_DID){
     					me.firstBonBreak = tmpArr[k].attributes.LU_RCH_DID;
     				}else{
@@ -2048,7 +2048,9 @@ Ext.define("KRF_DEV.view.map.KRADLayerAdmin", {
     			break;
     		}
     	};
-
+    	console.info("removeFirstLine:"+me.removeFirstLine)
+    	console.info("firstBonBreak:"+me.firstBonBreak);
+    	console.info("firstLine:"+firstLine);
     	if(firstLine != ""){
     		// 상류 찾기
     		me.setReachUpLineTmp(firstLine);
